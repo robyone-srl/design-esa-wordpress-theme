@@ -157,7 +157,7 @@ function dci_get_post_types_grouped($group = "", $tag = false)
         $post_types = array("notizia", "evento");
     else if ($group === "servizi")
         $post_types = array("servizio");
-    else if ($group === "vivere-il-comune")
+    else if ($group === "vivere-ente")
         $post_types = array("evento", "luogo");
     else if ($group === "documenti-e-dati")
         $post_types = array("documento_pubblico", "dataset");

@@ -44,6 +44,7 @@ get_header();
             $condizioni_servizio = dci_get_meta("condizioni_servizio");     
             $uo_id = intval(dci_get_meta("unita_responsabile"));
             $argomenti = get_the_terms($post, 'argomenti');
+            $documenti_ids = dci_get_meta("documenti");
 
             // valori per metatag
             $categorie = get_the_terms($post, 'categorie_servizio');
@@ -135,11 +136,13 @@ get_header();
                             </div>
                         </div>
                     </div>
-                    <hr class="d-none d-lg-block mt-2"/>
                 </div>
             </div>
+
+            <?php get_template_part('template-parts/single/image-large'); ?>        
+
             <div class="container">
-                <div class="row row-column-menu-left mt-4 mt-lg-80 pb-lg-80 pb-40">
+                <div class="row border-top row-column-border row-column-menu-left border-light">
                     <div class="col-12 col-lg-3 mb-4 border-col">
                         <div class="cmp-navscroll sticky-top" aria-labelledby="accordion-title-one">
                             <nav class="navbar it-navscroll-wrapper navbar-expand-lg" aria-label="Indice della pagina" data-bs-navscroll>
@@ -204,6 +207,14 @@ get_header();
                                                                     </a>
                                                                 </li>
                                                                 <?php } ?>
+                                                                <?php if (!empty($documenti_ids) ) { ?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#costs">
+                                                                        <span class="title-medium">Documenti correlati</span>
+                                                                    </a>
+                                                                </li>
+                                                                <?php } ?>
+
                                                                 <?php if ( $costi ) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#costs">
@@ -211,11 +222,13 @@ get_header();
                                                                     </a>
                                                                 </li>
                                                                 <?php } ?>
-                                                                <li class="nav-item">
+																
+																<li class="nav-item">
                                                                     <a class="nav-link" href="#submit-request">
                                                                         <span class="title-medium">Accedi al servizio</span>
                                                                     </a>
                                                                 </li>
+
                                                                 <?php if ( $more_info ) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#more-info">
@@ -255,6 +268,36 @@ get_header();
                                 <div class="richtext-wrapper lora" data-element="service-addressed">
                                     <?php echo $destinatari ?>
                                 </div>
+                                <?php
+                                    $servizi_richiesti_id = dci_get_meta("servizi_richiesti");
+                                    if(!empty($servizi_richiesti_id)){
+                                        $servizi_richiesti_id = array_map('intval', $servizi_richiesti_id);
+
+                                        $args = array(
+                                            'post_type' => 'servizio',
+                                            'post__in' => $servizi_richiesti_id
+                                        );
+                                        $posts = get_posts($args);
+
+                                        if(!empty($posts)){
+                                ?>
+                                <div class=" has-bg-grey p-4">
+                                    <h3 class="title mb-3" id="who-needs">Servizi necessari</h3>
+                                    <p>Questo servizio è limitato a chi usufruisce di particolari servizi.</p>
+                                    <div class="row">
+                                        <?php
+                                            foreach($posts as $servizio) { ?>
+                                        <div class="col-lg-6 col-md-12">
+                                            <?php get_template_part("template-parts/servizio/card"); ?>
+                                        </div>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                                <?php
+                                        }
+                                    }
+
+                                ?>
                             </section>
                             <?php if ($descrizione) { ?>
                             <section class="it-page-section mb-30">
@@ -268,14 +311,16 @@ get_header();
                                     <?php echo $come_fare ?>
                                 </div>
                             </section>
-                            <section class="it-page-section mb-30 has-bg-grey p-3">
+                            <section class="it-page-section mb-30">
                                 <h2 class="title-xxlarge mb-3" id="needed">Cosa serve</h2>
                                 <div class="richtext-wrapper lora" data-element="service-needed">
                                     <?php echo $cosa_serve_intro ?>
-                                    <ul >
-                                        <?php foreach ($cosa_serve_list as $cosa_serve_item) { ?>
+                                    <ul>
+                                        <?php 
+                                        if(!empty($cosa_serve_list)){
+                                            foreach ($cosa_serve_list as $cosa_serve_item) { ?>
                                             <li><span><?php echo $cosa_serve_item ?></span></li>
-                                        <?php } ?>
+                                        <?php }} ?>
                                     </ul>
                                 </div>
                             </section>
@@ -291,61 +336,96 @@ get_header();
                                         <?php echo $fasi_scadenze_intro; ?>
                                     </div>
                                     <?php if ((is_array($fasi_group_simple_scadenze) && count($fasi_group_simple_scadenze)) || (is_array($fasi_scadenze) && count($fasi_scadenze))) { ?>
-                                        <div class="calendar-vertical mb-3" data-element="service-calendar-list">
-                                            <?php if (!empty($fasi_group_simple_scadenze)) foreach ($fasi_group_simple_scadenze as $fase) {
-                                                ?>
-                                                <div class="calendar-date">
-                                                    <?php if (empty($fase['giorni'])) {
+                                    <div class="calendar-vertical mb-3" data-element="service-calendar-list">
+                                        <?php if (!empty($fasi_group_simple_scadenze)) foreach ($fasi_group_simple_scadenze as $fase) {
+                                        ?>
+                                        <div class="calendar-date">
+                                            <?php if (empty($fase['giorni'])) {
                                                         $fase['giorni'] = "";
                                                     } ?>
-                                                    <div class="calendar-date-day">
-                                                        <span class="title-xxlarge-regular d-flex justify-content-center"><?php echo  $fase['giorni']; ?></span>
-                                                        <small class="calendar-date-day__month"><?php echo ($fase['giorni'] != "")?'giorni': ''; ?></small>
-                                                    </div>
-                                                    <?php if (!empty($fase['titolo']) || !empty($fase['descrizione'])) { ?>
-                                                        <div class="calendar-date-description rounded">
-                                                            <div class="calendar-date-description-content">
-                                                                <?php if (!empty($fase['titolo'])) { ?>
-                                                                    <h3 class="title-medium-2 mb-0">
-                                                                        <?php echo  $fase['titolo']; ?>
-                                                                    </h3>
-                                                                <?php }?>
-                                                                <?php if (!empty($fase['descrizione'])) { ?>
-                                                                    <p class="info-text mt-1 mb-0"><?php echo $fase['descrizione']; ?></p>
-                                                                <?php }?>
-                                                            </div>
-                                                        </div>
-                                                    <?php }?>                                                </div>
-                                            <?php } ?>
-                                            <?php if (!empty($fasi_scadenze)) foreach ($fasi_scadenze as $fase_id) {
+                                            <div class="calendar-date-day">
+                                                <span class="title-xxlarge-regular d-flex justify-content-center">
+                                                    <?php echo  $fase['giorni']; ?>
+                                                </span>
+                                                <small class="calendar-date-day__month">
+                                                    <?php echo ($fase['giorni'] != "")?'giorni': ''; ?>
+                                                </small>
+                                            </div>
+                                            <?php if (!empty($fase['titolo']) || !empty($fase['descrizione'])) { ?>
+                                            <div class="calendar-date-description rounded">
+                                                <div class="calendar-date-description-content">
+                                                    <?php if (!empty($fase['titolo'])) { ?>
+                                                    <h3 class="title-medium-2 mb-0">
+                                                        <?php echo  $fase['titolo']; ?>
+                                                    </h3>
+                                                    <?php }?>
+                                                    <?php if (!empty($fase['descrizione'])) { ?>
+                                                    <p class="info-text mt-1 mb-0">
+                                                        <?php echo $fase['descrizione']; ?>
+                                                    </p>
+                                                    <?php }?>
+                                                </div>
+                                            </div>
+                                            <?php }?>
+                                        </div>
+                                        <?php } ?>
+                                        <?php if (!empty($fasi_scadenze)) foreach ($fasi_scadenze as $fase_id) {
                                                 $fase = get_post($fase_id);
                                                 $data = dci_get_meta('data_fase', '_dci_fase_', $fase_id);
                                                 $arrdata =  explode("-", $data);
                                                 $monthName = date_i18n('M', mktime(0, 0, 0, $arrdata[1], 10)); // March
-                                                ?>
-                                                <div class="calendar-date">
-                                                    <div class="calendar-date-day">
-                                                        <small class="calendar-date-day__year"><?php echo $arrdata[2]; ?></small>
-                                                        <span class="title-xxlarge-regular d-flex justify-content-center"><?php echo $arrdata[0]; ?></span>
-                                                        <small class="calendar-date-day__month"><?php echo $monthName; ?></small>
-                                                    </div>
-                                                    <div class="calendar-date-description rounded">
-                                                        <div class="calendar-date-description-content">
-                                                            <h3 class="title-medium-2 mb-0">
-                                                                <?php echo $fase->post_title; ?>
-                                                            </h3>
-                                                            <?php if (!empty(dci_get_meta('desc_fase','_dci_fase_', $fase->ID))) { ?>
-                                                                <p class="info-text mt-1 mb-0"><?php echo dci_get_meta('desc_fase','_dci_fase_', $fase->ID); ?></p>
-                                                            <?php }?>
-                                                        </div>
-                                                    </div>
+                                        ?>
+                                        <div class="calendar-date">
+                                            <div class="calendar-date-day">
+                                                <small class="calendar-date-day__year">
+                                                    <?php echo $arrdata[2]; ?>
+                                                </small>
+                                                <span class="title-xxlarge-regular d-flex justify-content-center">
+                                                    <?php echo $arrdata[0]; ?>
+                                                </span>
+                                                <small class="calendar-date-day__month">
+                                                    <?php echo $monthName; ?>
+                                                </small>
+                                            </div>
+                                            <div class="calendar-date-description rounded">
+                                                <div class="calendar-date-description-content">
+                                                    <h3 class="title-medium-2 mb-0">
+                                                        <?php echo $fase->post_title; ?>
+                                                    </h3>
+                                                    <?php if (!empty(dci_get_meta('desc_fase','_dci_fase_', $fase->ID))) { ?>
+                                                    <p class="info-text mt-1 mb-0">
+                                                        <?php echo dci_get_meta('desc_fase','_dci_fase_', $fase->ID); ?>
+                                                    </p>
+                                                    <?php }?>
                                                 </div>
-                                            <?php } ?>
+                                            </div>
                                         </div>
+                                        <?php } ?>
+                                    </div>
                                     <?php } ?>
                                 </div>
                             </section>
                             <?php } ?>
+
+                            <?php if (!empty($documenti_ids)) { ?>
+                            <section class="it-page-section mb-30">
+                                <h2 class="title-xxlarge mb-3" id="costs">Documenti correlati</h2>
+                                <div class="richtext-wrapper lora" data-element="service-document">
+                                    <div class="row">
+                                        <div class="col-12 col-md-6 col-lg-6 mb-3">
+                                            <?php
+                                                foreach($documenti_ids as $documento_id){
+                                                    $documento = get_post($documento_id);
+                                                    get_template_part("template-parts/documento/card");
+                                                }
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <?php } ?>
+
+
                             <?php if ( $costi ) { ?>
                             <section class="it-page-section mb-30">
                                 <h2 class="title-xxlarge mb-3" id="costs">Quanto costa</h2>
@@ -388,6 +468,7 @@ get_header();
 
                             <section class="it-page-section">
                                 <h2 class="mb-3" id="contacts">Contatti</h2>
+                                <h3 class="mb-3" id="contacts">Contatta ufficio</h3>
                                 <div class="row">
                                     <div class="col-12 col-md-8 col-lg-6 mb-30">
                                         <div class="card-wrapper rounded h-auto mt-10">
@@ -397,6 +478,23 @@ get_header();
                                             ?>
                                         </div>
                                     </div>
+                                </div>
+                                <?php
+                                    $punti_contatto_id = dci_get_meta("punti_contatto");
+                                    if(!empty($punti_contatto_id)){                                      
+                                ?>
+                                 <h3 class="mb-3" id="contacts">Altri contatti</h3>
+                                <div class="row">
+                                        <?php
+                                        foreach($punti_contatto_id as $pc_id) {
+                                            ?>
+                                        <div class="col-lg-6 col-md-12 mb-30">
+                                            <?php get_template_part("template-parts/punto-contatto/card"); ?>
+                                        </div>
+                                        <?php } ?>
+                                </div>
+                                <?php } ?>    
+                                 <div class="row">
                                     <div class="col-12 mb-30">
                                         <span class="text-paragraph-small">Argomenti:</span>
                                         <ul class="d-flex flex-wrap gap-2 mt-10 mb-30">

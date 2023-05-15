@@ -11,7 +11,10 @@ function dci_welcome_panel(){
     ?>
     <div class="welcome-panel-content" style="padding-bottom:30px;">
         <img src="<?php echo get_template_directory_uri() . '/assets/img/designers-italia-wordpress-dashboard.png'?>"  style="float:left; margin:0px 0px 20px 0px;" />
-        <h2><?php _e( 'Design Comuni Italia: il tema di Developers Italia per i Comuni Italiani', "design_comuni_italia" ); ?></h2>
+        <div class="welcome-panel-header">
+            <h2><?php echo('Design Case di riposo: il tema dedicato alla Casa di riposo'); ?></h2>
+            <h3>Il tema è stato preparato da Robyone sulla base del <a href="https://github.com/italia/design-comuni-wordpress-theme">tema di Developers Italia predisposto per i Comuni Italiani</a></h3>
+        </div>
     </div>
     <?php
 }
@@ -32,13 +35,14 @@ add_action( 'wp_dashboard_setup', 'dci_add_dashboard_widgets' );
 function dci_add_dashboard_widgets() {
     wp_add_dashboard_widget(
         'dci_dashboard_widget', // Widget slug
-        'Design Comuni Italia', // Widget title
+        'Design CDR Italia', // Widget title
         'dci_new_dashboard_widget_function' // Function name to display the widget
     );
 }
 // Initialize the function to output the contents of your new dashboard widget
 function dci_new_dashboard_widget_function() {
-    echo "Design Comuni Italia: il tema di Developers Italia per i Comuni Italiani ";
+    echo "<p>Design Case di riposo: il tema dedicato alla Casa di riposo</p>";
+    echo "<p>Il tema è stato preparato sulla base del <a href=\"https://github.com/italia/design-comuni-wordpress-theme\">tema di Developers Italia predisposto per i Comuni Italiani</a></p>";
 }
 
 /**

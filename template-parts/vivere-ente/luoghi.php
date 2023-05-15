@@ -26,7 +26,7 @@
                     label="Tutti i luoghi" 
                     buttonNext=true
                     data-element="live-button-locations"
-                    onclick="location.href='/amministrazione/aree-amministrative/';"
+                    onclick="location.href='vivere-ente/luoghi/';"
                 >
                     <span class="">Tutti i luoghi</span>
                 </button>

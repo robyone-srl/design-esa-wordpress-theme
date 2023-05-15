@@ -170,7 +170,8 @@ function dci_search_filters( $query ) {
         $allowed_types = array_merge(array("any"), dci_get_group_ids() );
         if ( isset( $_GET["type"] ) && in_array( $_GET["type"], $allowed_types ) ) {
             $type = $_GET["type"];
-            $post_types = dci_get_post_types_grouped( $type );
+            /* SOVRASCRITTO */
+            $post_types = dci_get_post_types_grouped_child( $type );
             $query->set( 'post_type', $post_types );
         }
         // Ricerca in ordine alfabetico

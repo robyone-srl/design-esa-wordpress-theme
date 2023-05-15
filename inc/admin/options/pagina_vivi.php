@@ -8,10 +8,10 @@ function dci_register_pagina_vivi_options(){
      */
     $args = array(
         'id'           => 'dci_options_vivi',
-        'title'        => esc_html__( 'Vivere il Comune', 'design_comuni_italia' ),
+        'title'        => esc_html__( 'Vivere l\'Ente', 'design_comuni_italia' ),
         'object_types' => array( 'options-page' ),
         'option_key'   => 'vivi',
-        'tab_title'    => __('Vivere il Comune', "design_comuni_italia"),
+        'tab_title'    => __('Vivere l\'Ente', "design_comuni_italia"),
         'parent_slug'  => 'dci_options',
         'tab_group'    => 'dci_options',
         'capability'    => 'manage_options',
@@ -24,8 +24,8 @@ function dci_register_pagina_vivi_options(){
     $vivi_options = new_cmb2_box( $args );
     $vivi_options->add_field( array(
         'id' => $prefix . 'vivi_options',
-        'name'        => __( 'Vivere il Comune', 'design_comuni_italia' ),
-        'desc' => __( 'Configurazione della pagina Vivere il Comune' , 'design_comuni_italia' ),
+        'name'        => __( 'Vivere l\'Ente', 'design_comuni_italia' ),
+        'desc' => __( 'Configurazione della pagina Vivere l\'Ente' , 'design_comuni_italia' ),
         'type' => 'title',
     ) );
     $vivi_options->add_field( array(

@@ -32,7 +32,7 @@ function dci_register_post_type_servizio() {
 		'has_archive'      => false,
         'capability_type'  => array('servizio', 'servizi'),
         'map_meta_cap'     => true,
-        'description'      => __( "I servizi che il comune mette a disposizione del cittadino.", 'design_comuni_italia' ),
+        'description'      => __( "I servizi che la Casa di riposo mette a disposizione del cittadino.", 'design_comuni_italia' ),
         //'rewrite' => array('slug' => 'servizi'),
         'show_in_rest'       => true,
         'rest_base'          => 'servizi',
@@ -162,6 +162,17 @@ function dci_add_servizi_metaboxes() {
             'teeny' => false, // output the minimal editor config used in Press This
         ),
     ) );
+
+    $cmb_destinatari->add_field( array(
+    'id' => $prefix . 'servizi_richiesti',
+    'name'    => __( 'Servizi richiesti ', 'design_comuni_italia' ),
+    'desc' => __( 'Servizi richiesti per accedere al servizio' , 'design_comuni_italia' ),
+    'type'    => 'pw_multiselect',
+    'options' => dci_get_posts_options('servizio'),
+    'attributes' => array(
+        'placeholder' =>  __( 'Seleziona i servizi necessari per usufruire di tale servizio', 'design_comuni_italia' ),
+    )
+) );
 
     //DESCRIZIONE
     $cmb_descrizione = new_cmb2_box( array(
@@ -490,7 +501,7 @@ function dci_add_servizi_metaboxes() {
 
     $cmb_condizioni_servizio = new_cmb2_box( array(
         'id'           => $prefix . 'box_condizioni_servizio',
-        'title'        => __( 'Condizioni di servizio *', 'design_comuni_italia' ),
+        'title'        => __( 'Condizioni di servizio', 'design_comuni_italia' ),
         'object_types' => array( 'servizio' ),
         'context'      => 'normal',
         'priority'     => 'high',
@@ -501,9 +512,6 @@ function dci_add_servizi_metaboxes() {
             'desc' => __( 'file contenente i termini e le condizioni del servizio' , 'design_comuni_italia' ),
             'id'             => $prefix . 'condizioni_servizio',
             'type' => 'file',
-            'attributes' => array(
-                'required' => 'required'
-            )
         )
     );
 
@@ -552,7 +560,7 @@ function dci_add_servizi_metaboxes() {
     $cmb_documenti->add_field( array(
         'id' => $prefix . 'documenti',
         'name'        => __( 'Documenti', 'design_comuni_italia' ),
-        'desc' => __( 'Link alle schede documenti non funzionali al completamento del servizi, ma di semplice supporto' , 'design_comuni_italia' ),
+        'desc' => __( 'Link alle schede documenti correlati.' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('documento_pubblico'),
         'attributes' => array(
@@ -684,3 +692,7 @@ function dci_servizio_set_post_content( $data ) {
     return $data;
 }
 add_filter( 'wp_insert_post_data' , 'dci_servizio_set_post_content' , '99', 1 );
+
+new dsi_bidirectional_cmb2("_dci_servizio_", "servizio", "unita_responsabile", "box_contatti", "_dci_unita_organizzativa_elenco_servizi_offerti");
+
+new dsi_bidirectional_cmb2("_dci_servizio_", "servizio", "documenti", "box_documenti", "_dci_documento_pubblico_servizi");

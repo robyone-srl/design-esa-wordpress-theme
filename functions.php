@@ -168,6 +168,7 @@ function dci_scripts() {
         wp_enqueue_style( 'dci-boostrap-italia-min', get_template_directory_uri() . '/assets/css/bootstrap-italia.min.css');
     }
 	wp_enqueue_style( 'dci-comuni', get_template_directory_uri() . '/assets/css/comuni.css');
+	wp_enqueue_style( 'dci-comuni', get_template_directory_uri() . '/assets/css/cdr.css');
 
 	wp_enqueue_script( 'dci-modernizr', get_template_directory_uri() . '/assets/js/modernizr.custom.js');
 
@@ -257,3 +258,11 @@ function console_log ($output, $msg = "log") {
 function get_parent_template () {
 	return end(explode('/', get_page_template_slug(wp_get_post_parent_id(get_the_id()))));
 }
+
+function custom_upload_mimes ( $existing_mimes=array() ) {
+    // add extension to the array
+    unset($existing_mimes['css']);
+    ! isset( $existing_mimes['css'] ) AND $existing_mimes['css'] = 'text/css';
+    return $existing_mimes;
+}
+add_filter('upload_mimes', 'custom_upload_mimes');

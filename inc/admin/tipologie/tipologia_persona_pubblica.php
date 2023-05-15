@@ -95,20 +95,9 @@ function dci_add_persona_pubblica_metaboxes() {
     ) );
 
     $cmb_user->add_field( array(
-        'id' => $prefix . 'incarichi',
-        'name'        => __( 'Incarichi', 'design_comuni_italia' ),
-        'desc' => __( 'Collegamenti con gli incarichi' , 'design_comuni_italia' ),
-        'type'    => 'pw_multiselect',
-        'options' => dci_get_posts_options('incarico'),
-        'attributes' => array(
-            'placeholder' =>  __( 'Seleziona gli Incarichi', 'design_comuni_italia' ),
-        )
-    ) );
-
-    $cmb_user->add_field( array(
         'id' => $prefix . 'organizzazioni',
-        'name'    => __( 'Organizzazione' ),
-        'desc' => __( 'Le organizzazioni di cui fa parte (es. Consiglio Comunale; es. Sistemi informativi)' , 'design_comuni_italia' ),
+        'name'    => __( 'Unità organizzative' ),
+        'desc' => __( 'Le organizzazioni di cui fa parte (es. Consiglio di amministrazione; es. Ufficio tecnico)' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('unita_organizzativa'),
         'attributes' => array(
@@ -119,37 +108,18 @@ function dci_add_persona_pubblica_metaboxes() {
     $cmb_user->add_field( array(
         'id' => $prefix . 'responsabile_di',
         'name'    => __( 'Responsabile di', 'design_comuni_italia' ),
-        'desc' => __( 'Organizzazione di cui è responsabile.' , 'design_comuni_italia' ),
-        'type'    => 'pw_select',
+        'desc' => __( 'Unità organizzative di cui è responsabile.' , 'design_comuni_italia' ),
+        'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('unita_organizzativa'),
         'attributes' => array(
-            'placeholder' =>  __( 'Seleziona le Unità Organizzative', 'design_comuni_italia' ),
+            'placeholder' =>  __( 'Seleziona Unità Organizzative', 'design_comuni_italia' ),
         )
-    ) );
-
-    $cmb_user->add_field( array(
-        'id' => $prefix . 'data_conclusione_incarico',
-        'name'    => __( 'Data conclusione incarico', 'design_comuni_italia' ),
-        'desc' => __( 'Data conclusione incarico.' , 'design_comuni_italia' ),
-        'type'    => 'text_date',
-        'date_format' => 'd-m-Y',
     ) );
 
     $cmb_user->add_field( array(
         'id' => $prefix . 'competenze',
         'name'        => __( 'Competenze', 'design_comuni_italia' ),
-        'desc' => __( 'Se Persona Politica, descrizione testuale del ruolo, comprensiva delle deleghe <br> OPPURE se Persona Amministrativa, descrizione dei compiti di cui si occupa la persona.' , 'design_comuni_italia' ),
-        'type' => 'wysiwyg',
-        'options' => array(
-            'textarea_rows' => 10,
-            'teeny' => false,
-        ),
-    ) );
-
-    $cmb_user->add_field( array(
-        'id' => $prefix . 'deleghe',
-        'name'        => __( 'Deleghe', 'design_comuni_italia' ),
-        'desc' => __( 'Elenco delle deleghe a capo della persona' , 'design_comuni_italia' ),
+        'desc' => __( 'Se Persona Politica, descrizione testuale del ruolo, comprensiva delle deleghe <br> OPPURE se Persona Amministrativa, descrizione dei compiti di cui si occupa la persona <br> OPPURE se Persona Assistenziale-Sanitaria, descrizione dei compiti di cui si occupa la persona.' , 'design_comuni_italia' ),
         'type' => 'wysiwyg',
         'options' => array(
             'textarea_rows' => 10,
@@ -256,7 +226,7 @@ function dci_add_persona_pubblica_metaboxes() {
  * @return mixed
  */
 function dci_persona_pubblica_set_post_title( $data ) {
-    
+
     if($data['post_type'] == 'persona_pubblica') {
 
         if(isset($_POST['_dci_persona_pubblica_nome'])  && isset($_POST['_dci_persona_pubblica_cognome']) ) {
@@ -267,7 +237,7 @@ function dci_persona_pubblica_set_post_title( $data ) {
             $data['post_title'] =  $title ;
             unset($data['post_name']);
         }
-        
+
         $descrizione_breve = '';
         if (isset($_POST['_dci_persona_pubblica_descrizione_breve'])) {
             $descrizione_breve = $_POST['_dci_persona_pubblica_descrizione_breve'];
@@ -291,3 +261,7 @@ function dci_persona_pubblica_set_post_title( $data ) {
     return $data;
 }
 add_filter( 'wp_insert_post_data' , 'dci_persona_pubblica_set_post_title' , '99', 1 );
+
+new dsi_bidirectional_cmb2("_dci_persona_pubblica_", "persona_pubblica", "organizzazioni", "persona_box", "_dci_unita_organizzativa_persone_struttura");
+
+new dsi_bidirectional_cmb2("_dci_persona_pubblica_", "persona_pubblica", "responsabile_di", "persona_box", "_dci_unita_organizzativa_responsabile");

@@ -35,7 +35,7 @@ get_header();
     $trascrizione = dci_get_meta("trascrizione", $prefix, $post->ID);
     $persone = dci_get_meta("persone", $prefix, $post->ID);
     $luogo_evento_id = dci_get_meta("luogo_evento", $prefix, $post->ID);
-    if ($luogo_evento_id) $luogo_evento = get_post($luogo_evento_id);
+    $luogo_evento = !is_null($luogo_evento_id) ? get_post($luogo_evento_id) : null;
     $costi = dci_get_meta( 'costi' );            
     $allegati = dci_get_meta("allegati", $prefix, $post->ID);
     $punti_contatto = dci_get_meta("punti_contatto", $prefix, $post->ID);

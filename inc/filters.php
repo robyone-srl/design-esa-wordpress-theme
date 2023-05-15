@@ -30,7 +30,7 @@ function dci_vivere_il_comune_post_link( $post_link, $id = 0 ){
     if ( is_object( $post ) ){
         $post_type = get_post_type($id);
         if( ($post_type == 'evento') || ($post_type == 'luogo') ){
-            return str_replace( '%vivere-il-comune%' , 'vivere-il-comune' , $post_link );
+            return str_replace( '%vivere-ente%' , 'vivere-ente' , $post_link );
         }
     }
     return $post_link;

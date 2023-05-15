@@ -26,7 +26,7 @@
                     label="Tutti gli eventi" 
                     buttonNext=true
                     data-element="live-button-events"
-                    onclick="location.href='/servizi-categoria/cultura-e-tempo-libero/';"
+                    onclick="location.href='vivere-ente/eventi';"
                 >
                     <span class="">Tutti gli eventi</span>
                 </button>

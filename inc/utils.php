@@ -353,8 +353,10 @@ if(!function_exists("dci_get_current_group")) {
             //if there's only one post type related
             if (!empty($postTypeArray) && count($postTypeArray) === 1) {
                 $tipo_post = reset($postTypeArray);
+                return dci_get_group($tipo_post);
+            } else {
+                return ;
             }
-            return  dci_get_group($tipo_post);
         }
 
         if (is_author()) {
@@ -370,14 +372,19 @@ if(!function_exists("dci_get_current_group")) {
         }
 
         if (is_page()) {
-            //console_log('PAGE');
+            //console_log('PAGE')
+            $sitesubdir = wp_make_link_relative(get_site_url()) . '/';
+            $sitesubdir = substr($sitesubdir, 1);
             $rel_url = wp_make_link_relative(get_permalink());
             $rel_url =  preg_replace('/^' . preg_quote('/', '/') . '/', '', $rel_url);
+            $rel_url = str_replace($sitesubdir, '', $rel_url);
             $group_slug = strtok($rel_url, '/');
 
             if (in_array($group_slug, dci_get_tipologie_names())) {
                 return dci_get_group($group_slug);
             }
+
+
             return $group_slug;
         }
 

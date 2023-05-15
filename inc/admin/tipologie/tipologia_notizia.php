@@ -40,7 +40,7 @@ function dci_register_post_type_notizia() {
 add_action( 'edit_form_after_title', 'dci_notizia_add_content_after_title' );
 function dci_notizia_add_content_after_title($post) {
     if($post->post_type == "notizia")
-        _e('<span><i>il <b>Titolo</b> è il <b>Titolo della News o del Comunicato</b>.</i></span><br><br>', 'design_comuni_italia' );
+        _e('<span><i>il <b>Titolo</b> è il <b>Titolo della Notizia o del Comunicato</b>.</i></span><br><br>', 'design_comuni_italia' );
 }
 
 add_action( 'cmb2_init', 'dci_add_notizia_metaboxes' );
@@ -157,7 +157,7 @@ function dci_add_notizia_metaboxes() {
     $cmb_apertura->add_field( array(
         'id' => $prefix . 'luoghi',
         'name'    => __( 'Luoghi', 'design_comuni_italia' ),
-        'desc' => __( 'Riferimenti a luoghi del Comune citati nella notizia' , 'design_comuni_italia' ),
+        'desc' => __( 'Riferimenti a luoghi dell\'Ente citati nella notizia' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('luogo'),
         'attributes' => array(

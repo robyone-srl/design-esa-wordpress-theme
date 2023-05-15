@@ -28,7 +28,7 @@ function dci_register_post_type_evento() {
         'menu_position' => 5,
         'menu_icon'             => 'dashicons-tickets-alt',
         'has_archive'           => false,
-        'rewrite' => array('slug' => 'vivere-il-comune/eventi', 'with_front' => false),
+        'rewrite' => array('slug' => 'vivere-ente/eventi', 'with_front' => false),
         'capability_type' => array('evento', 'eventi'),
         'map_meta_cap'    => true,
         'description'    => __( "Tipologia che struttura le informazioni relative a un evento di interesse pubblico pubblicato sul sito di un comune", 'design_comuni_italia' ),
@@ -110,11 +110,14 @@ function dci_add_eventi_metaboxes() {
     ) );
 
     $cmb_apertura->add_field( array(
-        'name'       => __('Immagine', 'design_comuni_italia' ),
+        'name'       => __('Immagine *', 'design_comuni_italia' ),
         'desc' => __( 'Immagine dell\'evento' , 'design_comuni_italia' ),
         'id'             => $prefix . 'immagine',
         'type' => 'file',
         'query_args' => array( 'type' => 'image' ),
+        'attributes' => array(
+            'required' => 'required'
+        )
     ));
 
     $cmb_evento_genitore = new_cmb2_box( array(

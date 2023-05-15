@@ -29,7 +29,7 @@ function dci_register_post_type_incarico() {
         'has_archive'           => true,
         'capability_type' => array('incarico', 'incarichi'),
         'map_meta_cap'    => true,
-        'description'    => __( "Questa Tipologia descrive la struttura di cariche, incarichi o ruoli salienti per il dominio (sito di un comune), funzionale alla creazione di una scheda persona", 'design_comuni_italia' ),
+        'description'    => __( "Questa Tipologia descrive la struttura di cariche, incarichi o ruoli salienti per il dominio (sito di una casa di riposo), funzionale alla creazione di una scheda persona", 'design_comuni_italia' ),
 
     );
     register_post_type( 'incarico', $args );
@@ -74,6 +74,50 @@ function dci_add_incarico_metaboxes()
         ),
     ) );
 
+
+    $cmb_dati->add_field( array(
+        'id' => $prefix . 'persona',
+        'name'    => __( 'Persona *', 'design_comuni_italia' ),
+        'desc' => __( 'La persona che ha la carica e l\'incarico' , 'design_comuni_italia' ),
+        'type'    => 'pw_select',
+        'options' => dci_get_posts_options('persona_pubblica'),
+        'attributes'    => array(
+            'required'    => 'required',
+            'placeholder' =>  __( 'Seleziona una Persona Pubblica', 'design_comuni_italia' ),
+        ),
+    ) );
+
+    $cmb_dati->add_field( array(
+        'id' => $prefix . 'url_trasparenza',
+        'name'        => __( 'Link alla scheda di Amministrazione Trasparente', 'design_comuni_italia' ),
+        'desc' => __( 'Collegamento ipertestuale alla scheda dell\'incarico in Amministrazione Trasparente' , 'design_comuni_italia' ),
+        'type' => 'text_url'
+    ) );
+
+    $cmb_dati->add_field( array(
+        'id' => $prefix . 'unita_organizzativa',
+        'name'    => __( 'Unità organizzativa', 'design_comuni_italia' ),
+        'desc' => __( 'L\'unità organizzativa alla quale si riferisce l\'incarico' , 'design_comuni_italia' ),
+        'type'    => 'pw_select',
+        'options' => dci_get_posts_options('unita_organizzativa'),'attributes' => array(
+            'placeholder' =>  __( 'Seleziona una Unità Organizzativa', 'design_comuni_italia' ),
+        ),
+    ) );
+
+    /*
+    $cmb_dati->add_field( array(
+        'id' => $prefix . 'responsabile_struttura',
+        'name'    => __( 'Responsabile dell\'unità organizzativa', 'design_comuni_italia' ),
+        'desc' => __( 'Se è un incarico di responsabilità, specificare l\'unità organizzativa della quale è responsabile in base all\'incarico' , 'design_comuni_italia' ),
+        'type'    => 'pw_select',
+        'options' => dci_get_posts_options('unita_organizzativa'),
+        'attributes' => array(
+            'placeholder' =>  __( 'Seleziona una Unità Organizzativa', 'design_comuni_italia' ),
+        ),
+    ) );
+    */
+
+
     $cmb_dati->add_field( array(
         'id' => $prefix . 'compensi',
         'name'        => __( 'Compensi', 'design_comuni_italia' ),
@@ -95,39 +139,6 @@ function dci_add_incarico_metaboxes()
             'media_buttons' => false, // show insert/upload button(s)
             'textarea_rows' => 10, // rows="..."
             'teeny' => false, // output the minimal editor config used in Press This
-        ),
-    ) );
-
-    $cmb_dati->add_field( array(
-        'id' => $prefix . 'persona',
-        'name'    => __( 'Persona *', 'design_comuni_italia' ),
-        'desc' => __( 'La persona che ha la carica e l\'incarico' , 'design_comuni_italia' ),
-        'type'    => 'pw_select',
-        'options' => dci_get_posts_options('persona_pubblica'),
-        'attributes'    => array(
-            'required'    => 'required',
-            'placeholder' =>  __( 'Seleziona una Persona Pubblica', 'design_comuni_italia' ),
-        ),
-    ) );
-
-    $cmb_dati->add_field( array(
-        'id' => $prefix . 'unita_organizzativa',
-        'name'    => __( 'Unità organizzativa', 'design_comuni_italia' ),
-        'desc' => __( 'L\'organizzazione presso la quale svolge l\'incarico' , 'design_comuni_italia' ),
-        'type'    => 'pw_select',
-        'options' => dci_get_posts_options('unita_organizzativa'),'attributes' => array(
-            'placeholder' =>  __( 'Seleziona una Unità Organizzativa', 'design_comuni_italia' ),
-        ),
-    ) );
-
-    $cmb_dati->add_field( array(
-        'id' => $prefix . 'responsabile_struttura',
-        'name'    => __( 'Responsabile della struttura', 'design_comuni_italia' ),
-        'desc' => __( 'Se è un incarico di responsabilità, specificare l\'organizzazione della quale è responsabile in base all\'incarico' , 'design_comuni_italia' ),
-        'type'    => 'pw_select',
-        'options' => dci_get_posts_options('unita_organizzativa'),
-        'attributes' => array(
-            'placeholder' =>  __( 'Seleziona una Unità Organizzativa', 'design_comuni_italia' ),
         ),
     ) );
 

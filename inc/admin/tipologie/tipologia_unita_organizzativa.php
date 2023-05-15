@@ -26,7 +26,7 @@ function dci_register_post_type_unita_organizzativa() {
         'rewrite' => array('slug' => 'amministrazione/unita_organizzativa','with_front' => false),
         'capability_type' => array('unita_organizzativa', 'unita_organizzative'),
         'map_meta_cap'    => true,
-        'description'    => __( 'Questa Tipologia descrive la struttura di un\'organizzazione comunale funzionale alla creazione di contenuti come uffici o altre unità organizzative (content type "organizzazione")', 'design_comuni_italia' ),
+        'description'    => __( 'Questa Tipologia descrive la struttura di un\'organizzazione funzionale alla creazione di contenuti come uffici o altre unità organizzative (content type "organizzazione")', 'design_comuni_italia' ),
         'show_in_rest'       => true,
         'rest_base'          => 'unita_organizzative',
         'rest_controller_class' => 'WP_REST_Posts_Controller',
@@ -82,7 +82,7 @@ function dci_add_unita_organizzativa_metaboxes() {
 
     $cmb_apertura->add_field( array(
         'name'       => __('Immagine', 'design_comuni_italia' ),
-        'desc' => __( 'Immagine principale e rappresentativa della struttura descritta nella scheda' , 'design_comuni_italia' ),
+        'desc' => __( 'Immagine principale e rappresentativa dell\'unità organizzativa descritta nella scheda' , 'design_comuni_italia' ),
         'id'             => $prefix . 'immagine',
         'type' => 'file',
         // 'preview_size' => array( 100, 100 ), // Default: array( 50, 50 )
@@ -92,7 +92,7 @@ function dci_add_unita_organizzativa_metaboxes() {
     $cmb_apertura->add_field( array(
         'id' => $prefix . 'descrizione_breve',
         'name'        => __( 'Descrizione breve *', 'design_comuni_italia' ),
-        'desc' => __( ' Descrizione sintetica (inferiore ai 255 caratteri) della struttura' , 'design_comuni_italia' ),
+        'desc' => __( ' Descrizione sintetica (inferiore ai 255 caratteri) dell\'unità organizzativa' , 'design_comuni_italia' ),
         'type' => 'textarea',
         'attributes'    => array(
             'maxlength'  => '255',
@@ -111,7 +111,7 @@ function dci_add_unita_organizzativa_metaboxes() {
     $cmb_cosa_fa->add_field( array(
         'id' => $prefix . 'competenze',
         'name'        => __( 'Competenze *', 'design_comuni_italia' ),
-        'desc' => __( 'Elenco/descrizione dei compiti assegnati alla struttura.' , 'design_comuni_italia' ),
+        'desc' => __( 'Elenco/descrizione dei compiti assegnati all\'unità organizzativa.' , 'design_comuni_italia' ),
         'type' => 'wysiwyg',
         'attributes'    => array(
             'required'    => 'required'
@@ -135,7 +135,7 @@ function dci_add_unita_organizzativa_metaboxes() {
     $cmb_struttura->add_field( array(
         'id' => $prefix . 'unita_organizzativa_genitore',
         'name'    => __( 'Unità organizzativa genitore', 'design_comuni_italia' ),
-        'desc' => __( 'Se la struttura fa parte di un\'Area o altre macro unità, va inserita la struttura principale' , 'design_comuni_italia' ),
+        'desc' => __( 'Se la struttura fa parte di un\'Area o altre macro unità, va inserita l\'unità organizzativa principale' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('unita_organizzativa'),
         'attributes' => array(
@@ -146,7 +146,7 @@ function dci_add_unita_organizzativa_metaboxes() {
     $cmb_struttura->add_field( array(
         'id' => $prefix . 'responsabile',
         'name'    => __( 'Responsabile', 'design_comuni_italia' ),
-        'desc' => __( 'Link alla scheda della persona responsabile della struttura.' , 'design_comuni_italia' ),
+        'desc' => __( 'Link alla scheda della persona responsabile dell\'unità organizzativa.' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('persona_pubblica'),
         'attributes' => array(
@@ -166,18 +166,6 @@ function dci_add_unita_organizzativa_metaboxes() {
         ]
     ) );
 
-    $cmb_struttura->add_field( array(
-        'id' => $prefix . 'assessore_riferimento',
-        'name'    => __( 'assessore di riferimento', 'design_comuni_italia' ),
-        'desc' => __( 'L\'assessore di riferimento della struttura, se esiste' , 'design_comuni_italia' ),
-        'type'    => 'pw_select',
-        'options' => dci_get_posts_options('persona_pubblica'),
-        'attributes' => array(
-            'placeholder' =>  __( 'Seleziona la Persona Pubblica', 'design_comuni_italia' ),
-        )
-    ) );
-    
-
     //PERSONE
     $cmb_persone = new_cmb2_box( array(
         'id'           => $prefix . 'box_persone',
@@ -188,8 +176,8 @@ function dci_add_unita_organizzativa_metaboxes() {
     ) );
     $cmb_persone->add_field( array(
         'id' => $prefix . 'persone_struttura',
-        'name'    => __( 'Persone che compongono la struttura *', 'design_comuni_italia' ),
-        'desc' => __( 'Un link alla scheda persona per ciascuno dei componenti della struttura.' , 'design_comuni_italia' ),
+        'name'    => __( 'Componenti *', 'design_comuni_italia' ),
+        'desc' => __( 'Un link alla scheda persona per ciascuno dei componenti dell\'unità organizzativa.' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('persona_pubblica'),
         'attributes'    => array(
@@ -210,7 +198,7 @@ function dci_add_unita_organizzativa_metaboxes() {
     $cmb_servizi->add_field( array(
         'id' => $prefix . 'elenco_servizi_offerti',
         'name'    => __( 'Elenco servizi offerti', 'design_comuni_italia' ),
-        'desc' => __( 'Relazione con i servizi offerti dalla struttura' , 'design_comuni_italia' ),
+        'desc' => __( 'Relazione con i servizi offerti dall\'unità organizzativa' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('servizio'),
         'attributes' => array(
@@ -275,7 +263,7 @@ function dci_add_unita_organizzativa_metaboxes() {
     $cmb_documenti->add_field( array(
         'id' => $prefix . 'allegati',
         'name'        => __( 'Allegati', 'design_comuni_italia' ),
-        'desc' => __( 'Elenco di documenti allegati alla struttura' , 'design_comuni_italia' ),
+        'desc' => __( 'Elenco di documenti allegati all\'unità organizzativa' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('documento_pubblico'),
         'atributes' => array(
@@ -294,7 +282,7 @@ function dci_add_unita_organizzativa_metaboxes() {
     $cmb_ulteriori_informazioni->add_field( array(
         'id' => $prefix . 'ulteriori_informazioni',
         'name'        => __( 'Ulteriori informazioni', 'design_comuni_italia' ),
-        'desc' => __( 'Ulteriori informazioni sulla struttura non contemplate dai campi precedenti.' , 'design_comuni_italia' ),
+        'desc' => __( 'Ulteriori informazioni sull\'unità organizzativa non contemplate dai campi precedenti.' , 'design_comuni_italia' ),
         'type' => 'wysiwyg',
         'options' => array(
             'media_buttons' => false,
@@ -335,4 +323,13 @@ function dci_unita_organizzativa_set_post_content( $data ) {
 
     return $data;
 }
+
 add_filter( 'wp_insert_post_data' , 'dci_unita_organizzativa_set_post_content' , '99', 1 );
+
+new dsi_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "persone_struttura", "box_persone", "_dci_persona_pubblica_organizzazioni");
+
+new dsi_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "responsabile", "box_struttura", "_dci_persona_pubblica_responsabile_di");
+
+new dsi_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "sede_principale", "box_contatti", "_dci_luogo_sede_di");
+
+new dsi_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "elenco_servizi_offerti", "box_servizi", "_dci_servizio_unita_responsabile");

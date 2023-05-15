@@ -6,8 +6,8 @@
             "prefix" : "_dci_evento_",
             "singular_name" : "Evento",
             "plural_name" : "Eventi",
-            "group_id" : "vivere-il-comune",
-            "group_name" : "Vivere il comune",
+            "group_id" : "vivere-ente",
+            "group_name" : "Vivere Ente",
             "taxonomy" : [
                 "tipi_evento",
                 "argomenti"
@@ -19,8 +19,8 @@
             "prefix" : "_dci_luogo_",
             "singular_name" : "Luogo",
             "plural_name" : "Luoghi",
-            "group_id": "vivere-il-comune",
-            "group_name" : "Vivere il comune",
+            "group_id": "vivere-ente",
+            "group_name" : "Vivere Ente",
             "taxonomy" : [
                 "tipi_luogo",
                 "argomenti"

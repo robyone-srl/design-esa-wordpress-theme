@@ -1,0 +1,13 @@
+{
+    "immagini": {
+        "volontariato": {
+            "path-type":"child", 
+            "url": "integration-3527263_1920.jpg",
+            "alt-text" : "Albero composto da mani, simboleggia l'aiutarsi insieme, il volontariato",
+            "title":"Albero composto da mani",
+            "caption": "Il volontariato può fare molto: creare relazioni, percorsi, progetti",
+            "description": "Le mani di diverso colore simboleggiano la diversità ogni contributo. Il risultato di tutti i contributi è l'albero, simbolo della vita"
+        }
+    },
+    "data_caricamento_immagini" : "2023/01"
+}

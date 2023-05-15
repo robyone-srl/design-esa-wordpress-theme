@@ -1,0 +1,28 @@
+#menu-argomenti li.nav-item {
+    font-weight: 400;
+    font-size: .889em;
+}
+
+.navbar .navbar-collapsable .navbar-nav#menu-main-menu li a.nav-link {
+    font-size: 1.1em;
+    font-weight: 700;
+}
+
+@media(min-width: 992px) {
+    .navbar .navbar-collapsable .navbar-nav#menu-main-menu li a.nav-link {
+        font-weight:600;
+    }
+}
+
+.navbar .navbar-collapsable .navbar-nav#menu-argomenti li a.nav-link {
+    font-weight: 400;
+}
+
+.section.section-map-wrapper {
+    padding: 0;
+}
+
+.section.section-map-wrapper .map-wrapper {
+    height: auto;
+}
+

@@ -1,5 +1,5 @@
 <?php
-/* Template Name: Vivere il comune
+/* Template Name: Vivere l'Ente
  *
  * Vivere il comune template file
  *
@@ -32,8 +32,9 @@ get_header();
 					<?php echo $didascalia; ?>
 				</p>
 			</section>
-			<?php get_template_part("template-parts/vivere-comune/eventi"); ?>
-			<?php get_template_part("template-parts/vivere-comune/luoghi"); ?>
+			<?php get_template_part("template-parts/vivere-ente/eventi"); ?>
+			<?php get_template_part("template-parts/vivere-ente/luoghi"); ?>
+			<?php get_template_part("template-parts/vivere-ente/cards-list"); ?>
 			<?php get_template_part("template-parts/common/valuta-servizio"); ?>
 			<?php get_template_part("template-parts/common/assistenza-contatti"); ?>
 							

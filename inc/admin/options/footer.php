@@ -48,7 +48,7 @@ function dci_register_footer_options(){
     $footer_options->add_field( array(
         'id' => $prefix . 'contatti_title',
         'name'        => __( 'Contatti', 'design_comuni_italia' ),
-        'desc' => __( 'Specifica le opzioni di contatto del Comune (compaiono nel footer)' , 'design_comuni_italia' ),
+        'desc' => __( 'Specifica le opzioni di contatto dell\'Ente (compaiono nel footer)' , 'design_comuni_italia' ),
         'type' => 'title',
     ) );
 
@@ -59,8 +59,14 @@ function dci_register_footer_options(){
     ) );
 
     $footer_options->add_field( array(
-        'id' => $prefix . 'contatti_CF_PIVA',
-        'name' => 'Codice fiscale / P.IVA',
+        'id' => $prefix . 'contatti_CF',
+        'name' => 'Codice fiscale',
+        'type' => 'text',
+    ) );
+
+    $footer_options->add_field( array(
+        'id' => $prefix . 'contatti_PIVA',
+        'name' => 'Partita IVA',
         'type' => 'text',
     ) );
 

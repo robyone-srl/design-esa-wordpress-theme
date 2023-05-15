@@ -14,7 +14,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 footer-items-wrapper logo-wrapper">
-                <img class="ue-logo" src="<?php echo esc_url( get_template_directory_uri()); ?>/assets/img/logo-eu-inverted.svg" alt="logo Unione Europea">
                     <div class="it-brand-wrapper">
                         <a href="<?php echo home_url() ?>">
                             <?php get_template_part("template-parts/common/logo");?>
@@ -111,9 +110,30 @@
                     <div class="row">
                         <div class="col-md-4">
                             <p class="footer-info">
-                                <?php echo dci_get_option("nome_comune"); ?>
-                                <br /><?php echo dci_get_option("contatti_indirizzo",'footer'); ?>
-                                <br /><?php if(dci_get_option("contatti_CF_PIVA",'footer')) echo 'Codice fiscale / P. IVA:' . dci_get_option("contatti_CF_PIVA",'footer'); ?>
+                                <strong><?php echo dci_get_option("nome_comune"); ?></strong>
+                                
+
+                                <?php
+                                    if(dci_get_option("contatti_indirizzo",'footer')) {
+                                        ?>
+                                        <br /><a href="https://www.openstreetmap.org/search?query=<?php echo dci_get_option("contatti_indirizzo",'footer'); ?>" title="Mappa e indicazioni stradali"><?php echo dci_get_option("contatti_indirizzo",'footer'); ?></a>
+                                        <?php
+                                    }
+                                ?>
+
+                                <?php 
+                                    $codice_fiscale = dci_get_option("contatti_CF",'footer');
+                                    $partita_iva = dci_get_option("contatti_PIVA",'footer');
+                                
+                                    if($codice_fiscale && $codice_fiscale == $partita_iva) {
+                                        echo '<br />Codice fiscale / P.IVA: ' . $codice_fiscale; 
+                                    } else {
+                                        ?>
+                                            <br /><?php if($codice_fiscale) echo 'Codice fiscale: ' . $codice_fiscale; ?>
+                                            <br /><?php if($partita_iva) echo 'Partita IVA: ' . $partita_iva; ?>
+                                        <?php
+                                    }
+                                ?>
                                 <br /><br />
                                 <?php
                                     $ufficio_id = dci_get_option("contatti_URP",'footer');
@@ -123,12 +143,12 @@
                                             <?php echo $ufficio->post_title ?>
                                         </a>
                                 <?php } ?>
-                                <?php if(dci_get_option("numero_verde",'footer')) echo '<br />Numero verde: ' . dci_get_option("numero_verde",'footer'); ?>
-                                <?php if(dci_get_option("SMS_Whatsapp",'footer')) echo '<br />SMS e WhatsApp: ' . dci_get_option("SMS_Whatsapp",'footer'); ?>
+                                <?php if(dci_get_option("numero_verde",'footer')) echo '<br />Numero verde: <a href="tel:' . dci_get_option("numero_verde",'footer') . '">' . dci_get_option("numero_verde",'footer') . '</a>'; ?>
+                                <?php if(dci_get_option("SMS_Whatsapp",'footer')) echo '<br />SMS e WhatsApp: <a href="tel:' . dci_get_option("SMS_Whatsapp",'footer') . '">' . dci_get_option("SMS_Whatsapp",'footer') . '</a>'; ?>
                                 <?php
                                     if (dci_get_option("contatti_PEC",'footer')) echo '<br />PEC: '; ?>
                                         <a href="mailto:<?php echo dci_get_option("contatti_PEC",'footer'); ?>" class="list-item" title="PEC <?php echo dci_get_option("nome_comune");?>"><?php echo dci_get_option("contatti_PEC",'footer'); ?></a>
-								<?php if(dci_get_option("centralino_unico",'footer')) echo '<br />Centralino unico: ' . dci_get_option("centralino_unico",'footer'); ?>
+								<?php if(dci_get_option("centralino_unico",'footer')) echo '<br />Centralino unico: <a href="'. dci_get_option("centralino_unico",'footer') .'">' . dci_get_option("centralino_unico",'footer'). '</a>'; ?>
                             </p>
                         </div>
                         <div class="col-md-4">

@@ -1,20 +1,65 @@
 <?php
 global $nomefile, $idfile;
 
-$icon = "svg-documents";
-if(substr($nomefile, -3) == "pdf")
-	$icon = "it-pdf-document";
-if(substr($nomefile, -3) == "doc")
-	$icon = "svg-doc-document";
-if(substr($nomefile, -4) == "docx")
-	$icon = "svg-doc-document";
-if(substr($nomefile, -3) == "xml")
-	$icon = "svg-xml-document";
-
-$ext = substr($nomefile, -4);
-
 $attach = get_post($idfile);
 $filetocheck = get_attached_file($idfile);
+
+if($nomefile == "") {
+	$path_parts = pathinfo($attach->guid);
+} else {
+	$path_parts = pathinfo($nomefile);
+}
+
+$ext = $path_parts['extension'];
+
+
+	$icon = "it-file";
+
+	switch ($ext) {
+		case "pdf":
+			$icon = "it-file-pdf-ext";
+			break;
+	
+		case "odp":
+			$icon = "it-file-odp";
+			break;
+
+		case "slides":
+			$icon = "it-file-slides";
+			break;
+
+		case "xml":
+			$icon = "it-file-xml";
+			break;
+
+		case "csv":
+			$icon = "it-file-csv";
+			break;
+
+		case "ods":
+			$icon = "it-file-ods";
+			break;
+
+		case "txt":
+			$icon = "it-file-txt";
+			break;
+
+		case "mp3":
+			$icon = "it-file-xml";
+			break;
+
+		case "xml":
+			$icon = "it-file-xml";
+			break;
+
+		case "xml":
+			$icon = "it-file-xml";
+			break;
+
+		default:
+			break;
+		}
+
 
 $filesize = filesize($filetocheck);
 $fulltype = mime_content_type($filetocheck);
@@ -33,14 +78,23 @@ if(trim($ptitle) == ""){
     $ptitle = str_replace("_", " ", $ptitle);
 }
 ?>
-	<div class="card card-bg card-icon rounded">
+	<div class="card card-teaser rounded shadow">
 		<div class="card-body">
-			<svg class="icon <?php echo $icon; ?>"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#<?php echo $icon; ?>"></use></svg>
-			<div class="card-icon-content">
-				<p><strong><a target="_blank" href="<?php echo $attach->guid; ?>"><?php echo $ptitle; ?></a></strong></p>
-				<small><?php echo $type; ?> - <?php echo intval($filesize/1024); ?> kb</small>
-			</div><!-- /card-icon-content -->
-		</div><!-- /card-body -->
-	</div><!-- /card card-bg card-icon rounded -->
-<?php
+		<div class="row">
+				<div class="col-auto">
+					<svg class="icon" aria-hidden="true">
+						<use xlink:href="#<?php echo $icon; ?>"></use>
+					</svg>
+				</div>
+				<div class="col">
+					<h3 class="card-title h5 ">
+						<a target="_blank" href="<?php echo $attach->guid; ?>"><?php echo $ptitle; ?></a>
+					</h3>
 
+					<div class="card-text">
+						<small><?php echo $type; ?> - <?php echo intval($filesize/1024); ?> kb</small>
+					</div>
+				</div>
+		</div>
+		</div>
+	</div>

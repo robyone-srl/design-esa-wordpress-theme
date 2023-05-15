@@ -7,67 +7,31 @@ if(!function_exists("dci_argomenti_array")){
     function dci_argomenti_array() {
         $argomenti_arr = [
             'Accesso all\'informazione',
-            'Acqua',
-            'Agricoltura',
-            'Animale domestico',
-            'Aria',
-            'Assistenza agli invalidi',
-            'Assistenza sociale',
-            'Associazioni',
-            'Bilancio',
-            'Commercio all\'ingrosso',
-            'Commercio al minuto',
-            'Commercio ambulante',
-            'Comunicazione istituzionale',
-            'Comunicazione politica',
-            'Concorsi',
-            'Covid-19',
-            'Elezioni',
-            'Estero',
-            'Energie rinnovabili',
-            'Foreste',
-            'Formazione professionale',
-            'Gemellaggi',
-            'Gestione rifiuti',
-            'Giustizia',
-            'Igiene pubblica',
-            'Immigrazione',
-            'Sport',
-            'Imposte',
-            'Imprese',
-            'Inquinamento' ,
-            'Integrazione sociale',
-            'Isolamento termico' ,
-            'Istruzione',
-            'Lavoro',
-            'Matrimonio',
-            'Mercato',
-            'Mobilità sostenibile' ,
-            'Morte',
-            'Nascita',
-            'Parcheggi',
-            'Patrimonio culturale',
-            'Pesca',
-            'Piano di sviluppo',
-            'Pista ciclabile',
-            'Politica commerciale',
-            'Polizia',
-            'Prodotti alimentari',
-            'Protezione civile' ,
-            'Residenza' ,
-            'Risposta alle emergenze',
-            'Sistema giuridico',
-            'Spazio Verde',
-            'Sviluppo sostenibile',
-            'Tassa sui servizi',
-            'Tempo libero',
-            'Trasparenza amministrativa',
-            'Trasporto pubblico',
-            'Turismo',
-            'Urbanizzazione',
-            'Viaggi',
-            'Zone pedonali',
-            'ZTL',
+			'Aiuto a domicilio',
+			'Anzianità',
+			'Appalto di lavori',
+			'Assistenza agli anziani',
+			'Assistenza sanitaria',
+			'Assistenza sociale',
+			'Assunzione',
+			'Bilancio',
+			'Cittadino',
+			'Comunicazione istituzionale',
+			'Concorsi',
+			'Covid-19',
+			'Cure palliative',
+			'Famiglia',
+			'Formazione del personale',
+			'Lavoro',
+			'Servizio civile',
+			'Transizione digitale',
+			'Trasparenza amministrativa',
+			'Vita sociale',
+			'Volontariato',
+			'Anziano',
+			'Acquisti',
+			'Ospite',
+			'Accoglienza'
         ];
         return $argomenti_arr;
     }
@@ -83,15 +47,15 @@ if(!function_exists("dci_tipi_unita_organizzativa_array")){
                 'area',
                 'ufficio'
             ],
-            'struttura politica' => [
-                'giunta comunale',
-                'consiglio comunale',
-                'commissione'
+            'struttura di governo e controllo' => [
+                'consiglio di amministrazione',
+                'collegio dei revisori',
+                'nucleo di valutazione'
             ],
             'altra struttura' => [
                 'biblioteca',
                 'museo',
-                'azienda municipalizzata',
+                'azienda partecipata',
                 'ente',
                 'fondazione',
                 'scuola',
@@ -108,21 +72,10 @@ if(!function_exists("dci_tipi_unita_organizzativa_array")){
 if(!function_exists("dci_categorie_servizio_array")){
     function dci_categorie_servizio_array() {
         $categorie_servizio_arr = [
-            'Agricoltura e pesca',
-            'Ambiente',
-            'Anagrafe e stato civile',
-            'Appalti pubblici',
-            'Autorizzazioni',
-            'Catasto e urbanistica',
-            'Cultura e tempo libero',
-            'Educazione e formazione',
-            'Giustizia e sicurezza pubblica',
-            'Imprese e commercio',
-            'Mobilità e trasporti',
-            'Salute, benessere e assistenza',
-            'Tributi, finanze e contravvenzioni',
-            'Turismo',
-            'Vita lavorativa'
+            'Servizi socio-assistenziali',
+			'Assistenza amministrativa',
+			'Servizi integrativi',
+			'Servizi aggiuntivi'
         ];
         return $categorie_servizio_arr;
     }
@@ -156,19 +109,9 @@ if(!function_exists("dci_licenze_array")){
 if(!function_exists("dci_temi_dataset_array")){
     function dci_temi_dataset_array() {
         $temi_dataset_arr = [
-            'agricoltura, pesca, silvicoltura e prodotti alimentari',
-            'economia e Finanze',
-            'istruzione, cultura e sport',
-            'energia',
-            'ambiente',
-            'governo e settore pubblico',
-            'salute',
-            'tematiche internazionali',
-            'giustizia, sistema giuridico e sicurezza pubblica',
-            'popolazione e società',
-            'regioni e città',
-            'scienza e tecnologia',
-            'trasporti',
+            'Acquisti',
+            'Socio-assistenza',
+            'Economia e finanze'
         ];
         return $temi_dataset_arr;
     }
@@ -250,41 +193,21 @@ if(!function_exists("dci_tipi_doc_albo_pretorio_array")){
                     'Decreto del Sindaco'
                 ],
                 'Deliberazione' => [
-                    'Deliberazione del Consiglio comunale',
-                    'Deliberazione della Giunta comunale',
-                    'Deliberazione del Commissario ad acta',
-                    'Deliberazione del Consiglio circoscrizionale',
-                    'Deliberazione dell\'Esecutivo circoscrizionale',
+                    'Deliberazione del Consiglio di amministrazione',
                     'Deliberazione di altri Organi'
                 ],
                 'Determinazione' => [
-                    'Determinazione del Sindaco',
+                    'Determinazione del Direttore',
                     'Determinazione del Dirigente'
                 ],
-                'Ordinanza' => [
-                    'Ordinanza del Dirigente',
-                    'Ordinanza del Sindaco'
+                'Parere consultivo' => [
+                    'Parere del Collegio dei revisori'
                 ]
             ],
-            'Atto autorizzativo' => [
-                'Permesso a costruire' => [
-                    'Permesso a costruire'
-                ]
-            ],
-            'Atto dello stato civile' => [
-                'Provvedimento di cancellazione per irreperibilità' => [
-                    'Provvedimento di cancellazione per irreperibilità'
-                ],
-                'Pubblicazione cambio nome' => [
-                    'Pubblicazione cambio nome'
-                ],
-                'Pubbicazione di matrimonio' => [
-                    'Pubbicazione di matrimonio'
-                ]
-            ],
+            'Atto autorizzativo',
             'Atto generico' => [
                 'Avviso' => [
-                    'Avviso di deposito in casa comunale',
+                    'Avviso di deposito',
                     'Avviso/Manifesto'
                 ],
                 'Bando' => [
@@ -367,6 +290,7 @@ if(!function_exists("dci_tipi_incarico_array")){
         $tipi_incarico_arr = [
             'politico',
             'amministrativo',
+            'sanitario',
             'altro'
         ];
         return $tipi_incarico_arr;
@@ -402,7 +326,7 @@ if(!function_exists("dci_stati_pratica_array")){
 if(!function_exists("dci_tipi_notizia_array")){
     function dci_tipi_notizia_array() {
         $tipi_notizia_arr = [
-            'news',
+            'notizia',
             'comunicato stampa',
             'avviso'
         ];
@@ -509,7 +433,10 @@ if(!function_exists("dci_luoghi_array")){
             'Centro per l\'assistenza e la tutela sociale' => [
                 'Casa di riposo',
                 'Centro di accoglienza',
-                'Ospedale'
+                'Ospedale',
+                'Locali per servizio assistenziale',
+                'Locali per servizio educativo',
+                'Locali per servizio di ristorazione'
             ],
             'Infrastruttura e impianto' => [
                 'Centro di raccolta',
@@ -678,23 +605,24 @@ if(!function_exists("dci_tipi_documento_plural_array")){
 if(!function_exists('dci_get_categorie_servizio_descriptions_array')){
     function dci_get_categorie_servizio_descriptions_array(){
         $categorie_servizio_descriptions_arr = [
-            'Anagrafe e stato civile' => 'Documenti d\'identità, cambio di residenza, servizi elettorali, cimiteriali e certificati per nascita, matrimoni e unioni civili.',
-            'Cultura e tempo libero' => 'Luoghi della cultura e dell’arte, impianti sportivi e richieste di contributi per la cultura, lo spettacolo e lo sport.',
-            'Vita lavorativa' => 'Lavoro, concorsi e selezioni, licenze, abilitazioni professionali e sicurezza sul lavoro.',
-            'Appalti pubblici' => 'Gare d’appalto e avvisi per lavori, servizi e forniture al Comune.',
-            'Catasto e urbanistica' => 'Piani urbanistici, piani paesaggistici e tutti i certificati per immobili, case, terreni ed edifici.',
-            'Turismo' => 'Sostegno e sviluppo del turismo, strutture ricettive e informazioni turistiche.',
-            'Mobilità e trasporti' => 'Parcheggi, viabilità, automobili e trasporto pubblico.',
-            'Educazione e formazione' => 'Iscrizioni, agevolazioni e servizi per nidi, scuole e università.',
-            'Giustizia e sicurezza pubblica' => 'Polizia municipale, tribunale e Protezione civile.',
-            'Tributi, finanze e contravvenzioni' => 'Tasse e tributi su immobili, rifiuti, affissioni e pubblicità',
-            'Ambiente' => 'Aree verdi e parchi, inquinamento, igiene urbana e rifiuti.',
-            'Salute, benessere e assistenza' => 'Servizi santirari e di sostegno per minori, famiglie, anziani e persone con disabilità.',
-            'Autorizzazioni' => 'Autorizzazioni, permessi, licenze, concessioni di suolo, passi carrabili e prestito di beni del Comune.',
-            'Agricoltura e pesca' => 'Autorizzazioni e politiche alimentari per agricoltura e pesca.',
-            'Imprese e commercio' => 'Avvio di un’attività, commercio, autorizzazioni e concessioni per attività produttive, mercati, incentivi e supporto alle imprese.'
-        ];
+            'Servizi socio-assistenziali' => 'La struttura, nell\'ambito dei suoi obiettivi e delle possibilità di assistenza, offre servizi socio-assistenziali come la residenzialità, la semi-residenzialità, i ricoveri temporanei e l\'assistenza domiciliare',
+			'Assistenza amministrativa' => 'Servizi disponibili online o a sportello, per richiedere documenti e permessi, iscriversi a graduatorie ed effettuare pagamenti',
+			'Servizi integrativi' => 'Servizi complementari alla socio-assistenza come l\animazione, la ristorazione e la pulizia degli ambienti',
+			'Servizi aggiuntivi' => 'Oltre ai servizi principali, l\'Ente offre anche servizi extra per rispondere ad ogni tipo di necessità'
+            ];
         return $categorie_servizio_descriptions_arr;
     }
 }
 
+
+/**
+ * Vocabolario immagini degli argomenti
+ */
+if(!function_exists("dci_get_immagini_argomenti_array")){
+    function dci_get_immagini_argomenti_array() {
+        $argomenti_arr = [
+			'Volontariato' => 'volontariato',
+        ];
+        return $argomenti_arr;
+    }
+}

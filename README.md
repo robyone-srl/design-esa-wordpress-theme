@@ -1,4 +1,4 @@
-# ![developers.italia](https://avatars1.githubusercontent.com/u/15377824?s=36&v=4 "developers.italia") Design Comuni Italia
+# ![developers.italia](https://avatars1.githubusercontent.com/u/15377824?s=36&v=4 "developers.italia") Design Case di riposo Italia
 
 [![Join the #design siti comuni channel](https://img.shields.io/badge/Slack%20channel-%23design_siti_comuni-blue.svg)](https://developersitalia.slack.com/messages/design-siti-comuni/)
 
@@ -54,18 +54,29 @@ Sul [canale Slack #design-siti-comuni](http://developersitalia.slack.com/message
 
 ## **Indice**
 
-- [Cos'è e cosa fa](#cosè-e-cosa-fa)
-- [Le pagine del modello](#le-pagine-del-modello)
-- [Da dove iniziare](#da-dove-iniziare)
-- [Relazioni tra i contenuti](#relazioni-tra-i-contenuti)
-- [I diversi content type](#i-diversi-content-type)
-- [Personalizzazione](#personalizzazione)
-- [Servizi esterni](#servizi-esterni)
-- [La community di riferimento](#la-community-di-riferimento)
-- [FAQ](#faq)
-- [Licenze software dei componenti di terze parti](#licenze-software-dei-componenti-di-terze-parti)
-- [Segnalazione bug](#segnalazione-bug)
-- [Come contribuire](#come-contribuire)
+- [ Design Case di riposo Italia](#-design-case-di-riposo-italia)
+  - [**Un sito per i Comuni Italiani**](#un-sito-per-i-comuni-italiani)
+    - [I primi passi con il tema Wordpress (1.6.2)](#i-primi-passi-con-il-tema-wordpress-162)
+  - [**Installazione e supporto**](#installazione-e-supporto)
+      - [**Come scaricare il tema**](#come-scaricare-il-tema)
+      - [Come inserire il tema all'interno di un'installazione WordPress](#come-inserire-il-tema-allinterno-di-uninstallazione-wordpress)
+      - [Aggiornamento libreria Bootstrap Italia](#aggiornamento-libreria-bootstrap-italia)
+      - [Come abilitare il tema](#come-abilitare-il-tema)
+      - [**Supporto tecnico ed editoriale**](#supporto-tecnico-ed-editoriale)
+  - [**Indice**](#indice)
+      - [**Cos'è e cosa fa**](#cosè-e-cosa-fa)
+      - [**Le pagine del modello**](#le-pagine-del-modello)
+      - [**Da dove iniziare**](#da-dove-iniziare)
+      - [**Relazioni tra i contenuti**](#relazioni-tra-i-contenuti)
+      - [**Personalizzazione**](#personalizzazione)
+      - [**Servizi esterni**](#servizi-esterni)
+      - [**La community di riferimento**](#la-community-di-riferimento)
+      - [**F.A.Q**](#faq)
+      - [**Bootstrap Italia**](#bootstrap-italia)
+  - [Licenze software dei componenti di terze parti](#licenze-software-dei-componenti-di-terze-parti)
+    - [Componenti distribuiti con i template](#componenti-distribuiti-con-i-template)
+  - [Segnalazione bug](#segnalazione-bug)
+  - [Come contribuire](#come-contribuire)
 
 #### **Cos'è e cosa fa**
 
