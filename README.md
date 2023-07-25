@@ -2,11 +2,11 @@
 
 [![Join the #design siti comuni channel](https://img.shields.io/badge/Slack%20channel-%23design_siti_comuni-blue.svg)](https://developersitalia.slack.com/messages/design-siti-comuni/)
 
-## **Un sito per i Comuni Italiani**
+## **Un sito per le Case di riposo Italiane**
 
 ### I primi passi con il tema Wordpress (1.6.2)
 
-**Design Comuni Italia** è il tema WordPress che permette di aderire al [modello di sito istituzionale dei Comuni Italiani](https://designers.italia.it/modello/comuni/), progettato dal Dipartimento per la trasformazione digitale.
+**Design CDR Italia** è il tema di WordPress per i siti delle CDR Italiane. Rispetta le linee guida di design dell’Agenzia per l’Italia digitale rilasciate dal Team per la Trasformazione Digitale. Utilizza Bootstrap Italia. <strong>Questa è una versione derivata da Design Comuni Italia, un fork nel quale Robyone ha applicato modifiche migliorative e necessarie per adattare il tema alle peculiarità del tipo di Ente a cui si riferisce. Robyone si impegna a proporre i cambiamenti per applicarli al tema nazionale e si impegna ad allineare ai nuovi aggiornamenti la fork. Codice sorgente pubblicato con medesima licenza del repository nazionale su <a href="https://github.com/sviluppoRobyone/design-cdr-wordpress-theme">https://github.com/sviluppoRobyone/design-cdr-wordpress-theme</a></strong>.
 
 ## **Installazione e supporto**
 
