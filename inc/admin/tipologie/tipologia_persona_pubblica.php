@@ -262,6 +262,6 @@ function dci_persona_pubblica_set_post_title( $data ) {
 }
 add_filter( 'wp_insert_post_data' , 'dci_persona_pubblica_set_post_title' , '99', 1 );
 
-new dsi_bidirectional_cmb2("_dci_persona_pubblica_", "persona_pubblica", "organizzazioni", "persona_box", "_dci_unita_organizzativa_persone_struttura");
+new dci_bidirectional_cmb2("_dci_persona_pubblica_", "persona_pubblica", "organizzazioni", "persona_box", "_dci_unita_organizzativa_persone_struttura");
 
-new dsi_bidirectional_cmb2("_dci_persona_pubblica_", "persona_pubblica", "responsabile_di", "persona_box", "_dci_unita_organizzativa_responsabile");
+new dci_bidirectional_cmb2("_dci_persona_pubblica_", "persona_pubblica", "responsabile_di", "persona_box", "_dci_unita_organizzativa_responsabile");

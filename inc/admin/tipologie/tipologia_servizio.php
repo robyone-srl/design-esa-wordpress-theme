@@ -693,6 +693,6 @@ function dci_servizio_set_post_content( $data ) {
 }
 add_filter( 'wp_insert_post_data' , 'dci_servizio_set_post_content' , '99', 1 );
 
-new dsi_bidirectional_cmb2("_dci_servizio_", "servizio", "unita_responsabile", "box_contatti", "_dci_unita_organizzativa_elenco_servizi_offerti");
+new dci_bidirectional_cmb2("_dci_servizio_", "servizio", "unita_responsabile", "box_contatti", "_dci_unita_organizzativa_elenco_servizi_offerti");
 
-new dsi_bidirectional_cmb2("_dci_servizio_", "servizio", "documenti", "box_documenti", "_dci_documento_pubblico_servizi");
+new dci_bidirectional_cmb2("_dci_servizio_", "servizio", "documenti", "box_documenti", "_dci_documento_pubblico_servizi");

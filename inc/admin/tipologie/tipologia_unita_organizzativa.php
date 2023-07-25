@@ -326,10 +326,10 @@ function dci_unita_organizzativa_set_post_content( $data ) {
 
 add_filter( 'wp_insert_post_data' , 'dci_unita_organizzativa_set_post_content' , '99', 1 );
 
-new dsi_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "persone_struttura", "box_persone", "_dci_persona_pubblica_organizzazioni");
+new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "persone_struttura", "box_persone", "_dci_persona_pubblica_organizzazioni");
 
-new dsi_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "responsabile", "box_struttura", "_dci_persona_pubblica_responsabile_di");
+new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "responsabile", "box_struttura", "_dci_persona_pubblica_responsabile_di");
 
-new dsi_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "sede_principale", "box_contatti", "_dci_luogo_sede_di");
+new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "sede_principale", "box_contatti", "_dci_luogo_sede_di");
 
-new dsi_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "elenco_servizi_offerti", "box_servizi", "_dci_servizio_unita_responsabile");
+new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "elenco_servizi_offerti", "box_servizi", "_dci_servizio_unita_responsabile");
