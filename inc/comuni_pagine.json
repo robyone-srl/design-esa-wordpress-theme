@@ -41,11 +41,11 @@
           "template_name": "incarichi",
           "children": {}
         },
-        "Documenti e Dati": {
-          "title": "Documenti e Dati",
+        "Documenti e dati": {
+          "title": "Documenti e dati",
           "slug": "documenti-e-dati",
           "description": "Bandi di concorso, avvisi, graduatorie, statistiche e documenti pubblici.",
-          "template_name": "documenti-e-dati",
+          "template_name": "Documenti e dati",
           "children": {}
         }
       }
@@ -67,14 +67,14 @@
           "title": "Assistenza",
           "slug": "assistenza",
           "description": "I campi contraddistinti dal simbolo asterisco sono obbligatori.",
-          "template_name": "assistenza",
+          "template_name": "Assistenza",
           "children": {}
         },
         "Prenotazioni": {
           "title": "Prenotazioni",
           "slug": "prenotazioni",
           "description": "",
-          "template_name": "prenota-appuntamento",
+          "template_name": "Prenota appuntamento",
           "children": {}
         }
       }
@@ -126,7 +126,7 @@
       "title": "Argomenti",
       "slug": "argomenti",
       "description": "Gli argomenti rispondono a un'esigenza di organizzazione dei contenuti del sito istituzionale per temi e rappresentano le principali categorie di contenuti, informazioni e documenti specifici.",
-      "template_name": "argomenti",
+      "template_name": "Argomenti",
       "children": {}
     },
     "Domande frequenti": {
