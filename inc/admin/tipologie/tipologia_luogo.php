@@ -562,10 +562,10 @@ function dci_luogo_set_post_content( $data ) {
 add_filter( 'wp_insert_post_data' , 'dci_luogo_set_post_content' , '99', 1 );
 
 // relazione bidirezionale struttura / luoghi
-new dci_bidirectional_cmb2("_dci_luogo_", "luogo", "sede_di", "box_elementi_dati", "_dci_unita_organizzativa_sede_principale");
+new dci_bidirectional_cmb2("_dci_luogo_", "luogo", "sede_di", "box_informazioni", "_dci_unita_organizzativa_sede_principale");
 
 // relazione bidirezionale luoghi / luoghi
-new dci_bidirectional_cmb2("_dci_luogo_", "luogo", "luoghi_collegati", "box_elementi_dati", "_dci_luogo_luoghi_collegati");
+new dci_bidirectional_cmb2("_dci_luogo_", "luogo", "luoghi_collegati", "box_descrizione", "_dci_luogo_luoghi_collegati");
 
 // relazione bidirezionale servizi / luoghi
 //new dci_bidirectional_cmb2("_dci_luogo_", "luogo", "servizi_presenti", "box_elementi_dati", "_dci_servizio_luoghi");
