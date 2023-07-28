@@ -181,7 +181,6 @@ function dci_add_unita_organizzativa_metaboxes() {
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('persona_pubblica'),
         'attributes'    => array(
-            'required'    => 'required',
             'placeholder' =>  __( 'Seleziona le Persone Pubbliche', 'design_comuni_italia' ),
 
         ),

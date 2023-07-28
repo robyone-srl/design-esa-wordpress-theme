@@ -16,7 +16,6 @@ get_header();
         <?php
 		while (have_posts()) :
 			the_post();
-
 			$user_can_view_post = dci_members_can_user_view_post(get_current_user_id(), $post->ID);
 
 			$prefix = "_dci_luogo_";
@@ -34,10 +33,6 @@ get_header();
             $modalita_accesso = dci_get_wysiwyg_field("modalita_accesso");
 
             $indirizzo = dci_get_meta('indirizzo', $prefix, $post->ID);
-            $quartiere = dci_get_meta('quartiere', $prefix, $post->ID);
-            $circoscrizione = dci_get_meta('circoscrizione', $prefix, $post->ID);
-            $posizione_gps = dci_get_meta("posizione_gps", '_dci_luogo_', $post->ID);
-            $cap = dci_get_meta("cap", '_dci_luogo_', $post->ID);
 
             $orario_pubblico = dci_get_wysiwyg_field("orario_pubblico");
 
@@ -163,7 +158,7 @@ get_header();
                                                                     </li>
 																<?php } ?>
 
-																<?php if ($indirizzo || $quartiere || $circoscrizione || $cap || $posizione_gps) { ?>
+																<?php if ($indirizzo || $childof) { ?>
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" href="#dove_si_trova">
                                                                             <span class="title-medium">Dove si trova</span>
@@ -279,13 +274,15 @@ get_header();
                                 </section>
                             <?php } ?>
 
-                            <?php if ($indirizzo || $quartiere || $circoscrizione || $cap || $posizione_gps) { ?>
+                            <?php if ($indirizzo || $childof) { ?>
                                 <section id="dove_si_trova" class="it-page-section mb-4">
                                     <h3 class="my-2 title-large-semi-bold">Dove si trova</h3>
-                                                    <?php 
-                                                        $luogo = $post;
+                                    <?php
+                                                        $luogo = !empty($childof)
+                                                            ? get_post( $childof )
+                                                            : $post;
                                                         get_template_part("template-parts/luogo/card-single");
-                                                    ?>
+                                    ?>
                                 </section>
                             <?php } ?>
 

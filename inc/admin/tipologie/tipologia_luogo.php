@@ -125,11 +125,7 @@ function dci_add_luogo_metaboxes() {
             'desc' => __( 'Immagine principale del luogo *' , 'design_comuni_italia' ),
             'id'             => $prefix . 'immagine',
             'type' => 'file',
-            // 'preview_size' => array( 100, 100 ), // Default: array( 50, 50 )
-            'query_args' => array( 'type' => 'image' ), // Only images attachment
-            'attributes'    => array(
-                'required'    => 'required'
-            ),
+            'query_args' => array( 'type' => 'image' ),
         )
     );
 
@@ -164,14 +160,6 @@ function dci_add_luogo_metaboxes() {
             'teeny' => false, // output the minimal editor config used in Press This
         ),
     ) );
-
-    $cmb_descrizione->add_field( array(
-		'id'         => $prefix . 'childof',
-		'name'       => __( 'Il luogo è parte di ', 'design_comuni_italia' ),
-		'desc'       => __( 'Con questo campo è possibile stabilire una relazione tra il luogo che si sta creando e il luogo che lo contiene. Ad esempio: il luogo chiesetta è contenuto nell\'edificio principale.', 'design_scuole_italia' ),
-        'type'    => 'pw_select',
-		'options' => dci_get_posts_options('luogo'),
-	) );
 
     $cmb_descrizione->add_field( array(
         'id' => $prefix . 'luoghi_collegati',
@@ -301,13 +289,22 @@ function dci_add_luogo_metaboxes() {
     ) );
 
     $cmb_dove->add_field( array(
+        'id'         => $prefix . 'childof',
+        'name'       => __( 'Il luogo è parte di ', 'design_comuni_italia' ),
+        'desc'       => __( 'Con questo campo è possibile stabilire una relazione tra il luogo che si sta creando e il luogo che lo contiene. Ad esempio: il luogo chiesetta è contenuto nell\'edificio principale.', 'design_scuole_italia' ),
+        'type'    => 'select',
+        'options' => dci_get_posts_options('luogo', true, true),
+    ) );
+
+    $cmb_dove->add_field( array(
         'id'         => $prefix . 'indirizzo',
         'name'       => __( 'Indirizzo *', 'design_comuni_italia' ),
         'desc'       => __( 'Indirizzo del luogo.', 'design_comuni_italia' ),
         'type'       => 'textarea',
         'attributes'    => array(
             'maxlength'  => '255',
-            'required'    => 'required'
+            'data-conditional-id'    => $prefix . 'childof',
+			'data-conditional-value' => '0',
         ),
     ) );
 
@@ -318,38 +315,12 @@ function dci_add_luogo_metaboxes() {
         'type'       => 'text',
         'attributes'    => array(
             'maxlength'  => '255',
+            'data-conditional-id'    => $prefix . 'childof',
+			'data-conditional-value' => '0',
         ),
     ) );
 
-    /**
-     *
-
-    $cmb_dove->add_field( array(
-        'id' => $prefix . 'gps_latitude',
-        'name'        => __( 'GPS latitude *', 'design_comuni_italia' ),
-        'desc' => __( 'latitudine' , 'design_comuni_italia' ),
-        'type' => 'text_small',
-        'attributes' => array(
-            //'type' => 'number',
-            'required'    => 'required'
-        ),
-    ) );
-
-    $cmb_dove->add_field( array(
-        'id' => $prefix . 'gps_longitude',
-        'name'        => __( 'GPS longitude *', 'design_comuni_italia' ),
-        'desc' => __( 'longitudine' , 'design_comuni_italia' ),
-        'type' => 'text_small',
-        'attributes' => array(
-            //'type' => 'number',
-            'required'    => 'required'
-        ),
-    ) );
-
-     */
-    /**mappa field GPS
-    /*
-     */
+    //mappa field GPS
     $cmb_dove->add_field( array(
         'id'         => $prefix . 'posizione_gps',
         'name'       => __( 'Posizione GPS *<br><small>NB: clicca sulla lente d\'ingrandimento e cerca l\'indirizzo, anche se lo hai già inserito nel campo precedente.<br>Questo permetterà una corretta georeferenziazione del luogo</small>', 'design_comuni_italia' ),
@@ -375,7 +346,8 @@ function dci_add_luogo_metaboxes() {
         'desc'       => __( 'Codice di avviamento postale del luogo', 'design_comuni_italia' ),
         'type'       => 'text_small',
         'attributes' => array(
-            'required' => 'required'
+            'data-conditional-id'    => $prefix . 'childof',
+			'data-conditional-value' => '0',
         ),
     ) );
 

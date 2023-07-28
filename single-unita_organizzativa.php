@@ -222,9 +222,9 @@ get_header();
                                     <h3 class="my-2 title-large-semi-bold">Responsabile</h3>
                                     <div class="richtext-wrapper lora">
                                         <div class="row g-2">
-											<?php foreach ($responsabili as $persona_id) { ?>
+                                            <?php foreach ($responsabili as $pp_id) { ?>
                                                 <div class="col-lg-6 col-md-12">
-													<?php get_template_part("template-parts/persona/card-vertical-thumb-uo"); ?>
+													<?php get_template_part("template-parts/persona_pubblica/card"); ?>
                                                 </div>
 											<?php } ?>
                                         </div>
@@ -238,11 +238,11 @@ get_header();
                                     <div class="richtext-wrapper lora">
                                         Tutte le persone che fanno parte di questo ufficio:
                                         <div class="row g-2">
-											<?php foreach ($persone as $persona_id) { ?>
-                                                <div class="col-lg-6 col-md-12">
-													<?php get_template_part("template-parts/persona/card-vertical-thumb-uo"); ?>
-                                                </div>
-											<?php } ?>
+                                            <?php foreach ($persone as $pp_id) { ?>
+                                            <div class="col-lg-6 col-md-12">
+                                                <?php get_template_part("template-parts/persona_pubblica/card"); ?>
+                                            </div>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                 </section>
