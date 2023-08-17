@@ -3,34 +3,23 @@
     $ufficio = get_post( $uo_id );
 
     $prefix = '_dci_unita_organizzativa_';
-    $img = dci_get_meta('immagine', $prefix, $uo_id);
-    $contatti = dci_get_meta('contatti', $prefix, $uo_id);
+	$descrizione_breve = dci_get_meta("descrizione_breve", $prefix, $ufficio->ID);
 
-    $prefix = '_dci_punto_contatto_';
-    $indirizzi = array();
-    foreach ($contatti as $punto_contatto_id) {
-        $voci = dci_get_meta('voci', $prefix, $punto_contatto_id);
-        foreach ($voci as $voce) {
-            if ($voce[$prefix.'tipo_punto_contatto'] == 'indirizzo')
-                array_push($indirizzi, $voce[$prefix.'valore']);
-        }
-    }
-    
+    $img = dci_get_meta('immagine', $prefix, $ufficio->ID);
+
     if($with_border) {
 ?>
 
-<div class="card card-teaser card-teaser-info rounded shadow-sm p-3">
+<div class="card card-teaser card-teaser-info rounded shadow-sm p-3 mb-1">
     <div class="card-body pe-3">
-        <p class="card-title text-paragraph-regular-medium-semi mb-3">
+        <h4 class="card-title text-paragraph-regular-medium-semi mb-3">
             <a class="text-decoration-none" href="<?php echo get_permalink($ufficio->ID); ?>" data-element="service-area">
             <?php echo $ufficio->post_title; ?>
             </a>
-        </p>
-        <div class="card-text">
-            <?php foreach ($indirizzi as $indirizzo) {
-                echo '<p class="u-main-black">'.$indirizzo.'</p>';
-            }?>
-        </div>
+        </h4>
+	   <?php if ($descrizione_breve) {
+		        echo '<div class="card-text"><p class="u-main-black">'.$descrizione_breve.'</p></div>';
+	   } ?>
     </div>
     <?php if ($img) { ?>
         <div class="avatar size-xl">
@@ -46,11 +35,9 @@
             <?php echo $ufficio->post_title; ?>
             </a>
         </h4>
-        <div class="card-text">
-            <?php foreach ($indirizzi as $indirizzo) {
-                echo '<p>'.$indirizzo.'</p>';
-            }?>
-        </div>
+	   <?php if ($descrizione_breve) {
+		        echo '<div class="card-text"><p class="u-main-black">'.$descrizione_breve.'</p></div>';
+	   } ?>
     </div>
     <?php if ($img) { ?>
     <div class="avatar size-xl">
