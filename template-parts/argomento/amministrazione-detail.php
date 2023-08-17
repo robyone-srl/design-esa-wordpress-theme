@@ -2,9 +2,11 @@
     global $argomento;
 
     $posts = dci_get_grouped_posts_by_term( 'amministrazione' , 'argomenti', $argomento->slug, 3 );
+
+    if($posts) {
 ?>
 <section id="amministrazione">
-    <div class="pb-40 pt-40 pt-lg-80">
+    <div class="pt-40 <?php echo $first_printed ? "pt-lg-80  pb-40" : "pt-md-100 pb-50"; ?>">
         <div class="container">
             <div class="row row-title">
                 <div class="col-12">
@@ -54,3 +56,4 @@
         </div>
     </div>
 </section>
+<?php } ?>
