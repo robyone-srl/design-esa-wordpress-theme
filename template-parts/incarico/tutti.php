@@ -25,7 +25,7 @@ $tax_query = array(
 
 $args = array(
 	's'         => $query,
-	'posts_per_page'    => 1,
+	'posts_per_page'    => $load_posts,
 	'post_type' => 'incarico',
 	'post_status' => 'publish',
 	'orderby'        => 'post_title',

@@ -51,7 +51,7 @@ get_header();
 
         $more_info = dci_get_wysiwyg_field("ulteriori_informazioni");
 
-        $args = array(
+        $inc_args = array(
             'post_type' => 'incarico',
             'meta_query' => array(
                 array(
@@ -64,9 +64,14 @@ get_header();
 	        'orderby' => 'post_title',
 	        'order' => 'ASC',
         );
-        $the_query = new WP_Query( $args );
-        $incarichi = get_posts($args);
+        $inc_query = new WP_Query( $inc_args );
+     	$inc_list = get_posts($inc_args);
 
+	 	$incarichi = array();
+
+     	foreach($inc_list as $incarico) {
+        	array_push($incarichi,$incarico->post_title);
+     	}
     ?>
 
     <div class="container" id="main-container">
@@ -98,7 +103,12 @@ get_header();
                                         </h1>
                                     </div>
                                     <p class="subtitle-small mb-3" data-element="service-description">
-                                        <?php echo $descrizione_breve ?>
+                                    <?php
+                                    	if($descrizione_breve) {
+                							echo $descrizione_breve;
+            							} else {
+                							echo implode(', ', $incarichi);
+            							} ?>
                                     </p>
                                 </div>
                             </div>
@@ -164,7 +174,7 @@ get_header();
                                                         </li>
                                                         <?php } ?>
 
-                                                        <?php if ($incarichi && is_array($incarichi) && count($incarichi) > 0) {?>
+                                                        <?php if ($inc_list && is_array($inc_list) && count($inc_list) > 0) {?>
                                                         <li class="nav-item">
                                                             <a class="nav-link" href="#incarichi">
                                                                 <span class="title-medium">Ruolo</span>
@@ -183,7 +193,7 @@ get_header();
                                                         <?php if ($responsabile_di) {?>
                                                         <li class="nav-item">
                                                             <a class="nav-link" href="#responsabile_id">
-                                                                <span class="title-medium">&Egrave; responsabile di</span>
+                                                                <span class="title-medium">È responsabile di</span>
                                                             </a>
                                                         </li>
                                                         <?php } ?>
@@ -293,11 +303,11 @@ get_header();
                     </section>
                     <?php } ?>
 
-                    <?php if ($incarichi && is_array($incarichi) && count($incarichi) > 0) {?>
+                    <?php if ($inc_list && is_array($inc_list) && count($inc_list) > 0) {?>
                     <section id="incarichi" class="it-page-section mb-4">
                         <h3 class="my-2 title-large-semi-bold">Ruolo</h3>
                         <div class="card-wrapper card-teaser-wrapper">
-                            <?php foreach ($incarichi as $incarico) {
+                            <?php foreach ($inc_list as $incarico) {
                                       get_template_part("template-parts/incarico/card-full");
                                   } ?>
                         </div>

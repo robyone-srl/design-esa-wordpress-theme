@@ -2,6 +2,9 @@
     global $argomento;
 
     $posts = dci_get_grouped_posts_by_term( 'novita-evento' , 'argomenti', $argomento->slug, 3 );
+
+    if($posts) {
+        $first_printed = true;
 ?>
 
 <section id="novita">
@@ -124,3 +127,4 @@
         </div>
     </div>
 </section>
+<?php } ?>

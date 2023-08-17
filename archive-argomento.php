@@ -80,10 +80,31 @@ get_header();
         </div>
       </div>
     </div>
-    <?php get_template_part("template-parts/argomento/novita-detail"); ?>
-    <?php get_template_part("template-parts/argomento/amministrazione-detail"); ?>
-    <?php get_template_part("template-parts/argomento/servizi-detail"); ?>
-    <?php get_template_part("template-parts/argomento/documenti-detail"); ?>
+    <?php 
+
+    $posts = dci_get_posts_by_term('any','argomenti', $argomento->name);
+    
+    if($posts) {
+      $first_printed = false;
+    ?>
+    	<?php get_template_part("template-parts/argomento/novita-detail"); ?>
+    	<?php get_template_part("template-parts/argomento/amministrazione-detail"); ?>
+    	<?php get_template_part("template-parts/argomento/servizi-detail"); ?>
+    	<?php get_template_part("template-parts/argomento/documenti-detail"); ?>
+    <?php
+    } else {
+    ?>
+    <div class="bg-grey-card pt-40 pt-md-100 pb-50">
+        <div class="container">
+        	<div class="alert alert-info" role="alert">
+  				Non sono presenti contenuti legati a questo argomento.
+			</div>
+        </div>
+    </div>
+    <?php
+    }
+    ?>
+    
     <?php get_template_part("template-parts/common/valuta-servizio"); ?>
     <?php get_template_part("template-parts/common/assistenza-contatti"); ?>
 </main>

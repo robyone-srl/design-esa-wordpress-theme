@@ -100,6 +100,16 @@ function dci_add_punto_contatto_metaboxes() {
         ),
     ) );
 
+    $cmb_dati->add_group_field( $group_field_id, array(
+        'id' => $prefix . 'dettagli',
+        'name' => __('Ulteriori dettagli punto di contatto','design_comuni_italia'),
+        'desc' => __( 'Ad esempio: interno se previsto per il numero di telefono', 'design_comuni_italia' ),
+        'type' => 'text',
+        'attributes'    => array(
+            'maxlength'  => '160'
+        ),
+    ) );
+
 
 
     $cmb_dati->add_field( array(

@@ -1,4 +1,5 @@
 <?php
+
     global $pp_id, $with_border;
 
     $persona = get_post( $pp_id );
@@ -6,6 +7,28 @@
     $prefix = '_dci_persona_pubblica_';
     $descrizione_breve = dci_get_meta('descrizione_breve', $prefix, $persona->ID);
     $foto = dci_get_meta('foto', $prefix, $persona->ID);
+
+	$inc_args = array(
+            'post_type' => 'incarico',
+            'meta_query' => array(
+                array(
+                    'key'     => '_dci_incarico_persona',
+                    'value'   => $persona->ID
+                ),
+            ),
+            'numberposts' => -1,
+	        'post_status' => 'publish',
+	        'orderby' => 'post_title',
+	        'order' => 'ASC',
+        );
+     $inc_query = new WP_Query( $inc_args );
+     $inc_list = get_posts($inc_args);
+
+	 $incarichi = array();
+
+	 foreach($inc_list as $incarico) {
+     	array_push($incarichi,$incarico->post_title);
+     }
 
     if($with_border) {
 ?>
@@ -18,13 +41,22 @@
             </a>
         </p>
         <div class="card-text">
-            <?php echo $descrizione_breve; ?>
+            <?php 
+            if($descrizione_breve) {
+            	echo $descrizione_breve;
+            } else {
+            	echo implode(', ', $incarichi);
+            }
+    ?>
         </div>
     </div>
     <?php if ($foto) { ?>
         <div class="avatar size-xl">
             <?php dci_get_img($foto); ?>
         </div>
+    <?php } else {
+    ?>
+		<svg class="icon svg-marker-simple"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#it-user"></use></svg>
     <?php } ?>
 </div>
 <?php } else { ?>
@@ -36,13 +68,22 @@
             </a>
         </h4>
         <div class="card-text">
-            <?php echo $descrizione_breve; ?>
+            <?php 
+            if($descrizione_breve) {
+            	echo $descrizione_breve;
+            } else {
+            	echo implode(', ', $incarichi);
+            }
+    ?>
         </div>
     </div>
     <?php if ($foto) { ?>
     <div class="avatar size-xl">
         <?php dci_get_img($foto); ?>
     </div>
+    <?php } else {
+    ?>
+		<svg class="icon svg-marker-simple"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#it-user"></use></svg>
     <?php } ?>
 </div>
 <?php } 

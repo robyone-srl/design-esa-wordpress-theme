@@ -26,7 +26,6 @@ if($unita_organizzativa != "") {
 }
 
 $locale = setlocale(LC_ALL, 'it_IT@euro', 'it_IT', 'it', 'it');
-
 ?>
 
 <div class="card card-teaser card-teaser-info rounded shadow-sm p-4 me-3">
@@ -35,7 +34,7 @@ $locale = setlocale(LC_ALL, 'it_IT@euro', 'it_IT', 'it', 'it');
             <?php echo $incarico_post->post_title; ?>
         </h5>
         <div class="card-text">
-            <p>Tipo di incarico: <?php echo strtolower($tipo_incarico[0]->name); ?>
+            <p>Incarico <?php echo strtolower($tipo_incarico[0]->name); ?>
             <?php 
             if($unita_organizzativa != "") {
                 echo " presso ". $unita_organizzativa->post_title;
@@ -74,15 +73,15 @@ $locale = setlocale(LC_ALL, 'it_IT@euro', 'it_IT', 'it', 'it');
                     <h6>Periodo di svolgimento</h6>
 
                     <?php if($data_inizio_incarico != "") {?>
-                    <p class="mb-0"><strong>Inizio:</strong> <?php echo strftime('%d %B %Y',$data_inizio_incarico); ?></p>
+                    <p class="mb-0"><strong>Inizio:</strong> <?php echo printDateTime('d LLLL Y', $data_inizio_incarico); ?></p>
                     <?php } ?>
 
                     <?php if($data_insediamento != "") {?>
-                        <p class="mb-0"><strong>Insediamento:</strong> <?php echo strftime('%d %B %Y',$data_insediamento); ?></p>
+                        <p class="mb-0"><strong>Insediamento:</strong> <?php echo printDateTime('d LLLL Y', $data_insediamento); ?></p>
                     <?php } ?>
 
                     <?php if($data_conclusione_incarico != "") {?>
-                        <p class="mb-0"><strong>Conclusione:</strong> <?php echo strftime('%d %B %Y',$data_conclusione_incarico); ?></p>
+                        <p class="mb-0"><strong>Conclusione:</strong> <?php echo printDateTime('d LLLL Y', $data_conclusione_incarico); ?></p>
                     <?php } ?>
                 </div>
             <?php } ?>

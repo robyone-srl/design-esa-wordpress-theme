@@ -969,11 +969,14 @@ if(!function_exists("dci_get_full_punto_contatto")) {
         foreach ($voci as $voce) {
             $tipo = $voce[$prefix.'tipo_punto_contatto'];
             $valore = $voce[$prefix.'valore'];
-            
+            $dettagli = $voce[$prefix.'dettagli'];
+
+            $dati = array("valore"=>$valore, "dettagli"=>$dettagli);
+
             if ( !array_key_exists($tipo, $arrdata) ){
                 $arrdata[$tipo] = array();
             } 
-            array_push($arrdata[$tipo], $valore);
+            array_push($arrdata[$tipo], $dati);
         }
 
         return $arrdata;
@@ -1149,4 +1152,9 @@ if(!function_exists("dci_removeslashes")) {
         $string=implode("",explode("\\",$string)); 
         return stripslashes(trim($string)); 
     }
+}
+
+function printDateTime($format, $date) {
+	$format =  new IntlDateFormatter('it_IT', IntlDateFormatter::FULL, IntlDateFormatter::FULL,  'Europe/Rome', IntlDateFormatter::GREGORIAN, $format);
+	return datefmt_format( $format, $date);
 }

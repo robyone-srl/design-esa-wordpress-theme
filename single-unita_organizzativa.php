@@ -222,7 +222,8 @@ get_header();
                                     <h3 class="my-2 title-large-semi-bold">Responsabile</h3>
                                     <div class="richtext-wrapper lora">
                                         <div class="row g-2">
-                                            <?php foreach ($responsabili as $pp_id) { ?>
+											<?php
+                            foreach ($responsabili as $pp_id) { ?>
                                                 <div class="col-lg-6 col-md-12">
 													<?php get_template_part("template-parts/persona_pubblica/card"); ?>
                                                 </div>
@@ -236,13 +237,13 @@ get_header();
                                 <section id="persone" class="it-page-section mb-4">
                                     <h3 class="my-2 title-large-semi-bold">Persone</h3>
                                     <div class="richtext-wrapper lora">
-                                        Tutte le persone che fanno parte di questo ufficio:
+                                        Tutte le persone che fanno parte di questa unità:
                                         <div class="row g-2">
-                                            <?php foreach ($persone as $pp_id) { ?>
-                                            <div class="col-lg-6 col-md-12">
-                                                <?php get_template_part("template-parts/persona_pubblica/card"); ?>
-                                            </div>
-                                            <?php } ?>
+											<?php foreach ($persone as $pp_id) { ?>
+                                                <div class="col-lg-6 col-md-12">
+													<?php get_template_part("template-parts/persona_pubblica/card"); ?>
+                                                </div>
+											<?php } ?>
                                         </div>
                                     </div>
                                 </section>
