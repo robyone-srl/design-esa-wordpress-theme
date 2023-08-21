@@ -25,55 +25,57 @@ if(count($argomenti)) {
 
         <section id="contenuti-correlati" class="bg-grey-card shadow-contacts">
           <div class="container pt-5">
-            <div class="it-carousel-wrapper carousel-4-card splide cmp-carousel" data-bs-carousel-splide>
+            <div class="it-carousel-wrapper it-carousel-landscape-abstract-three-cols splide" data-bs-carousel-splide>
               <div class="it-header-block">
                 <div class="it-header-block-title">
-                  <h2 class="text-center border-0 cmp-carousel__title pb-0 pb-0">Contenuti correlati</h2>
+                  <h2 class="text-center border-0 pb-0 pb-0">Contenuti correlati</h2>
                 </div>
               </div>
-              <div class="splide__track">
+              <div class="splide__track ps-lg-3 pe-lg-3">
                 <ul class="splide__list it-carousel-all">
                   <?php if ( count($amministrazione) ) { ?>
                   <li class="splide__slide">
-                    <div class="card-wrapper card-space h-100 pb-4">
-                      <div class="card card-bg single-card rounded shadow-sm">
-                        <div class="cmp-carousel__header">
-                          <svg class="icon icon-md" aria-hidden="true" >
-                            <use href="#it-pa"></use>
-                          </svg>
-                          <span class="ms-3 cmp-carousel__header-title">Amministrazione</span>
-                        </div>
-                        <div class="card-body">
-                          <div class="link-list-wrapper">
-                            <ul class="link-list card-body__list">
-                            <?php foreach (array_slice($amministrazione, 0, 4) as $item) { ?>
-                              <li>
-                              <a class="list-item px-0" href="<?php echo get_permalink($item->ID); ?>"><span><?php echo $item->post_title; ?></span></a>
-                              </li>
-                            <?php } ?>
-                            <?php if (count($amministrazione) > 4) { ?>
-                                <li>
-                                  <a class="show-more px-0" data-bs-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                    <span class="show-more d-flex align-items-center">Vedi altri <?php echo count($amministrazione) - 4;?>
-                                      <svg class="icon icon-primary icon-md">
-                                        <use href="#it-expand"></use>
-                                      </svg>
-                                    </span>
-                                  </a>
-                                  <ul class="collapse" id="collapseExample">
-                                  <?php foreach (array_slice($amministrazione, 4) as $item) { ?>
-                                  <li>
+                      <div class="it-single-slide-wrapper">
+                  		  <div class="card-wrapper card-space">
+                      		<div class="card card-bg rounded shadow-sm">
+                            <div class="card-body">
+                              <div class="category-top">
+                                <svg class="icon icon-md" aria-hidden="true" >
+                                  <use href="#it-pa"></use>
+                                </svg>
+                                <span class="ms-3">Amministrazione</span>
+                              </div>
+                              <div class="link-list-wrapper">
+                                <ul class="link-list card-body__list">
+                                  <?php foreach (array_slice($amministrazione, 0, 4) as $item) { ?>
+                                    <li>
                                     <a class="list-item px-0" href="<?php echo get_permalink($item->ID); ?>"><span><?php echo $item->post_title; ?></span></a>
-                                  </li>
+                                    </li>
                                   <?php } ?>
-                                  </ul>
-                                </li>
-                              <?php }?>
-                            </ul>
+                                  <?php if (count($amministrazione) > 4) { ?>
+                                      <li>
+                                        <a class="show-more px-0" data-bs-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                          <span class="show-more d-flex align-items-center">Vedi altri <?php echo count($amministrazione) - 4;?>
+                                            <svg class="icon icon-primary icon-md">
+                                              <use href="#it-expand"></use>
+                                            </svg>
+                                          </span>
+                                        </a>
+                                        <ul class="collapse" id="collapseExample">
+                                        <?php foreach (array_slice($amministrazione, 4) as $item) { ?>
+                                        <li>
+                                          <a class="list-item px-0" href="<?php echo get_permalink($item->ID); ?>"><span><?php echo $item->post_title; ?></span></a>
+                                        </li>
+                                        <?php } ?>
+                                        </ul>
+                                      </li>
+                                    <?php }?>
+                                </ul>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
                   </li>
                   <?php } ?>
                   <?php if ( count($servizi) ) { ?>

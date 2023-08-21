@@ -969,7 +969,7 @@ if(!function_exists("dci_get_full_punto_contatto")) {
         foreach ($voci as $voce) {
             $tipo = $voce[$prefix.'tipo_punto_contatto'];
             $valore = $voce[$prefix.'valore'];
-            $dettagli = $voce[$prefix.'dettagli'];
+            $dettagli = array_key_exists($prefix.'dettagli',$voce) ? $voce[$prefix.'dettagli'] : null;
 
             $dati = array("valore"=>$valore, "dettagli"=>$dettagli);
 
