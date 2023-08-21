@@ -12,11 +12,10 @@ function dci_register_bootstrap_italia_options(){
         'title'        => esc_html__( 'Bootstrap Italia', 'design_comuni_italia' ),
         'object_types' => array( 'options-page' ),
         'option_key'   => 'bootstrap_italia',
+    	'capability'    => 'manage_options',
+        'parent_slug'  => 'dci_options',
         'tab_group'    => 'dci_options',
-        'tab_title'    => __('Bootstrap Italia', "design_comuni_italia"),
-        'capability'    => 'manage_options',
-        'position'        => 2, // Menu position. Only applicable if 'parent_slug' is left empty.
-        'icon_url'        => 'dashicons-admin-tools', // Menu icon. Only applicable if 'parent_slug' is left empty.
+        'tab_title'    => __('Bootstrap Italia', "design_comuni_italia")
     );
 
     // 'tab_group' property is supported in > 2.4.0.
@@ -53,7 +52,7 @@ function custom_bi_css_file_option_update(string $object_id, array $updated, CMB
         }
         else{
             $myfile = fopen($file, "w");
-            fwrite($myfile, $css);
+            fwrite($myfile, stripslashes($css));
             fclose($myfile);
         }
 
