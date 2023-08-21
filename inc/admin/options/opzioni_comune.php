@@ -92,4 +92,39 @@ function dci_register_comune_options(){
         ))
     ));
 
+    $header_options->add_field( array(
+    'id'    => $prefix . 'comuni_css',
+    'name' => __('Comuni css', 'design_comuni_italia' ),
+    'desc' => __('Customizzazione del foglio di stile <strong>comuni.css</strong> per personalizzare la grafica del sito. <br> <strong>Nota</strong>. Se il campo é vuoto viene utilizzato quello di default presente nel tema' , 'design_comuni_italia' ),
+    'type' => 'textarea'
+));
+
 }
+
+
+function custom_comuni_css_file_option_update(string $object_id, array $updated, CMB2 $cmb) {
+
+    if(array_key_exists("comuni_css", $cmb->data_to_save)){
+        $css =  $cmb->data_to_save["comuni_css"];
+        $file = get_theme_file_path( '/assets/css/comuni-custom.css');
+
+        if(empty($css))
+            unlink($file);
+        else{
+            $myfile = fopen($file, "w");
+            fwrite($myfile, $cmb->data_to_save["comuni_css"]);
+            fclose($myfile);
+        }
+
+    }
+}
+add_action( 'cmb2_save_options-page_fields_dci_options_configurazione', 'custom_comuni_css_file_option_update', 10, 3 );
+
+
+function load_comuni_custom_css(){
+    $file_comuni = get_theme_file_path( '/assets/css/comuni-custom.css');
+    if(file_exists($file_comuni))
+        wp_register_style( 'dci-comuni', get_template_directory_uri() . '/assets/css/comuni-custom.css');
+
+}
+add_action( 'wp_enqueue_scripts', 'load_comuni_custom_css' );

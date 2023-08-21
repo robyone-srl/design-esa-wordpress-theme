@@ -13,6 +13,10 @@ $img = dci_get_term_meta('immagine', "dci_term_", $argomento->term_id);
 $aree_appartenenza = dci_get_term_meta('area_appartenenza', "dci_term_", $argomento->term_id);
 $assessorati_riferimento = dci_get_term_meta('assessorato_riferimento', "dci_term_", $argomento->term_id);
 
+if(!$img) {
+	$img = get_template_directory_uri() . '/assets/placeholders/placeholder-1280x960-02.jpg';
+}
+
 get_header();
 ?>
 <main>

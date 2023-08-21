@@ -929,3 +929,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   color: #333 !important;
   fill: #333 !important;
 }
+
+.splide__list {
+    height:auto!important;
+}
