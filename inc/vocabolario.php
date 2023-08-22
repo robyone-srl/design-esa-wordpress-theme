@@ -247,7 +247,7 @@ if(!function_exists("dci_tipi_doc_albo_pretorio_array")){
             'Atto amministrativo' => [
                 'Decreto' => [
                     'Decreto del Dirigente',
-                    'Decreto del Sindaco'
+                    'Decreto del Presidente'
                 ],
                 'Deliberazione' => [
                     'Deliberazione del Consiglio comunale',

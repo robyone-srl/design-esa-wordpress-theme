@@ -95,6 +95,7 @@ get_header();
     	<?php get_template_part("template-parts/argomento/amministrazione-detail"); ?>
     	<?php get_template_part("template-parts/argomento/servizi-detail"); ?>
     	<?php get_template_part("template-parts/argomento/documenti-detail"); ?>
+    	<?php get_template_part("template-parts/argomento/luoghi-detail"); ?>
     <?php
     } else {
     ?>

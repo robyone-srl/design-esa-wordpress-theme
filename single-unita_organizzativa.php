@@ -23,7 +23,7 @@ get_header();
 
 			$immagine = dci_get_meta("immagine", $prefix, $post->ID);
 			$descrizione_breve = dci_get_meta("descrizione_breve", $prefix, $post->ID);
-			$competenze = dci_get_meta("competenze", $prefix, $post->ID);
+			$competenze = dci_get_wysiwyg_field("competenze");
 			$tipi_organizzazione = get_the_terms($post, 'tipi_unita_organizzativa');
 			$tipo_organizzazione = array_column($tipi_organizzazione, 'name') ?? null;
 			$unita_organizzativa_genitore = dci_get_meta("unita_organizzativa_genitore", $prefix, $post->ID);
@@ -41,7 +41,6 @@ get_header();
 			$allegati = dci_get_meta("allegati", $prefix, $post->ID);
 
 			$more_info = dci_get_wysiwyg_field("ulteriori_informazioni");
-
         ?>
 
             <div class="container" id="main-container">
@@ -191,19 +190,19 @@ get_header();
                             <section id="competenze" class="it-page-section mb-4">
                                 <h3 class="my-2 title-large-semi-bold">Competenze</h3>
                                 <div class="richtext-wrapper lora">
+                                    <p>
+									<?php foreach ($tipo_organizzazione as $tipo) {
+                                    	?>
+                                        <span class="chip chip-simple">
+      										<span class="chip-label"><?php echo ucfirst($tipo);?></span>
+    									</span>
+                                        <?php
+									} ?>
+                                    </p>
 									<?php echo $competenze ?>
                                 </div>
                             </section>
-                            <section id="tipo-uo" class="it-page-section mb-4">
-                                <h3 class="my-2 title-large-semi-bold">Tipologia di organizzazione</h3>
-                                <div class="richtext-wrapper lora">
-									<?php foreach ($tipo_organizzazione as $tipo) {
-										echo ucfirst($tipo);
-									} ?>
-                                </div>
-                            </section>
-
-
+                                    
 							<?php if ($unita_organizzativa_genitore) { ?>
                                 <section id="area" class="it-page-section mb-4">
                                     <h3 class="my-2 title-large-semi-bold">Area di riferimento</h3>

@@ -204,7 +204,7 @@ function updateArgomentiDescription() {
     ));
     foreach($terms as $term){
         $args = array(
-            'description' => 'Servizi comunali, documenti, uffici, notizie ed eventi relativi a '.$term->name
+            'description' => 'Servizi, documenti, uffici, notizie e altre informazioni relativi a '.$term->name
         );
         wp_update_term($term->term_id,'argomenti',$args);
     }

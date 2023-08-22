@@ -21,7 +21,7 @@ $last_notification = get_user_meta($current_user->ID,"_dci_last_notification", t
 ?>
 
 <div class="it-user-wrapper nav-item dropdown">
-    <a aria-expanded="false" class="btn btn-primary btn-icon btn-full" data-toggle="dropdown" href="#">
+    <a aria-expanded="false" class="btn btn-primary btn-icon btn-full" data-bs-toggle="dropdown" href="#">
         <span class="rounded-icon">
             <img src="<?php echo dci_get_user_avatar($current_user); ?>" class="border rounded-circle icon-white" alt="<?php echo dci_get_display_name($current_user->ID); ?>" style="max-width:20px;"/>
         </span>
@@ -37,21 +37,26 @@ $last_notification = get_user_meta($current_user->ID,"_dci_last_notification", t
             <div class="col-12">
                 <div class="link-list-wrapper">
                 <ul class="link-list">
-                    <li>
-                    <a class="list-item" href="#"><span>I miei servizi</span></a>
+                    <li class="active">
+                        <a href="<?php echo admin_url(); ?>">
+                            <svg class="icon icon-primary icon-sm left"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#it-list"></use></svg>
+                            <span><?php _e("Area personale", "design_comuni_italia"); ?></span>
+                        </a>
                     </li>
-                    <li>
-                    <a class="list-item" href="#"><span>Le mie pratiche</span></a>
-                    </li>
-                    <li>
-                    <a class="list-item" href="#"><span>Notifiche</span></a>
-                    </li>
-                    <li>
-                    <span class="divider"></span>
-                    </li>
-                    <li>
-                    <a class="list-item" href="#"><span>Impostazioni</span></a>
-                    </li>
+                    <?php
+                    if($last_notification) {
+                        ?>
+                        <li class="has-notifications">
+                            <a href="<?php echo $link_notification; ?>">
+                                <svg class="icon icon-primary icon-sm left">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#it-info-circle"></use>
+                                </svg>
+                                <span><?php _e("Notifiche", "design_comuni_italia"); ?></span>
+                            </a>
+                        </li>
+                        <?php
+                    }
+                    ?>
                     <li>
                     <a class="list-item left-icon" href="<?php echo wp_logout_url(); ?>">
                         <svg class="icon icon-primary icon-sm left">

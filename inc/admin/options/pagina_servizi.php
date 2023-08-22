@@ -49,4 +49,69 @@ function dci_register_pagina_servizi_options(){
             )
         )
     );
+
+    $servizi_options->add_field(array(
+        'id' => $prefix . 'prenota_appuntamento',
+        'name' => __('Mostra pulsanti per la prenotazione degli appuntamenti', 'design_comuni_italia'),
+        'desc' => __('Se abilitata, vengono mostrati i collegamenti per il modulo di prenotazione degli appuntamenti (richiede collegamento informatico al servizio utilizzato dall\'ente)', 'design_comuni_italia'),
+        'type' => 'radio_inline',
+        'default' => 'false',
+        'options' => array(
+            'true' => __('Si', 'design_comuni_italia'),
+            'false' => __('No', 'design_comuni_italia'),
+        ),
+        'attributes' => array(
+            'data-conditional-value' => "false",
+        ),
+    ));
+
+    $servizi_options->add_field(array(
+        'id' => $prefix . 'richiedi_assistenza',
+        'name' => __('Mostra pulsanti per la richiesta di assistenza', 'design_comuni_italia'),
+        'desc' => __('Se abilitata, vengono mostrati i collegamenti per il modulo di richiesta assistenza (richiede collegamento informatico al servizio utilizzato dall\'ente)', 'design_comuni_italia'),
+        'type' => 'radio_inline',
+        'default' => 'false',
+        'options' => array(
+            'true' => __('Si', 'design_comuni_italia'),
+            'false' => __('No', 'design_comuni_italia'),
+        ),
+        'attributes' => array(
+            'data-conditional-value' => "false",
+        ),
+    ));
+
+
+    $servizi_options->add_field( array(
+        'id' => $prefix . 'login_messaggio',
+        'name' => 'Testo da mostrare nell\'area di login per i servizi esterni',
+        'type' => 'textarea',
+        'default' => 'Da qui puoi accedere ai diversi servizi della casa di riposo che richiedono una autenticazione personale.',
+    ) );
+
+
+    $serv_esterni_group_id = $servizi_options->add_field( array(
+        'id'           => $prefix . 'link_esterni',
+        'type'        => 'group',
+        'name'        => 'Link servizi esterni',
+        'desc' => __( 'Definisci tutti i servizi esterni che vuoi mostrare agli utenti in fase di login.' , 'design_comuni_italia' ),
+        'repeatable'  => true,
+        'options'     => array(
+            'group_title'   => __( 'Link {#}', 'design_comuni_italia' ),
+            'add_button'    => __( 'Aggiungi un elemento', 'design_comuni_italia' ),
+            'remove_button' => __( 'Rimuovi l\'elemento ', 'design_comuni_italia' ),
+            'sortable'      => true,  // Allow changing the order of repeated groups.
+        ),
+    ) );
+
+    $servizi_options->add_group_field( $serv_esterni_group_id, array(
+        'id' => $prefix . 'nome_link',
+        'name'        => __( 'Nome Servizio', 'design_comuni_italia' ),
+        'type' => 'text',
+    ) );
+
+    $servizi_options->add_group_field( $serv_esterni_group_id, array(
+        'id' => $prefix . 'url_link',
+        'name'        => __( 'Link Servizio', 'design_comuni_italia' ),
+        'type' => 'text_url',
+    ) );
 }

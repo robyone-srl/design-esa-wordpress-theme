@@ -80,7 +80,11 @@ function dci_add_luogo_metaboxes() {
         'desc'      => __( 'Non obbligatoria perché il luogo potrebbe non essere un POI', 'design_comuni_italia' ),
         'type'           => 'taxonomy_multicheck_hierarchical',
         'taxonomy'       => 'tipi_luogo',
-        'remove_default' => 'true'
+        'remove_default' => 'true',
+        'show_option_none' => true,
+        'attributes' => array(
+            'required' => 'required'
+        )
     ) );
 
     //argomenti
