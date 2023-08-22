@@ -19,9 +19,7 @@ $other_contacts = array(
 <div class="card card-teaser card-teaser-info rounded shadow-sm p-4 me-3">
     <div class="card-body pe-3">
         <h5 class="card-title">
-            <a href="#">
             <?php echo $contatto->post_title; ?>
-            </a>
         </h5>
         <div class="card-text">
             <?php if (array_key_exists('indirizzo', $full_contatto) && is_array($full_contatto['indirizzo']) && count ($full_contatto['indirizzo']) ) {

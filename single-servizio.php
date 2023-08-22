@@ -449,9 +449,11 @@ get_header();
                                 </button>
                                 <?php } ?>
                                 <p class="text-paragraph lora mt-4" data-element="service-generic-access"><?php echo $canale_fisico_text; ?></p>
+                                <?php if (dci_get_option( "prenota_appuntamento", "servizi" )) { ?>
                                 <button type="button" class="btn btn-outline-primary t-primary bg-white mobile-full" onclick="location.href='<?php echo dci_get_template_page_url('page-templates/prenota-appuntamento.php'); ?>';" data-element="service-booking-access">
                                     <span class="">Prenota appuntamento</span>
                                 </button>
+                                <?php } ?>
                             </section>
                             <?php if ( $more_info ) {  ?>
                             <section class="it-page-section mb-30">

@@ -85,6 +85,10 @@ function dci_add_incarico_metaboxes()
             'required'    => 'required',
             'placeholder' =>  __( 'Seleziona una Persona Pubblica', 'design_comuni_italia' ),
         ),
+        'column' => array(
+            'position' => 2
+        ),
+        'display_cb' => 't_incarico_display_persona_value'
     ) );
 
     $cmb_dati->add_field( array(
@@ -102,6 +106,10 @@ function dci_add_incarico_metaboxes()
         'options' => dci_get_posts_options('unita_organizzativa'),'attributes' => array(
             'placeholder' =>  __( 'Seleziona una Unità Organizzativa', 'design_comuni_italia' ),
         ),
+        'column' => array(
+            'position' => 3
+        ),
+        'display_cb' => 't_incarico_display_unita_org_value'
     ) );
 
     /*
@@ -225,4 +233,36 @@ function dci_add_incarico_metaboxes()
         ),
     ) );
 
+}
+
+/**
+ * Manually render a field column display.
+ *
+ * @param  array      $field_args Array of field arguments.
+ * @param  CMB2_Field $field      The field object
+ */
+function t_incarico_display_persona_value( $field_args, $field ) {
+    $list = dci_get_posts_options('persona_pubblica');
+    
+    if($field->value)
+        echo $list[intval($field->value)];
+    ?>
+    
+    <?php
+}
+
+/**
+ * Manually render a field column display.
+ *
+ * @param  array      $field_args Array of field arguments.
+ * @param  CMB2_Field $field      The field object
+ */
+function t_incarico_display_unita_org_value( $field_args, $field ) {
+    $list = dci_get_posts_options('unita_organizzativa');
+    
+    if($field->value)
+        echo $list[intval($field->value)];
+    ?>
+    
+    <?php
 }

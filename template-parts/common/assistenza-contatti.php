@@ -18,6 +18,7 @@
                       ></use></svg><span>Leggi le domande frequenti</span></a
                   >
                 </li>
+				<?php if (dci_get_option( "richiedi_assistenza", "servizi" )) { ?>
                 <li>
                   <a class="list-item" href="<?php echo dci_get_template_page_url('page-templates/assistenza.php'); ?>" data-element="contacts"
                     ><svg class="icon icon-primary icon-sm" aria-hidden="true">
@@ -26,6 +27,7 @@
                       ></use></svg><span>Richiedi assistenza</span></a
                   >
                 </li>
+                <?php } ?>
 
                 <?php if($centralino_unico) { ?>
                 <li>
@@ -49,19 +51,15 @@
                   >
                 </li>
                 <?php } ?>
-              </ul>
-              <h2 class="title-medium-2-semi-bold mt-4">
-                Problemi nel sito web
-              </h2>
-              <ul class="contact-list p-0">
-                <li>
-                  <a class="list-item" href="#"
-                    ><svg class="icon icon-primary icon-sm" aria-hidden="true">
-                      <use
-                        href="#it-map-marker-circle"
-                      ></use></svg><span>Segnala disservizio</span></a
-                  >
+                <?php if (dci_get_option( "prenota_appuntamento", "servizi" )) { ?>
+                  <li>
+                  <a class="list-item" href="<?php echo dci_get_template_page_url("page-templates/prenota-appuntamento.php");?>" data-element="appointment-booking">
+                    <svg class="icon icon-primary icon-sm" aria-hidden="true">
+                      <use href="#it-calendar"></use>
+                    </svg><span>Prenota appuntamento</span>
+                  </a>
                 </li>
+                <?php } ?>
               </ul>
             </div>
           </div>

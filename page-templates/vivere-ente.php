@@ -14,7 +14,9 @@ get_header();
 		while ( have_posts() ) :
 			the_post();
 			
-			$img = dci_get_option('immagine', 'vivi');
+			$img = !empty(dci_get_option('immagine', 'vivi'))
+    			? dci_get_option('immagine', 'vivi')
+    			: get_template_directory_uri()."\assets\placeholders\img-placeholder-500x384.png";
 			$didascalia = dci_get_option('didascalia', 'vivi');
 			?>
 			<?php get_template_part("template-parts/hero/hero"); ?>

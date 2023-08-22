@@ -938,3 +938,211 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .splide__list {
     height:auto!important;
 }
+
+
+#access-modal {
+    padding: 0;
+    overflow-y: hidden
+}
+
+#access-modal.modal .modal-dialog {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    margin: 0
+}
+
+#access-modal.modal .modal-dialog .modal-content {
+    height: 100%;
+    overflow-y: auto
+}
+
+@media (max-width: 991.98px) {
+    #access-modal.modal .modal-dialog .modal-content .modal-body {
+        padding-left:0;
+        padding-right: 0;
+        padding-bottom: 0
+    }
+}
+
+#access-modal.modal .modal-dialog .modal-content .modal-body p {
+    font-size: 1rem
+}
+
+@media (min-width: 992px) {
+    #access-modal.modal .modal-dialog .modal-content .modal-body:before {
+        content:"";
+        background-color: var(--bs-primary);
+        width: 50%;
+        height: 100%;
+        display: block;
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        right: 0
+    }
+}
+
+#access-modal.modal .modal-dialog .modal-content .modal-body .access-main-wrapper {
+    position: relative;
+    z-index: 2
+}
+
+#access-modal .h2,#access-modal h2 {
+    font-size: 3.5rem;
+    font-weight: 600;
+    letter-spacing: -2px
+}
+
+@media (max-width: 767.98px) {
+    #access-modal .h2,#access-modal h2 {
+        font-size:1.47rem;
+        letter-spacing: 0
+    }
+}
+
+#access-modal .form-group {
+    position: relative;
+    z-index: 0;
+    margin: 0 0 30px 0
+}
+
+#access-modal .form-group label {
+    display: none
+}
+
+#access-modal .form-group input {
+    padding: 0 20px 0 0;
+    border-color: #d1d6db;
+    font-size: 1.2rem;
+    height: 42px;
+    background-color: transparent;
+    border-color: #fff
+}
+
+@media (max-width: 767.98px) {
+    #access-modal .form-group input {
+        font-size:1rem;
+        height: 42px
+    }
+}
+
+#access-modal .form-group .form-control {
+    color: #fff
+}
+
+#access-modal .form-group .form-control::-webkit-input-placeholder {
+    color: #fff!important
+}
+
+#access-modal .form-group .form-control:-ms-input-placeholder {
+    color: #fff!important
+}
+
+#access-modal .form-group .form-control::placeholder {
+    color: #fff!important
+}
+
+#access-modal .form-group svg {
+    position: absolute;
+    z-index: 1;
+    bottom: 15px;
+    left: 0;
+    width: 35px;
+    height: 35px;
+    fill: #0066cc
+}
+
+@media (max-width: 767.98px) {
+    #access-modal .form-group svg {
+        width:17px;
+        height: 17px;
+        bottom: 12px
+    }
+}
+
+#access-modal .dismiss {
+    opacity: 1;
+    margin: 28px 0 0 0
+}
+
+@media (max-width: 767.98px) {
+    #access-modal .dismiss {
+        margin-top:0
+    }
+}
+
+#access-modal .dismiss svg {
+    width: 32px;
+    height: 32px;
+    fill: #555555
+}
+
+@media (min-width: 992px) {
+    #access-modal .dismiss svg {
+        fill:#ffffff
+    }
+}
+
+@media (max-width: 767.98px) {
+    #access-modal .dismiss svg {
+        width:18px;
+        height: 18px
+    }
+}
+
+#access-modal .text-intro {
+    font-size: 1.17rem!important;
+    line-height: 1.5
+}
+
+.access-login-form {
+    padding: 30px 0 0 0
+}
+
+.access-login {
+    font-size: 1rem
+}
+
+.access-login a {
+    color: #fff
+}
+
+.access-login .h3,.access-login h3,.access-login p {
+    color: #fff
+}
+
+.access-login .text-large {
+    font-size: 1.17rem!important;
+    opacity: .7
+}
+
+.access-login .form-check,.access-login label {
+    color: #fff
+}
+
+.access-login .form-check [type=checkbox]:not(:checked)+label::after {
+    border-color: #fff
+}
+
+.access-login .form-check [type=checkbox]:checked+label::after {
+    border-color: #fff;
+    background-color: #fff
+}
+
+.access-login .form-check [type=checkbox]:checked+label::before {
+    border-color: transparent #51758d #51758d transparent
+}
+
+.access-buttons {
+    padding: 35px 0 0 0
+}
+
+@media (max-width: 991.98px) {
+    .access-mobile-bg {
+        background-color:#455b71;
+        overflow: hidden;
+        padding: 27px 0 80px 0;
+        margin: 30px 0 0 0
+    }
+}

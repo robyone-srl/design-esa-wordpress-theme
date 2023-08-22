@@ -81,7 +81,7 @@ function dci_add_luogo_metaboxes() {
         'type'           => 'taxonomy_radio_hierarchical',
         'taxonomy'       => 'tipi_luogo',
         'remove_default' => 'true',
-        'show_option_none' => false,
+        'show_option_none' => true,
         'attributes' => array(
             'required' => 'required'
         )
