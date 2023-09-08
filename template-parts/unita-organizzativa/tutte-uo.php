@@ -32,7 +32,7 @@ switch ($post->post_name){
         $tax = array (
 		    'taxonomy' => 'tipi_unita_organizzativa',
 		    'field' => 'slug',
-		    'terms' => 'struttura-amministrativa',
+		    'terms' => 'ufficio',
 	    );
         array_push($tax_query, $tax);
 
