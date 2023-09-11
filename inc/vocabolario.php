@@ -607,7 +607,7 @@ if(!function_exists('dci_get_categorie_servizio_descriptions_array')){
         $categorie_servizio_descriptions_arr = [
             'Servizi socio-assistenziali' => 'La struttura, nell\'ambito dei suoi obiettivi e delle possibilità di assistenza, offre servizi socio-assistenziali come la residenzialità, la semi-residenzialità, i ricoveri temporanei e l\'assistenza domiciliare',
 			'Assistenza amministrativa' => 'Servizi disponibili online o a sportello, per richiedere documenti e permessi, iscriversi a graduatorie ed effettuare pagamenti',
-			'Servizi integrativi' => 'Servizi complementari alla socio-assistenza come l\animazione, la ristorazione e la pulizia degli ambienti',
+			'Servizi integrativi' => 'Servizi complementari alla socio-assistenza come l\'animazione, la ristorazione e la pulizia degli ambienti',
 			'Servizi aggiuntivi' => 'Oltre ai servizi principali, l\'Ente offre anche servizi extra per rispondere ad ogni tipo di necessità'
             ];
         return $categorie_servizio_descriptions_arr;
