@@ -163,13 +163,10 @@ function dci_add_incarico_metaboxes()
 
     $cmb_date->add_field( array(
         'id' => $prefix . 'data_inizio_incarico',
-        'name'    => __( 'Data inizio incarico *', 'design_comuni_italia' ),
+        'name'    => __( 'Data inizio incarico', 'design_comuni_italia' ),
         'desc' => __( 'Data di inizio dell\'incarico' , 'design_comuni_italia' ),
         'type'    => 'text_date_timestamp',
         'date_format' => 'd-m-Y',
-        'attributes'    => array(
-            'required'    => 'required'
-        ),
     ) );
 
     $cmb_date->add_field( array(
