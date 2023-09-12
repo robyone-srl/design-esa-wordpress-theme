@@ -4,7 +4,7 @@
 
 ## **Un sito per le Case di riposo Italiane**
 
-### I primi passi con il tema Wordpress (1.7.2)
+### I primi passi con il tema Wordpress (1.7.3)
 
 **Design CDR Italia** è il tema di WordPress per i siti delle CDR Italiane. Rispetta le linee guida di design dell’Agenzia per l’Italia digitale rilasciate dal Team per la Trasformazione Digitale. Utilizza Bootstrap Italia. <strong>Questa è una versione derivata da Design Comuni Italia, un fork nel quale Robyone ha applicato modifiche migliorative e necessarie per adattare il tema alle peculiarità del tipo di Ente a cui si riferisce. Robyone si impegna a proporre i cambiamenti per applicarli al tema nazionale e si impegna ad allineare ai nuovi aggiornamenti la fork. Codice sorgente pubblicato con medesima licenza del repository nazionale su <a href="https://github.com/sviluppoRobyone/design-cdr-wordpress-theme">https://github.com/sviluppoRobyone/design-cdr-wordpress-theme</a></strong>.
 

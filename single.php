@@ -48,16 +48,15 @@ get_header();
                             the_content();
                             ?>
 
-                            <div class="callout warning">
-                              <div class="callout-inner">
-                                <div class="callout-title">
-                                  <svg class="icon"><use href="#it-help-circle"></use></svg>
-                                  <span class="visually-hidden">Attenzione</span> 
-                                  <span class="text">Attenzione</span>
+                            <div class="callout note">
+                                <div class="callout-inner">
+                                    <div class="callout-title">
+                                        <svg class="icon"><use href="#it-info-circle"></use></svg>
+                                        <span class="visually-hidden">Attenzione</span> 
+                                        <span class="text">Attenzione</span>
+                                    </div>
+                                    <p><strong>Il modello di questa pagina non è ancora disponibile.</strong></p>
                                 </div>
-                                <p><strong>Il template di questa pagina non è ancora disponibile.</strong></p>
-                                <p>Nel frattempo, puoi controllare se è stato rilasciata la <a href="https://italia.github.io/design-comuni-pagine-statiche/">versione statica</p>
-                              </div>
                             </div>
                         </div>
                     </div>

@@ -78,7 +78,7 @@ get_header();
                     },
                     <?php endif; ?>
                     "audience": {
-                        "name": "<?php echo convertToPlain($destinatari); ?>"
+                        "audienceType": "<?php echo convertToPlain($destinatari); ?>"
                     },
                     "availableChannel": {
                         <?php if ( !empty($canale_digitale_link) ) : ?>
