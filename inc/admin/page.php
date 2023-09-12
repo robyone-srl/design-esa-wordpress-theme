@@ -34,6 +34,23 @@ function dci_add_page_metaboxes() {
         ),
     );
 
+    
+    //argomenti
+    $cmb_argomenti = new_cmb2_box( array(
+        'id'           => $prefix . 'box_argomenti',
+        'title'        => __( 'Argomenti', 'design_comuni_italia' ),
+        'object_types' => array( 'page' ),
+        'context'      => 'side',
+        'priority'     => 'high',
+    ) );
+    $cmb_argomenti->add_field( array(
+        'id' => $prefix . 'argomenti',
+        'type'             => 'taxonomy_multicheck_hierarchical',
+        'taxonomy'       => 'argomenti',
+        'show_option_none' => false,
+        'remove_default' => 'true',
+    ) );
+
     /**
      * disabilito editor body e title per le pagine del Sito dei Comuni
      * rendo il campo descrivione_breve readonly
