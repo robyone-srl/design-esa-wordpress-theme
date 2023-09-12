@@ -62,12 +62,14 @@ get_header();
                                 $hide_arguments = true;
                                 get_template_part('template-parts/single/actions');
                                 ?>
-                                <aside class="badges-wrapper badges-main mt-4">
-                                    <div class="title-small">Argomenti</div>
-                                    <?php
-                                    get_template_part("template-parts/common/badges-argomenti");
-                                    ?>
-                                </aside>
+                                <?php if ($argomenti) { ?>
+                                    <aside class="badges-wrapper badges-main mt-4">
+                                        <div class="title-small">Argomenti</div>
+                                        <?php
+                                        get_template_part("template-parts/common/badges-argomenti");
+                                        ?>
+                                    </aside>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
