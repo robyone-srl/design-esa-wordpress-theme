@@ -25,8 +25,12 @@ $args = array(
 $the_query = new WP_Query( $args );
 $servizi = $the_query->posts;
 
-$additional_filter = array();
-$additional_filter['categorie_servizio'] = $obj->slug;
+$additional_filter = array(
+	array (
+		'taxonomy' => 'categorie_servizio',
+		'field' => 'slug',
+		'terms' => $obj->slug
+	));
 
 $amministrazione = dci_get_related_unita_amministrative();
 $bandi = dci_get_related_bandi();
