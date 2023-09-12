@@ -73,9 +73,9 @@ get_header();
                     </div>
                 </div>
             </div>
-
-            <?php get_template_part('template-parts/single/image-large'); ?>
-
+        </div>
+        <?php get_template_part('template-parts/single/image-large'); ?>
+        <div>
             <div class="container">
                 <div class="row border-top row-column-border row-column-menu-left border-light">
                     <div class="col-12 col-lg-3 mb-4 border-col">
