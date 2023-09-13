@@ -71,12 +71,11 @@ if(!function_exists("dci_tipi_unita_organizzativa_array")){
  */
 if(!function_exists("dci_categorie_servizio_array")){
     function dci_categorie_servizio_array() {
-        $categorie_servizio_arr = [
-            'Servizi socio-assistenziali',
-			'Assistenza amministrativa',
-			'Servizi integrativi',
-			'Servizi aggiuntivi'
-        ];
+        $categorie_servizio_arr = array_column(get_terms(
+            array (
+                'taxonomy'=>'categorie_servizio',
+                'hide_empty' => false
+            )), 'name');
         return $categorie_servizio_arr;
     }
 }
