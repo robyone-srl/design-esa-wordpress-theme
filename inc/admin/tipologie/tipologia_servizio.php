@@ -258,7 +258,7 @@ function dci_add_servizi_metaboxes() {
 
     $cmb_cosa_serve->add_field( array(
         'id'         => $prefix . 'cosa_serve_list',
-        'name'       => __( 'Cosa Serve (lista) *', 'design_comuni_italia' ),
+        'name'       => __( 'Cosa Serve (lista)', 'design_comuni_italia' ),
         'desc'       => __( 'la lista di cosa serve' , 'design_comuni_italia' ),
         'type'       => 'textarea',
         'repeatable' => true
@@ -282,9 +282,6 @@ function dci_add_servizi_metaboxes() {
             'media_buttons' => false, // show insert/upload button(s)
             'textarea_rows' => 10, // rows="..."
             'teeny' => false, // output the minimal editor config used in Press This
-        ),
-        'attributes'    => array(
-            'required'    => 'required'
         ),
     ) );
 
@@ -388,16 +385,13 @@ function dci_add_servizi_metaboxes() {
 
     $cmb_accesso->add_field( array(
         'id' => $prefix . 'procedure_collegate',
-        'name'        => __( 'Procedure collegate all\'esito *', 'design_comuni_italia' ),
+        'name'        => __( 'Procedure collegate all\'esito', 'design_comuni_italia' ),
         'desc' => __( 'Questo campo indica cosa fare per conoscere \'esito della procedura, e dove eventualmente ritirare l\'esito (sede dell\'ufficio, orari, numero sportello, etc.)' , 'design_comuni_italia' ),
         'type' => 'wysiwyg',
         'options' => array(
             'media_buttons' => false, // show insert/upload button(s)
             'textarea_rows' => 10, // rows="..."
             'teeny' => false, // output the minimal editor config used in Press This
-        ),
-        'attributes'    => array(
-            'required'    => 'required'
         ),
     ) );
 
