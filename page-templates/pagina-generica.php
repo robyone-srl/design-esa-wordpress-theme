@@ -59,17 +59,8 @@ get_header();
                             </div>
                             <div class="col-lg-3 offset-lg-1 mt-5 mt-lg-0">
                                 <?php
-                                $hide_arguments = true;
                                 get_template_part('template-parts/single/actions');
                                 ?>
-                                <?php if ($argomenti) { ?>
-                                    <aside class="badges-wrapper badges-main mt-4">
-                                        <div class="title-small">Argomenti</div>
-                                        <?php
-                                        get_template_part("template-parts/common/badges-argomenti");
-                                        ?>
-                                    </aside>
-                                <?php } ?>
                             </div>
                         </div>
                     </div>
