@@ -275,7 +275,7 @@ function dci_add_servizi_metaboxes() {
 
     $cmb_cosa_ottieni->add_field( array(
         'id'    => $prefix . 'output',
-        'name'  => __( 'Output/Cosa si ottiene *', 'design_comuni_italia' ),
+        'name'  => __( 'Output/Cosa si ottiene', 'design_comuni_italia' ),
         'desc'  => __( 'Indicare uno o più output prodotti dal servizio. Ad es.: "certificato di residenza", o "carta d\'identità elettronica"...' , 'design_comuni_italia' ),
         'type'  => 'wysiwyg',
         'options' => array(
