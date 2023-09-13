@@ -1,5 +1,9 @@
 <?php 
-$categorie_servizio_names = dci_categorie_servizio_array();
+$categorie_servizio_names = array_column(get_terms(
+    array (
+        'taxonomy'=>'categorie_servizio',
+        'hide_empty' => false
+    )), 'name');
 ?>
 
 <div class="container py-5">
