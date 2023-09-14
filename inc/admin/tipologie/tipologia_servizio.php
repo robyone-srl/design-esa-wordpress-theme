@@ -32,7 +32,7 @@ function dci_register_post_type_servizio() {
 		'has_archive'      => false,
         'capability_type'  => array('servizio', 'servizi'),
         'map_meta_cap'     => true,
-        'description'      => __( "I servizi che la Casa di riposo mette a disposizione del cittadino.", 'design_comuni_italia' ),
+        'description'      => __( "I servizi che l'Ente mette a disposizione del cittadino.", 'design_comuni_italia' ),
         //'rewrite' => array('slug' => 'servizi'),
         'show_in_rest'       => true,
         'rest_base'          => 'servizi',

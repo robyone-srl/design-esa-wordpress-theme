@@ -3,7 +3,7 @@
     "Amministrazione": {
       "title": "Amministrazione",
       "slug": "amministrazione",
-      "description": "Tutte le informazioni sulla struttura amministrativa della Casa di Riposo. Scopri gli organi di governo e controllo, gli uffici e il personale e consulta i documenti pubblici, le statistiche e i bandi di gara.",
+      "description": "Tutte le informazioni sulla struttura amministrativa dell'Ente'. Scopri gli organi di governo e controllo, gli uffici e il personale e consulta i documenti pubblici, le statistiche e i bandi di gara.",
       "template_name": "amministrazione",
       "children": {
         "Organi governo": {
@@ -53,14 +53,14 @@
     "Novità": {
       "title": "Novità",
       "slug": "novita",
-      "description": "Tutte le novità dalla Casa di riposo per i cittadini per restare aggiornati.",
+      "description": "Tutte le novità dall'Ente per i cittadini per restare aggiornati.",
       "template_name": "novita",
       "children": {}
     },
     "Servizi": {
       "title": "Servizi",
       "slug": "servizi",
-      "description": "Tutti i servizi che la Casa di riposo offre ai cittadini e ai propri ospiti.",
+      "description": "Tutti i servizi che l'Ente offre ai cittadini e ai propri ospiti.",
       "template_name": "servizi",
       "children": {
         "Assistenza": {
@@ -79,44 +79,44 @@
         }
       }
     },
-    "Vivere la Casa di Riposo": {
-      "title": "Vivere la Casa di Riposo",
+    "Vivere l'Ente": {
+      "title": "Vivere l'Ente'",
       "slug": "vivere-ente",
-      "description": "Tutti gli eventi, le iniziative, i luoghi d’interesse, le informazioni sulla storia della Casa di riposo.",
+      "description": "Tutti gli eventi, le iniziative, i luoghi d’interesse, le informazioni sulla storia dell'Ente.",
       "template_name": "vivere-ente",
       "children": {
         "Eventi": {
           "title": "Eventi",
           "slug": "eventi",
-          "description": "Tutti gli eventi proposti dalla Casa di riposo.",
+          "description": "Tutti gli eventi proposti dall'Ente'.",
           "template_name": "eventi",
           "children": {}
         },
         "Luoghi": {
           "title": "Luoghi",
           "slug": "luoghi",
-          "description": "Tutti i luoghi d’interesse della Casa di riposo.",
+          "description": "Tutti i luoghi d’interesse dell'Ente.",
           "template_name": "luoghi",
           "children": {}
         },
         "Storia": {
           "title": "Storia",
           "slug": "storia",
-          "description": "La storia della Casa di riposo.",
+          "description": "La storia dell'Ente.",
           "template_name": "",
           "children": {}
         },
         "Valori e obiettivi": {
           "title": "Valori e obiettivi",
           "slug": "valori-obiettivi",
-          "description": "I valori della Casa di riposo.",
+          "description": "I valori dell'Ente.",
           "template_name": "",
           "children": {}
         },
         "Committato ospiti": {
           "title": "Comitato ospiti",
           "slug": "comitato-ospiti",
-          "description": "Comitato ospiti della Casa di riposo.",
+          "description": "Comitato ospiti dell'Ente.",
           "template_name": "",
           "children": {}
         }

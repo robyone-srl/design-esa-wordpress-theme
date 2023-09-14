@@ -1,5 +1,5 @@
 <?php
-    $pages = dci_get_children_pages('Vivere la Casa di Riposo');
+    $pages = dci_get_children_pages_by_path('vivere-ente');
     $arr_pages = array_keys((array)$pages);
 ?>
 <div class="container py-5">
