@@ -55,10 +55,10 @@ function dci_register_pagina_servizi_options(){
         'name' => __('Mostra pulsanti per la prenotazione degli appuntamenti', 'design_comuni_italia'),
         'desc' => __('Se abilitata, vengono mostrati i collegamenti per il modulo di prenotazione degli appuntamenti (richiede collegamento informatico al servizio utilizzato dall\'ente)', 'design_comuni_italia'),
         'type' => 'radio_inline',
-        'default' => 'false',
+        'default' => '',
         'options' => array(
             'true' => __('Si', 'design_comuni_italia'),
-            'false' => __('No', 'design_comuni_italia'),
+            '' => __('No', 'design_comuni_italia'),
         ),
         'attributes' => array(
             'data-conditional-value' => "false",
