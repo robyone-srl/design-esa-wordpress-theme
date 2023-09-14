@@ -39,6 +39,8 @@ get_header();
             $canale_digitale_link = dci_get_meta("canale_digitale_link");
             $canale_fisico_text = dci_get_meta("canale_fisico_text");
             $canale_fisico_uffici = dci_get_meta("canale_fisico_uffici");
+            $mostra_prenota_appuntamento = dci_get_option("prenota_appuntamento", "servizi");
+            $mostra_accedi_al_servizio = $canale_digitale_link || $canale_fisico_text || $canale_fisico_uffici || $mostra_prenota_appuntamento;
 
             $more_info = dci_get_wysiwyg_field("ulteriori_informazioni");
             $condizioni_servizio = dci_get_meta("condizioni_servizio");     
@@ -231,11 +233,13 @@ get_header();
                                                                 </li>
                                                                 <?php } ?>
 																
+                                                                <?php if ( $mostra_accedi_al_servizio ) { ?>
 																<li class="nav-item">
                                                                     <a class="nav-link" href="#submit-request">
                                                                         <span class="title-medium">Accedi al servizio</span>
                                                                     </a>
                                                                 </li>
+                                                                <?php } ?>
 
                                                                 <?php if ( $more_info ) { ?>
                                                                 <li class="nav-item">
@@ -332,10 +336,12 @@ get_header();
                                     </ul>
                                 </div>
                             </section>
+                            <?php if ($output) { ?>
                             <section class="it-page-section mb-30">
                                 <h2 class="title-xxlarge mb-3" id="obtain">Cosa si ottiene</h2>
                                 <div class="richtext-wrapper lora" data-element="service-achieved"><?php echo $output ?></div>
                             </section>
+                            <?php } ?>
                             <?php if ( !empty($fasi_scadenze_intro) || (is_array($fasi_scadenze) && count($fasi_scadenze)) || (is_array($fasi_group_simple_scadenze) && count($fasi_group_simple_scadenze)) ) { ?>
                             <section class="it-page-section mb-30">
                                 <div class="cmp-timeline">
@@ -440,6 +446,7 @@ get_header();
                                 <div class="richtext-wrapper lora" data-element="service-cost"><?php echo $costi ?></div>
                             </section>
                             <?php } ?>
+                            <?php if ( $mostra_accedi_al_servizio ) {  ?>
                             <section class="it-page-section mb-30 has-bg-grey p-4">
                                 <h2 class="mb-3" id="submit-request">Accedi al servizio</h2>
                                 <?php if ($canale_digitale_link) { ?>
@@ -449,12 +456,13 @@ get_header();
                                 </button>
                                 <?php } ?>
                                 <p class="text-paragraph lora mt-4" data-element="service-generic-access"><?php echo $canale_fisico_text; ?></p>
-                                <?php if (dci_get_option( "prenota_appuntamento", "servizi" )) { ?>
+                                <?php if ($mostra_prenota_appuntamento) { ?>
                                 <button type="button" class="btn btn-outline-primary t-primary bg-white mobile-full" onclick="location.href='<?php echo dci_get_template_page_url('page-templates/prenota-appuntamento.php'); ?>';" data-element="service-booking-access">
                                     <span class="">Prenota appuntamento</span>
                                 </button>
                                 <?php } ?>
                             </section>
+                            <?php } ?>
                             <?php if ( $more_info ) {  ?>
                             <section class="it-page-section mb-30">
                                 <h2 class="title-xxlarge mb-3" id="more-info">Ulteriori informazioni</h2>

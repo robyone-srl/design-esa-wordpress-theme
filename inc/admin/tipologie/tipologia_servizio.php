@@ -421,8 +421,7 @@ function dci_add_servizi_metaboxes() {
         'id' => $prefix . 'canale_fisico_text',
         'name'        => __( 'Introduzione canale fisico', 'design_comuni_italia' ),
         'desc' => __( 'Label introduttiva al canale fisico' , 'design_comuni_italia' ),
-        'type' => 'text',
-        'default' => 'Oppure, puoi prenotare un appuntamento e presentarti presso gli uffici.'
+        'type' => 'text'
     ) );
 
     $cmb_accesso->add_field( array(
