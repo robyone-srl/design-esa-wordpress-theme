@@ -130,6 +130,13 @@ get_header();
                                     <h1 class="title-xxxlarge" data-element="service-title">
                                         <?php the_title(); ?>
                                     </h1>
+                                    <?php if($sottotitolo){ ?>
+                                    <div>
+                                    <p class="subtitle-small mb-3" data-element="service-description">
+                                        <?php echo $sottotitolo ?>
+                                    </p>
+                                    </div>
+                                    <?php } ?>
                                     <ul class="d-flex flex-wrap gap-1 my-3">
                                         <li>
                                             <div class="chip chip-simple text-button" data-element="service-status">
