@@ -67,6 +67,20 @@ get_header();
 
                 return trim(strip_tags($text));
             };
+
+            //servizi inclusi
+            $servizi_inclusi_id = dci_get_meta("servizi_inclusi");
+            print_r($servizi_inclusi_id);
+
+            if (!empty($servizi_inclusi_id)) {
+                $servizi_inclusi_id = array_map('intval', $servizi_inclusi_id);
+
+                $args = array(
+                    'post_type' => 'servizio',
+                    'post__in' => $servizi_inclusi_id
+                );
+                $servizi_inclusi = get_posts($args);
+            }
             ?>
             <script type="application/ld+json" data-element="metatag">{
                     "name": "<?php echo esc_js($post->post_title); ?>",
@@ -308,8 +322,38 @@ get_header();
                                 <?php
                                         }
                                     }
-
                                 ?>
+                                
+                                <?php
+                                    $servizi_inclusi_id = dci_get_meta("servizi_inclusi");
+                                    if(!empty($servizi_inclusi_id)){
+                                        $servizi_inclusi_id = array_map('intval', $servizi_inclusi_id);
+
+                                        $args = array(
+                                            'post_type' => 'servizio',
+                                            'post__in' => $servizi_inclusi_id
+                                        );
+                                        $posts = get_posts($args);
+
+                                        if(!empty($posts)){
+                                ?>
+                                <div class=" has-bg-grey p-4">
+                                    <h3 class="title mb-3" id="who-needs">Servizi inclusi</h3>
+                                    <p>Questo servizio offre anche i seguenti servizi.</p>
+                                    <div class="row">
+                                        <?php
+                                            foreach($posts as $servizio) { ?>
+                                        <div class="col-lg-6 col-md-12">
+                                            <?php get_template_part("template-parts/servizio/card"); ?>
+                                        </div>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                                <?php
+                                        }
+                                    }
+                                ?>
+
                             </section>
                             <?php if ($descrizione) { ?>
                             <section class="it-page-section mb-30">

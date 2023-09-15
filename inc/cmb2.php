@@ -399,7 +399,12 @@ class dci_bidirectional_cmb2 {
             if ( is_array($field_ids) && in_array( $object_id ,$field_ids ) ) {
                 continue;
             } else {
-                $field_ids[] = $object_id;
+                if(is_array($field_ids)){
+                    $field_ids[] = $object_id;
+                }
+                else{
+                    $field_ids = $object_id;
+                }
             }
             update_post_meta( $id, $meta_key_dest, $field_ids );
 

@@ -174,6 +174,18 @@ function dci_add_servizi_metaboxes() {
     )
 ) );
 
+$cmb_destinatari->add_field( array(
+    'id' => $prefix . 'servizi_inclusi',
+    'name'    => __( 'Servizi inclusi ', 'design_comuni_italia' ),
+    'desc' => __( 'Servizi che vengono forniti assieme a questo servizio' , 'design_comuni_italia' ),
+    'type'    => 'pw_multiselect',
+    'options' => dci_get_posts_options('servizio'),
+    'attributes' => array(
+        'placeholder' =>  __( 'Seleziona i servizi inclusi con questo servizio', 'design_comuni_italia' ),
+    )
+) );
+
+
     //DESCRIZIONE
     $cmb_descrizione = new_cmb2_box( array(
         'id'           => $prefix . 'box_descrizione',
@@ -688,3 +700,5 @@ add_filter( 'wp_insert_post_data' , 'dci_servizio_set_post_content' , '99', 1 );
 new dci_bidirectional_cmb2("_dci_servizio_", "servizio", "unita_responsabile", "box_contatti", "_dci_unita_organizzativa_elenco_servizi_offerti");
 
 new dci_bidirectional_cmb2("_dci_servizio_", "servizio", "documenti", "box_documenti", "_dci_documento_pubblico_servizi");
+
+new dci_bidirectional_cmb2("_dci_servizio_", "servizio", "servizi_inclusi", "box_destinatari", "_dci_servizio_servizi_richiesti");

@@ -331,4 +331,4 @@ new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "
 
 new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "sede_principale", "box_contatti", "_dci_luogo_sede_di");
 
-new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "elenco_servizi_offerti", "box_servizi", "_dci_servizio_unita_responsabile");
+new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "elenco_servizi_offerti", "box_contatti", "_dci_servizio_unita_responsabile");
