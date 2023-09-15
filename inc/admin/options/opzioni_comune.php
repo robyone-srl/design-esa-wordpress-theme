@@ -112,7 +112,7 @@ function custom_comuni_css_file_option_update(string $object_id, array $updated,
             unlink($file);
         else{
             $myfile = fopen($file, "w");
-            fwrite($myfile, $cmb->data_to_save["comuni_css"]);
+            fwrite($myfile, stripslashes($cmb->data_to_save["comuni_css"]));
             fclose($myfile);
         }
 
