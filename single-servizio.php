@@ -492,7 +492,8 @@ get_header();
                                         <div class="card-wrapper rounded h-auto mt-10">
                                             <?php
                                                 $with_border = true;
-                                                get_template_part("template-parts/unita-organizzativa/card");
+                                                $no_vertical_margin = true;
+                                                get_template_part("template-parts/unita-organizzativa/card-full");
                                             ?>
                                         </div>
                                     </div>
@@ -501,7 +502,7 @@ get_header();
                                     $punti_contatto_id = dci_get_meta("punti_contatto");
                                     if(!empty($punti_contatto_id)){                                      
                                 ?>
-                                 <h3 class="mb-3" id="contacts">Altri contatti</h3>
+                                 <h3 class="mb-3" id="contacts">Contatti dedicati</h3>
                                 <div class="row">
                                         <?php
                                         foreach($punti_contatto_id as $pc_id) {
