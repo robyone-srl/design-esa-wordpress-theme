@@ -133,7 +133,7 @@ get_header();
                                     <?php if($sottotitolo){ ?>
                                     <div>
                                     <p class="subtitle-small mb-3" data-element="service-description">
-                                        <?php echo $sottotitolo ?>
+                                        <strong><?php echo $sottotitolo ?></strong>
                                     </p>
                                     </div>
                                     <?php } ?>
