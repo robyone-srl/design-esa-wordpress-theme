@@ -68,19 +68,6 @@ get_header();
                 return trim(strip_tags($text));
             };
 
-            //servizi inclusi
-            $servizi_inclusi_id = dci_get_meta("servizi_inclusi");
-            print_r($servizi_inclusi_id);
-
-            if (!empty($servizi_inclusi_id)) {
-                $servizi_inclusi_id = array_map('intval', $servizi_inclusi_id);
-
-                $args = array(
-                    'post_type' => 'servizio',
-                    'post__in' => $servizi_inclusi_id
-                );
-                $servizi_inclusi = get_posts($args);
-            }
             ?>
             <script type="application/ld+json" data-element="metatag">{
                     "name": "<?php echo esc_js($post->post_title); ?>",
@@ -351,7 +338,7 @@ get_header();
                                         <?php
                                             foreach($posts as $servizio) { ?>
                                         <div class="col-lg-6 col-md-12">
-                                            <?php get_template_part("template-parts/servizio/card"); ?>
+                                            <?php get_template_part("template-parts/servizio/card-included-service"); ?>
                                         </div>
                                         <?php } ?>
                                     </div>

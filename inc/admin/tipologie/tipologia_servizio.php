@@ -12,12 +12,8 @@ function dci_register_post_type_servizio() {
 		'singular_name'         => _x( 'Servizio', 'Post Type Singular Name', 'design_comuni_italia' ),
 		'add_new'               => _x( 'Aggiungi un Servizio', 'Post Type Singular Name', 'design_comuni_italia' ),
 		'add_new_item'          => _x( 'Aggiungi un Servizio', 'Post Type Singular Name', 'design_comuni_italia' ),
-		'featured_image'        => __( 'Logo Identificativo del Servizio', 'design_comuni_italia' ),
 		'edit_item'             => _x( 'Modifica il Servizio', 'Post Type Singular Name', 'design_comuni_italia' ),
 		'view_item'             => _x( 'Visualizza il Servizio', 'Post Type Singular Name', 'design_comuni_italia' ),
-		'set_featured_image'    => __( 'Seleziona Logo' ),
-		'remove_featured_image' => __( 'Rimuovi Logo' , 'design_comuni_italia' ),
-		'use_featured_image'    => __( 'Usa come Logo' , 'design_comuni_italia' ),
 	);
 
 	$args = array(
@@ -649,6 +645,48 @@ $cmb_destinatari->add_field( array(
             'maxlength'  => '255',
         ),
     ) );
+
+    	//STATO DEL SERVIZIO
+	$cmb_stato = new_cmb2_box( array(
+		'id'           => $prefix . 'box_stato',
+		'title'        => __( 'Stato del Servizio *', 'design_comuni_italia' ),
+		'object_types' => array( 'servizio' ),
+		'context'      => 'side',
+		'priority'     => 'high',
+	) );
+
+	$cmb_stato->add_field( array(
+		'id'        => $prefix . 'stato',
+		'desc'      => __( 'Lo stato del servizio indica l\'effettiva fruibilità del Servizio', 'design_comuni_italia' ),
+		'type'      => 'radio_inline',
+		'default'   => 'true',
+		'options'   => array(
+			"true"  => __( 'Attivo', 'design_comuni_italia' ),
+			"false" => __( 'Disattivo', 'design_comuni_italia' ),
+		),
+	) );
+
+    //ICONA
+	$cmb_stato = new_cmb2_box( array(
+		'id'           => $prefix . 'box_icona',
+		'title'        => __( 'Icona', 'design_comuni_italia' ),
+		'object_types' => array( 'servizio' ),
+		'context'      => 'side',
+		'priority'     => 'low',
+	) );
+
+	$cmb_stato->add_field( array(
+		'id'        => $prefix . 'classi_icona',
+		'desc'      => __( 'Classe icona di font awesome', 'design_comuni_italia' ),
+		'type'      => 'text',
+		'options'   => array(
+			"true"  => __( 'Attivo', 'design_comuni_italia' ),
+			"false" => __( 'Disattivo', 'design_comuni_italia' ),
+		),
+        'attributes'=>[
+            'pldaceholder' => 'fa-solid fa-shield-halved'
+        ]
+	) );
 }
 
 /**
