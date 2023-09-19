@@ -75,7 +75,7 @@ get_header();
                   </div>
                   <p id="autocomplete-label" class="mb-4"><strong><?php echo $the_query->found_posts; ?> </strong>servizi trovati in ordine alfabetico</p>
                 </div>
-                <div id="load-more">
+                <div class="row g-4" id="load-more">
                     <?php foreach ($servizi as $servizio) { 
                         $load_card_type = "categoria_servizio";
                         $hide_categories = true;
