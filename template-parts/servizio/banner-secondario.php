@@ -1,0 +1,55 @@
+<?php
+global $servizio;
+$categorie = dci_get_option('categorie_banner_secondario', 'servizi') ?? [];
+$titolo = dci_get_option('titolo_banner_secondario', 'servizi');
+
+$tax_query = array();
+
+foreach ($categorie as $categoria) {
+
+    $tax = array(
+        'taxonomy' => 'categorie_servizio',
+        'field' => 'slug',
+        'terms' => $categorie,
+    );
+    array_push($tax_query, $tax);
+}
+
+if (count($categorie) > 1) {
+    $tax_query["relation"] = "OR";
+}
+
+$args = array(
+    'posts_per_page' => 10,
+    'post_type' => 'servizio',
+    'tax_query' => $tax_query,
+    'orderby'        => 'post_title',
+    'order'          => 'ASC'
+);
+
+$the_query = new WP_Query($args);
+
+$servizi = $the_query->posts;
+
+if (!empty($servizi)) {
+?>
+    <div class="py-5">
+        <div class="container">
+            <h2 class="title-xxlarge mb-4"><?= $titolo ?: "Servizi inclusi" ?></h2>
+            <ul class="flex row g-4">
+                <?php
+                    foreach ($servizi as $servizio_id) {
+                        ?>
+                        <li class="col-lg-4">
+                            <?php
+                            $servizio = get_post($servizio_id);
+                            get_template_part("template-parts/servizio/card-con-icona");
+                            ?>
+                        </li>
+                        <?php
+                    }
+                ?>
+            </ul>
+        </div>
+    </div>
+<?php } ?>

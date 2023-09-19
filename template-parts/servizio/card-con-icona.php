@@ -9,7 +9,7 @@ $classi_icona = dci_get_meta('classi_icona', $prefix, $servizio->ID);
 if($servizio->post_status == "publish") {
     ?>
         <div class="cmp-card-latest-messages mb-3 mb-30" data-bs-toggle="modal" data-bs-target="#">
-            <div class="card shadow-sm px-4 pt-4 pb-2 rounded">
+            <div class="card shadow-sm px-4 pt-4 pb-2 rounded border border-light">
                 <div class="card-body p-0 my-2 text-center">
                     <i class="<?= $classi_icona ?> title-xxlarge t-primary"></i>
                 <h3 class="green-title-big t-primary mt-3">

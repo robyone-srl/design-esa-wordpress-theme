@@ -338,7 +338,7 @@ get_header();
                                         <?php
                                             foreach($posts as $servizio) { ?>
                                         <div class="col-lg-6 col-md-12">
-                                            <?php get_template_part("template-parts/servizio/card-included-service"); ?>
+                                            <?php get_template_part("template-parts/servizio/card-con-icona"); ?>
                                         </div>
                                         <?php } ?>
                                     </div>
