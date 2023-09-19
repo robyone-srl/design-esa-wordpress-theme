@@ -1,11 +1,11 @@
 <?php
+global $should_have_grey_background;
 //Per selezionare i contenuti in evidenza tramite configurazione
 $servizi = dci_get_option('servizi_evidenziati', 'servizi');
 
 if (!empty($servizi)) {
 ?>
-
-    <div class="bg-grey-dsk py-5">
+    <div class="py-5 <?= !($should_have_grey_background=(!$should_have_grey_background)) ? 'bg-grey-dsk':'' ?>">
         <div class="container">
             <h2 class="title-xxlarge mb-4">Servizi in evidenza</h2>
             <div class="row g-4">

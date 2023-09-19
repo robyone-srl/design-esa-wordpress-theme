@@ -8,28 +8,45 @@
 global $post;
 get_header();
 
+$div_count = 0;
+
+function open_alternate_div_background()
+{
+	global $div_count;
+	if ($div_count++ % 0) {
 ?>
+		<div class="bg-grey-dsk">
+		<?php
+	}
+}
+
+function close_alternate_div_background()
+{
+		?>
+		</div>
+	<?php
+}
+
+	?>
 	<main>
 		<?php
-		while ( have_posts() ) :
+		while (have_posts()) :
 			the_post();
+		
+			get_template_part("template-parts/hero/hero");
 			
-			?>
-			<?php get_template_part("template-parts/hero/hero"); ?>
-			<?php get_template_part("template-parts/servizio/servizi-in-evidenza"); ?>
-			<?php get_template_part("template-parts/servizio/banner-secondario"); ?>
-			<?php get_template_part("template-parts/servizio/categorie"); ?>
-			<?php get_template_part("template-parts/servizio/tutti-servizi"); ?>
-			<?php get_template_part("template-parts/common/valuta-servizio"); ?>
-			<?php get_template_part("template-parts/common/assistenza-contatti"); ?>
-							
-		<?php 
-			endwhile; // End of the loop.
+			$should_have_grey_background = true;
+			get_template_part("template-parts/servizio/servizi-in-evidenza");
+			get_template_part("template-parts/servizio/banner-secondario");
+			get_template_part("template-parts/servizio/categorie");
+			get_template_part("template-parts/servizio/tutti-servizi");
+			get_template_part("template-parts/common/valuta-servizio");
+			get_template_part("template-parts/common/assistenza-contatti");
+
+		
+		endwhile; // End of the loop.
 		?>
 	</main>
 
-<?php
-get_footer();
-
-
-
+	<?php
+	get_footer();

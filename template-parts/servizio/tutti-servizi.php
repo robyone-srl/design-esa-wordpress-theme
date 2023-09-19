@@ -1,5 +1,5 @@
 <?php
-global $posts, $the_query, $load_posts, $servizio, $load_card_type;
+global $posts, $the_query, $load_posts, $servizio, $load_card_type, $should_have_grey_background;
 
 $max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 4;
 $load_posts = 4;
@@ -22,8 +22,7 @@ $posts = $the_query->posts;
 //Per selezionare i contenuti in evidenza tramite configurazione
 $servizi_evidenza = dci_get_option('servizi_evidenziati', 'servizi');
 ?>
-
-<div id="tutti-servizi">
+<div id="tutti-servizi" class="<?= !($should_have_grey_background=(!$should_have_grey_background)) ? 'bg-grey-dsk':'' ?>">
     <form role="search" id="search-form" method="get" class="search-form">
         <button type="submit" class="d-none"></button>
         <div class="container">

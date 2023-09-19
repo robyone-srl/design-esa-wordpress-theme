@@ -1,6 +1,6 @@
 <?php
-global $servizio;
-$categorie = dci_get_option('categorie_banner_secondario', 'servizi') ?? [];
+global $servizio, $should_have_grey_background;
+$categorie = dci_get_option('categorie_banner_secondario', 'servizi') ?: [];
 $titolo = dci_get_option('titolo_banner_secondario', 'servizi');
 
 $tax_query = array();
@@ -29,11 +29,14 @@ $args = array(
 
 $the_query = new WP_Query($args);
 
-$servizi = $the_query->posts;
+
+if (count($categorie) > 0) {
+    $servizi = $the_query->posts;
+}
 
 if (!empty($servizi)) {
 ?>
-    <div class="py-5">
+    <div class="py-5 <?= !($should_have_grey_background=(!$should_have_grey_background)) ? 'bg-grey-dsk':'' ?>">
         <div class="container">
             <h2 class="title-xxlarge mb-4"><?= $titolo ?: "Servizi inclusi" ?></h2>
             <ul class="row g-4">
