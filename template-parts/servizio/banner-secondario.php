@@ -20,11 +20,11 @@ if (count($categorie) > 1) {
 }
 
 $args = array(
-    'posts_per_page' => 10,
+    'nopaging' => true,
     'post_type' => 'servizio',
     'tax_query' => $tax_query,
-    'orderby'        => 'post_title',
-    'order'          => 'ASC'
+    'orderby' => 'post_title',
+    'order' => 'ASC'
 );
 
 $the_query = new WP_Query($args);

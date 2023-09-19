@@ -294,8 +294,11 @@ get_header();
                                         $servizi_richiesti_id = array_map('intval', $servizi_richiesti_id);
 
                                         $args = array(
+                                            'nopaging' => true,
                                             'post_type' => 'servizio',
-                                            'post__in' => $servizi_richiesti_id
+                                            'post__in' => $servizi_richiesti_id,
+                                            'orderby' => 'post_title',
+                                            'order' => 'ASC',
                                         );
                                         $posts = get_posts($args);
 
@@ -324,8 +327,11 @@ get_header();
                                         $servizi_inclusi_id = array_map('intval', $servizi_inclusi_id);
 
                                         $args = array(
+                                            'nopaging' => true,
                                             'post_type' => 'servizio',
-                                            'post__in' => $servizi_inclusi_id
+                                            'post__in' => $servizi_inclusi_id,
+                                            'orderby' => 'post_title',
+                                            'order' => 'ASC',
                                         );
                                         $posts = get_posts($args);
 
