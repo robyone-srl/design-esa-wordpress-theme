@@ -53,7 +53,7 @@ $servizi_evidenza = dci_get_option('servizi_evidenziati', 'servizi');
                             <strong><?php echo $the_query->found_posts; ?> </strong>servizi trovati in ordine alfabetico
                         </p>
                     </div>
-                    <div class="row" id="load-more">
+                    <div class="row g-4" id="load-more">
                         <?php foreach ($posts as $servizio) {
                             $load_card_type = "servizio";
                             ?>
