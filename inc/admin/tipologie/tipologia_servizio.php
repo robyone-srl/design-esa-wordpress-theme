@@ -730,3 +730,5 @@ new dci_bidirectional_cmb2("_dci_servizio_", "servizio", "unita_responsabile", "
 new dci_bidirectional_cmb2("_dci_servizio_", "servizio", "documenti", "box_documenti", "_dci_documento_pubblico_servizi");
 
 new dci_bidirectional_cmb2("_dci_servizio_", "servizio", "servizi_inclusi", "box_destinatari", "_dci_servizio_servizi_richiesti");
+
+new dci_bidirectional_cmb2("_dci_servizio_", "servizio", "servizi_richiesti", "box_destinatari", "_dci_servizio_servizi_inclusi");
