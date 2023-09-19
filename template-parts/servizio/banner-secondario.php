@@ -36,11 +36,11 @@ if (!empty($servizi)) {
     <div class="py-5">
         <div class="container">
             <h2 class="title-xxlarge mb-4"><?= $titolo ?: "Servizi inclusi" ?></h2>
-            <ul class="flex row g-4">
+            <ul class="row g-4">
                 <?php
                     foreach ($servizi as $servizio_id) {
                         ?>
-                        <li class="col-lg-4">
+                        <li class="col-12 col-sm-6 col-md-4 col-lg-3">
                             <?php
                             $servizio = get_post($servizio_id);
                             get_template_part("template-parts/servizio/card-con-icona");

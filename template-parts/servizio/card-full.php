@@ -2,9 +2,7 @@
 global $post;
 
 $prefix = '_dci_servizio_';
-$img = !empty(dci_get_meta('immagine', $prefix, $post->ID))
-    ? dci_get_meta('immagine', $prefix, $post->ID)
-    : get_template_directory_uri()."\assets\placeholders\img-placeholder-500x384.png";
+$img = get_template_directory_uri()."\assets\placeholders\img-placeholder-500x384.png";
 
 $descrizione = dci_get_meta('descrizione_breve', $prefix, $post->ID);
 $tipi_servizio = get_the_terms($post->ID,'categorie_servizio');

@@ -23,7 +23,7 @@ $posts = $the_query->posts;
 $servizi_evidenza = dci_get_option('servizi_evidenziati', 'servizi');
 ?>
 
-<div id="tutti-servizi" class="bg-grey-card">
+<div id="tutti-servizi">
     <form role="search" id="search-form" method="get" class="search-form">
         <button type="submit" class="d-none"></button>
         <div class="container">
@@ -55,7 +55,6 @@ $servizi_evidenza = dci_get_option('servizi_evidenziati', 'servizi');
                     </div>
                     <div class="row" id="load-more">
                         <?php foreach ($posts as $servizio) {
-                            echo "gno";
                             $load_card_type = "servizio";
                             ?>
                             <div class="col-12 col-lg-6">
