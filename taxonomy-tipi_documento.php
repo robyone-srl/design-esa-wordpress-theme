@@ -73,7 +73,7 @@ get_header();
                   <p id="autocomplete-label" class="mb-4"><strong><?php echo $the_query->found_posts; ?> </strong>documenti trovati in ordine alfabetico</p>
                 </div>
                 <div class="row g-4" id="load-more">
-                    <?php foreach ($documenti as $documento) { 
+                    <?php foreach ($documenti as $post) { 
                         $load_card_type = "documento";
                         $hide_categories = true;
                         $full_width = true;
