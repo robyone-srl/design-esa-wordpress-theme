@@ -74,7 +74,7 @@ get_header();
                 </div>
                 <div class="row g-4" id="load-more">
                     <?php foreach ($documenti as $documento) { 
-                        $load_card_type = "tipo_documento";
+                        $load_card_type = "documento";
                         $hide_categories = true;
                         $full_width = true;
                         get_template_part("template-parts/documento/cards-list");    
