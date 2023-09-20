@@ -116,7 +116,7 @@ get_header();
                     </div>
                     <div class="col-12 col-lg-8 offset-lg-1">
                         <div class="it-page-sections-container">
-                            <section id="content" class="it-page-section mb-30 richtext-wrapper">
+                            <section id="content" class="it-page-section mb-30 richtext-wrapper lora">
                                 <?php the_content() ?>
                             </section>
                             <section id="more-info">
