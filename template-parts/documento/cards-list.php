@@ -1,5 +1,5 @@
 <?php 
-    global $posts;
+    global $post;
 
         $description = dci_get_meta('descrizione_breve');
         if ($post->post_type == 'dataset') {
