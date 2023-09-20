@@ -4,13 +4,14 @@
         $description = dci_get_meta('descrizione_breve');
         if ($post->post_type == 'dataset') {
             $tipo = '';
-            $arrdata = explode( '-', date('d-m-Y', dci_get_meta("data_modifica")));
+            $timestamp = dci_get_meta("data_modifica");
         }
         else {
-            $arrdata = explode( '-', dci_get_meta("data_protocollo") );
+            $timestamp = get_post_datetime()->getTimestamp();
             $tipo = get_the_terms($post->term_id, 'tipi_documento')[0];
         }
-        $monthName = date_i18n('M', mktime(0, 0, 0, $arrdata[1], 10));
+        
+        $monthName = date_i18n('M', $timestamp);
 ?>
 
 <div class="col-md-6 col-xl-4">

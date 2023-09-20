@@ -602,13 +602,34 @@ if(!function_exists("dci_tipi_documento_plural_array")){
 /**
  * descrizioni dei termini della tassonomia Categorie di Servizio
  */
+if(!function_exists('dci_get_tipi_documento_descriptions_array')){
+    function dci_get_tipi_documento_descriptions_array(){
+        $tipi_documento_descriptions_arr = [
+            'Documento Albo Pretorio' => 'Gli atti amministrativi per i quali è previsto l\'obbligo di pubblicità legale.',
+            'Modulistica' => 'Tutti i moduli predisposti per la stesura di documenti o scritture.',
+            'Documento funzionamento interno' => 'I regolamenti interni, i provvedimenti dirigenziali e i codici disciplinari degli organi di indirizzo politico.',
+            'Atto normativo' => 'Statuto, regolamenti dell\'ente e altre norme ufficiali.',
+            'Accordo tra enti' => 'Gli accordi dell\'ente con altre istituzioni, fondazioni ed enti.',
+            'Documento attività politica' => 'Sedute, ordini del giorno e interrogazioni degli organi di governo comunali.',
+            'Documento (tecnico) di supporto' => 'Qualunque documento, anche di natura tecnica, pubblicato dall\'amministrazione ',
+            'Istanza' => 'Le richieste private rivolte agli organi amministrativi o giurisdizionali dell\'ente.',
+            'Documento di programmazione e rendicontazione' => 'Rendiconti, procedure, bilanci consuntivi e preventivi.',
+            'Dataset' => 'Le statistiche e i dati strutturati riguardanti le attività produttive, la qualità della vita e la popolazione dell\'ente.'
+        ];
+        return $tipi_documento_descriptions_arr;
+    }
+}
+
+/**
+ * descrizioni dei termini della tassonomia Tipi di Documento
+ */
 if(!function_exists('dci_get_categorie_servizio_descriptions_array')){
     function dci_get_categorie_servizio_descriptions_array(){
         $categorie_servizio_descriptions_arr = [
             'Servizi socio-assistenziali' => 'La struttura, nell\'ambito dei suoi obiettivi e delle possibilità di assistenza, offre servizi socio-assistenziali come la residenzialità, la semi-residenzialità, i ricoveri temporanei e l\'assistenza domiciliare',
-			'Assistenza amministrativa' => 'Servizi disponibili online o a sportello, per richiedere documenti e permessi, iscriversi a graduatorie ed effettuare pagamenti',
+			'Assistenza amministrativa' => 'Servizi orientati ad agevolare le persone nelle pratiche amministrative',
 			'Servizi integrativi' => 'Servizi complementari alla socio-assistenza come l\'animazione, la ristorazione e la pulizia degli ambienti',
-			'Servizi aggiuntivi' => 'Oltre ai servizi principali, l\'Ente offre anche servizi extra per rispondere ad ogni tipo di necessità'
+			'Servizi aggiuntivi' => 'Servizi offerti anche alle persone che non intendono risiedere nella struttura'
             ];
         return $categorie_servizio_descriptions_arr;
     }

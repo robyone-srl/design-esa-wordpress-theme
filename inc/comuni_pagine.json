@@ -45,7 +45,7 @@
           "title": "Documenti e dati",
           "slug": "documenti-e-dati",
           "description": "Bandi di concorso, avvisi, graduatorie, statistiche e documenti pubblici.",
-          "template_name": "Documenti e dati",
+          "template_name": "documenti-e-dati",
           "children": {}
         }
       }
@@ -80,22 +80,22 @@
       }
     },
     "Vivere l'Ente": {
-      "title": "Vivere l'Ente'",
+      "title": "Vivere l'Ente",
       "slug": "vivere-ente",
-      "description": "Tutti gli eventi, le iniziative, i luoghi d’interesse, le informazioni sulla storia dell'Ente.",
+      "description": "Tutti gli eventi, le iniziative, i luoghi d'interesse, le informazioni sulla storia dell'Ente.",
       "template_name": "vivere-ente",
       "children": {
         "Eventi": {
           "title": "Eventi",
           "slug": "eventi",
-          "description": "Tutti gli eventi proposti dall'Ente'.",
+          "description": "Tutti gli eventi proposti dall'Ente.",
           "template_name": "eventi",
           "children": {}
         },
         "Luoghi": {
           "title": "Luoghi",
           "slug": "luoghi",
-          "description": "Tutti i luoghi d’interesse dell'Ente.",
+          "description": "Tutti i luoghi d'interesse dell'Ente.",
           "template_name": "luoghi",
           "children": {}
         },

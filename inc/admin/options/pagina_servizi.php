@@ -58,7 +58,7 @@ function dci_register_pagina_servizi_options(){
     ) );
 
     $servizi_options->add_field(array(
-            'name' => __('Categorie di senvizi da mettere in banner ulteriore', 'design_comuni_italia'),
+            'name' => __('Categorie di servizi da mettere in banner ulteriore', 'design_comuni_italia'),
             'desc' => __('Seleziona le categorie di servizi da mostrare in un banner secondario', 'design_comuni_italia'),
             'id' => $prefix . 'categorie_banner_secondario',
             'type' => 'taxonomy_multicheck_inline',

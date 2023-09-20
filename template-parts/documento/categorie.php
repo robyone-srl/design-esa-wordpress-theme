@@ -1,6 +1,6 @@
 <?php
     $categorie = get_terms('tipi_documento', array(
-        'hide_empty' => false,
+        'hide_empty' => true,
     ) );
 ?>
 
@@ -13,7 +13,7 @@
       <div class="cmp-card-simple card-wrapper pb-0 rounded border border-light">
         <div class="card shadow-sm rounded">
           <div class="card-body">
-            <a class="text-decoration-none" href="<?php echo get_term_link($categoria->term_id); ?>">
+            <a class="text-decoration-none" href="<?php echo get_term_link($categoria->term_id, 'tipi_documento'); ?>">
               <h3 class="card-title t-primary title-xlarge"><?php echo $categoria->name; ?></h3>
             </a>
             <p class="text-secondary mb-0">

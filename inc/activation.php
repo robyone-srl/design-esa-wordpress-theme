@@ -15,6 +15,10 @@ function dci_theme_activation() {
 
     //inserisco le descrizioni di default per la tassonomia Categorie di Servizio
     updateCategorieServizio();
+    
+    //inserisco le descrizioni di default per la tassonomia Tipi di Documento
+    updateTipiDocumento();
+
 
     //creo le pagine
     insertPages($pagine = dci_get_pagine_obj());
@@ -323,6 +327,21 @@ function updateCategorieServizio() {
     }
 }
 
+function updateTipiDocumento() {
+    $terms =  get_terms(array(
+        'taxonomy' =>'tipi_documento',
+        'hide_empty' => false,
+    ));
+    $descriptions = dci_get_tipi_documento_descriptions_array();
+    foreach($terms as $term){
+
+        $args = array(
+            'description' => $descriptions[$term->name]
+        );
+        wp_update_term($term->term_id,'tipi_documento',$args);
+    }
+}
+
 
 function updatePageDescription($page_title, $description) {
     $page= get_page_by_title( $page_title);
@@ -337,7 +356,6 @@ function updatePageDescription($page_title, $description) {
 function insertPages($pagine, $parent_id = 0) {
 
     foreach ($pagine as $pagina) {
-
         $page_id = dci_create_page_template(__($pagina['title'],'design_comuni_italia'), $pagina['slug'], $pagina['template_name'], $parent_id );
         if (!empty($pagina['description'])){
             updatePageDescription($pagina['title'],$pagina['description']);
@@ -447,7 +465,7 @@ function createMenu()
     dci_create_page_menu_item(__( 'Eventi', 'design_comuni_italia'), $menu_vivere_ente);
 
     //assegno menu terza colonna footer (sotto)
-    dci_add_menu_to_location($menu_vivere_comune,'menu-footer-col-3-2');
+    dci_add_menu_to_location($menu_vivere_ente,'menu-footer-col-3-2');
 
     //voci menu Argomenti (in alto a destra)
     dci_create_term_menu_item('Appalto di lavori','argomenti',$menu_argomenti); //voce tassonomia argomenti come placeholder
@@ -576,7 +594,7 @@ function dci_create_page_template($name, $slug, $template, $parent_id = '', $con
         'post_content' => $new_page_content,
         'post_status'  => 'publish',
         'post_author'  => 1,
-        'post_slug' => $slug,
+        'post_name' => $slug,
         'post_parent' => $parent_id
     );
 
