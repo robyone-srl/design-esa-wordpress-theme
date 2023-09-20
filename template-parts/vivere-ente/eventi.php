@@ -5,7 +5,7 @@
     //Per selezionare i contenuti in evidenza tramite configurazione
     $eventi = dci_get_option('eventi_evidenziati','vivi');
 
-    $url_eventi = get_permalink( get_page_by_title('Eventi') );
+    $url_eventi = get_permalink( get_page_by_path('vivere-ente/eventi') );
     if (is_array($eventi) && count($eventi)) {
 ?>
 
@@ -21,7 +21,7 @@
             ?>
             <div class="d-flex justify-content-end">
 
-				<a href="#" class="btn btn-outline-primary full-mb" aria-label="aria-label" data-element="live-button-events">
+				<a href="<?= $url_eventi ?>" class="btn btn-outline-primary full-mb" aria-label="aria-label" data-element="live-button-events">
                     Tutti gli eventi 
                     <svg class="icon icon-primary icon-xs ml-10">
                       <use href="#it-arrow-right"></use>

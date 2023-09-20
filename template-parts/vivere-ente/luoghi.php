@@ -5,7 +5,7 @@
     //Per selezionare i contenuti in evidenza tramite configurazione
     $luoghi = dci_get_option('luoghi_evidenziati','vivi');
 
-    $url_luoghi = get_permalink( get_page_by_title('Luoghi') );
+    $url_luoghi = get_permalink(get_page_by_path('vivere-ente/luoghi'));
     if (is_array($luoghi) && count($luoghi)) {
 ?>
 
@@ -20,7 +20,7 @@
                 }
             ?>
             <div class="d-flex justify-content-end">
-                <a href="#" class="btn btn-outline-primary full-mb" aria-label="aria-label" data-element="live-button-locations">
+                <a href="<?= $url_luoghi ?>" class="btn btn-outline-primary full-mb" aria-label="aria-label" data-element="live-button-locations">
                     Tutti i luoghi 
                     <svg class="icon icon-primary icon-xs ml-10">
                       <use href="#it-arrow-right"></use>
