@@ -115,11 +115,11 @@ function dci_get_children_pages_options($parent = '',$addnone=false) {
  * @param false $query_args
  * @return array
  */
-function dci_get_terms_options( $taxonomy_name, $with_slug = false) {
+function dci_get_terms_options( $taxonomy_name, $with_slug = false, $hide_empty = false) {
 
     $terms = get_terms( array(
         'taxonomy' => $taxonomy_name,
-        'hide_empty' => false,
+        'hide_empty' => $hide_empty,
     ));
 
     $options = array();
