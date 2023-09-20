@@ -9,7 +9,7 @@ $tipi_servizio = get_the_terms($post->ID,'categorie_servizio');
 ?>
 
 <div class="col-lg-6 col-xl-4">
-    <div class="card-wrapper shadow-sm rounded border border-light">
+    <div class="card-wrapper shadow-sm rounded border border-light p-0">
         <div class="card no-after rounded">
             <div class="img-responsive-wrapper">
                 <div class="img-responsive img-responsive-panoramic">
