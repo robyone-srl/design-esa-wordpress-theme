@@ -34,26 +34,7 @@ function dci_register_bootstrap_italia_options(){
         'type' => 'title',
     ) );
 
-
-
-    if(file_exists(get_custom_css_file_path($CSS_NAME_BOOTSTRAP))){
-        $header_options->add_field( array(
-            'name' => 'Stile personalizzato - Bootstrap Italia',
-            'desc' => 'Al momento, è in uso un foglio di stile personalizzato al posto di <strong>bootstrap-italia-comuni.min.css</strong>. Per tornare a usare quello predefinito, disabilita questa opzione e salva le modifiche.',
-            'id'   => 'use_bootstrap_italia_css',
-            'type' => 'checkbox',
-            'default' => 'on'
-        ));
-    }
-    else{
-
-        $header_options->add_field( array(
-        'id'    => $prefix . 'bootstrap_italia_css_file',
-        'name' => __('Stile personalizzato - Bootstrap Italia', 'design_comuni_italia' ),
-        'desc' => __('Customizzazione del foglio di stile <strong>bootstrap-italia-comuni.min.css</strong> per personalizzare la grafica del sito. <br> <strong>Nota</strong>. Se il campo è vuoto viene utilizzato quello di default presente nel tema' , 'design_comuni_italia' ),
-        'type' => 'css_file'
-        ));
-    }
+    add_custom_css_field_to_box($header_options, $CSS_NAME_BOOTSTRAP);
 }
 
 
