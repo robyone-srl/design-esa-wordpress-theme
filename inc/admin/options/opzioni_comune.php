@@ -94,7 +94,7 @@ function dci_register_comune_options(){
             ))
     ));
 
-    add_custom_css_field_to_box($header_options, $CSS_NAME_COMUNI);
+    add_custom_css_field_to_box($header_options, $CSS_NAME_COMUNI, 'comuni_css_file', 'use_comuni_css');
 }
 
 

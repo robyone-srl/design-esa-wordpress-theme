@@ -34,7 +34,7 @@ function dci_register_bootstrap_italia_options(){
         'type' => 'title',
     ) );
 
-    add_custom_css_field_to_box($header_options, $CSS_NAME_BOOTSTRAP);
+    add_custom_css_field_to_box($header_options, $CSS_NAME_BOOTSTRAP, 'bootstrap_italia_css_file', 'use_bootstrap_italia_css');
 }
 
 
