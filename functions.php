@@ -160,13 +160,13 @@ function dci_scripts() {
 
 	//load Bootstrap Italia latest css if exists in node_modules
     if (file_exists(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'node_modules/bootstrap-italia/dist/css/bootstrap-italia-comuni.min.css')) {
-        wp_enqueue_style( 'dci-boostrap-italia-min', get_template_directory_uri() . '/node_modules/bootstrap-italia/dist/css/bootstrap-italia-comuni.min.css');
+        wp_enqueue_style( 'dci-bootstrap-italia-min', get_template_directory_uri() . '/node_modules/bootstrap-italia/dist/css/bootstrap-italia-comuni.min.css');
     }
     else {
-        wp_enqueue_style( 'dci-boostrap-italia-min', get_template_directory_uri() . '/assets/css/bootstrap-italia.min.css');
+        wp_enqueue_style( 'dci-bootstrap-italia-min', get_template_directory_uri() . '/assets/css/bootstrap-italia.min.css');
     }
 
-    wp_enqueue_style( 'dci-comuni', get_template_directory_uri() . '/assets/css/comuni.css', array('dci-boostrap-italia-min'));
+    wp_enqueue_style( 'dci-comuni', get_template_directory_uri() . '/assets/css/comuni.css', array('dci-bootstrap-italia-min'));
 	wp_enqueue_style( 'dci-comuni', get_template_directory_uri() . '/assets/css/cdr.css');
     wp_enqueue_style( 'dci-font', get_template_directory_uri() . '/assets/css/fonts.css', array('dci-comuni'));
     wp_enqueue_style( 'dci-wp-style', get_template_directory_uri()."/style.css", array('dci-comuni'));
@@ -179,10 +179,10 @@ function dci_scripts() {
 	// footer
     //load Bootstrap Italia latest js if exists in node_modules
     if (file_exists(dirname(__FILE__) . DIRECTORY_SEPARATOR . '/node_modules/bootstrap-italia/dist/js/bootstrap-italia.bundle.min.js')) {
-        wp_enqueue_script( 'dci-boostrap-italia-min-js', get_template_directory_uri() . '/node_modules/bootstrap-italia/dist/js/bootstrap-italia.bundle.min.js', array(), false, true);
+        wp_enqueue_script( 'dci-bootstrap-italia-min-js', get_template_directory_uri() . '/node_modules/bootstrap-italia/dist/js/bootstrap-italia.bundle.min.js', array(), false, true);
     }
     else {
-        wp_enqueue_script( 'dci-boostrap-italia-min-js', get_template_directory_uri() . '/assets/js/bootstrap-italia.bundle.min.js', array(), false, true);
+        wp_enqueue_script( 'dci-bootstrap-italia-min-js', get_template_directory_uri() . '/assets/js/bootstrap-italia.bundle.min.js', array(), false, true);
     }
 	wp_enqueue_script( 'dci-comuni', get_template_directory_uri() . '/assets/js/comuni.js', array(), false, true);
 	wp_add_inline_script( 'dci-comuni', 'window.wpRestApi = "' . get_rest_url() . '"', 'before' );

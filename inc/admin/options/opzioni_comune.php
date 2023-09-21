@@ -106,7 +106,9 @@ function custom_comuni_css_file_option_update(string $object_id, array $updated,
 
     if(array_key_exists("comuni_css", $cmb->data_to_save)){
         $css =  $cmb->data_to_save["comuni_css"];
-        $file = get_theme_file_path( '/assets/css/comuni-custom.css');
+        $file = WP_CONTENT_DIR.'/custom-css/comuni-custom.css';
+
+        wp_mkdir_p(WP_CONTENT_DIR.'/custom-css/');
 
         if(empty($css))
             unlink($file);
@@ -122,9 +124,9 @@ add_action( 'cmb2_save_options-page_fields_dci_options_configurazione', 'custom_
 
 
 function load_comuni_custom_css(){
-    $file_comuni = get_theme_file_path( '/assets/css/comuni-custom.css');
+    $file_comuni = WP_CONTENT_DIR.'/custom-css/comuni-custom.css';
     if(file_exists($file_comuni))
-        wp_register_style( 'dci-comuni', get_template_directory_uri() . '/assets/css/comuni-custom.css');
+        wp_register_style( 'dci-comuni', content_url('/custom-css/comuni-custom.css'));
 
 }
 add_action( 'wp_enqueue_scripts', 'load_comuni_custom_css' );
