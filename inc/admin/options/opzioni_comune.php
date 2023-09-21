@@ -1,6 +1,8 @@
 <?php
+$CSS_NAME_COMUNI = 'custom-comuni.css';
 
 function dci_register_comune_options(){
+    global $CSS_NAME_COMUNI;
     $prefix = '';
 
     /**
@@ -92,41 +94,52 @@ function dci_register_comune_options(){
             ))
     ));
 
-    $header_options->add_field( array(
-    'id'    => $prefix . 'comuni_css',
-    'name' => __('Comuni css', 'design_comuni_italia' ),
-    'desc' => __('Customizzazione del foglio di stile <strong>comuni.css</strong> per personalizzare la grafica del sito. <br> <strong>Nota</strong>. Se il campo é vuoto viene utilizzato quello di default presente nel tema' , 'design_comuni_italia' ),
-    'type' => 'textarea'
-));
+    if(file_exists(get_custom_css_file_path($CSS_NAME_COMUNI))){
+        $header_options->add_field( array(
+            'name' => 'Stile personalizzato - comuni',
+            'desc' => 'Al momento, è in uso un foglio di stile personalizzato al posto di <strong>comuni.css</strong>. Per tornare a usare quello predefinito, disabilita questa opzione e salva le modifiche.',
+            'id'   => 'use_comuni_css',
+            'type' => 'checkbox',
+            'default' => 'on'
+        ));
+    }
+    else{
+
+        $header_options->add_field( array(
+        'id'    => $prefix . 'comuni_css_file',
+        'name' => __('Stile personalizzato - comuni', 'design_comuni_italia' ),
+        'desc' => __('Customizzazione del foglio di stile <strong>comuni.css</strong> per personalizzare la grafica del sito. <br> <strong>Nota</strong>. Se il campo è vuoto viene utilizzato quello di default presente nel tema' , 'design_comuni_italia' ),
+        'type' => 'css_file'
+        ));
+    }
 
 }
 
 
 function custom_comuni_css_file_option_update(string $object_id, array $updated, CMB2 $cmb) {
+    global $CSS_NAME_COMUNI;
+    if(!isset($cmb->data_to_save['use_comuni_css'])){
+        unlink(get_custom_css_file_path($CSS_NAME_COMUNI));
+    }
 
-    if(array_key_exists("comuni_css", $cmb->data_to_save)){
-        $css =  $cmb->data_to_save["comuni_css"];
-        $file = WP_CONTENT_DIR.'/custom-css/comuni-custom.css';
+    $uploaded_css =  $_FILES['comuni_css_file']['tmp_name'] ?? false;
 
-        wp_mkdir_p(WP_CONTENT_DIR.'/custom-css/');
+    if(is_uploaded_file($uploaded_css)){
+        $file = get_custom_css_file_path($CSS_NAME_COMUNI);
 
-        if(empty($css))
-            unlink($file);
-        else{
-            $myfile = fopen($file, "w");
-            fwrite($myfile, stripslashes($cmb->data_to_save["comuni_css"]));
-            fclose($myfile);
-        }
-
+        wp_mkdir_p(get_custom_css_folder_path($CSS_NAME_COMUNI));
+        
+        move_uploaded_file($uploaded_css, $file);
     }
 }
 add_action( 'cmb2_save_options-page_fields_dci_options_configurazione', 'custom_comuni_css_file_option_update', 10, 3 );
 
 
 function load_comuni_custom_css(){
-    $file_comuni = WP_CONTENT_DIR.'/custom-css/comuni-custom.css';
+    global $CSS_NAME_COMUNI;
+    $file_comuni = get_custom_css_file_path($CSS_NAME_COMUNI);
     if(file_exists($file_comuni))
-        wp_register_style( 'dci-comuni', content_url('/custom-css/comuni-custom.css'));
+        wp_register_style( 'dci-comuni', get_custom_css_file_url($CSS_NAME_COMUNI));
 
 }
-add_action( 'wp_enqueue_scripts', 'load_comuni_custom_css' );
+add_action('wp_enqueue_scripts', 'load_comuni_custom_css');
