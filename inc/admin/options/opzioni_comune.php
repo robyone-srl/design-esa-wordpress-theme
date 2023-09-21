@@ -94,25 +94,7 @@ function dci_register_comune_options(){
             ))
     ));
 
-    if(file_exists(get_custom_css_file_path($CSS_NAME_COMUNI))){
-        $header_options->add_field( array(
-            'name' => 'Stile personalizzato - comuni',
-            'desc' => 'Al momento, è in uso un foglio di stile personalizzato al posto di <strong>comuni.css</strong>. Per tornare a usare quello predefinito, disabilita questa opzione e salva le modifiche.',
-            'id'   => 'use_comuni_css',
-            'type' => 'checkbox',
-            'default' => 'on'
-        ));
-    }
-    else{
-
-        $header_options->add_field( array(
-        'id'    => $prefix . 'comuni_css_file',
-        'name' => __('Stile personalizzato - comuni', 'design_comuni_italia' ),
-        'desc' => __('Customizzazione del foglio di stile <strong>comuni.css</strong> per personalizzare la grafica del sito. <br> <strong>Nota</strong>. Se il campo è vuoto viene utilizzato quello di default presente nel tema' , 'design_comuni_italia' ),
-        'type' => 'css_file'
-        ));
-    }
-
+    add_custom_css_field_to_box($header_options, $CSS_NAME_COMUNI, 'comuni_css_file', 'use_comuni_css');
 }
 
 
