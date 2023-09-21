@@ -1193,3 +1193,29 @@ function printDateTime($format, $date) {
 	$format =  new IntlDateFormatter('it_IT', IntlDateFormatter::FULL, IntlDateFormatter::FULL,  'Europe/Rome', IntlDateFormatter::GREGORIAN, $format);
 	return datefmt_format( $format, $date);
 }
+
+
+
+// PER I CSS CUSTOM
+
+// render css file field
+function cmb2_render_callback_for_css_file( $field, $escaped_value, $object_id, $object_type, $field_type_object ) {
+    echo $field_type_object->input( array( 'type' => 'file', 'accept'=>'text/css' ) );
+}
+add_action( 'cmb2_render_css_file', 'cmb2_render_callback_for_css_file', 10, 5 );
+
+function get_custom_css_sub_folder(){
+    return '/custom-css/';
+}
+
+function get_custom_css_folder_path(){
+    return WP_CONTENT_DIR.get_custom_css_sub_folder();
+}
+
+function get_custom_css_file_path($file_name_no_path){
+    return get_custom_css_folder_path().$file_name_no_path;
+}
+
+function get_custom_css_file_url($file_name_no_path){
+    return content_url(get_custom_css_sub_folder().$file_name_no_path);
+}
