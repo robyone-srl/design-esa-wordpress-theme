@@ -17,7 +17,7 @@ function dci_register_post_type_notizia() {
     $args   = array(
         'label'         => __( 'Notizia', 'design_comuni_italia' ),
         'labels'        => $labels,
-        'supports'      => array( 'title', 'editor', 'author', 'thumbnail'),
+        'supports'      => array( 'title', 'editor', 'author' ),
         'hierarchical'  => false,
         'public'        => true,
         'menu_position' => 5,

@@ -17,7 +17,7 @@ function dci_register_post_type_luogo() {
 	$args   = array(
 		'label'         => __( 'Luogo', 'design_comuni_italia' ),
 		'labels'        => $labels,
-		'supports'      => array( 'title', 'editor', 'thumbnail' ),
+		'supports'      => array( 'title', 'editor' ),
 		'hierarchical'  => true,
 		'public'        => true,
         'menu_position' => 5,

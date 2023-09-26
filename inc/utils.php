@@ -1165,6 +1165,11 @@ function dci_contains_element_with( $array, $key, $value) {
 
 if(!function_exists("dci_get_img")) {
     function dci_get_img( $url, $classes = '') {
+        if(has_post_thumbnail()){
+            the_post_thumbnail(attr: array('class' => $classes));
+            return;
+        }
+
         $img_post = get_post( attachment_url_to_postid($url) );
         $image_alt = get_post_meta( $img_post->ID, '_wp_attachment_image_alt', true);
         $image_title = get_the_title( $img_post->ID );

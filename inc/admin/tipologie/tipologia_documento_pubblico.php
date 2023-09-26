@@ -16,7 +16,7 @@ function dci_register_post_type_documento_pubblico() {
     $args   = array(
         'label'         => __( 'Documento Pubbblico', 'design_comuni_italia' ),
         'labels'        => $labels,
-        'supports'      => array( 'title', 'editor' , 'thumbnail' ),
+        'supports'      => array( 'title', 'editor' ),
         'taxonomies'    => array( 'tipologia' ),
         'hierarchical'  => false,
         'public'        => true,
