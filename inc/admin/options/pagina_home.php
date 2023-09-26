@@ -122,6 +122,14 @@ function dci_register_pagina_home_options(){
         'desc' => __( 'Configurazione sezione Siti Tematici.' , 'design_comuni_italia' ),
         'type' => 'title',
     ) );
+    
+    //sezione Siti Tematici
+    $home_options->add_field( array(
+        'id' => $prefix . 'siti_tematici_sfondi',
+        'name'        => __( 'Sfondo Siti Tematici', 'design_comuni_italia' ),
+        'desc' => __( 'Mettere uno sfondo diverso ad ogni sito tematico?' , 'design_comuni_italia' ),
+        'type' => 'checkbox',
+    ) );
 
     $home_options->add_field( array(
         'id' => $prefix . 'siti_tematici',

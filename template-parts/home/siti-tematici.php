@@ -1,5 +1,5 @@
 <?php
-global $sito_tematico_id;
+global $sito_tematico_id, $count;
 
 $siti_tematici = dci_get_option('siti_tematici', 'homepage');
 if (is_array($siti_tematici) && count($siti_tematici)) {
@@ -12,6 +12,7 @@ if (is_array($siti_tematici) && count($siti_tematici)) {
     <div class="pt-4 pt-lg-30">
       <div class="row gy-4">
         <?php
+        $count = 0;
         foreach ($siti_tematici as $sito_tematico_id) {
         ?>
           <div class="col-12 col-md-6 col-lg-4">
@@ -20,6 +21,7 @@ if (is_array($siti_tematici) && count($siti_tematici)) {
             ?>
           </div>
         <?php
+        ++$count;
         }
         ?>
       </div>
