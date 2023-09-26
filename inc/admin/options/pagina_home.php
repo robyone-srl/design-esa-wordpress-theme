@@ -129,9 +129,6 @@ function dci_register_pagina_home_options(){
         'desc' => __( 'Selezionare il sito tematico di cui visualizzare la Card' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('sito_tematico'),
-        'attributes' => array(
-            'data-maximum-selection-length' => '3',
-        ),
     ) );
 
     //sezione Argomenti
