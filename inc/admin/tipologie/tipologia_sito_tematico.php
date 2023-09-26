@@ -85,13 +85,6 @@ function dci_add_sito_tematico_metaboxes() {
     ) );
 
     $cmb_dati->add_field( array(
-        'name'       => __('Colore sito tematico', 'design_comuni_italia' ),
-        'desc'       => __('Lo sfondo della card relativa al servizio nella home (se l\'opzione per mostrare lo sfondo in <i>Configurazione > Home page</i> è abilitata). Se non è selezionato un colore, verrà usato il primary color.', 'design_comuni_italia' ),
-        'id'         => $prefix . 'colore',
-        'type'       => 'colorpicker',
-    ) );
-
-    $cmb_dati->add_field( array(
             'id'    => $prefix . 'immagine',
             'name' => __('Immagine', 'design_comuni_italia' ),
             'desc' => __( 'Seleziona un\'immagine da mostrare  nella Card del sito tematico', 'design_comuni_italia' ),
