@@ -86,6 +86,34 @@ function dci_register_pagina_home_options(){
             ),
         )
     );
+    
+    $home_options->add_field( array(
+        'id' => $prefix . 'visualizzazione_eventi',
+        'name'        => __( 'Visualizzazione eventi', 'design_comuni_italia' ),
+        'desc' => __( 'Scegli se mostrare i prossimi eventi organizzati per giorni o uno dopo l\'altro' , 'design_comuni_italia' ),
+        'type'    => 'radio_inline',
+        'options' => array(
+            '' => __( 'Per giorni', 'cmb2' ),
+            'in-lista'   => __( 'In lista, uno dopo l\'altro', 'cmb2' ),
+        ),
+        'default' => '',
+    ) );
+    
+    $home_options->add_field(array(
+        'id' => $prefix . 'quanti_eventi_mostrare',
+        'name' => __('Lista eventi nella home', 'design_comuni_italia'),
+        'desc' => __('Seleziona il numero di eventi da mostrare in homepage.', 'design_comuni_italia'),
+        'type' => 'radio_inline',
+        'default' => 3,
+        'options' => array(
+            3 => __(3, 'design_comuni_italia'),
+            6 => __(6, 'design_comuni_italia'),
+        ),
+        'attributes' => array(
+			'data-conditional-id'    => $prefix.'visualizzazione_eventi',
+			'data-conditional-value' => "in-lista",
+        ),
+    ));
 
     //sezione Siti Tematici
     $home_options->add_field( array(

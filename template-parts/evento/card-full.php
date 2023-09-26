@@ -10,7 +10,7 @@ $tipo_evento = get_the_terms($post->ID,'tipi_evento')[0];
 ?>
 
 <div class="col-lg-6 col-xl-4">
-    <div class="card-wrapper shadow-sm rounded border border-light">
+    <div class="card-wrapper shadow-sm rounded border border-light pb-0">
         <div class="card no-after rounded">
             <div class="img-responsive-wrapper">
                 <div class="img-responsive img-responsive-panoramic">
