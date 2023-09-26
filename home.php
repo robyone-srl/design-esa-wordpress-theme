@@ -7,6 +7,9 @@
  * @package Design_Comuni_Italia
  */
 
+
+$visualizzazione_eventi = dci_get_option('visualizzazione_eventi', 'homepage') ?? '';
+
 get_header();
 ?>
     <main id="main-container" class="main-container redbrown">
@@ -22,7 +25,7 @@ get_header();
             }
 		    ?>
             <?php get_template_part("template-parts/home/notizie"); ?>
-            <?php get_template_part("template-parts/home/calendario"); ?>
+            <?php get_template_part("template-parts/home/calendario", $visualizzazione_eventi); ?>
         </section>
         <section id="evidenza" class="evidence-section">
             <div class="section bg-primary py-5 pb-lg-80 px-lg-5 position-relative" style="<?php if (file_exists(get_stylesheet_directory().'/assets/img/evidenza-header.png')){ ?>background-image: url('<?php echo esc_url( get_stylesheet_directory_uri()); ?>/assets/img/evidenza-header.png');<?php }else{ ?>background-image: url('<?php echo esc_url( get_template_directory_uri()); ?>/assets/img/evidenza-header.png');<?php } ?>">

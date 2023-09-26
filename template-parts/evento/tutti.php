@@ -9,8 +9,9 @@ $args = array(
 	's'         => $query,
     'posts_per_page' => $load_posts,
 	'post_type' => 'evento',
-    'orderby'        => 'date',
-	'order'          => 'desc'
+	'orderby' => 'meta_value',
+	'order' => 'ASC',
+	'meta_key' => '_dci_evento_data_orario_inizio',
 );
 
 $the_query = new WP_Query( $args );
