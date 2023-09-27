@@ -1245,3 +1245,16 @@ function add_custom_css_field_to_box(&$box, $css_name, $file_field_name, $checkb
         ));
     }
 }
+
+function is_this_dark_hex($hex){
+    return luma_hex($hex) < .75;
+}
+
+function luma_hex($hex){
+    return luma(hexdec(substr($hex,1,2)), hexdec(substr($hex,3,2)), hexdec(substr($hex,5,2)));
+}
+
+function luma($r, $g, $b)
+{
+  return (0.2126 * (float)$r + 0.7152 * (float)$g + 0.0722 * (float)$b) / 255.0;
+}
