@@ -25,8 +25,6 @@ $args = array(
 $the_query = new WP_Query( $args );
 $eventi = $the_query->posts;
 
-print_r($eventi);
-
 $quanti_eventi_nascosti = $the_query->found_posts - $quanti_eventi_mostrare;
 $btn_mostra_tutti = $quanti_eventi_nascosti > 0 ? "Mostra " . ($quanti_eventi_nascosti > 1 ? 'altri ' . $quanti_eventi_nascosti . ' eventi' : 'un altro evento') : false;
 

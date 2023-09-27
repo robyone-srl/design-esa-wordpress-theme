@@ -42,7 +42,7 @@ $page_macro = get_page_by_path($page_macro_slug);
     </a>
 </div>
 <?php } else { ?>
-    <div class="card card-teaser no-after rounded shadow-sm mb-0">
+    <div class="card card-teaser no-after rounded shadow-sm mb-0 border border-light">
         <div class="card-body pb-5">
         <div class="category-top">
             <!-- <svg class="icon">
