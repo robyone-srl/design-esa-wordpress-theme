@@ -11,14 +11,14 @@ $args = array(
 		'relation' => 'OR',
 		array(
 			'key' => '_dci_evento_data_orario_fine',
-			'value' => current_datetime()->getTimestamp(), // date format error
+			'value' => current_datetime()->getTimestamp(),
 			'compare' => '>='
 		),  
 		array(
 			'key' => '_dci_evento_data_orario_inizio',
-			'value' => current_datetime()->getTimestamp(), // date format error
+			'value' => current_datetime()->modify('-12 hours')->getTimestamp(),
 			'compare' => '>='
-		)                      
+		),
 	 )
 );
 
