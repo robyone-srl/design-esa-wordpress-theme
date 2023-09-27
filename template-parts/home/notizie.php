@@ -76,7 +76,7 @@ $overlapping = "";
                 <?php if (!$post_id) { ?>
                     <div class="row row-title pt-lg-60 pb-3">
                         <div class="col-12 d-lg-flex justify-content-between">
-                            <h2 id="ultime-news" class="mb-lg-0">Ultime news</h2>
+                            <h2 id="ultime-news" class="mb-lg-0">Ultime notizie</h2>
                         </div>
                     </div>
                 <?php } ?>
