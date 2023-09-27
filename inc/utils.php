@@ -1247,7 +1247,7 @@ function add_custom_css_field_to_box(&$box, $css_name, $file_field_name, $checkb
 }
 
 function is_this_dark_hex($hex){
-    return luma_hex($hex) < .75;
+    return luma_hex($hex) < .5;
 }
 
 function luma_hex($hex){
