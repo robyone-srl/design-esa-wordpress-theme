@@ -30,6 +30,20 @@ function dci_register_pagina_home_options(){
         'type' => 'title',
     ) );
 
+    
+    
+    $home_options->add_field( array(
+        'id' => $prefix . 'visualizzazione_notizie',
+        'name'        => __( 'Visualizzazione notizie', 'design_comuni_italia' ),
+        'desc' => __( 'Scegli se mostrare le notizie nel modo classico (notizia grande in evidenza + card notizie appena sotto) oppure un carousel (presentazione di slide) con la notizia in evidenza e successivamente le ultime notizie' , 'design_comuni_italia' ),
+        'type'    => 'radio_inline',
+        'options' => array(
+            '' => __( 'Classica', 'cmb2' ),
+            'carousel'   => __( 'Carousel', 'cmb2' ),
+        ),
+        'default' => '',
+    ) );
+
     $home_options->add_field( array(
             'name' => __('Notizia in evidenza', 'design_comuni_italia'),
             'desc' => __('Seleziona una notizia da mostrare in homepage', 'design_comuni_italia'),

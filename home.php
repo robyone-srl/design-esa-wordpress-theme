@@ -10,6 +10,7 @@
 
 
 $visualizzazione_eventi = dci_get_option('visualizzazione_eventi', 'homepage') ?? '';
+$visualizzazione_notizie = dci_get_option('visualizzazione_notizie', 'homepage') ?? '';
 
 get_header();
 ?>
@@ -25,7 +26,8 @@ get_header();
             get_template_part("template-parts/home/messages");
         }
         ?>
-        <?php get_template_part("template-parts/home/notizie"); ?>
+        <?php get_template_part("template-parts/home/notizie", $visualizzazione_notizie); ?>
+        <?php get_template_part("template-parts/home/contenuti-evidenza"); ?>
         <?php get_template_part("template-parts/home/calendario", $visualizzazione_eventi); ?>
     </section>
     <section id="evidenza" class="evidence-section" style="display: grid;">
