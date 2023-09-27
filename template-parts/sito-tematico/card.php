@@ -19,7 +19,7 @@ $sfondo_scuro = $colore_sfondo ? is_this_dark_hex($colore_sfondo) : true;
         </div>
     <?php } ?>
     <div class="card-body">
-        <h3 class="card-title sito-tematico titolo-sito-tematico <?= $sfondo_scuro ? 'text-white':'' ?>">
+        <h3 class="card-title sito-tematico titolo-sito-tematico <?= $sfondo_scuro ? 'text-white':'text-black' ?>">
             <?php echo $sito_tematico->post_title ?>
         </h3>
         <p class="card-text text-sans-serif <?= $sfondo_scuro ? 'text-white':'' ?>">
