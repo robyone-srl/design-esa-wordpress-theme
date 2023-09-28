@@ -9,8 +9,8 @@ $argomenti         = dci_get_meta("argomenti", '_dci_notizia_', $post->ID);
 
 ?>
 
-<div class="row">
-    <div class="col-lg-6 order-2 order-lg-1">
+<div class="row flex-grow-1">
+    <div class="<?= $img?'col-lg-6':'' ?> order-2 order-lg-1">
         <div class="card mb-1">
             <div class="card-body pb-xl-5">
                 <div class="category-top">
@@ -34,9 +34,9 @@ $argomenti         = dci_get_meta("argomenti", '_dci_notizia_', $post->ID);
             </div>
         </div>
     </div>
-    <div class="col-lg-6 order-1 order-lg-2 px-0 px-lg-2" style="max-height: 384px;">
-        <?php if ($img) {
-            dci_get_img($img, 'img-fluid h-100 w-100 object-fit-cover');
-        } ?>
-    </div>
+    <?php if ($img) { ?>
+        <div class="col-lg-6 order-1 order-lg-2 px-0 px-lg-2" style="max-height: 384px;">
+            <?php dci_get_img($img, 'img-fluid h-100 w-100 object-fit-cover'); ?>
+        </div>
+    <?php } ?>
 </div>
