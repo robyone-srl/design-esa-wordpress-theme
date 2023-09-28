@@ -72,15 +72,6 @@ function dci_register_taxonomy_metabox() {
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('unita_organizzativa'),
     ) );
-
-    $cmb_term->add_field( array(
-        'id' => $prefix . 'assessorato_riferimento',
-        'name'    => __( 'Assessorato di riferimento' , 'design_comuni_italia' ),
-        'desc' => __( 'Assessorati che hanno deleghe su questo argomento' , 'design_comuni_italia' ),
-        'type'    => 'pw_multiselect',
-        'options' => dci_get_posts_options('unita_organizzativa'),
-    ) );
-
 }
 
 add_action('current_screen', 'dci_current_screen_callback');
