@@ -15,7 +15,8 @@ if ($notizie_in_home && $notizie_in_home > 0) {
         'post_status'    => 'publish',
         'posts_per_page' => $notizie_in_home,
         'orderby'        => 'date',
-        'order'          => 'DESC'
+        'order'          => 'DESC',
+        'exclude'        => $post_id ? [$post_id] : [],
     );
     $posts = get_posts($args);
     //$post  = array_shift( $posts  );
@@ -27,8 +28,6 @@ $monthName         = date_i18n('M', mktime(0, 0, 0, $arrdata[1], 10));
 $descrizione_breve = dci_get_meta("descrizione_breve", '_dci_notizia_', $post->ID);
 $argomenti         = dci_get_meta("argomenti", '_dci_notizia_', $post->ID);
 
-$schede = dci_get_option('schede_evidenziate', 'homepage') ?? null;
-
 $overlapping = "";
 ?>
 <!-- Tag section is opened in home.php -->
@@ -39,38 +38,7 @@ $overlapping = "";
             <?php if ($post_id) {
                 $overlapping = "card-overlapping";
             ?>
-                <div class="row">
-                    <div class="col-lg-5 order-2 order-lg-1">
-                        <div class="card mb-1">
-                            <div class="card-body pb-5">
-                                <div class="category-top">
-                                    <svg class="icon icon-sm" aria-hidden="true">
-                                        <use xlink:href="#it-calendar"></use>
-                                    </svg>
-                                    <span class="title-xsmall-semi-bold fw-semibold"><?php echo $post->post_type ?></span>
-                                    <?php if (is_array($arrdata) && count($arrdata)) { ?>
-                                        <span class="data fw-normal"><?php echo $arrdata[0] . ' ' . $monthName . ' ' . $arrdata[2]; ?></span>
-                                    <?php } ?>
-                                </div>
-                                <a href="<?php echo get_permalink($post->ID); ?>" class="text-decoration-none">
-                                    <h3 class="card-title">
-                                        <?php echo $post->post_title ?>
-                                    </h3>
-                                </a>
-                                <p class="mb-4 font-serif pt-3">
-                                    <?php echo $descrizione_breve ?>
-                                </p>
-                                <?php get_template_part("template-parts/common/badges-argomenti"); ?>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 offset-lg-1 order-1 order-lg-2 px-0 px-lg-2">
-                        <?php if ($img) {
-                            dci_get_img($img, 'img-fluid');
-                        } ?>
-                    </div>
-                </div>
-
+                <?php get_template_part("template-parts/home/notizia-hero"); ?>
             <?php }
             if ($posts && is_array($posts) && count($posts) > 0) { ?>
                 <?php if (!$post_id) { ?>
@@ -104,30 +72,3 @@ $overlapping = "";
         </div>
     </div>
 </section>
-<?php
-if ($schede && count($schede) > 0) { ?>
-    <section aria-describedby="contenuti_evidenza">
-        <div class="section-content">
-            <div class="section-muted pb-90 pb-lg-50 px-lg-5 pt-0">
-                <div class="container">
-                    <div class="row row-title pt-5 pt-lg-60 pb-3">
-                        <div class="col-12 d-lg-flex justify-content-between">
-                            <h2 id="contenuti_evidenza" class="mb-lg-0">Contenuti in evidenza</h2>
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="card-wrapper px-0 card-teaser-wrapper card-teaser-wrapper-equal card-teaser-block-3">
-                            <?php $count = 1;
-                            foreach ($schede as $scheda) {
-                                if ($scheda) {
-                                    get_template_part("template-parts/home/scheda-evidenza");
-                                }
-                                ++$count;
-                            } ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-<?php } ?>
