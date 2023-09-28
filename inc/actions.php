@@ -52,9 +52,6 @@ function force_post_title( $post )  {
                         '_dci_pagamento_modalita_pagamento',
                         '_dci_pratica_descrizione',
                         '_dci_servizio_a_chi_e_rivolto',
-                        '_dci_servizio_come_fare',
-                        '_dci_servizio_cosa_serve_introduzione',
-                        '_dci_servizio_tempi_text',
                     ]
                     for (const field_id of required_dci_cmb2_wysiwyg_fields) {
                         if ( jQuery( "#"+field_id ).val() !== undefined && !jQuery( "#"+field_id ).val()) {

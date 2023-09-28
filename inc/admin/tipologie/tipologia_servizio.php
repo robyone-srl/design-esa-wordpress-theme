@@ -217,15 +217,12 @@ $cmb_destinatari->add_field( array(
     $cmb_come_fare->add_field( array(
         'id'      => $prefix . 'come_fare',
         'name'    => __( 'Come fare *', 'design_comuni_italia' ),
-        'desc'    => __( 'Procedura da seguire per usufruire del Servizio.' , 'design_comuni_italia' ),
+        'desc'    => __( 'Procedura da seguire per usufruire del Servizio.<br>Il campo è obbligatorio se il servizio è primario (ovvero non ha servizi richiesti).' , 'design_comuni_italia' ),
         'type'    => 'wysiwyg',
         'options' => array(
             'media_buttons' => false, // show insert/upload button(s)
             'textarea_rows' => 10, // rows="..."
             'teeny' => false, // output the minimal editor config used in Press This
-        ),
-        'attributes' => array(
-            'required' => 'required'
         ),
     ) );
 
@@ -242,11 +239,8 @@ $cmb_destinatari->add_field( array(
     $cmb_cosa_serve->add_field( array(
         'id'         => $prefix . 'cosa_serve_introduzione',
         'name'       => __( 'Cosa Serve (testo introduttivo) * ', 'design_comuni_italia' ),
-        'desc'       => __( 'es: "Per attivare il servizio bisogna prima compilare il modulo on line oppure stampare e compilare il modulo cartaceo che trovi nella sezione documenti di questa pagina. [Vai alla sezione documenti]" Per creare un link mediante ancora inserisci #art-par-documenti come valore del link', 'design_comuni_italia' ),
+        'desc'       => __( 'es: "Per attivare il servizio bisogna prima compilare il modulo on line oppure stampare e compilare il modulo cartaceo che trovi nella sezione documenti di questa pagina. [Vai alla sezione documenti]" Per creare un link mediante ancora inserisci #art-par-documenti come valore del link.<br>Il campo è obbligatorio se il servizio è primario (ovvero non ha servizi richiesti).', 'design_comuni_italia' ),
         'type'       => 'wysiwyg',
-        'attributes' => array(
-            'required' => 'required'
-        ),
         'options'    => array(
             'media_buttons' => false, // show insert/upload button(s)
             'textarea_rows' => 10, // rows="..."
@@ -295,6 +289,7 @@ $cmb_destinatari->add_field( array(
     $cmb_tempi->add_field( array(
         'id' => $prefix . 'tempi_text',
         'type' => 'wysiwyg',
+        'desc' => 'Il campo è obbligatorio se il servizio è primario (ovvero non ha servizi richiesti).',
         'options' => array(
             'media_buttons' => false, // show insert/upload button(s)
             'textarea_rows' => 4, // rows="..."
@@ -732,3 +727,10 @@ new dci_bidirectional_cmb2("_dci_servizio_", "servizio", "documenti", "box_docum
 new dci_bidirectional_cmb2("_dci_servizio_", "servizio", "servizi_inclusi", "box_destinatari", "_dci_servizio_servizi_richiesti");
 
 new dci_bidirectional_cmb2("_dci_servizio_", "servizio", "servizi_richiesti", "box_destinatari", "_dci_servizio_servizi_inclusi");
+
+
+function cmb2_validation_script( $pagearg ) {
+    global $post;
+    wp_enqueue_script('custom-js', get_template_directory_uri() . '/assets/js/validation-servizio.js');
+}
+add_action( 'admin_enqueue_scripts', 'cmb2_validation_script', 10, 1 );
