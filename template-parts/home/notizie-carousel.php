@@ -17,7 +17,8 @@ if ($notizie_in_home && $notizie_in_home > 0) {
         'post_status'    => 'publish',
         'posts_per_page' => $notizie_in_home,
         'orderby'        => 'date',
-        'order'          => 'DESC'
+        'order'          => 'DESC',
+        'exclude'        => $post_id ? [$post_id] : [],
     );
     $posts = get_posts($args);
     //$post  = array_shift( $posts  );
@@ -28,7 +29,7 @@ if ($notizie_in_home && $notizie_in_home > 0) {
 
 <div class="container">
     <div class="it-carousel-wrapper it-carousel-landscape-abstract splide mw-100" data-bs-carousel-splide>
-        <div class="splide__track">
+        <div class="splide__track pt-0 px-0">
             <ul class="splide__list">
                 <?php
                 //notizia in evidenza

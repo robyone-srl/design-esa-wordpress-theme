@@ -10,9 +10,9 @@ $argomenti         = dci_get_meta("argomenti", '_dci_notizia_', $post->ID);
 ?>
 
 <div class="row">
-    <div class="col-lg-5 order-2 order-lg-1">
+    <div class="col-lg-6 order-2 order-lg-1">
         <div class="card mb-1">
-            <div class="card-body pb-5">
+            <div class="card-body pb-xl-5">
                 <div class="category-top">
                     <svg class="icon icon-sm" aria-hidden="true">
                         <use xlink:href="#it-calendar"></use>
@@ -34,9 +34,9 @@ $argomenti         = dci_get_meta("argomenti", '_dci_notizia_', $post->ID);
             </div>
         </div>
     </div>
-    <div class="col-lg-6 offset-lg-1 order-1 order-lg-2 px-0 px-lg-2">
+    <div class="col-lg-6 order-1 order-lg-2 px-0 px-lg-2">
         <?php if ($img) {
-            dci_get_img($img, 'img-fluid');
+            dci_get_img($img, 'img-fluid h-100 object-fit-cover');
         } ?>
     </div>
 </div>

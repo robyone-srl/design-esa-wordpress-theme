@@ -1159,3 +1159,17 @@ svg.leaflet-image-layer.leaflet-interactive path {
 a:hover * .titolo-sito-tematico {
   text-decoration: underline;
 }
+
+.it-carousel-wrapper.it-carousel-landscape-abstract .splide__pagination {
+  position: absolute;
+  left: 0;
+  margin-left: 16px;
+  right: 0;
+  bottom: 5px;
+  text-align: left;
+  justify-content: left;
+}
+
+.object-fit-cover{
+  object-fit: cover;
+}
