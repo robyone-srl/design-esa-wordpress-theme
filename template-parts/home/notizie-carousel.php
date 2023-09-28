@@ -1,4 +1,7 @@
 <?php
+// Per mostrare la notizia in evidenza
+$post_id = dci_get_option('notizia_evidenziata', 'homepage', true)[0] ?? null;
+
 //Notizie in homepage
 $posts = null;
 $notizie_in_home = dci_get_option('notizie_in_home', 'homepage');
@@ -14,9 +17,6 @@ if ($notizie_in_home && $notizie_in_home > 0) {
     $posts = get_posts($args);
     //$post  = array_shift( $posts  );
 }
-
-// Per mostrare la notizia in evidenza
-$post_id = dci_get_option('notizia_evidenziata', 'homepage', true)[0] ?? null;
 
 if ($post_id) {
     array_unshift($posts, get_post($post_id));
