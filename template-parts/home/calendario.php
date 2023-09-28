@@ -27,7 +27,7 @@ foreach ($date as $data) {
 		<div class="container">
 			<div class="row row-title pt-5 pt-lg-60 pb-3">
 				<div class="col-12 d-lg-flex justify-content-between">
-					<h2 class="mb-lg-0">Eventi</h2>
+					<h2 class="mb-lg-0">Prossimi eventi</h2>
 				</div>
 			</div>
 			<div class="row row-calendar">
