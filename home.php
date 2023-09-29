@@ -41,7 +41,7 @@ get_header();
     <section id="siti-tematici" class="my-5">
         <?php get_template_part("template-parts/home/siti","tematici"); ?>
     </section>
-    <?php if ($mostra_gallery) { get_template_part("template-parts/vivere-ente/galleria-foto"); }?>
+    <?php if ($mostra_gallery) { $sfondo_grigio = false; get_template_part("template-parts/vivere-ente/galleria-foto"); }?>
     <?php get_template_part("template-parts/home/ricerca"); ?>
     <?php get_template_part("template-parts/common/valuta-servizio"); ?>
     <?php get_template_part("template-parts/common/assistenza-contatti"); ?>

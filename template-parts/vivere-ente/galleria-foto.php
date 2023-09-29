@@ -1,13 +1,14 @@
 <?php
 // Galleria impostata in Configurazione > Vivere l'ente
-
+global $sfondo_grigio;
+$sfondo_grigio ?? true;
 
 $photos = dci_get_option('gallery_items', 'vivi') ?: [];
 ?>
 
 <?php if(count($photos) > 0) { ?>
 <section id="galleria">
-	<div class="section section-muted pb-90 pb-lg-50 px-lg-5 pt-0">
+	<div class="section <?=$sfondo_grigio?'section-muted':'' ?> pb-90 pb-lg-50 px-lg-5 pt-0">
 		<div class="container">
 			<div class="row row-title pt-5 pt-lg-60 pb-3">
 				<div class="col-12 d-lg-flex justify-content-between">
