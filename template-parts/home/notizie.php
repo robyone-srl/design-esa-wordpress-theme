@@ -6,6 +6,9 @@ if ($post_id) {
     $post = get_post($post_id);
 }
 
+// schede evidenziate, per escludere dalla query le notizie già evidenziate
+$schede = dci_get_option('schede_evidenziate', 'homepage') ?: [];
+
 //Notizie in homepage
 $posts = null;
 $notizie_in_home = dci_get_option('notizie_in_home', 'homepage');
@@ -16,7 +19,7 @@ if ($notizie_in_home && $notizie_in_home > 0) {
         'posts_per_page' => $notizie_in_home,
         'orderby'        => 'date',
         'order'          => 'DESC',
-        'exclude'        => $post_id ? [$post_id] : [],
+        'exclude'        => [...($post_id ? [$post_id] : []), ...$schede],
     );
     $posts = get_posts($args);
     //$post  = array_shift( $posts  );
