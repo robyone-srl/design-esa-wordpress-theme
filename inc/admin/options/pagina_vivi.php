@@ -94,4 +94,12 @@ function dci_register_pagina_vivi_options(){
         'query_args' => array( 'type' => 'image' ), // Only images attachment
     )
 );
+
+    $vivi_options->add_field( array(
+        'id' => $prefix . 'gallery_title',
+        'name' => 'Nome gallery',
+        'desc' => 'Scegli il nome della sezione con la galleria.',
+        'type' => 'text',
+        'default' => 'Le nostre foto'
+    ) );
 }
