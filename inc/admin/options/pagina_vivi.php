@@ -62,6 +62,7 @@ function dci_register_pagina_vivi_options(){
             )
         )
     );
+
     $vivi_options->add_field(array(
             'name' => __('Luoghi in evidenza', 'design_comuni_italia'),
             'desc' => __('Seleziona i luoghi in evidenza. NB: Selezionane 3 o multipli di 3 per evitare buchi nell\'impaginazione.  ', 'design_comuni_italia'),
@@ -83,4 +84,14 @@ function dci_register_pagina_vivi_options(){
             )
         )
     );
+    
+    $vivi_options->add_field(array(
+        'name' => __('Gallery', 'design_comuni_italia'),
+        'desc' => __('Seleziona le foto da mostrare in fondo alla pagina', 'design_comuni_italia'),
+        'id' => $prefix . 'gallery_items',
+        'type' => 'file_list',
+        'preview_size' => array( 100, 100 ), // Default: array( 50, 50 )
+        'query_args' => array( 'type' => 'image' ), // Only images attachment
+    )
+);
 }

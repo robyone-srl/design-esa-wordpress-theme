@@ -285,4 +285,11 @@ function dci_register_pagina_home_options(){
         'remove_default' => 'true',
     ) );
 
+    $home_options->add_field( array(
+        'id' => $prefix . 'mostra_gallery',
+        'name' => 'Mostra gallery',
+        'desc' => 'Mostra la galleria di foto (da impostare in <i>Configurazione &gt; Vivere l\'ente</i>)',
+        'type' => 'checkbox',
+    ) );
+
 }

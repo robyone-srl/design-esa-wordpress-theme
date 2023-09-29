@@ -11,6 +11,7 @@
 
 $visualizzazione_eventi = dci_get_option('visualizzazione_eventi', 'homepage') ?? '';
 $visualizzazione_notizie = dci_get_option('visualizzazione_notizie', 'homepage') ?? '';
+$mostra_gallery = dci_get_option('mostra_gallery', 'homepage') ?? false;
 
 get_header();
 ?>
@@ -40,6 +41,7 @@ get_header();
     <section id="siti-tematici" class="my-5">
         <?php get_template_part("template-parts/home/siti","tematici"); ?>
     </section>
+    <?php if ($mostra_gallery) { get_template_part("template-parts/vivere-ente/galleria-foto"); }?>
     <?php get_template_part("template-parts/home/ricerca"); ?>
     <?php get_template_part("template-parts/common/valuta-servizio"); ?>
     <?php get_template_part("template-parts/common/assistenza-contatti"); ?>

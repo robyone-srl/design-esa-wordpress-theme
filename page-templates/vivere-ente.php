@@ -37,6 +37,7 @@ get_header();
 			<?php get_template_part("template-parts/vivere-ente/eventi"); ?>
 			<?php get_template_part("template-parts/vivere-ente/luoghi"); ?>
 			<?php get_template_part("template-parts/vivere-ente/cards-list"); ?>
+			<?php get_template_part("template-parts/vivere-ente/galleria-foto"); ?>
 			<?php get_template_part("template-parts/common/valuta-servizio"); ?>
 			<?php get_template_part("template-parts/common/assistenza-contatti"); ?>
 							
