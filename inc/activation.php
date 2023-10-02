@@ -442,7 +442,7 @@ function createMenu()
     dci_create_page_menu_item(__( 'Documenti e Dati', 'design_comuni_italia'),$menu_amministrazione);
 
     //assegno menu prima colonna footer
-    dci_add_menu_to_location($menu_amministrazione,'menu-footer-col-1');
+    //dci_add_menu_to_location($menu_amministrazione,'menu-footer-col-1'); // tolgo questa linea così le voci nel footer vengono generate automaticamente, ma resta l'opzione di collegare il menu alla posizione per controllarlo manualmente
 
     //menu Servizi
     // pagine di secondo livello (corrispondenza con termini dei tassonomia)
@@ -466,7 +466,7 @@ function createMenu()
     dci_create_term_menu_item('avviso','tipi_notizia',$menu_novita, 'Avvisi');
 
     //assegno menu quarta colonna footer (sopra)
-    // dci_add_menu_to_location($menu_novita,'menu-footer-col-4-1');  // tolgo questa linea così le voci nel footer vengono generate automaticamente, ma resta l'opzione di collegare il menu alla posizione per controllarlo manualmente
+    // dci_add_menu_to_location($menu_novita,'menu-footer-col-4-1'); // tolgo questa linea così le voci nel footer vengono generate automaticamente, ma resta l'opzione di collegare il menu alla posizione per controllarlo manualmente
 
     //voci menu Vivere ente
     //placeholder
@@ -474,7 +474,7 @@ function createMenu()
     dci_create_page_menu_item(__( 'Eventi', 'design_comuni_italia'), $menu_vivere_ente);
 
     //assegno menu quarta colonna footer (sotto)
-    dci_add_menu_to_location($menu_vivere_ente,'menu-footer-col-4-2');
+    //dci_add_menu_to_location($menu_vivere_ente,'menu-footer-col-4-2'); // tolgo questa linea così le voci nel footer vengono generate automaticamente, ma resta l'opzione di collegare il menu alla posizione per controllarlo manualmente
 
     //voci menu Argomenti (in alto a destra)
     dci_create_term_menu_item('Appalto di lavori','argomenti',$menu_argomenti); //voce tassonomia argomenti come placeholder
