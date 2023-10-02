@@ -49,6 +49,20 @@ jQuery( document ).ready(function() {
             return false;
         }
 
+        /**
+         * controllo che se il servizio non ha servizi richiesti allora abbia come fare, cosa serve e tempi e scadenze
+         */
+        if(document.activeElement.id === 'publish' && jQuery('select[name^="_dci_servizio_servizi_richiesti[]"]>option:selected').length === 0){
+            if(!controlla_che_campo_sia_compilato('_dci_servizio_come_fare'))
+            return false
+            
+            if(!controlla_che_campo_sia_compilato('_dci_servizio_cosa_serve_introduzione'))
+                return false
+            
+            if(!controlla_che_campo_sia_compilato('_dci_servizio_tempi_text'))
+                return false
+        }
+
         return true;
     });
 });

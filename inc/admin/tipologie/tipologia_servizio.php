@@ -727,10 +727,3 @@ new dci_bidirectional_cmb2("_dci_servizio_", "servizio", "documenti", "box_docum
 new dci_bidirectional_cmb2("_dci_servizio_", "servizio", "servizi_inclusi", "box_destinatari", "_dci_servizio_servizi_richiesti");
 
 new dci_bidirectional_cmb2("_dci_servizio_", "servizio", "servizi_richiesti", "box_destinatari", "_dci_servizio_servizi_inclusi");
-
-
-function cmb2_validation_script( $pagearg ) {
-    global $post;
-    wp_enqueue_script('custom-js', get_template_directory_uri() . '/assets/js/validation-servizio.js');
-}
-add_action( 'admin_enqueue_scripts', 'cmb2_validation_script', 10, 1 );

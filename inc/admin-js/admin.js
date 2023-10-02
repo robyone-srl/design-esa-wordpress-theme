@@ -153,3 +153,27 @@ function loadSvg(){
     ];
     options.forEach(element => jQuery('.' + element).html('<img src= "' + theme_folder +'/assets/svg/' + element + '.svg" alt="'+element+'" style="width:30px; margin-right:10px;">'));
 }
+
+function controlla_che_campo_sia_compilato(field_id) {
+    if (jQuery("#" + field_id).val() !== undefined && !jQuery("#" + field_id).val()) {
+        // Show the alert
+        var alertid = field_id + "-required-msj"
+        if (!jQuery("#" + alertid).length) {
+            jQuery("#wp-" + field_id + "-wrap")
+                .append('<div id="' + alertid + '"><em>Campo obbligatorio</em></div>')
+                .addClass("highlighted_missing_field")
+            setTimeout(function () {
+                jQuery("#wp-" + field_id + "-wrap").removeClass("highlighted_missing_field");
+                jQuery("#" + alertid).remove()
+            }, 3000);
+        }
+        // Focus on the field.
+        //jQuery( "#"+field_id).focus();
+        jQuery('html,body').animate({
+            scrollTop: jQuery("#" + field_id).parent().offset().top - 100
+        }, 'slow')
+
+        return false
+    }
+    return true
+}
