@@ -25,6 +25,25 @@ function genera_voci_tassonomia($tassonomia)
     <?php
     }
 }
+
+function genera_pagine_figlie($slug_pagina)
+{
+    $post = get_page_by_path($slug_pagina);
+
+    $child_args = array(
+        'post_parent' => $post->ID
+    );
+    
+    $children = get_children( $child_args );
+
+    foreach ($children as $page) {
+    ?>
+        <li>
+            <a href="<?= get_page_link($page) ?>"><?= $page->post_title ?></a>
+        </li>
+    <?php
+    }
+}
 ?>
 <footer class="it-footer" id="footer">
     <div class="it-footer-main">
@@ -55,6 +74,15 @@ function genera_voci_tassonomia($tassonomia)
                             "menu_class" => "footer-list",
                             'walker' => new Footer_Menu_Walker()
                         ));
+                    } else {
+                    ?>
+                        <h3 class="footer-heading-title">
+                            Amministrazione
+                        </h3>
+                        <ul class="footer-list">
+                            <?php genera_pagine_figlie('amministrazione'); ?>
+                        </ul>
+                        <?php
                     }
                     ?>
                 </div>
@@ -136,7 +164,7 @@ function genera_voci_tassonomia($tassonomia)
                     <?php
                     $location = "menu-footer-col-4-2";
                     if (has_nav_menu($location)) { ?>
-                        <h3 class="footer-heading-title">
+                        <h3 class="footer-heading-title mt-0">
                             <?php echo wp_get_nav_menu_name($location); ?>
                         </h3>
                     <?php wp_nav_menu(array(
@@ -145,6 +173,15 @@ function genera_voci_tassonomia($tassonomia)
                             "menu_class" => "footer-list",
                             'walker' => new Footer_Menu_Walker()
                         ));
+                    } else {
+                    ?>
+                        <h3 class="footer-heading-title mt-3">
+                            Vivere l'ente
+                        </h3>
+                        <ul class="footer-list">
+                            <?php genera_pagine_figlie('vivere-ente'); ?>
+                        </ul>
+                        <?php
                     }
                     ?>
                 </div>
