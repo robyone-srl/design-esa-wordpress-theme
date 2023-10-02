@@ -119,8 +119,9 @@ function dci_create_menu_locations() {
         'menu-header-right' => esc_html__( 'Menu secondario (header)', 'design_comuni_italia' ),
         'menu-footer-col-1' => esc_html__( 'Menu footer (colonna 1 - "Amministrazione")', 'design_comuni_italia' ),
         'menu-footer-col-2' => esc_html__( 'Menu footer (colonna 2 - "Categorie di Servizio")', 'design_comuni_italia' ),
-        'menu-footer-col-3-1' => esc_html__( 'Menu footer (colonna 3 - "Novità")', 'design_comuni_italia' ),
-        'menu-footer-col-3-2' => esc_html__( 'Menu footer (colonna 3 - "Vivere il Comune")', 'design_comuni_italia' ),
+        'menu-footer-col-3' => esc_html__( 'Menu footer (colonna 3 - "Tipi di Documento")', 'design_comuni_italia' ),
+        'menu-footer-col-4-1' => esc_html__( 'Menu footer (colonna 4 - "Novità")', 'design_comuni_italia' ),
+        'menu-footer-col-4-2' => esc_html__( 'Menu footer (colonna 4 - "Vivere il Comune")', 'design_comuni_italia' ),
         'menu-footer-info-1' => esc_html__( 'Menu footer (informazioni - colonna 1)', 'design_comuni_italia' ),
         'menu-footer-info-2' => esc_html__( 'Menu footer (informazioni - colonna 2)', 'design_comuni_italia' ),
 
