@@ -170,8 +170,10 @@ function dci_scripts() {
 	wp_enqueue_style( 'dci-comuni', get_template_directory_uri() . '/assets/css/cdr.css');
     wp_enqueue_style( 'dci-font', get_template_directory_uri() . '/assets/css/fonts.css', array('dci-comuni'));
     wp_enqueue_style( 'dci-wp-style', get_template_directory_uri()."/style.css", array('dci-comuni'));
+    wp_enqueue_style( 'tobii', get_template_directory_uri()."/assets/css/tobii.min.css");
 
 	wp_enqueue_script( 'dci-modernizr', get_template_directory_uri() . '/assets/js/modernizr.custom.js');
+	wp_enqueue_script( 'tobii', get_template_directory_uri() . '/assets/js/tobii.min.js');
 
 	// print css
     wp_enqueue_style('dci-print-style',get_template_directory_uri() . '/print.css', array(),'20190912','print' );

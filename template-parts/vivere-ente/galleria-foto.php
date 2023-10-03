@@ -6,7 +6,6 @@ $sfondo_grigio = $sfondo_grigio ?? true;
 $photos = dci_get_option('gallery_items', 'vivi') ?: [];
 $nome_sezione = dci_get_option('gallery_title', 'vivi') ?: [];
 ?>
-
 <?php if (count($photos) > 0) { ?>
 	<section id="galleria" class="pt-5">
 		<?php if ($nome_sezione) { ?>
@@ -27,7 +26,7 @@ $nome_sezione = dci_get_option('gallery_title', 'vivi') ?: [];
 						<li class="splide__slide">
 							<div class="it-single-slide-wrapper">
 								<div class="it-grid-item-wrapper">
-									<a href="<?= $photo ?>" target="_blank">
+									<a href="<?= $photo ?>" class="lightbox">
 										<div class="img-responsive-wrapper">
 											<div class="img-responsive">
 												<?php dci_get_img($photo, 'img-wrapper object-fit-cover'); ?>
@@ -35,9 +34,6 @@ $nome_sezione = dci_get_option('gallery_title', 'vivi') ?: [];
 										</div>
 										<span class="it-griditem-text-wrapper">
 											<span class="it-griditem-text"><?= get_the_title(get_post(attachment_url_to_postid($photo))->ID) ?></span>
-											<svg class="icon">
-												<use href="/bootstrap-italia/dist/svg/sprites.svg#it-code-circle"></use>
-											</svg>
 										</span>
 									</a>
 								</div>
@@ -49,4 +45,9 @@ $nome_sezione = dci_get_option('gallery_title', 'vivi') ?: [];
 		</div>
 	</section>
 
+	<script>
+		const tobii = new Tobii({
+			captionAttribute: 'title'
+		})
+	</script>
 <?php } ?>
