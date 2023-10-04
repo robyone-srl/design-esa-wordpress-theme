@@ -64,7 +64,7 @@ function dci_add_domanda_frequente_metaboxes() {
     $cmb_risposta->add_field( array(
         'desc'       => __('Inserisci qui la risposta alla domanda.', 'design_comuni_italia' ),
         'id'         => $prefix . 'risposta',
-        'type'       => 'textarea',
+        'type'       => 'wysiwyg',
         'attributes'    => array(
             'required'    => 'required',
         ),
