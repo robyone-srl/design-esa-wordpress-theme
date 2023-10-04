@@ -135,7 +135,7 @@ get_header();
                     </aside>
                     <section class="col-lg-8 it-page-sections-container border-light">
                     <article class="it-page-section anchor-offset" data-audio>
-                        <h4 id="descrizione">Risposta</h4>
+                        <h4 id="risposta">Risposta</h4>
                         <div class="richtext-wrapper lora">
                             <?php echo $risposta; ?>
                         </div>
