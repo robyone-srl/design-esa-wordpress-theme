@@ -1180,3 +1180,13 @@ a:hover * .titolo-sito-tematico {
     padding-right: 0;
   }
 }
+
+.notizia-hero-image-container{
+  height: 384px;
+}
+
+@media (max-width: 576px) {
+    .notizia-hero-image-container{
+      height: 240px;
+  }
+}
