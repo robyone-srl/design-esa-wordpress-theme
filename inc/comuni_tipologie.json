@@ -173,7 +173,8 @@
             "capability" : "siti_tematici",
             "prefix" : "_dci_sito_tematico_",
             "singular_name" : "Sito Tematico",
-            "plural_name" : "Siti Tematici"
+            "plural_name" : "Siti Tematici",
+            "group_name" : "Sito tematico"
         },
         "domanda_frequente" : {
             "name" : "domanda_frequente",

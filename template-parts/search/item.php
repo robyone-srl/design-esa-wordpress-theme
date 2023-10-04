@@ -10,7 +10,7 @@ $descrizione = dci_get_meta('descrizione_breve');
 			<a 
 			class="text-decoration-none title-xsmall-bold mb-2 category text-uppercase" 
 			href="<?php echo get_permalink( get_page_by_path( dci_get_group($post->post_type) ) ); ?>">
-			<?php echo dci_get_group_name($post->post_type); ?>
+			<?php echo dci_get_group_name($post->post_type) ?? 'Pagina'; ?>
 			</a>
 		</div>
 		<div class="card-body p-0 my-2">
