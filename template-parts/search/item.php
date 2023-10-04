@@ -2,7 +2,6 @@
 global $post;
 
 $descrizione = dci_get_meta('descrizione_breve');
-print_r($post->post_type == 'sito_tematico' ? dci_get_meta('link'):get_permalink());
 ?>
 
 <div class="cmp-card-latest-messages mb-3 mb-30" data-bs-toggle="modal" data-bs-target="#">
