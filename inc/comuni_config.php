@@ -132,6 +132,7 @@ function dci_get_sercheable_tipologie() {
         'evento',
         'luogo',
         'documento_pubblico',
+        'domanda_frequente',
         'notizia',
         'servizio',
         'persona_pubblica',
