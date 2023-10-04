@@ -19,11 +19,10 @@ get_header();
             $user_can_view_post = dci_members_can_user_view_post(get_current_user_id(), $post->ID);
 
             $prefix= '_dci_domanda_frequente_';
-            $risposta = dci_get_meta("risposta", $prefix, $post->ID);
             $data_pubblicazione_arr = dci_get_data_pubblicazione_arr("data_pubblicazione", $prefix, $post->ID);
             $date = date_i18n('d F Y', mktime(0, 0, 0, $data_pubblicazione_arr[1], $data_pubblicazione_arr[0], $data_pubblicazione_arr[2]));
             $persone = dci_get_meta("persone", $prefix, $post->ID);
-            $descrizione = dci_get_wysiwyg_field("testo_completo", $prefix, $post->ID);
+            $risposta = dci_get_wysiwyg_field("risposta", $prefix, $post->ID);
             $documenti = dci_get_meta("documenti", $prefix, $post->ID);
             $allegati = dci_get_meta("allegati", $prefix, $post->ID);
             $datasets = dci_get_meta("dataset", $prefix, $post->ID);
