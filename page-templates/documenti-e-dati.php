@@ -29,7 +29,9 @@ get_header();
 			<?php get_template_part("template-parts/documento/evidenza"); ?>
 			<?php get_template_part("template-parts/documento/tutti-documenti"); ?>
 			<?php get_template_part("template-parts/documento/categorie"); ?>
-			<?php $location = 'documenti'; get_template_part("template-parts/home/siti-tematici"); ?>
+			<div class="">
+				<?php $location = 'documenti'; get_template_part("template-parts/documento/siti-tematici"); ?>
+			</div>
 			<?php get_template_part("template-parts/common/valuta-servizio"); ?>
 			<?php get_template_part("template-parts/common/assistenza-contatti"); ?>
 							
