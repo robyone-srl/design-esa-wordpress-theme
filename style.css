@@ -1173,3 +1173,10 @@ a:hover * .titolo-sito-tematico {
 .object-fit-cover{
   object-fit: cover;
 }
+
+@media (max-width: 576px) {
+  .section{
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
