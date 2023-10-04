@@ -135,6 +135,7 @@ function dci_get_sercheable_tipologie() {
         'notizia',
         'servizio',
         'persona_pubblica',
+        'sito_tematico',
         'dataset',
         'page',
         'post'

@@ -2,6 +2,7 @@
 global $post;
 
 $descrizione = dci_get_meta('descrizione_breve');
+print_r($post->post_type == 'sito_tematico' ? dci_get_meta('link'):get_permalink());
 ?>
 
 <div class="cmp-card-latest-messages mb-3 mb-30" data-bs-toggle="modal" data-bs-target="#">
@@ -15,7 +16,7 @@ $descrizione = dci_get_meta('descrizione_breve');
 		</div>
 		<div class="card-body p-0 my-2">
 			<h3 class="green-title-big t-primary mb-8">
-				<a class="text-decoration-none" href="<?php echo get_permalink(); ?>" data-element="service-link"><?php echo the_title(); ?></a>
+				<a class="text-decoration-none" href="<?= ($post->post_type == 'sito_tematico') ? dci_get_meta('link') : get_permalink() ?>" data-element="service-link"><?php echo the_title(); ?></a>
 			</h3>
 			<p class="text-paragraph">
 				<?php echo $descrizione; ?>
