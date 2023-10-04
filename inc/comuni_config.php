@@ -67,7 +67,7 @@ function dci_get_tipologie_names() {
 function dci_get_tipologie_prefixes(){
     $result = array();
     foreach (COMUNI_TIPOLOGIE as $tipologia) {
-        $result[$tipologia['name']] = $tipologia['prefix'];
+        $result[$tipologia['name']] = $tipologia['prefix'] ?? null;
     }
     return $result;
 }
