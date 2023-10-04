@@ -132,7 +132,7 @@
     "Domande frequenti": {
       "title": "Domande frequenti",
       "slug": "domande-frequenti",
-      "description": "Elenco di risposte alle domande più frequenti raccolte dalle richieste dei cittadini.",
+      "description": "Elenco di risposte alle domande più frequenti raccolte dalle richieste di chi ci contatta.",
       "template_name": "domande-frequenti",
       "children": {}
     }

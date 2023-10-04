@@ -178,6 +178,7 @@
         },
         "domanda_frequente" : {
             "name" : "domanda_frequente",
+            "group_name" : "Domanda frequente",
             "capability" : "domande_frequenti",
             "prefix" : "_dci_domanda_frequente_",
             "singular_name" : "Domanda Frequente",
