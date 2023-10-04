@@ -14,7 +14,7 @@ if ($schede && count($schede) > 0) { ?>
                             <h2 id="contenuti_evidenza" class="mb-lg-0">Contenuti in evidenza</h2>
                         </div>
                     </div>
-                    <div class="row mb-2">
+                    <div class="mb-2">
                         <div class="card-wrapper px-0 card-teaser-wrapper card-teaser-wrapper-equal card-teaser-block-3">
                             <?php $count = 1;
                             foreach ($schede as $scheda) {
