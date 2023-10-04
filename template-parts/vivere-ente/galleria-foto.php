@@ -4,14 +4,14 @@ global $sfondo_grigio;
 $sfondo_grigio = $sfondo_grigio ?? true;
 
 $photos = dci_get_option('gallery_items', 'vivi') ?: [];
-$nome_sezione = dci_get_option('gallery_title', 'vivi') ?: [];
+$nome_sezione = dci_get_option('gallery_title', 'vivi') ?: "";
 ?>
 <?php if (count($photos) > 0) { ?>
-	<section id="galleria" class="pt-5">
+	<section id="galleria">
 		<?php if ($nome_sezione) { ?>
 			<div class="section <?= $sfondo_grigio ? 'section-muted' : '' ?> px-lg-5 pt-0 py-0">
 				<div class="container">
-					<div class="row row-title pt-5 pt-lg-60 pb-3">
+					<div class="row row-title pt-3 pt-lg-60 pb-3">
 						<div class="col-12 d-lg-flex justify-content-between">
 							<h2 class="mb-lg-0"><?= $nome_sezione ?></h2>
 						</div>
