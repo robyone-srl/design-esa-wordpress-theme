@@ -35,7 +35,7 @@ $argomenti         = dci_get_meta("argomenti", '_dci_notizia_', $post->ID);
         </div>
     </div>
     <?php if ($img) { ?>
-        <div class="col-lg-6 order-1 order-lg-2 px-0 px-lg-2" style="max-height: 384px;">
+        <div class="col-lg-6 order-1 order-lg-2 px-0 px-lg-2 notizia-hero-image-container">
             <?php dci_get_img($img, 'img-fluid h-100 w-100 object-fit-cover'); ?>
         </div>
     <?php } ?>

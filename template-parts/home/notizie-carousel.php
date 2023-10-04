@@ -26,7 +26,7 @@ if ($post_id) {
 }
 ?>
 
-<div class="container">
+<div class="container px-0">
     <div class="it-carousel-wrapper it-carousel-landscape-abstract splide mw-100" data-bs-carousel-splide>
         <div class="splide__track pt-0 px-0">
             <ul class="splide__list">
