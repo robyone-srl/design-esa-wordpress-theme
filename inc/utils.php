@@ -1164,12 +1164,13 @@ function dci_contains_element_with( $array, $key, $value) {
 // Returns an img tag with appropriate attributes
 
 if(!function_exists("dci_get_img")) {
-    function dci_get_img( $url, $classes = '') {
+    function dci_get_img( $url, $classes = '', $size = null ) {
         $img_post = get_post( attachment_url_to_postid($url) );
+        $scaled_url = wp_get_attachment_image_src($img_post -> ID, $size)[0];
         $image_alt = get_post_meta( $img_post->ID, '_wp_attachment_image_alt', true);
         $image_title = get_the_title( $img_post->ID );
 
-        $img = '<img src="'.$url.'" ';        
+        $img = '<img src="'.$scaled_url.'" ';        
         if ($classes) $img .= 'class="'.$classes.'" ';
         if ($image_alt) $img .= 'alt="'.$image_alt.'" ';
         if ($image_title) $img .= 'title="'.$image_title.'" ';

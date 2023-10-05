@@ -26,7 +26,7 @@ $page_macro = get_page_by_path($page_macro_slug);
             <p class="text-paragraph-card u-grey-light m-0" style="margin-bottom: 40px!important;"><?php echo $descrizione_breve ?></p>
         </div>
         <div class="card-image card-image-rounded pb-5">            
-            <?php dci_get_img($img); ?>
+            <?php dci_get_img($img, size:'thumbnail'); ?>
         </div>
     </div>
     <a
