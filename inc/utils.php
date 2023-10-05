@@ -1166,7 +1166,7 @@ function dci_contains_element_with( $array, $key, $value) {
 if(!function_exists("dci_get_img")) {
     function dci_get_img( $url, $classes = '', $size = null ) {
         $img_post = get_post( attachment_url_to_postid($url) );
-        $scaled_url = wp_get_attachment_image_src($img_post -> ID, $size)[0] ?? $url;
+        $scaled_url = wp_get_attachment_image_src($img_post -> ID, $size)[0];
         $image_alt = get_post_meta( $img_post->ID, '_wp_attachment_image_alt', true);
         $image_title = get_the_title( $img_post->ID );
 
@@ -1253,14 +1253,4 @@ function luma_hex($hex){
 function luma($r, $g, $b)
 {
   return (0.2126 * (float)$r + 0.7152 * (float)$g + 0.0722 * (float)$b) / 255.0;
-}
-
-function get_search_query_url($term = '', $post_types = [], $argomenti_ids = []){
-    return '/?'.build_query(
-        array(
-            's' => $term,
-            'post_types' => $post_types,
-            'post_terms' => $argomenti_ids
-        )
-    );
 }

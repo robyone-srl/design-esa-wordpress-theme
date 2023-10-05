@@ -47,9 +47,9 @@
                 <button 
                     type="button" 
                     class="btn btn-primary text-button w-100"
-                    onclick="location.href='<?= get_search_query_url(post_types: ['unita_organizzativa'], argomenti_ids: [$argomento->term_id]); ?>'"
+                    onclick="location.href='<?php echo dci_get_template_page_url('page-templates/amministrazione.php'); ?>'"
                 >
-                    Tutta l'amministrazione
+                    Tutta l’amministrazione
                 </button>
                 </div>
             </div>
