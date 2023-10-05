@@ -14,7 +14,7 @@ $tipi_servizio = get_the_terms($post->ID,'categorie_servizio');
             <div class="img-responsive-wrapper">
                 <div class="img-responsive img-responsive-panoramic">
                     <figure class="img-wrapper">
-                        <?php has_post_thumbnail() ? the_post_thumbnail('post-thumbnail', attr: array('class' => 'figure-img img-fluid rounded-top')) : dci_get_img($img, 'rounded-top img-fluid') ; ?>
+                        <?php has_post_thumbnail() ? the_post_thumbnail('medium_large', attr: array('class' => 'figure-img img-fluid rounded-top')) : dci_get_img($img, 'rounded-top img-fluid', 'medium_large') ; ?>
                     </figure>
                 </div>
             </div>
