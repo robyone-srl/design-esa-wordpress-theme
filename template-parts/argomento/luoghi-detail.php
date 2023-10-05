@@ -57,7 +57,7 @@
                 <button 
                     type="button" 
                     class="btn btn-primary text-button w-100"
-                    onclick="location.href='<?php echo dci_get_template_page_url('page-templates/luoghi.php'); ?>'"
+                    onclick="location.href='<?= get_search_query_url(post_types: ['luogo'], argomenti_ids: [$argomento->term_id]); ?>'"
                 >
                     Tutti i luoghi
                 </button>
