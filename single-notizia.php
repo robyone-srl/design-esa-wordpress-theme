@@ -23,7 +23,7 @@ get_header();
             $data_pubblicazione_arr = dci_get_data_pubblicazione_arr("data_pubblicazione", $prefix, $post->ID);
             $date = date_i18n('d F Y', mktime(0, 0, 0, $data_pubblicazione_arr[1], $data_pubblicazione_arr[0], $data_pubblicazione_arr[2]));
             $persone = dci_get_meta("persone", $prefix, $post->ID);
-            $descrizione = dci_get_wysiwyg_field("testo_completo", $prefix, $post->ID);
+            $contenuto = dci_get_wysiwyg_field("testo_completo", $prefix, $post->ID);
             $documenti = dci_get_meta("documenti", $prefix, $post->ID);
             $allegati = dci_get_meta("allegati", $prefix, $post->ID);
             $datasets = dci_get_meta("dataset", $prefix, $post->ID);
@@ -95,8 +95,8 @@ get_header();
                                                         <div class="accordion-body">
                                                             <ul class="link-list" data-element="page-index">
                                                                 <li class="nav-item">
-                                                                    <a class="nav-link" href="#descrizione">
-                                                                    <span class="title-medium">Descrizione</span>
+                                                                    <a class="nav-link" href="#contenuto">
+                                                                    <span class="title-medium">Contenuto</span>
                                                                     </a>
                                                                 </li>
                                                                 <?php if( is_array($documenti) && count($documenti) ) { ?>
@@ -138,9 +138,9 @@ get_header();
                     </aside>
                     <section class="col-lg-8 it-page-sections-container border-light">
                     <article class="it-page-section anchor-offset" data-audio>
-                        <h4 id="descrizione">Descrizione</h4>
+                        <h4 id="contenuto">Contenuto</h4>
                         <div class="richtext-wrapper lora">
-                            <?php echo $descrizione; ?>
+                            <?php echo $contenuto; ?>
                         </div>
                     </article>
                     <?php if( is_array($documenti) && count($documenti) ) { ?>
@@ -254,7 +254,7 @@ get_header();
         ?>
     </main>
     <script>
-        const descText = document.querySelector('#descrizione')?.closest('article').innerText;
+        const descText = document.querySelector('#contenuto')?.closest('article').innerText;
         const wordsNumber = descText.split(' ').length
         document.querySelector('#readingTime').innerHTML = `${Math.ceil(wordsNumber / 200)} min`;
     </script>
