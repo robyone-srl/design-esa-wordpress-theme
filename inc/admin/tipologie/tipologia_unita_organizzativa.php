@@ -148,7 +148,7 @@ function dci_add_unita_organizzativa_metaboxes() {
         'name'    => __( 'Responsabile', 'design_comuni_italia' ),
         'desc' => __( 'Gli incarichi delle persone responsabili dell\'unità organizzativa.' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
-        'options' => dci_get_posts_options('incarico'),
+        'options' => get_incarichi(),
         'attributes' => array(
             'placeholder' =>  __( 'Seleziona gli incarichi', 'design_comuni_italia' ),
         )
@@ -324,6 +324,20 @@ function dci_unita_organizzativa_set_post_content( $data ) {
 }
 
 add_filter( 'wp_insert_post_data' , 'dci_unita_organizzativa_set_post_content' , '99', 1 );
+
+
+$display_incarico = function ($post){
+    $id_persona = dci_get_meta('persona', '_dci_incarico_', $post->ID);
+    return get_post($id_persona)->post_title.' ('.$post->post_title.')';
+};
+
+function get_incarichi(){
+    global $display_incarico;
+    $incarichi = dci_get_posts_options('incarico', display_name:$display_incarico);
+    return $incarichi;
+}
+
+
 
 new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "persone_struttura", "box_persone", "_dci_persona_pubblica_organizzazioni");
 

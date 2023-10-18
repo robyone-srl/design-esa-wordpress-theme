@@ -46,21 +46,24 @@ function dci_get_user_options( $query_args = false) {
  * @param string $post_type
  * @param false $parent
  * @param false $addnone
+ * @param function $display_name (defaults to title)
  * @return array
  */
-function dci_get_posts_options( $post_type = 'post', $parent = false, $addnone=false) {
+function dci_get_posts_options( $post_type = 'post', $parent = false, $addnone=false, $display_name = null) {
 
     if($parent)
         $posts = get_posts('post_type='.$post_type.'&posts_per_page=-1&orderby=title&order=ASC&post_parent=0');
     else
         $posts = get_posts('post_type='.$post_type.'&posts_per_page=-1&orderby=title&order=ASC');
+    
+    $display_name ??= fn($post)=>$post->post_title;
 
     $options = array();
     if($addnone)
         $options[0]=__('Nessun contenuto','design_comuni_italia');
     if ( $posts ) {
         foreach ( $posts as $post) {
-            $options[ $post->ID ] = $post->post_title;
+            $options[ $post->ID ] = $display_name($post);
         }
     }
 
