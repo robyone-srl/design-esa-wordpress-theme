@@ -132,6 +132,24 @@ function dci_add_incarico_metaboxes()
     $cmb_dati->add_field( array(
         'id' => $prefix . 'unita_organizzativa_di_cui_componente',
         'name'    => __( 'Unità organizzativa', 'design_comuni_italia' ),
+        'desc' => __( 'L\'unità organizzativa alla quale si riferisce l\'incarico non di responsabilità' , 'design_comuni_italia' ),
+        'type'    => 'pw_select',
+        'options' => dci_get_posts_options('unita_organizzativa'),'attributes' => array(
+            'placeholder' =>  __( 'Seleziona una Unità Organizzativa', 'design_comuni_italia' ),
+        ),
+        'column' => array(
+            'position' => 3
+        ),
+        'display_cb' => 't_incarico_display_unita_org_value',
+        'attributes' => array(
+			'data-conditional-id'    => $prefix.'di_responsabilita',
+			'data-conditional-value' => "true",
+        ),
+    ) );
+
+    $cmb_dati->add_field( array(
+        'id' => $prefix . 'unita_organizzativa_di_cui_componente',
+        'name'    => __( 'Unità organizzativa', 'design_comuni_italia' ),
         'desc' => __( 'L\'unità organizzativa di cui la persona è componente' , 'design_comuni_italia' ),
         'type'    => 'pw_select',
         'options' => dci_get_posts_options('unita_organizzativa'),'attributes' => array(
