@@ -146,11 +146,11 @@ function dci_add_unita_organizzativa_metaboxes() {
     $cmb_struttura->add_field( array(
         'id' => $prefix . 'responsabile',
         'name'    => __( 'Responsabile', 'design_comuni_italia' ),
-        'desc' => __( 'Link alla scheda della persona responsabile dell\'unità organizzativa.' , 'design_comuni_italia' ),
+        'desc' => __( 'Gli incarichi delle persone responsabili dell\'unità organizzativa.' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
-        'options' => dci_get_posts_options('persona_pubblica'),
+        'options' => dci_get_posts_options('incarico'),
         'attributes' => array(
-            'placeholder' =>  __( 'Seleziona le Persone Pubbliche', 'design_comuni_italia' ),
+            'placeholder' =>  __( 'Seleziona gli incarichi', 'design_comuni_italia' ),
         )
     ) );
 
@@ -332,3 +332,8 @@ new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "
 new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "sede_principale", "box_contatti", "_dci_luogo_sede_di");
 
 new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "elenco_servizi_offerti", "box_contatti", "_dci_servizio_unita_responsabile");
+
+
+
+
+new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "responsabile", "box_struttura", "_dci_incarico_unita_organizzativa_di_cui_responsabile");

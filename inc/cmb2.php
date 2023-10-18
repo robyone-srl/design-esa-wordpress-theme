@@ -424,8 +424,13 @@ class dci_bidirectional_cmb2 {
                 continue;
             }
 
-            $pos = array_search( $object_id, $post_values );
-            unset( $post_values[ $pos ] );
+            if(is_array($post_values)){
+                $pos = array_search( $object_id, $post_values);
+                unset( $post_values[ $pos ] );
+            } else if ($object_id == $post_values){ //this is to cover the cases where the destination is a combobox and not an array
+                $post_values = null;
+            }
+
             update_post_meta( $post_id, $meta_key_dest, $post_values );
 		}
 	}
