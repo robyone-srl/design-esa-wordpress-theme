@@ -29,6 +29,7 @@ get_header();
         $unita_organizzativa_genitore = dci_get_meta("unita_organizzativa_genitore", $prefix, $post->ID);
 
         $incarichi = dci_get_meta("incarichi", $prefix, $post->ID);
+        $incarichi = is_array($incarichi) ? $incarichi : [];
         $incarichi_di_responsabilita = array_filter($incarichi, fn($incarico)=>dci_get_meta('di_responsabilita', '_dci_incarico_', $incarico) == "true");
         $altri_incarichi = array_diff($incarichi, $incarichi_di_responsabilita);
 
