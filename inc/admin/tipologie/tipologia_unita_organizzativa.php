@@ -329,6 +329,7 @@ add_filter( 'wp_insert_post_data' , 'dci_unita_organizzativa_set_post_content' ,
 function get_incarichi(){
     $args = [
         'post_type' => 'incarico',
+        'posts_per_page' => -1
     ];
 
     $incarichi = get_posts($args);
