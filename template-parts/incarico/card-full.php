@@ -5,7 +5,8 @@ $prefix = '_dci_incarico_';
 $incarico_post = get_post($incarico);
 $inc_id = $incarico_post->ID;
 
-$tipo_incarico = get_the_terms($inc_id, "tipi_incarico");
+$tipo_incarico = get_the_terms($inc_id, "tipi_incarico")[0]->name;
+$tipo_incarico = strtolower(trim($tipo_incarico)) == 'altro' ? '' : $tipo_incarico;
 $data_inizio_incarico = dci_get_meta('data_inizio_incarico', $prefix, $inc_id);
 $data_insediamento = dci_get_meta('data_insediamento', $prefix, $inc_id);
 $data_conclusione_incarico = dci_get_meta('data_conclusione_incarico', $prefix, $inc_id);
@@ -34,16 +35,16 @@ $locale = setlocale(LC_ALL, 'it_IT@euro', 'it_IT', 'it', 'it');
             <?php echo $incarico_post->post_title; ?>
         </h5>
         <div class="card-text">
-            <p>Incarico <?php echo strtolower($tipo_incarico[0]->name); ?>
+            <p>Incarico <?= $tipo_incarico; ?>
             <?php 
             if($unita_organizzativa != "") {
-                echo " presso ". $unita_organizzativa->post_title;
+                echo " presso <a href='". get_permalink( $unita_organizzativa->ID ) ."'>". $unita_organizzativa->post_title."</a>";
 
                 $sede_principale_uo = dci_get_meta('sede_principale', '_dci_unita_organizzativa_', $unita_organizzativa->ID);
                 if($sede_principale_uo != "") {
                     $sede_principale_uo = get_post($sede_principale_uo);
 
-                    echo " di ". $sede_principale_uo->post_title;
+                    echo " di <a href='". get_permalink( $sede_principale_uo->ID ) ."'>". $sede_principale_uo->post_title."</a>";
                 }
             }
             ?>

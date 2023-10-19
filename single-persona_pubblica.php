@@ -29,7 +29,6 @@ get_header();
         $foto = dci_get_meta("foto", $prefix, $post->ID);
 
         $organizzazioni = dci_get_meta("organizzazioni", $prefix, $post->ID);
-        $responsabile_di = dci_get_meta("responsabile_di", $prefix, $post->ID);
 
         $competenze = dci_get_wysiwyg_field("competenze");
         $deleghe = dci_get_wysiwyg_field("deleghe");
@@ -177,7 +176,7 @@ get_header();
                                                         <?php if ($inc_list && is_array($inc_list) && count($inc_list) > 0) {?>
                                                         <li class="nav-item">
                                                             <a class="nav-link" href="#incarichi">
-                                                                <span class="title-medium">Ruolo</span>
+                                                                <span class="title-medium">Incarichi</span>
                                                             </a>
                                                         </li>
                                                         <?php } ?>
@@ -186,14 +185,6 @@ get_header();
                                                         <li class="nav-item">
                                                             <a class="nav-link" href="#organizzazioni">
                                                                 <span class="title-medium">Fa parte di</span>
-                                                            </a>
-                                                        </li>
-                                                        <?php } ?>
-
-                                                        <?php if ($responsabile_di) {?>
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#responsabile_id">
-                                                                <span class="title-medium">È responsabile di</span>
                                                             </a>
                                                         </li>
                                                         <?php } ?>
@@ -305,7 +296,7 @@ get_header();
 
                     <?php if ($inc_list && is_array($inc_list) && count($inc_list) > 0) {?>
                     <section id="incarichi" class="it-page-section mb-4">
-                        <h3 class="my-2 title-large-semi-bold">Ruolo</h3>
+                        <h3 class="my-2 title-large-semi-bold">Incarichi</h3>
                         <div class="card-wrapper card-teaser-wrapper">
                             <?php foreach ($inc_list as $incarico) {
                                       get_template_part("template-parts/incarico/card-full");
@@ -322,22 +313,6 @@ get_header();
                                       $with_border = true;
                                       get_template_part("template-parts/unita-organizzativa/card");
                                   } ?>
-                        </div>
-                    </section>
-                    <?php }?>
-
-                    <?php if (!empty($responsabile_di)) {?>
-                    <section id="responsabile_id" class="it-page-section mb-4">
-                        <h3 class="my-2 title-large-semi-bold">Responsabile di</h3>
-                        <div class="row">
-                            <div class="col-xl-6 col-lg-8 col-md-12 ">
-                                <?php
-                              foreach($responsabile_di as $uo_id){
-                                  $with_border = true;
-                                  get_template_part("template-parts/unita-organizzativa/card");
-                              }
-                                ?>
-                            </div>
                         </div>
                     </section>
                     <?php }?>

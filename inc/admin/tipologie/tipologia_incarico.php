@@ -104,17 +104,16 @@ function dci_add_incarico_metaboxes()
         'name'      => 'Incarico di responsabilità',
 		'desc'      => __( 'L\'incarico è di responsabilità (ad esempio direttore, referente…)?', 'design_comuni_italia' ),
 		'type'      => 'radio_inline',
-		'default'   => 'true',
 		'options'   => array(
 			"true"  => __( 'È di responsabilità', 'design_comuni_italia' ),
-			"false" => __( 'Non è di responsabilità', 'design_comuni_italia' ),
+			"" => __( 'Non è di responsabilità', 'design_comuni_italia' ),
 		),
 	) );
 
     $cmb_dati->add_field( array(
-        'id' => $prefix . 'unita_organizzativa_di_cui_responsabile',
+        'id' => $prefix . 'unita_organizzativa',
         'name'    => __( 'Unità organizzativa', 'design_comuni_italia' ),
-        'desc' => __( 'L\'unità organizzativa alla quale si riferisce l\'incarico di responsabilità' , 'design_comuni_italia' ),
+        'desc' => __( 'L\'unità organizzativa alla quale si riferisce l\'incarico.' , 'design_comuni_italia' ),
         'type'    => 'pw_select',
         'options' => dci_get_posts_options('unita_organizzativa'),'attributes' => array(
             'placeholder' =>  __( 'Seleziona una Unità Organizzativa', 'design_comuni_italia' ),
@@ -122,47 +121,10 @@ function dci_add_incarico_metaboxes()
         'column' => array(
             'position' => 3
         ),
-        'display_cb' => 't_incarico_display_unita_org_value',
-        'attributes' => array(
-			'data-conditional-id'    => $prefix.'di_responsabilita',
-			'data-conditional-value' => "true",
-        ),
-    ) );
-
-    $cmb_dati->add_field( array(
-        'id' => $prefix . 'unita_organizzativa_di_cui_componente',
-        'name'    => __( 'Unità organizzativa', 'design_comuni_italia' ),
-        'desc' => __( 'L\'unità organizzativa alla quale si riferisce l\'incarico non di responsabilità' , 'design_comuni_italia' ),
-        'type'    => 'pw_select',
-        'options' => dci_get_posts_options('unita_organizzativa'),'attributes' => array(
-            'placeholder' =>  __( 'Seleziona una Unità Organizzativa', 'design_comuni_italia' ),
-        ),
-        'column' => array(
-            'position' => 3
+        'attributes'    => array(
+            'required'    => 'required'
         ),
         'display_cb' => 't_incarico_display_unita_org_value',
-        'attributes' => array(
-			'data-conditional-id'    => $prefix.'di_responsabilita',
-			'data-conditional-value' => "true",
-        ),
-    ) );
-
-    $cmb_dati->add_field( array(
-        'id' => $prefix . 'unita_organizzativa_di_cui_componente',
-        'name'    => __( 'Unità organizzativa', 'design_comuni_italia' ),
-        'desc' => __( 'L\'unità organizzativa di cui la persona è componente' , 'design_comuni_italia' ),
-        'type'    => 'pw_select',
-        'options' => dci_get_posts_options('unita_organizzativa'),'attributes' => array(
-            'placeholder' =>  __( 'Seleziona una Unità Organizzativa', 'design_comuni_italia' ),
-        ),
-        'column' => array(
-            'position' => 3
-        ),
-        'display_cb' => 't_incarico_display_unita_org_value',
-        'attributes' => array(
-			'data-conditional-id'    => $prefix.'di_responsabilita',
-			'data-conditional-value' => "false",
-        ),
     ) );
 
     /*
@@ -318,4 +280,4 @@ function t_incarico_display_unita_org_value( $field_args, $field ) {
 }
 
 
-new dci_bidirectional_cmb2("_dci_incarico_", "incarico", "unita_organizzativa_di_cui_responsabile", "box_dati", "_dci_unita_organizzativa_responsabile");
+new dci_bidirectional_cmb2("_dci_incarico_", "incarico", "unita_organizzativa", "box_dati", "_dci_unita_organizzativa_incarichi");
