@@ -28,7 +28,7 @@
     $incarichi = array();
 
     foreach($inc_list as $incarico) {
-        array_push($incarichi,$incarico->post_title);
+        $incarichi[trim(strtolower($incarico->post_title))] = $incarico->post_title; //with key to avoid duplication
     }
 	?>
 	

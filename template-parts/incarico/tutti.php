@@ -35,6 +35,12 @@ $args = array(
 
 $the_query = new WP_Query( $args );
 $incarichi = $the_query->posts;
+
+$incarichi_deduplicati = [];
+foreach($incarichi as $incarico){
+    $incarichi_deduplicati[dci_get_meta('persona', '_dci_incarico_', $incarico->ID)] = $incarico;
+}
+
 $additional_filter = $tax_query;
 ?>
 
@@ -75,7 +81,7 @@ $additional_filter = $tax_query;
             </div>
             <div  class="row g-2" id="load-more">
                 <?php
-				    foreach ($incarichi as $post) {
+				    foreach ($incarichi_deduplicati as $post) {
                         get_template_part( 'template-parts/incarico/cards-list' );
 				    }
 				?>
