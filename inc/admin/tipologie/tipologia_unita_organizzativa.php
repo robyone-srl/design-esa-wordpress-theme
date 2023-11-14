@@ -144,17 +144,6 @@ function dci_add_unita_organizzativa_metaboxes() {
     ) );
 
     $cmb_struttura->add_field( array(
-        'id' => $prefix . 'responsabile',
-        'name'    => __( 'Responsabile', 'design_comuni_italia' ),
-        'desc' => __( 'Link alla scheda della persona responsabile dell\'unità organizzativa.' , 'design_comuni_italia' ),
-        'type'    => 'pw_multiselect',
-        'options' => dci_get_posts_options('persona_pubblica'),
-        'attributes' => array(
-            'placeholder' =>  __( 'Seleziona le Persone Pubbliche', 'design_comuni_italia' ),
-        )
-    ) );
-
-    $cmb_struttura->add_field( array(
         'id' => $prefix . 'tipo_organizzazione',
         'name'        => __( 'Tipo di organizzazione *', 'design_comuni_italia' ),
         'type'             => 'taxonomy_radio_hierarchical',
@@ -169,15 +158,27 @@ function dci_add_unita_organizzativa_metaboxes() {
     //PERSONE
     $cmb_persone = new_cmb2_box( array(
         'id'           => $prefix . 'box_persone',
-        'title'        => __( 'Persone', 'design_comuni_italia' ),
+        'title'        => __( 'Persone e incarichi', 'design_comuni_italia' ),
         'object_types' => array( 'unita_organizzativa' ),
         'context'      => 'normal',
         'priority'     => 'high',
     ) );
+
+    $cmb_persone->add_field( array(
+        'id' => $prefix . 'incarichi',
+        'name'    => __( 'Incarichi', 'design_comuni_italia' ),
+        'desc' => __( 'Gli incarichi delle persone nell\'unità organizzativa.' , 'design_comuni_italia' ),
+        'type'    => 'pw_multiselect',
+        'options' => get_incarichi(),
+        'attributes' => array(
+            'placeholder' =>  __( 'Seleziona gli incarichi', 'design_comuni_italia' ),
+        )
+    ) );
+
     $cmb_persone->add_field( array(
         'id' => $prefix . 'persone_struttura',
-        'name'    => __( 'Componenti *', 'design_comuni_italia' ),
-        'desc' => __( 'Un link alla scheda persona per ciascuno dei componenti dell\'unità organizzativa.' , 'design_comuni_italia' ),
+        'name'    => __( 'Componenti senza titolo*', 'design_comuni_italia' ),
+        'desc' => __( 'Persone che fanno parte dell\'unità organizzativa, senza un titolo specifico.' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('persona_pubblica'),
         'attributes'    => array(
@@ -325,10 +326,29 @@ function dci_unita_organizzativa_set_post_content( $data ) {
 
 add_filter( 'wp_insert_post_data' , 'dci_unita_organizzativa_set_post_content' , '99', 1 );
 
-new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "persone_struttura", "box_persone", "_dci_persona_pubblica_organizzazioni");
+function get_incarichi(){
+    $args = [
+        'post_type' => 'incarico',
+        'posts_per_page' => -1
+    ];
 
-new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "responsabile", "box_struttura", "_dci_persona_pubblica_responsabile_di");
+    $incarichi = get_posts($args);
+
+    $incarichi_organizzati = array();
+
+    foreach($incarichi as $incarico){
+        $id_persona = dci_get_meta('persona', '_dci_incarico_', $incarico->ID);
+        $incarichi_organizzati[$incarico->ID] = get_post($id_persona)->post_title.' ('.$incarico->post_title.')';
+    }
+
+    return $incarichi_organizzati;
+}
+
+
+new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "persone_struttura", "box_persone", "_dci_persona_pubblica_organizzazioni");
 
 new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "sede_principale", "box_contatti", "_dci_luogo_sede_di");
 
-new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "elenco_servizi_offerti", "box_contatti", "_dci_servizio_unita_responsabile");
+new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "elenco_servizi_offerti", "box_contatti", "_dci_servizio_unita_responsabile", true);
+
+new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "incarichi", "box_persone", "_dci_incarico_unita_organizzativa", true);

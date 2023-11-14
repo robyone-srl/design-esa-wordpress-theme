@@ -334,14 +334,16 @@ class dci_bidirectional_cmb2 {
 	private $post_field_from;
 	private $box_from;
 	private $post_field_to;
+    private $is_destination_single_value;
 
-	public function __construct ($prefix, $post_type_from, $post_field_from, $box_from, $post_field_to) {
+	public function __construct ($prefix, $post_type_from, $post_field_from, $box_from, $post_field_to, $is_destination_single_value = false) {
 
 		$this->prefix = $prefix;
 		$this->post_type_from = $post_type_from;
 		$this->post_field_from = $prefix.$post_field_from;
 		$this->box_from = $prefix.$box_from;
 		$this->post_field_to = $post_field_to;
+        $this->is_destination_single_value = $is_destination_single_value;
 
 		add_action( 'pre_post_update', array(&$this, 'get_old_values') );
 		add_action( 'before_delete_post', array(&$this,'posts_delete') );
@@ -394,8 +396,8 @@ class dci_bidirectional_cmb2 {
         // update meta field for each selected post with current Post ID
         foreach ( (array) $related_posts as $post => $id ) {
             $field_ids = get_post_meta( $id, $meta_key_dest, true );
-            if($field_ids == '')
-                $field_ids = array();
+            if(!$field_ids)
+                $field_ids = $this->is_destination_single_value ? '' : array() ;
             if ( is_array($field_ids) && in_array( $object_id ,$field_ids ) ) {
                 continue;
             } else {
@@ -412,7 +414,10 @@ class dci_bidirectional_cmb2 {
         // deleting removed relationships
         $unbind_posts = array();
 
-        if ( ! empty( $related_posts ) && ! empty( $old_values ) ) {
+        if(is_string($old_values)){
+            $unbind_posts = [$old_values];
+        }
+        elseif ( ! empty( $related_posts ) && ! empty( $old_values ) ) {
             $unbind_posts = array_diff( $old_values, $related_posts );
         } elseif ( ! empty( $old_values ) ) {
             $unbind_posts = $old_values;
@@ -424,8 +429,13 @@ class dci_bidirectional_cmb2 {
                 continue;
             }
 
-            $pos = array_search( $object_id, $post_values );
-            unset( $post_values[ $pos ] );
+            if(is_array($post_values)){
+                $pos = array_search( $object_id, $post_values);
+                unset( $post_values[ $pos ] );
+            } else if ($object_id == $post_values){ //this is to cover the cases where the destination is a combobox and not an array
+                $post_values = null;
+            }
+
             update_post_meta( $post_id, $meta_key_dest, $post_values );
 		}
 	}

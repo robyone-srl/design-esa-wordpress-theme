@@ -97,22 +97,11 @@ function dci_add_persona_pubblica_metaboxes() {
     $cmb_user->add_field( array(
         'id' => $prefix . 'organizzazioni',
         'name'    => __( 'Unità organizzative' ),
-        'desc' => __( 'Le organizzazioni di cui fa parte (es. Consiglio di amministrazione; es. Ufficio tecnico)' , 'design_comuni_italia' ),
+        'desc' => __( 'Le organizzazioni di cui fa parte (es. Consiglio Comunale; es. Sistemi informativi). Le organizzazioni in cui la persona ricopre un incarico vengono mostrate automaticamente in base alle informazioni degli incarichi.' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('unita_organizzativa'),
         'attributes' => array(
             'placeholder' =>  __( 'Seleziona le Unità Organizzative', 'design_comuni_italia' ),
-        )
-    ) );
-
-    $cmb_user->add_field( array(
-        'id' => $prefix . 'responsabile_di',
-        'name'    => __( 'Responsabile di', 'design_comuni_italia' ),
-        'desc' => __( 'Unità organizzative di cui è responsabile.' , 'design_comuni_italia' ),
-        'type'    => 'pw_multiselect',
-        'options' => dci_get_posts_options('unita_organizzativa'),
-        'attributes' => array(
-            'placeholder' =>  __( 'Seleziona Unità Organizzative', 'design_comuni_italia' ),
         )
     ) );
 
@@ -263,5 +252,3 @@ function dci_persona_pubblica_set_post_title( $data ) {
 add_filter( 'wp_insert_post_data' , 'dci_persona_pubblica_set_post_title' , '99', 1 );
 
 new dci_bidirectional_cmb2("_dci_persona_pubblica_", "persona_pubblica", "organizzazioni", "persona_box", "_dci_unita_organizzativa_persone_struttura");
-
-new dci_bidirectional_cmb2("_dci_persona_pubblica_", "persona_pubblica", "responsabile_di", "persona_box", "_dci_unita_organizzativa_responsabile");
