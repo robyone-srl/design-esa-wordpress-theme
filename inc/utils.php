@@ -1277,7 +1277,8 @@ function get_incarichi(){
 
     foreach($incarichi as $incarico){
         $id_persona = dci_get_meta('persona', '_dci_incarico_', $incarico->ID);
-        $incarichi_organizzati[$incarico->ID] = get_post($id_persona)->post_title.' ('.$incarico->post_title.')';
+        $id_uo = dci_get_meta('unita_organizzativa', '_dci_incarico_', $incarico->ID);
+        $incarichi_organizzati[$incarico->ID] = get_post($id_persona)?->post_title.' ('.$incarico->post_title.' presso '.get_post($id_uo)?->post_title.')';
     }
 
     return $incarichi_organizzati;

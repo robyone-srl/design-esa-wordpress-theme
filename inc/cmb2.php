@@ -413,7 +413,7 @@ function dci_get_tipologie_singular_labels(){
         $unbind_posts = array();
 
         if ( ! empty( $related_posts ) && ! empty( $old_values ) ) {
-            $unbind_posts = array_diff( $old_values, $related_posts );
+            $unbind_posts = is_array($old_values) ? array_diff( $old_values, $related_posts ) : [$old_values];
         } elseif ( ! empty( $old_values ) ) {
             $unbind_posts = $old_values;
         }
@@ -424,9 +424,14 @@ function dci_get_tipologie_singular_labels(){
                 continue;
             }
 
-            $pos = array_search( $object_id, $post_values );
-            unset( $post_values[ $pos ] );
-            update_post_meta( $post_id, $meta_key_dest, $post_values );
+            if(is_array($post_values)){
+                $pos = array_search( $object_id, $post_values );
+                unset( $post_values[ $pos ] );
+                update_post_meta( $post_id, $meta_key_dest, $post_values );
+            }
+            else{
+                delete_post_meta( $post_id, $meta_key_dest );
+            }
 		}
 	}
 }
