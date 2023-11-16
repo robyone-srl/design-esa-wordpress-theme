@@ -167,7 +167,7 @@ function dci_add_unita_organizzativa_metaboxes() {
     $cmb_persone->add_field( array(
         'id' => $prefix . 'incarichi',
         'name'    => __( 'Incarichi', 'design_comuni_italia' ),
-        'desc' => __( 'Gli incarichi delle persone nell\'unità organizzativa.' , 'design_comuni_italia' ),
+        'desc' => __( 'Gli incarichi delle persone nell\'unità organizzativa. NON rimuovere da qui un incarico, ma dalla pagina dell\'incarico (c\'è un problema per cui l\'incarico non si aggiorna automaticamente).' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => get_incarichi(),
         'attributes' => array(
@@ -177,7 +177,7 @@ function dci_add_unita_organizzativa_metaboxes() {
 
     $cmb_persone->add_field( array(
         'id' => $prefix . 'persone_struttura',
-        'name'    => __( 'Componenti senza titolo*', 'design_comuni_italia' ),
+        'name'    => __( 'Componenti senza incarico', 'design_comuni_italia' ),
         'desc' => __( 'Persone che fanno parte dell\'unità organizzativa, senza un titolo specifico.' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('persona_pubblica'),
@@ -231,7 +231,7 @@ function dci_add_unita_organizzativa_metaboxes() {
         'id' => $prefix . 'altre_sedi',
         'name'        => __( 'Altre sedi', 'design_comuni_italia' ),
         'desc' => __( 'Relazioni con eventuali altri luoghi che sono definibili come sedi' , 'design_comuni_italia' ),
-        'type'    => 'pw_multiselect',
+        'type'    => 'pw_select',
         'options' => dci_get_posts_options('luogo'),
         'attributes' => array(
             'placeholder' =>  __( 'Seleziona i Luoghi', 'design_comuni_italia' ),
