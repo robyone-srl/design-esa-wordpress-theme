@@ -15,7 +15,7 @@ $tipo_evento = get_the_terms($post->ID,'tipi_evento')[0];
             <div class="img-responsive-wrapper">
                 <div class="img-responsive img-responsive-panoramic">
                     <figure class="img-wrapper">
-                        <?php dci_get_img($img, 'rounded-top img-fluid', 'medium_large'); ?>
+                        <?php dci_get_img($img ?: get_template_directory_uri()."/assets/img/repertorio/abdul-a-CxRBtNe243k-unsplash.jpg", 'rounded-top img-fluid', 'medium_large'); ?>
                     </figure>
                     <div class="card-calendar d-flex flex-column justify-content-center">
                         <span class="card-date"><?php echo $arrdata[0]; ?></span>
