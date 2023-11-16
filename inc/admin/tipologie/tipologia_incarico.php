@@ -122,23 +122,10 @@ function dci_add_incarico_metaboxes()
             'position' => 3
         ),
         'attributes'    => array(
-            'required'    => 'required'
+            'required'    => 'required',
         ),
         'display_cb' => 't_incarico_display_unita_org_value',
     ) );
-
-    /*
-    $cmb_dati->add_field( array(
-        'id' => $prefix . 'responsabile_struttura',
-        'name'    => __( 'Responsabile dell\'unità organizzativa', 'design_comuni_italia' ),
-        'desc' => __( 'Se è un incarico di responsabilità, specificare l\'unità organizzativa della quale è responsabile in base all\'incarico' , 'design_comuni_italia' ),
-        'type'    => 'pw_select',
-        'options' => dci_get_posts_options('unita_organizzativa'),
-        'attributes' => array(
-            'placeholder' =>  __( 'Seleziona una Unità Organizzativa', 'design_comuni_italia' ),
-        ),
-    ) );
-    */
 
 
     $cmb_dati->add_field( array(
@@ -281,3 +268,5 @@ function t_incarico_display_unita_org_value( $field_args, $field ) {
 
 
 new dci_bidirectional_cmb2("_dci_incarico_", "incarico", "unita_organizzativa", "box_dati", "_dci_unita_organizzativa_incarichi");
+
+new dci_bidirectional_cmb2("_dci_incarico_", "incarico", "persona", "box_dati", "_dci_persona_pubblica_incarichi");

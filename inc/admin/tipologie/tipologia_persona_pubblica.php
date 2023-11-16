@@ -93,11 +93,25 @@ function dci_add_persona_pubblica_metaboxes() {
         'id'      => $prefix . 'foto',
         'type'    => 'file',
     ) );
+    
+
+    $cmb_user->add_field( array(
+        'id' => $prefix . 'incarichi',
+        'name'    => __( 'Incarichi' ),
+        'desc' => __( 'Gli incarichi che la persona ricopre. Puoi modificare queste informazioni dalle impostazioni degli incarichi.' , 'design_comuni_italia' ),
+        'type'    => 'pw_multiselect',
+        'options' => get_incarichi_con_unita_organizzativa(),
+        'attributes' => array(
+            'placeholder' =>  __( 'Seleziona le Unità Organizzative', 'design_comuni_italia' ),
+            'disabled' => 'true',
+            'required' => 'required'
+        ),
+    ) );
 
     $cmb_user->add_field( array(
         'id' => $prefix . 'organizzazioni',
         'name'    => __( 'Unità organizzative' ),
-        'desc' => __( 'Le organizzazioni di cui fa parte (es. Consiglio Comunale; es. Sistemi informativi). Le organizzazioni in cui la persona ricopre un incarico vengono mostrate automaticamente in base alle informazioni degli incarichi.' , 'design_comuni_italia' ),
+        'desc' => __( 'Le organizzazioni di cui fa parte senza un incarico specifico.' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('unita_organizzativa'),
         'attributes' => array(
@@ -252,3 +266,5 @@ function dci_persona_pubblica_set_post_title( $data ) {
 add_filter( 'wp_insert_post_data' , 'dci_persona_pubblica_set_post_title' , '99', 1 );
 
 new dci_bidirectional_cmb2("_dci_persona_pubblica_", "persona_pubblica", "organizzazioni", "persona_box", "_dci_unita_organizzativa_persone_struttura");
+
+new dci_bidirectional_cmb2("_dci_persona_pubblica_", "persona_pubblica", "incarichi", "persona_box", "_dci_incarico_persona");
