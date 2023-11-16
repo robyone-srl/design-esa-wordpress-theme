@@ -167,12 +167,13 @@ function dci_add_unita_organizzativa_metaboxes() {
     $cmb_persone->add_field( array(
         'id' => $prefix . 'incarichi',
         'name'    => __( 'Incarichi', 'design_comuni_italia' ),
-        'desc' => __( 'Gli incarichi delle persone nell\'unità organizzativa. ATTENZIONE: Se rimuovi un incarico da qui, assicurati di associare un\'altra unità organizzativa all\'incarico, o di eliminarlo, , per rispettare il modello di architettura.' , 'design_comuni_italia' ),
+        'desc' => __( 'Gli incarichi delle persone nell\'unità organizzativa. Puoi modificare queste informazioni dalle impostazioni degli incarichi.' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => get_incarichi_con_nomi(),
         'attributes' => array(
             'placeholder' =>  __( 'Seleziona gli incarichi', 'design_comuni_italia' ),
-            'readonly' => 'readonly'
+            'disabled' => 'true',
+            'required' => 'required'
         )
     ) );
 
