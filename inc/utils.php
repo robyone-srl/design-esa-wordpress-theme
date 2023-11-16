@@ -1265,7 +1265,7 @@ function get_search_query_url($term = '', $post_types = [], $argomenti_ids = [])
     );
 }
 
-function get_incarichi(){
+function get_incarichi_con_unita_organizzativa(){
     $args = [
         'post_type' => 'incarico',
         'posts_per_page' => -1
@@ -1278,7 +1278,27 @@ function get_incarichi(){
     foreach($incarichi as $incarico){
         $id_persona = dci_get_meta('persona', '_dci_incarico_', $incarico->ID);
         $id_uo = dci_get_meta('unita_organizzativa', '_dci_incarico_', $incarico->ID);
-        $incarichi_organizzati[$incarico->ID] = get_post($id_persona)?->post_title.' ('.$incarico->post_title.' presso '.get_post($id_uo)?->post_title.')';
+        $incarichi_organizzati[$incarico->ID] = $incarico->post_title.' presso '.get_post($id_uo)?->post_title;
+    }
+
+    return $incarichi_organizzati;
+}
+
+
+function get_incarichi_con_nomi(){
+    $args = [
+        'post_type' => 'incarico',
+        'posts_per_page' => -1
+    ];
+
+    $incarichi = get_posts($args);
+
+    $incarichi_organizzati = array();
+
+    foreach($incarichi as $incarico){
+        $id_persona = dci_get_meta('persona', '_dci_incarico_', $incarico->ID);
+        $id_uo = dci_get_meta('unita_organizzativa', '_dci_incarico_', $incarico->ID);
+        $incarichi_organizzati[$incarico->ID] = get_post($id_persona)?->post_title.' ('.$incarico->post_title.')';
     }
 
     return $incarichi_organizzati;

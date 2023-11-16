@@ -98,9 +98,9 @@ function dci_add_persona_pubblica_metaboxes() {
     $cmb_user->add_field( array(
         'id' => $prefix . 'incarichi',
         'name'    => __( 'Incarichi' ),
-        'desc' => __( 'Gli incarichi che la persona ricopre. NON rimuovere un incarico da qui, ma dalla pagina dell\'incarico (c\'è un problema per cui l\'incarico non si aggiorna automaticamente).' , 'design_comuni_italia' ),
+        'desc' => __( 'Gli incarichi che la persona ricopre.  ATTENZIONE: Se rimuovi un incarico da qui, assicurati di associare un\'altra persona all\'incarico, o di eliminarlo, per rispettare il modello di architettura.' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
-        'options' => get_incarichi(),
+        'options' => get_incarichi_con_unita_organizzativa(),
         'attributes' => array(
             'placeholder' =>  __( 'Seleziona le Unità Organizzative', 'design_comuni_italia' ),
         ),

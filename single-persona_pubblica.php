@@ -52,11 +52,12 @@ get_header();
 
         $ids_incarichi = dci_get_meta("incarichi", $prefix, $post->ID) ?? [];
 
-     	$inc_list = get_posts([
+
+     	$inc_list = !empty($ids_incarichi) ? get_posts([
             'nopaging' => true,
             'post_type' => 'incarico',
             'post__in'=>$ids_incarichi
-        ]);
+        ]) : [];
 
 	 	$incarichi = array();
 
