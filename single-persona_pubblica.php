@@ -50,21 +50,13 @@ get_header();
 
         $more_info = dci_get_wysiwyg_field("ulteriori_informazioni");
 
-        $inc_args = array(
+        $ids_incarichi = dci_get_meta("incarichi", $prefix, $post->ID) ?? [];
+
+     	$inc_list = get_posts([
+            'nopaging' => true,
             'post_type' => 'incarico',
-            'meta_query' => array(
-                array(
-                    'key'     => '_dci_incarico_persona',
-                    'value'   => $post->ID
-                ),
-            ),
-            'numberposts' => -1,
-	        'post_status' => 'publish',
-	        'orderby' => 'post_title',
-	        'order' => 'ASC',
-        );
-        $inc_query = new WP_Query( $inc_args );
-     	$inc_list = get_posts($inc_args);
+            'post__in'=>$ids_incarichi
+        ]);
 
 	 	$incarichi = array();
 
@@ -299,6 +291,7 @@ get_header();
                         <h3 class="my-2 title-large-semi-bold">Incarichi</h3>
                         <div class="card-wrapper card-teaser-wrapper">
                             <?php foreach ($inc_list as $incarico) {
+                                    $inc_id = $incarico->ID;
                                       get_template_part("template-parts/incarico/card-full");
                                   } ?>
                         </div>

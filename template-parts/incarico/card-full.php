@@ -1,9 +1,8 @@
 <?php
-global $incarico, $documento, $url, $url_label;
+global $inc_id, $documento, $url, $url_label;
 $prefix = '_dci_incarico_';
 
-$incarico_post = get_post($incarico);
-$inc_id = $incarico_post->ID;
+$incarico_post = get_post($inc_id);
 
 $tipo_incarico = get_the_terms($inc_id, "tipi_incarico")[0]->name;
 $tipo_incarico = strtolower(trim($tipo_incarico)) == 'altro' ? '' : $tipo_incarico;
