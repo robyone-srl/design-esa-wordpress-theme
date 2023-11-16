@@ -255,6 +255,17 @@ function dci_add_eventi_metaboxes() {
     ) );
 
     $cmb_luogo->add_field( array(
+		'id'        => $prefix . 'luogo_ente',
+		'desc'      => __( 'Il luogo è un luogo dell\'ente?', 'design_comuni_italia' ),
+		'type'      => 'radio_inline',
+		'default'   => '1',
+		'options'   => array(
+			"1"  => __( 'Sì', 'design_comuni_italia' ),
+			"0" => __( 'No', 'design_comuni_italia' ),
+		),
+	) );
+
+    $cmb_luogo->add_field( array(
         'id' =>  $prefix . 'luogo_evento',
         'name'    => __( 'Luogo dell\'evento', 'design_comuni_italia' ),
         'desc' => __( 'Selezione il <a href="edit.php?post_type=luogo">luogo</a> in cui viene organizzato l\'evento. ' , 'design_comuni_italia' ),
@@ -263,8 +274,13 @@ function dci_add_eventi_metaboxes() {
         'options' =>  dci_get_posts_options('luogo'),
         'attributes'    => array(
             'placeholder' =>  __( 'Seleziona il Luogo', 'design_comuni_italia' ),
+            'data-conditional-id'    => $prefix . 'luogo_ente',
+			'data-conditional-value' => '1',
+            'required'    => 'required',
         ),
     ) );
+    
+    create_box_luogo($prefix, 'evento', false, 'luogo_ente');
 
   //COSTI
     $cmb_costi = new_cmb2_box( array(
