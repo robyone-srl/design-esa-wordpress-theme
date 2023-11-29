@@ -12,7 +12,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content perfect-scrollbar">
       <div class="modal-body">
-        <form role="search" id="search-form" method="get" class="search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+        <form role="search" id="search-form-modal" method="get" class="search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
           <div class="container">
             <div class="row variable-gutters">
               <div class="col">
@@ -30,7 +30,7 @@
                       ></use>
                     </svg>
                   </button>
-                  <h2><?php _e("Cerca","design_comuni_italia"); ?></h2>
+                  <p><span class="h2"><?php _e("Cerca","design_comuni_italia"); ?></span></p>
                   <button
                     class="search-link d-none d-md-block"
                     type="button"

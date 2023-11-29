@@ -240,7 +240,6 @@
                     <button
                     class="btn btn-primary fw-bold btn-next"
                     type="submit"
-                    form="rating"
                     >
                     Avanti
                     </button>

@@ -39,9 +39,19 @@ function load_more(){
         's' => $_POST['search'],
         'posts_per_page' => $_POST['post_count'] + $_POST['load_posts'],
         'post_type'      => $post_types,
-        'orderby'        => 'post_title',
-        'order'          => 'ASC'
+        'orderby'        => 'date',
+        'order'          => 'DESC'
     );
+	
+	if ( $post_types != "notizia" ) {
+		$args = array(
+			's' => $_POST['search'],
+	    'posts_per_page' => $_POST['post_count'] + $_POST['load_posts'],
+	    'post_type'      => $post_types,
+			'orderby' => 'post_title',
+			'order'   => 'ASC'
+		);
+	}
 
 	if ( isset($url_query_params["post_terms"]) ) {
 		$taxquery = array(

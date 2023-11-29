@@ -16,7 +16,7 @@ $mostra_gallery = dci_get_option('mostra_gallery', 'homepage') ?? false;
 get_header();
 ?>
 <main id="main-container" class="main-container redbrown">
-    <h1 class="visually-hidden" id="main-container">
+    <h1 class="visually-hidden">
         <?php echo dci_get_option("nome_comune"); ?>
     </h1>
     <section id="head-section">
@@ -31,12 +31,8 @@ get_header();
         <?php get_template_part("template-parts/home/contenuti-evidenza"); ?>
         <?php get_template_part("template-parts/home/calendario", $visualizzazione_eventi); ?>
     </section>
-    <section id="evidenza" class="evidence-section" style="display: grid;">
-        <div class="pt-5 px-lg-5 position-relative" style="grid-row-start:1; grid-column-start:1;">
-            <?php get_template_part("template-parts/home/argomenti"); ?>
-        </div>
-        <div class="bg-primary" style="grid-row-start:1; grid-column-start:1; max-height:300px; min-height: 96px; background-size: 100% 300px; <?php if (file_exists(get_stylesheet_directory() . '/assets/img/evidenza-header.png')) { ?>background-image: url('<?php echo esc_url(get_stylesheet_directory_uri()); ?>/assets/img/evidenza-header.png');<?php } else { ?>background-image: url('<?php echo esc_url(get_template_directory_uri()); ?>/assets/img/evidenza-header.png');<?php } ?>">
-        </div>
+    <section id="evidenza" class="evidence-section">
+        <?php get_template_part("template-parts/home/argomenti"); ?>
     </section>
     <section id="siti-tematici" class="my-5">
         <?php get_template_part("template-parts/home/siti","tematici"); ?>

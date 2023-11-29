@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content perfect-scrollbar">
             <div class="modal-body">
-                <form id="access-form" class="access-main-wrapper" name="loginform" id="loginform" action="<?php echo esc_url( site_url( 'wp-login.php', 'login_post' ) ); ?>" method="post">
+                <form class="access-main-wrapper" name="loginform" id="loginform" action="<?php echo esc_url( site_url( 'wp-login.php', 'login_post' ) ); ?>" method="post">
                     <div class="container-md">
 						<div class="modal-header">
         					<h2 class="d-inline" id="accessModal">
@@ -51,16 +51,16 @@
                                     <div class="access-login-form">
                                         <div class="form-group">
                                             <label for="login-email-field">Email address</label>
-                                            <input type="text" name="log" id="login-email-field" class="input form-control" value="" size="20" autocapitalize="off" aria-describedby="access-form" placeholder="La tua email">
+                                            <input type="text" name="log" title="Indirizzo email" id="login-email-field" class="input form-control" value="" size="20" autocapitalize="off" aria-describedby="loginform" placeholder="La tua email">
                                         </div>
                                         <div class="form-group mb-3">
                                             <label for="login-password-field">Password</label>
-                                            <input type="password" name="pwd" id="login-password-field" class="form-control" value="" size="20" aria-describedby="access-form" placeholder="Password">
+                                            <input type="password" name="pwd" title="Password" id="login-password-field" class="form-control" value="" size="20" aria-describedby="loginform" placeholder="Password">
                                         </div>
 
                                         <div class="row variable-gutters mb-4">
                                             <div class="col text-right text-underline">
-                                                <p><a href="<?php echo esc_url( wp_lostpassword_url() ); ?>" arial-label="<?php _e( 'Lost your password?' ); ?>"><?php _e( 'Lost your password?' ); ?></a></p>
+                                                <p><a href="<?php echo esc_url( wp_lostpassword_url() ); ?>"><?php _e( 'Lost your password?' ); ?></a></p>
                                             </div>
                                         </div>
 

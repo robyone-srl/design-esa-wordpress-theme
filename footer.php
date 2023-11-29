@@ -45,6 +45,8 @@ function genera_pagine_figlie($slug_pagina)
     }
 }
 ?>
+<?php get_template_part("template-parts/common/search-modal"); ?>
+
 <footer class="it-footer" id="footer">
     <div class="it-footer-main">
         <div class="container">
@@ -196,7 +198,7 @@ function genera_pagine_figlie($slug_pagina)
                                 <?php
                                 if (dci_get_option("contatti_indirizzo", 'footer')) {
                                 ?>
-                                    <br /><a href="https://www.openstreetmap.org/search?query=<?php echo dci_get_option("contatti_indirizzo", 'footer'); ?>" title="Mappa e indicazioni stradali"><?php echo dci_get_option("contatti_indirizzo", 'footer'); ?></a>
+                                    <br /><a href="https://www.openstreetmap.org/search?query=<?php echo urlencode(dci_get_option("contatti_indirizzo", 'footer')); ?>" title="Mappa e indicazioni stradali"><?php echo dci_get_option("contatti_indirizzo", 'footer'); ?></a>
                                 <?php
                                 }
                                 ?>
