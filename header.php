@@ -23,7 +23,6 @@ $current_group = dci_get_current_group();
 
 <body <?php body_class(); ?>>
 
-  <?php get_template_part("template-parts/common/svg"); ?>
   <?php get_template_part("template-parts/common/sprites"); ?>
   <?php get_template_part("template-parts/common/skiplink"); ?>
 

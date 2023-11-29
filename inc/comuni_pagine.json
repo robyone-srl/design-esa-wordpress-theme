@@ -67,14 +67,14 @@
           "title": "Assistenza",
           "slug": "assistenza",
           "description": "I campi contraddistinti dal simbolo asterisco sono obbligatori.",
-          "template_name": "Assistenza",
+          "template_name": "assistenza",
           "children": {}
         },
         "Prenotazioni": {
           "title": "Prenotazioni",
           "slug": "prenotazioni",
           "description": "",
-          "template_name": "Prenota appuntamento",
+          "template_name": "prenota-appuntamento",
           "children": {}
         }
       }
@@ -126,7 +126,7 @@
       "title": "Argomenti",
       "slug": "argomenti",
       "description": "Gli argomenti rispondono a un'esigenza di organizzazione dei contenuti del sito istituzionale per temi e rappresentano le principali categorie di contenuti, informazioni e documenti specifici.",
-      "template_name": "Argomenti",
+      "template_name": "argomenti",
       "children": {}
     },
     "Domande frequenti": {
