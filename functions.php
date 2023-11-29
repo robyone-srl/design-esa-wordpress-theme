@@ -175,6 +175,8 @@ function dci_scripts() {
 	wp_enqueue_script( 'dci-modernizr', get_template_directory_uri() . '/assets/js/modernizr.custom.js');
 	wp_enqueue_script( 'tobii', get_template_directory_uri() . '/assets/js/tobii.min.js');
 
+	wp_enqueue_script( 'dci-icons', get_custom_css_file_url('icons.css'));
+
 	// print css
     wp_enqueue_style('dci-print-style',get_template_directory_uri() . '/print.css', array(),'20190912','print' );
 
