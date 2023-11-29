@@ -6,10 +6,9 @@
                 <form class="access-main-wrapper" name="loginform" id="loginform" action="<?php echo esc_url( site_url( 'wp-login.php', 'login_post' ) ); ?>" method="post">
                     <div class="container-md">
 						<div class="modal-header">
-        					<h2 class="d-inline" id="accessModal">
+        					<div class="h2 d-inline" id="accessModal">
 										<?php _e("Accedi ai servizi", "design_comuni_italia"); ?>
-                                    	
-									</h2>
+                            </div>
 							<button type="button" class="close dismiss" data-bs-toggle="modal" data-bs-target="#access-modal" data-dismiss="modal" aria-label="Chiudi e torna alla pagina precedente" data-focus-mouse="false">
                                         	<svg class="icon icon-md">
                                             	<use href="#it-close-big"></use>
@@ -41,7 +40,7 @@
                             </div>
                             <div class="col-lg-4 offset-lg-2 access-mobile-bg">
                                 <div class="access-login p-4 p-lg-0">
-                                    <h3><?php _e("Personale dell'Ente", "design_comuni_italia"); ?></h3>
+                                    <div class="h3"><?php _e("Personale dell'Ente", "design_comuni_italia"); ?></div>
                                     <p class="text-large"><?php _e("Entra nel sito della casa di riposo con le tue credenziali per gestire i contenuti e altre funzionalità.", "design_comuni_italia"); ?></p>
                                     <?php if(in_array('wp-spid-italia/wp-spid-italia.php', apply_filters('active_plugins', get_option('active_plugins')))){?>
                                         <div class="col text-center pt-4">
@@ -51,11 +50,11 @@
                                     <div class="access-login-form">
                                         <div class="form-group">
                                             <label for="login-email-field">Email address</label>
-                                            <input type="text" name="log" title="Indirizzo email" id="login-email-field" class="input form-control" value="" size="20" autocapitalize="off" aria-describedby="loginform" placeholder="La tua email">
+                                            <input type="email" name="log" autocomplete="email" title="Indirizzo email" id="login-email-field" class="input form-control" value="" size="20" autocapitalize="off" aria-describedby="loginform" placeholder="La tua email">
                                         </div>
                                         <div class="form-group mb-3">
                                             <label for="login-password-field">Password</label>
-                                            <input type="password" name="pwd" title="Password" id="login-password-field" class="form-control" value="" size="20" aria-describedby="loginform" placeholder="Password">
+                                            <input type="password" name="pwd" title="Password" autocomplete="current-password" id="login-password-field" class="form-control" value="" size="20" aria-describedby="loginform" placeholder="Password">
                                         </div>
 
                                         <div class="row variable-gutters mb-4">
