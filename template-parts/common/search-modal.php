@@ -30,7 +30,7 @@
                       ></use>
                     </svg>
                   </button>
-                  <h2><?php _e("Cerca","design_comuni_italia"); ?></h2>
+                  <p><span class="h2"><?php _e("Cerca","design_comuni_italia"); ?></span></p>
                   <button
                     class="search-link d-none d-md-block"
                     type="button"
@@ -67,7 +67,10 @@
                         value="<?php echo get_search_query(); ?>"
                       />
                     </div>
-                    <button type="submit" class="btn btn-primary">
+                    <button
+                      type="submit"
+                      class="btn btn-primary"
+                    >
                       <span class="">Cerca</span>
                     </button>
                   </div>

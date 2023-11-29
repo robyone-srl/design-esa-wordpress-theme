@@ -1225,7 +1225,7 @@ function add_custom_css_field_to_box(&$box, $css_name, $file_field_name, $checkb
     if(file_exists(get_custom_css_file_path($css_name))){
         $box->add_field( array(
             'name' => 'Stile personalizzato',
-            'desc' => 'Al momento, è in uso un foglio di stile personalizzato al posto di <strong>'.$css_name.'</strong>. Per tornare a usare quello predefinito, disabilita questa opzione e salva le modifiche.',
+            'desc' => 'Al momento, è in uso un foglio di stile personalizzato al posto di <strong>'.$css_name.'</strong>. Per tornare a usare quello predefinito o per caricare una nuova versione, disabilita questa opzione e salva le modifiche.',
             'id'   => $checkbox_field_name,
             'type' => 'checkbox',
             'default' => 'on'
