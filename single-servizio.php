@@ -378,7 +378,7 @@ get_header();
                                 </div>
                             </section>
                             <?php } ?>
-                            <?php if ( $cosa_serve ) { ?>
+                            <?php if ( $cosa_serve ?? false ) { ?>
                             <section class="it-page-section mb-30">
                                 <h2 class="title-xxlarge mb-3" id="needed">Cosa serve</h2>
                                 <div class="richtext-wrapper lora" data-element="service-needed">

@@ -662,7 +662,7 @@ $cmb_destinatari->add_field( array(
 
 	$cmb_stato->add_field( array(
 		'id'        => $prefix . 'classi_icona',
-		'desc'      => __( 'Classe icona di font awesome', 'design_comuni_italia' ),
+		'desc'      => __( 'Classe icona', 'design_comuni_italia' ),
 		'type'      => 'text',
 		'options'   => array(
 			"true"  => __( 'Attivo', 'design_comuni_italia' ),
