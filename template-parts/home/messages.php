@@ -1,7 +1,8 @@
 <?php global  $messages; ?>
-<?php foreach($messages as $message): ?>
+<?php 
+foreach($messages as $message): ?>
     <?php
-
+	if(isset($message['testo_message'])) {
     if(trim($message['testo_message']) == "") continue;
     $message_date = strtotime($message['data_message'] ?? '');
     $now = strtotime("now");
@@ -25,4 +26,5 @@
             </p>
         </div>
     </div>
-<?php endforeach; ?>
+<?php }
+endforeach; ?>
