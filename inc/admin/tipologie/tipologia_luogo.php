@@ -417,11 +417,13 @@ function dci_add_luogo_metaboxes() {
     $cmb_informazioni->add_field( array(
         'id' => $prefix . 'sede_di',
         'name'    => __( 'Sede di: ', 'design_comuni_italia' ),
-        'desc' => __( 'Link alle unità organizzative (uffici, aree, organi) presenti nel luogo' , 'design_comuni_italia' ),
+        'desc' => __( 'Link alle unità organizzative (uffici, aree, organi) presenti nel luogo. Puoi modificare il luogo di un\'unità organizzativa nelle sue impostazioni.' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('unita_organizzativa'),
         'attributes' => array(
             'placeholder' =>  __( 'Seleziona le Unità Organizzative', 'design_comuni_italia' ),
+            'disabled' => 'true',
+            'required' => 'required'
         )
     ) );
 

@@ -200,11 +200,13 @@ function dci_add_unita_organizzativa_metaboxes() {
     $cmb_servizi->add_field( array(
         'id' => $prefix . 'elenco_servizi_offerti',
         'name'    => __( 'Elenco servizi offerti', 'design_comuni_italia' ),
-        'desc' => __( 'Relazione con i servizi offerti dall\'unità organizzativa' , 'design_comuni_italia' ),
+        'desc' => __( 'Relazione con i servizi offerti dall\'unità organizzativa. I servizi appaiono qui automaticamente in base alle impostazioni del singolo servizio.' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('servizio'),
         'attributes' => array(
             'placeholder' =>  __( 'Seleziona i Servizi', 'design_comuni_italia' ),
+            'disabled' => 'true',
+            'required' => 'required'
         )
     ) );
 

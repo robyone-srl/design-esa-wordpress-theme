@@ -129,14 +129,6 @@ function dci_add_notizia_metaboxes() {
     ) );
 
     $cmb_apertura->add_field( array(
-        'id' => $prefix . 'data_pubblicazione',
-        'name'    => __( 'Data della notizia', 'design_comuni_italia' ),
-        'desc' => __( 'Data di pubblicazione della notizia. Se non compilato a front end viene mostrata la data di pubblicazione del post.' , 'design_comuni_italia' ),
-        'type'    => 'text_date_timestamp',
-        'date_format' => 'd-m-Y',
-    ) );
-
-    $cmb_apertura->add_field( array(
         'id' => $prefix . 'data_scadenza',
         'name'    => __( 'Data di scadenza', 'design_comuni_italia' ),
         'desc' => __( 'Data di pubblicazione della notizia. Eventuale data di scadenza (in caso di avviso pubblicato)' , 'design_comuni_italia' ),
