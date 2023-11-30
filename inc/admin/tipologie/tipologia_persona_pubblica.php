@@ -101,7 +101,7 @@ function dci_add_persona_pubblica_metaboxes() {
         'desc' => __( 'Gli incarichi che la persona ricopre. Puoi modificare queste informazioni dalle impostazioni degli incarichi.' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => get_incarichi_con_unita_organizzativa(),
-        'default_cb' => 'set_to_current',
+        'default_cb' => 'set_to_current_persona_pubblica_incarichi',
         'attributes' => array(
             'placeholder' =>  __( 'Seleziona le Unità Organizzative', 'design_comuni_italia' ),
             'disabled' => 'true',
@@ -268,10 +268,10 @@ add_filter( 'wp_insert_post_data' , 'dci_persona_pubblica_set_post_title' , '99'
 
 new dci_bidirectional_cmb2("_dci_persona_pubblica_", "persona_pubblica", "organizzazioni", "persona_box", "_dci_unita_organizzativa_persone_struttura");
 
-new dci_bidirectional_cmb2("_dci_persona_pubblica_", "persona_pubblica", "incarichi", "persona_box", "_dci_incarico_persona");
+//new dci_bidirectional_cmb2("_dci_persona_pubblica_", "persona_pubblica", "incarichi", "persona_box", "_dci_incarico_persona");
 
 
 
-function set_to_current($field_args, $field  ) {
+function set_to_current_persona_pubblica_incarichi($field_args, $field  ) {
 	return dci_get_meta("incarichi", "_dci_persona_pubblica_", $field->object_id) ?? [];
 }

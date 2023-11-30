@@ -165,15 +165,15 @@ function dci_add_unita_organizzativa_metaboxes() {
     ) );
 
     $cmb_persone->add_field( array(
-        'id' => $prefix . 'incarichi',
+        'id' => $prefix . 'incarichi_1',
         'name'    => __( 'Incarichi', 'design_comuni_italia' ),
         'desc' => __( 'Gli incarichi delle persone nell\'unità organizzativa. Puoi modificare queste informazioni dalle impostazioni degli incarichi.' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => get_incarichi_con_nomi(),
+        'default_cb' => 'set_to_current_unita_organizzativa_incarichi',
         'attributes' => array(
             'placeholder' =>  __( 'Seleziona gli incarichi', 'design_comuni_italia' ),
             'disabled' => 'true',
-            'required' => 'required'
         )
     ) );
 
@@ -198,15 +198,15 @@ function dci_add_unita_organizzativa_metaboxes() {
         'priority'     => 'high',
     ) );
     $cmb_servizi->add_field( array(
-        'id' => $prefix . 'elenco_servizi_offerti',
+        'id' => $prefix . 'elenco_servizi_offerti_1',
         'name'    => __( 'Elenco servizi offerti', 'design_comuni_italia' ),
         'desc' => __( 'Relazione con i servizi offerti dall\'unità organizzativa. I servizi appaiono qui automaticamente in base alle impostazioni del singolo servizio.' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('servizio'),
+        'default_cb' => 'set_to_current_unita_organizzativa_servizi',
         'attributes' => array(
             'placeholder' =>  __( 'Seleziona i Servizi', 'design_comuni_italia' ),
             'disabled' => 'true',
-            'required' => 'required'
         )
     ) );
 
@@ -334,6 +334,15 @@ new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "
 
 new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "sede_principale", "box_contatti", "_dci_luogo_sede_di");
 
-new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "elenco_servizi_offerti", "box_contatti", "_dci_servizio_unita_responsabile");
+//new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "elenco_servizi_offerti", "box_contatti", "_dci_servizio_unita_responsabile");
 
 new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "incarichi", "box_persone", "_dci_incarico_unita_organizzativa");
+
+
+function set_to_current_unita_organizzativa_servizi($field_args, $field  ) {
+	return dci_get_meta("elenco_servizi_offerti", "_dci_unita_organizzativa_", $field->object_id) ?? [];
+}
+
+function set_to_current_unita_organizzativa_incarichi($field_args, $field  ) {
+	return dci_get_meta("incarichi", "_dci_unita_organizzativa_", $field->object_id) ?? [];
+}
