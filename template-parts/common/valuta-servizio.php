@@ -3,15 +3,16 @@
         <div class="row d-flex justify-content-center bg-primary">
         <div class="col-12 col-lg-6 p-lg-0 px-3">
             <div class="cmp-rating pt-lg-80 pb-lg-80" id="rating">
-            <div class="card shadow card-wrapper" data-element="feedback">
+            <div class="card shadow card-wrapper" data-element="feedback" role="group" aria-labelledby="feedbackTitle">
                 <div class="cmp-rating__card-first">
                 <div class="card-header border-0">
-                    <h2 class="title-medium-2-semi-bold mb-0" data-element="feedback-title">
+                    <h2 class="title-medium-2-semi-bold mb-0" id="feedbackTitle" data-element="feedback-title">
                         Quanto sono chiare le informazioni su questa pagina?
                     </h2>
                 </div>
                 <div class="card-body">
                     <fieldset class="rating">
+                        <legend class="visually-hidden">Esprimi una valutazione</legend>
                         <?php
                             $c = 5;
                             while ($c > 0) { ?>
