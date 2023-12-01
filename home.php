@@ -79,7 +79,6 @@ get_header();
     <?php
     } ?>
     <section id="head-section">
-        <h2 class="visually-hidden">Contenuti in evidenza</h2>
         <?php
         $messages = dci_get_option("messages", "home_messages");
         if ($messages && !empty($messages)) {
