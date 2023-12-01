@@ -23,6 +23,74 @@ function dci_register_pagina_home_options(){
 
     $home_options = new_cmb2_box( $args );
 
+    
+
+    $home_options->add_field( array(
+        'id' => $prefix . 'hero_section_title',
+        'name'        => __( 'Sezione Hero', 'design_comuni_italia' ),
+        'desc' => __( 'Configurazione immagine all\'inizio della pagina home.' , 'design_comuni_italia' ),
+        'type' => 'title',
+    ) );
+
+    $home_options->add_field( array(
+        'id' => $prefix . 'hero_show',
+        'name'        => __( 'Mostra hero', 'design_comuni_italia' ),
+        'desc' => __( 'Scegli se mostrare un\'immagine prominente all\'inizio della pagina. Può anche contenere del testo e un link.' , 'design_comuni_italia' ),
+        'type'    => 'radio_inline',
+        'options' => array(
+            ''   => __( 'No', 'cmb2' ),
+            'true' => __( 'Sì', 'cmb2' ),
+        ),
+        'default' => '',
+    ) );
+
+    $home_options->add_field( array(
+        'id'    => $prefix . 'hero_image',
+        'name' => __('Immagine di sfondo', 'design_comuni_italia' ),
+        'desc' => __( 'L\'immagine che viene visualizzata come "copertina"' , 'design_comuni_italia' ),
+        'type' => 'file',
+        'query_args' => array(
+            'type' => array(
+                'image/*',
+        ))
+    ));
+
+    $home_options->add_field( array(
+        'id' => $prefix . 'hero_title',
+        'name'        => __( 'Titolo', 'design_comuni_italia' ),
+        'type'    => 'text',
+    ) );
+
+    $home_options->add_field( array(
+        'id' => $prefix . 'hero_description',
+        'name'        => __( 'Descrizione', 'design_comuni_italia' ),
+        'type'    => 'textarea',
+    ) );
+
+    $home_options->add_field( array(
+        'id' => $prefix . 'hero_button_title',
+        'name'        => __( 'Contenuto pulsante', 'design_comuni_italia' ),
+        'type'    => 'text',
+    ) );
+    
+    $home_options->add_field( array(
+        'id' => $prefix . 'hero_button_link',
+        'name'        => __( 'URL pulsante', 'design_comuni_italia' ),
+        'type'    => 'text',
+    ) );
+    
+    $home_options->add_field( array(
+        'id' => $prefix . 'hero_alignment',
+        'name'        => __( 'Allineamento', 'design_comuni_italia' ),
+        'type'    => 'radio_inline',
+        'options' => array(
+            'left' => __( 'Sinistra', 'cmb2' ),
+            'center'   => __( 'Centro', 'cmb2' ),
+        ),
+        'default' => 'left',
+    ) );
+    
+
     $home_options->add_field( array(
         'id' => $prefix . 'contenuti_evidenziati_title',
         'name'        => __( 'Sezione Contenuti in Evidenza', 'design_comuni_italia' ),
