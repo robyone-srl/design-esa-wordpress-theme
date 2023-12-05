@@ -7,6 +7,7 @@
           <div class="it-header-slim-right-zone" role="navigation">
             <?php
                 if(!is_user_logged_in()) {
+                  if(!dci_get_option('nascondi_pulsante_login', 'homepage'))
                     get_template_part("template-parts/header/header-anon");
                 }else{
                     get_template_part("template-parts/header/header-logged");

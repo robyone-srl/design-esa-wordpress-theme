@@ -353,6 +353,13 @@ function dci_register_pagina_home_options(){
         'remove_default' => 'true',
     ) );
 
+
+    $home_options->add_field( array(
+        'id' => $prefix . 'more_section_title',
+        'name'        => __( 'Altre opzioni', 'design_comuni_italia' ),
+        'type' => 'title',
+    ) );
+
     $home_options->add_field( array(
         'id' => $prefix . 'mostra_gallery',
         'name' => 'Mostra gallery',
@@ -360,4 +367,10 @@ function dci_register_pagina_home_options(){
         'type' => 'checkbox',
     ) );
 
+    $home_options->add_field( array(
+        'id' => $prefix . 'nascondi_pulsante_login',
+        'name' => 'Nascondi il pulsante di login',
+        'desc' => 'Nascondi il pulsante di login dalla barra superiore del sito. Sarà necessario aprire manualmente <a target="_blank" href="'.wp_login_url().'">'. wp_login_url() .'</a> per effettuare il login.',
+        'type' => 'checkbox',
+    ) );
 }

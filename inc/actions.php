@@ -124,6 +124,7 @@ function dci_create_menu_locations() {
         'menu-footer-col-4-2' => esc_html__( 'Menu footer (colonna 4 - "Vivere il Comune")', 'design_comuni_italia' ),
         'menu-footer-info-1' => esc_html__( 'Menu footer (informazioni - colonna 1)', 'design_comuni_italia' ),
         'menu-footer-info-2' => esc_html__( 'Menu footer (informazioni - colonna 2)', 'design_comuni_italia' ),
+        'menu-barra-superiore' => esc_html__( 'Menu barra superiore', 'design_comuni_italia' ),
 
         //'menu-footer-bottom' => esc_html__( 'Menu a piè di pagina (es: voce "privacy policy")', 'design_comuni_italia' ),
     ) );
