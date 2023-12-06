@@ -20,15 +20,17 @@ $barra_superiore_light = dci_get_option("tema_chiaro_nav_superiore");
               </a>
               <div class="link-list-wrapper collapse" id="menu1a">
                 <?php
-                wp_nav_menu(array(
-                  'menu' => 'menu-barra-superiore',
-                  'list_item_class' => 'list-item dropdown-item',
-                  'menu_class' => 'link-list ' . ($nascondi_login ? 'me-0' : ''),
-                  'container' => false,
-                  'depth' => 1,
-                  'current_group' => basename(get_permalink()),
-                  'walker' => new Main_Menu_Walker()
-                ))
+                if (has_nav_menu('menu-barra-superiore')) {
+                  wp_nav_menu(array(
+                    'menu' => 'menu-barra-superiore',
+                    'list_item_class' => 'list-item dropdown-item',
+                    'menu_class' => 'link-list ' . ($nascondi_login ? 'me-0' : ''),
+                    'container' => false,
+                    'depth' => 1,
+                    'current_group' => basename(get_permalink()),
+                    'walker' => new Main_Menu_Walker()
+                  ));
+                }
                 ?>
               </div>
             </nav>
