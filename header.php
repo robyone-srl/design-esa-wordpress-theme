@@ -11,6 +11,9 @@
  */
 $theme_locations = get_nav_menu_locations();
 $current_group = dci_get_current_group();
+
+$barra_intestazione_light = dci_get_option("tema_chiaro_nav_intestazione");
+$barra_principale_light = dci_get_option("tema_chiaro_nav_principale");
 ?>
 <!doctype html>
 <html lang="it">
@@ -26,11 +29,10 @@ $current_group = dci_get_current_group();
   <?php get_template_part("template-parts/common/sprites"); ?>
   <?php get_template_part("template-parts/common/skiplink"); ?>
 
-  <header class="it-header-wrapper" data-bs-target="#header-nav-wrapper" style="">
+  <header class="it-header-wrapper" data-bs-target="#header-nav-wrapper">
     <?php get_template_part("template-parts/header/slimheader"); ?>
-
     <div class="it-nav-wrapper">
-      <div class="it-header-center-wrapper">
+      <div class="it-header-center-wrapper <?= $barra_intestazione_light ? 'theme-light' : '' ?>">
         <div class="container">
           <div class="row">
             <div class="col-12">
@@ -84,7 +86,7 @@ $current_group = dci_get_current_group();
           </div>
         </div>
       </div>
-      <div class="it-header-navbar-wrapper" id="header-nav-wrapper">
+      <div class="it-header-navbar-wrapper <?= $barra_principale_light ? 'theme-light-desk' : '' ?>" id="header-nav-wrapper">
         <div class="container">
           <div class="row">
             <div class="col-12">

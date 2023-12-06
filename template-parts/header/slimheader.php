@@ -1,8 +1,9 @@
 <?php
 $nascondi_login = dci_get_option('nascondi_pulsante_login');
+$barra_superiore_light = dci_get_option("tema_chiaro_nav_superiore");
 ?>
 
-<div class="it-header-slim-wrapper">
+<div class="it-header-slim-wrapper <?= $barra_superiore_light ? 'theme-light' : '' ?>">
   <div class="container">
     <div class="row">
       <div class="col-12">

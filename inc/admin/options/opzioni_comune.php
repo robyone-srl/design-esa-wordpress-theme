@@ -102,6 +102,49 @@ function dci_register_comune_options(){
     ) );
 
     add_custom_css_field_to_box($header_options, $CSS_NAME_COMUNI, 'comuni_css_file', 'use_comuni_css');
+    
+    $header_options->add_field( array(
+        'id' => $prefix . 'home_istruzioni_barra_chiara_scura',
+        'name'        => __( 'Tema barra di navigazione', 'design_comuni_italia' ),
+        'desc' => __( 'Scegli il tema chiaro o scuro per le barre di navigazione' , 'design_comuni_italia' ),
+        'type' => 'title',
+    ) );
+
+    $header_options->add_field( array(
+        'id' => $prefix . 'tema_chiaro_nav_superiore',
+        'name' => 'Barra di navigazione superiore',
+        'desc' => "Scegli il tema della barra più alta nella pagina del sito, che contiene l'amministrazione afferente e il pulsante di login.",
+        'type' => 'radio_inline',
+        'options' => [
+            '' => 'Scuro',
+            'chiaro' => "Chiaro"
+        ],
+        'default' => ''
+    ) );
+
+    $header_options->add_field( array(
+        'id' => $prefix . 'tema_chiaro_nav_intestazione',
+        'name' => 'Barra di intestazione',
+        'desc' => "Scegli il tema della barra che contiene il nome e logo dell'ente.",
+        'type' => 'radio_inline',
+        'options' => [
+            '' => 'Scuro',
+            'chiaro' => "Chiaro"
+        ],
+        'default' => ''
+    ) );
+    
+    $header_options->add_field( array(
+        'id' => $prefix . 'tema_chiaro_nav_principale',
+        'name' => 'Barra di navigazione principale',
+        'desc' => "Scegli il tema della barra di navigazione principale",
+        'type' => 'radio_inline',
+        'options' => [
+            '' => 'Scuro',
+            'chiaro' => "Chiaro"
+        ],
+        'default' => ''
+    ) );
 }
 
 
