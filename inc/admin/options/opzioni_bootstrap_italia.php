@@ -77,6 +77,7 @@ function custom_icons_css_file_option_update(string $object_id, array $updated, 
     global $CSS_NAME_ICONS;
     if(!isset($cmb->data_to_save['use_icons_css'])){
         unlink(get_custom_css_file_path($CSS_NAME_ICONS));
+        wp_deregister_style('dci-icons');
     }
 
     $uploaded_css =  $_FILES['icons_css_file']['tmp_name'] ?? false;
