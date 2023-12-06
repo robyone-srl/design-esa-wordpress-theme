@@ -30,7 +30,7 @@ get_header();
 
         $incarichi = dci_get_meta("incarichi", $prefix, $post->ID);
         $incarichi = is_array($incarichi) ? $incarichi : [];
-        $incarichi_di_responsabilita = array_filter($incarichi, fn($incarico)=>dci_get_meta('di_responsabilita', '_dci_incarico_', $incarico) == "true");
+        $incarichi_di_responsabilita = array_filter($incarichi, fn ($incarico) => dci_get_meta('di_responsabilita', '_dci_incarico_', $incarico) == "true");
         $altri_incarichi = array_diff($incarichi, $incarichi_di_responsabilita);
 
         $argomenti = get_the_terms($post, 'argomenti');
@@ -261,14 +261,19 @@ get_header();
                             <section id="servizi" class="it-page-section mb-4">
                                 <h3 class="my-2 title-large-semi-bold">Servizi collegati</h3>
                                 <div class="row g-2">
-                                    <?php foreach ($servizi as $servizio_id) { ?>
-                                        <div class="col-lg-6 col-md-12">
-                                            <?php
-                                            $servizio = get_post($servizio_id);
-                                            $with_map = false;
-                                            get_template_part("template-parts/servizio/card"); ?>
-                                        </div>
-                                    <?php } ?>
+                                    <?php
+                                    foreach ($servizi as $servizio_id) { ?>
+                                        <?php
+                                        $servizio = get_post($servizio_id);
+                                        $with_map = false;
+                                        if ($servizio != null) {
+                                        ?>
+                                            <div class="col-lg-6 col-md-12">
+                                                <?php get_template_part("template-parts/servizio/card"); ?>
+                                            </div>
+                                    <?php
+                                        }
+                                    } ?>
                                 </div>
                             </section>
                         <?php }
@@ -292,10 +297,10 @@ get_header();
                                 <?php foreach ($altre_sedi as $sede_id) {
                                     $luogo = get_post($sede_id);
                                 ?><div class="col-xl-6 col-lg-8 col-md-12 "><?php
-                                                                                    $with_border = false;
-                                                                                    get_template_part("template-parts/luogo/card-title");
-                                                                                    ?></div><?php
-                                            } ?>
+                                                                            $with_border = false;
+                                                                            get_template_part("template-parts/luogo/card-title");
+                                                                            ?></div><?php
+                                                                                } ?>
                             </section>
                         <?php  } ?>
 
