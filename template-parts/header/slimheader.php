@@ -22,7 +22,7 @@ $barra_superiore_light = dci_get_option("tema_chiaro_nav_superiore");
                 <?php
                 if (has_nav_menu('menu-barra-superiore')) {
                   wp_nav_menu(array(
-                    'menu' => 'menu-barra-superiore',
+                    'theme_location' => 'menu-barra-superiore',
                     'list_item_class' => 'list-item dropdown-item',
                     'menu_class' => 'link-list ' . ($nascondi_login ? 'me-0' : ''),
                     'container' => false,
