@@ -40,7 +40,12 @@ $barra_principale_light = dci_get_option("tema_chiaro_nav_principale");
                 <div class="it-brand-wrapper">
                   <a href="<?php echo home_url(); ?>" <?php if (!is_front_page()) echo 'title="Vai alla Homepage"'; ?>>
                     <div class="it-brand-text d-flex align-items-center">
-                      <?php get_template_part("template-parts/common/logo"); ?>
+                      <?php
+                      global $inverti_colore_logo;
+                      $inverti_colore_logo = $barra_intestazione_light;
+                      get_template_part("template-parts/common/logo-header");
+                      $inverti_colore_logo = false;
+                      ?>
                       <div>
                         <div class="it-brand-title"><?php echo dci_get_option("nome_comune"); ?></div>
                         <div class="it-brand-tagline d-none d-md-block">
