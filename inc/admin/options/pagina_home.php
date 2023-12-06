@@ -366,11 +366,4 @@ function dci_register_pagina_home_options(){
         'desc' => 'Mostra la galleria di foto (da impostare in <i>Configurazione &gt; Vivere l\'ente</i>)',
         'type' => 'checkbox',
     ) );
-
-    $home_options->add_field( array(
-        'id' => $prefix . 'nascondi_pulsante_login',
-        'name' => 'Nascondi il pulsante di login',
-        'desc' => 'Nascondi il pulsante di login dalla barra superiore del sito. Sarà necessario aprire manualmente <a target="_blank" href="'.wp_login_url().'">'. wp_login_url() .'</a> per effettuare il login.',
-        'type' => 'checkbox',
-    ) );
 }

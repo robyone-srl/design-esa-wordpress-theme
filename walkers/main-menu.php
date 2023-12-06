@@ -22,7 +22,8 @@ class Main_Menu_Walker extends Walker_Nav_Menu {
 		// set active tab
 		$group = $args->current_group == 'documenti-e-dati' ? 'amministrazione' : $args->current_group;
 		$active_class = '';
-		if ($item->attr_title == $group) {
+
+		if (basename($item->url) == $group) {
 			$active_class = 'active';
 		}
 
