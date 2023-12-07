@@ -91,7 +91,7 @@ $barra_principale_light = dci_get_option("tema_chiaro_nav_principale");
           </div>
         </div>
       </div>
-      <div class="it-header-navbar-wrapper <?= $barra_principale_light ? 'theme-light-desk' : '' ?>" id="header-nav-wrapper">
+      <div style="z-index: 5;" class="it-header-navbar-wrapper <?= $barra_principale_light ? 'theme-light-desk' : '' ?>" id="header-nav-wrapper">
         <div class="container">
           <div class="row">
             <div class="col-12">
