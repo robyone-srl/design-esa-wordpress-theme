@@ -50,7 +50,7 @@ class Main_Menu_Walker extends Walker_Nav_Menu
 			<image xlink:href="' . wp_get_attachment_image_url($img_id, 'small') . '" width="28" height="28"/>    
 			</svg>';
 
-		$output .= '<span>'.$item->title.'</span>';
+		$output .= $item->title;
 
 		if ($item->url && $item->url != '#') {
 			$output .= '</a>';
