@@ -32,7 +32,7 @@ $barra_principale_light = dci_get_option("tema_chiaro_nav_principale");
   <header class="it-header-wrapper" data-bs-target="#header-nav-wrapper">
     <?php get_template_part("template-parts/header/slimheader"); ?>
     <div class="it-nav-wrapper">
-      <div class="it-header-center-wrapper <?= $barra_intestazione_light ? 'theme-light' : '' ?>">
+      <div style="z-index: 4;" class="position-relative it-header-center-wrapper <?= $barra_intestazione_light ? 'theme-light' : '' ?>">
         <div class="container">
           <div class="row">
             <div class="col-12">
