@@ -29,3 +29,5 @@ function dci_icon_script() {
 
 }
 add_action( 'admin_enqueue_scripts', 'dci_icon_script' );
+
+wp_register_script( 'dci-custom-media-upload', get_template_directory_uri() . '/inc/admin-js/custom-media-upload.js');
