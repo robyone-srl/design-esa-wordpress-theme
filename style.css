@@ -1214,3 +1214,11 @@ a:hover * .titolo-sito-tematico {
   width: auto;
   height: auto;
 }
+
+.it-header-navbar-wrapper.theme-light-desk{
+  box-shadow: none;
+}
+
+.it-header-wrapper{
+  box-shadow: 0 20px 30px 5px rgba(0,0,0,.05);
+}
