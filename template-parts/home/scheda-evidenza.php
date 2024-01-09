@@ -10,6 +10,10 @@ $page = get_page_by_path( dci_get_group($post->post_type) );
 
 $page_macro_slug = dci_get_group($post->post_type);
 $page_macro = get_page_by_path($page_macro_slug);
+
+if (!isset($titlelevel) || $titlelevel === null || trim($titlelevel) === '') {
+    $titleheading = "h3"; 
+}
 ?>
 
 <?php if ($img) { ?>
@@ -17,12 +21,9 @@ $page_macro = get_page_by_path($page_macro_slug);
     <div class="card-image-wrapper with-read-more">
         <div class="card-body p-3 u-grey-light">
             <div class="category-top">
-            <!-- <svg class="icon">
-                <use xlink:href="#<?php #echo $icon ?>"></use>
-            </svg> -->
             <span class="category title-xsmall-semi-bold fw-semibold" ><?php echo $page->post_title ?></span>
             </div>
-            <p class="card-title text-paragraph-medium u-grey-light"><?php echo $post->post_title ?></p>
+            <?php echo '<' . $titleheading . ' class="card-title text-paragraph-medium u-grey-light">' . $post->post_title . '</' . $titleheading . '>'; ?>
             <p class="text-paragraph-card u-grey-light m-0" style="margin-bottom: 40px!important;"><?php echo $descrizione_breve ?></p>
         </div>
         <div class="card-image card-image-rounded pb-5">            
@@ -50,9 +51,7 @@ $page_macro = get_page_by_path($page_macro_slug);
             </svg> -->
             <span class="category title-xsmall-semi-bold fw-semibold"><?php echo $page->post_title ?></span>
         </div>
-        <p class="card-title text-paragraph-medium u-grey-light">
-            <?php echo $post->post_title ?>
-        </p>
+        <?php echo '<' . $titleheading . ' class="card-title text-paragraph-medium u-grey-light">' . $post->post_title . '</' . $titleheading . '>'; ?>
         <p class="text-paragraph-card u-grey-light m-0">
             <?php echo $descrizione_breve ?>
         </p>

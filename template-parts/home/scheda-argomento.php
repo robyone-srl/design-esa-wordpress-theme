@@ -45,12 +45,7 @@ $links = $argomento_full['argomento_'.$count.'_contenuti'];
                 <li>
                     <a class="list-item active icon-left mb-2" href="<?php echo get_permalink(intval($link_id)); ?>">
                     <span class="list-item-title-icon-wrapper">
-                        <!-- <svg class="icon icon-primary">
-                        <use
-                            xlink:href="#<?php #echo dci_get_post_type_icon_by_id($link_id); ?>"
-                        ></use>
-                        </svg> -->
-                        <span class="text-underline text-success"><?php echo $link_obj->post_title; ?></span>
+                        <span><?php echo $link_obj->post_title; ?></span>
                     </span>
                     </a>
                 </li>
