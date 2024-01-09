@@ -426,8 +426,11 @@ function dci_get_tipologie_singular_labels(){
 
             if(is_array($post_values)){
                 $pos = array_search( $object_id, $post_values );
-                unset( $post_values[ $pos ] );
-                update_post_meta( $post_id, $meta_key_dest, $post_values );
+
+                if($pos !== false){
+                    unset( $post_values[ $pos ] );
+                    update_post_meta( $post_id, $meta_key_dest, $post_values );
+                }
             }
             else{
                 delete_post_meta( $post_id, $meta_key_dest );
