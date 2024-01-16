@@ -21,6 +21,15 @@ $barra_principale_light = dci_get_option("tema_chiaro_nav_principale");
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+	<?php if (dci_get_option("favicon")) { ?>
+		<link rel="icon" type="image/x-icon" href="<?php echo dci_get_option("favicon");?>">
+  <?php } else { 
+      $favicon_path = get_template_directory_uri() . '/assets/svg/it-designers-italia.svg';
+      echo '<link rel="shortcut icon" href="' . esc_url($favicon_path) . '" />';
+  } ?>
+
   <?php wp_head(); ?>
 </head>
 

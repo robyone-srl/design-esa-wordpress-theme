@@ -224,31 +224,36 @@ get_header();
                                         <?php
                                         if ($has_incarichi) { ?>
                                             <div class="row g-2">
-                                                <?php foreach ($incarichi_di_responsabilita as $incarico_id) { ?>
+                                                <?php foreach ($incarichi_di_responsabilita as $incarico_id) { 
+                                                    if (FALSE !== get_post_status( $incarico_id ) ) { ?>
                                                     <div class="col-lg-6 col-md-12">
                                                         <?php get_template_part("template-parts/incarico/card-person"); ?>
                                                     </div>
-                                                <?php } ?>
+                                                <?php } } ?>
                                             </div>
                                             <div class="row g-2">
-                                                <?php foreach ($altri_incarichi as $incarico_id) { ?>
+                                                <?php foreach ($altri_incarichi as $incarico_id) { 
+                                                    if (FALSE !== get_post_status( $incarico_id ) ) {
+												?>
                                                     <div class="col-lg-6 col-md-12">
                                                         <?php get_template_part("template-parts/incarico/card-person"); ?>
                                                     </div>
-                                                <?php } ?>
+                                                <?php } } ?>
                                             </div>
                                         <?php }
                                         ?>
                                         <?php
-                                        if ($has_persone) { ?>
+                                        if ($has_persone) {
+										?>
                                             <div class="row g-2">
                                                 <?php foreach ($persone as $pp_id) {
+                                                    if (FALSE !== get_post_status( $pp_id ) ) {
                                                     $with_border = true;
                                                     $hide_incarichi = true; ?>
                                                     <div class="col-lg-6 col-md-12">
                                                         <?php get_template_part("template-parts/persona_pubblica/card"); ?>
                                                     </div>
-                                                <?php } ?>
+                                                <?php } } ?>
                                             </div>
                                         <?php }
                                         ?>
@@ -262,7 +267,8 @@ get_header();
                                 <h3 class="my-2 title-large-semi-bold">Servizi collegati</h3>
                                 <div class="row g-2">
                                     <?php
-                                    foreach ($servizi as $servizio_id) { ?>
+                                    foreach ($servizi as $servizio_id) { 
+										if (FALSE !== get_post_status( $servizio_id ) ) {?>
                                         <?php
                                         $servizio = get_post($servizio_id);
                                         $with_map = false;
@@ -272,7 +278,7 @@ get_header();
                                                 <?php get_template_part("template-parts/servizio/card"); ?>
                                             </div>
                                     <?php
-                                        }
+                                        } }
                                     } ?>
                                 </div>
                             </section>

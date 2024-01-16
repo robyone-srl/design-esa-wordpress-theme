@@ -191,17 +191,7 @@ function dci_search_filters( $query ) {
 }
 add_action( 'pre_get_posts', 'dci_search_filters' );
 
-/**
- * add favicon
- */
-function dci_add_designers_italia_favicon() {
 
-    $favicon_path = get_template_directory_uri() . '/assets/svg/it-designers-italia.svg';
-    if (get_site_icon_url() === '')
-        echo '<link rel="shortcut icon" href="' . esc_url($favicon_path) . '" />';
-}
-add_action( 'wp_head', 'dci_add_designers_italia_favicon' ); //front end
-add_action( 'admin_head', 'dci_add_designers_italia_favicon' ); //admin end
 
 /**
  * customize excerpt

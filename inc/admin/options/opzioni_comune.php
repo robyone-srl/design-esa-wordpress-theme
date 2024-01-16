@@ -95,6 +95,17 @@ function dci_register_comune_options(){
     ));
 
     $header_options->add_field( array(
+        'id'    => $prefix . 'favicon',
+        'name' => __('Icona', 'design_comuni_italia' ),
+        'desc' => __( 'L\'immagine da utilizzare come icona (favicon). Si raccomanda di caricare un\'immagine in formato svg' , 'design_comuni_italia' ),
+        'type' => 'file',
+        'query_args'   => array(
+        'type' => array(
+            'image/svg',
+        ))
+    ));
+
+    $header_options->add_field( array(
         'id' => $prefix . 'nascondi_pulsante_login',
         'name' => 'Nascondi il pulsante di login',
         'desc' => 'Nascondi il pulsante di login dalla barra superiore del sito. Sarà necessario aprire manualmente <a target="_blank" href="'.wp_login_url().'">'. wp_login_url() .'</a> per effettuare il login.',
