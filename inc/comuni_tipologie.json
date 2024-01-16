@@ -174,7 +174,10 @@
             "prefix" : "_dci_sito_tematico_",
             "singular_name" : "Sito Tematico",
             "plural_name" : "Siti Tematici",
-            "group_name" : "Sito tematico"
+            "group_name" : "Sito Tematico",
+            "taxonomy" : [
+                "argomenti"
+            ]
         },
         "domanda_frequente" : {
             "name" : "domanda_frequente",
@@ -182,7 +185,10 @@
             "capability" : "domande_frequenti",
             "prefix" : "_dci_domanda_frequente_",
             "singular_name" : "Domanda Frequente",
-            "plural_name" : "FAQ"
+            "plural_name" : "Domande Frequenti",
+            "taxonomy" : [
+                "argomenti"
+            ]
         },
         "page": {
             "name" : "page",

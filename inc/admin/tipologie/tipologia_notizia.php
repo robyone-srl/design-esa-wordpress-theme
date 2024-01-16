@@ -178,15 +178,8 @@ function dci_add_notizia_metaboxes() {
             'teeny' => false, // output the minimal editor config used in Press This
         ),
     ) );
-    $cmb_corpo->add_field( array(
-        'id'         => $prefix . 'multimedia',
-        'name'       => __( 'Multimedia', 'design_comuni_italia' ),
-        'desc'       => __( 'Possibilità di includere nel corpo della notizia una galleria di immagini e/o una serie di video e/o audio riferite alla news.', 'design_comuni_italia' ),
-        'type' => 'file_list',
-        // 'preview_size' => array( 100, 100 ), // Default: array( 50, 50 )
-    ) );
 
-    /**
+    //MEDIA
     $cmb_gallerie_multimediali = new_cmb2_box( array(
         'id'           => $prefix . 'box_gallerie_multimediali',
         'title'        => __( 'Gallerie multimediali', 'design_comuni_italia' ),
@@ -195,33 +188,28 @@ function dci_add_notizia_metaboxes() {
         'priority'     => 'high',
     ) );
 
-    // repeater Gallerie Multimediali
-    $group_field_id = $cmb_gallerie_multimediali->add_field( array(
-        'id'          => $prefix . 'gallerie_multimediali',
-        'type'        => 'group',
-        'description' => __( 'E\' possibile inserire più gallerie multimediali' , 'design_comuni_italia' ),
-        'options'     => array(
-            'group_title'    => __( 'Galleria {#}', 'design_comuni_italia' ), // {#} gets replaced by row number
-            'add_button'     => __( 'Aggiungi una gallery', 'design_comuni_italia' ),
-            'remove_button'  => __( 'Rimuovi la gallery', 'design_comuni_italia' ),
-            'sortable'       => true,
-        ),
+    $cmb_gallerie_multimediali->add_field( array(
+        'id'         => $prefix . 'gallery',
+        'name'       => __( 'Galleria di immagini', 'design_comuni_italia' ),
+        'desc'       => __( 'Una o più immagini corredate da didascalie', 'design_comuni_italia' ),
+        'type' => 'file_list',
+        'query_args' => array( 'type' => 'image' ),
     ) );
 
-    $cmb_gallerie_multimediali->add_group_field( $group_field_id, array(
-        'name'       => __('Titolo gallery', 'design_comuni_italia' ),
-        'id'         => 'titolo_gallery',
-        'type'       => 'text',
+    $cmb_gallerie_multimediali->add_field( array(
+        'id'         => $prefix . 'video',
+        'name'       => __( 'Video', 'design_comuni_italia' ),
+        'desc'       => __( 'Un video da collegare alla notizia (è possibile inserire un url esterno).', 'design_comuni_italia' ),
+        'type' => 'file',
+        'query_args' => array( 'type' => 'video' ),
     ) );
 
-    $cmb_gallerie_multimediali->add_group_field( $group_field_id, array(
-        'name'       => __('Media', 'design_comuni_italia' ),
-        'desc'       => __('contenuti della gallery (immagini o video)', 'design_comuni_italia' ),
-        'id'         => 'data_fase',
-        'type'       => 'file_list',
-        'query_args' => array( 'type' => array('image','video') )
+    $cmb_gallerie_multimediali->add_field( array(
+        'id'         => $prefix . 'trascrizione',
+        'name'       => __( 'Trascrizione', 'design_comuni_italia' ),
+        'desc'       => __( 'Trascrizione del video', 'design_comuni_italia' ),
+        'type' => 'textarea'
     ) );
-    /*** fine repeater gallerie **/
 
     //DOCUMENTI
     $cmb_documenti = new_cmb2_box( array(

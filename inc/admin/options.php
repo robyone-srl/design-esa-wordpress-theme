@@ -12,6 +12,8 @@ function dci_register_main_options_metabox() {
 
     dci_register_comune_options();
 
+    dci_register_contatti_options();
+
     dci_register_bootstrap_italia_options();
 
     dci_register_pagina_avvisi_options();
@@ -35,8 +37,6 @@ function dci_register_main_options_metabox() {
     dci_register_luoghi_options();
 
     dci_register_pagina_argomenti_options();
-
-    dci_register_scheda_assistenza_options();
 
     dci_register_link_utili_options();
 

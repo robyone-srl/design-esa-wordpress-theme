@@ -18,7 +18,7 @@ get_header();
 
             // prefix: _dci_servizio_
             $stato = dci_get_meta("stato");
-            // $motivo_stato = dci_get_meta("motivo_stato");
+            $motivo_stato = dci_get_meta("motivo_stato");
             $sottotitolo = dci_get_meta("sottotitolo");
             $descrizione_breve = dci_get_meta("descrizione_breve");
             $destinatari = dci_get_wysiwyg_field("a_chi_e_rivolto");
@@ -168,7 +168,15 @@ get_header();
 
             <?php get_template_part('template-parts/single/image-large'); ?>        
 
+
             <div class="container">
+
+                <?php if($stato == 'false') { ?>
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Il servizio non è attivo.</strong> <?php echo $motivo_stato; ?>
+                    </div>
+                <?php } ?>
+
                 <div class="row border-top row-column-border row-column-menu-left border-light">
                     <div class="col-12 col-lg-3 mb-4 border-col">
                         <div class="cmp-navscroll sticky-top" aria-labelledby="accordion-title-one">

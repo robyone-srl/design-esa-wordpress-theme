@@ -12,7 +12,7 @@ function dci_register_pagina_avvisi_options(){
         'title'        => esc_html__( 'Avvisi in Home', 'design_comuni_italia' ),
         'object_types' => array( 'options-page' ),
         'option_key'   => 'home_messages',
-        'capability'    => 'manage_options',
+        'capability'    => 'manage_theme_options',
         'parent_slug'  => 'dci_options',
         'tab_group'    => 'dci_options',
         'tab_title'    => __('Avvisi in Home', "design_comuni_italia"),	);

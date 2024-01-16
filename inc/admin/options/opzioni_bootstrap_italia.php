@@ -17,7 +17,7 @@ function dci_register_bootstrap_italia_options(){
         'title'        => esc_html__( 'Bootstrap Italia', 'design_comuni_italia' ),
         'object_types' => array( 'options-page' ),
         'option_key'   => 'bootstrap_italia',
-    	'capability'    => 'manage_options',
+        'capability'    => 'manage_theme_options',
         'parent_slug'  => 'dci_options',
         'tab_group'    => 'dci_options',
         'tab_title'    => __('Bootstrap Italia', "design_comuni_italia")

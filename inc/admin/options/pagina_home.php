@@ -11,7 +11,7 @@ function dci_register_pagina_home_options(){
         'title'        => esc_html__( 'Home Page', 'design_comuni_italia' ),
         'object_types' => array( 'options-page' ),
         'option_key'   => 'homepage',
-        'capability'    => 'manage_options',
+        'capability'    => 'manage_theme_options',
         'parent_slug'  => 'dci_options',
         'tab_group'    => 'dci_options',
         'tab_title'    => __('Home Page', "design_comuni_italia"),	);

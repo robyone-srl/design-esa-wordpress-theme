@@ -11,7 +11,7 @@ function dci_register_ricerca_options(){
         'title'        => esc_html__( 'Ricerca', 'design_comuni_italia' ),
         'object_types' => array( 'options-page' ),
         'option_key'   => 'ricerca',
-        'capability'    => 'manage_options',
+        'capability'    => 'manage_theme_options',
         'parent_slug'  => 'dci_options',
         'tab_group'    => 'dci_options',
         'tab_title'    => __('Ricerca', "design_comuni_italia"),	);
