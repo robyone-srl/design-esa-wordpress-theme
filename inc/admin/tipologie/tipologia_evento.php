@@ -233,7 +233,7 @@ function dci_add_eventi_metaboxes() {
     $cmb_gallerie_multimediali->add_field( array(
         'id'         => $prefix . 'video',
         'name'       => __( 'Video', 'design_comuni_italia' ),
-        'desc'       => __( 'Un video rappresentativo dell\'evento (è possibile insirerire un url esterno).', 'design_comuni_italia' ),
+        'desc'       => __( 'Un video rappresentativo dell\'evento (è possibile inserire un url esterno).', 'design_comuni_italia' ),
         'type' => 'file',
         'query_args' => array( 'type' => 'video' ),
     ) );

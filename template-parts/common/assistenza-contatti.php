@@ -1,5 +1,6 @@
 <?php
-  $numero_verde = dci_get_option('numero_verde','assistenza');
+  $numero_verde = dci_get_option('numero_verde','contatti');
+  $centralino_unico = dci_get_option('centralino_unico','contatti');
 ?>
 <div class="bg-grey-card">
   <div class="container">

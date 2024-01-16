@@ -28,6 +28,11 @@ get_header();
             $allegati = dci_get_meta("allegati", $prefix, $post->ID);
             $datasets = dci_get_meta("dataset", $prefix, $post->ID);
             $a_cura_di = dci_get_meta("a_cura_di", $prefix, $post->ID);
+
+            $gallery = dci_get_meta("gallery", $prefix, $post->ID);
+            $video = dci_get_meta("video", $prefix, $post->ID);
+            $trascrizione = dci_get_meta("trascrizione", $prefix, $post->ID);
+
             ?>
             <div class="container" id="main-container">
                 <div class="row">
@@ -142,6 +147,12 @@ get_header();
                         <div class="richtext-wrapper lora">
                             <?php echo $descrizione; ?>
                         </div>
+                        <?php if (is_array($gallery) && count($gallery)) {
+                            get_template_part("template-parts/single/gallery");
+                        } ?>
+                        <?php if ($video) {
+                            get_template_part("template-parts/single/video");
+                        } ?>
                     </article>
                     <?php if( is_array($documenti) && count($documenti) ) { ?>
                     <article class="it-page-section anchor-offset mt-5">

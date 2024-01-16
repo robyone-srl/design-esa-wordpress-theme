@@ -14,7 +14,7 @@ function dci_register_pagina_novita_options(){
         'tab_title'    => __('Novità', "design_comuni_italia"),
         'parent_slug'  => 'dci_options',
         'tab_group'    => 'dci_options',
-        'capability'    => 'manage_options',
+        'capability'    => 'manage_theme_options',
     );
 
     // 'tab_group' property is supported in > 2.4.0.
@@ -49,17 +49,4 @@ function dci_register_pagina_novita_options(){
         )
         )
     );
-    $novita_options->add_field( array(
-        'id' => $prefix . 'novita_argomenti',
-        'name'        => __( 'Sezione Argomenti', 'design_comuni_italia' ),
-        'desc' => __( 'Configurazione della Sezione Argomenti' , 'design_comuni_italia' ),
-        'type' => 'title',
-    ) );
-    $novita_options->add_field( array(
-        'id' => $prefix . 'argomenti',
-        'name'        => __( 'Argomenti ', 'design_comuni_italia' ),
-        'desc' => __( 'Seleziona e ordina gli argomenti.' , 'design_comuni_italia' ),
-        'type'    => 'pw_multiselect',
-        'options' => dci_get_terms_options('argomenti'),
-    ) );
 }

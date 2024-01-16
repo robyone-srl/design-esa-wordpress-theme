@@ -14,7 +14,7 @@ function dci_register_pagina_vivi_options(){
         'tab_title'    => __('Vivere il Comune', "design_comuni_italia"),
         'parent_slug'  => 'dci_options',
         'tab_group'    => 'dci_options',
-        'capability'    => 'manage_options',
+        'capability'    => 'manage_theme_options',
     );
 
     // 'tab_group' property is supported in > 2.4.0.

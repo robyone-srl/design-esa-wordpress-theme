@@ -167,6 +167,10 @@ function dci_get_post_types_grouped($group = "", $tag = false)
         $post_types = array("evento", "luogo");
     else if ($group === "documenti-e-dati")
         $post_types = array("documento_pubblico", "dataset");
+    else if ($group === "luoghi")
+        $post_types = array("luogo");
+    else if ($group === "siti-tematici")
+        $post_types = array("sito_tematico");
     else
         $post_types = dci_get_sercheable_tipologie();
 

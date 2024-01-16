@@ -113,24 +113,51 @@
                     <div class="row">
                         <div class="col-md-4">
                             <p class="footer-info">
-                                <?php echo dci_get_option("nome_comune"); ?>
-                                <br /><?php echo dci_get_option("contatti_indirizzo",'footer'); ?>
-                                <br /><?php if(dci_get_option("contatti_CF_PIVA",'footer')) echo 'Codice fiscale / P. IVA:' . dci_get_option("contatti_CF_PIVA",'footer'); ?>
+                                <strong><?php echo dci_get_option("nome_comune"); ?></strong>
+
+
+                                <?php
+                                if (dci_get_option("indirizzo", 'contatti')) {
+                                ?>
+                                    <br /><a href="https://www.openstreetmap.org/search?query=<?php echo urlencode(dci_get_option("indirizzo", 'contatti')); ?>" title="Mappa e indicazioni stradali"><?php echo dci_get_option("indirizzo", 'contatti'); ?></a>
+                                <?php
+                                }
+                                ?>
+
+                                <?php
+                                $codice_fiscale = dci_get_option("CF", 'contatti');
+                                $partita_iva = dci_get_option("PIVA", 'contatti');
+
+                                if ($codice_fiscale && $codice_fiscale == $partita_iva) {
+                                    echo '<br />Codice fiscale / P.IVA: ' . $codice_fiscale;
+                                } else {
+                                ?>
+                                    <br /><?php if ($codice_fiscale) echo 'Codice fiscale: ' . $codice_fiscale; ?>
+                                    <br /><?php if ($partita_iva) echo 'Partita IVA: ' . $partita_iva; ?>
+                                <?php
+                                }
+                                ?>
                                 <br /><br />
                                 <?php
-                                    $ufficio_id = dci_get_option("contatti_URP",'footer');
-                                    $ufficio = get_post($ufficio_id);
-                                    if ($ufficio_id) { ?>
-                                        <a href="<?php echo get_post_permalink($ufficio_id); ?>" class="list-item" title="Vai alla pagina: URP">
-                                            <?php echo $ufficio->post_title ?>
-                                        </a>
+                                $ufficio_id = dci_get_option("scheda_URP", 'contatti');
+                                $ufficio = get_post($ufficio_id);
+                                if ($ufficio_id) { ?>
+                                    <a href="<?php echo get_post_permalink($ufficio_id); ?>" class="list-item" title="Vai alla pagina: URP">
+                                        <?php echo $ufficio->post_title ?>
+                                    </a>
                                 <?php } ?>
-                                <?php if(dci_get_option("numero_verde",'footer')) echo '<br />Numero verde: ' . dci_get_option("numero_verde",'footer'); ?>
-                                <?php if(dci_get_option("SMS_Whatsapp",'footer')) echo '<br />SMS e WhatsApp: ' . dci_get_option("SMS_Whatsapp",'footer'); ?>
+                                <?php if (dci_get_option("numero_verde", 'contatti')) echo '<br />Numero verde: <a href="tel:' . dci_get_option("numero_verde", 'contatti') . '">' . dci_get_option("numero_verde", 'contatti') . '</a>'; ?>
+                                <?php if (dci_get_option("SMS_Whatsapp", 'contatti')) echo '<br />SMS e WhatsApp: <a href="tel:' . dci_get_option("SMS_Whatsapp", 'contatti') . '">' . dci_get_option("SMS_Whatsapp", 'contatti') . '</a>'; ?>
                                 <?php
-                                    if (dci_get_option("contatti_PEC",'footer')) echo '<br />PEC: '; ?>
-                                        <a href="mailto:<?php echo dci_get_option("contatti_PEC",'footer'); ?>" class="list-item" title="PEC <?php echo dci_get_option("nome_comune");?>"><?php echo dci_get_option("contatti_PEC",'footer'); ?></a>
-								<?php if(dci_get_option("centralino_unico",'footer')) echo '<br />Centralino unico: ' . dci_get_option("centralino_unico",'footer'); ?>
+                                if (dci_get_option("PEC", 'contatti')) echo '<br />PEC: '; ?>
+                                <a href="mailto:<?php echo dci_get_option("PEC", 'contatti'); ?>" class="list-item" title="PEC <?php echo dci_get_option("nome_comune"); ?>"><?php echo dci_get_option("PEC", 'contatti'); ?></a>
+                                <?php if (dci_get_option("centralino_unico", 'contatti')) echo '<br />Centralino unico: <a href="' . dci_get_option("centralino_unico", 'contatti') . '">' . dci_get_option("centralino_unico", 'contatti') . '</a>'; ?>
+                                
+                                <? if(dci_get_option("cuf", 'contatti') || dci_get_option("cipa", 'contatti')) { ?>
+                                    <br /><br />
+                                    <?php if (dci_get_option("cuf", 'contatti')) echo '<br />Codice univoco di fatturazione (CUF): ' . dci_get_option("cuf", 'contatti'); ?>
+                                    <?php if (dci_get_option("cipa", 'contatti')) echo '<br />Codice Indice delle Pubbliche Amministrazioni (IPA): ' . dci_get_option("cipa", 'contatti'); ?>
+                                <? } ?>
                             </p>
                         </div>
                         <div class="col-md-4">
