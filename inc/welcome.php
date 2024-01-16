@@ -109,11 +109,11 @@ add_action('admin_bar_menu', 'dci_add_toolbar_manual', 100);
 function dci_add_toolbar_manual($admin_bar)
 {
     $admin_bar->add_menu(array(
-        'id' => 'manuale',
-        'title' => 'Manuale',
-        'href' => 'https://designers.italia.it/modello/comuni/',
+        'id' => 'norme_riferimenti',
+        'title' => 'Norme e riferimenti',
+        'href' => 'https://designers.italia.it/norme-e-riferimenti/',
         'meta' => array(
-            'title' => __('Manuale'),
+            'title' => __('La documentazione ufficiale che ti guida nella progettazione per la Pubblica Amministrazione, mettendo le persone al centro'),
             'target' => '_blank'
         ),
     ));
