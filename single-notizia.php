@@ -143,7 +143,7 @@ get_header();
                     </aside>
                     <section class="col-lg-8 it-page-sections-container border-light">
                     <article class="it-page-section anchor-offset" data-audio>
-                        <h4 id="contenuto">Contenuto</h4>
+                        <h2 id="contenuto" class="h3">Contenuto</h2>
                         <div class="richtext-wrapper lora">
                             <?php echo $contenuto; ?>
                         </div>
@@ -156,7 +156,7 @@ get_header();
                     </article>
                     <?php if( is_array($documenti) && count($documenti) ) { ?>
                     <article class="it-page-section anchor-offset mt-5">
-                        <h4 id="documenti">Documenti</h4>
+                        <h2 id="documenti" class="h3">Documenti</h2>
                         <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
                             <?php foreach ($documenti as $doc_id) {
                                 $documento = get_post($doc_id);
@@ -168,11 +168,11 @@ get_header();
                                 ></use>
                                 </svg>
                                 <div class="card-body">
-                                <h5 class="card-title">
+                                <h3 class="card-title">
                                     <a class="text-decoration-none" href="<?php echo get_permalink($doc_id); ?>" aria-label="Visualizza il documento <?php echo $documento->post_title; ?>" title="Visualizza il documento <?php echo $documento->post_title; ?>">
                                         <?php echo $documento->post_title; ?>
                                     </a>
-                                </h5>
+                                </h3>
                                 </div>
                             </div>
                             <?php } ?>
@@ -181,7 +181,7 @@ get_header();
                     <?php } ?>
                     <?php if( is_array($allegati) && count($allegati) ) { ?>
                     <article class="it-page-section anchor-offset mt-5">
-                        <h4 id="allegati">Allegati</h4>
+                        <h2 id="allegati" class="h3">Allegati</h2>
                         <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
                             <?php foreach ($allegati as $all_url) {
                                 $all_id = attachment_url_to_postid($all_url);
@@ -194,11 +194,11 @@ get_header();
                                 ></use>
                                 </svg>
                                 <div class="card-body">
-                                <h5 class="card-title">
+                                <h3 class="card-title">
                                     <a class="text-decoration-none" href="<?php echo get_the_guid($allegato); ?>" aria-label="Scarica l'allegato <?php echo $allegato->post_title; ?>" title="Scarica l'allegato <?php echo $allegato->post_title; ?>">
                                         <?php echo $allegato->post_title; ?>
                                     </a>
-                                </h5>
+                                </h3>
                                 </div>
                             </div>
                             <?php } ?>
@@ -207,7 +207,7 @@ get_header();
                     <?php } ?>
                         <?php if( is_array($datasets) && count($datasets) ) { ?>
                         <article class="it-page-section anchor-offset mt-5">
-                            <h4 id="dataset">Dataset</h4>
+                            <h2 id="dataset" class="h3">Dataset</h2>
                             <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
                                 <?php foreach ($datasets as $dataset_id) {
                                     $dataset = get_post($dataset_id);
@@ -219,11 +219,11 @@ get_header();
                                             ></use>
                                         </svg>
                                         <div class="card-body">
-                                            <h5 class="card-title">
+                                            <h3 class="card-title">
                                                 <a class="text-decoration-none" href="<?php echo get_permalink($dataset_id); ?>" aria-label="Visualizza il dataset <?php echo $dataset->post_title; ?>" title="Visualizza il dataset <?php echo $dataset->post_title; ?>">
                                                     <?php echo $dataset->post_title; ?>
                                                 </a>
-                                            </h5>
+                                            </h3>
                                         </div>
                                     </div>
                                 <?php } ?>
@@ -231,10 +231,10 @@ get_header();
                         </article>
                         <?php } ?>
                     <article class="it-page-section anchor-offset mt-5">
-                        <h4 id="a-cura-di">A cura di</h4>
+                        <h2 id="a-cura-di" class="h3">A cura di</h2>
                         <div class="row">
                         <div class="col-12 col-sm-8">
-                            <h6><small>Questa pagina è gestita da</small></h6>
+                            <h3 class="h6">Questa pagina è gestita da</h3>
                             <?php foreach ($a_cura_di as $uo_id) {
                                 $with_border = true;
                                 get_template_part("template-parts/unita-organizzativa/card");
@@ -242,18 +242,13 @@ get_header();
                         </div>
                         <?php if(is_array($persone) && count($persone)) { ?>
                             <div class="col-12 col-sm-4">
-                                <h6><small>Persone</small></h6>
+                                <h3 class="h6">Persone</h3>
                                 <?php get_template_part("template-parts/single/persone"); ?>
                             </div>
                         <?php } ?>
                         </div>
                     </article>
-                    <!-- <article
-                        id="ulteriori-informazioni"
-                        class="it-page-section anchor-offset mt-5"
-                    >
-                        <h4 class="mb-3">Ulteriori informazioni</h4>
-                    </article> -->
+                    <h2 class="visually-hidden">Ulteriori informazioni</h2>
                     <?php get_template_part('template-parts/single/page_bottom'); ?>
                     </section>
                 </div>

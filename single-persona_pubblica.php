@@ -94,6 +94,7 @@ get_header();
                                             <?php the_title(); ?>
                                         </h1>
                                     </div>
+                                    <h2 class="visually-hidden">Dettagli della persona</h2>
                                     <p class="subtitle-small mb-3" data-element="service-description">
                                     <?php
                                     	if($descrizione_breve) {
@@ -255,7 +256,7 @@ get_header();
 
                     <?php if($biografia || $curriculum_vitae) {  ?>
                     <section id="biografia" class="it-page-section mb-4">
-                        <h3 class="my-2 title-large-semi-bold">Biografia e curriculum</h3>
+                        <h2 class="h3 my-2">Biografia e curriculum</h2>
                         <div class="richtext-wrapper lora">
                             <?php echo $biografia ?>
                         </div>
@@ -280,7 +281,7 @@ get_header();
 
                     <?php if($competenze) {  ?>
                     <section id="competenze" class="it-page-section mb-4">
-                        <h3 class="my-2 title-large-semi-bold">Competenze</h3>
+                        <h2 class="h3 my-2">Competenze</h2>
                         <div class="richtext-wrapper lora">
                             <?php echo $competenze ?>
                         </div>
@@ -289,7 +290,7 @@ get_header();
 
                     <?php if ($inc_list && is_array($inc_list) && count($inc_list) > 0) {?>
                     <section id="incarichi" class="it-page-section mb-4">
-                        <h3 class="my-2 title-large-semi-bold">Incarichi</h3>
+                        <h2 class="h3 my-2">Incarichi</h2>
                         <div class="card-wrapper card-teaser-wrapper">
                             <?php foreach ($inc_list as $incarico) {
                                     $inc_id = $incarico->ID;
@@ -301,7 +302,7 @@ get_header();
 
                     <?php if ($organizzazioni && is_array($organizzazioni) && count($organizzazioni) > 0) {?>
                     <section id="organizzazioni" class="it-page-section mb-4">
-                        <h3 class="my-2 title-large-semi-bold">Fa parte di</h3>
+                        <h2 class="h3 my-2">Fa parte di</h2>
                         <div class="card-wrapper card-teaser-wrapper">
                             <?php foreach ($organizzazioni as $uo_id) {
                                       $with_border = true;
@@ -313,7 +314,7 @@ get_header();
 
                     <?php if ($punti_contatto && is_array($punti_contatto) && count($punti_contatto) > 0) { ?>
                     <section id="contatti" class="it-page-section mb-4">
-                        <h3 class="my-2 title-large-semi-bold">Contatti</h3>
+                        <h2 class="h3 my-2">Contatti</h2>
                         <div class="row">
                             <?php foreach ($punti_contatto as $pc_id) { ?>
                             <div class="col-xl-6 col-lg-8 col-md-12 ">
@@ -343,14 +344,14 @@ get_header();
         {
                     ?>
                     <section id="situazione_patrimoniale" class="it-page-section mb-4">
-                        <h3 class="my-2 title-large-semi-bold">Situazione patrimoniale</h3>
+                        <h2 class="h3 my-2">Situazione patrimoniale</h2>
 
                         <div class="richtext-wrapper lora">
                             <?php echo $situazione_patrimoniale ?>
                         </div>
 
                         <?php if ($dichiarazione_redditi && is_array($dichiarazione_redditi) && count($dichiarazione_redditi) > 0) {?>
-                        <h4 class="title-medium-2-bold">Dichiarazione dei redditi</h4>
+                        <h3 class="h4">Dichiarazione dei redditi</h3>
                         <div class="card-wrapper card-teaser-wrapper">
                             <?php foreach ($dichiarazione_redditi as $allegato_id) {
                                       $doc = attachment_url_to_postid($allegato_id);
@@ -362,7 +363,7 @@ get_header();
                         <?php }?>
 
                         <?php if ($variazione_situazione_patrimoniale && is_array($variazione_situazione_patrimoniale) && count($variazione_situazione_patrimoniale) > 0) {?>
-                        <h4 class="title-medium-2-bold">Variazione situazione patrimoniale</h4>
+                        <h3 class="h4">Variazione situazione patrimoniale</h3>
                         <div class="card-wrapper card-teaser-wrapper">
                             <?php foreach ($variazione_situazione_patrimoniale as $allegato_id) {
                                       $doc = attachment_url_to_postid($allegato_id);
@@ -390,10 +391,10 @@ get_header();
         {
                     ?>
                     <section id="altri_documenti" class="it-page-section mb-4">
-                        <h3 class="my-2 title-large-semi-bold">Altri documenti</h3>
+                        <h2 class="h3 my-2">Altri documenti</h2>
 
                         <?php if ($spese_elettorali && is_array($spese_elettorali) && count($spese_elettorali) > 0) {?>
-                        <h4 class="title-medium-2-bold">Spese elettorali</h4>
+                        <h3 class="h4">Spese elettorali</h3>
                         <div class="card-wrapper card-teaser-wrapper">
                             <?php foreach ($spese_elettorali as $allegato_id) {
                                       $doc = attachment_url_to_postid($allegato_id);
@@ -405,7 +406,7 @@ get_header();
                         <?php }?>
 
                         <?php if ($altre_cariche && is_array($altre_cariche) && count($altre_cariche) > 0) {?>
-                        <h4 class="title-medium-2-bold">Altre cariche</h4>
+                        <h3 class="h4">Altre cariche</h3>
                         <div class="card-wrapper card-teaser-wrapper">
                             <?php foreach ($altre_cariche as $allegato_id) {
                                       $doc = attachment_url_to_postid($allegato_id);
@@ -426,7 +427,7 @@ get_header();
 
                     <?php if ($more_info) {  ?>
                     <section id="more-info" class="it-page-section mb-4">
-                        <h3 class="my-2 title-large-semi-bold">Ulteriori informazioni</h3>
+                        <h2 class="h3 my-2">Ulteriori informazioni</h2>
                         <div class="richtext-wrapper lora">
                             <?php echo $more_info ?>
                         </div>

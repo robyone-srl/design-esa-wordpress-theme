@@ -35,8 +35,8 @@ get_header();
                 </div>
                 <div class="row">
                     <div class="col-lg-8 px-lg-4 py-lg-2">
-                        <h1 data-audio><?php the_title(); ?></h1>
-                        <h2 class="visually-hidden" data-audio>Dettagli del sito tematico</h2>
+                        <h1><?php the_title(); ?></h1>
+                        <h2 class="visually-hidden">Dettagli del sito tematico</h2>
                         <button type="button" class="btn btn-primary fw-bold" onclick="location.href='<?php echo $link; ?>';">
                             <span>Apri sito web</span>
                         </button>
@@ -111,7 +111,7 @@ get_header();
                     </aside>
                     <section class="col-lg-8 it-page-sections-container border-light">
                     <article class="it-page-section anchor-offset" data-audio>
-                        <h4 id="dettagli">Dettagli</h4>
+                        <h2 class="h3" id="dettagli">Dettagli</h2>
                         <div class="richtext-wrapper lora mb-3">
                             <?php echo $descrizione; ?>
                         </div>
@@ -123,7 +123,7 @@ get_header();
                         id="ulteriori-informazioni"
                         class="it-page-section anchor-offset mt-5"
                     >
-                        <h4 class="mb-3">Ulteriori informazioni</h4>
+                        <h2 class="h3 mb-3">Ulteriori informazioni</h2>
                     </article>
                     <?php get_template_part('template-parts/single/page_bottom'); ?>
                     </section>

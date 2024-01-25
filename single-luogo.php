@@ -88,6 +88,7 @@ get_header();
                                     <div class="titolo-sezione">
                                         <h1> <?php the_title(); ?></h1>
                                     </div>
+                                    <h2 class="visually-hidden">Dettagli del luogo</h2>
                                     <?php if($nome_alternativo){ ?>
                                     <div>
                                     <p class="subtitle-small mb-3" data-element="service-description">
@@ -249,7 +250,7 @@ get_header();
                         <div class="it-page-sections-container">
                             <?php if ($descrizione) { ?>
                                 <section id="descrizione" class="it-page-section mb-4">
-                                    <h3 class="my-2 title-large-semi-bold">Descrizione</h3>
+                                    <h2 class="h3 my-2">Descrizione</h2>
                                     <div class="richtext-wrapper lora">
                                         <?php echo $descrizione ?>
                                     </div>
@@ -258,8 +259,7 @@ get_header();
 
                             <?php if ($childof) { ?>
                                 <section id="childof" class="it-page-section mb-4">
-                                    <h3 class="my-2 title-large-semi-bold">Fa parte di</h3>
-                                    
+                                    <h2 class="h3 my-2">Fa parte di</h2>
                                     <p>Il luogo è situato all'interno di un altro luogo</p>
 
                                     <div class="row">
@@ -276,7 +276,7 @@ get_header();
 
                             <?php if ($indirizzo || $childof) { ?>
                                 <section id="dove_si_trova" class="it-page-section mb-4">
-                                    <h3 class="my-2 title-large-semi-bold">Dove si trova</h3>
+                                    <h2 class="h3 my-2">Dove si trova</h2>
                                     <?php
                                                         $luogo = !empty($childof)
                                                             ? get_post( $childof )
@@ -288,7 +288,7 @@ get_header();
 
                             <?php if ($modalita_accesso) { ?>
                                 <section id="modalita_accesso" class="it-page-section mb-4">
-                                    <h3 class="my-2 title-large-semi-bold">Modalità di accesso</h3>
+                                    <h2 class="h3 my-2">Modalità di accesso</h2>
                                     <div class="richtext-wrapper lora">
                                         <?php echo $modalita_accesso ?>
                                     </div>
@@ -297,7 +297,7 @@ get_header();
 
                             <?php if ($orario_pubblico) { ?>
                                 <section id="orario_pubblico" class="it-page-section mb-4">
-                                    <h3 class="my-2 title-large-semi-bold">Orari di apertura</h3>
+                                    <h2 class="h3 my-2">Orari di apertura</h2>
                                     <div class="richtext-wrapper lora">
                                         <?php echo $orario_pubblico ?>
                                     </div>
@@ -306,7 +306,7 @@ get_header();
 
                             <?php if ($servizi_privati || isset($servizi)) { ?>
                                 <section id="servizi" class="it-page-section mb-4">
-                                    <h3 class="my-2 title-large-semi-bold">Servizi presenti nel luogo</h3>
+                                    <h2 class="h3 my-2">Servizi presenti nel luogo</h2>
 
                                     <?php if (!empty($servizi) &&  is_array($servizi) && count($servizi)) { ?>
                                         <div class="row g-2">
@@ -322,7 +322,7 @@ get_header();
 							        <?php } ?>
 
                                     <?php if ($servizi_privati) { ?>
-                                        <h4 class="title-medium-2-bold">Altri servizi</h4>
+                                        <h3 class="h4">Altri servizi</h3>
                                         <div class="richtext-wrapper lora">
                                             <?php echo $servizi_privati ?>
                                         </div>
@@ -332,7 +332,7 @@ get_header();
 
 							<?php if ($punti_contatto && is_array($punti_contatto) && count($punti_contatto) > 0) { ?>
                                 <section id="contatti" class="it-page-section mb-4">
-                                    <h3 class="my-2 title-large-semi-bold">Contatti</h3>
+                                    <h2 class="h3 my-2">Contatti</h2>
                                     
                                     <div class="row">
                                         <?php foreach ($punti_contatto as $pc_id) { ?>
@@ -351,10 +351,10 @@ get_header();
                                 ($sede_di && is_array($sede_di) && count($sede_di) > 0)
                             ) { ?>
                                 <section id="strutture" class="it-page-section mb-4">
-                                    <h3 class="my-2 title-large-semi-bold">Unità organizzative</h3>
+                                    <h2 class="h3 my-2">Unità organizzative</h2>
 
                                     <?php if ($sede_di) { ?>
-                                    <h4 class="my-2 title-medium-2-bold">Sede di</h4>
+                                    <h3 class="h4 my-2">Sede di</h3>
                                     <div class="row">
                                             <?php foreach ($sede_di as $uo_id) {
                                             ?><div class="col-xl-6 col-lg-8 col-md-12"><?php
@@ -366,7 +366,7 @@ get_header();
 							        <?php } ?>
 
                                     <?php if ($gestito_da) { ?>
-                                    <h4 class="my-2 title-medium-2-bold">Gestito da</h4>
+                                    <h3 class="h4 my-2">Gestito da</h3>
                                     <div class="row">
                                             <?php foreach ($gestito_da as $uo_id) {
                                             ?><div class="col-xl-6 col-lg-8 col-md-12"><?php
@@ -382,7 +382,7 @@ get_header();
 
                             <?php if ($luoghi_collegati && is_array($luoghi_collegati) && count($luoghi_collegati) > 0) { ?>
                                 <section id="luoghi_collegati" class="it-page-section mb-4">
-                                    <h3 class="my-2 title-large-semi-bold">Luoghi correlati</h3>
+                                    <h2 class="h3 my-2">Luoghi correlati</h2>
                                     
                                     <div class="row">
                                         <?php foreach ($luoghi_collegati as $luogo_id) {
@@ -406,7 +406,7 @@ get_header();
 
 							<?php if ($more_info || $nome_alternativo) { ?>
                                 <section id="more-info" class="it-page-section mb-4">
-                                    <h3 class="my-2 title-large-semi-bold">Ulteriori informazioni</h3>
+                                    <h2 class="h3 my-2">Ulteriori informazioni</h2>
 
                                     <?php if($nome_alternativo){ ?>
                                     <div>

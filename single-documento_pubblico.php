@@ -46,7 +46,7 @@ get_header();
                 <div class="row">
                     <div class="col-lg-8 px-lg-4 py-lg-2">
                         <h1><?php the_title(); ?></h1>
-                        <h3 class="visually-hidden">Dettagli del documento</h3>
+                        <h2 class="visually-hidden">Dettagli del documento</h2>
                         <p>
                             <?php echo $descrizione_breve; ?>
                         </p>
@@ -95,13 +95,14 @@ get_header();
                                                                     <span class="title-medium">Descrizione</span>
                                                                     </a>
                                                                 </li>
+
                                                                 <?php if( $url_documento || $file_documento ) { ?>
                                                                     <li class="nav-item">
-                                                                        <a class="nav-link" href="#documenti">
-                                                                        <span class="title-medium">Documenti</span>
+                                                                        <a class="nav-link" href="#allegati">
+                                                                        <span class="title-medium">Allegati</span>
                                                                         </a>
                                                                     </li>
-                                                                    <?php } ?>
+                                                                <?php } ?>
                                                                 <?php if( is_array($documenti_collegati) && count($documenti_collegati) ) { ?>
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" href="#documenti_collegati">
@@ -111,7 +112,7 @@ get_header();
                                                                 <?php } ?>
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" href="#ufficio_responsabile">
-                                                                        <span class="title-medium">Ufficio responsabile</span>
+                                                                        <span class="title-medium">Uffici responsabili</span>
                                                                         </a>
                                                                     </li>
                                                                 <?php if( $servizi && count($servizi) ) { ?>
@@ -155,68 +156,58 @@ get_header();
                     </aside>
                     <section class="col-lg-8 it-page-sections-container border-light">
                     <article id="descrizione" class="it-page-section anchor-offset">
-                        <h3>Descrizione</h3>
+                        <h2 class="h3">Descrizione</h2>
                         <div class="richtext-wrapper lora">
                             <?php echo $descrizione; ?>
-                            <div class="table">
-                                <table>
-                                    <tbody>
-
-                                        <tr>
-                                            <td><b>Tipo documento</b></td>
-                                            <td>                                
-                                                <?php foreach($tipo_documento as $tipo) { 
-                                                    $url = get_term_link($tipo->slug, $tipo->taxonomy);
-                                                    ?>
-                                                    <a class="text-decoration-none" href="<?php echo $url; ?>" aria-label="Vai all'archivio <?php echo esc_attr($tipo->name); ?>" title="Vai all'archivio <?php echo esc_attr($tipo->name); ?>">
-                                                        <?php echo $tipo->name; ?>
-                                                    </a>, 
-                                                <?php }  ?>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Numero e data</b></td>
-                                            <td>n. <?php echo $numero_protocollo; ?> del <?php echo $data_protocollo; ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Data di pubblicazione</b></td>
-                                            <td><?php the_date() ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Oggetto</b></td>
-                                            <td><?php echo $descrizione_breve; ?></td>
-                                        </tr>
-                                        <?php if ($autori) { ?>
-                                            <tr>
-                                                <td><b>Autori</b></td>
-                                                <td><?php echo $autori; ?></td>
-                                            </tr>
-                                        <?php } ?>
-                                        <?php if ($formati) { ?>
-                                            <tr>
-                                                <td><b>Formati</b></td>
-                                                <td><?php echo $formati; ?></td>
-                                            </tr>
-                                        <?php } ?>
-                                        <?php if ($licenza) { ?>
-                                            <tr>
-                                                <td><b>Licenze</b></td>
-                                                <td>
-                                                <?php foreach($licenza as $tipo) { 
-                                                    echo $tipo->name;
-                                                } ?>
-                                                </td>
-                                            </tr>
-                                        <?php } ?>
+                                    
+                            <dl class="row mt-3">
+                                <dt class="col-sm-3 py-2 border-bottom">Tipo documento</dt>
+                                <dd class="col-sm-9 py-2 border-bottom"><?php $addcomma = false;
+                                    foreach($tipo_documento as $tipo) { 
+                                        $url = get_term_link($tipo->slug, $tipo->taxonomy);
                                         
-                                    </tbody>                        
-                                </table>
-                            </div>
+                                        if($addcomma) echo ", ";
+                                        ?>
+                                        <a class="text-decoration-none" href="<?php echo $url; ?>" aria-label="Vai all'archivio <?php echo esc_attr($tipo->name); ?>" title="Vai all'archivio <?php echo esc_attr($tipo->name); ?>">
+                                            <?php echo $tipo->name; ?>
+                                        </a>
+                                        <?php $addcomma=true; }  ?>
+                                </dd>
+
+                                <?php if ($numero_protocollo && $data_protocollo) { ?>
+                                    <dt class="col-sm-3 py-2 border-bottom">Protocollo</dt>
+                                    <dd class="col-sm-9 py-2 border-bottom">Numero <?php echo $numero_protocollo; ?> del <?php echo $data_protocollo; ?></dd>
+                                <?php } ?>
+
+                                <dt class="col-sm-3 py-2 border-bottom">Data di pubblicazione</dt>
+                                <dd class="col-sm-9 py-2 border-bottom"><?php the_date() ?></dd>
+
+                                <dt class="col-sm-3 py-2 border-bottom">Oggetto</dt>
+                                <dd class="col-sm-9 py-2 border-bottom"><?php echo $descrizione_breve; ?></dd>
+  
+                                <?php if ($autori) { ?>
+                                    <dt class="col-sm-3 py-2 border-bottom">Autori</dt>
+                                    <dd class="col-sm-9 py-2 border-bottom"><?php echo $autori; ?></dd>
+                                <?php } ?>
+
+                                <?php if ($formati) { ?>
+                                    <dt class="col-sm-3 py-2 border-bottom">Formati disponibili</dt>
+                                    <dd class="col-sm-9 py-2 border-bottom"><?php echo $formati; ?></dd>
+                                <?php } ?>
+
+                                <?php if ($licenza) { ?>
+                                    <dt class="col-sm-3 py-2 border-bottom">Licenze</dt>
+                                    <dd class="col-sm-9 py-2 border-bottom">
+                                        <?php foreach($licenza as $tipo) { 
+                                            echo $tipo->name;
+                                        } ?></dd>
+                                <?php } ?>
+                            </dl>
                         </div>
                     </article>
                     <?php if( $url_documento || $file_documento ) { ?>
-                    <article id="documenti" class="it-page-section anchor-offset mt-5">
-                        <h3>Documenti</h3>
+                    <article id="allegati" class="it-page-section anchor-offset mt-5">
+                        <h2 class="h3">Allegati</h2>
                         <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
                             <?php  
                             if ( $file_documento ) {
@@ -230,11 +221,11 @@ get_header();
                                 ></use>
                                 </svg>
                                 <div class="card-body">
-                                <h5 class="card-title">
+                                <h3 class="h5 card-title">
                                     <a class="text-decoration-none" href="<?php echo $file_documento; ?>" aria-label="Scarica il documento <?php echo $documento->post_title; ?>" title="Scarica il documento <?php echo $documento->post_title; ?>">
                                         <?php echo $documento->post_title; ?>
                                     </a>
-                                </h5>
+                                </h3>
                                 </div>
                             </div>
                             <?php } 
@@ -246,11 +237,11 @@ get_header();
                                 ></use>
                                 </svg>
                                 <div class="card-body">
-                                <h5 class="card-title">
+                                <h3 class="h5 card-title">
                                     <a class="text-decoration-none" href="<?php echo $url_documento; ?>" aria-label="Scarica il documento" title="Scarica il documento">
                                         Scarica il documento
                                     </a>
-                                </h5>
+                                </h3>
                                 </div>
                             </div>
                             <?php } ?>
@@ -259,7 +250,7 @@ get_header();
                     <?php } ?>
                     <?php if( is_array($documenti_collegati) && count($documenti_collegati) ) { ?>
                     <article id="documenti_collegati" class="it-page-section anchor-offset mt-5">
-                        <h3>Documenti correlati</h3>
+                        <h2 class="h3">Documenti correlati</h2>
                         <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
                             <?php foreach ($documenti_collegati as $all_id) {
                                 $documento = get_post($all_id);
@@ -270,7 +261,8 @@ get_header();
                     </article>
                     <?php } ?>
                     <article id="ufficio_responsabile" class="it-page-section anchor-offset mt-5">
-                        <h3>Ufficio responsabile</h3>
+                        <h2 class="h3">Uffici responsabili</h2>
+                    	<h3 class="h6">La gestione del documento è curata da:</h3>
                         <div class="row">
                             <div class="col-12 col-sm-8">
                                 <?php foreach ($ufficio_responsabile as $uo_id) {
@@ -279,14 +271,14 @@ get_header();
                                 } ?>
                             </div>
                             <!-- <div class="col-12 col-sm-4">
-                                <h6><small>Persone</small></h6>
+                                <h3 class="h6">Persone</h6>
                                 <?php get_template_part("template-parts/single/persone"); ?>
                             </div> -->
                         </div>
                     </article>
                     <?php if ($servizi && is_array($servizi) && count($servizi)>0 ) { ?>
                         <article id="servizi" class="it-page-section anchor-offset mt-5">
-                            <h3>Servizi</h3>
+                            <h2 class="h3">Servizi</h2>
                             <div class="row">
                                 <div class="col-12 col-sm-8">
                                     <?php foreach ($servizi as $servizio_id) {
@@ -300,7 +292,7 @@ get_header();
                     <?php } ?>
                     <?php if ($dataset && is_array($dataset) && count($dataset)>0 ) { ?>
                         <article id="dataset" class="it-page-section anchor-offset mt-5">
-                            <h3>Dataset</h3>
+                            <h2 class="h3">Dataset</h2>
                             <div class="row">
                                 <div class="col-12 col-sm-8">
                                     <?php foreach ($dataset as $dataset_id) {
@@ -314,7 +306,7 @@ get_header();
                     <?php } ?>
                     <?php if ( $more_info ) {  ?>
                         <article id="ulteriori_informazioni" class="it-page-section anchor-offset mt-5">
-                            <h3>Ulteriori informazioni</h3>
+                            <h2 class="h3">Ulteriori informazioni</h2>
                             <div class="richtext-wrapper lora">
                                 <?php echo $more_info ?>
                             </div>
@@ -322,7 +314,7 @@ get_header();
                     <?php }  ?>
                     <?php if ( $riferimenti_normativi ) { ?>
                         <article id="riferimenti_normativi" class="it-page-section anchor-offset mt-5">
-                            <h3>Riferimenti normativi</h3>
+                            <h2 class="h3">Riferimenti normativi</h2>
                             <div class="richtext-wrapper lora">
                                 <?php echo $riferimenti_normativi ?>
                             </div>

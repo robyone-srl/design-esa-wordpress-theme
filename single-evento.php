@@ -55,11 +55,12 @@ get_header();
             </div>
             <div class="row">
                 <div class="col-lg-8 px-lg-4 py-lg-2">
-                    <h1 data-audio><?php the_title(); ?></h1>
+                    <h1><?php the_title(); ?></h1>
+                    <h2 class="visually-hidden">Dettagli evento</h2>
                     <?php if ($start_timestamp && $end_timestamp) { ?>
-                        <h2 class="h4 py-2" data-audio>dal <?php echo $start_date; ?> al <?php echo $end_date; ?></h2>
+                        <p class="h4 py-2">dal <?php echo $start_date; ?> al <?php echo $end_date; ?></p>
                     <?php } ?>
-                    <p data-audio>
+                    <p>
                         <?php echo $descrizione_breve; ?>
                     </p>
                 </div>
@@ -102,6 +103,13 @@ get_header();
                                                                     <span class="title-medium">Cos'è</span>
                                                                 </a>
                                                             </li>
+                                                            <?php if ($video || (is_array($gallery) && count($gallery))) { ?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#media">
+                                                                        <span class="title-medium">Media</span>
+                                                                    </a>
+                                                                </li>
+                                                            <?php  } ?>
                                                             <?php if ($destinatari) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#destinatari">
@@ -174,7 +182,7 @@ get_header();
 
                 <section class="col-lg-8 it-page-sections-container border-light">
                     <article id="cos-e" class="it-page-section mb-5" data-audio>
-                        <h2 class="mb-3">Cos'è</h2>
+                        <h2 class="h3 mb-3">Cos'è</h2>
                         <div class="richtext-wrapper font-serif">
                             <?php echo $descrizione; ?>
                         </div>
@@ -184,24 +192,30 @@ get_header();
                                 <?php get_template_part("template-parts/single/persone"); ?>
                             </div>
                         <?php  } ?>
-                        <?php if (is_array($gallery) && count($gallery)) {
-                            get_template_part("template-parts/single/gallery");
-                        } ?>
-                        <?php if ($video) {
-                            get_template_part("template-parts/single/video");
-                        } ?>
                     </article>
+
+                    <?php if ($video || (is_array($gallery) && count($gallery))) { ?>
+                        <article id="media" class="it-page-section mb-5">
+                            <h2 class="h3 mb-3">Media</h2>
+                            <?php if (is_array($gallery) && count($gallery)) {
+                                get_template_part("template-parts/single/gallery");
+                            } ?>
+                            <?php if ($video) {
+                                get_template_part("template-parts/single/video");
+                            } ?>
+                        </article>
+                    <?php  } ?>
 
                     <?php if ($destinatari) { ?>
                         <article id="destinatari" class="it-page-section mb-5">
-                            <h2 class="mb-3">A chi è rivolto</h2>
+                            <h2 class="h3 mb-3">A chi è rivolto</h2>
                             <p><?php echo $destinatari; ?></p>
                         </article>
                     <?php  } ?>
 
                     <?php if ($luogo_evento) { ?>
                         <article id="luogo" class="it-page-section mb-5">
-                            <h2 class="mb-3">Luogo</h2>
+                            <h2 class="h3 mb-3">Luogo</h2>
                             <?php
                             $luogo = $luogo_evento;
                             get_template_part("template-parts/single/luogo");
@@ -211,12 +225,12 @@ get_header();
 
                     <?php if ($start_timestamp || $end_timestamp) { ?>
                         <article id="date-e-orari" class="it-page-section mb-5">
-                            <h2 class="mb-3">Date e orari</h2>
+                            <h2 class="h3 mb-3">Date e orari</h2>
                             <div class="point-list-wrapper my-4">
 
                                 <?php if ($start_timestamp) { ?>
                                     <div class="point-list">
-                                        <h3 class="point-list-aside point-list-primary fw-normal">
+                                        <h3 class="h4 point-list-aside point-list-primary fw-normal">
                                             <span class="point-date font-monospace"><?php echo $start_date_arr[0]; ?></span>
                                             <span class="point-month font-monospace"><?php echo $start_date_arr[1]; ?></span>
                                         </h3>
@@ -234,7 +248,7 @@ get_header();
                                 <?php } ?>
                                 <?php if ($end_timestamp) { ?>
                                     <div class="point-list">
-                                        <h3 class="point-list-aside point-list-primary fw-normal">
+                                        <h3 class="h4 point-list-aside point-list-primary fw-normal">
                                             <div class="point-date font-monospace"><?php echo $end_date_arr[0]; ?></div>
                                             <div class="point-month font-monospace"><?php echo $end_date_arr[1]; ?></div>
                                         </h3>
@@ -268,18 +282,18 @@ get_header();
 
                     <?php if (is_array($costi) && count($costi)) { ?>
                         <article id="costi" class="it-page-section mb-5">
-                            <h2 class="mb-3">Costi</h2>
+                            <h2 class="h3 mb-3">Costi</h2>
                             <?php foreach ($costi as $costo) { ?>
                                 <div class="card no-after border-start mt-3">
                                     <div class="card-body">
-                                        <h5>
+                                        <h3 class="h4">
                                             <span>
                                                 <?php echo $costo['titolo_costo']; ?>
                                             </span>
                                             <p class="card-title big-heading">
                                                 <?php echo $costo['prezzo_costo']; ?>
                                             </p>
-                                        </h5>
+                                        </h3>
                                         <p class="mt-4">
                                             <?php echo $costo['descrizione_costo']; ?>
                                         </p>
@@ -293,7 +307,7 @@ get_header();
                         $doc = get_post(attachment_url_to_postid($allegati));
                     ?>
                         <article id="allegati" class="it-page-section mb-5">
-                            <h2 class="mb-3">Allegati</h2>
+                            <h2 class="h3 mb-3">Allegati</h2>
                             <div class="card card-teaser shadow mt-3 rounded">
                                 <div class="card-body">
                                     <h3 class="card-title h5 m-0">
@@ -309,7 +323,7 @@ get_header();
 
                     <?php if (is_array($appuntamenti) && count($appuntamenti)) { ?>
                         <article id="appuntamenti" class="it-page-section mb-5">
-                            <h2 class="mb-3">Appuntamenti</h2>
+                            <h2 class="h3 mb-3">Appuntamenti</h2>
                             <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
                                 <?php foreach ($appuntamenti as $appuntamento) {
                                     get_template_part('template-parts/single/appuntamento');
@@ -326,7 +340,7 @@ get_header();
                             } ?>
                         <?php } ?>
                         <?php if (is_array($organizzatori) && count($organizzatori)) { ?>
-                            <h4 class="h5 mt-4">Con il supporto di:</h4>
+                            <h2 class="h5 mt-4">Con il supporto di:</h2>
                             <?php foreach ($organizzatori as $uo_id) {
                                 get_template_part("template-parts/unita-organizzativa/card-full");
                             } ?>
@@ -338,10 +352,10 @@ get_header();
                         if ((is_array($patrocinato) && count($patrocinato)) ||
                             (is_array($sponsor) && count($sponsor))
                         ) { ?>
-                            <h3 class="mb-3">Ulteriori informazioni</h3>
+                            <h2 class="mb-3">Ulteriori informazioni</h2>
                             <?php
                             if (is_array($patrocinato) && count($patrocinato)) {
-                                echo '<h4 class="h5">Patrocinato da:</h4>';
+                                echo '<h3 class="h5">Patrocinato da:</h3>';
                                 echo '<div class="link-list-wrapper mb-3"><ul class="link-list">';
                                 foreach ($patrocinato as $item) { ?>
                                     <li><a class="list-item px-0" href="<?php echo $item['_dci_evento_url']; ?>" target="_blank"><span><?php echo $item['_dci_evento_nome']; ?></span></a>
@@ -350,7 +364,7 @@ get_header();
                                 echo '</ul></div>';
                             }
                             if (is_array($sponsor) && count($sponsor)) {
-                                echo '<h4 class="h5">Sponsor:</h4>';
+                                echo '<h3 class="h5">Sponsor:</h3>';
                                 echo '<div class="link-list-wrapper"><ul class="link-list">';
                                 foreach ($sponsor as $item) { ?>
                                     <li><a class="list-item px-0" href="<?php echo $item['_dci_evento_url']; ?>" target="_blank"><span><?php echo $item['_dci_evento_nome']; ?></span></a>
@@ -359,7 +373,9 @@ get_header();
                                 echo '</ul></div>';
                             }
                         }
+                        
                         ?>
+                        <h3 class="visually-hidden">Altro</h3>
                         <?php if ($more_info) { ?>
                             <div class="mt-5">
                                 <div class="callout">

@@ -1,6 +1,6 @@
 <?php
 /**
- * Notizia template file
+ * Domanda frequente template file
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
@@ -21,12 +21,7 @@ get_header();
             $prefix= '_dci_domanda_frequente_';
             $data_pubblicazione_arr = dci_get_data_pubblicazione_arr("data_pubblicazione", $prefix, $post->ID);
             $date = date_i18n('d F Y', mktime(0, 0, 0, $data_pubblicazione_arr[1], $data_pubblicazione_arr[0], $data_pubblicazione_arr[2]));
-            $persone = dci_get_meta("persone", $prefix, $post->ID);
             $risposta = dci_get_wysiwyg_field("risposta", $prefix, $post->ID);
-            $documenti = dci_get_meta("documenti", $prefix, $post->ID);
-            $allegati = dci_get_meta("allegati", $prefix, $post->ID);
-            $datasets = dci_get_meta("dataset", $prefix, $post->ID);
-            $a_cura_di = dci_get_meta("a_cura_di", $prefix, $post->ID);
             ?>
             <div class="container" id="main-container">
                 <div class="row">
@@ -36,8 +31,8 @@ get_header();
                 </div>
                 <div class="row">
                     <div class="col-lg-8 px-lg-4 py-lg-2">
-                        <h1 data-audio><?php the_title(); ?></h1>
-                        <h2 class="visually-hidden" data-audio>Dettagli della domanda frequente</h2>
+                        <h1><?php the_title(); ?></h1>
+                        <h2 class="visually-hidden">Dettagli della domanda frequente</h2>
                         <div class="row mt-5 mb-4">
                             <div class="col-6">
                                 <small>Data:</small>
@@ -95,27 +90,6 @@ get_header();
                                                                     <span class="title-medium">Risposta</span>
                                                                     </a>
                                                                 </li>
-                                                                <?php if( is_array($documenti) && count($documenti) ) { ?>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#documenti">
-                                                                    <span class="title-medium">Documenti</span>
-                                                                    </a>
-                                                                </li>
-                                                                <?php } ?>
-                                                                <?php if( is_array($allegati) && count($allegati) ) { ?>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#allegati">
-                                                                    <span class="title-medium">Allegati</span>
-                                                                    </a>
-                                                                </li>
-                                                                <?php } ?>
-                                                                <?php if( is_array($datasets) && count($datasets) ) { ?>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#dataset">
-                                                                    <span class="title-medium">Dataset</span>
-                                                                    </a>
-                                                                </li>
-                                                                <?php } ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#more-info">
                                                                     <span class="title-medium">Ulteriori informazioni</span>
@@ -134,113 +108,13 @@ get_header();
                     </aside>
                     <section class="col-lg-8 it-page-sections-container border-light">
                     <article class="it-page-section anchor-offset" data-audio>
-                        <h4 id="risposta">Risposta</h4>
+                        <h2 class="h3" id="risposta">Risposta</h2>
                         <div class="richtext-wrapper lora">
                             <?php echo $risposta; ?>
                         </div>
                     </article>
-                    <?php if( is_array($documenti) && count($documenti) ) { ?>
-                    <article class="it-page-section anchor-offset mt-5">
-                        <h4 id="documenti">Documenti</h4>
-                        <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
-                            <?php foreach ($documenti as $doc_id) {
-                                $documento = get_post($doc_id);
-                            ?>
-                            <div class="card card-teaser shadow-sm p-4 mt-3 rounded border border-light flex-nowrap">
-                                <svg class="icon" aria-hidden="true">
-                                <use
-                                    xlink:href="#it-clip"
-                                ></use>
-                                </svg>
-                                <div class="card-body">
-                                <h5 class="card-title">
-                                    <a class="text-decoration-none" href="<?php echo get_permalink($doc_id); ?>" aria-label="Visualizza il documento <?php echo $documento->post_title; ?>" title="Visualizza il documento <?php echo $documento->post_title; ?>">
-                                        <?php echo $documento->post_title; ?>
-                                    </a>
-                                </h5>
-                                </div>
-                            </div>
-                            <?php } ?>
-                        </div>
-                    </article>
-                    <?php } ?>
-                    <?php if( is_array($allegati) && count($allegati) ) { ?>
-                    <article class="it-page-section anchor-offset mt-5">
-                        <h4 id="allegati">Allegati</h4>
-                        <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
-                            <?php foreach ($allegati as $all_url) {
-                                $all_id = attachment_url_to_postid($all_url);
-                                $allegato = get_post($all_id);
-                            ?>
-                            <div class="card card-teaser shadow-sm p-4 mt-3 rounded border border-light flex-nowrap">
-                                <svg class="icon" aria-hidden="true">
-                                <use
-                                    xlink:href="#it-clip"
-                                ></use>
-                                </svg>
-                                <div class="card-body">
-                                <h5 class="card-title">
-                                    <a class="text-decoration-none" href="<?php echo get_the_guid($allegato); ?>" aria-label="Scarica l'allegato <?php echo $allegato->post_title; ?>" title="Scarica l'allegato <?php echo $allegato->post_title; ?>">
-                                        <?php echo $allegato->post_title; ?>
-                                    </a>
-                                </h5>
-                                </div>
-                            </div>
-                            <?php } ?>
-                        </div>
-                    </article>
-                    <?php } ?>
-                        <?php if( is_array($datasets) && count($datasets) ) { ?>
-                        <article class="it-page-section anchor-offset mt-5">
-                            <h4 id="dataset">Dataset</h4>
-                            <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
-                                <?php foreach ($datasets as $dataset_id) {
-                                    $dataset = get_post($dataset_id);
-                                    ?>
-                                    <div class="card card-teaser shadow-sm p-4 mt-3 rounded border border-light flex-nowrap">
-                                        <svg class="icon" aria-hidden="true">
-                                            <use
-                                                    xlink:href="#it-clip"
-                                            ></use>
-                                        </svg>
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                <a class="text-decoration-none" href="<?php echo get_permalink($dataset_id); ?>" aria-label="Visualizza il dataset <?php echo $dataset->post_title; ?>" title="Visualizza il dataset <?php echo $dataset->post_title; ?>">
-                                                    <?php echo $dataset->post_title; ?>
-                                                </a>
-                                            </h5>
-                                        </div>
-                                    </div>
-                                <?php } ?>
-                            </div>
-                        </article>
-                        <?php } ?>
-                    <article class="it-page-section anchor-offset mt-5">
-                        <h4 id="more-info">Ulteriori informazioni</h4>
-                        <div class="row">
-                        <?php if(is_array($a_cura_di) && count($a_cura_di)) { ?>
-                        <div class="col-12 col-sm-8">
-                            <h6><small>Questa pagina è gestita da</small></h6>
-                            <?php foreach ($a_cura_di as $uo_id) {
-                                $with_border = true;
-                                get_template_part("template-parts/unita-organizzativa/card");
-                            } ?>
-                        </div>
-                        <?php } ?>
-                        <?php if(is_array($persone) && count($persone)) { ?>
-                            <div class="col-12 col-sm-4">
-                                <h6><small>Persone</small></h6>
-                                <?php get_template_part("template-parts/single/persone"); ?>
-                            </div>
-                        <?php } ?>
-                        </div>
-                    </article>
-                    <!-- <article
-                        id="ulteriori-informazioni"
-                        class="it-page-section anchor-offset mt-5"
-                    >
-                        <h4 class="mb-3">Ulteriori informazioni</h4>
-                    </article> -->
+                    
+                    <h2 class="visually-hidden">Ulteriori informazioni</h2>
                     <?php get_template_part('template-parts/single/page_bottom'); ?>
                     </section>
                 </div>

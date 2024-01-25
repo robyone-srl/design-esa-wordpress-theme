@@ -71,6 +71,7 @@ get_header();
                                         <div class="titolo-sezione">
                                         <h1> <?php the_title(); ?></h1>
                                     </div>
+                                    <h2 class="visually-hidden">Dettagli dell'incarico</h2>
                                     <p class="subtitle-small mb-3" data-element="service-description">
 										Incarico <?php echo strtolower($tipo_incarico[0]->name); ?> assunto da <?php echo $persona->post_title ?>
                                     </p>
@@ -212,7 +213,7 @@ get_header();
                             <?php 
                             if ($persona) {?>
                                 <section id="persona" class="it-page-section mb-4">
-                                    <h3 class="my-2 title-large-semi-bold">Titolare</h3>
+                                    <h2 class="h3 my-2">Titolare</h2>
                                             <div class="card-wrapper card-teaser-wrapper">
                                                 <?php 
                                                     $with_border = true;
@@ -225,7 +226,7 @@ get_header();
 
                             <?php if($data_inizio_incarico != "" || $data_insediamento != "" || $data_conclusione_incarico != "") { ?>
                                 <section id="periodo" class="it-page-section mb-4">
-                                    <h3 class="my-2 title-large-semi-bold">Periodo di svolgimento</h3>
+                                    <h2 class="h3 my-2">Periodo di svolgimento</h2>
 
                                     <div class="richtext-wrapper lora">
                                         <?php if($data_inizio_incarico != "") {?>
@@ -245,7 +246,7 @@ get_header();
 
                             <?php if ($url_trasparenza) {?>
                                 <section id="url_trasparenza" class="it-page-section mb-4">
-                                    <h3 class="my-2 title-large-semi-bold">Trasparenza</h3>
+                                    <h2 class="h3 my-2">Trasparenza</h2>
                                             <div class="card-wrapper card-teaser-wrapper">
                                                 <?php
                                                    $url = $url_trasparenza;
@@ -258,7 +259,7 @@ get_header();
 
                             <?php if ($unita_organizzativa) {?>
                                 <section id="unita_organizzativa" class="it-page-section mb-4">
-                                    <h3 class="my-2 title-large-semi-bold">Unità organizzativa</h3>
+                                    <h2 class="h3 my-2">Unità organizzativa</h2>
                                             <div class="card-wrapper card-teaser-wrapper">
                                                 <?php
                                                     $uo_id = $unita_organizzativa;
@@ -271,7 +272,7 @@ get_header();
 
                             <?php if ($responsabile_struttura) {?>
                                 <section id="responsabile_struttura" class="it-page-section mb-4">
-                                    <h3 class="my-2 title-large-semi-bold">Ruolo di responsabilità</h3>
+                                    <h2 class="h3 my-2">Ruolo di responsabilità</h2>
                                             <div class="card-wrapper card-teaser-wrapper">
                                                 <?php
                                                     $uo_id = $responsabile_struttura;
@@ -284,7 +285,7 @@ get_header();
 
                             <?php if($compensi) { ?>
                                 <section id="compensi" class="it-page-section mb-4">
-                                    <h3 class="my-2 title-large-semi-bold">Compensi</h3>
+                                    <h2 class="h3 my-2">Compensi</h2>
 
                                     <div class="richtext-wrapper lora">
                                         <?php echo $compensi; ?>
@@ -294,7 +295,7 @@ get_header();
 
                             <?php if($importi_viaggi_servizi) { ?>
                                 <section id="importi_viaggi_servizi" class="it-page-section mb-4">
-                                    <h3 class="my-2 title-large-semi-bold">Importi di viaggi e/o servizio</h3>
+                                    <h2 class="h3 my-2">Importi di viaggi e/o servizio</h2>
 
                                     <div class="richtext-wrapper lora">
                                         <?php echo $importi_viaggi_servizi; ?>
@@ -304,7 +305,7 @@ get_header();
 
 							<?php if ($ulteriori_informazioni) {  ?>
                                 <section id="more-info" class="it-page-section mb-4">
-                                    <h3 class="my-2 title-large-semi-bold">Ulteriori informazioni</h3>
+                                    <h2 class="h3 my-2">Ulteriori informazioni</h2>
                                     <div class="richtext-wrapper lora">
 										<?php echo $ulteriori_informazioni ?>
                                     </div>

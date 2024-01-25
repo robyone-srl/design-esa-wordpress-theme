@@ -66,7 +66,19 @@ get_header();
                                 <div class="titolo-sezione">
                                     <h1> <?php the_title(); ?></h1>
                                 </div>
-                                <p class="subtitle-small mb-3" data-element="service-description">
+                                <h2 class="visually-hidden">Dettagli dell'unit&agrave;</h2>
+                                <ul class="list-inline gap-1 my-3">
+                                    <?php foreach ($tipo_organizzazione as $tipo) {
+                                        ?>
+                                        <li class="list-inline-item">
+                                            <span class="chip chip-simple">
+                                                <span class="chip-label"><?php echo ucfirst($tipo); ?></span>
+                                            </span>
+                                        </li>
+                                        <?php
+                                    } ?>
+                                </ul>
+                                <p class="subtitle-small mb-3">
                                     <?php echo $descrizione_breve ?>
                                 </p>
                             </div>
@@ -188,24 +200,16 @@ get_header();
                 <div class="col-12 col-lg-8 offset-lg-1">
                     <div class="it-page-sections-container">
                         <section id="competenze" class="it-page-section mb-4">
-                            <h3 class="my-2 title-large-semi-bold">Competenze</h3>
+                            <h2 class="h3 my-2">Competenze</h2>
                             <div class="richtext-wrapper lora">
-                                <p>
-                                    <?php foreach ($tipo_organizzazione as $tipo) {
-                                    ?>
-                                        <span class="chip chip-simple">
-                                            <span class="chip-label"><?php echo ucfirst($tipo); ?></span>
-                                        </span>
-                                    <?php
-                                    } ?>
-                                </p>
                                 <?php echo $competenze ?>
                             </div>
                         </section>
 
                         <?php if ($unita_organizzativa_genitore) { ?>
                             <section id="area" class="it-page-section mb-4">
-                                <h3 class="my-2 title-large-semi-bold">Area di riferimento</h3>
+                                <h2 class="h3 my-2">Area di riferimento</h2>
+                                <h3 class="h6">La struttura organizzativa ha come riferimento:</h3>
                                 <div class="richtext-wrapper lora">
                                     <?php foreach ($unita_organizzativa_genitore as $uo_id) {
                                         $with_border = true;
@@ -217,9 +221,9 @@ get_header();
 
                         <?php if ($has_persone || $has_incarichi) { ?>
                             <section id="persone" class="it-page-section mb-4">
-                                <h3 class="my-2 title-large-semi-bold">Persone</h3>
+                                <h2 class="h3 my-2">Persone</h2>
                                 <div class="richtext-wrapper lora">
-                                    Le persone che fanno parte di questa unità:
+                                    <h3 class="h6">Le persone che fanno parte di questa unità:</h3>
                                     <div class="d-flex gap-3 flex-column mt-2">
                                         <?php
                                         if ($has_incarichi) { ?>
@@ -264,7 +268,7 @@ get_header();
 
                         <?php if ($servizi &&  is_array($servizi) && count($servizi)) { ?>
                             <section id="servizi" class="it-page-section mb-4">
-                                <h3 class="my-2 title-large-semi-bold">Servizi collegati</h3>
+                                <h2 class="h3 my-2">Servizi collegati</h2>
                                 <div class="row g-2">
                                     <?php
                                     foreach ($servizi as $servizio_id) { 
@@ -289,7 +293,7 @@ get_header();
                         ?>
 
                             <section id="sede-principale" class="it-page-section mb-4">
-                                <h3 class="my-2 title-large-semi-bold">Sede principale</h3>
+                                <h2 class="h3 my-2">Sede principale</h2>
                                 <div class="col-xl-6 col-lg-8 col-md-12 ">
                                     <?php get_template_part("template-parts/luogo/card-title"); ?>
                                 </div>
@@ -299,7 +303,7 @@ get_header();
                         }
                         if ($altre_sedi && is_array($altre_sedi) && count($altre_sedi)) { ?>
                             <section id="altre-sedi" class="it-page-section mb-4">
-                                <h3 class="my-2 title-large-semi-bold">Altre sedi</h3>
+                                <h2 class="h3 my-2">Altre sedi</h2>
                                 <?php foreach ($altre_sedi as $sede_id) {
                                     $luogo = get_post($sede_id);
                                 ?><div class="col-xl-6 col-lg-8 col-md-12 "><?php
@@ -313,7 +317,7 @@ get_header();
 
                         <?php if ($punti_contatto && is_array($punti_contatto) && count($punti_contatto) > 0) { ?>
                             <section id="contatti" class="it-page-section mb-4">
-                                <h3 class="my-2 title-large-semi-bold">Contatti</h3>
+                                <h2 class="h3 my-2">Contatti</h2>
                                 <div class="row">
                                     <?php foreach ($punti_contatto as $pc_id) { ?>
                                         <div class="col-xl-6 col-lg-8 col-md-12 ">
@@ -328,7 +332,7 @@ get_header();
 
                         <?php if ($allegati && is_array($allegati) && count($allegati) > 0) { ?>
                             <section id="allegati" class="it-page-section mb-4">
-                                <h3 class="my-2 title-large-semi-bold">Documenti</h3>
+                                <h2 class="h3 my-2">Documenti</h2>
                                 <div class="row">
                                     <?php foreach ($allegati as $allegato_id) { ?>
                                         <div class="col-md-6 col-sm-12 ">
@@ -344,7 +348,7 @@ get_header();
 
                         <?php if ($more_info) {  ?>
                             <section id="more-info" class="it-page-section mb-4">
-                                <h3 class="my-2 title-large-semi-bold">Ulteriori informazioni</h3>
+                                <h2 class="h3 my-2">Ulteriori informazioni</h2>
                                 <div class="richtext-wrapper lora">
                                     <?php echo $more_info ?>
                                 </div>
