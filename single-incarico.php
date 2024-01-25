@@ -230,15 +230,15 @@ get_header();
 
                                     <div class="richtext-wrapper lora">
                                         <?php if($data_inizio_incarico != "") {?>
-                                            <p class="mb-0"><strong>Inizio:</strong> <?php echo strftime('%d %B %Y',$data_inizio_incarico); ?></p>
+                                            <p class="mb-0"><strong>Inizio:</strong> <?php echo printDateTime('d LLLL Y', $data_inizio_incarico); ?></p>
                                         <?php } ?>
 
                                         <?php if($data_insediamento != "") {?>
-                                            <p class="mb-0"><strong>Insediamento:</strong> <?php echo strftime('%d %B %Y',$data_insediamento); ?></p>
+                                            <p class="mb-0"><strong>Insediamento:</strong> <?php echo printDateTime('d LLLL Y', $data_insediamento); ?></p>
                                         <?php } ?>
 
                                         <?php if($data_conclusione_incarico != "") {?>
-                                            <p class="mb-0"><strong>Conclusione:</strong> <?php echo strftime('%d %B %Y',$data_conclusione_incarico); ?></p>
+                                            <p class="mb-0"><strong>Conclusione:</strong> <?php echo printDateTime('d LLLL Y', $data_conclusione_incarico); ?></p>
                                         <?php } ?>
                                     </div>
                                 </section>

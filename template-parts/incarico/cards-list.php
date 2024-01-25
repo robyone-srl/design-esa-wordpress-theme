@@ -1,9 +1,8 @@
 <?php
-	global $post;
-
-	$pp_id = dci_get_meta('persona','_dci_incarico_',$post->ID);
-	
-    $post = get_post($pp_id);
+	global $post, $card_wrapper;
 		
-    get_template_part( 'template-parts/persona_pubblica/cards-list' );
+	echo '<div class="col-12 col-md-6 col-lg-4">';
+	$card_wrapper = true;
+    get_template_part( 'template-parts/incarico/card' );
+	echo '</div>';
 ?>

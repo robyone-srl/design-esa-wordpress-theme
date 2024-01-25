@@ -34,6 +34,8 @@ function load_more(){
 	$post_types = json_decode( stripslashes( $_POST['post_types'] ), true );
 	$url_query_params =  json_decode( stripslashes( $_POST['query_params'] ), true );
 	$additional_filter =  json_decode( stripslashes( $_POST['additional_filter'] ), true );
+	$filter_ids =  json_decode( stripslashes( $_POST['filter_ids'] ), true );
+	$tax_query =  json_decode( stripslashes( $_POST['tax_query'] ), true );
 
 	$args = array(
         's' => $_POST['search'],
@@ -46,8 +48,8 @@ function load_more(){
 	if ( $post_types != "notizia" ) {
 		$args = array(
 			's' => $_POST['search'],
-	    'posts_per_page' => $_POST['post_count'] + $_POST['load_posts'],
-	    'post_type'      => $post_types,
+	    	'posts_per_page' => $_POST['post_count'] + $_POST['load_posts'],
+	    	'post_type'      => $post_types,
 			'orderby' => 'post_title',
 			'order'   => 'ASC'
 		);
@@ -65,21 +67,16 @@ function load_more(){
 		$args['tax_query'] = $taxquery;
 	}
 
+	if ( isset($tax_query) ){
+        $args['tax_query'] = $tax_query;
+    }
+
+	if ( isset($filter_ids) )
+		$args['post__in'] = $filter_ids;
+
 	if ( isset($url_query_params["post_types"]) ) $args['post_type'] = $url_query_params["post_types"];
 	if ( isset($url_query_params["s"]) ) $args['s'] = $url_query_params["s"];
-	if ( isset($additional_filter) ){
-        if(!array_key_exists("tax_query",$args))
-            $args['tax_query'] = array();
-
-        foreach($additional_filter as $tax){
-            $tax = array (
-                'taxonomy' => $tax['taxonomy'],
-                'field' => $tax['field'],
-                'terms' => $tax['terms'],
-            );
-            array_push($args['tax_query'] , $tax);
-        }
-    }
+	
 
 	// it is always better to use WP_Query but not here
 	$new_query = query_posts( $args );
@@ -110,6 +107,9 @@ function load_more(){
 		case "incarico":
                 $out .= load_template_part("template-parts/incarico/cards-list");
 			break;
+		case "persona_pubblica":
+                $out .= load_template_part("template-parts/persona_pubblica/cards-list");
+			break;
 		case "global-search":
                 $out .= load_template_part("template-parts/search/item");
 			break;
@@ -126,7 +126,6 @@ function load_more(){
         case "luogo":
             $out .= load_template_part("template-parts/luogo/card-full");
 			break;
-
 		default:
 			break;
 		}

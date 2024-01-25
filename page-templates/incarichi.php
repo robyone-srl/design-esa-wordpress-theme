@@ -1,7 +1,7 @@
 <?php
 /* Template Name: Incarichi
  *
- * Servizi template file
+ * Incarichi template file
  *
  * @package Design_Comuni_Italia
  */
