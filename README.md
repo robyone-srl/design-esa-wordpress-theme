@@ -10,13 +10,15 @@
   - [**Indice**](#indice)
   - [**Un sito per gli Enti socio-assistenziali italiani**](#un-sito-per-gli-enti-socio-assistenziali-italiani)
     - [**Cos'è e cosa fa**](#cosè-e-cosa-fa)
+    - [**Il modello architetturale**](#il-modello-architetturale)
+    - [**Il tema Wordpress**](#il-tema-wordpress)
     - [**Le pagine del modello**](#le-pagine-del-modello)
     - [**Da dove iniziare**](#da-dove-iniziare)
     - [**Relazioni tra i contenuti**](#relazioni-tra-i-contenuti)
     - [**Personalizzazione**](#personalizzazione)
     - [**Servizi esterni**](#servizi-esterni)
     - [**La community di riferimento**](#la-community-di-riferimento)
-    - [**F.A.Q**](#faq)
+    - [**Domande frequenti**](#faq)
     - [**Bootstrap Italia**](#bootstrap-italia)
   - [**Installazione e supporto**](#installazione-e-supporto)
     - [**Come scaricare il tema**](#come-scaricare-il-tema)
@@ -121,17 +123,20 @@ L’area di configurazione è divisa in tab per le diverse aree del sito.
 
 Cliccando su `Configurazione`, è possibile definire:
 
-- **Configurazione Comune**: le impostazioni di base del Comune, come il nome, lo stemma, il link alla regione di apartenenza;
+- **Configurazione Ente**: le impostazioni di base, come il nome, lo stemma, il link all'amministrazione afferente;
+- **Dati fiscali e di contatto**: indirizzo, dati fiscali e di contatto che verranno riportati in modo particolare nel footer;
+- **Bootstrap Italia**: scheda per personalizzazione libreria bootstrap;
+- **Avvisi in home**: messaggi di allerta o informazione prioritari e straordinari;
 - **Home Page**: i contenuti e gli argomenti in evidenza in homepage;
-- **Socialmedia**: i link ai canali social del Comune, che compariranno nell'header e nel footer;
-- **Footer**: la sezione contatti presente nel footer e i link alla privacy policy e alla media policy;
+- **Socialmedia**: i link ai canali social, che compariranno nell'header e nel footer;
+- **Footer**: i link alla privacy policy e alla media policy;
 - **Amministrazione**: i contenuti in evidenza nella pagina Amministrazione;
 - **Novità**: i contenuti e gli argomenti in evidenza nella pagina Novità;
 - **Servizi**: i contenuti in evidenza nella pagina Servizi;
-- **Documenti e Dati**: i contenuti e gli argomenti in evidenza nella pagina Documenti e Dati;
-- **Vivere il Comune**: i contenuti in evidenza nella pagina Vivere il Comune;
+- **Documenti e Dati**: i contenuti, i siti tematici e gli argomenti in evidenza nella pagina Documenti e Dati;
+- **Vivere l'Ente**: i contenuti in evidenza nella pagina Vivere l'Ente;
+- **Luoghi**: configurazione della pagina Luoghi;
 - **Argomenti**: gli argomenti in evidenza nella pagina Argomenti;
-- **Assistenza e Contatti**: le informazioni utili per contattare il comune, come il numero verde;
 - **Link Utili**: i link utili che compaiono in homepage nella sezione di ricerca;
 - **Ricerca**: i contenuti suggeriti nella pagina di ricerca globale.
 
