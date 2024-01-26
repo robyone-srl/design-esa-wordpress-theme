@@ -4,7 +4,7 @@
 
 ### I primi passi con il tema Wordpress (1.7.5)
 
-**Design CDR Italia** è il tema di WordPress per i siti degli Enti socio-assistenziali italiani. Rispetta le linee guida di design dell’Agenzia per l’Italia digitale rilasciate dal Team per la Trasformazione Digitale. Utilizza Bootstrap Italia. <strong>Questa è una versione derivata da Design Comuni Italia, un fork nel quale Robyone ha applicato modifiche migliorative e necessarie per adattare il tema alle peculiarità del tipo di Ente a cui si riferisce. Robyone si impegna a proporre i cambiamenti per applicarli al tema nazionale e si impegna ad allineare ai nuovi aggiornamenti la fork. Codice sorgente pubblicato con medesima licenza del repository nazionale su <a href="https://github.com/sviluppoRobyone/design-cdr-wordpress-theme">https://github.com/sviluppoRobyone/design-cdr-wordpress-theme</a></strong>.
+**Design Enti Socio-Assistenziali Italia** è il tema di WordPress per i siti degli Enti socio-assistenziali italiani. Rispetta le linee guida di design dell’Agenzia per l’Italia digitale rilasciate dal Team per la Trasformazione Digitale. Utilizza Bootstrap Italia. <strong>Questa è una versione derivata da Design Comuni Italia, un fork nel quale Robyone ha applicato modifiche migliorative e necessarie per adattare il tema alle peculiarità del tipo di Ente a cui si riferisce. Robyone si impegna a proporre i cambiamenti per applicarli al tema nazionale e si impegna ad allineare ai nuovi aggiornamenti la fork. Codice sorgente pubblicato con medesima licenza del repository nazionale su <a href="https://github.com/robyone-srl/design-esa-wordpress-theme">https://github.com/robyone-srl/design-esa-wordpress-theme</a></strong>.
 
 ## **Installazione e supporto**
 
@@ -12,7 +12,7 @@
 
 Per scaricare il progetto esegui il seguente comando git:
 
-- git clone https://github.com/robyone-srl/design-cdr-wordpress-theme
+- git clone https://github.com/robyone-srl/design-esa-wordpress-theme
 
 Se già usi una vecchia versione del tema e vuoi aggiornarla, esegui il comando:
 
@@ -44,7 +44,7 @@ Una volta inserita la cartella o caricato file `.zip`come descritto al punto pre
 
 - `Aspetto > Temi ` (o apri la seguente url: {{host}}/wp-admin/themes.php).
 
-Abilita poi il tema **Design CDR Italia** cliccando sul bottone `Attiva`.
+Abilita poi il tema **Design Enti Socio-Assistenziali Italia** cliccando sul bottone `Attiva`.
 
 ### **Supporto tecnico ed editoriale**
 
@@ -52,7 +52,7 @@ Suggeriamo di iscriversi al canale Slack di Developers Italia per confrontarsi e
 
 ## **Indice**
 
-- [ Design Case di riposo Italia](#-design-case-di-riposo-italia)
+- [ Design Enti Socio-Assistenziali Italia](#-design-esa-italia)
   - [**Un sito per i Comuni Italiani**](#un-sito-per-i-comuni-italiani)
     - [I primi passi con il tema Wordpress (1.6.2)](#i-primi-passi-con-il-tema-wordpress-162)
   - [**Installazione e supporto**](#installazione-e-supporto)
@@ -78,20 +78,37 @@ Suggeriamo di iscriversi al canale Slack di Developers Italia per confrontarsi e
 
 ### **Cos'è e cosa fa**
 
-Il tema Design Comuni Italia è un’applicazione di WordPress, il sistema di gestione di contenuti (CMS), che consente di creare un sito web comunale sulla base del [modello Comuni](https://designers.italia.it/modello/comuni/), creato nell’ambito del progetto Designers Italia dal Dipartimento per la trasformazione digitale.
+Vista l’attuale assenza di un modello nazionale rivolto alle Aziende pubbliche di servizi alla persona (APSP) e agli Istituti pubblici di assistenza e beneficienza (IPAB), sono state prese in considerazione e riadattate le risorse previste da Agenzia per l’Italia Digitale per i comuni - [modello Comuni](https://designers.italia.it/modello/comuni/) - perché considerato il tipo di Ente il più simile tra quelli a disposizione.
 
-Il tema WordPress è stato progettato per aderire rapidamente al modello di sito comunale. Il tema, infatti, imposta automaticamente lo stile grafico del sito, le aree del sito, i layout delle pagine e il menu di navigazione. Il compito dei redattori rimane, quindi, quello di curare i contenuti delle pagine, risparmiando così tempo e risorse nella progettazione e realizzazione del sito.
+I cambiamenti apportati vanno sia a soddisfare i bisogni del contesto socio-assistenziale nel quale l’Ente opera, sia a permettere, in futuro, l’applicazione di aggiornamenti minori del tema nazionale su quello dell’ente senza dover sviluppare nuovamente il sito web.
+
+Il tema Design Comuni Italia è un’applicazione di WordPress, il sistema di gestione di contenuti (CMS), che consente di creare un sito web comunale sulla base del , creato nell’ambito del progetto Designers Italia dal Dipartimento per la trasformazione digitale.
+
+### **Il modello architetturale**
+
+Il modello permette di creare siti internet per gli Enti socio-assistenziali che rispondono ai bisogni degli utenti, con interfacce e strutture informative semplici da usare e navigare.
+
+Lo scopo del modello è fornire ai cittadini un chiaro punto di riferimento per trovare con facilità le informazioni di cui hanno bisogno. L’adozione del modello di sito permette di aderire più facilmente alle migliori pratiche di progettazione, fornendo allo stesso tempo ai cittadini un’esperienza coerente tra le varie amministrazioni.
+
+L’adozione del modello di sito permette di aderire alle linee guida di design per i siti internet e i servizi digitali della Pubblica Amministrazione (PA), fornendo un’esperienza coerente tra le istituzioni e facilitandone l’uso per i cittadini che si spostano tra varie strutture.
+
+La documentazione del modello di architettura è resa disponibile tramite il repository del tema Wordpress e viene aggiornata di pari passo con il tema.
+
+### **Il tema Wordpress**
+
+Il tema che applicato è una personalizzazione di WordPress, un sistema di gestione di contenuti (CMS) che consente di creare e mantenere con facilità siti web. L’utilizzo del tema permette di impostare automaticamente lo stile grafico del sito, i layout delle pagine e il menu di navigazione, velocizzando l’adozione tecnica del modello lasciando più tempo alla creazione dei contenuti sulle pagine.
+
+Il tema fa uso di specifici tipi di contenuto (Content-type) ovvero delle entità che descrivono l’informazione. 
+
+Inserendo i contenuti negli appositi campi predisposti, il tema comporrà automaticamente le diverse pagine del sito. Il compito dei redattori è quindi quello di curare i contenuti, senza doversi preoccupare di come verranno presentati a livello visivo sulle pagine.
 
 ### **Le pagine del modello**
 
 Tramite il tema WordPress, è possibile creare automaticamente le seguenti pagine:
 
-- _Homepage_, pagine di primo livello (_Amministrazione_, _Novità_, _Servizi_ e _Vivere il Comune_), _Documenti e dati_ e pagina _Argomenti_ (pagina lista), tramite il menu Configurazione;
+- _Homepage_, pagine di primo livello (_Amministrazione_, _Novità_, _Servizi_ e _Vivere l'Ente_), _Documenti e dati_ e pagina _Argomenti_ (pagina lista), tramite il menu Configurazione;
 
 - le pagine foglia _Notizia_, _Scheda servizio_, _Evento_, _Luogo_, _Documento pubblico_, _Dataset_, _Unità organizzativa_, _Persona pubblica_, tramite le voci nella barra a sinistra.
-
-**Attenzione:** Per le pagine _Documento pubblico_, _Unità organizzativa_, _Persona pubblica_, _Luogo_ e le _pagine lista_, è possibile l'inserimento dei contenuti, ma la resa grafica della pagina non apparirà in automatico. È necessario creare un template .php manualmente e inserirlo nella root del tema.
-
 
 ### **Da dove iniziare**
 
@@ -110,7 +127,6 @@ Una volta iniziato il lavoro sulle prime 4 tipologie di contenuto suggerite, si 
 - notizie;
 - fasi;
 - servizi;
-
 
 ### **Relazioni tra i contenuti**
 
@@ -167,7 +183,7 @@ Cliccando su `Configurazione`, è possibile definire:
 
 ### **Servizi esterni**
 
-Il tema Wordpress è realizzato per supportare il collegamento a API esterne per quel che concerne le funzionalità di valutazione, prenotazione appuntamento e richiesta di assistenza. Ogni amministrazione comunale dovrà quindi provvedere ad integrare i form forniti con il tema con un servizio esterno realizzato a propria discrezione andando a modificare i file che andremo ad elencare di seguito. Per l'effettivo inserimento dei file all'interno del progetto si può agire in due modi
+Il tema Wordpress è realizzato per supportare il collegamento a API esterne per quel che concerne le funzionalità di valutazione, prenotazione appuntamento e richiesta di assistenza. Ogni amministrazione dovrà quindi provvedere ad integrare i form forniti con il tema con un servizio esterno realizzato a propria discrezione andando a modificare i file che andremo ad elencare di seguito. Per l'effettivo inserimento dei file all'interno del progetto si può agire in due modi
 
 - se vogliamo che i file siano minificati per un incremento delle performance del sito è necessario avviare un processo di build tramite `npm` dopo la modifica del file, come verrà descritto in seguito. Assicurarsi di aver installato [Node.js](https://nodejs.org/it/download/) almeno della versione 16.x e installato le dipendenze con il comando
 
@@ -193,7 +209,7 @@ Al termine del processo di valutazione viene creato un payload nel seguente form
   "star": "2",
   "radioResponse": "Alcune indicazioni non erano chiare",
   "freeText": "Maggiori dettagli",
-  "page": "http://api.wordpresscomuni.local:8080/servizi/assistenza/"
+  "page": "http://api.wordpressesa.local:8080/servizi/assistenza/"
 }
 ```
 
@@ -228,10 +244,10 @@ Al termine della procedura per la prenotazione viene creato un payload nel segue
 {
   "office": {
     "id": "117",
-    "name": "Ufficio ambiente"
+    "name": "Ufficio segreteria"
   },
   "place": {
-    "nome": "Municipalità 1",
+    "nome": "Casa di riposo 1",
     "indirizzo": "Via Roma 1",
     "apertura": "lun, mar, mer 10:00 -12:00",
     "id": "id-luogo-123"
@@ -242,7 +258,7 @@ Al termine della procedura per la prenotazione viene creato un payload nel segue
   },
   "service": {
     "id": "101",
-    "name": "Iscrizione alla Scuola dell’infanzia"
+    "name": "Appuntamento per richiesta cartella clinica"
   },
   "moreDetails": "Dettagli aggiuntivi",
   "name": "Mario",
@@ -278,17 +294,18 @@ Il file da mofificare per integrare un servizio esterno si trova all'interno del
 
 ### **La community di riferimento**
 
-Scopri i canali della community dove confrontarti sulle risorse del modello:
+Il modello proposto non fa parte di quelli direttamente forniti a livello nazionale.
 
+Scopri i canali della community dove confrontarti sulle risorse disponibili:
 - [Forum Italia](https://forum.italia.it/) - unisciti alla discussione sul design dei servizi digitali con gli esperti del settore;
 - [Canale Slack](http://developersitalia.slack.com/) - dialoga e collabora in tempo reale con la community di Designers Italia;
 - [GitHub](https://github.com/italia/design-comuni-wordpress-theme) - il repository GitHub del tema WordPress “Design Comuni Italia”.
 
-### **F.A.Q**
+### **Domande frequenti**
 
 ➔ **Chi gestisce il sito?**
 
-L’uso del tema non impatta le modalità con cui viene abitualmente gestito il sito comunale.
+L’uso del tema non impatta le modalità con cui viene abitualmente gestito il sito. è possibile personalizzare permessi e ruoli tramite il plugin Members
 
 ➔ **Non ho WordPress. Cosa devo fare?**
 
@@ -309,13 +326,13 @@ WordPress è un ambiente pensato per modificare con semplicità ogni aspetto del
 
 Il tema WordPress copre già tutte le esigenze di base.
 
-WordPress permette di aggiungere innumerevoli funzionalità, per far fronte alle esigneze dei singoli Comuni. Quando si sviluppa una nuova funzionalità, è opportuno condividerla con il resto della comunità tramite [Forum Italia](https://forum.italia.it/), [GitHub](https://github.com/italia/design-comuni-wordpress-theme) o il [progetto Porte Aperte sul Web](https://www.porteapertesulweb.it/).
+WordPress permette di aggiungere innumerevoli funzionalità, per far fronte alle esigneze dell'Ente. Quando si sviluppa una nuova funzionalità, ti invitiamo a condividerla tramite [GitHub](https://github.com/robyone-srl/design-esa-wordpress-theme/)
 
-È sconsigliato apportare modifiche strutturali al sito, come modificare la classificazione delle informazioni o la struttura di navigazione. Modifiche di questo tipo possono impedire di beneficiare di evoluzioni future del prodotto, a cause di problematiche di aggiornamento del tema. Puoi segnalare necessità di questo tipo direttamente alla community di Designers Italia tramite i vari canali di contatto. I feedback ricevuti verranno raccolti e considerati per le successive evoluzioni del modello.
+È sconsigliato apportare modifiche strutturali al sito, come modificare la classificazione delle informazioni o la struttura di navigazione. Modifiche di questo tipo possono impedire di beneficiare di evoluzioni future del prodotto, a cause di problematiche di aggiornamento del tema. Puoi segnalare necessità di questo tipo direttamente tramite i vari canali di contatto o issues. I feedback ricevuti verranno raccolti e considerati per le successive evoluzioni del modello.
 
 ### **Bootstrap Italia**
 
-Design Comuni Italia rispetta le nuove linee guida di design dell’Agenzia per l’Italia digitale rilasciare dal [**Team per la Trasformazione Digitale**](https://teamdigitale.governo.it/) e le caratteristiche per i servizi web della Pubblica Amministrazione contenute nel Piano triennale per l’informatica nella Pubblica Amministrazione 2017/2019.
+Design Enti Socio-Assistenziali Italia rispetta le nuove linee guida di design dell’Agenzia per l’Italia digitale rilasciare dal [**Team per la Trasformazione Digitale**](https://teamdigitale.governo.it/) e le caratteristiche per i servizi web della Pubblica Amministrazione contenute nel Piano triennale per l’informatica nella Pubblica Amministrazione.
 
 Nel tema vengono integrate le componenti di [**Bootstrap Italia**](https://italia.github.io/bootstrap-italia/).
 
@@ -340,15 +357,15 @@ Di seguito elencati i componenti distribuiti con il tema WordPress:
 
 Vuoi segnalare un bug o fare una richiesta?
 
-Prima di tutto assicurati che sia un problema relativo al tema WordPress e non a plugin installati o impostazioni del CMS, poi dai un'occhiata a come creare una [issue](https://github.com/italia/bootstrap-italia/blob/master/CONTRIBUTING.md#creare-una-issue) ed infine, se lo ritieni necessario, apri la issue [in questo repository](https://github.com/italia/design-comuni-wordpress-theme/issues).
+Prima di tutto assicurati che sia un problema relativo al tema WordPress e non a plugin installati o impostazioni del CMS, poi dai un'occhiata a come creare una [issue](https://github.com/italia/bootstrap-italia/blob/master/CONTRIBUTING.md#creare-una-issue) ed infine, se lo ritieni necessario, apri la issue [in questo repository](https://github.com/robyone-srl/design-esa-wordpress-theme/issues).
 
 ## Come contribuire
 
 Vorresti dare una mano contribuendo allo sviluppo del tema?
 
-Se non l'hai già fatto, inizia spendendo qualche minuto per approfondire la tua conoscenza su l'[Architettura dell'Informazione dei siti web dei Comuni Italiani (ODS 65KB)](https://designers.italia.it/files/resources/modelli/comuni/adotta-il-modello-di-sito-comunale/definisci-architettura-e-contenuti/Architettura-informazione-sito-Comuni.ods) e fai riferimento alle [indicazioni su come contribuire](https://github.com/italia/design-comuni-wordpress-theme/blob/main/CONTRIBUTING.md).
+Se non l'hai già fatto, inizia spendendo qualche minuto per approfondire la tua conoscenza sull'architettura proposta.
 
-A questo punto, è necessario scaricare una copia in locale del tema tramite il comando `git fork https://github.com/italia/design-comuni-wordpress-theme.git` da terminale o cliccando sul pulsante Fork <br>
+A questo punto, è necessario scaricare una copia in locale del tema tramite il comando `git fork https://github.com/robyone-srl/design-esa-wordpress-theme.git` da terminale o cliccando sul pulsante Fork <br>
 ![fork](https://user-images.githubusercontent.com/69706/188419656-21fa5b0e-c52a-4168-a1d1-8ea9a149da6a.png)
 
 Una volta terminate le modifiche, è necessario aprire una _pull request_ per sottoporle alla revisione del team. 
