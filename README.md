@@ -1,12 +1,10 @@
-# ![developers.italia](https://avatars1.githubusercontent.com/u/15377824?s=36&v=4 "developers.italia") Design Case di riposo Italia
+# ![developers.italia](https://avatars1.githubusercontent.com/u/15377824?s=36&v=4 "developers.italia") Design Socio-Assistenziale Italia
 
-[![Join the #design siti comuni channel](https://img.shields.io/badge/Slack%20channel-%23design_siti_comuni-blue.svg)](https://developersitalia.slack.com/messages/design-siti-comuni/)
-
-## **Un sito per le Case di riposo Italiane**
+## **Un sito per gli Enti socio-assistenziali italiani**
 
 ### I primi passi con il tema Wordpress (1.7.5)
 
-**Design CDR Italia** è il tema di WordPress per i siti delle CDR Italiane. Rispetta le linee guida di design dell’Agenzia per l’Italia digitale rilasciate dal Team per la Trasformazione Digitale. Utilizza Bootstrap Italia. <strong>Questa è una versione derivata da Design Comuni Italia, un fork nel quale Robyone ha applicato modifiche migliorative e necessarie per adattare il tema alle peculiarità del tipo di Ente a cui si riferisce. Robyone si impegna a proporre i cambiamenti per applicarli al tema nazionale e si impegna ad allineare ai nuovi aggiornamenti la fork. Codice sorgente pubblicato con medesima licenza del repository nazionale su <a href="https://github.com/sviluppoRobyone/design-cdr-wordpress-theme">https://github.com/sviluppoRobyone/design-cdr-wordpress-theme</a></strong>.
+**Design CDR Italia** è il tema di WordPress per i siti degli Enti socio-assistenziali italiani. Rispetta le linee guida di design dell’Agenzia per l’Italia digitale rilasciate dal Team per la Trasformazione Digitale. Utilizza Bootstrap Italia. <strong>Questa è una versione derivata da Design Comuni Italia, un fork nel quale Robyone ha applicato modifiche migliorative e necessarie per adattare il tema alle peculiarità del tipo di Ente a cui si riferisce. Robyone si impegna a proporre i cambiamenti per applicarli al tema nazionale e si impegna ad allineare ai nuovi aggiornamenti la fork. Codice sorgente pubblicato con medesima licenza del repository nazionale su <a href="https://github.com/sviluppoRobyone/design-cdr-wordpress-theme">https://github.com/sviluppoRobyone/design-cdr-wordpress-theme</a></strong>.
 
 ## **Installazione e supporto**
 
@@ -14,7 +12,7 @@
 
 Per scaricare il progetto esegui il seguente comando git:
 
-- git clone https://github.com/italia/design-comuni-wordpress-theme.git
+- git clone https://github.com/robyone-srl/design-cdr-wordpress-theme
 
 Se già usi una vecchia versione del tema e vuoi aggiornarla, esegui il comando:
 
@@ -27,7 +25,6 @@ Una volta scaricato il repository, inserisci la cartella all'interno del progett
 - `wp-content > themes `.
 
 > È raccomandata l'installazione del tema come _"child"_ in modo tale da poterlo aggiornare facilmente senza compromettere le personalizzazioni locali. [Vedi la guida ufficiale](https://developer.wordpress.org/themes/advanced-topics/child-themes/#1-create-a-child-theme-folder) su come installare un tema _"child"_.
-
 
 Se il tema viene scaricato come file `.zip` puoi estrarre l'archivio e inserirlo allo stesso percorso oppure caricare direttamente il file `.zip` da backoffice al seguente percorso:
 
@@ -47,13 +44,11 @@ Una volta inserita la cartella o caricato file `.zip`come descritto al punto pre
 
 - `Aspetto > Temi ` (o apri la seguente url: {{host}}/wp-admin/themes.php).
 
-Abilita poi il tema **Design Comuni Italia** cliccando sul bottone `Attiva`.
+Abilita poi il tema **Design CDR Italia** cliccando sul bottone `Attiva`.
 
 ### **Supporto tecnico ed editoriale**
 
-Sul [canale Slack #design-siti-comuni](http://developersitalia.slack.com/messages/design-siti-comuni/) puoi confrontarti sulle risorse e trovare le risposte a tutte le domande riguardo problemi tecnici o l’architettura dei contenuti.
-
-È necessario avere un’utenza Slack di Developers Italia. [Attivala adesso](https://slack.developers.italia.it/).
+Suggeriamo di iscriversi al canale Slack di Developers Italia per confrontarsi e migliorare i temi nazionali.
 
 ## **Indice**
 
