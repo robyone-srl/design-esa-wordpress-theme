@@ -1,80 +1,36 @@
 # ![developers.italia](https://avatars1.githubusercontent.com/u/15377824?s=36&v=4 "developers.italia") Design Enti Socio-Assistenziali Italia
 
-## **Un sito per gli Enti socio-assistenziali italiani**
-
-### I primi passi con il tema Wordpress (1.7.5)
+## Introduzione
 
 **Design Enti Socio-Assistenziali Italia** è il tema di WordPress per i siti degli Enti socio-assistenziali italiani. Rispetta le linee guida di design dell’Agenzia per l’Italia digitale rilasciate dal Team per la Trasformazione Digitale. Utilizza Bootstrap Italia. <strong>Questa è una versione derivata da Design Comuni Italia, un fork nel quale Robyone ha applicato modifiche migliorative e necessarie per adattare il tema alle peculiarità del tipo di Ente a cui si riferisce. Robyone si impegna a proporre i cambiamenti per applicarli al tema nazionale e si impegna ad allineare ai nuovi aggiornamenti la fork. Codice sorgente pubblicato con medesima licenza del repository nazionale su <a href="https://github.com/robyone-srl/design-esa-wordpress-theme">https://github.com/robyone-srl/design-esa-wordpress-theme</a></strong>.
 
-## **Installazione e supporto**
-
-### **Come scaricare il tema**
-
-Per scaricare il progetto esegui il seguente comando git:
-
-- git clone https://github.com/robyone-srl/design-esa-wordpress-theme
-
-Se già usi una vecchia versione del tema e vuoi aggiornarla, esegui il comando:
-
-- git pull.
-
-### Come inserire il tema all'interno di un'installazione WordPress
-
-Una volta scaricato il repository, inserisci la cartella all'interno del progetto WordPress al seguente percorso:
-
-- `wp-content > themes `.
-
-> È raccomandata l'installazione del tema come _"child"_ in modo tale da poterlo aggiornare facilmente senza compromettere le personalizzazioni locali. [Vedi la guida ufficiale](https://developer.wordpress.org/themes/advanced-topics/child-themes/#1-create-a-child-theme-folder) su come installare un tema _"child"_.
-
-Se il tema viene scaricato come file `.zip` puoi estrarre l'archivio e inserirlo allo stesso percorso oppure caricare direttamente il file `.zip` da backoffice al seguente percorso:
-
-- `Aspetto > Temi > Aggiungi nuovo > Carica tema` (o apri la seguente url: {{host}}/wp-admin/theme-install.php).
-
-### Aggiornamento libreria Bootstrap Italia
-
-Se si desidera aggiornare la libreria Bootstrap Italia è possibile lanciare il seguente comando nella folder di installazione del tema (è necessario avere installato una versione di node >= 14.18.0):
-
-```node
- npm install
-```
-
-### Come abilitare il tema
-
-Una volta inserita la cartella o caricato file `.zip`come descritto al punto precedente, apri il backoffice e naviga al seguente percorso:
-
-- `Aspetto > Temi ` (o apri la seguente url: {{host}}/wp-admin/themes.php).
-
-Abilita poi il tema **Design Enti Socio-Assistenziali Italia** cliccando sul bottone `Attiva`.
-
-### **Supporto tecnico ed editoriale**
-
-Suggeriamo di iscriversi al canale Slack di Developers Italia per confrontarsi e migliorare i temi nazionali.
-
 ## **Indice**
-
 - [ Design Enti Socio-Assistenziali Italia](#-design-esa-italia)
-  - [**Un sito per i Comuni Italiani**](#un-sito-per-i-comuni-italiani)
-    - [I primi passi con il tema Wordpress (1.6.2)](#i-primi-passi-con-il-tema-wordpress-162)
-  - [**Installazione e supporto**](#installazione-e-supporto)
-      - [**Come scaricare il tema**](#come-scaricare-il-tema)
-      - [Come inserire il tema all'interno di un'installazione WordPress](#come-inserire-il-tema-allinterno-di-uninstallazione-wordpress)
-      - [Aggiornamento libreria Bootstrap Italia](#aggiornamento-libreria-bootstrap-italia)
-      - [Come abilitare il tema](#come-abilitare-il-tema)
-      - [**Supporto tecnico ed editoriale**](#supporto-tecnico-ed-editoriale)
+  - [**Introduzione**](#introduzione)
   - [**Indice**](#indice)
-      - [**Cos'è e cosa fa**](#cosè-e-cosa-fa)
-      - [**Le pagine del modello**](#le-pagine-del-modello)
-      - [**Da dove iniziare**](#da-dove-iniziare)
-      - [**Relazioni tra i contenuti**](#relazioni-tra-i-contenuti)
-      - [**Personalizzazione**](#personalizzazione)
-      - [**Servizi esterni**](#servizi-esterni)
-      - [**La community di riferimento**](#la-community-di-riferimento)
-      - [**F.A.Q**](#faq)
-      - [**Bootstrap Italia**](#bootstrap-italia)
+  - [**Un sito per gli Enti socio-assistenziali italiani**](#un-sito-per-gli-enti-socio-assistenziali-italiani)
+    - [**Cos'è e cosa fa**](#cosè-e-cosa-fa)
+    - [**Le pagine del modello**](#le-pagine-del-modello)
+    - [**Da dove iniziare**](#da-dove-iniziare)
+    - [**Relazioni tra i contenuti**](#relazioni-tra-i-contenuti)
+    - [**Personalizzazione**](#personalizzazione)
+    - [**Servizi esterni**](#servizi-esterni)
+    - [**La community di riferimento**](#la-community-di-riferimento)
+    - [**F.A.Q**](#faq)
+    - [**Bootstrap Italia**](#bootstrap-italia)
+  - [**Installazione e supporto**](#installazione-e-supporto)
+    - [**Come scaricare il tema**](#come-scaricare-il-tema)
+    - [**Come inserire il tema all'interno di un'installazione WordPress**](#come-inserire-il-tema-allinterno-di-uninstallazione-wordpress)
+    - [**Aggiornamento libreria Bootstrap Italia**](#aggiornamento-libreria-bootstrap-italia)
+    - [**Come abilitare il tema**](#come-abilitare-il-tema)
+    - [**Supporto tecnico ed editoriale**](#supporto-tecnico-ed-editoriale)
   - [Licenze software dei componenti di terze parti](#licenze-software-dei-componenti-di-terze-parti)
     - [Componenti distribuiti con i template](#componenti-distribuiti-con-i-template)
   - [Segnalazione bug](#segnalazione-bug)
   - [Come contribuire](#come-contribuire)
+
+## **Un sito per gli Enti socio-assistenziali italiani**
+
 
 ### **Cos'è e cosa fa**
 
@@ -335,6 +291,50 @@ WordPress permette di aggiungere innumerevoli funzionalità, per far fronte alle
 Design Enti Socio-Assistenziali Italia rispetta le nuove linee guida di design dell’Agenzia per l’Italia digitale rilasciare dal [**Team per la Trasformazione Digitale**](https://teamdigitale.governo.it/) e le caratteristiche per i servizi web della Pubblica Amministrazione contenute nel Piano triennale per l’informatica nella Pubblica Amministrazione.
 
 Nel tema vengono integrate le componenti di [**Bootstrap Italia**](https://italia.github.io/bootstrap-italia/).
+
+## **Installazione e supporto**
+
+### **Come scaricare il tema**
+
+Per scaricare il progetto esegui il seguente comando git:
+
+- git clone https://github.com/robyone-srl/design-esa-wordpress-theme
+
+Se già usi una vecchia versione del tema e vuoi aggiornarla, esegui il comando:
+
+- git pull.
+
+### Come inserire il tema all'interno di un'installazione WordPress
+
+Una volta scaricato il repository, inserisci la cartella all'interno del progetto WordPress al seguente percorso:
+
+- `wp-content > themes `.
+
+> È raccomandata l'installazione del tema come _"child"_ in modo tale da poterlo aggiornare facilmente senza compromettere le personalizzazioni locali. [Vedi la guida ufficiale](https://developer.wordpress.org/themes/advanced-topics/child-themes/#1-create-a-child-theme-folder) su come installare un tema _"child"_.
+
+Se il tema viene scaricato come file `.zip` puoi estrarre l'archivio e inserirlo allo stesso percorso oppure caricare direttamente il file `.zip` da backoffice al seguente percorso:
+
+- `Aspetto > Temi > Aggiungi nuovo > Carica tema` (o apri la seguente url: {{host}}/wp-admin/theme-install.php).
+
+### Aggiornamento libreria Bootstrap Italia
+
+Se si desidera aggiornare la libreria Bootstrap Italia è possibile lanciare il seguente comando nella folder di installazione del tema (è necessario avere installato una versione di node >= 14.18.0):
+
+```node
+ npm install
+```
+
+### Come abilitare il tema
+
+Una volta inserita la cartella o caricato file `.zip`come descritto al punto precedente, apri il backoffice e naviga al seguente percorso:
+
+- `Aspetto > Temi ` (o apri la seguente url: {{host}}/wp-admin/themes.php).
+
+Abilita poi il tema **Design Enti Socio-Assistenziali Italia** cliccando sul bottone `Attiva`.
+
+### **Supporto tecnico ed editoriale**
+
+Suggeriamo di iscriversi al canale Slack di Developers Italia per confrontarsi e migliorare i temi nazionali.
 
 ---
 
