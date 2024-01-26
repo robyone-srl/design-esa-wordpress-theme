@@ -12,7 +12,7 @@ function dci_welcome_panel(){
     <div class="welcome-panel-content" style="padding-bottom:30px;">
         <img src="<?php echo get_template_directory_uri() . '/assets/img/designers-italia-wordpress-dashboard.png'?>"  style="float:left; margin:0px 0px 20px 0px;" />
         <div class="welcome-panel-header">
-            <h2><?php echo('Design Case di riposo: il tema dedicato alla Casa di riposo'); ?></h2>
+            <h2><?php echo('Design Enti Socio-Assistenziali: il tema dedicato al settore socio-assistenziale'); ?></h2>
             <h3>Il tema è stato preparato da Robyone sulla base del <a href="https://github.com/italia/design-comuni-wordpress-theme">tema di Developers Italia predisposto per i Comuni Italiani</a></h3>
         </div>
     </div>
@@ -35,14 +35,15 @@ add_action( 'wp_dashboard_setup', 'dci_add_dashboard_widgets' );
 function dci_add_dashboard_widgets() {
     wp_add_dashboard_widget(
         'dci_dashboard_widget', // Widget slug
-        'Design CDR Italia', // Widget title
+        'Design Enti Socio-Assistenziali Italia', // Widget title
         'dci_new_dashboard_widget_function' // Function name to display the widget
     );
 }
 // Initialize the function to output the contents of your new dashboard widget
 function dci_new_dashboard_widget_function() {
-    echo "<p>Design Case di riposo: il tema dedicato alla Casa di riposo</p>";
+    echo "<p>Design Enti Socio-Assistenziali: il tema dedicato agli Enti socio-assistenziali</p>";
     echo "<p>Il tema è stato preparato sulla base del <a href=\"https://github.com/italia/design-comuni-wordpress-theme\">tema di Developers Italia predisposto per i Comuni Italiani</a></p>";
+    echo "<p><a href=\"https://github.com/robyone-srl/design-esa-wordpress-theme\">Documentazione del tema su Github</a></p>";
 }
 
 /**
@@ -87,13 +88,13 @@ function dci_screen_layout_dashboard() {
 add_filter('get_user_option_screen_layout_dashboard', 'dci_screen_layout_dashboard');
 
 add_action ('admin_menu', function () {
-  //  add_management_page('Manuale Tema Comuni', 'Manuale Tema Comuni', 'read', 'manuale-comuni', 'dci_readme_render_manual', '');
+  //  add_management_page('Manuale Tema ESA', 'Manuale Tema ESA', 'read', 'manuale-esa', 'dci_readme_render_manual', '');
 });
 
 function dci_readme_render_manual(){
 echo '<div class="wrap manuale">';
 
-    $response = wp_remote_get( 'https://raw.githubusercontent.com/italia/design-comuni-wordpress-theme/master/README.md?test=1' );
+    $response = wp_remote_get( 'https://raw.githubusercontent.com/robyone-srl/design-esa-wordpress-theme/main/README.md' );
 
     if ( is_array( $response ) && ! is_wp_error( $response ) ) {
 
