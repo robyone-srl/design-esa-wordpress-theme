@@ -34,24 +34,36 @@ function load_more(){
 	$post_types = json_decode( stripslashes( $_POST['post_types'] ), true );
 	$url_query_params =  json_decode( stripslashes( $_POST['query_params'] ), true );
 	$additional_filter =  json_decode( stripslashes( $_POST['additional_filter'] ), true );
+	//$query_args =  json_decode( stripslashes( $_POST['query'] ), true );
 	$filter_ids =  json_decode( stripslashes( $_POST['filter_ids'] ), true );
 	$tax_query =  json_decode( stripslashes( $_POST['tax_query'] ), true );
 
 	$args = array(
-        's' => $_POST['search'],
-        'posts_per_page' => $_POST['post_count'] + $_POST['load_posts'],
-        'post_type'      => $post_types,
-        'orderby'        => 'date',
-        'order'          => 'DESC'
-    );
+		's' => $_POST['search'],
+		'posts_per_page' => $_POST['post_count'] + $_POST['load_posts'],
+		'post_type'      => $post_types,
+		'orderby' => 'post_title',
+		'order'   => 'ASC'
+	);
 	
-	if ( $post_types != "notizia" ) {
+	if ( $post_types == "notizia" ) {
 		$args = array(
 			's' => $_POST['search'],
-	    	'posts_per_page' => $_POST['post_count'] + $_POST['load_posts'],
-	    	'post_type'      => $post_types,
-			'orderby' => 'post_title',
-			'order'   => 'ASC'
+			'posts_per_page' => $_POST['post_count'] + $_POST['load_posts'],
+			'post_type'      => $post_types,
+			'orderby'        => 'date',
+			'order'          => 'DESC'
+		);
+	}
+
+	if ( $post_types == "evento" ) {
+		$args = array(
+			's' => $_POST['search'],
+			'posts_per_page' => $_POST['post_count'] + $_POST['load_posts'],
+			'post_type'      => $post_types,
+			'orderby' => 'meta_value',
+			'order' => 'DESC',
+			'meta_key' => '_dci_evento_data_orario_inizio',
 		);
 	}
 
@@ -115,6 +127,9 @@ function load_more(){
 			break;
 		case "notizia":
                 $out .= load_template_part("template-parts/novita/cards-list");
+			break;
+		case "evento":
+				$out .= load_template_part("template-parts/evento/card-full");
 			break;
 		case "servizio":
 				$servizio = $post;

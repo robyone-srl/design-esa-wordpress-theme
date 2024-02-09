@@ -10,7 +10,7 @@ $args = array(
     'posts_per_page' => $load_posts,
 	'post_type' => 'evento',
 	'orderby' => 'meta_value',
-	'order' => 'ASC',
+	'order' => 'DESC',
 	'meta_key' => '_dci_evento_data_orario_inizio',
 );
 
@@ -56,7 +56,7 @@ $additional_filter = null;
                 <p id="autocomplete-label" class="mb-4">
                     <strong>
                         <?php echo $the_query->found_posts; ?>
-                    </strong>risultati in ordine alfabetico
+                    </strong>risultati in ordine temporale
                 </p>
             </div>
             <div class="row g-2" id="load-more">
