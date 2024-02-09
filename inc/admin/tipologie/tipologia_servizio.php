@@ -45,7 +45,7 @@ function dci_register_post_type_servizio() {
 add_action( 'edit_form_after_title', 'sdi_servizio_add_content_after_title' );
 function sdi_servizio_add_content_after_title($post) {
     if($post->post_type == "servizio")
-        _e('<span><i>il <b>Titolo</b> è il <b>Nome del Servizio</b>. Il nome del Servizio deve essere facilmente comprensibile dai cittadini. Vincoli: massimo 60 caratteri spazi inclusi.</i></span><br><br>', 'design_comuni_italia' );
+        _e('<span><i>il <b>Titolo</b> è il <b>Nome del Servizio</b>. Il nome del Servizio deve essere facilmente comprensibile dai cittadini. Vincoli: massimo 160 caratteri spazi inclusi.</i></span><br><br>', 'design_comuni_italia' );
 }
 
 /**
@@ -117,10 +117,10 @@ function dci_add_servizi_metaboxes() {
 	$cmb_apertura->add_field( array(
 		'id'         => $prefix . 'descrizione_breve',
 		'name'       => __( 'Descrizione breve *', 'design_comuni_italia' ),
-		'desc'       => __( 'Indicare una sintetica descrizione del Servizio (max 255 caratteri) utilizzando un linguaggio semplice che possa aiutare qualsiasi utente a identificare con chiarezza il Servizio. Non utilizzare un linguaggio ricco di riferimenti normativi. Vincoli: 160 caratteri spazi inclusi.' , 'design_comuni_italia' ),
+		'desc'       => __( 'Indicare una sintetica descrizione del Servizio utilizzando un linguaggio semplice che possa aiutare qualsiasi utente a identificare con chiarezza il Servizio. Non utilizzare un linguaggio ricco di riferimenti normativi. Vincoli: 160 caratteri spazi inclusi.' , 'design_comuni_italia' ),
 		'type'       => 'textarea',
 		'attributes' => array(
-			'maxlength' => '255',
+			'maxlength' => '160',
 			'required'  => 'required'
 		),
 	) );
