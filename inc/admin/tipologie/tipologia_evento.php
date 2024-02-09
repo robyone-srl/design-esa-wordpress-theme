@@ -279,6 +279,7 @@ function dci_add_eventi_metaboxes() {
             'placeholder' =>  __( 'Seleziona il luogo in cui si è tenuto il progetto', 'design_scuole_italia' ),
             'data-conditional-id' => $prefix . 'is_luogo_esa',
             'data-conditional-value' => "true",
+			'required'    => 'required',
         ),
 	) );
 
@@ -290,6 +291,7 @@ function dci_add_eventi_metaboxes() {
         'attributes' => array(
             'data-conditional-id' => $prefix . 'is_luogo_esa',
             'data-conditional-value' => "false",
+			'required'    => 'required',
         ),
 	) );
 
@@ -303,6 +305,7 @@ function dci_add_eventi_metaboxes() {
         'attributes' => array(
             'data-conditional-id' => $prefix . 'is_luogo_esa',
             'data-conditional-value' => "false",
+			'required'    => 'required',
         ),
 	) );
 
