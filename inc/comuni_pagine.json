@@ -41,6 +41,13 @@
           "template_name": "incarichi",
           "children": {}
         },
+		    "Personale socio-assistenziale": {
+          "title": "Personale socio-assistenziale",
+          "slug": "personale-socio-assistenziale",
+          "description": "Personale da contattare per informazioni e supporto ai servizi sociali e assistenziali.",
+          "template_name": "incarichi",
+          "children": {}
+        },
         "Documenti e dati": {
           "title": "Documenti e dati",
           "slug": "documenti-e-dati",

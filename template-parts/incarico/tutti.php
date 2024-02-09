@@ -5,6 +5,7 @@ switch ($post->post_name){
 	case 'politici': $tipo_incarico = 'politico'; $descrizione = 'degli incarichi'; $load_posts = 9; break;
 	case 'personale-amministrativo': $tipo_incarico = 'amministrativo'; $descrizione = 'degli incarichi'; $load_posts = 9; break;
 	case 'personale-sanitario': $tipo_incarico = 'sanitario'; $descrizione = 'degli incarichi'; $load_posts = 9; break;
+	case 'personale-socio-assistenziale': $tipo_incarico = 'socio-assistenziale'; $descrizione = 'degli incarichi'; $load_posts = 9; break;
 	case 'altro': $tipo_incarico = 'altro'; $descrizione = 'degli incarichi'; $load_posts = 9; break;
     default:
     $tipo_incarico = ''; $descrizione = 'di tutti gli incarichi'; $load_posts = 9; break;

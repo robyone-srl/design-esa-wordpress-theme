@@ -291,6 +291,7 @@ if(!function_exists("dci_tipi_incarico_array")){
             'politico',
             'amministrativo',
             'sanitario',
+            'socio-assistenziale',
             'altro'
         ];
         return $tipi_incarico_arr;

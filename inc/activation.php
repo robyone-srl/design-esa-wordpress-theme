@@ -440,6 +440,7 @@ function createMenu()
     dci_create_page_menu_item(__( 'Uffici', 'design_comuni_italia'),$menu_amministrazione);
     dci_create_page_menu_item(__( 'Personale amministrativo', 'design_comuni_italia'),$menu_amministrazione);
     dci_create_page_menu_item(__( 'Personale sanitario', 'design_comuni_italia'),$menu_amministrazione);
+    dci_create_page_menu_item(__( 'Personale socio-assistenziale', 'design_comuni_italia'),$menu_amministrazione);
     dci_create_page_menu_item(__( 'Documenti e Dati', 'design_comuni_italia'),$menu_amministrazione);
 
     //assegno menu prima colonna footer

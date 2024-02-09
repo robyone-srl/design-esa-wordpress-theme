@@ -7,6 +7,7 @@ switch ($post->post_name){
 	case 'politici': $tipo_incarico = 'politico'; $descrizione = 'del personale'; $max_posts = $_GET['max_posts'] ?? null;  $load_posts = 9; break;
 	case 'personale-amministrativo': $tipo_incarico = 'amministrativo'; $descrizione = 'del personale'; $max_posts = $_GET['max_posts'] ?? null;  $load_posts = 9; break;
 	case 'personale-sanitario': $tipo_incarico = 'sanitario'; $descrizione = 'del personale'; $max_posts = $_GET['max_posts'] ?? null;  $load_posts = 9; break;
+	case 'personale-socio-assistenziale': $tipo_incarico = 'socio-assistenziale'; $descrizione = 'del personale'; $max_posts = $_GET['max_posts'] ?? null;  $load_posts = 9; break;
 	case 'altro': $tipo_incarico = 'altro'; $descrizione = 'del personale'; $max_posts = $_GET['max_posts'] ?? null;  $load_posts = 9; break;
 }
 
