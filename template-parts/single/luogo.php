@@ -5,19 +5,20 @@
 ?>
 
 <div class="card-wrapper card-teaser-wrapper">
-    <div class="card card-teaser shadow mt-3 rounded">
-    <svg class="icon">
+    <div class="card card-teaser border border-light shadow-sm mt-3 rounded">
+    <svg class="icon mt-1">
         <use xlink:href="#it-pin" aria-hidden="true"></use>
     </svg>
     <div class="card-body">
-        <h3 class="card-title h5">
-            <a class="text-decoration-none" href="<?php echo get_permalink($luogo->ID); ?>">
-                <?php echo $luogo->post_title; ?>
+        <div class="card-title">
+            <a href="<?php echo get_permalink($luogo->ID); ?>">
+                <strong>
+                    <?php echo $luogo->post_title; ?>
+                </strong>
             </a>
-        </h3>
+        </div>
         <div class="card-text">
-        <p><?php echo $indirizzo; ?></p>
-        <p class="mt-3">Ulteriori dettagli</p>
+            <?php echo $indirizzo; ?>
         </div>
     </div>
     </div>
