@@ -255,16 +255,103 @@ function dci_add_eventi_metaboxes() {
     ) );
 
     $cmb_luogo->add_field( array(
-        'id' =>  $prefix . 'luogo_evento',
-        'name'    => __( 'Luogo dell\'evento', 'design_comuni_italia' ),
-        'desc' => __( 'Selezione il <a href="edit.php?post_type=luogo">luogo</a> in cui viene organizzato l\'evento. ' , 'design_comuni_italia' ),
-        'type'    => 'pw_select',
-        'show_option_none' => true,
-        'options' =>  dci_get_posts_options('luogo'),
-        'attributes'    => array(
-            'placeholder' =>  __( 'Seleziona il Luogo', 'design_comuni_italia' ),
+        'name' => 'Luogo della Scuola *',
+        'id' =>  $prefix . 'is_luogo_esa',
+        'desc' => __( 'Seleziona se il progetto viene svolto in un <a href="edit.php?post_type=luogo">Luogo della Scuola</a>', 'design_scuole_italia' ),
+        'type'    => 'radio_inline',
+        'options' => array(
+            'true' => __( 'Si', 'design_scuole_italia' ),
+            'false'   => __( 'No', 'design_scuole_italia' ),
+        ),
+        'default' => 'true',
+        'attributes' => array(
+            'required' => 'required'
         ),
     ) );
+
+    $cmb_luogo->add_field( array(
+		'id' =>  $prefix . 'luogo_evento',
+		'name'    => __( 'Luogo', 'design_scuole_italia' ),
+		'desc' => __( 'Selezione il <a href="edit.php?post_type=luogo">luogo </a> in cui si è tenuto il progetto' , 'design_scuole_italia' ),
+        'type'    => 'pw_select',
+        'options' => dci_get_posts_options('luogo'),
+        'attributes' => array(
+            'placeholder' =>  __( 'Seleziona il luogo in cui si è tenuto il progetto', 'design_scuole_italia' ),
+            'data-conditional-id' => $prefix . 'is_luogo_esa',
+            'data-conditional-value' => "true",
+        ),
+	) );
+
+	$cmb_luogo->add_field( array(
+		'id' =>  $prefix . 'nome_luogo_custom',
+		'name'    => __( 'Nome del luogo', 'design_scuole_italia' ),
+		'desc' => __( 'Inserisci il nome del luogo (lascia vuoto hai selezionato un Luogo della Scuola )' , 'design_scuole_italia' ),
+		'type'    => 'text',
+        'attributes' => array(
+            'data-conditional-id' => $prefix . 'is_luogo_esa',
+            'data-conditional-value' => "false",
+        ),
+	) );
+
+
+
+	$cmb_luogo->add_field( array(
+		'id'         => $prefix . 'indirizzo_luogo_custom',
+		'name'       => __( 'Indirizzo Completo', 'design_scuole_italia' ),
+		'desc'       => __( 'Indirizzo completo del luogo: Via, civico, cap, città e Provincia (es: Via Vaglia, 6, 00139 - Roma RM) (lascia vuoto hai selezionato un Luogo della Scuola )', 'design_scuole_italia' ),
+		'type'       => 'text',
+        'attributes' => array(
+            'data-conditional-id' => $prefix . 'is_luogo_esa',
+            'data-conditional-value' => "false",
+        ),
+	) );
+
+
+	$cmb_luogo->add_field( array(
+		'id'         => $prefix . 'posizione_gps_luogo_custom',
+        'name'       => __( 'Posizione GPS <br><small>NB: clicca sulla lente di ingandimento e cerca l\'indirizzo, anche se lo hai già inserito nel campo precedente.<br>Questo permetterà una corretta georeferenziazione del luogo</small>', 'design_scuole_italia' ),
+		'desc'       => __( 'Georeferenziazione del luogo e link a posizione in mappa.  (lascia vuoto hai selezionato un Luogo della Scuola )', 'design_scuole_italia' ),
+		'type'       => 'leaflet_map',
+		'attributes' => array(
+//			'tilelayer'           => 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+			'searchbox_position'  => 'topleft', // topright, bottomright, topleft, bottomleft,
+			'search'              => __( 'Digita l\'indirizzo del Luogo' , 'design_scuole_italia' ),
+			'not_found'           => __( 'Indirizzo non trovato' , 'design_scuole_italia' ),
+			'initial_coordinates' => [
+				'lat' => 41.894802, // Go Italy!
+				'lng' => 12.4853384  // Go Italy!
+			],
+			'initial_zoom'        => 5, // Zoomlevel when there's no coordinates set,
+			'default_zoom'        => 12, // Zoomlevel after the coordinates have been set & page saved
+			'required'    => 'required',
+            'data-conditional-id' => $prefix . 'is_luogo_esa',
+            'data-conditional-value' => "false",
+    ),
+	) );
+
+
+	$cmb_luogo->add_field( array(
+		'id'         => $prefix . 'quartiere_luogo_custom',
+		'name'       => __( 'Quartiere ', 'design_scuole_italia' ),
+		'desc'       => __( 'Se il territorio è mappato in quartieri, riportare il Quartiere dove si svolge l\'evento (lascia vuoto hai selezionato un Luogo della Scuola )', 'design_scuole_italia' ),
+		'type'       => 'text',
+        'attributes' => array(
+            'data-conditional-id' => $prefix . 'is_luogo_esa',
+            'data-conditional-value' => "false",
+        ),
+	) );
+
+
+	$cmb_luogo->add_field( array(
+		'id'         => $prefix . 'circoscrizione_luogo_custom',
+		'name'       => __( 'Circoscrizione ', 'design_scuole_italia' ),
+		'desc'       => __( 'Se il territorio è mappato in circoscrizioni, riportare la Circoscrizione dove si svolge l\'evento (lascia vuoto hai selezionato un Luogo della Scuola )', 'design_scuole_italia' ),
+		'type'       => 'text',
+        'attributes' => array(
+            'data-conditional-id' => $prefix . 'is_luogo_esa',
+            'data-conditional-value' => "false",
+        ),
+	) );
 
   //COSTI
     $cmb_costi = new_cmb2_box( array(

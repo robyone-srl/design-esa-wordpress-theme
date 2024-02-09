@@ -17,6 +17,19 @@ jQuery( document ).ready(function() {
         }
         return true;
     });
+
+    if(jQuery('input:radio[name="_dci_evento_is_luogo_esa"]:checked').val() == "true"){
+        jQuery(".cmb2-id--dci-evento-posizione-gps-luogo-custom").hide();
+    }else{
+        jQuery(".cmb2-id--dci-evento-posizione-gps-luogo-custom").show();
+    }
+    jQuery('input:radio[name="_dci_evento_is_luogo_esa"]').change( function(){
+        if (jQuery(this).is(':checked') && jQuery(this).val() == 'true') {
+            jQuery(".cmb2-id--dci-evento-posizione-gps-luogo-custom").hide();
+        }else{
+            jQuery(".cmb2-id--dci-evento-posizione-gps-luogo-custom").show();
+        }
+    });
 });
 
 
