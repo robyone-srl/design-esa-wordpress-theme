@@ -109,14 +109,4 @@ function dci_add_punto_contatto_metaboxes() {
             'maxlength'  => '160'
         ),
     ) );
-
-
-
-    $cmb_dati->add_field( array(
-        'id' => $prefix . 'persona',
-        'name'    => __( 'Persona', 'design_comuni_italia' ),
-        'desc' => __( 'Se una persona è un punto di contatto di un\'altra Tipologia' , 'design_comuni_italia' ),
-        'type'    => 'pw_select',
-        'options' => dci_get_posts_options('persona_pubblica'),
-    ) );
 }
