@@ -256,7 +256,7 @@ function dci_add_luogo_metaboxes() {
     $cmb_servizi->add_field( array(
         'id' => $prefix . 'servizi',
         'name'        => __( 'Servizi privati erogati nel luogo', 'design_comuni_italia' ),
-        'desc' => __( 'Se il luogo presenta servizi di carattere privato, descrizione testuale del servizio e link esterno al servizio. Se il luogo è sede di unità organizzativa abbiamo i servizi collegati all\'Unità organizzativa' , 'design_comuni_italia' ),
+        'desc' => __( 'Se il luogo presenta servizi di carattere privato, descrizione testuale del servizio e link esterno al servizio.' , 'design_comuni_italia' ),
         'type' => 'wysiwyg',
         'options' => array(
             'media_buttons' => false, // show insert/upload button(s)

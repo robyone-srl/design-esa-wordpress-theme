@@ -44,17 +44,7 @@ get_header();
 
             $sede_di = dci_get_meta('sede_di', $prefix, $post->ID);
 
-            $servizi = array();
-            if(!empty($sede_di) && is_array($sede_di)){
-                foreach($sede_di as $uo) {
-                    $uoservices = dci_get_meta('elenco_servizi_offerti', '_dci_unita_organizzativa_', $uo);
-                    if(!empty($uoservices))
-                        $servizi = array_merge($servizi, $uoservices);
-                }
-            }
-
-            $servizi_erogati = dci_get_meta('servizi_erogati', $prefix, $post->ID) ?: [];
-            $servizi = array_merge($servizi, $servizi_erogati); 
+            $servizi = dci_get_meta('servizi_erogati', $prefix, $post->ID) ?: [];
 
             $nome_alternativo = dci_get_meta('nome_alternativo', $prefix, $post->ID);
 			$more_info = dci_get_wysiwyg_field("ulteriori_informazioni_ifr");
