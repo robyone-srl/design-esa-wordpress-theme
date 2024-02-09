@@ -426,11 +426,12 @@ function dci_add_luogo_metaboxes() {
     ) );
 
     $cmb_informazioni->add_field( array(
-        'id' => $prefix . 'sede_di',
+        'id' => $prefix . 'sede_di_1',
         'name'    => __( 'Sede di: ', 'design_comuni_italia' ),
         'desc' => __( 'Link alle unità organizzative (uffici, aree, organi) presenti nel luogo. Puoi modificare il luogo di un\'unità organizzativa nelle sue impostazioni.' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('unita_organizzativa'),
+        'default_cb' => 'set_to_current_luogo_sede_di',
         'attributes' => array(
             'placeholder' =>  __( 'Seleziona le Unità Organizzative', 'design_comuni_italia' ),
             'disabled' => 'true',
@@ -554,3 +555,7 @@ new dci_bidirectional_cmb2("_dci_luogo_", "luogo", "luoghi_collegati", "box_desc
 
 // relazione bidirezionale servizi / luoghi
 new dci_bidirectional_cmb2("_dci_luogo_", "luogo", "servizi_erogati", "box_servizi", "_dci_servizio_canale_fisico_luoghi");
+
+function set_to_current_luogo_sede_di($field_args, $field  ) {
+	return dci_get_meta("sede_di", "_dci_luogo_", $field->object_id) ?? [];
+}

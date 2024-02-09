@@ -45,28 +45,16 @@ get_header();
             $sede_di = dci_get_meta('sede_di', $prefix, $post->ID);
 
             $servizi = array();
-            if(!empty($sede_di) && is_array($sede_di))
+            if(!empty($sede_di) && is_array($sede_di)){
                 foreach($sede_di as $uo) {
                     $uoservices = dci_get_meta('elenco_servizi_offerti', '_dci_unita_organizzativa_', $uo);
                     if(!empty($uoservices))
                         $servizi = array_merge($servizi, $uoservices);
                 }
+            }
 
-            $args = array(
-                'post_type' => 'servizio',
-                'meta_query' => array(
-                    array(
-                        'key'     => '_dci_incarico_persona',
-                        'value'   => $post->ID
-                    ),
-                ),
-                'numberposts' => -1,
-                'post_status' => 'publish',
-                'orderby' => 'post_title',
-                'order' => 'ASC',
-            );
-            $the_query = new WP_Query( $args );
-            $incarichi = get_posts($args);
+            $servizi_erogati = dci_get_meta('servizi_erogati', $prefix, $post->ID) ?: [];
+            $servizi = array_merge($servizi, $servizi_erogati); 
 
             $nome_alternativo = dci_get_meta('nome_alternativo', $prefix, $post->ID);
 			$more_info = dci_get_wysiwyg_field("ulteriori_informazioni_ifr");
@@ -304,7 +292,7 @@ get_header();
                                 </section>
                             <?php } ?>
 
-                            <?php if ($servizi_privati || isset($servizi)) { ?>
+                            <?php if ($servizi_privati || (is_array($servizi) && count($servizi))) { ?>
                                 <section id="servizi" class="it-page-section mb-4">
                                     <h2 class="h3 my-2">Servizi presenti nel luogo</h2>
 
@@ -321,8 +309,9 @@ get_header();
                                         </div>
 							        <?php } ?>
 
-                                    <?php if ($servizi_privati) { ?>
-                                        <h3 class="h4">Altri servizi</h3>
+                                    <?php
+                                    if ($servizi_privati) { 
+                                        if(is_array($servizi) && count($servizi)){ ?> <h3 class="h4 mt-2">Altri servizi</h3> <?php } ?>
                                         <div class="richtext-wrapper lora">
                                             <?php echo $servizi_privati ?>
                                         </div>
