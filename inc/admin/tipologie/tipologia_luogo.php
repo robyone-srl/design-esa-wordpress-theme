@@ -241,10 +241,21 @@ function dci_add_luogo_metaboxes() {
         'context'      => 'normal',
         'priority'     => 'high',
     ) );
+    
+    $cmb_servizi->add_field( array(
+        'id' => $prefix . 'servizi_erogati',
+        'name'        => __( 'Servizi erogati in questo luogo', 'design_comuni_italia' ),
+        'desc' => __( 'Scegli i servizi che vengono erogati in questo luogo' , 'design_comuni_italia' ),
+        'type'    => 'pw_multiselect',
+        'options' => dci_get_posts_options('servizio'),
+        'attributes' => array(
+            'placeholder' =>  __( 'Seleziona i servizi', 'design_comuni_italia' ),
+        ),
+    ) );
 
     $cmb_servizi->add_field( array(
         'id' => $prefix . 'servizi',
-        'name'        => __( 'Servizi presenti nel luogo', 'design_comuni_italia' ),
+        'name'        => __( 'Servizi privati erogati nel luogo', 'design_comuni_italia' ),
         'desc' => __( 'Se il luogo presenta servizi di carattere privato, descrizione testuale del servizio e link esterno al servizio. Se il luogo è sede di unità organizzativa abbiamo i servizi collegati all\'Unità organizzativa' , 'design_comuni_italia' ),
         'type' => 'wysiwyg',
         'options' => array(
@@ -542,4 +553,4 @@ new dci_bidirectional_cmb2("_dci_luogo_", "luogo", "sede_di", "box_informazioni"
 new dci_bidirectional_cmb2("_dci_luogo_", "luogo", "luoghi_collegati", "box_descrizione", "_dci_luogo_luoghi_collegati");
 
 // relazione bidirezionale servizi / luoghi
-//new dci_bidirectional_cmb2("_dci_luogo_", "luogo", "servizi_presenti", "box_elementi_dati", "_dci_servizio_luoghi");
+new dci_bidirectional_cmb2("_dci_luogo_", "luogo", "servizi_erogati", "box_servizi", "_dci_servizio_canale_fisico_luoghi");

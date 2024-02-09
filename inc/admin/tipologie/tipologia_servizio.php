@@ -418,13 +418,13 @@ $cmb_destinatari->add_field( array(
     ) );
 
     $cmb_accesso->add_field( array(
-        'id' => $prefix . 'canale_fisico_uffici',
-        'name'        => __( 'Uffici (canale fisico)', 'design_comuni_italia' ),
-        'desc' => __( 'Uffici che erogano il servizio ' , 'design_comuni_italia' ),
+        'id' => $prefix . 'canale_fisico_luoghi',
+        'name'        => __( 'Luoghi (canale fisico)', 'design_comuni_italia' ),
+        'desc' => __( 'Luoghi in cui viene erogato il servizio ' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
-        'options' => dci_get_posts_options('unita_organizzativa'),
+        'options' => dci_get_posts_options('luogo'),
         'attributes' => array(
-            'placeholder' =>  __( 'Seleziona le Unità Organizzative', 'design_comuni_italia' ),
+            'placeholder' =>  __( 'Seleziona i luoghi', 'design_comuni_italia' ),
         ),
     ) );
 
@@ -727,3 +727,5 @@ new dci_bidirectional_cmb2("_dci_servizio_", "servizio", "documenti", "box_docum
 new dci_bidirectional_cmb2("_dci_servizio_", "servizio", "servizi_inclusi", "box_destinatari", "_dci_servizio_servizi_richiesti");
 
 new dci_bidirectional_cmb2("_dci_servizio_", "servizio", "servizi_richiesti", "box_destinatari", "_dci_servizio_servizi_inclusi");
+
+new dci_bidirectional_cmb2("_dci_servizio_", "servizio", "canale_fisico_luoghi", "box_accedi_servizio", "_dci_luogo_servizi_erogati");
