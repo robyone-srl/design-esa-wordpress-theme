@@ -38,9 +38,9 @@ get_header();
             $canale_digitale_label = dci_get_meta("canale_digitale_label");
             $canale_digitale_link = dci_get_meta("canale_digitale_link");
             $canale_fisico_text = dci_get_meta("canale_fisico_text");
-            $canale_fisico_uffici = dci_get_meta("canale_fisico_uffici");
+            $canale_fisico_luoghi_id = dci_get_meta("canale_fisico_luoghi");
             $mostra_prenota_appuntamento = dci_get_option("prenota_appuntamento", "servizi");
-            $mostra_accedi_al_servizio = $canale_digitale_link || $canale_fisico_text || $canale_fisico_uffici || $mostra_prenota_appuntamento;
+            $mostra_accedi_al_servizio = $canale_digitale_link || $canale_fisico_text || $mostra_prenota_appuntamento || $canale_fisico_luoghi_id;
 
             $more_info = dci_get_wysiwyg_field("ulteriori_informazioni");
             $condizioni_servizio = dci_get_meta("condizioni_servizio");     
@@ -53,8 +53,8 @@ get_header();
             $categoria_servizio = $categorie[0]->name;
             $ipa = dci_get_meta('codice_ente_erogatore');
             $copertura_geografica = dci_get_wysiwyg_field("copertura_geografica");
-            if ($canale_fisico_uffici[0]??null) {
-                $ufficio = get_post($canale_fisico_uffici[0]);
+            if ($uo_id??null) {
+                $ufficio = get_post($uo_id);
                 $luogo_id = dci_get_meta('sede_principale', '_dci_unita_organizzativa_', $ufficio->ID);
                 $indirizzo = dci_get_meta('indirizzo', '_dci_luogo_', $luogo_id);
                 $quartiere = dci_get_meta('quartiere', '_dci_luogo_', $luogo_id);
@@ -526,6 +526,10 @@ get_header();
                                     <span class="">Prenota appuntamento</span>
                                 </button>
                                 <?php } ?>
+                                <?php foreach ($canale_fisico_luoghi_id as $luogo_id) {
+                                    $luogo = get_post($luogo_id);
+                                    get_template_part("template-parts/luogo/card-title");
+                                } ?>
                             </section>
                             <?php } ?>
                             <?php if ( $condizioni_servizio ) {
