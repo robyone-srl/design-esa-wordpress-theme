@@ -21,8 +21,8 @@ if(dci_get_meta("circoscrizione_luogo_custom") != "")
 	<div class="card-body p-0">
 		<div class="row variable-gutters">
 			<div class="col-lg-12">
-				<div class="map-wrapper map-min-height">
-					<div class="map" id="map_<?php echo $c; ?>"></div>
+				<div class="map-wrapper h-100">
+					<div class="map h-100" id="map_<?php echo $c; ?>"></div>
 				</div>
 			</div><!-- /col-lg-12 -->
 		</div><!-- /row -->

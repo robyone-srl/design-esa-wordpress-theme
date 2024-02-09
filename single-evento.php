@@ -35,6 +35,11 @@ get_header();
         $video = dci_get_meta("video", $prefix, $post->ID);
         $trascrizione = dci_get_meta("trascrizione", $prefix, $post->ID);
         $persone = dci_get_meta("persone", $prefix, $post->ID);
+        $is_luogo_esa = dci_get_meta("is_luogo_esa") == "true";
+        if(!$is_luogo_esa){
+            $luogo_evento_id = dci_get_meta("luogo_evento", $prefix, $post->ID);
+            $luogo_evento = $luogo_evento_id ? get_post($luogo_evento_id) : null;
+        }
         $luogo_evento_id = dci_get_meta("luogo_evento", $prefix, $post->ID);
         $luogo_evento = $luogo_evento_id ? get_post($luogo_evento_id) : null;
         $costi = dci_get_meta('costi');
@@ -117,7 +122,7 @@ get_header();
                                                                     </a>
                                                                 </li>
                                                             <?php } ?>
-                                                            <?php if ($luogo_evento) { ?>
+                                                            <?php if ($luogo_evento || !$is_luogo_esa) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#luogo">
                                                                         <span class="title-medium">Luogo</span>
@@ -213,15 +218,17 @@ get_header();
                         </article>
                     <?php  } ?>
 
-                    <?php if ($luogo_evento) { ?>
-                        <article id="luogo" class="it-page-section mb-5">
-                            <h2 class="h3 mb-3">Luogo</h2>
+                    <article id="luogo" class="it-page-section mb-5">
+                        <h2 class="h3 mb-3">Luogo</h2>
+                        <?php if ($is_luogo_esa && $luogo_evento) { ?>
                             <?php
                             $luogo = $luogo_evento;
                             get_template_part("template-parts/single/luogo");
                             ?>
-                        </article>
-                    <?php } ?>
+                        <?php } else {
+                            get_template_part( "template-parts/luogo/card", "custom" );
+                        } ?>
+                    </article>
 
                     <?php if ($start_timestamp || $end_timestamp) { ?>
                         <article id="date-e-orari" class="it-page-section mb-5">
