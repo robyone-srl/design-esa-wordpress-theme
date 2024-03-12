@@ -316,3 +316,27 @@ function save_menu_item_desc($menu_id, $menu_item_db_id)
 add_action('wp_update_nav_menu_item', 'save_menu_item_desc', 10, 2);
 
 // END menu item image
+
+
+ // Restituisce il formato e le dimensioni di un allegato
+function getFileSizeAndFormat($url) {
+    $percorso = parse_url($url);
+    $percorso = isset($percorso["path"]) ? substr($percorso["path"], 0, -strlen(pathinfo($url, PATHINFO_BASENAME))) : '';
+    $response = wp_remote_head($url);
+
+    if (is_wp_error($response)) {
+        return 'Errore nel recupero delle informazioni del file';
+    }
+
+    $headers = wp_remote_retrieve_headers($response);
+    $content_length = isset($headers['content-length']) ? intval($headers['content-length']) : 0;
+
+    $base = log($content_length, 1024);
+    $suffixes = array('', 'Kb', 'Mb', 'Gb', 'Tb');
+    $size_formatted = round(pow(1024, $base - floor($base)), 2) . ' ' . $suffixes[floor($base)];
+
+    $info_file = pathinfo($url);
+    $file_format = strtoupper(isset($info_file['extension']) ? $info_file['extension'] : '');
+
+    return $file_format . ' ' . $size_formatted;
+}
