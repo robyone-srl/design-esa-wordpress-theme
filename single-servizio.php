@@ -222,7 +222,7 @@ get_header();
                                                                     </a>
                                                                 </li>
                                                                 <?php } ?>
-                                                                <?php if ( is_array($cosa_serve_list) ) { ?>
+                                                                <?php if ( $cosa_serve_intro || is_array($cosa_serve_list) ) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#needed">
                                                                         <span class="title-medium">Cosa serve</span>
@@ -386,7 +386,7 @@ get_header();
                                 </div>
                             </section>
                             <?php } ?>
-                            <?php if ( $cosa_serve ?? false ) { ?>
+                            <?php if ( $cosa_serve_intro ?? false ) { ?>
                             <section class="it-page-section mb-30">
                                 <h2 class="h3 mb-3" id="needed">Cosa serve</h2>
                                 <div class="richtext-wrapper lora" data-element="service-needed">
