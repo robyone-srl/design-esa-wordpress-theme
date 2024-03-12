@@ -131,7 +131,7 @@ function dci_add_notizia_metaboxes() {
     $cmb_apertura->add_field( array(
         'id' => $prefix . 'data_scadenza',
         'name'    => __( 'Data di scadenza', 'design_comuni_italia' ),
-        'desc' => __( 'Data di pubblicazione della notizia. Eventuale data di scadenza (in caso di avviso pubblicato)' , 'design_comuni_italia' ),
+        'desc' => __( 'Eventuale data di scadenza (dalla quale la notizia non sarà più visibile). Eventuali allegati resteranno comunque raggiungibili attraverso l\'URL.' , 'design_comuni_italia' ),
         'type'    => 'text_date_timestamp',
         'date_format' => 'd-m-Y',
     ) );
@@ -301,3 +301,45 @@ function dci_notizia_set_post_content( $data ) {
     return $data;
 }
 add_filter( 'wp_insert_post_data' , 'dci_notizia_set_post_content' , '99', 1 );
+
+
+/**
+ * aggiungo il cron per cambiare lo stato alle notizie quando scadono
+ */
+
+add_action('after_switch_theme', 'dsi_cron_notizie');
+
+function dsi_cron_notizie()
+{
+    if (!wp_next_scheduled('dsi_cron_notizie_daily')) {
+        wp_schedule_event(time(), 'daily', 'dsi_cron_notizie_daily');
+    }
+}
+
+add_action('dsi_cron_notizie_daily', 'dsi_check_notizie_daily');
+
+function dsi_check_notizie_daily()
+{
+    $date = new DateTime();
+    $date->setTime(0, 0); // removes the time part and leaves only the date part
+
+    // cerco tutte le notizie con data di scadenza passata
+    $args = array(
+        "post_type" => "notizia",
+        "numberposts" => -1,
+        'meta_query'  => array(
+            array(
+                'key' => '_dci_notizia_data_scadenza',
+                'value' => $date->getTimestamp(),
+                'compare' => '<=',
+                'type' => 'numeric'
+            )
+        )
+    );
+    $scaduti = get_posts($args);
+
+    foreach ($scaduti as $item) {
+        $post = array('ID' => $item->ID, 'post_status' => "private");
+        wp_update_post($post);
+    }
+}
