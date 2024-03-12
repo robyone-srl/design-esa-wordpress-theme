@@ -26,6 +26,7 @@ get_header();
             $descrizione_breve = dci_get_meta("descrizione_breve");
             $url_documento = dci_get_meta("url_documento");
             $file_documento = dci_get_meta("file_documento");
+            $file_allegati = dci_get_meta("file_allegati") ?? [];
             $descrizione = dci_get_wysiwyg_field("descrizione_estesa");
             $ufficio_responsabile = dci_get_meta("ufficio_responsabile");
             $autori = dci_get_meta("autori");
@@ -103,7 +104,7 @@ get_header();
                                                                 </li>
                                                                 <?php } ?>
 
-                                                                <?php if( $url_documento || $file_documento ) { ?>
+                                                                <?php if( $url_documento || $file_documento || !empty($file_allegati)) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#documento">
                                                                         <span class="title-medium">Documento</span>
@@ -221,24 +222,8 @@ get_header();
                                 <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
                                 <?php
                                     if ( $file_documento ) {
-                                        $documento_id = attachment_url_to_postid($file_documento);
-                                        $documento = get_post($documento_id);
-                                        ?>
-                                        <div class="card card-teaser shadow-sm p-4 mt-3 rounded border border-light flex-nowrap">
-                                            <svg class="icon" aria-hidden="true">
-                                                <use
-                                                    xlink:href="#it-clip"
-                                                ></use>
-                                            </svg>
-                                            <div class="card-body">
-                                                <h5 class="card-title">
-                                                    <a class="text-decoration-none" href="<?php echo $file_documento; ?>" aria-label="Scarica il documento <?php echo $documento->post_title; ?>" title="Scarica il documento <?php echo $documento->post_title; ?>">
-                                                        <?php echo $documento->post_title; ?> (<?php echo getFileSizeAndFormat($file_documento);?>)
-                                                    </a>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    <?php }
+                                        dsi_get_documento_card($file_documento);
+                                    }
 
                                     if ( $url_documento ) { ?>
                                         <div class="card card-teaser shadow-sm p-4 mt-3 rounded border border-light flex-nowrap">
@@ -257,6 +242,15 @@ get_header();
                                         </div>
                                     <?php } ?>
                                 </div><!-- ./card-wrapper -->
+
+                                <?php if(!empty($file_allegati)){ ?>
+                                    <h5 class="mt-2">Allegati</h5>
+                                    <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
+                                        <?php foreach ($file_allegati as $url) {
+                                            dsi_get_documento_card($url);
+                                        } ?>
+                                    </div>
+                                <?php } ?>
                             </section>
                             <?php } ?>
 
@@ -396,3 +390,24 @@ get_header();
     </script>
 <?php
 get_footer();
+
+function dsi_get_documento_card($url){
+    $documento_id = attachment_url_to_postid($url);
+    $documento = get_post($documento_id);
+    ?>
+    <div class="card card-teaser shadow-sm my-2 p-4 rounded border border-light flex-nowrap">
+        <svg class="icon" aria-hidden="true">
+            <use
+                xlink:href="#it-clip"
+            ></use>
+        </svg>
+        <div class="card-body">
+            <h5 class="card-title mb-0">
+                <a class="text-decoration-none" href="<?php echo $url; ?>" aria-label="Scarica il documento <?php echo $documento->post_title; ?>" title="Scarica il documento <?php echo $documento->post_title; ?>">
+                    <?php echo $documento->post_title; ?> (<?php echo getFileSizeAndFormat($url);?>)
+                </a>
+            </h5>
+        </div>
+    </div>
+<?php
+}
