@@ -360,15 +360,18 @@ function dci_get_tipologie_singular_labels(){
 	}
 
 	public function posts_delete( $post_ID ) {
+        if ( $this->post_type_from !== get_post_type( $post_ID ) )
+            return;
+
 		if ( ! $unbind_posts = get_post_meta( $post_ID, $this->post_field_from, true ) ) {
 			return;
 		}
-		foreach ( $unbind_posts as $value => $id ) {
-			$post_values = get_post_meta( $id, $this->post_field_from, true );
+		foreach ( (array)$unbind_posts as $value => $id ) {
+			$post_values = get_post_meta( $id, $this->post_field_to, true );
 			if(is_array($post_values)){
                 $pos = array_search( $post_ID, $post_values );
                 unset( $post_values[ $pos ] );
-                update_post_meta( $id, $this->post_field_from, $post_values );
+                update_post_meta( $id, $this->post_field_to, $post_values );
             }
 
 		}
