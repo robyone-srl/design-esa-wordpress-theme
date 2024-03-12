@@ -345,6 +345,7 @@ function dci_get_tipologie_singular_labels(){
 
 		add_action( 'pre_post_update', array(&$this, 'get_old_values') );
 		add_action( 'before_delete_post', array(&$this,'posts_delete') );
+		add_action( 'save_post_'.$post_type_from, array(&$this,'posts_save'), 10, 3 );
 		add_action( 'cmb2_save_field_'.$this->post_field_from, array(&$this,'posts_bidirectional'), 10, 3 );
 	}
 
@@ -376,6 +377,19 @@ function dci_get_tipologie_singular_labels(){
 
 		}
 	}
+
+    public function posts_save($post_id, $post, $update){
+
+        //check if all related entities still exist and remove those that don't
+
+        $old_values = get_post_meta($post_id, $this->post_field_from, true);
+
+        if(!$old_values || !is_array($old_values))
+            return;
+        
+        $new_values = array_filter($old_values, fn ($other_post_id) => get_post($other_post_id));
+        update_post_meta( $post_id, $this->post_field_from, $new_values );
+    }
 
 
     public function posts_bidirectional( $updated, $action, $field ) {
