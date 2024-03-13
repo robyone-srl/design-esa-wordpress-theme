@@ -286,7 +286,7 @@ get_header();
 
                             <?php if ($licenza) { ?>
                             <section id="licenza_distribuzione" class="it-page-section mb-5">
-                                <h4>Licenza distribuzione</h4>
+                                <h4>Licenza di distribuzione</h4>
                                 <div class="richtext-wrapper lora">
                                     <?php foreach($licenza as $tipo) { 
                                         echo $tipo->name;
