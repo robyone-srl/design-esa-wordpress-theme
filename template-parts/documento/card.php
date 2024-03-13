@@ -1,5 +1,7 @@
 <?php
-global $documento, $file_documento;
+global $documento;
+
+$url = get_permalink($documento->ID);
 ?>
 <div class="card card-teaser shadow-sm p-4s rounded border border-light flex-nowrap">
     <svg class="icon" aria-hidden="true"> 
@@ -7,8 +9,8 @@ global $documento, $file_documento;
     </svg>
     <div class="card-body">
         <h5 class="card-title">
-            <a class="text-decoration-none" href="<?php echo $file_documento; ?>" aria-label="Scarica il documento <?php echo $documento->post_title; ?>" title="Scarica il documento <?php echo $documento->post_title; ?>">
-                <?php echo $documento->post_title; ?> (<?php echo getFileSizeAndFormat($file_documento);?>)
+            <a class="text-decoration-none" href="<?php echo $url; ?>" aria-label="Vai al documento <?php echo $documento->post_title; ?>" title="Vai al documento <?php echo $documento->post_title; ?>">
+                <?php echo $documento->post_title; ?>
             </a>
         </h5>
         <div class="card-text">

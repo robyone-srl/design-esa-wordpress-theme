@@ -121,7 +121,7 @@ get_header();
                                                                 <?php if( $autori) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#autore">
-                                                                        <span class="title-medium">Autore/i</span>
+                                                                        <span class="title-medium">Autori</span>
                                                                     </a>
                                                                 </li>
                                                                 <?php } ?>
@@ -266,12 +266,10 @@ get_header();
 
                             <?php if ($autori &&  is_array($autori) && count($autori)) { ?>
                             <section id="autore" class="it-page-section mb-5">
-                                <h4>Autore/i</h4>
+                                <h4>Autori</h4>
                                 <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
-                                    <?php foreach ($autori as $persona_id) { ?>
-                                        <div class="card card-teaser shadow-sm p-4 mt-3 rounded border border-light flex-nowrap">
-                                            <?php get_template_part("template-parts/persona/card"); ?>
-                                        </div>
+                                    <?php foreach ($autori as $pp_id) { ?>
+                                        <?php get_template_part("template-parts/persona_pubblica/card"); ?>
                                     <?php } ?>
                                 </div>
                             </section>
