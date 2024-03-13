@@ -19,7 +19,7 @@ jQuery( document ).ready(function() {
         /**
          * controllo compilazione campo GPS
          */
-        if(document.activeElement.id === 'publish' && (jQuery('input[name^="_dci_evento_posizione_gps_luogo_custom[lat]"]').attr('value') === '' || jQuery('input[name^="_dci_evento_posizione_gps_luogo_custom[lng]"]').attr('value') === '')) {
+        if(document.activeElement.id === 'publish' && (jQuery('input[name^="_dci_evento_posizione_gps_luogo_custom[lat]"][required]').attr('value') === '' || jQuery('input[name^="_dci_evento_posizione_gps_luogo_custom[lng]"][required]').attr('value') === '')) {
             dci_highlight_missing_field('.cmb2-id--dci-evento-posizione-gps-luogo-custom');
             return false;
         }
@@ -46,6 +46,8 @@ function dci_is_luogo_esa_enabled(){
     jQuery("#_dci_evento_luogo_evento").attr("required", true);
     jQuery("#_dci_evento_nome_luogo_custom").removeAttr('required');
     jQuery("#_dci_evento_indirizzo_luogo_custom").removeAttr('required');
+    jQuery("#_dci_evento_posizione_gps_luogo_custom_lat").removeAttr('required');
+    jQuery("#_dci_evento_posizione_gps_luogo_custom_lng").removeAttr('required');
 }
 
 function dci_is_luogo_esa_disabled(){
@@ -54,6 +56,8 @@ function dci_is_luogo_esa_disabled(){
     jQuery("#_dci_evento_luogo_evento").removeAttr('required');
     jQuery("#_dci_evento_nome_luogo_custom").attr("required", true);
     jQuery("#_dci_evento_indirizzo_luogo_custom").attr("required", true);
+    jQuery("#_dci_evento_posizione_gps_luogo_custom_lat").attr("required", true);
+    jQuery("#_dci_evento_posizione_gps_luogo_custom_lng").attr("required", true);
 }
 
 
