@@ -8,7 +8,7 @@
  * @package Design_Comuni_Italia
  */
 
-global $the_query, $load_posts, $load_card_type, $documento, $additional_filter, $title, $description, $data_element, $hide_categories;
+global $the_query, $load_posts, $load_card_type, $documento, $tax_query, $title, $description, $data_element, $hide_categories;
 
 $obj = get_queried_object();
 $max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 3;
@@ -25,7 +25,7 @@ $args = array(
 $the_query = new WP_Query( $args );
 $documenti = $the_query->posts;
 
-$additional_filter = array(
+$tax_query = array(
 	array (
 		'taxonomy' => 'tipi_documento',
 		'field' => 'slug',

@@ -8,7 +8,7 @@
  * @package Design_Comuni_Italia
  */
 
-global $the_query, $load_posts, $load_card_type, $servizio, $additional_filter, $title, $description, $data_element, $hide_categories;
+global $the_query, $load_posts, $load_card_type, $servizio, $tax_query, $title, $description, $data_element, $hide_categories;
 
 $obj = get_queried_object();
 $max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 3;
@@ -25,12 +25,13 @@ $args = array(
 $the_query = new WP_Query( $args );
 $servizi = $the_query->posts;
 
-$additional_filter = array(
-	array (
-		'taxonomy' => 'categorie_servizio',
-		'field' => 'slug',
-		'terms' => $obj->slug
-	));
+$tax_query = array(
+  array(
+    'taxonomy' => 'categorie_servizio',
+    'field' => 'slug',
+    'terms' => $obj->slug
+  )
+);
 
 $amministrazione = dci_get_related_unita_amministrative();
 $bandi = dci_get_related_bandi();
