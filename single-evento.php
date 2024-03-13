@@ -35,13 +35,12 @@ get_header();
         $video = dci_get_meta("video", $prefix, $post->ID);
         $trascrizione = dci_get_meta("trascrizione", $prefix, $post->ID);
         $persone = dci_get_meta("persone", $prefix, $post->ID);
-        $is_luogo_esa = dci_get_meta("is_luogo_esa") == "true";
-        if(!$is_luogo_esa){
+        $is_luogo_esa = dci_get_meta("is_luogo_esa") != "false"; //before 1.7.5.12, this meta value was not present
+        if ($is_luogo_esa) {
             $luogo_evento_id = dci_get_meta("luogo_evento", $prefix, $post->ID);
             $luogo_evento = $luogo_evento_id ? get_post($luogo_evento_id) : null;
         }
-        $luogo_evento_id = dci_get_meta("luogo_evento", $prefix, $post->ID);
-        $luogo_evento = $luogo_evento_id ? get_post($luogo_evento_id) : null;
+        $show_luogo = $luogo_evento || !$is_luogo_esa;
         $costi = dci_get_meta('costi');
         $allegati = dci_get_meta("allegati", $prefix, $post->ID);
         $punti_contatto = dci_get_meta("punti_contatto", $prefix, $post->ID);
@@ -218,17 +217,19 @@ get_header();
                         </article>
                     <?php  } ?>
 
-                    <article id="luogo" class="it-page-section mb-5">
-                        <h2 class="h3 mb-3">Luogo</h2>
-                        <?php if ($is_luogo_esa && $luogo_evento) { ?>
-                            <?php
-                            $luogo = $luogo_evento;
-                            get_template_part("template-parts/single/luogo");
-                            ?>
-                        <?php } else {
-                            get_template_part( "template-parts/luogo/card", "custom" );
-                        } ?>
-                    </article>
+                    <?php if ($show_luogo) { ?>
+                        <article id="luogo" class="it-page-section mb-5">
+                            <h2 class="h3 mb-3">Luogo</h2>
+                            <?php if ($is_luogo_esa && $luogo_evento) { ?>
+                                <?php
+                                $luogo = $luogo_evento;
+                                get_template_part("template-parts/single/luogo");
+                                ?>
+                            <?php } else if (!$is_luogo_esa) {
+                                get_template_part("template-parts/luogo/card", "custom");
+                            } ?>
+                        </article>
+                    <?php   } ?>
 
                     <?php if ($start_timestamp || $end_timestamp) { ?>
                         <article id="date-e-orari" class="it-page-section mb-5">
@@ -274,7 +275,7 @@ get_header();
                             <?php
                             $data_inizio = date_i18n("Ymd\THi00", date($start_timestamp));
                             $data_fine = date_i18n("Ymd\THi00", date($end_timestamp));
-                            $luogo = $luogo_evento->post_title;
+                            $luogo = $luogo_evento->post_title ?? '';
                             ?>
                             <div class="mt-5">
                                 <a target="_blank" href="https://calendar.google.com/calendar/r/eventedit?text=<?php echo urlencode(get_the_title()); ?>&dates=<?php echo $data_inizio; ?>/<?php echo $data_fine; ?>&details=<?php echo urlencode($descrizione_breve); ?>:+<?php echo urlencode(get_permalink()); ?>&location=<?php echo urlencode($luogo); ?>" class="btn btn-outline-primary btn-icon">
@@ -380,7 +381,7 @@ get_header();
                                 echo '</ul></div>';
                             }
                         }
-                        
+
                         ?>
                         <h3 class="visually-hidden">Altro</h3>
                         <?php if ($more_info) { ?>

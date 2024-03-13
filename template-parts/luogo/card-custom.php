@@ -2,15 +2,18 @@
 global $post;
 $c=0;
 
-$nome_luogo_custom = dci_get_meta("nome_luogo_custom");
+$nome_luogo_custom = trim(dci_get_meta("nome_luogo_custom"));
 $posizione_gps =  dci_get_meta("posizione_gps_luogo_custom");
-$indirizzo_luogo_custom = dci_get_meta("indirizzo_luogo_custom");
+$indirizzo_luogo_custom = trim(dci_get_meta("indirizzo_luogo_custom"));
 $arrq = array();
-if(dci_get_meta("quartiere_luogo_custom") != "")
+if(trim(dci_get_meta("quartiere_luogo_custom")))
 	$arrq[]=dci_get_meta("quartiere_luogo_custom");
-if(dci_get_meta("circoscrizione_luogo_custom") != "")
+if(trim(dci_get_meta("circoscrizione_luogo_custom")))
 	$arrq[]=dci_get_meta("circoscrizione_luogo_custom");
 ?>
+
+
+<?php if($nome_luogo_custom || $indirizzo_luogo_custom || !empty($arrq)) { ?>
 
 <div class="card card-bg rounded mb-5">
 	<div class="card-header">
@@ -18,6 +21,7 @@ if(dci_get_meta("circoscrizione_luogo_custom") != "")
 		<small class="d-block"><?php echo  $indirizzo_luogo_custom; ?></small>
 		<small class="d-block"><?php echo implode(" - ", $arrq);  ?></small>
 	</div><!-- /card-header -->
+
 	<div class="card-body p-0">
 		<div class="row variable-gutters">
 			<div class="col-lg-12">
@@ -45,3 +49,4 @@ if(dci_get_meta("circoscrizione_luogo_custom") != "")
         }).addTo(mymap);
     });
 </script>
+<?php } ?>
