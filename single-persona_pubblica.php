@@ -64,6 +64,8 @@ get_header();
      	foreach($inc_list as $incarico) {
         	array_push($incarichi,$incarico->post_title);
      	}
+        
+        $incarichi = array_unique($incarichi);
     ?>
 
     <div class="container" id="main-container">

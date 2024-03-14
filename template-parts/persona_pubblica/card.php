@@ -31,10 +31,13 @@ if(!$hide_incarichi){
         array_push($incarichi, $incarico->post_title);
     }
 }
+
+$incarichi = array_unique($incarichi);
+
 ?>
 
 <div class="card card-teaser <?= $with_border ? 'border border-light shadow-sm' : 'shadow' ?> rounded p-4">
-    <div class="card-body pe-3">
+    <div class="card-body pe-3 flex-nowrap">
         <h4 class="u-main-black mb-1 title-small-semi-bold-medium cart-title">
             <a class="text-decoration-none" href="<?php echo get_permalink($persona->ID); ?>">
                 <?php echo $persona->post_title; ?>
