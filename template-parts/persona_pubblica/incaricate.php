@@ -4,14 +4,14 @@ global $the_query, $load_posts, $load_card_type, $tax_query, $additional_filter,
 $query = $_GET['search'] ?? null;
 
 switch ($post->post_name){
-	case 'politici': $tipo_incarico = 'politico'; $descrizione = 'del personale'; $max_posts = $_GET['max_posts'] ?? null;  $load_posts = 9; break;
-	case 'personale-amministrativo': $tipo_incarico = 'amministrativo'; $descrizione = 'del personale'; $max_posts = $_GET['max_posts'] ?? null;  $load_posts = 9; break;
-	case 'personale-sanitario': $tipo_incarico = 'sanitario'; $descrizione = 'del personale'; $max_posts = $_GET['max_posts'] ?? null;  $load_posts = 9; break;
-	case 'personale-socio-assistenziale': $tipo_incarico = 'socio-assistenziale'; $descrizione = 'del personale'; $max_posts = $_GET['max_posts'] ?? null;  $load_posts = 9; break;
-	case 'altro': $tipo_incarico = 'altro'; $descrizione = 'del personale'; $max_posts = $_GET['max_posts'] ?? null;  $load_posts = 9; break;
+	case 'politici': $tipo_incarico = 'politico'; $descrizione = 'del personale'; break;
+	case 'personale-amministrativo': $tipo_incarico = 'amministrativo'; $descrizione = 'del personale'; break;
+	case 'personale-sanitario': $tipo_incarico = 'sanitario'; $descrizione = 'del personale'; break;
+	case 'personale-socio-assistenziale': $tipo_incarico = 'socio-assistenziale'; $descrizione = 'del personale'; break;
+	case 'altro': $tipo_incarico = 'altro'; $descrizione = 'del personale'; break;
 }
 
-$tax_query_incarichi = array(
+$tax_query = array(
 	array (
 		'taxonomy' => 'tipi_incarico',
 		'field' => 'slug',
@@ -20,12 +20,11 @@ $tax_query_incarichi = array(
 
 $args_incarichi = array(
 	'post_type' => 'incarico',
-	'post_status' => 'publish',
-	'tax_query' => $tax_query_incarichi
+	'tax_query' => $tax_query,
+    'posts_per_page' => -1
 );
 
-$the_query = new WP_Query( $args_incarichi  );
-$incarichi = $the_query->posts;
+$incarichi = get_posts($args_incarichi);
 $persone_ids = array();
 
 foreach($incarichi as $incarico) {
@@ -40,12 +39,12 @@ $filter_ids = array_unique($persone_ids);
 $search_value = isset($_GET['search']) ? $_GET['search'] : null;
 $args = array(
 	's'         => $search_value,
-	'posts_per_page'    => $load_posts,
+	'posts_per_page'    => -1,
 	'post_type' => 'persona_pubblica',
 	'post_status' => 'publish',
 	'orderby'        => 'post_title',
 	'order'          => 'ASC',
-    'post__in' => $filter_ids,
+    'post__in' => empty($persone_ids) ? [0] : $filter_ids,
 );
 
 $the_query = new WP_Query( $args );
