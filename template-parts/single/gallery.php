@@ -1,29 +1,33 @@
 <?php
 global $gallery;
 ?>
- <div class="it-carousel-wrapper it-carousel-landscape-abstract-three-cols splide" data-bs-carousel-splide>
-	<div class="it-header-block">
-		<div class="it-header-block-title">
-			<h3 class="h4">Galleria di immagini</h4>
-		</div>
-	</div>
+<div class="it-carousel-wrapper it-carousel-landscape-abstract-three-cols it-full-carousel it-standard-image splide" data-bs-carousel-splide>
 	<div class="splide__track">
-		<ul class="splide__list it-carousel-all">
-		<?php
-			foreach ($gallery as $ida=>$urlg){
-				$attach = get_post($ida);
-				$imageatt =  wp_get_attachment_image_src($ida, "item-gallery");
-
-				?>
+		<ul class="splide__list">
+			<?php foreach ($gallery as $photo) { ?>
 				<li class="splide__slide">
 					<div class="it-single-slide-wrapper">
-						<figure>
-						<img src="<?php echo $urlg; ?>" alt="<?php echo esc_attr($attach->post_title); ?>" class="img-fluid">
-						<figcaption class="figure-caption mt-2"><?php echo $attach->post_title; ?></figcaption>
-						</figure>
+						<div class="it-grid-item-wrapper">
+							<a href="<?= wp_get_attachment_image_src(attachment_url_to_postid($photo), 'full')[0] ?>" class="lightbox">
+								<div class="img-responsive-wrapper">
+									<div class="img-responsive">
+										<?php dci_get_img($photo, 'img-wrapper object-fit-cover', 'item-gallery'); ?>
+									</div>
+								</div>
+								<span class="it-griditem-text-wrapper">
+									<span class="it-griditem-text"><?= get_the_title(get_post(attachment_url_to_postid($photo))->ID) ?></span>
+								</span>
+							</a>
+						</div>
 					</div>
 				</li>
-		<?php } ?>                            
+			<?php } ?>
 		</ul>
 	</div>
 </div>
+
+<script>
+	const tobii = new Tobii({
+		captionAttribute: 'title'
+	})
+</script>

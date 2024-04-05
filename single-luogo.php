@@ -378,6 +378,9 @@ get_header();
 
                             <?php if (is_array($gallery) && count($gallery)) { ?>
                             <section id="gallery" class="it-page-section mb-4">
+                                <h3>
+                                    Galleria di immagini
+                                </h3>
                                 <?php get_template_part("template-parts/single/gallery");?>
                             </section>
                             <?php } ?>

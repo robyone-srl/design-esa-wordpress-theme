@@ -1,12 +1,12 @@
 <?php
 // Galleria impostata in Configurazione > Vivere l'ente
-global $sfondo_grigio;
+global $sfondo_grigio, $gallery;
 $sfondo_grigio = $sfondo_grigio ?? true;
 
-$photos = dci_get_option('gallery_items', 'vivi') ?: [];
+$gallery = dci_get_option('gallery_items', 'vivi') ?: [];
 $nome_sezione = dci_get_option('gallery_title', 'vivi') ?: "";
 ?>
-<?php if (count($photos) > 0) { ?>
+<?php if (count($gallery) > 0) { ?>
 	<section id="galleria">
 		<?php if ($nome_sezione) { ?>
 			<div class="section <?= $sfondo_grigio ? 'section-muted' : '' ?> px-lg-5 pt-0 py-0">
@@ -19,35 +19,11 @@ $nome_sezione = dci_get_option('gallery_title', 'vivi') ?: "";
 				</div>
 			</div>
 		<?php } ?>
-		<div class="section <?= $sfondo_grigio ? 'section-muted' : '' ?> px-0 pt-0 it-carousel-wrapper it-carousel-landscape-abstract-three-cols it-full-carousel it-standard-image splide" data-bs-carousel-splide>
-			<div class="splide__track">
-				<ul class="splide__list">
-					<?php foreach ($photos as $photo) { ?>
-						<li class="splide__slide">
-							<div class="it-single-slide-wrapper">
-								<div class="it-grid-item-wrapper">
-									<a href="<?= wp_get_attachment_image_src(attachment_url_to_postid($photo), 'full')[0] ?>" class="lightbox">
-										<div class="img-responsive-wrapper">
-											<div class="img-responsive">
-												<?php dci_get_img($photo, 'img-wrapper object-fit-cover', 'item-gallery'); ?>
-											</div>
-										</div>
-										<span class="it-griditem-text-wrapper">
-											<span class="it-griditem-text"><?= get_the_title(get_post(attachment_url_to_postid($photo))->ID) ?></span>
-										</span>
-									</a>
-								</div>
-							</div>
-						</li>
-					<?php } ?>
-				</ul>
-			</div>
+		<div class="section <?= $sfondo_grigio ? 'section-muted' : '' ?> px-0 pt-0 ">
+			<h4>
+				Galleria di immagini
+			</h4>
+			<?php get_template_part("template-parts/single/gallery"); ?>
 		</div>
 	</section>
-
-	<script>
-		const tobii = new Tobii({
-			captionAttribute: 'title'
-		})
-	</script>
 <?php } ?>
