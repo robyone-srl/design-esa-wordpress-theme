@@ -47,14 +47,14 @@ if ($post_id || ($posts && is_array($posts) && count($posts) > 0)) {
                 <?php }
                 if ($posts && is_array($posts) && count($posts) > 0) { ?>
                     <?php if (!$post_id) { ?>
-                        <div class="row row-title pt-lg-60 pb-3">
+                        <div class="row row-title pt-30 pt-lg-60 pb-3">
                             <div class="col-12 d-lg-flex justify-content-between">
                                 <h2 id="ultime-news" class="mb-lg-0">Ultime notizie</h2>
                             </div>
                         </div>
                     <?php } ?>
                     <div class="row mb-2">
-                        <div class="card-wrapper px-0 <?php echo $overlapping; ?> card-teaser-wrapper card-teaser-wrapper-equal card-teaser-block-3">
+                        <div class="card-wrapper <?php echo $overlapping; ?> card-teaser-wrapper card-teaser-wrapper-equal card-teaser-block-3">
                             <?php
                             foreach ($posts as $post) {
                                 if ($post) {
