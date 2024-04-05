@@ -22,7 +22,7 @@ function dci_register_post_type_sito_tematico() {
     $args = array(
         'label'                 => __( 'Sito Tematico', 'design_comuni_italia' ),
         'labels'                => $labels,
-        'supports'              => array( 'title', 'editor' ),
+        'supports'              => array( 'title', 'editor', 'thumbnail' ),
         'hierarchical'          => false,
         'public'                => true,
         'menu_position'         => 5,
@@ -90,14 +90,5 @@ function dci_add_sito_tematico_metaboxes() {
         'id'         => $prefix . 'colore',
         'type'       => 'colorpicker',
     ) );
-
-$cmb_dati->add_field( array(
-            'id'    => $prefix . 'immagine',
-            'name' => __('Immagine', 'design_comuni_italia' ),
-            'desc' => __( 'Seleziona un\'immagine da mostrare  nella Card del sito tematico', 'design_comuni_italia' ),
-            'type' => 'file',
-            'query_args' => array( 'type' => 'image' ),
-        )
-    );
 
 }

@@ -20,9 +20,6 @@ $nome_sezione = dci_get_option('gallery_title', 'vivi') ?: "";
 			</div>
 		<?php } ?>
 		<div class="section <?= $sfondo_grigio ? 'section-muted' : '' ?> px-0 pt-0 ">
-			<h4>
-				Galleria di immagini
-			</h4>
 			<?php get_template_part("template-parts/single/gallery"); ?>
 		</div>
 	</section>

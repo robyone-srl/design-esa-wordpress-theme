@@ -16,7 +16,7 @@ function dci_register_post_type_documento_pubblico() {
     $args   = array(
         'label'         => __( 'Documento Pubbblico', 'design_comuni_italia' ),
         'labels'        => $labels,
-        'supports'      => array( 'title', 'editor' ),
+        'supports'      => array( 'title', 'editor', 'thumbnail' ),
         'taxonomies'    => array( 'tipologia' ),
         'hierarchical'  => false,
         'public'        => true,
@@ -103,16 +103,6 @@ function dci_add_documento_pubblico_metaboxes()
         'context' => 'normal',
         'priority' => 'high',
     ));
-
-    $cmb_apertura->add_field( array(
-            'name'       => __('Immagine', 'design_comuni_italia' ),
-            'desc' => __( 'Immagine di riferimento del documento' , 'design_comuni_italia' ),
-            'id'             => $prefix . 'immagine',
-            'type' => 'file',
-            // 'preview_size' => array( 100, 100 ), // Default: array( 50, 50 )
-            'query_args' => array( 'type' => 'image' ), // Only images attachment
-        )
-    );
 
     $cmb_apertura->add_field(array(
         'id' => $prefix . 'tipo_documento',

@@ -17,7 +17,7 @@ function dci_register_post_type_luogo() {
 	$args   = array(
 		'label'         => __( 'Luogo', 'design_comuni_italia' ),
 		'labels'        => $labels,
-		'supports'      => array( 'title', 'editor' ),
+		'supports'      => array( 'title', 'editor', 'thumbnail' ),
 		'hierarchical'  => true,
 		'public'        => true,
         'menu_position' => 5,
@@ -118,16 +118,6 @@ function dci_add_luogo_metaboxes() {
         'desc' => __( 'Nome alternativo o secondario del luogo. Ad es. "Anfiteatro Flavio".', 'design_comuni_italia' ),
         'type' => 'text',
     ) );
-
-
-    $cmb_apertura->add_field( array(
-            'name'       => __('Immagine', 'design_comuni_italia' ),
-            'desc' => __( 'Immagine principale del luogo *' , 'design_comuni_italia' ),
-            'id'             => $prefix . 'immagine',
-            'type' => 'file',
-            'query_args' => array( 'type' => 'image' ),
-        )
-    );
 
     $cmb_apertura->add_field( array(
         'id'         => $prefix . 'descrizione_breve',

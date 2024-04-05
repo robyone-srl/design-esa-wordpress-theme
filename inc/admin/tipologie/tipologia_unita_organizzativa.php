@@ -17,7 +17,7 @@ function dci_register_post_type_unita_organizzativa() {
     $args   = array(
         'label'         => __( 'Unità organizzativa', 'design_comuni_italia' ),
         'labels'        => $labels,
-        'supports'      => array( 'title', 'editor'),
+        'supports'      => array( 'title', 'editor', 'thumbnail' ),
         'hierarchical'  => false,
         'public'        => true,
         'menu_position' => 5,
@@ -80,15 +80,6 @@ function dci_add_unita_organizzativa_metaboxes() {
         'priority'     => 'high',
     ) );
 
-    $cmb_apertura->add_field( array(
-        'name'       => __('Immagine', 'design_comuni_italia' ),
-        'desc' => __( 'Immagine principale e rappresentativa dell\'unità organizzativa descritta nella scheda' , 'design_comuni_italia' ),
-        'id'             => $prefix . 'immagine',
-        'type' => 'file',
-        // 'preview_size' => array( 100, 100 ), // Default: array( 50, 50 )
-        'query_args' => array( 'type' => 'image' ), // Only images attachment
-    )
-    );
     $cmb_apertura->add_field( array(
         'id' => $prefix . 'descrizione_breve',
         'name'        => __( 'Descrizione breve *', 'design_comuni_italia' ),

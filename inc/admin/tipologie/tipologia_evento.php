@@ -22,7 +22,7 @@ function dci_register_post_type_evento() {
     $args = array(
         'label'                 => __( 'Evento', 'design_comuni_italia' ),
         'labels'                => $labels,
-        'supports'              => array( 'title', 'editor' ),
+        'supports'              => array( 'title', 'editor', 'thumbnail' ),
         'hierarchical'          => false,
         'public'                => true,
         'menu_position' => 5,
@@ -108,14 +108,6 @@ function dci_add_eventi_metaboxes() {
         'type'    => 'text_datetime_timestamp',
         'date_format' => 'd-m-Y',
     ) );
-
-    $cmb_apertura->add_field( array(
-        'name'       => __('Immagine', 'design_comuni_italia' ),
-        'desc' => __( 'Immagine dell\'evento' , 'design_comuni_italia' ),
-        'id'             => $prefix . 'immagine',
-        'type' => 'file',
-        'query_args' => array( 'type' => 'image' ),
-    ));
 
     $cmb_evento_genitore = new_cmb2_box( array(
         'id'           => $prefix . 'box_evento_genitore',
