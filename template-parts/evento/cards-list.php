@@ -4,7 +4,7 @@ global $post;
 $prefix = '_dci_unita_organizzativa_';
 $descrizione_breve = dci_get_meta('descrizione_breve');
 
-$img = dci_get_meta('immagine');
+$img = get_the_post_thumbnail_url();
 $contatti = dci_get_meta('contatti');
 
 $prefix = '_dci_punto_contatto_';

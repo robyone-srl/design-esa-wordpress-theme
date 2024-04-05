@@ -6,7 +6,7 @@ $prefix = '_dci_sito_tematico_';
 $st_descrizione = dci_get_meta('descrizione_breve', $prefix, $sito_tematico->ID);
 $st_link = dci_get_meta('link',$prefix, $sito_tematico->ID);
 $st_colore = dci_get_meta('colore',$prefix, $sito_tematico->ID);
-$st_img = dci_get_meta('immagine',$prefix, $sito_tematico->ID);
+$st_img = get_the_post_thumbnail_url($sito_tematico->ID);
 
 $colore_sfondo = dci_get_meta('colore',$prefix, $sito_tematico->ID) ?: false;
 $sfondo_scuro = $colore_sfondo ? is_this_dark_hex($colore_sfondo) : true;

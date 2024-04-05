@@ -4,7 +4,7 @@
         $description = dci_get_meta('descrizione_breve');
         $arrdata = dci_get_data_pubblicazione_arr("data_pubblicazione", '_dci_notizia_', $post->ID);
         $monthName = date_i18n('M', mktime(0, 0, 0, $arrdata[1], 10));
-        $img = dci_get_meta('immagine');
+        $img = get_the_post_thumbnail_url();
         $tipo = get_the_terms($post->term_id, 'tipi_notizia')[0];
         if ($img) {
 ?>

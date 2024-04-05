@@ -2,7 +2,7 @@
 global $post;
 
 $prefix = '_dci_evento_';
-$img = dci_get_meta('immagine', $prefix, $post->ID);
+$img = get_the_post_thumbnail_url($post->ID);
 $descrizione = dci_get_meta('descrizione_breve', $prefix, $post->ID);
 $timestamp = dci_get_meta('data_orario_inizio', $prefix, $post->ID);
 $arrdata = explode('-', date_i18n("j-F-Y", $timestamp));

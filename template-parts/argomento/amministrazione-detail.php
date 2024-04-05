@@ -18,7 +18,7 @@
                 <div class="card-wrapper px-0 card-teaser-wrapper card-teaser-wrapper-equal card-teaser-block-3">
                 <?php foreach ($posts as $post) { 
                     $description = dci_get_meta('descrizione_breve');
-                    $img = dci_get_meta('immagine');    
+                    $img = get_the_post_thumbnail_url();    
                     $tipo_amministrazione = get_the_terms($post->ID, 'tipi_unita_organizzativa')[0];
                 ?>
                     <div class="card card-teaser card-teaser-image card-flex no-after rounded shadow-sm border border-light mb-0">

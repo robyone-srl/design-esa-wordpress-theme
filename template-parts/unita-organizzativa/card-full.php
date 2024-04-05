@@ -3,7 +3,7 @@ global $uo_id, $with_border, $no_vertical_margin;
 $ufficio = get_post($uo_id);
 
 $prefix = '_dci_unita_organizzativa_';
-$img = dci_get_meta('immagine', $prefix, $uo_id);
+$img = get_the_post_thumbnail_url($uo_id);
 $punti_contatto = dci_get_meta('contatti', $prefix, $uo_id);
 
 $prefix = '_dci_punto_contatto_';

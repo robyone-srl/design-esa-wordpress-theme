@@ -4,7 +4,7 @@ global $post;
 $has_thumbnail = has_post_thumbnail();
 
 if(!$has_thumbnail = has_post_thumbnail()){
-    $img_url = dci_get_meta('immagine');
+    $img_url = get_the_post_thumbnail_url();
     $img = get_post( attachment_url_to_postid($img_url) );
     $image_alt = get_post_meta( $img->ID, '_wp_attachment_image_alt', true);
 }

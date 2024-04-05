@@ -20,7 +20,7 @@
             <div class="row pt-4 mt-lg-2 pb-lg-4">
                 <?php foreach ($posts as $post) { 
                     $description = dci_get_meta('descrizione_breve');
-                    $img = dci_get_meta('immagine');
+                    $img = get_the_post_thumbnail_url();
                     if ($post->post_type == 'evento') {
                         if (dci_get_meta('data_orario_inizio')) {
                             $start_date = date('d-m-y', dci_get_meta('data_orario_inizio'));

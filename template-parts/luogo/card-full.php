@@ -2,8 +2,8 @@
 global $post;
 
 $prefix = '_dci_luogo_';
-$img = !empty(dci_get_meta('immagine', $prefix, $post->ID))
-    ? dci_get_meta('immagine', $prefix, $post->ID)
+$img = !empty(get_the_post_thumbnail_url($post->ID))
+    ? get_the_post_thumbnail_url($post->ID)
     : get_template_directory_uri()."\assets\placeholders\img-placeholder-500x384.png";
 
 $descrizione = dci_get_meta('descrizione_breve', $prefix, $post->ID);

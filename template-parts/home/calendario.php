@@ -57,7 +57,7 @@ foreach ($date as $data) {
 														<?php
 														if (is_array($eventi) && count($eventi)) {
 															foreach ($eventi as $evento) {
-																$img = dci_get_meta('immagine', '_dci_evento_', $evento['id']);
+																$img = get_the_post_thumbnail_url($evento['id']);
 														?>
 																<p class="card-text px-2 pb-10 mb-10 d-flex">
 																	<?php if ($img) dci_get_img($img, 'me-3 rounded'); ?>

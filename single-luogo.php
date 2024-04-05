@@ -20,7 +20,7 @@ get_header();
 
 			$prefix = "_dci_luogo_";
 
-            $immagine = dci_get_meta('immagine', $prefix, $post->ID);
+            $immagine = get_the_post_thumbnail_url($post->ID);
             $descrizione_breve = dci_get_meta('descrizione_breve', $prefix, $post->ID);
             $tipi_luogo = get_the_terms($post->ID,'tipi_luogo');
 

@@ -5,7 +5,7 @@
     $prefix = '_dci_unita_organizzativa_';
 	$descrizione_breve = dci_get_meta("descrizione_breve", $prefix, $ufficio->ID);
 
-    $img = dci_get_meta('immagine', $prefix, $ufficio->ID);
+    $img = get_the_post_thumbnail_url($ufficio->ID);
 
     if($with_border) {
 ?>

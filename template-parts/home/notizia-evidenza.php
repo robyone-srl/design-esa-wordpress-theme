@@ -2,7 +2,7 @@
 global $scheda;
 
 $post = get_post($scheda)??null;
-$img = dci_get_meta('immagine');
+$img = get_the_post_thumbnail_url();
 $descrizione_breve = dci_get_meta('descrizione_breve');
 $icon = dci_get_post_type_icon_by_id($post->ID);
 
