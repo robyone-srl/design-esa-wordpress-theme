@@ -61,7 +61,7 @@ get_header();
                                 } ?>
                                 <?php
                                 if ($hero_description) { ?>
-                                    <p class="d-none d-lg-block"><?= $hero_description ?></p>
+                                    <p class="d-block"><?= $hero_description ?></p>
                                 <?php
                                 } ?>
                                 <?php
