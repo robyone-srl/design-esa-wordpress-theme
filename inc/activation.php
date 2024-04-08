@@ -678,12 +678,11 @@ function getIdFromJsonImmagini($term, $immagini_source) {
 
 function migrateImagesToThumbnails()
 {
-    /*
     $dci_images_migrated_to_thumbnails = get_option("dci_images_migrated_to_thumbnails");
     if ($dci_images_migrated_to_thumbnails) {
         return;
     }
-*/
+
     try {
         $prefixes = [
             '_dci_documento_pubblico_',
