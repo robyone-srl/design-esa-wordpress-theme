@@ -28,9 +28,6 @@ function dci_theme_activation() {
 
     //creo i menu
     createMenu();
-    
-    //migro le immagini a thumbnail
-    migrateImagesToThumbnails();
 
     // controllo se è una prima installazione
     $dci_has_installed = get_option("dci_has_installed");
