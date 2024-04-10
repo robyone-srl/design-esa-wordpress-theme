@@ -341,58 +341,6 @@ function getFileSizeAndFormat($url) {
     return $file_format . ' ' . $size_formatted;
 }
 
-function migrate_images_to_thumbnails()
-{
-    $dci_images_migrated_to_thumbnails = get_option("dci_images_migrated_to_thumbnails");
-    if ($dci_images_migrated_to_thumbnails) {
-        return;
-    }
-
-    try {
-        $prefixes = [
-            '_dci_documento_pubblico_',
-            '_dci_evento_',
-            '_dci_luogo_',
-            '_dci_notizia_',
-            '_dci_sito_tematico_',
-            '_dci_unita_organizzativa_',
-            '_dci_documento_privato_'
-        ];
-
-        foreach ($prefixes as $prefix) {
-            $meta_key = $prefix . 'immagine_id';
-
-            $posts = get_posts([
-                'numberposts' => -1,
-                'post_type' =>  'any',
-                'post_status' => 'any',
-                'meta_query' => [
-                    [
-                        'key' => $meta_key,
-                        'compare' => 'EXISTS',
-                    ]
-                ]
-            ]);
-
-            foreach ($posts as $post) {
-                $immagine_id = get_post_meta($post->ID, $meta_key, true);
-
-                if ($immagine_id){
-                    set_post_thumbnail($post, $immagine_id);
-                    delete_post_meta($post->ID, $meta_key);
-                    delete_post_meta($post->ID, $prefix . 'immagine');
-                }
-            }
-        }
-
-        update_option("dci_images_migrated_to_thumbnails", true);
-    } catch (\Throwable $th) {
-    }
-}
-add_action('init', 'migrate_images_to_thumbnails');
-
-
-
 /*
  * Set post views count using post meta
  */
