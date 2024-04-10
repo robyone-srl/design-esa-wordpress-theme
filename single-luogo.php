@@ -16,6 +16,7 @@ get_header();
         <?php
 		while (have_posts()) :
 			the_post();
+            set_views($post->ID);
 			$user_can_view_post = dci_members_can_user_view_post(get_current_user_id(), $post->ID);
 
 			$prefix = "_dci_luogo_";

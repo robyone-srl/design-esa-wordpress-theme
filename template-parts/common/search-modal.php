@@ -76,28 +76,90 @@
                   </div>
               </div>
             </div>
-            <?php if ($links) { ?>
-            <div class="row variable-gutters">
-              <div class="col-lg-5">
-                <div class="searches-list-wrapper">
-                  <div class="other-link-title">FORSE STAVI CERCANDO</div>
-                  <ul class="searches-list">
-                    <?php foreach ($links as $link_id) { 
-                      $link = get_post($link_id);  
-                    ?>
-                      <li>
-                          <a class="list-item mb-3 active ps-0" href="<?php echo get_permalink($link_id); ?>" aria-label="Vai alla pagina <?php echo $link->post_title; ?>" title="Vai alla pagina <?php echo $link->post_title; ?>"
-                          ><span class="text-button-normal"
-                              ><?php echo $link->post_title; ?></span
-                          ></a
-                          >
-                      </li>
-                  <?php } ?>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <?php } ?>
+
+                  <div class="row variable-gutters p-4">
+                      <div class="col-lg-5">
+                          <div class="h4 other-link-title">Ricerche frequenti</div>
+                          <div class="link-list-wrapper mb-4">
+                            <ul class="link-list">
+                                <?php
+                                $popular_posts = new WP_Query( array(
+                                    'post_type'     => dci_get_sercheable_tipologie(), 
+                                    'posts_per_page' => 7, 
+                                    'meta_key'      => 'views',
+                                    'orderby'       => 'meta_value_num',
+                                    'order'         => 'DESC'
+                                    )
+                                );
+
+                                if (is_array($popular_posts->posts) && count($popular_posts->posts)>0) {
+                                    foreach ($popular_posts->posts as $post) {
+                                    $group = dci_get_group($post->post_type);
+                                ?>
+                                    <li>
+                                        <a class="list-item active large py-1 icon-left"  href="<?php the_permalink(); ?>">
+                                        <span class="list-item-title-icon-wrapper">
+                                          <svg class="icon icon-primary icon-sm"><use href="#it-search"></use></svg>
+                                          <span class="list-item-title"><?php the_title(); ?></span>
+                                        </span>
+                                      </a>
+                                        <!-- <span><?php #echo dsi_get_italian_name_group($group) ?></span> -->
+                                    </li>
+                                <?php
+                                }} else { ?>
+                                    <li>Nessun risultato</li>
+                                <?php };
+                                wp_reset_query();
+                                ?>
+                            </ul>
+                          </div>
+
+                          <?php if ($links) { ?>
+                                  <div class="h4 other-link-title">Scelti per te</div>
+                                  <div class="link-list-wrapper mb-4">
+                                    <ul class="link-list">
+                                    <?php foreach ($links as $link_id) { 
+                                      $link = get_post($link_id);  
+                                    ?>
+                                      <li>
+                                          <a class="list-item active ps-0" href="<?php echo get_permalink($link_id); ?>" aria-label="Vai alla pagina <?php echo $link->post_title; ?>" title="Vai alla pagina <?php echo $link->post_title; ?>"
+                                          ><span class="text-button-normal"
+                                              ><?php echo $link->post_title; ?></span
+                                          ></a
+                                          >
+                                      </li>
+                                  <?php } ?>
+                                    </ul>
+                                    </div>
+                            <?php } ?>
+                      </div> 
+                      <div class="col-lg-6">
+                      <?php
+                      $argomenti = get_terms(array(
+                          'taxonomy' => 'argomenti',
+                          'orderby' => 'count',
+                          'order'   => 'DESC',
+                          'hide_empty'   => 1,
+                          'number' => "20"
+                      ));
+                      if(!empty($argomenti)) { ?>
+                      <div class="row variable-gutters">
+                          <div class="col-lg-12">
+                              <div class="badges-wrapper">
+                                  <div class="h4 other-link-title"><?php _e("Potrebbero interessarti","design_comuni_italia"); ?></div>
+                                  <div class="badges">
+                                      <?php
+                                      foreach ($argomenti as $argomento){
+                                          $taglink = get_tag_link($argomento);  ?>
+                                          <a href="<?php echo $taglink; ?>" class="chip chip-simple chip-lg"><span class="chip-label"><?php echo $argomento->name; ?></span></a>
+                                      <?php } ?>
+                                  </div><!-- /badges -->
+                              </div><!-- /badges-wrapper -->
+                          </div>
+                      </div>
+                      <?php } ?>
+                      </div> <!-- TAGS -->
+                  </div>     
           </div>
         </form>
       </div>
