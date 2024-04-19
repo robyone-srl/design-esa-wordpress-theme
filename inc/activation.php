@@ -4,34 +4,33 @@
  * attivazione del Tema
  */
 function dci_theme_activation() {
-	// preparo immagini di repertorio
-    prepareDefaultMediaCollection();
-
-    // inserisco i termini di tassonomia
-    insertCustomTaxonomyTerms();
-
-    //inserisco le descrizioni di default per la tassonomia Argomenti
-    updateArgomentiDescription();
-
-    //inserisco le descrizioni di default per la tassonomia Categorie di Servizio
-    updateCategorieServizio();
-    
-    //inserisco le descrizioni di default per la tassonomia Tipi di Documento
-    updateTipiDocumento();
-
-
-    //creo le pagine
-    insertPages($pagine = dci_get_pagine_obj());
-
-    //creo i permessi e le capabilites
-    createCapabilities();
-
-    //creo i menu
-    createMenu();
-
     // controllo se è una prima installazione
     $dci_has_installed = get_option("dci_has_installed");
     if(!$dci_has_installed){
+        // preparo immagini di repertorio
+        prepareDefaultMediaCollection();
+    
+        // inserisco i termini di tassonomia
+        insertCustomTaxonomyTerms();
+    
+        //inserisco le descrizioni di default per la tassonomia Argomenti
+        updateArgomentiDescription();
+    
+        //inserisco le descrizioni di default per la tassonomia Categorie di Servizio
+        updateCategorieServizio();
+        
+        //inserisco le descrizioni di default per la tassonomia Tipi di Documento
+        updateTipiDocumento();
+    
+    
+        //creo le pagine
+        insertPages($pagine = dci_get_pagine_obj());
+    
+        //creo i permessi e le capabilites
+        createCapabilities();
+    
+        //creo i menu
+        createMenu();    
     }
 
     global $wp_rewrite;
