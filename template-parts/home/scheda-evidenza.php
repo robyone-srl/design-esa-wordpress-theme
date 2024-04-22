@@ -6,9 +6,7 @@ $img = get_the_post_thumbnail_url();
 $descrizione_breve = dci_get_meta('descrizione_breve') ?: dci_get_meta('_dci_page_descrizione');
 $icon = dci_get_post_type_icon_by_id($post->ID);
 
-$post_type = $post->post_type == 'page' ? 'Pagina' : get_page_by_path( dci_get_group($post->post_type) )->post_type;
-
-var_dump($page);
+$post_type = $post->post_type == 'page' ? 'Pagina' : get_page_by_path( dci_get_group($post->post_type) )->post_title;
 
 $page_macro_slug = dci_get_group($post->post_type);
 $page_macro = get_page_by_path($page_macro_slug);
