@@ -3,10 +3,12 @@ global $scheda;
 
 $post = get_post($scheda)??null;
 $img = get_the_post_thumbnail_url();
-$descrizione_breve = dci_get_meta('descrizione_breve');
+$descrizione_breve = dci_get_meta('descrizione_breve') ?: dci_get_meta('_dci_page_descrizione');
 $icon = dci_get_post_type_icon_by_id($post->ID);
 
-$page = get_page_by_path( dci_get_group($post->post_type) );    
+$post_type = $post->post_type == 'page' ? 'Pagina' : get_page_by_path( dci_get_group($post->post_type) )->post_type;
+
+var_dump($page);
 
 $page_macro_slug = dci_get_group($post->post_type);
 $page_macro = get_page_by_path($page_macro_slug);
@@ -21,7 +23,7 @@ if (!isset($titlelevel) || $titlelevel === null || trim($titlelevel) === '') {
     <div class="card-image-wrapper with-read-more">
         <div class="card-body p-3 u-grey-light">
             <div class="category-top">
-            <span class="category title-xsmall-semi-bold fw-semibold" ><?php echo $page->post_title ?></span>
+            <span class="category title-xsmall-semi-bold fw-semibold" ><?= $post_type ?></span>
             </div>
             <?php echo '<' . $titleheading . ' class="card-title text-paragraph-medium u-grey-light">' . $post->post_title . '</' . $titleheading . '>'; ?>
             <p class="text-paragraph-card u-grey-light m-0" style="margin-bottom: 40px!important;"><?php echo $descrizione_breve ?></p>
@@ -49,7 +51,7 @@ if (!isset($titlelevel) || $titlelevel === null || trim($titlelevel) === '') {
             <!-- <svg class="icon">
                 <use xlink:href="#<?php #echo $icon ?>"></use>
             </svg> -->
-            <span class="category title-xsmall-semi-bold fw-semibold"><?php echo $page->post_title ?></span>
+            <span class="category title-xsmall-semi-bold fw-semibold"><?= $post_type ?></span>
         </div>
         <?php echo '<' . $titleheading . ' class="card-title text-paragraph-medium u-grey-light">' . $post->post_title . '</' . $titleheading . '>'; ?>
         <p class="text-paragraph-card u-grey-light m-0">
