@@ -160,7 +160,7 @@ function dci_register_pagina_home_options(){
                 'filter_boxes'    => true, // Show a text box for filtering the results
                 'query_args'      => array(
                     'posts_per_page' => -1,
-                    'post_type'      => array('evento','luogo','unita_organizzativa','documento_pubblico','servizio','notizia','dataset'),
+                    'post_type'      => array('evento','luogo','unita_organizzativa','documento_pubblico','servizio','notizia','dataset','post'),
                 ), // override the get_posts args
             ),
             'attributes' => array(
