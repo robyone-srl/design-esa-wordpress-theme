@@ -22,7 +22,6 @@ get_header();
 
         $prefix = "_dci_unita_organizzativa_";
 
-        $immagine = dci_get_meta("immagine", $prefix, $post->ID);
         $descrizione_breve = dci_get_meta("descrizione_breve", $prefix, $post->ID);
         $competenze = dci_get_wysiwyg_field("competenze");
         $tipi_organizzazione = get_the_terms($post, 'tipi_unita_organizzativa');

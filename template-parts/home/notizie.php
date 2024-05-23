@@ -25,7 +25,6 @@ if ($notizie_in_home && $notizie_in_home > 0) {
     //$post  = array_shift( $posts  );
 }
 
-$img               = dci_get_meta("immagine", '_dci_notizia_', $post->ID);
 $arrdata           = dci_get_data_pubblicazione_arr("data_pubblicazione", '_dci_notizia_', $post->ID);
 $monthName         = date_i18n('M', mktime(0, 0, 0, $arrdata[1], 10));
 $descrizione_breve = dci_get_meta("descrizione_breve", '_dci_notizia_', $post->ID);
