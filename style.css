@@ -1227,3 +1227,7 @@ a:hover * .titolo-sito-tematico {
   width: 100%;
   height: auto;
 }
+
+.wpcf7 input { /* fix for contact forms disappearing due to custom-comuni.css */
+  -webkit-appearance: auto !important;
+}
