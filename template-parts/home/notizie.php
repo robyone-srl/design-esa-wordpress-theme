@@ -38,12 +38,11 @@ if ($post_id || ($posts && is_array($posts) && count($posts) > 0)) {
     <section id="notizie" aria-describedby="novita-in-evidenza">
         <div class="section-content">
             <div class="container">
-                <h2 id="novita-in-evidenza" class="visually-hidden">Novità in evidenza</h2>
                 <?php if ($post_id) {
+                    ?> <h2 id="novita-in-evidenza" class="visually-hidden">Novità in evidenza</h2> <?php
                     $overlapping = "card-overlapping";
-                ?>
-                    <?php get_template_part("template-parts/home/notizia-hero"); ?>
-                <?php }
+                    get_template_part("template-parts/home/notizia-hero");
+                }
                 if ($posts && is_array($posts) && count($posts) > 0) { ?>
                     <?php if (!$post_id) { ?>
                         <div class="row row-title pt-30 pt-lg-60 pb-3">
