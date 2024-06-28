@@ -34,14 +34,14 @@
           "template_name": "incarichi",
           "children": {}
         },
-		    "Personale sanitario": {
+        "Personale sanitario": {
           "title": "Personale sanitario",
           "slug": "personale-sanitario",
           "description": "Personale da contattare per informazioni e supporto ai servizi socio-sanitari erogati.",
           "template_name": "incarichi",
           "children": {}
         },
-		    "Personale socio-assistenziale": {
+        "Personale socio-assistenziale": {
           "title": "Personale socio-assistenziale",
           "slug": "personale-socio-assistenziale",
           "description": "Personale da contattare per informazioni e supporto ai servizi sociali e assistenziali.",
@@ -142,14 +142,14 @@
       "description": "Elenco di risposte alle domande più frequenti raccolte dalle richieste di chi ci contatta.",
       "template_name": "domande-frequenti",
       "children": {
-		  "Tutti i luoghi": {
+        "Tutti i luoghi": {
           "title": "I luoghi",
           "slug": "luoghi",
           "description": "Tutti i luoghi d’interesse per scoprire il territorio comunale.",
           "template_name": "luoghi",
           "children": {}
-		  
-	  }
+        }
+      }
     }
   }
 }
