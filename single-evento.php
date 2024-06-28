@@ -25,9 +25,11 @@ get_header();
         //dates
         $start_timestamp = dci_get_meta("data_orario_inizio", $prefix, $post->ID);
         $start_date = date_i18n('d F Y', date($start_timestamp));
+        $start_time = date_i18n('H:i', date($start_timestamp));
         $start_date_arr = explode('-', date_i18n('d-M-Y-H-i', date($start_timestamp)));
         $end_timestamp = dci_get_meta("data_orario_fine", $prefix, $post->ID);
         $end_date = date_i18n('d F Y', date($end_timestamp));
+        $end_time = date_i18n('H:i', date($end_timestamp));
         $end_date_arr = explode('-', date_i18n('d-M-Y-H-i', date($end_timestamp)));
         $descrizione = dci_get_wysiwyg_field("descrizione_completa", $prefix, $post->ID);
         $destinatari = dci_get_wysiwyg_field("a_chi_e_rivolto", $prefix, $post->ID);
@@ -62,9 +64,13 @@ get_header();
                 <div class="col-lg-8 px-lg-4 py-lg-2">
                     <h1><?php the_title(); ?></h1>
                     <h2 class="visually-hidden">Dettagli evento</h2>
-                    <?php if ($start_timestamp && $end_timestamp) { ?>
-                        <p class="h4 py-2">dal <?php echo $start_date; ?> al <?php echo $end_date; ?></p>
-                    <?php } ?>
+                    <?php if ($start_timestamp && $end_timestamp) {
+                        if ($start_date == $end_date) { ?>
+                            <p class="h4 py-2"><?php echo $start_date; ?> dalle <?php echo $start_time; ?> alle <?php echo $end_time; ?></p>
+                        <?php } else { ?>
+                            <p class="h4 py-2">dal <?php echo $start_date; ?> al <?php echo $end_date; ?></p>
+                        <?php }
+                    } ?>
                     <p>
                         <?php echo $descrizione_breve; ?>
                     </p>
