@@ -194,7 +194,7 @@ get_header();
                 <section class="col-lg-8 it-page-sections-container border-light">
                     <article id="cos-e" class="it-page-section mb-5" data-audio>
                         <h2 class="h3 mb-3">Cos'è</h2>
-                        <div class="richtext-wrapper font-serif">
+                        <div class="richtext-wrapper lora">
                             <?php echo $descrizione; ?>
                         </div>
                         <?php if (is_array($persone) && count($persone)) { ?>
@@ -220,7 +220,9 @@ get_header();
                     <?php if ($destinatari) { ?>
                         <article id="destinatari" class="it-page-section mb-5">
                             <h2 class="h3 mb-3">A chi è rivolto</h2>
-                            <p><?php echo $destinatari; ?></p>
+                            <div class="richtext-wrapper lora">
+                                <?php echo $destinatari; ?>
+                            </div>
                         </article>
                     <?php  } ?>
 
@@ -399,7 +401,9 @@ get_header();
                                             <use xlink:href="#it-info-circle"></use>
                                         </svg>
                                     </div>
-                                    <?php echo $more_info; ?>
+                                    <div class="richtext-wrapper lora">
+                                        <?php echo $more_info; ?>
+                                    </div>
                                 </div>
                             </div>
                         <?php } ?>
