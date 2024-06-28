@@ -90,8 +90,18 @@ $card_link_class = !$with_border ? "text-decoration-none" : "";
                             } ?>
                             <?php foreach ($other_contacts as $type) {
                                 if (array_key_exists($type, $full_contatto) &&  is_array($full_contatto[$type]) && count($full_contatto[$type])) {
-                                    foreach ($full_contatto[$type] as $dati) {
-                                        echo '<p>' . $type . ': ' . $dati['valore'] . ' (' . $dati['dettagli'] . ')</p>';
+                                    foreach ($full_contatto[$type] as $dati) {                        echo '<p>';
+                                        if($icon = SOCIAL_ICONS[$type] ?? false)
+                                        { ?>
+                                            <svg class="icon icon-secondary icon-sm" aria-hidden="true">
+                                                <use xlink:href="#<?= $icon ?>"></use>
+                                            </svg>
+                                            <span class="visually-hidden"><?= $type ?></span>
+                                        <?php }
+                                        else
+                                            echo $type.': ';
+                
+                                        echo $dati['valore'].(trim($dati['dettagli']) ? '('.$dati['dettagli'].')' : '') .'</p>';
                                     }
                                 }
                             } ?>
