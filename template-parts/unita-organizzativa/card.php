@@ -22,16 +22,18 @@
 	   } ?>
     </div>
     <?php if ($img) { ?>
-        <div class="avatar size-xl">
-            <?php dci_get_img($img); ?>
-        </div>
+    <div class="avatar size-xl">
+        <?php dci_get_img($img); ?>
+    </div>
     <?php } ?>
 </div>
+
 <?php } else { ?>
-<div class="card card-teaser border rounded shadow p-4">
+
+<div class="card card-teaser card-teaser-info rounded shadow-sm p-3 flex-nowrap">
     <div class="card-body pe-3">
-        <h4 class="u-main-black mb-1 title-small-semi-bold-medium">
-            <a class="text-decoration-none" href="<?php echo get_permalink($ufficio->ID); ?>">
+        <p class="card-title text-paragraph-regular-medium-semi mb-3">
+            <a class="text-decoration-none" href="<?php echo get_permalink($ufficio->ID); ?>" data-element="service-area">
             <?php echo $ufficio->post_title; ?>
             </a>
         </h4>
@@ -40,11 +42,12 @@
 	   } ?>
     </div>
     <?php if ($img) { ?>
-    <div class="avatar size-xl">
-        <?php dci_get_img($img); ?>
-    </div>
+        <div class="avatar size-xl">
+            <?php dci_get_img($img); ?>
+        </div>
     <?php } ?>
 </div>
+
 <?php } 
 $with_border = false;
 ?>
