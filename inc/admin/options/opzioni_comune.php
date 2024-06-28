@@ -112,7 +112,7 @@ function dci_register_comune_options(){
         'type' => 'checkbox',
     ) );
 
-    add_custom_css_field_to_box($header_options, $CSS_NAME_COMUNI, 'comuni_css_file', 'use_comuni_css');
+    add_custom_file_field_to_box($header_options, $CSS_NAME_COMUNI, 'comuni_css_file', 'use_comuni_css');
     
     $header_options->add_field( array(
         'id' => $prefix . 'home_istruzioni_barra_chiara_scura',

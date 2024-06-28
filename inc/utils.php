@@ -1221,7 +1221,7 @@ function get_custom_css_file_url($file_name_no_path){
     return content_url(get_custom_css_sub_folder().$file_name_no_path);
 }
 
-function add_custom_css_field_to_box(&$box, $css_name, $file_field_name, $checkbox_field_name){
+function add_custom_file_field_to_box(&$box, $css_name, $file_field_name, $checkbox_field_name){
     if(file_exists(get_custom_css_file_path($css_name))){
         $box->add_field( array(
             'name' => 'Stile personalizzato',
@@ -1234,7 +1234,7 @@ function add_custom_css_field_to_box(&$box, $css_name, $file_field_name, $checkb
     else{
 
         $box->add_field( array(
-        'id'    => $prefix . $file_field_name,
+        'id'    => $file_field_name,
         'name' => __('Stile personalizzato', 'design_comuni_italia' ),
         'desc' => __('Customizzazione del foglio di stile <strong>'.$css_name.'</strong> per personalizzare la grafica del sito. <br> <strong>Nota</strong>. Se il campo è vuoto viene utilizzato quello di default presente nel tema' , 'design_comuni_italia' ),
         'type' => 'css_file'

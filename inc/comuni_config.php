@@ -6,6 +6,13 @@ define('COMUNI_PAGINE',jsonToArray(get_template_directory()."/inc/comuni_pagine.
 
 define('COMUNI_TIPOLOGIE',jsonToArray(get_template_directory()."/inc/comuni_tipologie.json")['tipologie']);
 
+define('SOCIAL_ICONS', [
+    'linkedin' => "it-linkedin",
+    'telegram' => "it-telegram",
+    'twitter' => "it-twitter",
+    'whatsapp' => "it-whatsapp"
+]);
+
 /**
  * restituisce l'oggetto che descrive le Pagine del Sito dei Comuni
  * @return mixed
