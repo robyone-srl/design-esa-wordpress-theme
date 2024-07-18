@@ -8,10 +8,13 @@
  * @package Design_Comuni_Italia
  */
 
+$nascondi_eventi = dci_get_option('eventi_hide', 'homepage') ?? true;
+if(!$nascondi_eventi)
+    $visualizzazione_eventi = dci_get_option('visualizzazione_eventi', 'homepage') ?? '';
 
-$visualizzazione_eventi = dci_get_option('visualizzazione_eventi', 'homepage') ?? '';
 $visualizzazione_notizie = dci_get_option('visualizzazione_notizie', 'homepage') ?? '';
 $mostra_gallery = dci_get_option('mostra_gallery', 'homepage') ?? false;
+
 
 $hero_show = dci_get_option('hero_show', 'homepage') ?? false;
 $hero_image = dci_get_option('hero_image', 'homepage') ?? false;
@@ -87,7 +90,7 @@ get_header();
         ?>
         <?php get_template_part("template-parts/home/notizie", $visualizzazione_notizie); ?>
         <?php get_template_part("template-parts/home/contenuti-evidenza"); ?>
-        <?php get_template_part("template-parts/home/calendario", $visualizzazione_eventi); ?>
+        <?php if(!$nascondi_eventi) get_template_part("template-parts/home/calendario", $visualizzazione_eventi); ?>
     </section>
     <section id="evidenza" class="evidence-section">
         <?php get_template_part("template-parts/home/argomenti"); ?>

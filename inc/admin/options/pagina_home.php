@@ -168,6 +168,18 @@ function dci_register_pagina_home_options(){
             ),
         )
     );
+
+    $home_options->add_field( array(
+        'id' => $prefix . 'eventi_hide',
+        'name'        => __( 'Nascondi eventi', 'design_comuni_italia' ),
+        'desc' => __( 'Scegli se nascondere la sezione degli eventi dalla pagina iniziale.' , 'design_comuni_italia' ),
+        'type'    => 'radio_inline',
+        'options' => array(
+            ''   => __( 'No', 'cmb2' ),
+            'true' => __( 'Sì', 'cmb2' ),
+        ),
+        'default' => '',
+    ) );
     
     $home_options->add_field( array(
         'id' => $prefix . 'visualizzazione_eventi',
