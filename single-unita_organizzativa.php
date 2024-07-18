@@ -335,7 +335,7 @@ get_header();
                                 <h2 class="h3 my-2">Documenti</h2>
                                 <div class="row">
                                     <?php foreach ($allegati as $allegato_id) { ?>
-                                        <div class="col-md-6 col-sm-12 ">
+                                        <div class="col-md-6 col-sm-12 mb-3 card-wrapper">
                                             <?php
                                             $documento = get_post($allegato_id);
                                             $with_border = true;
