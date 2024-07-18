@@ -40,7 +40,7 @@ get_header();
         $canale_digitale_label = dci_get_meta("canale_digitale_label");
         $canale_digitale_link = dci_get_meta("canale_digitale_link");
         $canale_fisico_text = dci_get_meta("canale_fisico_text");
-        $canale_fisico_luoghi_id = dci_get_meta("canale_fisico_luoghi");
+        $canale_fisico_luoghi_id = dci_get_meta("canale_fisico_luoghi") ?: [];
         $mostra_prenota_appuntamento = dci_get_option("prenota_appuntamento", "servizi");
         $mostra_accedi_al_servizio = $canale_digitale_link || $canale_fisico_text || $mostra_prenota_appuntamento || $canale_fisico_luoghi_id;
 
