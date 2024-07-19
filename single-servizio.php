@@ -568,7 +568,7 @@ get_header();
                                     <?php
                                     foreach ($punti_contatto_id as $pc_id) {
                                     ?>
-                                        <div class="col-lg-6 col-md-12 mb-30">
+                                        <div class="col-lg-6 col-md-12 mb-4">
                                             <?php get_template_part("template-parts/punto-contatto/card"); ?>
                                         </div>
                                     <?php } ?>

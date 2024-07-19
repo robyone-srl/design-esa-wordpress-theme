@@ -306,7 +306,7 @@ get_header();
                                 <h2 class="h3 my-2">Altre sedi</h2>
                                 <?php foreach ($altre_sedi as $sede_id) {
                                     $luogo = get_post($sede_id);
-                                ?><div class="col-xl-6 col-lg-8 col-md-12 "><?php
+                                ?><div class="col-xl-6 col-lg-8 col-12 mb-4"><?php
                                                                             $with_border = false;
                                                                             get_template_part("template-parts/luogo/card-title");
                                                                             ?></div><?php
@@ -320,7 +320,7 @@ get_header();
                                 <h2 class="h3 my-2">Contatti</h2>
                                 <div class="row">
                                     <?php foreach ($punti_contatto as $pc_id) { ?>
-                                        <div class="col-xl-6 col-lg-8 col-md-12 ">
+                                        <div class="col-xl-6 col-lg-8 col-12 mb-4">
                                             <?php
                                             $with_border = true;
                                             get_template_part("template-parts/punto-contatto/card"); ?>
