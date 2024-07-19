@@ -320,7 +320,7 @@ get_header();
                                 <h2 class="h3 my-2">Contatti</h2>
                                 <div class="row">
                                     <?php foreach ($punti_contatto as $pc_id) { ?>
-                                        <div class="col-xl-6 col-lg-8 col-12 mb-4">
+                                        <div class="col-xl-6 col-lg-8 col-12 mb-4 card-wrapper">
                                             <?php
                                             $with_border = true;
                                             get_template_part("template-parts/punto-contatto/card"); ?>
