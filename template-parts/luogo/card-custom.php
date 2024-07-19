@@ -1,15 +1,16 @@
 <?php
-global $post;
+global $post, $luogo_option_name;
 $c=0;
+$luogo_option_name ??= 'luogo_custom';
 
-$nome_luogo_custom = trim(dci_get_meta("nome_luogo_custom"));
-$posizione_gps =  dci_get_meta("posizione_gps_luogo_custom");
-$indirizzo_luogo_custom = trim(dci_get_meta("indirizzo_luogo_custom"));
+$nome_luogo_custom = trim(dci_get_meta("nome_$luogo_option_name"));
+$posizione_gps =  dci_get_meta("posizione_gps_$luogo_option_name");
+$indirizzo_luogo_custom = trim(dci_get_meta("indirizzo_$luogo_option_name"));
 $arrq = array();
-if(trim(dci_get_meta("quartiere_luogo_custom")))
-	$arrq[]=dci_get_meta("quartiere_luogo_custom");
-if(trim(dci_get_meta("circoscrizione_luogo_custom")))
-	$arrq[]=dci_get_meta("circoscrizione_luogo_custom");
+if(trim(dci_get_meta("quartiere_$luogo_option_name")))
+	$arrq[]=dci_get_meta("quartiere_$luogo_option_name");
+if(trim(dci_get_meta("circoscrizione_$luogo_option_name")))
+	$arrq[]=dci_get_meta("circoscrizione_$luogo_option_name");
 ?>
 
 

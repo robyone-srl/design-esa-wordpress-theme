@@ -43,7 +43,7 @@ get_header();
             $luogo_evento_id = dci_get_meta("luogo_evento", $prefix, $post->ID);
             $luogo_evento = $luogo_evento_id ? get_post($luogo_evento_id) : null;
         }
-        $show_luogo = $luogo_evento || !$is_luogo_esa;
+        $show_luogo = $luogo_evento ?? false || !$is_luogo_esa;
         $costi = dci_get_meta('costi');
         $allegati = dci_get_meta("allegati", $prefix, $post->ID);
         $punti_contatto = dci_get_meta("punti_contatto", $prefix, $post->ID);

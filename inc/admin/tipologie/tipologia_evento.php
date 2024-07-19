@@ -249,11 +249,11 @@ function dci_add_eventi_metaboxes() {
     $cmb_luogo->add_field( array(
         'name' => 'Luogo dell\'Ente *',
         'id' =>  $prefix . 'is_luogo_esa',
-        'desc' => __( 'Seleziona se l\'evento si svolge in un Luogo dell\'ente', 'design_scuole_italia' ),
+        'desc' => __( 'Seleziona se l\'evento si svolge in un Luogo dell\'ente', 'design_comuni_italia' ),
         'type'    => 'radio_inline',
         'options' => array(
-            'true' => __( 'Si', 'design_scuole_italia' ),
-            'false'   => __( 'No', 'design_scuole_italia' ),
+            'true' => __( 'Si', 'design_comuni_italia' ),
+            'false'   => __( 'No', 'design_comuni_italia' ),
         ),
         'default' => 'true',
         'attributes' => array(
@@ -263,12 +263,12 @@ function dci_add_eventi_metaboxes() {
 
     $cmb_luogo->add_field( array(
 		'id' =>  $prefix . 'luogo_evento',
-		'name'    => __( 'Luogo', 'design_scuole_italia' ),
-		'desc' => __( 'Seleziona il luogo in cui si tiene l\'evento' , 'design_scuole_italia' ),
+		'name'    => __( 'Luogo', 'design_comuni_italia' ),
+		'desc' => __( 'Seleziona il luogo in cui si tiene l\'evento' , 'design_comuni_italia' ),
         'type'    => 'pw_select',
         'options' => dci_get_posts_options('luogo'),
         'attributes' => array(
-            'placeholder' =>  __( 'Seleziona il luogo', 'design_scuole_italia' ),
+            'placeholder' =>  __( 'Seleziona il luogo', 'design_comuni_italia' ),
             'data-conditional-id' => $prefix . 'is_luogo_esa',
             'data-conditional-value' => "true",
             'required' => 'required'
@@ -277,8 +277,8 @@ function dci_add_eventi_metaboxes() {
 
 	$cmb_luogo->add_field( array(
 		'id' =>  $prefix . 'nome_luogo_custom',
-		'name'    => __( 'Nome del luogo', 'design_scuole_italia' ),
-		'desc' => __( 'Inserisci il nome del luogo (lascia vuoto hai selezionato un Luogo dell\'Ente)' , 'design_scuole_italia' ),
+		'name'    => __( 'Nome del luogo', 'design_comuni_italia' ),
+		'desc' => __( 'Inserisci il nome del luogo (lascia vuoto hai selezionato un Luogo dell\'Ente)' , 'design_comuni_italia' ),
 		'type'    => 'text',
         'attributes' => array(
             'data-conditional-id' => $prefix . 'is_luogo_esa',
@@ -291,8 +291,8 @@ function dci_add_eventi_metaboxes() {
 
 	$cmb_luogo->add_field( array(
 		'id'         => $prefix . 'indirizzo_luogo_custom',
-		'name'       => __( 'Indirizzo Completo', 'design_scuole_italia' ),
-		'desc'       => __( 'Indirizzo completo del luogo: Via, civico, cap, città e Provincia (es: Via Vaglia, 6, 00139 - Roma RM) (lascia vuoto hai selezionato un Luogo dell\'Ente)', 'design_scuole_italia' ),
+		'name'       => __( 'Indirizzo Completo', 'design_comuni_italia' ),
+		'desc'       => __( 'Indirizzo completo del luogo: Via, civico, cap, città e Provincia (es: Via Vaglia, 6, 00139 - Roma RM) (lascia vuoto hai selezionato un Luogo dell\'Ente)', 'design_comuni_italia' ),
 		'type'       => 'text',
         'attributes' => array(
             'data-conditional-id' => $prefix . 'is_luogo_esa',
@@ -304,14 +304,14 @@ function dci_add_eventi_metaboxes() {
 
 	$cmb_luogo->add_field( array(
 		'id'         => $prefix . 'posizione_gps_luogo_custom',
-        'name'       => __( 'Posizione GPS <br><small>NB: clicca sulla lente di ingandimento e cerca l\'indirizzo, anche se lo hai già inserito nel campo precedente.<br>Questo permetterà una corretta georeferenziazione del luogo</small>', 'design_scuole_italia' ),
-		'desc'       => __( 'Georeferenziazione del luogo e link a posizione in mappa.  (lascia vuoto hai selezionato un Luogo dell\'Ente)', 'design_scuole_italia' ),
+        'name'       => __( 'Posizione GPS <br><small>NB: clicca sulla lente di ingandimento e cerca l\'indirizzo, anche se lo hai già inserito nel campo precedente.<br>Questo permetterà una corretta georeferenziazione del luogo</small>', 'design_comuni_italia' ),
+		'desc'       => __( 'Georeferenziazione del luogo e link a posizione in mappa.  (lascia vuoto hai selezionato un Luogo dell\'Ente)', 'design_comuni_italia' ),
 		'type'       => 'leaflet_map',
 		'attributes' => array(
 //			'tilelayer'           => 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
 			'searchbox_position'  => 'topleft', // topright, bottomright, topleft, bottomleft,
-			'search'              => __( 'Digita l\'indirizzo del Luogo' , 'design_scuole_italia' ),
-			'not_found'           => __( 'Indirizzo non trovato' , 'design_scuole_italia' ),
+			'search'              => __( 'Digita l\'indirizzo del Luogo' , 'design_comuni_italia' ),
+			'not_found'           => __( 'Indirizzo non trovato' , 'design_comuni_italia' ),
 			'initial_coordinates' => [
 				'lat' => 41.894802, // Go Italy!
 				'lng' => 12.4853384  // Go Italy!
@@ -327,8 +327,8 @@ function dci_add_eventi_metaboxes() {
 
 	$cmb_luogo->add_field( array(
 		'id'         => $prefix . 'quartiere_luogo_custom',
-		'name'       => __( 'Quartiere ', 'design_scuole_italia' ),
-		'desc'       => __( 'Se il territorio è mappato in quartieri, riportare il Quartiere dove si svolge l\'evento (lascia vuoto hai selezionato un Luogo dell\'Ente)', 'design_scuole_italia' ),
+		'name'       => __( 'Quartiere ', 'design_comuni_italia' ),
+		'desc'       => __( 'Se il territorio è mappato in quartieri, riportare il Quartiere dove si svolge l\'evento (lascia vuoto hai selezionato un Luogo dell\'Ente)', 'design_comuni_italia' ),
 		'type'       => 'text',
         'attributes' => array(
             'data-conditional-id' => $prefix . 'is_luogo_esa',
@@ -339,8 +339,8 @@ function dci_add_eventi_metaboxes() {
 
 	$cmb_luogo->add_field( array(
 		'id'         => $prefix . 'circoscrizione_luogo_custom',
-		'name'       => __( 'Circoscrizione ', 'design_scuole_italia' ),
-		'desc'       => __( 'Se il territorio è mappato in circoscrizioni, riportare la Circoscrizione dove si svolge l\'evento (lascia vuoto hai selezionato un Luogo della Scuola )', 'design_scuole_italia' ),
+		'name'       => __( 'Circoscrizione ', 'design_comuni_italia' ),
+		'desc'       => __( 'Se il territorio è mappato in circoscrizioni, riportare la Circoscrizione dove si svolge l\'evento (lascia vuoto hai selezionato un Luogo della Scuola )', 'design_comuni_italia' ),
 		'type'       => 'text',
         'attributes' => array(
             'data-conditional-id' => $prefix . 'is_luogo_esa',

@@ -39,7 +39,12 @@ get_header();
         $persone = dci_get_meta("persone_struttura", $prefix, $post->ID);
 
         $servizi = dci_get_meta("elenco_servizi_offerti", $prefix, $post->ID);
-        $sede_principale_id = dci_get_meta("sede_principale", $prefix, $post->ID);
+        $is_sede_principale_esa = dci_get_meta("is_sede_principale_esa") != "false";
+        if ($is_sede_principale_esa) {
+            $sede_principale_id = dci_get_meta("sede_principale", $prefix, $post->ID);
+            $sede_principale = $sede_principale_id ? get_post($sede_principale_id) : null;
+        }
+        $show_sede_principale = $sede_principale ?? false || !$is_sede_principale_esa;
         $altre_sedi = dci_get_meta("altre_sedi", $prefix, $post->ID);
         $punti_contatto = dci_get_meta("contatti", $prefix, $post->ID);
         $allegati = dci_get_meta("allegati", $prefix, $post->ID);
@@ -287,18 +292,20 @@ get_header();
                                 </div>
                             </section>
                         <?php }
-
-                        if (!empty($sede_principale_id)) {
-                            $luogo = get_post($sede_principale_id);
+                        if ($show_sede_principale) {
                         ?>
-
                             <section id="sede-principale" class="it-page-section mb-4">
                                 <h2 class="h3 my-2">Sede principale</h2>
-                                <div class="col-xl-6 col-lg-8 col-md-12 ">
-                                    <?php get_template_part("template-parts/luogo/card-title"); ?>
-                                </div>
+                                <?php if ($is_sede_principale_esa && $sede_principale) { ?>
+                                <?php
+                                $luogo = $sede_principale;
+                                get_template_part("template-parts/single/luogo");
+                                ?>
+                                <?php } else if (!$is_sede_principale_esa) {
+                                    $luogo_option_name = 'sede_principale_custom';
+                                    get_template_part("template-parts/luogo/card", "custom");
+                                } ?>
                             </section>
-
                         <?php
                         }
                         if ($altre_sedi && is_array($altre_sedi) && count($altre_sedi)) { ?>

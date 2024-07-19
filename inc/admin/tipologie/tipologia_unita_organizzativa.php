@@ -210,17 +210,108 @@ function dci_add_unita_organizzativa_metaboxes() {
         'priority'     => 'high',
     ) );
 
+    
+    $cmb_contatti->add_field( array(
+        'name' => 'Sede principale dell\'Ente *',
+        'id' =>  $prefix . 'is_sede_principale_esa',
+        'desc' => __( 'Seleziona se l\'unità organizzativa ha sede in un luogo dell\'ente', 'design_comuni_italia' ),
+        'type'    => 'radio_inline',
+        'options' => array(
+            'true' => __( 'Si', 'design_comuni_italia' ),
+            'false'   => __( 'No', 'design_comuni_italia' ),
+        ),
+        'default' => 'true',
+        'attributes' => array(
+            'required' => 'required'
+        ),
+    ) );
+
     $cmb_contatti->add_field( array(
         'id' => $prefix . 'sede_principale',
         'name'        => __( 'Sede principale *', 'design_comuni_italia' ),
         'desc' => __( 'Relazione con un luogo (sede fisica principale)' , 'design_comuni_italia' ),
         'type'    => 'pw_select',
         'options' => dci_get_posts_options('luogo'),
-        'attributes'    => array(
-            'required'    => 'required',
-            'placeholder' =>  __( 'Seleziona il Luogo', 'design_comuni_italia' ),
+        'attributes' => array(
+            'placeholder' =>  __( 'Seleziona il luogo', 'design_comuni_italia' ),
+            'data-conditional-id' => $prefix . 'is_sede_principale_esa',
+            'data-conditional-value' => "true",
+            'required' => 'required'
         ),
-    ) );
+	) );
+
+	$cmb_contatti->add_field( array(
+		'id' =>  $prefix . 'nome_sede_principale_custom',
+		'name'    => __( 'Nome del luogo', 'design_comuni_italia' ),
+		'desc' => __( 'Inserisci il nome del luogo (lascia vuoto hai selezionato un Luogo dell\'Ente)' , 'design_comuni_italia' ),
+		'type'    => 'text',
+        'attributes' => array(
+            'data-conditional-id' => $prefix . 'is_sede_principale_esa',
+            'data-conditional-value' => "false",
+            'required' => 'required'
+        ),
+	) );
+
+
+
+	$cmb_contatti->add_field( array(
+		'id'         => $prefix . 'indirizzo_sede_principale_custom',
+		'name'       => __( 'Indirizzo Completo', 'design_comuni_italia' ),
+		'desc'       => __( 'Indirizzo completo del luogo: Via, civico, cap, città e Provincia (es: Via Vaglia, 6, 00139 - Roma RM) (lascia vuoto hai selezionato un Luogo dell\'Ente)', 'design_comuni_italia' ),
+		'type'       => 'text',
+        'attributes' => array(
+            'data-conditional-id' => $prefix . 'is_sede_principale_esa',
+            'data-conditional-value' => "false",
+            'required' => 'required'
+        ),
+	) );
+
+
+	$cmb_contatti->add_field( array(
+		'id'         => $prefix . 'posizione_gps_sede_principale_custom',
+        'name'       => __( 'Posizione GPS <br><small>NB: clicca sulla lente di ingandimento e cerca l\'indirizzo, anche se lo hai già inserito nel campo precedente.<br>Questo permetterà una corretta georeferenziazione del luogo</small>', 'design_comuni_italia' ),
+		'desc'       => __( 'Georeferenziazione del luogo e link a posizione in mappa.  (lascia vuoto hai selezionato un Luogo dell\'Ente)', 'design_comuni_italia' ),
+		'type'       => 'leaflet_map',
+		'attributes' => array(
+//			'tilelayer'           => 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+			'searchbox_position'  => 'topleft', // topright, bottomright, topleft, bottomleft,
+			'search'              => __( 'Digita l\'indirizzo del Luogo' , 'design_comuni_italia' ),
+			'not_found'           => __( 'Indirizzo non trovato' , 'design_comuni_italia' ),
+			'initial_coordinates' => [
+				'lat' => 41.894802, // Go Italy!
+				'lng' => 12.4853384  // Go Italy!
+			],
+			'initial_zoom'        => 5, // Zoomlevel when there's no coordinates set,
+			'default_zoom'        => 12, // Zoomlevel after the coordinates have been set & page saved
+			'required'    => 'required',
+            'data-conditional-id' => $prefix . 'is_sede_principale_esa',
+            'data-conditional-value' => "false",
+    ),
+	) );
+
+
+	$cmb_contatti->add_field( array(
+		'id'         => $prefix . 'quartiere_sede_principale_custom',
+		'name'       => __( 'Quartiere ', 'design_comuni_italia' ),
+		'desc'       => __( 'Se il territorio è mappato in quartieri, riportare il Quartiere dove si svolge l\'evento (lascia vuoto hai selezionato un Luogo dell\'Ente)', 'design_comuni_italia' ),
+		'type'       => 'text',
+        'attributes' => array(
+            'data-conditional-id' => $prefix . 'is_sede_principale_esa',
+            'data-conditional-value' => "false",
+        ),
+	) );
+
+
+	$cmb_contatti->add_field( array(
+		'id'         => $prefix . 'circoscrizione_sede_principale_custom',
+		'name'       => __( 'Circoscrizione ', 'design_comuni_italia' ),
+		'desc'       => __( 'Se il territorio è mappato in circoscrizioni, riportare la Circoscrizione dove si svolge l\'evento (lascia vuoto hai selezionato un Luogo della Scuola )', 'design_comuni_italia' ),
+		'type'       => 'text',
+        'attributes' => array(
+            'data-conditional-id' => $prefix . 'is_sede_principale_esa',
+            'data-conditional-value' => "false",
+        ),
+	) );
 
     $cmb_contatti->add_field( array(
         'id' => $prefix . 'altre_sedi',
@@ -285,6 +376,18 @@ function dci_add_unita_organizzativa_metaboxes() {
             'teeny' => false,
         ),
     ) );
+}
+
+/**
+ * aggiungo js per controllo compilazione campi
+ */
+add_action( 'admin_print_scripts-post-new.php', 'dci_unita_organizzativa_admin_script', 11 );
+add_action( 'admin_print_scripts-post.php', 'dci_unita_organizzativa_admin_script', 11 );
+
+function dci_unita_organizzativa_admin_script() {
+    global $post_type;
+    if( 'unita_organizzativa' == $post_type )
+        wp_enqueue_script( 'unita_organizzativa-admin-script', get_template_directory_uri() . '/inc/admin-js/unita_organizzativa.js' );
 }
 
 /**
