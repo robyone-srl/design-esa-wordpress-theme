@@ -22,58 +22,8 @@
                     $description = dci_get_meta('descrizione_breve');
                     $img = get_the_post_thumbnail_url();
                     if ($post->post_type == 'evento') {
-                        if (dci_get_meta('data_orario_inizio')) {
-                            $start_date = date('d-m-y', dci_get_meta('data_orario_inizio'));
-                            $start_date_arr = explode('-', $start_date);
-                        }
-                        if (dci_get_meta('data_orario_fine')) {
-                            $end_date = date('d-m-y', dci_get_meta('data_orario_fine'));
-                            $end_date_arr = explode('-', $end_date);
-                            $monthName = date_i18n('M', mktime(0, 0, 0, $end_date_arr[1], 10));
-                        }
-
-                        $url_eventi = get_permalink( get_page_by_title('Eventi') );
-                ?>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card-wrapper">
-                        <div class="card card-img no-after rounded">
-                            <?php if($img) { ?>
-                                <div class="img-responsive-wrapper">
-                                    <div class="img-responsive img-responsive-panoramic">
-                                        <figure class="img-wrapper">
-                                            <?php dci_get_img($img); ?>
-                                        </figure>
-                                        <div class="card-calendar d-flex flex-column justify-content-center">
-                                            <span class="card-date"><?php echo $start_date_arr[0] . '-' . $end_date_arr[0] ?></span>
-                                            <span class="card-day"><?php echo $monthName; ?></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php } ?>
-                            <div class="card-body p-4">
-                                <div class="category-top">
-                                    <a class="text-decoration-none fw-semibold" href="<?php echo $url_eventi; ?>">
-                                        Eventi
-                                    </a>
-                                    <?php if (isset($start_date_arr) && isset($end_date_arr) && $monthName) { ?>
-                                    <span class="data u-grey-light">
-                                        DAL <?php echo $start_date_arr[0] . ' AL ' . $end_date_arr[0] . ' ' . $monthName . ' ' . $end_date_arr[2]?>
-                                    </span>
-                                    <?php } ?>
-                                </div>
-                                <h4 class="title-small-semi-bold-big mb-0 ">
-                                    <a class="text-decoration-none" href="<?php echo get_permalink(); ?>">
-                                    <?php echo the_title(); ?>
-                                    </a>
-                                </h4>
-                                <p class="pt-3 d-none d-lg-block text-paragraph-card u-grey-light">
-                                    <?php echo $description; ?>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <?php } else { 
+                        get_template_part( 'template-parts/evento/card-full' );
+                    } else { 
                     $tipo_notizia = get_the_terms($post->ID, 'tipi_notizia')[0];
                     $arrdata = dci_get_data_pubblicazione_arr("data_pubblicazione", '_dci_notizia_', $post->ID);
                     $monthName = date_i18n('M', mktime(0, 0, 0, $arrdata[1], 10));

@@ -4,8 +4,12 @@ global $post;
 $prefix = '_dci_evento_';
 $img = get_the_post_thumbnail_url($post->ID);
 $descrizione = dci_get_meta('descrizione_breve', $prefix, $post->ID);
-$timestamp = dci_get_meta('data_orario_inizio', $prefix, $post->ID);
-$arrdata = explode('-', date_i18n("j-F-Y", $timestamp));
+$start_timestamp = dci_get_meta("data_orario_inizio", $prefix, $post->ID);
+$start_date = date_i18n('d/m', date($start_timestamp));
+$start_date_arr = explode('-', date_i18n('d-F-Y-H-i', date($start_timestamp)));
+$end_timestamp = dci_get_meta("data_orario_fine", $prefix, $post->ID);
+$end_date = date_i18n('d/m', date($end_timestamp));
+$end_date_arr = explode('-', date_i18n('d-F-Y-H-i', date($end_timestamp)));
 $tipo_evento = get_the_terms($post->ID,'tipi_evento')[0];
 ?>
 
@@ -18,8 +22,8 @@ $tipo_evento = get_the_terms($post->ID,'tipi_evento')[0];
                         <?php dci_get_img($img ?: get_template_directory_uri()."/assets/img/repertorio/abdul-a-CxRBtNe243k-unsplash.jpg", 'rounded-top img-fluid', 'medium_large'); ?>
                     </figure>
                     <div class="card-calendar d-flex flex-column justify-content-center">
-                        <span class="card-date"><?php echo $arrdata[0]; ?></span>
-                        <span class="card-day"><?php echo $arrdata[1]; ?></span>
+                        <span class="card-date"><?php echo $start_date_arr[0]; ?></span>
+                        <span class="card-day"><?php echo $start_date_arr[1]; ?></span>
                     </div>
                 </div>
             </div>
@@ -29,6 +33,9 @@ $tipo_evento = get_the_terms($post->ID,'tipi_evento')[0];
                         href="<?php echo get_term_link($tipo_evento->term_id); ?>">
                         <?php echo $tipo_evento->name; ?>
                     </a>
+                    <?php if ($start_timestamp && $end_timestamp && $start_date != $end_date) { ?>
+                    <span class="data u-grey-light">dal <?php echo $start_date; ?> al <?php echo $end_date; ?></span>
+                    <?php } ?>
                 </div>
                 <h3 class="card-title">
                     <a class="text-decoration-none"
