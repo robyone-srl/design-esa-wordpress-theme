@@ -226,7 +226,7 @@ function dci_get_breadcrumb_label($name , $type = 'term') {
         'avviso' => 'Avvisi'
     );
 
-    if ($terms[$name]) {
+    if ($terms[$name] ?? false) {
         return $terms[$name];
     }
 
