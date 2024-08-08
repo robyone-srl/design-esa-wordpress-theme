@@ -225,6 +225,22 @@ function dci_register_pagina_home_options(){
         'options' => dci_get_posts_options('sito_tematico'),
     ) );
 
+    //sezione Domande Frequenti
+    $home_options->add_field( array(
+        'id' => $prefix . 'domande_frequenti_title',
+        'name'        => __( 'Sezione Domande Frequenti', 'design_comuni_italia' ),
+        'desc' => __( 'Configurazione sezione Domande Frequenti.' , 'design_comuni_italia' ),
+        'type' => 'title',
+    ) );
+
+    $home_options->add_field( array(
+        'id' => $prefix . 'domande_frequenti',
+        'name'        => __( 'Domande Frequenti', 'design_comuni_italia' ),
+        'desc' => __( 'Selezionare le domande frequenti di cui visualizzare la card' , 'design_comuni_italia' ),
+        'type'    => 'pw_multiselect',
+        'options' => dci_get_posts_options('domanda_frequente'),
+    ) );
+
     //sezione Argomenti
     $home_options->add_field( array(
         'id' => $prefix . 'argomenti_title',

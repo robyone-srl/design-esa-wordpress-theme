@@ -98,6 +98,9 @@ get_header();
     <section id="siti-tematici" class="my-5">
         <?php get_template_part("template-parts/home/siti", "tematici"); ?>
     </section>
+    <section id="domande-frequenti" class="my-5">
+        <?php get_template_part("template-parts/home/domande-frequenti"); ?>
+    </section>
     <?php if ($mostra_gallery) {
         $sfondo_grigio = false;
         get_template_part("template-parts/vivere-ente/galleria-foto");
