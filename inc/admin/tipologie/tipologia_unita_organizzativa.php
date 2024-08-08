@@ -160,7 +160,7 @@ function dci_add_unita_organizzativa_metaboxes() {
         'name'    => __( 'Incarichi', 'design_comuni_italia' ),
         'desc' => __( 'Gli incarichi delle persone nell\'unità organizzativa. Puoi modificare queste informazioni dalle impostazioni degli incarichi.' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
-        'options' => get_incarichi_con_nomi(),
+        'options' => dci_get_incarichi_con_nomi(),
         'default_cb' => 'set_to_current_unita_organizzativa_incarichi',
         'attributes' => array(
             'placeholder' =>  __( 'Seleziona gli incarichi', 'design_comuni_italia' ),

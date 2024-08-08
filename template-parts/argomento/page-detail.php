@@ -51,7 +51,7 @@ if ($posts) {
                 </div>
                 <div class="row mt-lg-2">
                     <div class="col-12 col-lg-3 offset-lg-9">
-                        <button type="button" class="btn btn-primary text-button w-100" onclick="location.href='<?= get_search_query_url(post_types: ['page'], argomenti_ids: [$argomento->term_id]); ?>'">
+                        <button type="button" class="btn btn-primary text-button w-100" onclick="location.href='<?= dci_get_search_query_url(post_types: ['page'], argomenti_ids: [$argomento->term_id]); ?>'">
                             Tutte le pagine
                         </button>
                     </div>
