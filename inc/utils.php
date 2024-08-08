@@ -1314,7 +1314,7 @@ function dci_get_default_home_sections(){
         'argomenti',
         'siti-tematici',
         'domande-frequenti',
-        'galleria-foto',
+        //'galleria-foto',
         'ricerca',
         'valuta-servizio',
         'assistenza-contatti',
