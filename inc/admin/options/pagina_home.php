@@ -60,18 +60,6 @@ function dci_register_pagina_home_options(){
     ) );
 
     $home_options->add_field( array(
-        'id' => $prefix . 'hero_show',
-        'name'        => __( 'Mostra hero', 'design_comuni_italia' ),
-        'desc' => __( 'Scegli se mostrare un\'immagine prominente all\'inizio della pagina. Può anche contenere del testo e un link.' , 'design_comuni_italia' ),
-        'type'    => 'radio_inline',
-        'options' => array(
-            ''   => __( 'No', 'cmb2' ),
-            'true' => __( 'Sì', 'cmb2' ),
-        ),
-        'default' => '',
-    ) );
-
-    $home_options->add_field( array(
         'id'    => $prefix . 'hero_image',
         'name' => __('Immagine di sfondo', 'design_comuni_italia' ),
         'desc' => __( 'L\'immagine che viene visualizzata come "copertina"' , 'design_comuni_italia' ),
@@ -195,18 +183,6 @@ function dci_register_pagina_home_options(){
             ),
         )
     );
-
-    $home_options->add_field( array(
-        'id' => $prefix . 'eventi_hide',
-        'name'        => __( 'Nascondi eventi', 'design_comuni_italia' ),
-        'desc' => __( 'Scegli se nascondere la sezione degli eventi dalla pagina iniziale.' , 'design_comuni_italia' ),
-        'type'    => 'radio_inline',
-        'options' => array(
-            ''   => __( 'No', 'cmb2' ),
-            'true' => __( 'Sì', 'cmb2' ),
-        ),
-        'default' => '',
-    ) );
     
     $home_options->add_field( array(
         'id' => $prefix . 'visualizzazione_eventi',
@@ -406,19 +382,5 @@ function dci_register_pagina_home_options(){
         'options' => dci_get_terms_options('argomenti'),
         'show_option_none' => false,
         'remove_default' => 'true',
-    ) );
-
-
-    $home_options->add_field( array(
-        'id' => $prefix . 'more_section_title',
-        'name'        => __( 'Altre opzioni', 'design_comuni_italia' ),
-        'type' => 'title',
-    ) );
-
-    $home_options->add_field( array(
-        'id' => $prefix . 'mostra_gallery',
-        'name' => 'Mostra gallery',
-        'desc' => 'Mostra la galleria di foto (da impostare in <i>Configurazione &gt; Vivere l\'ente</i>)',
-        'type' => 'checkbox',
     ) );
 }
