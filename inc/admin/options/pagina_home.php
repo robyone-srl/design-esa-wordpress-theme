@@ -23,12 +23,39 @@ function dci_register_pagina_home_options(){
 
     $home_options = new_cmb2_box( $args );
 
-    
+    $home_options->add_field( array(
+        'id' => $prefix . 'home_sections_title',
+        'name'        => __( 'Sezioni', 'design_comuni_italia' ),
+        'desc' => __( 'Configurazione delle sezioni della home' , 'design_comuni_italia' ),
+        'type' => 'title',
+    ) );
+
+    $home_options->add_field(array(
+        'id' => $prefix . 'home_sections',
+        'name'        => __( 'Sezioni della home', 'design_comuni_italia' ),
+        'desc' => __( 'Scegli quali sezioni mostrare nella home e in quale ordine. Eliminando tutte le opzioni e poi salvando, la scelta verrà reimpostata.' , 'design_comuni_italia' ),
+        'type' => 'pw_multiselect',
+        'options' => array(
+            'hero' => 'Hero',
+            'messages' => 'Avvisi',
+            'notizie' => 'Notizie',
+            'contenuti-evidenza' => 'Contenuti in evidenza',
+            'calendario' => 'Eventi',
+            'argomenti' => 'Argomenti in evidenza',
+            'siti-tematici' => 'Siti tematici',
+            'domande-frequenti' => 'Domande frequenti in evidenza',
+            'galleria-foto' => 'Galleria delle foto',
+            'ricerca' => 'Ricerca e ricerche frequenti',
+            'valuta-servizio' => 'Valutazione del servizio',
+            'assistenza-contatti' => 'Contatti'
+        ),
+        'default' => dci_get_default_home_sections()
+    ) );
 
     $home_options->add_field( array(
         'id' => $prefix . 'hero_section_title',
         'name'        => __( 'Sezione Hero', 'design_comuni_italia' ),
-        'desc' => __( 'Configurazione immagine all\'inizio della pagina home.' , 'design_comuni_italia' ),
+        'desc' => __( 'Configurazione immagine all\'inizio della home' , 'design_comuni_italia' ),
         'type' => 'title',
     ) );
 
