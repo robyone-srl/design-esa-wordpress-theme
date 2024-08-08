@@ -347,7 +347,7 @@ class Breadcrumb_Trail {
             if (is_page()) {
                 $slug = get_queried_object()->post_name;
                 if ($slug == 'domande-frequenti') {
-                    $this->items[] = 'Domande più frequenti';
+                    $this->items[] = 'Domande frequenti';
                     return;
                 }
             }

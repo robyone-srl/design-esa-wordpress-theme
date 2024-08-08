@@ -1,7 +1,7 @@
 <?php
 global $domanda_frequente_id, $count, $location;
 
-$domande_frequenti = dci_get_option('domande_frequenti', $location??'homepage');
+$domande_frequenti = dci_get_option('domande_frequenti', $location ?? 'homepage');
 if (is_array($domande_frequenti) && count($domande_frequenti)) {
 ?>
 
@@ -21,10 +21,21 @@ if (is_array($domande_frequenti) && count($domande_frequenti)) {
             ?>
           </div>
         <?php
-        ++$count;
+          ++$count;
         }
         ?>
       </div>
     </div>
+    <div class="row my-4 justify-content-md-center">
+      <a class="read-more pb-3" href="<?= dci_get_template_page_url('page-templates/domande-frequenti.php') ?>">
+        <button type="button" class="btn btn-outline-primary">Tutte le domande frequenti
+          <svg class="icon">
+            <use xlink:href="#it-arrow-right"></use>
+          </svg>
+        </button>
+      </a>
+    </div>
   </div>
-<?php } ?>
+
+<?php
+} ?>
