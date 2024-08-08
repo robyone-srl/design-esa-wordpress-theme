@@ -1,68 +1,94 @@
 <?php
 /**
- * Archivio tassonomia Tipi Documento
+ * Archivio Tassonomia Tipi Documento
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#custom-taxonomies
- * @link https://italia.github.io/design-comuni-pagine-statiche/sito/lista-risorse.html
+ * @link https://italia.github.io/design-comuni-pagine-statiche/sito/tipi_documento.html
  *
  * @package Design_Comuni_Italia
  */
 
+global $the_query, $load_posts, $load_card_type, $documento, $tax_query, $title, $description, $data_element, $hide_categories;
+
+$obj = get_queried_object();
+$max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 3;
+$load_posts = 3;
+$query = isset($_GET['search']) ? dci_removeslashes($_GET['search']) : null;
+$args = array(
+    's' => $query,
+    'posts_per_page' => $max_posts,
+    'post_type'      => 'documento_pubblico',
+    'tipi_documento' => $obj->slug,
+    'orderby'        => 'post_title',
+    'order'          => 'ASC'
+);
+$the_query = new WP_Query( $args );
+$documenti = $the_query->posts;
+
+$tax_query = array(
+	array (
+		'taxonomy' => 'tipi_documento',
+		'field' => 'slug',
+		'terms' => $obj->slug
+	));
+
 get_header();
 ?>
-
-<main>
-	<div class="container" id="main-container">
-		<div class="row justify-content-center">
-			<div class="col-12 col-lg-10">
-				<?php get_template_part("template-parts/common/breadcrumb"); ?>
-			</div>
-		</div>
-	</div>
-
-	<div class="container">
-		<div class="row justify-content-center row-shadow">
-			<div class="col-12 col-lg-10">
-				<div class="cmp-hero">
-					<section class="it-hero-wrapper bg-white align-items-start">
-						<div class="it-hero-text-wrapper pt-0 ps-0 pb-4 pb-lg-60">
-							<h1 class="text-black" data-element="page-name"><?php echo single_term_title( '', false ); ?></h1>
-							<?php the_archive_description('<div class="hero-text"> <p>','</p> </div>'); ?>
-						</div>
-					</section>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="bg-grey-card py-5">
-		<div class="container">
-
-			<?php if ( have_posts() ) : ?>
-			<div class="row g-4">
-				<?php while ( have_posts() ) : the_post(); ?>
-
-					<?php get_template_part( 'template-parts/' . 'documento/cards-list' ); ?>
-
-				<?php endwhile; ?>
-			</div>
-
-			<div class="row my-4">
-				<nav class="pagination-wrapper justify-content-center col-12" aria-label="Navigazione pagine">
-					<?php echo dci_bootstrap_pagination(); ?>
-				</nav>
-			</div>
-			<?php else : ?>
-				<?php get_template_part( 'template-parts/content', 'none' ); ?>
-			<?php endif; ?>
-
-		</div>
-	</div>
-
-	<?php get_template_part("template-parts/common/valuta-servizio"); ?>
-	<?php get_template_part("template-parts/common/assistenza-contatti"); ?>
-
-</main>
-
+ <main>
+    <?php 
+      $title = $obj->name;
+      $description = $obj->description;
+      $data_element = 'data-element="page-name"';
+      get_template_part("template-parts/hero/hero"); 
+    ?>
+  
+    <div class="bg-grey-card">
+      <form role="search" id="search-form" method="get" class="search-form">
+          <button type="submit" class="d-none"></button>
+          <div class="container">
+            <div class="row ">
+              <h2 class="visually-hidden">Esplora tutti i documenti</h2>
+              <div class="col-12 pt-30 pt-lg-50 pb-lg-50">
+                <div class="cmp-input-search">
+                  <div class="form-group autocomplete-wrapper mb-2 mb-lg-4">
+                  <div class="input-group">
+                  <label for="autocomplete-two" class="visually-hidden">Cerca una parola chiave</label>
+                  <input type="search" 
+                    class="autocomplete form-control" 
+                    placeholder="Cerca una parola chiave"
+                    id="autocomplete-two"
+                    name="search"
+                    value="<?php echo $query; ?>"
+                    data-bs-autocomplete="[]">
+                  <div class="input-group-append">
+                      <button class="btn btn-primary" type="submit" id="button-3">
+                          Invio
+                      </button>
+                  </div>
+                  <span class="autocomplete-icon" aria-hidden="true">
+                    <svg class="icon icon-sm icon-primary" role="img" aria-labelledby="autocomplete-label"><use href="#it-search"></use></svg>
+                  </span>
+                  </div>
+                  </div>
+                  <p id="autocomplete-label" class="mb-4"><strong><?php echo $the_query->found_posts; ?> </strong>documenti trovati in ordine alfabetico</p>
+                </div>
+                <div class="row g-4" id="load-more">
+                    <?php foreach ($documenti as $post) { 
+                        $load_card_type = "documento";
+                        $hide_categories = true;
+                        $full_width = true;
+                        get_template_part("template-parts/documento/cards-list");    
+                    } ?>
+                </div>
+                <?php get_template_part("template-parts/search/more-results"); ?>
+              </div>
+            </div>
+          </div>
+      </form>
+    </div>
+    
+    <?php echo get_template_part( 'template-parts/common/valuta-servizio'); ?>
+    <?php echo get_template_part( 'template-parts/common/assistenza-contatti'); ?>
+  </main>
 <?php
 get_footer();
