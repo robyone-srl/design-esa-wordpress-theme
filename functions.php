@@ -285,7 +285,7 @@ add_filter('upload_mimes', 'custom_upload_mimes');
 function menu_item_desc($item_id, $item)
 {
 	wp_enqueue_media();
-	wp_enqueue_script('dci-custom-media-upload');
+	wp_enqueue_script( 'dci-custom-media-upload', get_template_directory_uri() . '/inc/admin-js/custom-media-upload.js', ['jquery']);
 
 	$imgid = get_post_meta($item_id, 'menu_item_logo', true);
 
