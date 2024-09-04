@@ -46,7 +46,7 @@ $links = dci_get_option('link', 'link_utili');
                     $popular_posts = new WP_Query(
                         array(
                             'post_type'     => dci_get_sercheable_tipologie(),
-                            'posts_per_page' => 7,
+                            'posts_per_page' => 5,
                             'meta_key'      => 'views',
                             'orderby'       => 'meta_value_num',
                             'order'         => 'DESC'

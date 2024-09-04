@@ -7,7 +7,7 @@ if (is_array($domande_frequenti) && count($domande_frequenti)) {
 
   <div class="container mb-4">
     <div class="row">
-      <h2 class="mb-0">Domande frequenti in evidenza</h2>
+      <h2 class="mb-0">Hai dubbi o domande?</h2>
     </div>
     <div class="pt-4 pt-lg-30">
       <div class="row gy-4">
@@ -26,13 +26,12 @@ if (is_array($domande_frequenti) && count($domande_frequenti)) {
         ?>
       </div>
     </div>
-    <div class="row my-4 justify-content-md-center">
-      <a class="read-more pb-3" href="<?= dci_get_template_page_url('page-templates/domande-frequenti.php') ?>">
-        <button type="button" class="btn btn-outline-primary">Tutte le domande frequenti
-          <svg class="icon">
-            <use xlink:href="#it-arrow-right"></use>
-          </svg>
-        </button>
+    <div class="my-4 d-flex justify-content-end">
+      <a class="read-more btn btn-outline-primary" href="<?= dci_get_template_page_url('page-templates/domande-frequenti.php') ?>">
+        Tutte le domande frequenti
+        <svg class="icon">
+          <use xlink:href="#it-arrow-right"></use>
+        </svg>
       </a>
     </div>
   </div>
