@@ -39,7 +39,7 @@ $last_notification = get_user_meta($current_user->ID,"_dci_last_notification", t
                 <ul class="link-list">
                     <li class="active">
                         <a href="<?php echo admin_url(); ?>">
-                            <svg class="icon icon-primary icon-sm left"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#it-list"></use></svg>
+                            <svg class="icon icon-primary icon-sm left" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#it-list"></use></svg>
                             <span><?php _e("Area personale", "design_comuni_italia"); ?></span>
                         </a>
                     </li>
@@ -48,7 +48,7 @@ $last_notification = get_user_meta($current_user->ID,"_dci_last_notification", t
                         ?>
                         <li class="has-notifications">
                             <a href="<?php echo $link_notification; ?>">
-                                <svg class="icon icon-primary icon-sm left">
+                                <svg class="icon icon-primary icon-sm left" aria-hidden="true">
                                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#it-info-circle"></use>
                                 </svg>
                                 <span><?php _e("Notifiche", "design_comuni_italia"); ?></span>
@@ -59,9 +59,8 @@ $last_notification = get_user_meta($current_user->ID,"_dci_last_notification", t
                     ?>
                     <li>
                     <a class="list-item left-icon" href="<?php echo wp_logout_url(); ?>">
-                        <svg class="icon icon-primary icon-sm left">
-                        <use
-                            xlink:href="#it-external-link"></use>
+                        <svg class="icon icon-primary icon-sm left" aria-hidden="true">
+                            <use xlink:href="#it-external-link"></use>
                         </svg>
                         <span class="fw-bold">Esci</span>
                     </a>
