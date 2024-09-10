@@ -6,6 +6,13 @@ define('COMUNI_PAGINE',jsonToArray(get_template_directory()."/inc/comuni_pagine.
 
 define('COMUNI_TIPOLOGIE',jsonToArray(get_template_directory()."/inc/comuni_tipologie.json")['tipologie']);
 
+define('SOCIAL_ICONS', [
+    'linkedin' => "it-linkedin",
+    'telegram' => "it-telegram",
+    'twitter' => "it-twitter",
+    'whatsapp' => "it-whatsapp"
+]);
+
 /**
  * restituisce l'oggetto che descrive le Pagine del Sito dei Comuni
  * @return mixed
@@ -178,6 +185,8 @@ function dci_get_post_types_grouped($group = "", $tag = false)
         $post_types = array("sito_tematico");
     else if ($group === "domande-frequenti")
         $post_types = array("domanda_frequente");
+    else if ($group === "page" || "pagina")
+        $post_types = array("page");
     else
         $post_types = dci_get_sercheable_tipologie();
 
@@ -217,7 +226,7 @@ function dci_get_breadcrumb_label($name , $type = 'term') {
         'avviso' => 'Avvisi'
     );
 
-    if ($terms[$name]) {
+    if ($terms[$name] ?? false) {
         return $terms[$name];
     }
 

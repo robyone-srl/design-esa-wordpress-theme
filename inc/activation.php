@@ -4,37 +4,33 @@
  * attivazione del Tema
  */
 function dci_theme_activation() {
-	// preparo immagini di repertorio
-    prepareDefaultMediaCollection();
-
-    // inserisco i termini di tassonomia
-    insertCustomTaxonomyTerms();
-
-    //inserisco le descrizioni di default per la tassonomia Argomenti
-    updateArgomentiDescription();
-
-    //inserisco le descrizioni di default per la tassonomia Categorie di Servizio
-    updateCategorieServizio();
-    
-    //inserisco le descrizioni di default per la tassonomia Tipi di Documento
-    updateTipiDocumento();
-
-
-    //creo le pagine
-    insertPages($pagine = dci_get_pagine_obj());
-
-    //creo i permessi e le capabilites
-    createCapabilities();
-
-    //creo i menu
-    createMenu();
-    
-    //migro le immagini a thumbnail
-    migrateImagesToThumbnails();
-
     // controllo se è una prima installazione
     $dci_has_installed = get_option("dci_has_installed");
     if(!$dci_has_installed){
+        // preparo immagini di repertorio
+        prepareDefaultMediaCollection();
+    
+        // inserisco i termini di tassonomia
+        insertCustomTaxonomyTerms();
+    
+        //inserisco le descrizioni di default per la tassonomia Argomenti
+        updateArgomentiDescription();
+    
+        //inserisco le descrizioni di default per la tassonomia Categorie di Servizio
+        updateCategorieServizio();
+        
+        //inserisco le descrizioni di default per la tassonomia Tipi di Documento
+        updateTipiDocumento();
+    
+    
+        //creo le pagine
+        insertPages($pagine = dci_get_pagine_obj());
+    
+        //creo i permessi e le capabilites
+        createCapabilities();
+    
+        //creo i menu
+        createMenu();    
     }
 
     global $wp_rewrite;
@@ -599,7 +595,7 @@ function dci_create_page_template($name, $slug, $template, $parent_id = '', $con
 
     $new_page_title    = $name;
     $new_page_content  = $content;
-    $new_page_template = 'page-templates/'.$template.'.php';
+    $new_page_template = $template ? 'page-templates/'.$template.'.php' : '';
     $page_check        = get_page_by_title( $new_page_title);
 
     $new_page = array(

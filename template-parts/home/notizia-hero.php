@@ -1,7 +1,7 @@
 <?php
 global $post;
 
-$img               = dci_get_meta("immagine", '_dci_notizia_', $post->ID);
+$has_img               = has_post_thumbnail();
 $arrdata           = dci_get_data_pubblicazione_arr("data_pubblicazione", '_dci_notizia_', $post->ID);
 $monthName         = date_i18n('M', mktime(0, 0, 0, $arrdata[1], 10));
 $descrizione_breve = dci_get_meta("descrizione_breve", '_dci_notizia_', $post->ID);
@@ -10,7 +10,7 @@ $argomenti         = dci_get_meta("argomenti", '_dci_notizia_', $post->ID);
 ?>
 
 <div class="row flex-grow-1">
-    <div class="<?= $img?'col-lg-6':'' ?> order-2 order-lg-1">
+    <div class="<?= $has_img?'col-lg-6':'' ?> order-2 order-lg-1">
         <div class="card mb-1">
             <div class="card-body pb-xl-5">
                 <div class="category-top">
@@ -34,9 +34,9 @@ $argomenti         = dci_get_meta("argomenti", '_dci_notizia_', $post->ID);
             </div>
         </div>
     </div>
-    <?php if ($img) { ?>
+    <?php if ($has_img) { ?>
         <div class="col-lg-6 order-1 order-lg-2 px-0 px-lg-2 notizia-hero-image-container">
-            <?php dci_get_img($img, 'img-fluid h-100 w-100 object-fit-cover', 'article-simple-thumb'); ?>
+            <?php the_post_thumbnail('post-thumbnail', $attr = array('class' => 'has_img-fluid h-100 w-100 object-fit-cover')) ?>
         </div>
     <?php } ?>
 </div>

@@ -48,7 +48,7 @@ get_header();
             $servizi = dci_get_meta('servizi_erogati', $prefix, $post->ID) ?: [];
 
             $nome_alternativo = dci_get_meta('nome_alternativo', $prefix, $post->ID);
-			$more_info = dci_get_wysiwyg_field("ulteriori_informazioni_ifr");
+			$more_info = dci_get_wysiwyg_field("ulteriori_informazioni", $prefix, $post->ID);
         ?>
 
             <div class="container" id="main-container">

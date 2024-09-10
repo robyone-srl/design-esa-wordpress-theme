@@ -22,7 +22,6 @@ get_header();
 
         $prefix = "_dci_unita_organizzativa_";
 
-        $immagine = dci_get_meta("immagine", $prefix, $post->ID);
         $descrizione_breve = dci_get_meta("descrizione_breve", $prefix, $post->ID);
         $competenze = dci_get_wysiwyg_field("competenze");
         $tipi_organizzazione = get_the_terms($post, 'tipi_unita_organizzativa');
@@ -40,7 +39,12 @@ get_header();
         $persone = dci_get_meta("persone_struttura", $prefix, $post->ID);
 
         $servizi = dci_get_meta("elenco_servizi_offerti", $prefix, $post->ID);
-        $sede_principale_id = dci_get_meta("sede_principale", $prefix, $post->ID);
+        $is_sede_principale_esa = dci_get_meta("is_sede_principale_esa") != "false";
+        if ($is_sede_principale_esa) {
+            $sede_principale_id = dci_get_meta("sede_principale", $prefix, $post->ID);
+            $sede_principale = $sede_principale_id ? get_post($sede_principale_id) : null;
+        }
+        $show_sede_principale = $sede_principale ?? false || !$is_sede_principale_esa;
         $altre_sedi = dci_get_meta("altre_sedi", $prefix, $post->ID);
         $punti_contatto = dci_get_meta("contatti", $prefix, $post->ID);
         $allegati = dci_get_meta("allegati", $prefix, $post->ID);
@@ -288,18 +292,20 @@ get_header();
                                 </div>
                             </section>
                         <?php }
-
-                        if (!empty($sede_principale_id)) {
-                            $luogo = get_post($sede_principale_id);
+                        if ($show_sede_principale) {
                         ?>
-
                             <section id="sede-principale" class="it-page-section mb-4">
                                 <h2 class="h3 my-2">Sede principale</h2>
-                                <div class="col-xl-6 col-lg-8 col-md-12 ">
-                                    <?php get_template_part("template-parts/luogo/card-title"); ?>
-                                </div>
+                                <?php if ($is_sede_principale_esa && $sede_principale) { ?>
+                                <?php
+                                $luogo = $sede_principale;
+                                get_template_part("template-parts/single/luogo");
+                                ?>
+                                <?php } else if (!$is_sede_principale_esa) {
+                                    $luogo_option_name = 'sede_principale_custom';
+                                    get_template_part("template-parts/luogo/card", "custom");
+                                } ?>
                             </section>
-
                         <?php
                         }
                         if ($altre_sedi && is_array($altre_sedi) && count($altre_sedi)) { ?>
@@ -307,7 +313,7 @@ get_header();
                                 <h2 class="h3 my-2">Altre sedi</h2>
                                 <?php foreach ($altre_sedi as $sede_id) {
                                     $luogo = get_post($sede_id);
-                                ?><div class="col-xl-6 col-lg-8 col-md-12 "><?php
+                                ?><div class="col-xl-6 col-lg-8 col-12 mb-4"><?php
                                                                             $with_border = false;
                                                                             get_template_part("template-parts/luogo/card-title");
                                                                             ?></div><?php
@@ -321,7 +327,7 @@ get_header();
                                 <h2 class="h3 my-2">Contatti</h2>
                                 <div class="row">
                                     <?php foreach ($punti_contatto as $pc_id) { ?>
-                                        <div class="col-xl-6 col-lg-8 col-md-12 ">
+                                        <div class="col-xl-6 col-lg-8 col-12 mb-4 card-wrapper">
                                             <?php
                                             $with_border = true;
                                             get_template_part("template-parts/punto-contatto/card"); ?>
@@ -336,7 +342,7 @@ get_header();
                                 <h2 class="h3 my-2">Documenti</h2>
                                 <div class="row">
                                     <?php foreach ($allegati as $allegato_id) { ?>
-                                        <div class="col-md-6 col-sm-12 ">
+                                        <div class="col-md-6 col-sm-12 mb-3 card-wrapper">
                                             <?php
                                             $documento = get_post($allegato_id);
                                             $with_border = true;

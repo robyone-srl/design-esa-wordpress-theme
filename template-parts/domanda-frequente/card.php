@@ -1,17 +1,24 @@
 <?php
 global $domanda_frequente_id;
 
-$domanda_frequente = get_post($domanda_frequente_id);
-$prefix = '_dci_domanda_frequente_';
-$df_risposta = dci_get_meta('risposta', $prefix, $domanda_frequente->ID);
+$post = get_post($domanda_frequente_id);
 ?>
 
 <div class="card card-teaser card-teaser-image card-flex no-after rounded shadow-sm border border-light mb-0">
-                            <div class="card-image-wrapper with-read-more">
-                                <div class="card-body p-3">
-                                        <h4 class="card-title text-paragraph-medium u-grey-light">
-                                            <a href="<?php echo get_permalink(); ?>" class="text-decoration-none"><?php echo the_title(); ?></a>
-                                        </h4>
-                                </div>
-                            </div>
-                        </div>
+    <div class="card-image-wrapper with-read-more">
+        <div class="card-body pt-1 u-grey-light">
+            <h3 class="card-title text-paragraph-medium u-grey-light"><?php the_title() ?></h3>
+            <p class="text-paragraph-card u-grey-light m-0">
+                <?php the_excerpt() ?>
+            </p>
+        </div>
+        <div class="mt-5">
+            <a class="read-more" href="<?php the_permalink() ?>" aria-label="Vai alla domanda <?php the_title() ?>" title="Vai alla domanda <?php the_title() ?>">
+                <span class="text">Vai alla domanda</span>
+                <svg class="icon">
+                    <use xlink:href="#it-arrow-right"></use>
+                </svg>
+            </a>
+        </div>
+    </div>
+</div>

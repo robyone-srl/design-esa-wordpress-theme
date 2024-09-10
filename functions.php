@@ -204,7 +204,7 @@ function dci_scripts()
 
 	wp_enqueue_script('dci-jquery-match-height', get_template_directory_uri() . '/assets/js/components/jquery-match-height/dist/jquery.matchHeight.js', array(), false, true);
 
-	if (is_singular(array("servizio", "struttura", "luogo", "evento", "scheda_progetto", "post", "circolare", "indirizzo")) || is_archive() || is_search() || is_post_type_archive("luogo")) {
+	if (is_singular(array("servizio", "unita_organizzativa", "luogo", "evento", "scheda_progetto", "post", "circolare", "indirizzo")) || is_archive() || is_search() || is_post_type_archive("luogo")) {
 		wp_enqueue_script('dci-leaflet-js', get_template_directory_uri() . '/assets/js/components/leaflet/leaflet.js', array(), false, true);
 	}
 
@@ -285,7 +285,7 @@ add_filter('upload_mimes', 'custom_upload_mimes');
 function menu_item_desc($item_id, $item)
 {
 	wp_enqueue_media();
-	wp_enqueue_script('dci-custom-media-upload');
+	wp_enqueue_script( 'dci-custom-media-upload', get_template_directory_uri() . '/inc/admin-js/custom-media-upload.js', ['jquery']);
 
 	$imgid = get_post_meta($item_id, 'menu_item_logo', true);
 
@@ -340,58 +340,6 @@ function getFileSizeAndFormat($url) {
 
     return $file_format . ' ' . $size_formatted;
 }
-
-function migrate_images_to_thumbnails()
-{
-    $dci_images_migrated_to_thumbnails = get_option("dci_images_migrated_to_thumbnails");
-    if ($dci_images_migrated_to_thumbnails) {
-        return;
-    }
-
-    try {
-        $prefixes = [
-            '_dci_documento_pubblico_',
-            '_dci_evento_',
-            '_dci_luogo_',
-            '_dci_notizia_',
-            '_dci_sito_tematico_',
-            '_dci_unita_organizzativa_',
-            '_dci_documento_privato_'
-        ];
-
-        foreach ($prefixes as $prefix) {
-            $meta_key = $prefix . 'immagine_id';
-
-            $posts = get_posts([
-                'numberposts' => -1,
-                'post_type' =>  'any',
-                'post_status' => 'any',
-                'meta_query' => [
-                    [
-                        'key' => $meta_key,
-                        'compare' => 'EXISTS',
-                    ]
-                ]
-            ]);
-
-            foreach ($posts as $post) {
-                $immagine_id = get_post_meta($post->ID, $meta_key, true);
-
-                if ($immagine_id){
-                    set_post_thumbnail($post, $immagine_id);
-                    delete_post_meta($post->ID, $meta_key);
-                    delete_post_meta($post->ID, $prefix . 'immagine');
-                }
-            }
-        }
-
-        update_option("dci_images_migrated_to_thumbnails", true);
-    } catch (\Throwable $th) {
-    }
-}
-add_action('init', 'migrate_images_to_thumbnails');
-
-
 
 /*
  * Set post views count using post meta

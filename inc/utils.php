@@ -1131,12 +1131,12 @@ if(!function_exists("dci_get_related_unita_amministrative")) {
             );
         }
 
-        $servizi =  get_posts( $args );
+        $id_servizi =  get_posts( $args );
 
         $unita_organizzative = array();
 
-        foreach ($servizi as $servizio) {
-            $id = dci_get_meta('unita_responsabile', '_dci_servizio_', $servizio -> ID);
+        foreach ($id_servizi as $id_servizio) {
+            $id = dci_get_meta('unita_responsabile', '_dci_servizio_', $id_servizio);
 
             if (!dci_contains_element_with($unita_organizzative, $key= 'id', $value = $id)){
                 $unita_organizzative [] = array(
@@ -1205,24 +1205,24 @@ function cmb2_render_callback_for_css_file( $field, $escaped_value, $object_id, 
 }
 add_action( 'cmb2_render_css_file', 'cmb2_render_callback_for_css_file', 10, 5 );
 
-function get_custom_css_sub_folder(){
+function dci_get_custom_css_sub_folder(){
     return '/custom-css/';
 }
 
-function get_custom_css_folder_path(){
-    return WP_CONTENT_DIR.get_custom_css_sub_folder();
+function dci_get_custom_css_folder_path(){
+    return WP_CONTENT_DIR.dci_get_custom_css_sub_folder();
 }
 
-function get_custom_css_file_path($file_name_no_path){
-    return get_custom_css_folder_path().$file_name_no_path;
+function dci_get_custom_css_file_path($file_name_no_path){
+    return dci_get_custom_css_folder_path().$file_name_no_path;
 }
 
-function get_custom_css_file_url($file_name_no_path){
-    return content_url(get_custom_css_sub_folder().$file_name_no_path);
+function dci_get_custom_css_file_url($file_name_no_path){
+    return content_url(dci_get_custom_css_sub_folder().$file_name_no_path);
 }
 
-function add_custom_css_field_to_box(&$box, $css_name, $file_field_name, $checkbox_field_name){
-    if(file_exists(get_custom_css_file_path($css_name))){
+function dci_add_custom_file_field_to_box(&$box, $css_name, $file_field_name, $checkbox_field_name){
+    if(file_exists(dci_get_custom_css_file_path($css_name))){
         $box->add_field( array(
             'name' => 'Stile personalizzato',
             'desc' => 'Al momento, è in uso un foglio di stile personalizzato al posto di <strong>'.$css_name.'</strong>. Per tornare a usare quello predefinito o per caricare una nuova versione, disabilita questa opzione e salva le modifiche.',
@@ -1234,7 +1234,7 @@ function add_custom_css_field_to_box(&$box, $css_name, $file_field_name, $checkb
     else{
 
         $box->add_field( array(
-        'id'    => $prefix . $file_field_name,
+        'id'    => $file_field_name,
         'name' => __('Stile personalizzato', 'design_comuni_italia' ),
         'desc' => __('Customizzazione del foglio di stile <strong>'.$css_name.'</strong> per personalizzare la grafica del sito. <br> <strong>Nota</strong>. Se il campo è vuoto viene utilizzato quello di default presente nel tema' , 'design_comuni_italia' ),
         'type' => 'css_file'
@@ -1242,20 +1242,20 @@ function add_custom_css_field_to_box(&$box, $css_name, $file_field_name, $checkb
     }
 }
 
-function is_this_dark_hex($hex){
-    return luma_hex($hex) < .5;
+function dci_is_this_dark_hex($hex){
+    return dci_luma_hex($hex) < .5;
 }
 
-function luma_hex($hex){
-    return luma(hexdec(substr($hex,1,2)), hexdec(substr($hex,3,2)), hexdec(substr($hex,5,2)));
+function dci_luma_hex($hex){
+    return dci_luma(hexdec(substr($hex,1,2)), hexdec(substr($hex,3,2)), hexdec(substr($hex,5,2)));
 }
 
-function luma($r, $g, $b)
+function dci_luma($r, $g, $b)
 {
   return (0.2126 * (float)$r + 0.7152 * (float)$g + 0.0722 * (float)$b) / 255.0;
 }
 
-function get_search_query_url($term = '', $post_types = [], $argomenti_ids = []){
+function dci_get_search_query_url($term = '', $post_types = [], $argomenti_ids = []){
     return '/?'.build_query(
         array(
             's' => $term,
@@ -1265,7 +1265,7 @@ function get_search_query_url($term = '', $post_types = [], $argomenti_ids = [])
     );
 }
 
-function get_incarichi_con_unita_organizzativa(){
+function dci_get_incarichi_con_unita_organizzativa(){
     $args = [
         'post_type' => 'incarico',
         'posts_per_page' => -1
@@ -1285,7 +1285,7 @@ function get_incarichi_con_unita_organizzativa(){
 }
 
 
-function get_incarichi_con_nomi(){
+function dci_get_incarichi_con_nomi(){
     $args = [
         'post_type' => 'incarico',
         'posts_per_page' => -1
@@ -1302,4 +1302,21 @@ function get_incarichi_con_nomi(){
     }
 
     return $incarichi_organizzati;
+}
+
+function dci_get_default_home_sections(){
+    return [
+        'hero',
+        'messages',
+        'notizie',
+        'contenuti-evidenza',
+        'calendario',
+        'argomenti',
+        'siti-tematici',
+        'domande-frequenti',
+        //'galleria-foto',
+        'ricerca',
+        'valuta-servizio',
+        'assistenza-contatti',
+    ];
 }

@@ -93,6 +93,7 @@ get_header();
     if($posts) {
       $first_printed = false;
     ?>
+    	<?php get_template_part("template-parts/argomento/page-detail"); ?>
     	<?php get_template_part("template-parts/argomento/novita-detail"); ?>
     	<?php get_template_part("template-parts/argomento/amministrazione-detail"); ?>
     	<?php get_template_part("template-parts/argomento/servizi-detail"); ?>

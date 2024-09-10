@@ -25,7 +25,6 @@ if ($notizie_in_home && $notizie_in_home > 0) {
     //$post  = array_shift( $posts  );
 }
 
-$img               = dci_get_meta("immagine", '_dci_notizia_', $post->ID);
 $arrdata           = dci_get_data_pubblicazione_arr("data_pubblicazione", '_dci_notizia_', $post->ID);
 $monthName         = date_i18n('M', mktime(0, 0, 0, $arrdata[1], 10));
 $descrizione_breve = dci_get_meta("descrizione_breve", '_dci_notizia_', $post->ID);
@@ -39,12 +38,11 @@ if ($post_id || ($posts && is_array($posts) && count($posts) > 0)) {
     <section id="notizie" aria-describedby="novita-in-evidenza">
         <div class="section-content">
             <div class="container">
-                <h2 id="novita-in-evidenza" class="visually-hidden">Novità in evidenza</h2>
                 <?php if ($post_id) {
+                    ?> <h2 id="novita-in-evidenza" class="visually-hidden">Novità in evidenza</h2> <?php
                     $overlapping = "card-overlapping";
-                ?>
-                    <?php get_template_part("template-parts/home/notizia-hero"); ?>
-                <?php }
+                    get_template_part("template-parts/home/notizia-hero");
+                }
                 if ($posts && is_array($posts) && count($posts) > 0) { ?>
                     <?php if (!$post_id) { ?>
                         <div class="row row-title pt-30 pt-lg-60 pb-3">

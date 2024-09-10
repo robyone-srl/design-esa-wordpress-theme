@@ -347,9 +347,15 @@ class Breadcrumb_Trail {
             if (is_page()) {
                 $slug = get_queried_object()->post_name;
                 if ($slug == 'domande-frequenti') {
-                    $this->items[] = 'Domande più frequenti';
+                    $this->items[] = 'Domande frequenti';
                     return;
                 }
+            }
+
+            $custom_breadcrumbs = apply_filters( 'dci_get_breadcrumb_items', false, $this->items );
+            if ( !empty( $custom_breadcrumbs ) ) {
+                $this->items = $custom_breadcrumbs;
+                return;
             }
 
             if ( is_singular() ) {

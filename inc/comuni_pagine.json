@@ -34,14 +34,14 @@
           "template_name": "incarichi",
           "children": {}
         },
-		    "Personale sanitario": {
+        "Personale sanitario": {
           "title": "Personale sanitario",
           "slug": "personale-sanitario",
           "description": "Personale da contattare per informazioni e supporto ai servizi socio-sanitari erogati.",
           "template_name": "incarichi",
           "children": {}
         },
-		    "Personale socio-assistenziale": {
+        "Personale socio-assistenziale": {
           "title": "Personale socio-assistenziale",
           "slug": "personale-socio-assistenziale",
           "description": "Personale da contattare per informazioni e supporto ai servizi sociali e assistenziali.",

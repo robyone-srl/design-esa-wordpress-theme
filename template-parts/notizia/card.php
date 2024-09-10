@@ -1,7 +1,6 @@
 <?php
 global $post;
 
-$img = dci_get_meta("immagine", '_dci_notizia_', $post->ID);
 $data_pubblicazione = dci_get_meta("data_pubblicazione", '_dci_notizia_', $post->ID);
 $arrdata =  explode("-", date('d-m-y',$data_pubblicazione));
 $monthName = date_i18n('M', mktime(0, 0, 0, $arrdata[1], 10));
@@ -27,9 +26,7 @@ $argomenti = dci_get_meta("argomenti", '_dci_notizia_', $post->ID);
                 <p class="card-title fw-semibold"><?php echo $post->post_title ?></p>
                 <p class="card-text"><?php echo $descrizione_breve ?></p>
             </div>
-            <div class="card-image card-image-rounded pb-5">
-                <?php dci_get_img($img); ?>
-            </div>
+            <?php the_post_thumbnail($attr = 'card-image card-image-rounded pb-5') ?>
         </div>
 
         <a

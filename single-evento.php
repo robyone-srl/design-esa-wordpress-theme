@@ -25,9 +25,11 @@ get_header();
         //dates
         $start_timestamp = dci_get_meta("data_orario_inizio", $prefix, $post->ID);
         $start_date = date_i18n('d F Y', date($start_timestamp));
+        $start_time = date_i18n('H:i', date($start_timestamp));
         $start_date_arr = explode('-', date_i18n('d-M-Y-H-i', date($start_timestamp)));
         $end_timestamp = dci_get_meta("data_orario_fine", $prefix, $post->ID);
         $end_date = date_i18n('d F Y', date($end_timestamp));
+        $end_time = date_i18n('H:i', date($end_timestamp));
         $end_date_arr = explode('-', date_i18n('d-M-Y-H-i', date($end_timestamp)));
         $descrizione = dci_get_wysiwyg_field("descrizione_completa", $prefix, $post->ID);
         $destinatari = dci_get_wysiwyg_field("a_chi_e_rivolto", $prefix, $post->ID);
@@ -41,7 +43,7 @@ get_header();
             $luogo_evento_id = dci_get_meta("luogo_evento", $prefix, $post->ID);
             $luogo_evento = $luogo_evento_id ? get_post($luogo_evento_id) : null;
         }
-        $show_luogo = $luogo_evento || !$is_luogo_esa;
+        $show_luogo = $luogo_evento ?? false || !$is_luogo_esa;
         $costi = dci_get_meta('costi');
         $allegati = dci_get_meta("allegati", $prefix, $post->ID);
         $punti_contatto = dci_get_meta("punti_contatto", $prefix, $post->ID);
@@ -62,9 +64,13 @@ get_header();
                 <div class="col-lg-8 px-lg-4 py-lg-2">
                     <h1><?php the_title(); ?></h1>
                     <h2 class="visually-hidden">Dettagli evento</h2>
-                    <?php if ($start_timestamp && $end_timestamp) { ?>
-                        <p class="h4 py-2">dal <?php echo $start_date; ?> al <?php echo $end_date; ?></p>
-                    <?php } ?>
+                    <?php if ($start_timestamp && $end_timestamp) {
+                        if ($start_date == $end_date) { ?>
+                            <p class="h4 py-2"><?php echo $start_date; ?> dalle <?php echo $start_time; ?> alle <?php echo $end_time; ?></p>
+                        <?php } else { ?>
+                            <p class="h4 py-2">dal <?php echo $start_date; ?> al <?php echo $end_date; ?></p>
+                        <?php }
+                    } ?>
                     <p>
                         <?php echo $descrizione_breve; ?>
                     </p>
@@ -188,7 +194,7 @@ get_header();
                 <section class="col-lg-8 it-page-sections-container border-light">
                     <article id="cos-e" class="it-page-section mb-5" data-audio>
                         <h2 class="h3 mb-3">Cos'è</h2>
-                        <div class="richtext-wrapper font-serif">
+                        <div class="richtext-wrapper lora">
                             <?php echo $descrizione; ?>
                         </div>
                         <?php if (is_array($persone) && count($persone)) { ?>
@@ -214,7 +220,9 @@ get_header();
                     <?php if ($destinatari) { ?>
                         <article id="destinatari" class="it-page-section mb-5">
                             <h2 class="h3 mb-3">A chi è rivolto</h2>
-                            <p><?php echo $destinatari; ?></p>
+                            <div class="richtext-wrapper lora">
+                                <?php echo $destinatari; ?>
+                            </div>
                         </article>
                     <?php  } ?>
 
@@ -393,7 +401,9 @@ get_header();
                                             <use xlink:href="#it-info-circle"></use>
                                         </svg>
                                     </div>
-                                    <?php echo $more_info; ?>
+                                    <div class="richtext-wrapper lora">
+                                        <?php echo $more_info; ?>
+                                    </div>
                                 </div>
                             </div>
                         <?php } ?>

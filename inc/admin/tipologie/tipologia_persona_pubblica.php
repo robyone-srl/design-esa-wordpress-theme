@@ -100,7 +100,7 @@ function dci_add_persona_pubblica_metaboxes() {
         'name'    => __( 'Incarichi' ),
         'desc' => __( 'Gli incarichi che la persona ricopre. Puoi modificare queste informazioni dalle impostazioni degli incarichi.' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
-        'options' => get_incarichi_con_unita_organizzativa(),
+        'options' => dci_get_incarichi_con_unita_organizzativa(),
         'default_cb' => 'set_to_current_persona_pubblica_incarichi',
         'attributes' => array(
             'placeholder' =>  __( 'Seleziona le Unità Organizzative', 'design_comuni_italia' ),

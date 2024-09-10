@@ -27,20 +27,20 @@ jQuery( document ).ready(function() {
     });
 
     if(jQuery('input:radio[name="_dci_evento_is_luogo_esa"]:checked').val() == "true"){
-        dci_is_luogo_esa_enabled();
+        dci_enable_luogo_esa();
     }else{
-        dci_is_luogo_esa_disabled();
+        dci_disable_luogo_esa();
     }
     jQuery('input:radio[name="_dci_evento_is_luogo_esa"]').change( function(){
         if (jQuery(this).is(':checked') && jQuery(this).val() == 'true') {
-            dci_is_luogo_esa_enabled();
+            dci_enable_luogo_esa();
         }else{
-            dci_is_luogo_esa_disabled();
+            dci_disable_luogo_esa();
         }
     });
 });
 
-function dci_is_luogo_esa_enabled(){
+function dci_enable_luogo_esa(){
     jQuery(".cmb2-id--dci-evento-posizione-gps-luogo-custom").hide();
 
     jQuery("#_dci_evento_luogo_evento").attr("required", true);
@@ -50,7 +50,7 @@ function dci_is_luogo_esa_enabled(){
     jQuery("#_dci_evento_posizione_gps_luogo_custom_lng").removeAttr('required');
 }
 
-function dci_is_luogo_esa_disabled(){
+function dci_disable_luogo_esa(){
     jQuery(".cmb2-id--dci-evento-posizione-gps-luogo-custom").show();
 
     jQuery("#_dci_evento_luogo_evento").removeAttr('required');

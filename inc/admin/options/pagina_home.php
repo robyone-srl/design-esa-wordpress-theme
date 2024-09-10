@@ -23,25 +23,40 @@ function dci_register_pagina_home_options(){
 
     $home_options = new_cmb2_box( $args );
 
-    
+    $home_options->add_field( array(
+        'id' => $prefix . 'home_sections_title',
+        'name'        => __( 'Sezioni', 'design_comuni_italia' ),
+        'desc' => __( 'Configurazione delle sezioni della home' , 'design_comuni_italia' ),
+        'type' => 'title',
+    ) );
+
+    $home_options->add_field(array(
+        'id' => $prefix . 'home_sections',
+        'name'        => __( 'Sezioni della home', 'design_comuni_italia' ),
+        'desc' => __( 'Scegli quali sezioni mostrare nella home e in quale ordine. Eliminando tutte le opzioni e poi salvando, la scelta verrà reimpostata.' , 'design_comuni_italia' ),
+        'type' => 'pw_multiselect',
+        'options' => array(
+            'hero' => 'Hero',
+            'messages' => 'Avvisi',
+            'notizie' => 'Notizie',
+            'contenuti-evidenza' => 'Contenuti in evidenza',
+            'calendario' => 'Eventi',
+            'argomenti' => 'Argomenti in evidenza',
+            'siti-tematici' => 'Siti tematici',
+            'domande-frequenti' => 'Domande frequenti in evidenza',
+            'galleria-foto' => 'Galleria delle foto',
+            'ricerca' => 'Ricerca e ricerche frequenti',
+            'valuta-servizio' => 'Valutazione del servizio',
+            'assistenza-contatti' => 'Contatti'
+        ),
+        'default' => dci_get_default_home_sections()
+    ) );
 
     $home_options->add_field( array(
         'id' => $prefix . 'hero_section_title',
         'name'        => __( 'Sezione Hero', 'design_comuni_italia' ),
-        'desc' => __( 'Configurazione immagine all\'inizio della pagina home.' , 'design_comuni_italia' ),
+        'desc' => __( 'Configurazione immagine all\'inizio della home' , 'design_comuni_italia' ),
         'type' => 'title',
-    ) );
-
-    $home_options->add_field( array(
-        'id' => $prefix . 'hero_show',
-        'name'        => __( 'Mostra hero', 'design_comuni_italia' ),
-        'desc' => __( 'Scegli se mostrare un\'immagine prominente all\'inizio della pagina. Può anche contenere del testo e un link.' , 'design_comuni_italia' ),
-        'type'    => 'radio_inline',
-        'options' => array(
-            ''   => __( 'No', 'cmb2' ),
-            'true' => __( 'Sì', 'cmb2' ),
-        ),
-        'default' => '',
     ) );
 
     $home_options->add_field( array(
@@ -160,7 +175,7 @@ function dci_register_pagina_home_options(){
                 'filter_boxes'    => true, // Show a text box for filtering the results
                 'query_args'      => array(
                     'posts_per_page' => -1,
-                    'post_type'      => array('evento','luogo','unita_organizzativa','documento_pubblico','servizio','notizia','dataset'),
+                    'post_type'      => array('evento','luogo','unita_organizzativa','documento_pubblico','servizio','notizia','dataset','page'),
                 ), // override the get_posts args
             ),
             'attributes' => array(
@@ -211,6 +226,22 @@ function dci_register_pagina_home_options(){
         'desc' => __( 'Selezionare il sito tematico di cui visualizzare la Card' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('sito_tematico'),
+    ) );
+
+    //sezione Domande Frequenti
+    $home_options->add_field( array(
+        'id' => $prefix . 'domande_frequenti_title',
+        'name'        => __( 'Sezione Domande Frequenti', 'design_comuni_italia' ),
+        'desc' => __( 'Configurazione sezione Domande Frequenti.' , 'design_comuni_italia' ),
+        'type' => 'title',
+    ) );
+
+    $home_options->add_field( array(
+        'id' => $prefix . 'domande_frequenti',
+        'name'        => __( 'Domande Frequenti', 'design_comuni_italia' ),
+        'desc' => __( 'Selezionare le domande frequenti di cui visualizzare la card' , 'design_comuni_italia' ),
+        'type'    => 'pw_multiselect',
+        'options' => dci_get_posts_options('domanda_frequente'),
     ) );
 
     //sezione Argomenti
@@ -351,19 +382,5 @@ function dci_register_pagina_home_options(){
         'options' => dci_get_terms_options('argomenti'),
         'show_option_none' => false,
         'remove_default' => 'true',
-    ) );
-
-
-    $home_options->add_field( array(
-        'id' => $prefix . 'more_section_title',
-        'name'        => __( 'Altre opzioni', 'design_comuni_italia' ),
-        'type' => 'title',
-    ) );
-
-    $home_options->add_field( array(
-        'id' => $prefix . 'mostra_gallery',
-        'name' => 'Mostra gallery',
-        'desc' => 'Mostra la galleria di foto (da impostare in <i>Configurazione &gt; Vivere l\'ente</i>)',
-        'type' => 'checkbox',
     ) );
 }
