@@ -75,7 +75,7 @@ $barra_principale_light = dci_get_option("tema_chiaro_nav_principale");
                       <ul>
                         <?php foreach ($socials as $social) { ?>
                           <li>
-                            <a href="<?php echo $social['url_social'] ?>" title="Vai su <?php echo $social['nome_social']; ?>" aria-hidden="<?php echo $social['nome_social']; ?>" target="_blank">
+                            <a href="<?php echo $social['url_social'] ?>" title="Vai su <?php echo $social['nome_social']; ?>" aria-label="<?php echo $social['nome_social']; ?>" target="_blank">
                               <svg class="icon">
                                 <use xmlns:xlink="http://www.w3.org/1999/xlink" href="#<?php echo $social['icona_social'] ?>"></use>
                               </svg>
@@ -165,7 +165,7 @@ $barra_principale_light = dci_get_option("tema_chiaro_nav_principale");
                         <ul>
                           <?php foreach ($socials as $social) { ?>
                             <li>
-                              <a href="<?php echo $social['url_social'] ?>" title="Vai su <?php echo $social['nome_social']; ?>" title="<?php echo $social['nome_social']; ?>" target="_blank">
+                              <a href="<?php echo $social['url_social'] ?>" title="Vai su <?php echo $social['nome_social']; ?>" aria-label="<?php echo $social['nome_social']; ?>" target="_blank">
                                 <svg class="icon">
                                   <use xmlns:xlink="http://www.w3.org/1999/xlink" href="#<?php echo $social['icona_social'] ?>"></use>
                                 </svg>
