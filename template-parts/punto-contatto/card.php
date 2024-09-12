@@ -1,5 +1,5 @@
 <?php
-global $pc_id;
+global $pc_id, $title_level;
 $prefix = '_dci_punto_contatto_';
 
 $full_contatto = dci_get_full_punto_contatto($pc_id);
@@ -14,13 +14,15 @@ $other_contacts = array(
     'twitter',
     'whatsapp'
 );
+
+if($title_level == "") $title_level = 5;
 ?>
 
 <div class="card card-teaser card-teaser-info rounded shadow-sm p-4 me-3">
     <div class="card-body pe-3">
-        <h5 class="card-title">
+        <h<?php echo $title_level; ?> class="h5 card-title">
             <?php echo $contatto->post_title; ?>
-        </h5>
+        </h<?php echo $title_level; ?>>
         <div class="card-text">
             <?php if (array_key_exists('indirizzo', $full_contatto) && is_array($full_contatto['indirizzo']) && count ($full_contatto['indirizzo']) ) {
                 echo '<div class="mb-3">';

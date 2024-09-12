@@ -224,18 +224,18 @@ function genera_pagine_figlie($slug_pagina)
                                         <?php echo $ufficio->post_title ?>
                                     </a>
                                 <?php } ?>
-                                <?php if (dci_get_option("numero_verde", 'contatti')) echo '<br />Numero verde: <a href="tel:' . dci_get_option("numero_verde", 'contatti') . '">' . dci_get_option("numero_verde", 'contatti') . '</a>'; ?>
-                                <?php if (dci_get_option("SMS_Whatsapp", 'contatti')) echo '<br />SMS e WhatsApp: <a href="tel:' . dci_get_option("SMS_Whatsapp", 'contatti') . '">' . dci_get_option("SMS_Whatsapp", 'contatti') . '</a>'; ?>
+                                <?php if (dci_get_option("numero_verde", 'contatti')) echo '<br />Numero verde: <a href="tel:' . preg_replace('/\s+/', '', dci_get_option("numero_verde", 'contatti')) . '">' . dci_get_option("numero_verde", 'contatti') . '</a>'; ?>
+                                <?php if (dci_get_option("SMS_Whatsapp", 'contatti')) echo '<br />SMS e WhatsApp: <a href="tel:' . preg_replace('/\s+/', '', dci_get_option("SMS_Whatsapp", 'contatti')) . '">' . dci_get_option("SMS_Whatsapp", 'contatti') . '</a>'; ?>
                                 <?php
                                 if (dci_get_option("PEC", 'contatti')) echo '<br />PEC: '; ?>
                                 <a href="mailto:<?php echo dci_get_option("PEC", 'contatti'); ?>" class="list-item" title="PEC <?php echo dci_get_option("nome_comune"); ?>"><?php echo dci_get_option("PEC", 'contatti'); ?></a>
-                                <?php if (dci_get_option("centralino_unico", 'contatti')) echo '<br />Centralino unico: <a href="' . dci_get_option("centralino_unico", 'contatti') . '">' . dci_get_option("centralino_unico", 'contatti') . '</a>'; ?>
+                                <?php if (dci_get_option("centralino_unico", 'contatti')) echo '<br />Centralino unico: <a href="' . preg_replace('/\s+/', '', dci_get_option("centralino_unico", 'contatti')) . '">' . dci_get_option("centralino_unico", 'contatti') . '</a>'; ?>
                                 
-                                <? if(dci_get_option("cuf", 'contatti') || dci_get_option("cipa", 'contatti')) { ?>
+                                <?php if(dci_get_option("cuf", 'contatti') || dci_get_option("cipa", 'contatti')) { ?>
                                     <br /><br />
                                     <?php if (dci_get_option("cuf", 'contatti')) echo '<br />Codice univoco di fatturazione (CUF): ' . dci_get_option("cuf", 'contatti'); ?>
                                     <?php if (dci_get_option("cipa", 'contatti')) echo '<br />Codice Indice delle Pubbliche Amministrazioni (IPA): ' . dci_get_option("cipa", 'contatti'); ?>
-                                <? } ?>
+                                <?php } ?>
                             </p>
                         </div>
                         <div class="col-md-4">

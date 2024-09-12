@@ -22,7 +22,6 @@ foreach ($date as $data) {
 }
 
 ?>
-<section id="calendario">
 	<div class="section section-muted pb-90 pb-lg-50 px-lg-5 pt-0">
 		<div class="container">
 			<div class="row row-title pt-5 pt-lg-60 pb-3">
@@ -87,4 +86,3 @@ foreach ($date as $data) {
 			</div>
 		</div>
 	</div>
-</section>

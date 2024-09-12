@@ -319,6 +319,7 @@ get_header();
                                             <div class="col-xl-6 col-lg-8 col-md-12 ">
                                                 <?php
                                                 $with_border = true;
+                                                $title_level = 3;
                                                 get_template_part("template-parts/punto-contatto/card"); ?>
                                             </div>
                                         <?php  } ?>

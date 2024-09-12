@@ -31,7 +31,6 @@ $btn_mostra_tutti = $quanti_eventi_nascosti > 0 ? "Mostra " . ($quanti_eventi_na
 $url_eventi = get_permalink( get_page_by_title('Eventi') );
 
 ?>
-<section id="calendario">
 	<div class="section section-muted pb-90 pb-lg-50 px-lg-5 pt-0">
 		<div class="container">
 			<div class="row row-title pt-5 pt-lg-60 pb-3">
@@ -70,4 +69,3 @@ $url_eventi = get_permalink( get_page_by_title('Eventi') );
 			</div>
 		</div>
 	</div>
-</section>
