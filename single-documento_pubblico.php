@@ -210,7 +210,7 @@ get_header();
                         <div class="it-page-sections-container">
                             <?php if( $descrizione) { ?>
                             <section id="descrizione" class="it-page-section mb-5">
-                                <h4>Descrizione</h4>
+                                <h2 class="h3 mb-3">Descrizione</h2>
                                 <div class="richtext-wrapper lora">
                                     <?php echo $descrizione; ?>
 							                  </div>
@@ -219,7 +219,7 @@ get_header();
 
                             <?php if( $url_documento || $file_documento ) { ?>
                             <section id="documento" class="it-page-section mb-5">
-                                <h4>Documento</h4>
+                                <h2 class="h3 mb-3">Documento</h2>
                                 <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
                                 <?php
                                     if ( $file_documento ) {
@@ -234,11 +234,11 @@ get_header();
                                                 ></use>
                                             </svg>
                                             <div class="card-body">
-                                                <h5 class="card-title">
+                                                <h3 class="card-title h5">
                                                     <a class="text-decoration-none" href="<?php echo $url_documento; ?>" aria-label="Scarica il documento" title="Scarica il documento">
                                                         Scarica il documento
                                                     </a>
-                                                </h5>
+                                                </h3>
                                             </div>
                                         </div>
                                     <?php } ?>
@@ -256,7 +256,7 @@ get_header();
                             <?php } ?>
 
                             <section id="ufficio_responsabile" class="it-page-section mb-5">
-                                <h4>Ufficio responsabile</h4>
+                                <h2 class="h3 mb-3">Ufficio responsabile</h2>
                                 <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
                                     <?php foreach ($ufficio_responsabile as $uo_id) {
                                         $with_border = true;
@@ -267,7 +267,7 @@ get_header();
 
                             <?php if ($autori &&  is_array($autori) && count($autori)) { ?>
                             <section id="autore" class="it-page-section mb-5">
-                                <h4>Autori</h4>
+                                <h2 class="h3 mb-3">Autori</h2>
                                 <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
                                     <?php foreach ($autori as $pp_id) { ?>
                                         <?php get_template_part("template-parts/persona_pubblica/card"); ?>
@@ -278,7 +278,7 @@ get_header();
 
                             <?php if ($formati) { ?>
                             <section id="formati_disponibili" class="it-page-section mb-5">
-                                <h4>Formati disponibili</h4>
+                                <h2 class="h3 mb-3">Formati disponibili</h2>
                                 <div class="richtext-wrapper lora">
                                     <?php echo $formati ?>		
                                 </div>
@@ -287,7 +287,7 @@ get_header();
 
                             <?php if ($licenza) { ?>
                             <section id="licenza_distribuzione" class="it-page-section mb-5">
-                                <h4>Licenza di distribuzione</h4>
+                                <h2 class="h3 mb-3">Licenza di distribuzione</h2>
                                 <div class="richtext-wrapper lora">
                                     <?php foreach($licenza as $tipo) { 
                                         echo $tipo->name;
@@ -298,7 +298,7 @@ get_header();
 
                             <?php if ($servizi && is_array($servizi) && count($servizi)>0 ) { ?>
                             <section id="servizi" class="it-page-section mb-5">
-                                <h4>Servizi collegati</h4>
+                                <h2 class="h3 mb-3">Servizi collegati</h2>
                                 <div class="row">
                                     <div class="col-12 col-sm-8">
                                         <?php foreach ($servizi as $servizio_id) {
@@ -313,7 +313,7 @@ get_header();
 
                             <?php if ($data_inizio) { ?>
                             <section id="data_inizio" class="it-page-section mb-5">
-                                <h4>Data inizio</h4>
+                                <h2 class="h3 mb-3">Data inizio</h2>
                                 <div class="richtext-wrapper lora">
                                     <?php
                                         echo date_i18n('j F Y', strtotime($data_inizio));
@@ -324,7 +324,7 @@ get_header();
 
                             <?php if ($data_fine) { ?>
                             <section id="data_fine" class="it-page-section mb-5">
-                                <h4>Data fine</h4>
+                                <h2 class="h3 mb-3">Data fine</h2>
                                 <div class="richtext-wrapper lora">
                                     <?php
                                         echo date_i18n('j F Y', strtotime($data_fine));
@@ -335,7 +335,7 @@ get_header();
 
                             <?php if ( $more_info ) {  ?>
                             <section id="ulteriori_informazioni" class="it-page-section mb-5">
-                                <h4>Ulteriori informazioni</h4>
+                                <h2 class="h3 mb-3">Ulteriori informazioni</h2>
                                 <div class="richtext-wrapper lora">
                                     <?php echo $more_info ?>
                                 </div>
@@ -344,7 +344,7 @@ get_header();
 
                             <?php if ( $riferimenti_normativi ) { ?>
                             <section id="riferimenti_normativi" class="it-page-section mb-5">
-                                <h4>Riferimenti normativi</h4>
+                                <h2 class="h3 mb-3">Riferimenti normativi</h2>
                                 <div class="richtext-wrapper lora">
                                     <?php echo $riferimenti_normativi ?>
                                 </div>
@@ -353,7 +353,7 @@ get_header();
 
                             <?php if( is_array($documenti_collegati) && count($documenti_collegati) ) { ?>
                             <section id="documenti_collegati" class="it-page-section mb-5">
-                                <h4>Documenti collegati</h4>
+                                <h2 class="h3 mb-3">Documenti collegati</h2>
                                 <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
                                     <?php foreach ($documenti_collegati as $documento_id) {
                                         $documento = get_post($documento_id);
