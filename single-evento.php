@@ -254,9 +254,9 @@ get_header();
                                         <div class="point-list-content">
                                             <div class="card card-teaser shadow rounded">
                                                 <div class="card-body">
-                                                    <h3 class="card-title h5 m-0">
+                                                    <p class="card-title h5 m-0">
                                                         <?php echo $start_date_arr[3] . ':' . $start_date_arr[4]; ?> - Inizio evento
-                                                    </h3>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -272,9 +272,9 @@ get_header();
                                         <div class="point-list-content">
                                             <div class="card card-teaser shadow rounded">
                                                 <div class="card-body">
-                                                    <h3 class="card-title h5 m-0">
+                                                    <p class="card-title h5 m-0">
                                                         <?php echo $end_date_arr[3]; ?>:<?php echo $end_date_arr[4]; ?> - Fine evento
-                                                    </h3>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -392,8 +392,8 @@ get_header();
                         }
 
                         ?>
-                        <h3 class="visually-hidden">Altro</h3>
                         <?php if ($more_info) { ?>
+                            <h3 class="visually-hidden">Altro</h3>
                             <div class="mt-5">
                                 <div class="callout">
                                     <div class="callout-title">
