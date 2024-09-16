@@ -24,10 +24,10 @@ if(count($argomenti)) {
 	if ( $posts_found > 0 ) { ?>		
         <section id="contenuti-correlati" class="bg-grey-card shadow-contacts">
           <div class="container pt-5">
-            <div class="it-carousel-wrapper carousel-4-card splide cmp-carousel" data-bs-carousel-splide>
+            <div class="it-carousel-wrapper carousel-4-card splide cmp-carousel" data-bs-carousel-splide aria-labelledby="contenuti-correlati-title">
               <div class="it-header-block">
                 <div class="it-header-block-title">
-                  <h2 class="text-center border-0 cmp-carousel__title pb-0 pb-0">Contenuti correlati</h2>
+                  <h2 id="contenuti-correlati-title" class="text-center border-0 cmp-carousel__title pb-0 pb-0">Contenuti correlati</h2>
                 </div>
               </div>
               <div class="splide__track">
