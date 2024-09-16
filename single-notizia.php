@@ -73,7 +73,7 @@ get_header();
             <div class="container">
                 <div class="row border-top border-light row-column-border row-column-menu-left">
                     <aside class="col-lg-4">
-                        <div class="cmp-navscroll sticky-top" aria-labelledby="accordion-title-one">
+                        <div class="cmp-navscroll sticky-top">
                             <nav class="navbar it-navscroll-wrapper navbar-expand-lg" aria-label="Indice della pagina" data-bs-navscroll>
                                 <div class="navbar-custom" id="navbarNavProgress">
                                     <div class="menu-wrapper">

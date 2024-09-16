@@ -31,7 +31,7 @@
 <div class="container">
     <div class="row mb-4 mt-lg-80">
         <div class="d-none d-sm-none d-lg-block col-lg-3">
-            <div class="cmp-navscroll sticky-top" aria-labelledby="accordion-title-one">
+            <div class="cmp-navscroll sticky-top">
                 <nav class="navbar it-navscroll-wrapper navbar-expand-lg" aria-label="Indice della pagina" data-bs-navscroll>
                     <div class="navbar-custom" id="navbarNavProgress">
                         <div class="menu-wrapper">
