@@ -323,7 +323,7 @@ get_header();
                                 if (!empty($posts)) {
                             ?>
                                     <div class=" has-bg-grey p-4">
-                                        <h3 class="title mb-3" id="who-needs">Servizi necessari</h3>
+                                        <h3 class="title mb-3">Servizi necessari</h3>
                                         <p>Questo servizio è limitato a chi usufruisce di particolari servizi.</p>
                                         <div class="row g-4">
                                             <?php
@@ -356,7 +356,7 @@ get_header();
                                 if (!empty($posts)) {
                             ?>
                                     <div class=" has-bg-grey p-4">
-                                        <h3 class="title mb-3" id="who-needs">Servizi inclusi</h3>
+                                        <h3 class="title mb-3">Servizi inclusi</h3>
                                         <p>Questo servizio offre anche i seguenti servizi.</p>
                                         <div class="row g-3">
                                             <?php
@@ -549,7 +549,7 @@ get_header();
 
                         <section class="it-page-section">
                             <h2 class="mb-3" id="contacts">Contatti</h2>
-                            <h3 class="mb-3" id="contacts">Contatta ufficio</h3>
+                            <h3 class="mb-3">Contatta ufficio</h3>
                             <div class="row">
                                 <div class="col-12 col-md-8 col-lg-6 mb-30">
                                     <?php
@@ -563,7 +563,7 @@ get_header();
                             $punti_contatto_id = dci_get_meta("punti_contatto");
                             if (!empty($punti_contatto_id)) {
                             ?>
-                                <h3 class="mb-3" id="contacts">Contatti dedicati</h3>
+                                <h3 class="mb-3">Contatti dedicati</h3>
                                 <div class="row">
                                     <?php
                                     foreach ($punti_contatto_id as $pc_id) {

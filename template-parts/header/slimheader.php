@@ -13,7 +13,7 @@ $barra_superiore_light = dci_get_option("tema_chiaro_nav_superiore");
           <div class="it-header-slim-right-zone" role="navigation">
             <div class="nav-mobile text-end">
               <nav aria-label="Navigazione accessoria">
-                <a class="it-opener d-lg-none" data-bs-toggle="collapse" href="#menu1a" role="button" aria-expanded="false" aria-controls="menu4">
+                <a class="it-opener d-lg-none" data-bs-toggle="collapse" href="#menu1a" role="button" aria-expanded="false" aria-controls="menu1a">
                   <span>Link rapidi</span>
                   <svg class="icon" aria-hidden="true">
                     <use href="#it-expand"></use>

@@ -31,7 +31,7 @@
 
                 <?php if($centralino_unico) { ?>
                 <li>
-                  <a class="list-item" href="tel:<?php echo $centralino_unico; ?>">
+                  <a class="list-item" href="tel:<?php echo preg_replace('/\s+/', '', $centralino_unico); ?>">
                   <svg class="icon icon-primary icon-sm" aria-hidden="true">
                       <use
                         href="#it-hearing"
@@ -43,7 +43,7 @@
                 <?php
                   if($numero_verde) { ?>
                 <li>
-                  <a class="list-item" href="tel:<?php echo $numero_verde; ?>">
+                  <a class="list-item" href="tel:<?php echo preg_replace('/\s+/', '', $numero_verde); ?>">
                   <svg class="icon icon-primary icon-sm" aria-hidden="true">
                       <use
                         href="#it-hearing"

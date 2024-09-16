@@ -24,7 +24,6 @@ $servizi_evidenza = dci_get_option('servizi_evidenziati', 'servizi');
 ?>
 <div id="tutti-servizi" class="<?= !($should_have_grey_background=(!$should_have_grey_background)) ? 'bg-grey-dsk':'' ?>">
     <form role="search" id="search-form" method="get" class="search-form">
-        <button type="submit" class="d-none"></button>
         <div class="container">
             <div class="row">
                 <div class="col-12">
