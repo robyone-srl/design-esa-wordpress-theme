@@ -11,19 +11,32 @@
  */
 
 
-function genera_voci_tassonomia($tassonomia)
+function genera_voci_tassonomia($tassonomia, $titolo)
 {
     $terms =  get_terms(array(
         'taxonomy' => $tassonomia,
         'hide_empty' => true,
     ));
-    foreach ($terms as $term) {
-    ?>
-        <li>
-            <a href="<?= get_term_link($term) ?>"><?= $term->name ?></a>
-        </li>
-    <?php
-    }
+
+    if (empty($terms))
+        return;
+?>
+
+    <h3 class="footer-heading-title">
+        <?= $titolo ?>
+    </h3>
+    <ul class="footer-list">
+        <?php
+        foreach ($terms as $term) {
+        ?>
+            <li>
+                <a href="<?= get_term_link($term) ?>"><?= $term->name ?></a>
+            </li>
+        <?php
+        }
+        ?>
+    </ul>
+<?php
 }
 
 function genera_pagine_figlie($slug_pagina)
@@ -33,16 +46,26 @@ function genera_pagine_figlie($slug_pagina)
     $child_args = array(
         'post_parent' => $post->ID
     );
-    
-    $children = get_children( $child_args );
 
-    foreach ($children as $page) {
-    ?>
-        <li>
-            <a href="<?= get_page_link($page) ?>"><?= $page->post_title ?></a>
-        </li>
-    <?php
-    }
+    $children = get_children($child_args);
+
+    if (empty($children))
+        return;
+?>
+    <h3 class="footer-heading-title">
+        <?= $post->post_title ?>
+    </h3>
+    <ul class="footer-list">
+        <?php
+        foreach ($children as $page) {
+        ?>
+            <li>
+                <a href="<?= get_page_link($page) ?>"><?= $page->post_title ?></a>
+            </li>
+        <?php
+        } ?>
+    </ul>
+<?php
 }
 ?>
 
@@ -76,14 +99,7 @@ function genera_pagine_figlie($slug_pagina)
                             'walker' => new Footer_Menu_Walker()
                         ));
                     } else {
-                    ?>
-                        <h3 class="footer-heading-title">
-                            Amministrazione
-                        </h3>
-                        <ul class="footer-list">
-                            <?php genera_pagine_figlie('amministrazione'); ?>
-                        </ul>
-                        <?php
+                        genera_pagine_figlie('amministrazione');
                     }
                     ?>
                 </div>
@@ -102,14 +118,7 @@ function genera_pagine_figlie($slug_pagina)
                             'walker' => new Footer_Menu_Walker()
                         ));
                     } else {
-                    ?>
-                        <h3 class="footer-heading-title">
-                            Categorie di Servizio
-                        </h3>
-                        <ul class="footer-list">
-                            <?php genera_voci_tassonomia('categorie_servizio'); ?>
-                        </ul>
-                        <?php
+                        genera_voci_tassonomia('categorie_servizio', "Categorie di servizio");
                     } ?>
                 </div>
                 <div class="col-md-3 footer-items-wrapper">
@@ -127,14 +136,7 @@ function genera_pagine_figlie($slug_pagina)
                             'walker' => new Footer_Menu_Walker()
                         ));
                     } else {
-                    ?>
-                        <h3 class="footer-heading-title">
-                            Tipi di Documento
-                        </h3>
-                        <ul class="footer-list">
-                            <?php genera_voci_tassonomia('tipi_documento'); ?>
-                        </ul>
-                        <?php
+                        genera_voci_tassonomia('tipi_documento', "Tipi di documento");
                     } ?>
                 </div>
                 <div class="col-md-3 footer-items-wrapper">
@@ -152,14 +154,7 @@ function genera_pagine_figlie($slug_pagina)
                             'walker' => new Footer_Menu_Walker()
                         ));
                     } else {
-                    ?>
-                        <h3 class="footer-heading-title">
-                            Novità
-                        </h3>
-                        <ul class="footer-list">
-                            <?php genera_voci_tassonomia('tipi_notizia'); ?>
-                        </ul>
-                        <?php
+                        genera_voci_tassonomia('tipi_notizia', "Tipi di notizia");
                     }
                     ?>
                     <?php
@@ -175,14 +170,7 @@ function genera_pagine_figlie($slug_pagina)
                             'walker' => new Footer_Menu_Walker()
                         ));
                     } else {
-                    ?>
-                        <h3 class="footer-heading-title mt-3">
-                            Vivere l'ente
-                        </h3>
-                        <ul class="footer-list">
-                            <?php genera_pagine_figlie('vivere-ente'); ?>
-                        </ul>
-                        <?php
+                        genera_pagine_figlie('vivere-ente');
                     }
                     ?>
                 </div>
@@ -230,8 +218,8 @@ function genera_pagine_figlie($slug_pagina)
                                 if (dci_get_option("PEC", 'contatti')) echo '<br />PEC: '; ?>
                                 <a href="mailto:<?php echo dci_get_option("PEC", 'contatti'); ?>" class="list-item" title="PEC <?php echo dci_get_option("nome_comune"); ?>"><?php echo dci_get_option("PEC", 'contatti'); ?></a>
                                 <?php if (dci_get_option("centralino_unico", 'contatti')) echo '<br />Centralino unico: <a href="' . dci_get_option("centralino_unico", 'contatti') . '">' . dci_get_option("centralino_unico", 'contatti') . '</a>'; ?>
-                                
-                                <? if(dci_get_option("cuf", 'contatti') || dci_get_option("cipa", 'contatti')) { ?>
+
+                                <? if (dci_get_option("cuf", 'contatti') || dci_get_option("cipa", 'contatti')) { ?>
                                     <br /><br />
                                     <?php if (dci_get_option("cuf", 'contatti')) echo '<br />Codice univoco di fatturazione (CUF): ' . dci_get_option("cuf", 'contatti'); ?>
                                     <?php if (dci_get_option("cipa", 'contatti')) echo '<br />Codice Indice delle Pubbliche Amministrazioni (IPA): ' . dci_get_option("cipa", 'contatti'); ?>
