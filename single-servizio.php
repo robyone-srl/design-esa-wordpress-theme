@@ -391,15 +391,16 @@ get_header();
                             <section class="it-page-section mb-30">
                                 <h2 class="h3 mb-3" id="needed">Cosa serve</h2>
                                 <div class="richtext-wrapper lora" data-element="service-needed">
-                                    <?php echo $cosa_serve_intro ?>
-                                    <ul>
-                                        <?php
-                                        if (!empty($cosa_serve_list)) {
+                                    <?php echo $cosa_serve_intro;
+                                    if (!empty($cosa_serve_list)) { ?>
+                                        <ul>
+                                            <?php
                                             foreach ($cosa_serve_list as $cosa_serve_item) { ?>
                                                 <li><span><?php echo $cosa_serve_item ?></span></li>
-                                        <?php }
-                                        } ?>
-                                    </ul>
+                                            <?php } ?>
+                                        </ul>
+                                    <?php
+                                    } ?>
                                 </div>
                             </section>
                         <?php } ?>

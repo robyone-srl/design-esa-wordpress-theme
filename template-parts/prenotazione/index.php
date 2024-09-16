@@ -1,7 +1,7 @@
 
 <!-- Step 1 -->
 <div class="col-12 col-lg-3 mb-4 d-none" data-index="1">
-    <div class="cmp-navscroll sticky-top">
+    <div class="cmp-navscroll sticky-top" aria-labelledby="accordion-title-one">
         <nav class="navbar it-navscroll-wrapper navbar-expand-lg" aria-label="INFORMAZIONI RICHIESTE" data-bs-navscroll>
             <div class="navbar-custom" id="navbarNavProgress">
                 <div class="menu-wrapper">
@@ -40,7 +40,7 @@
 </div>
 <!-- Step 2 -->
 <div class="col-12 col-lg-3 mb-4 d-none" data-index="2">
-    <div class="cmp-navscroll sticky-top">
+    <div class="cmp-navscroll sticky-top" aria-labelledby="accordion-title-one">
         <nav class="navbar it-navscroll-wrapper navbar-expand-lg" aria-label="INFORMAZIONI RICHIESTE" data-bs-navscroll>
             <div class="navbar-custom" id="navbarNavProgress">
                 <div class="menu-wrapper">
@@ -85,7 +85,7 @@
 </div>
 <!-- Step 3 -->
 <div class="col-12 col-lg-3 mb-4 d-none" data-index="3">
-    <div class="cmp-navscroll sticky-top">
+    <div class="cmp-navscroll sticky-top" aria-labelledby="accordion-title-one">
         <nav class="navbar it-navscroll-wrapper navbar-expand-lg" aria-label="INFORMAZIONI RICHIESTE" data-bs-navscroll>
             <div class="navbar-custom" id="navbarNavProgress">
                 <div class="menu-wrapper">
@@ -129,7 +129,7 @@
 </div>
 <!-- Step 4 -->
 <div class="col-12 col-lg-3 mb-4 d-none" data-index="4">
-    <div class="cmp-navscroll sticky-top">
+    <div class="cmp-navscroll sticky-top" aria-labelledby="accordion-title-one">
         <nav class="navbar it-navscroll-wrapper navbar-expand-lg" aria-label="INFORMAZIONI RICHIESTE" data-bs-navscroll>
             <div class="navbar-custom" id="navbarNavProgress">
                 <div class="menu-wrapper">
