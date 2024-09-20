@@ -87,11 +87,11 @@ $barra_principale_light = dci_get_option("tema_chiaro_nav_principale");
                   <?php endif ?>
                   <div class="it-search-wrapper">
                     <span class="d-none d-md-block">Cerca</span>
-                    <button class="search-link rounded-icon" type="button" data-bs-toggle="modal" data-bs-target="#search-modal" aria-label="Cerca nel sito">
+                    <a class="search-link rounded-icon" role="button" data-bs-toggle="modal" data-bs-target="#search-modal" aria-label="Cerca nel sito">
                       <svg class="icon">
                         <use href="#it-search"></use>
                       </svg>
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>
