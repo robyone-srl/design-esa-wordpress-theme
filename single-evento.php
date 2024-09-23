@@ -128,7 +128,7 @@ get_header();
                                                                     </a>
                                                                 </li>
                                                             <?php } ?>
-                                                            <?php if ($luogo_evento || !$is_luogo_esa) { ?>
+                                                            <?php if ($luogo_evento ?? false || !$is_luogo_esa) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#luogo">
                                                                         <span class="title-medium">Luogo</span>
