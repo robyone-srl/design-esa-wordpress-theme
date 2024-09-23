@@ -124,7 +124,6 @@ function dci_add_eventi_metaboxes() {
             'required' => true,
             'data-conditional-id' => $prefix . 'evento_ripetuto',
             'data-conditional-value' => 'false',
-            'data-conditional-invert' => true,
         ),
     ) );
 
@@ -137,7 +136,6 @@ function dci_add_eventi_metaboxes() {
             'required' => true,
             'data-conditional-id' => $prefix . 'evento_ripetuto',
             'data-conditional-value' => 'false',
-            'data-conditional-invert' => true,
         ),
     ) );
     
@@ -150,11 +148,7 @@ function dci_add_eventi_metaboxes() {
             'group_title'       => __( 'Ripetizione {#}', 'design_comuni_italia' ), // since version 1.1.4, {#} gets replaced by row number
             'add_button'        => __( 'Aggiungi nuova ripetizione', 'design_comuni_italia' ),
             'remove_button'     => __( 'Rimuovi ripetizione', 'design_comuni_italia' ),
-            'sortable'          => true,            
-            'attributes' => array(
-                'data-conditional-id' => $prefix . 'evento_ripetuto',
-                'data-conditional-value' => 'true',
-            ),
+            'sortable'          => true
         ),
     ));
 
@@ -165,8 +159,6 @@ function dci_add_eventi_metaboxes() {
         'date_format' => 'd-m-Y',
         'attributes' => array(
             'required' => true,
-            'data-conditional-id' => $prefix . 'evento_ripetuto',
-            'data-conditional-value' => 'true',
         ),
     ) );
 
@@ -177,8 +169,6 @@ function dci_add_eventi_metaboxes() {
         'date_format' => 'd-m-Y',
         'attributes' => array(
             'required' => true,
-            'data-conditional-id' => $prefix . 'evento_ripetuto',
-            'data-conditional-value' => 'true',
         ),
     ) );
 
@@ -664,10 +654,10 @@ function dci_update_inizio_fine_recurrent_event($post_id){
     if(get_post_type($post_id) != 'evento')
         return;
 
-    if(get_post_meta($post_id, '_dci_evento_evento_ripetuto', true) !== "true")
+    if(dci_get_meta('evento_ripetuto', '_dci_evento_', $post_id) !== "true")
         return;
     
-    $recurrences = get_post_meta($post_id, '_dci_evento_gruppo_eventi_ripetuti', true);
+    $recurrences = dci_get_meta('gruppo_eventi_ripetuti', '_dci_evento_', $post_id);
 
     $first_recurrence_beginning = min(array_map(fn($recurrence) => $recurrence['_dci_evento_data_orario_inizio'], $recurrences));
     $last_recurrence_end = max(array_map(fn($recurrence) => $recurrence['_dci_evento_data_orario_fine'] ?: $recurrence['_dci_evento_data_orario_inizio'], $recurrences));

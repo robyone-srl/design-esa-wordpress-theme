@@ -1325,12 +1325,12 @@ function dci_get_evento_next_repetition_timestamps($id)
 {
     if (get_post_meta($id, '_dci_evento_evento_ripetuto', true) !== "true") {
         return [
-            get_post_meta($id, '_dci_evento_data_orario_inizio', true),
-            get_post_meta($id, '_dci_evento_data_orario_fine', true)
+            'start' => get_post_meta($id, '_dci_evento_data_orario_inizio', true),
+            'end' => get_post_meta($id, '_dci_evento_data_orario_fine', true)
         ];
     }
 
-    $recurrences = get_post_meta($id, '_dci_evento_gruppo_eventi_ripetuti', true);
+    $recurrences = dci_get_meta('gruppo_eventi_ripetuti', '_dci_evento_', $id);
 
     $index_of_closer_recurrence = 0;
     $closer_recurrence_timestamp_difference = PHP_INT_MAX;
@@ -1347,7 +1347,7 @@ function dci_get_evento_next_repetition_timestamps($id)
     }
 
     return [
-        $recurrences[$index_of_closer_recurrence]['_dci_evento_data_orario_inizio'],
-        $recurrences[$index_of_closer_recurrence]['_dci_evento_data_orario_fine'],
+        'start' => $recurrences[$index_of_closer_recurrence]['_dci_evento_data_orario_inizio'],
+        'end' => $recurrences[$index_of_closer_recurrence]['_dci_evento_data_orario_fine'],
     ];
 }
