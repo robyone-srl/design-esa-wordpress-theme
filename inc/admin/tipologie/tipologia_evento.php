@@ -95,20 +95,94 @@ function dci_add_eventi_metaboxes() {
         )
     ) );
 
-    $cmb_apertura->add_field( array(
-        'id' => $prefix . 'data_orario_inizio',
-        'name'    => __( 'Data e orario di inizio', 'design_comuni_italia' ),
-        'type'    => 'text_datetime_timestamp',
-        'date_format' => 'd-m-Y',
+    //DATA E ORA
+    $cmb_data_e_ora = new_cmb2_box( array(
+        'id'           => $prefix . 'box_data_e_ora',
+        'title'        => __( 'Data e ora', 'design_comuni_italia' ),
+        'object_types' => array( 'evento' ),
+        'context'      => 'normal',
+        'priority'     => 'high',
     ) );
 
-    $cmb_apertura->add_field( array(
+    $cmb_data_e_ora->add_field( array(
+        'name' => 'L\'evento si ripete?',
+        'id' =>  $prefix . 'evento_ripetuto',
+        'type'    => 'radio_inline',
+        'options' => array(
+            'false'   => __( 'No', 'design_comuni_italia' ),
+            'true' => __( 'Sì', 'design_comuni_italia' ),
+        ),
+        'default' => 'false',
+    ) );
+
+    $cmb_data_e_ora->add_field(array(
+        'id' => $prefix . 'data_orario_inizio',
+        'name'    => __('Data e orario di inizio', 'design_comuni_italia'),
+        'type'    => 'text_datetime_timestamp',
+        'date_format' => 'd/m/Y',
+        'attributes' => array(
+            'required' => true,
+            'data-conditional-id' => $prefix . 'evento_ripetuto',
+            'data-conditional-value' => 'false',
+            'data-conditional-invert' => true,
+        ),
+    ) );
+
+    $cmb_data_e_ora->add_field( array(
         'id' => $prefix . 'data_orario_fine',
         'name'    => __( 'Data e orario di fine', 'design_comuni_italia' ),
         'type'    => 'text_datetime_timestamp',
-        'date_format' => 'd-m-Y',
+        'date_format' => 'd/m/Y',
+        'attributes' => array(
+            'required' => true,
+            'data-conditional-id' => $prefix . 'evento_ripetuto',
+            'data-conditional-value' => 'false',
+            'data-conditional-invert' => true,
+        ),
+    ) );
+    
+    //DATA E ORA / ripetizioni
+    $cmb_repeated_event_group_id = $cmb_data_e_ora->add_field( array(
+        'id' => $prefix . 'gruppo_eventi_ripetuti',
+        'type'    => 'group',
+        'name'    => __( 'Date in cui l\'evento si ripete', 'design_comuni_italia' ),
+        'options'     => array(
+            'group_title'       => __( 'Ripetizione {#}', 'design_comuni_italia' ), // since version 1.1.4, {#} gets replaced by row number
+            'add_button'        => __( 'Aggiungi nuova ripetizione', 'design_comuni_italia' ),
+            'remove_button'     => __( 'Rimuovi ripetizione', 'design_comuni_italia' ),
+            'sortable'          => true,            
+            'attributes' => array(
+                'data-conditional-id' => $prefix . 'evento_ripetuto',
+                'data-conditional-value' => 'true',
+            ),
+        ),
+    ));
+
+    $cmb_data_e_ora->add_group_field( $cmb_repeated_event_group_id, array(
+        'id' => $prefix . 'data_orario_inizio',
+        'name'    => __('Data e orario di inizio', 'design_comuni_italia'),
+        'type'    => 'text_datetime_timestamp',
+        'date_format' => 'd/m/Y',
+        'attributes' => array(
+            'required' => true,
+            'data-conditional-id' => $prefix . 'evento_ripetuto',
+            'data-conditional-value' => 'true',
+        ),
     ) );
 
+    $cmb_data_e_ora->add_group_field( $cmb_repeated_event_group_id, array(
+        'id' => $prefix . 'data_orario_fine',
+        'name'    => __( 'Data e orario di fine', 'design_comuni_italia' ),
+        'type'    => 'text_datetime_timestamp',
+        'date_format' => 'd/m/Y',
+        'attributes' => array(
+            'required' => true,
+            'data-conditional-id' => $prefix . 'evento_ripetuto',
+            'data-conditional-value' => 'true',
+        ),
+    ) );
+
+    //EVENTO GENITORE
     $cmb_evento_genitore = new_cmb2_box( array(
         'id'           => $prefix . 'box_evento_genitore',
         'title'        => __( 'Evento genitore', 'design_comuni_italia' ),
@@ -252,7 +326,7 @@ function dci_add_eventi_metaboxes() {
         'desc' => __( 'Seleziona se l\'evento si svolge in un Luogo dell\'ente', 'design_comuni_italia' ),
         'type'    => 'radio_inline',
         'options' => array(
-            'true' => __( 'Si', 'design_comuni_italia' ),
+            'true' => __( 'Sì', 'design_comuni_italia' ),
             'false'   => __( 'No', 'design_comuni_italia' ),
         ),
         'default' => 'true',
@@ -576,6 +650,10 @@ function dci_evento_set_post_content( $data ) {
         }
         if (isset($_POST['_dci_evento_data_orario_fine']) && isset($_POST['_dci_evento_data_orario_fine']['date']) && $_POST['_dci_evento_data_orario_fine']['date'] == "") {
             unset($_POST["_dci_evento_data_orario_fine"]);
+        }
+
+        if ($_POST['_dci_evento_evento_ripetuto'] === "false") {
+            unset($_POST["_dci_evento_gruppo_eventi_ripetuti"]);
         }
     }
     return $data;
