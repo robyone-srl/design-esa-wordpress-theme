@@ -670,7 +670,7 @@ function dci_update_inizio_fine_recurrent_event($post_id){
     $recurrences = get_post_meta($post_id, '_dci_evento_gruppo_eventi_ripetuti', true);
 
     $first_recurrence_beginning = min(array_map(fn($recurrence) => $recurrence['_dci_evento_data_orario_inizio'], $recurrences));
-    $last_recurrence_end = max(array_map(fn($recurrence) => $recurrence['_dci_evento_data_orario_fine'], $recurrences));
+    $last_recurrence_end = max(array_map(fn($recurrence) => $recurrence['_dci_evento_data_orario_fine'] ?: $recurrence['_dci_evento_data_orario_inizio'], $recurrences));
 
     update_post_meta($post_id, '_dci_evento_data_orario_inizio', $first_recurrence_beginning);
     update_post_meta($post_id, '_dci_evento_data_orario_fine', $last_recurrence_end);
