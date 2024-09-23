@@ -119,7 +119,7 @@ function dci_add_eventi_metaboxes() {
         'id' => $prefix . 'data_orario_inizio',
         'name'    => __('Data e orario di inizio', 'design_comuni_italia'),
         'type'    => 'text_datetime_timestamp',
-        'date_format' => 'd/m/Y',
+        'date_format' => 'd-m-Y',
         'attributes' => array(
             'required' => true,
             'data-conditional-id' => $prefix . 'evento_ripetuto',
@@ -132,7 +132,7 @@ function dci_add_eventi_metaboxes() {
         'id' => $prefix . 'data_orario_fine',
         'name'    => __( 'Data e orario di fine', 'design_comuni_italia' ),
         'type'    => 'text_datetime_timestamp',
-        'date_format' => 'd/m/Y',
+        'date_format' => 'd-m-Y',
         'attributes' => array(
             'required' => true,
             'data-conditional-id' => $prefix . 'evento_ripetuto',
@@ -162,7 +162,7 @@ function dci_add_eventi_metaboxes() {
         'id' => $prefix . 'data_orario_inizio',
         'name'    => __('Data e orario di inizio', 'design_comuni_italia'),
         'type'    => 'text_datetime_timestamp',
-        'date_format' => 'd/m/Y',
+        'date_format' => 'd-m-Y',
         'attributes' => array(
             'required' => true,
             'data-conditional-id' => $prefix . 'evento_ripetuto',
@@ -174,7 +174,7 @@ function dci_add_eventi_metaboxes() {
         'id' => $prefix . 'data_orario_fine',
         'name'    => __( 'Data e orario di fine', 'design_comuni_italia' ),
         'type'    => 'text_datetime_timestamp',
-        'date_format' => 'd/m/Y',
+        'date_format' => 'd-m-Y',
         'attributes' => array(
             'required' => true,
             'data-conditional-id' => $prefix . 'evento_ripetuto',
@@ -659,3 +659,21 @@ function dci_evento_set_post_content( $data ) {
     return $data;
 }
 add_filter( 'wp_insert_post_data' , 'dci_evento_set_post_content' , '99', 1 );
+
+function dci_update_inizio_fine_recurrent_event($post_id){
+    if(get_post_type($post_id) != 'evento')
+        return;
+
+    if(get_post_meta($post_id, '_dci_evento_evento_ripetuto', true) !== "true")
+        return;
+    
+    $recurrences = get_post_meta($post_id, '_dci_evento_gruppo_eventi_ripetuti', true);
+
+    $first_recurrence_beginning = min(array_map(fn($recurrence) => $recurrence['_dci_evento_data_orario_inizio'], $recurrences));
+    $last_recurrence_end = max(array_map(fn($recurrence) => $recurrence['_dci_evento_data_orario_fine'], $recurrences));
+
+    update_post_meta($post_id, '_dci_evento_data_orario_inizio', $first_recurrence_beginning);
+    update_post_meta($post_id, '_dci_evento_data_orario_fine', $last_recurrence_end);
+}
+
+add_action('save_post', 'dci_update_inizio_fine_recurrent_event', 100, 1); // cannot use save_post_evento because it fires before save_post, which is used by cmb2 to save meta fields

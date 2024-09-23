@@ -1320,3 +1320,34 @@ function dci_get_default_home_sections(){
         'assistenza-contatti',
     ];
 }
+
+function dci_get_evento_next_repetition_timestamps($id)
+{
+    if (get_post_meta($id, '_dci_evento_evento_ripetuto', true) !== "true") {
+        return [
+            get_post_meta($id, '_dci_evento_data_orario_inizio', true),
+            get_post_meta($id, '_dci_evento_data_orario_fine', true)
+        ];
+    }
+
+    $recurrences = get_post_meta($id, '_dci_evento_gruppo_eventi_ripetuti', true);
+
+    $index_of_closer_recurrence = 0;
+    $closer_recurrence_timestamp_difference = PHP_INT_MAX;
+    $now = current_datetime()->getTimestamp();
+
+    for ($i = 0; $i < count($recurrences); $i++) {
+        $recurrence = $recurrences[$i];
+        $timestamp_difference = $recurrence['_dci_evento_data_orario_inizio'] - $now;
+
+        if ($timestamp_difference < $closer_recurrence_timestamp_difference && $recurrence['_dci_evento_data_orario_fine'] > $now) {
+            $index_of_closer_recurrence = $i;
+            $closer_recurrence_timestamp_difference = $timestamp_difference;
+        }
+    }
+
+    return [
+        $recurrences[$index_of_closer_recurrence]['_dci_evento_data_orario_inizio'],
+        $recurrences[$index_of_closer_recurrence]['_dci_evento_data_orario_fine'],
+    ];
+}
