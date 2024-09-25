@@ -1,4 +1,6 @@
 <?php
+global $recurrence_index;
+
 $quanti_eventi_mostrare = dci_get_option('quanti_eventi_mostrare', 'homepage') ?: 3;
 
 $eventi = dci_get_eventi_calendar_array();
@@ -22,6 +24,7 @@ $url_eventi = get_permalink( get_page_by_title('Eventi') );
 					<?php
 					foreach ($eventi as $evento) {
 						$post = get_post($evento['id']);
+						$recurrence_index = $evento['indice_ricorrenza'] ?? -1;
 						get_template_part("template-parts/evento/card-full");
 					}
 

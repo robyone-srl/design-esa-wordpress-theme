@@ -1,10 +1,16 @@
 <?php
-global $post;
+global $post, $recurrence_index;
+
+$recurrence_index ??= -1;
+
+if($recurrence_index >= 0)
+    $timestamps = dci_get_evento_recurrences($post->ID)[$recurrence_index];
+else
+    $timestamps = dci_get_evento_next_recurrence_timestamps($post->ID);
 
 $prefix = '_dci_evento_';
 $img = get_the_post_thumbnail_url($post->ID);
 $descrizione = dci_get_meta('descrizione_breve', $prefix, $post->ID);
-$timestamps = dci_get_evento_next_recurrence_timestamps($post->ID);
 $start_timestamp = $timestamps['_dci_evento_data_orario_inizio'];
 $start_date = date_i18n('d/m', date($start_timestamp));
 $start_date_arr = explode('-', date_i18n('d-F-Y-H-i', date($start_timestamp)));
