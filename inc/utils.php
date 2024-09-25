@@ -445,22 +445,60 @@ function dci_get_eventi_calendar_array() {
     $args = array(
         'post_type' => 'evento',
         'fields' => 'ids',
+        'meta_query' => array(
+		'relation' => 'OR',
+		array( // the event is not finished yet
+			'key' => '_dci_evento_data_orario_fine',
+			'value' => current_datetime()->getTimestamp(),
+			'compare' => '>='
+		),  
+		array( // the event hasn't begun or has begun since less than 12 hours
+			'key' => '_dci_evento_data_orario_inizio',
+			'value' => current_datetime()->modify('-12 hours')->getTimestamp(),
+			'compare' => '>='
+		),
+	 )
     );
     $eventi = get_posts($args);
     $eventi_calendar_array = array();
 
     foreach( $eventi as $evento){
-        $data_orario_inizio = dci_get_meta('data_orario_inizio','_dci_evento_',$evento);
-        $data_orario_fine =   dci_get_meta('data_orario_fine','_dci_evento_',$evento);
-
-        $eventi_calendar_array [] = array(
+        $evento_base = array(
             'id' => $evento,
             'titolo' => get_the_title( $evento ),
             'link' => get_post_permalink($evento),
-            'data_inizio' =>($data_orario_inizio != "") ?  gmdate("Y-m-d", dci_get_meta('data_orario_inizio','_dci_evento_',$evento)) : "",
-            'data_fine' => ($data_orario_fine != "") ?  gmdate("Y-m-d", dci_get_meta('data_orario_fine','_dci_evento_',$evento)): "",
-            'tipo_evento' => dci_get_tipo_evento($evento)
+            'tipo_evento' => dci_get_tipo_evento($evento),
         );
+
+        $ricorrenze = dci_get_evento_recurrences($evento);
+
+        if($ricorrenze){
+            for($i = 0; $i < count($ricorrenze); $i++){
+                $ricorrenza = $ricorrenze[$i];
+                $data_orario_inizio = $ricorrenza['_dci_evento_data_orario_inizio'];
+                $data_orario_fine =   $ricorrenza['_dci_evento_data_orario_fine'];
+    
+                $eventi_calendar_array [] = array_merge($evento_base, array(
+                    '_dci_evento_data_orario_inizio' => $data_orario_inizio,
+                    '_dci_evento_data_orario_fine' => $data_orario_fine,
+                    'data_inizio' =>($data_orario_inizio != "") ?  gmdate("Y-m-d", $data_orario_inizio) : "",
+                    'data_fine' => ($data_orario_fine != "") ?  gmdate("Y-m-d", $data_orario_fine): "",
+                    'indice_ricorrenza' => $i
+                ));
+            }
+        }
+        else
+        {
+            $data_orario_inizio = dci_get_meta('data_orario_inizio','_dci_evento_',$evento);
+            $data_orario_fine =   dci_get_meta('data_orario_fine','_dci_evento_',$evento);
+    
+            $eventi_calendar_array [] = array_merge($evento_base, array(
+                '_dci_evento_data_orario_inizio' => $data_orario_inizio,
+                '_dci_evento_data_orario_fine' => $data_orario_fine,
+                'data_inizio' =>($data_orario_inizio != "") ?  gmdate("Y-m-d", $data_orario_inizio) : "",
+                'data_fine' => ($data_orario_fine != "") ?  gmdate("Y-m-d", $data_orario_fine): "",
+            ));
+        }
     }
    return $eventi_calendar_array;
 }
@@ -469,11 +507,11 @@ function dci_create_calendar($days = 7){
     $eventi = dci_get_eventi_calendar_array();
     $calendar = dci_get_empty_calendar_array($days);
 
-    foreach ($calendar as $key => $value){
+    foreach ($calendar as $key => &$giorno){
         foreach ($eventi as $evento){
             $evento = dci_is_evento_in_calendar($evento,$key);
             if ($evento['is_in_calendar']) {
-                $calendar[$key] ['eventi'] [] = array(
+                $giorno['eventi'] [] = array(
                     'id' => $evento['id'],
                     'titolo' => $evento['titolo'],
                     'link' => $evento['link'],
@@ -1327,8 +1365,8 @@ function dci_get_evento_next_recurrence_timestamps($id)
 
     if ($index_of_closer_recurrence < 0)
         return [
-            'start' => get_post_meta($id, '_dci_evento_data_orario_inizio', true),
-            'end' => get_post_meta($id, '_dci_evento_data_orario_fine', true)
+            '_dci_evento_data_orario_inizio' => get_post_meta($id, '_dci_evento_data_orario_inizio', true),
+            '_dci_evento_data_orario_fine' => get_post_meta($id, '_dci_evento_data_orario_fine', true)
         ];
 
     $recurrences = dci_get_evento_recurrences($id);
