@@ -23,7 +23,7 @@ get_header();
         $prefix = '_dci_evento_';
         $descrizione_breve = dci_get_meta("descrizione_breve", $prefix, $post->ID);
         //dates
-        $recurrent = dci_get_meta("evento_ripetuto", $prefix, $post->ID);
+        $recurrent = dci_get_meta("evento_ripetuto", $prefix, $post->ID) === "true";
         $next_recurrence_timestamps = dci_get_evento_next_recurrence_timestamps($post->ID);
         $start_timestamp = $next_recurrence_timestamps['_dci_evento_data_orario_inizio'];
         $start_date = date_i18n('d F Y', date($start_timestamp));
@@ -313,7 +313,7 @@ get_header();
                                         <?php
 
                                         $recurrences = dci_get_evento_recurrences($id);
-                                        $index_of_closer_recurrence = dci_get_evento_next_recurrence_index($id);
+                                        $index_of_next_recurrence = dci_get_evento_next_recurrence_index($id);
 
                                         for ($i = 0; $i < count($recurrences); $i++) {
                                             $recurrence_start_timestamp = $recurrences[$i]['_dci_evento_data_orario_inizio'];
@@ -323,7 +323,7 @@ get_header();
                                             $recurrence_end_timestamp = $recurrences[$i]['_dci_evento_data_orario_fine'];
                                             $recurrence_end_date = date_i18n('d F Y', date($recurrence_end_timestamp));
                                             $recurrence_end_time = date_i18n('H:i', date($recurrence_end_timestamp));
-                                            $is_next_recurrence = $index_of_closer_recurrence == $i;
+                                            $is_next_recurrence = $index_of_next_recurrence == $i;
                                         ?>
                                             <li class="<?= $is_next_recurrence? 'fw-bold' : '' ?>">
                                                 <?php

@@ -42,7 +42,12 @@ $tipo_evento = get_the_terms($post->ID,'tipi_evento')[0];
                     </a>
                     <?php if ($start_timestamp && $end_timestamp && $start_date != $end_date) { ?>
                     <span class="data u-grey-light">dal <?php echo $start_date; ?> al <?php echo $end_date; ?></span>
-                    <?php } ?>
+                    <?php }
+
+                    if (dci_get_meta("evento_ripetuto", $prefix, $post->ID) === "true") { ?>
+                        <span class="data u-grey-light">Evento ripetuto</span>
+                        <?php }
+                    ?>
                 </div>
                 <h3 class="card-title">
                     <a class="text-decoration-none"

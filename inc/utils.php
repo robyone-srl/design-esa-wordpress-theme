@@ -1361,9 +1361,9 @@ function dci_get_default_home_sections(){
 
 function dci_get_evento_next_recurrence_timestamps($id)
 {
-    $index_of_closer_recurrence = dci_get_evento_next_recurrence_index($id);
+    $index_of_next_recurrence = dci_get_evento_next_recurrence_index($id);
 
-    if ($index_of_closer_recurrence < 0)
+    if ($index_of_next_recurrence < 0)
         return [
             '_dci_evento_data_orario_inizio' => get_post_meta($id, '_dci_evento_data_orario_inizio', true),
             '_dci_evento_data_orario_fine' => get_post_meta($id, '_dci_evento_data_orario_fine', true)
@@ -1372,8 +1372,8 @@ function dci_get_evento_next_recurrence_timestamps($id)
     $recurrences = dci_get_evento_recurrences($id);
 
     return [
-        '_dci_evento_data_orario_inizio' => $recurrences[$index_of_closer_recurrence]['_dci_evento_data_orario_inizio'],
-        '_dci_evento_data_orario_fine' => $recurrences[$index_of_closer_recurrence]['_dci_evento_data_orario_fine'],
+        '_dci_evento_data_orario_inizio' => $recurrences[$index_of_next_recurrence]['_dci_evento_data_orario_inizio'],
+        '_dci_evento_data_orario_fine' => $recurrences[$index_of_next_recurrence]['_dci_evento_data_orario_fine'],
     ];
 }
 
@@ -1384,7 +1384,7 @@ function dci_get_evento_next_recurrence_index($id)
 
     $recurrences = dci_get_evento_recurrences($id);
 
-    $index_of_closer_recurrence = -1;
+    $index_of_next_recurrence = -1;
     $closer_recurrence_timestamp_difference = PHP_INT_MAX;
     $now = current_datetime()->getTimestamp();
 
@@ -1393,12 +1393,12 @@ function dci_get_evento_next_recurrence_index($id)
         $timestamp_difference = $recurrence['_dci_evento_data_orario_inizio'] - $now;
 
         if ($timestamp_difference < $closer_recurrence_timestamp_difference && $recurrence['_dci_evento_data_orario_fine'] > $now) {
-            $index_of_closer_recurrence = $i;
+            $index_of_next_recurrence = $i;
             $closer_recurrence_timestamp_difference = $timestamp_difference;
         }
     }
 
-    return $index_of_closer_recurrence;
+    return $index_of_next_recurrence;
 }
 
 function dci_get_evento_recurrences($id)
