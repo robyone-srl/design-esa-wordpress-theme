@@ -212,7 +212,7 @@ function dci_add_unita_organizzativa_metaboxes() {
 
     
     $cmb_contatti->add_field( array(
-        'name' => 'Sede principale dell\'Ente *',
+        'name' => 'Sede principale è luogo dell\'Ente *',
         'id' =>  $prefix . 'is_sede_principale_esa',
         'desc' => __( 'Seleziona se l\'unità organizzativa ha sede in un luogo dell\'ente', 'design_comuni_italia' ),
         'type'    => 'radio_inline',
