@@ -31,6 +31,12 @@ $tipo_evento = get_the_terms($post->ID,'tipi_evento')[0];
                     <div class="card-calendar d-flex flex-column justify-content-center">
                         <span class="card-date"><?php echo $start_date_arr[0]; ?></span>
                         <span class="card-day"><?php echo $start_date_arr[1]; ?></span>
+                        <?php
+						if ($start_date_arr[2] != date('Y')) {
+						?>
+							<span class="card-day"><?php echo $start_date_arr[2]; ?></span>
+						<?php
+						} ?>
                     </div>
                 </div>
             </div>
