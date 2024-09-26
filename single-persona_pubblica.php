@@ -37,6 +37,7 @@ get_header();
 
         $gallery = dci_get_meta("gallery", $prefix, $post->ID);
 
+        $orari_ricevimento = dci_get_wysiwyg_field("orari_ricevimento", $prefix, $post->ID);
         $punti_contatto = dci_get_meta("punti_contatto", $prefix, $post->ID);
 
         $curriculum_vitae = dci_get_meta("curriculum_vitae", $prefix, $post->ID);
@@ -185,6 +186,14 @@ get_header();
                                                             </a>
                                                         </li>
                                                         <?php } ?>
+                                                        
+                                                        <?php if ($orari_ricevimento) { ?>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="#orari_ricevimento">
+                                                                <span class="title-medium">Orari di ricevimento</span>
+                                                            </a>
+                                                        </li>
+                                                        <?php } ?>
 
                                                         <?php if ($punti_contatto && is_array($punti_contatto) && count($punti_contatto) > 0) { ?>
                                                         <li class="nav-item">
@@ -314,6 +323,15 @@ get_header();
                         </div>
                     </section>
                     <?php }?>
+
+                    <?php if ($orari_ricevimento) { ?>
+                    <section id="orari_ricevimento" class="it-page-section mb-4">
+                        <h2 class="h3 my-2">Orari di ricevimento</h2>
+                        <div class="richtext-wrapper lora">
+                            <?php echo $orari_ricevimento ?>
+                        </div>
+                    </section>
+                    <?php } ?>
 
                     <?php if ($punti_contatto && is_array($punti_contatto) && count($punti_contatto) > 0) { ?>
                     <section id="contatti" class="it-page-section mb-4">
