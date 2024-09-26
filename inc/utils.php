@@ -392,6 +392,7 @@ if(!function_exists("dci_get_current_group")) {
             } else {
                 return ;
             }
+            return !empty($tipo_post) ? dci_get_group($tipo_post) : null;
         }
 
         if (is_author()) {
