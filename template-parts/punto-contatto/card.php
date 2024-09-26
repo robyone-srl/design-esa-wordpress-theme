@@ -18,7 +18,7 @@ $other_contacts = array(
 if($title_level == "") $title_level = 5;
 ?>
 
-<div class="card card-teaser card-teaser-info rounded shadow-sm p-4 me-3">
+<div class="card card-teaser card-teaser-info card-wrapper rounded shadow-sm p-4 me-3">
     <div class="card-body pe-3">
         <h<?php echo $title_level; ?> class="h5 card-title">
             <?php echo $contatto->post_title; ?>

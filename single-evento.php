@@ -128,7 +128,7 @@ get_header();
                                                     </a>
                                                     </li>
                                                 <?php } ?>  
-                                                <?php if( $luogo_evento) { ?>
+                                                <?php if( $show_luogo) { ?>
                                                     <li class="nav-item">
                                                     <a class="nav-link" href="#luogo">
                                                     <span>Luogo</span>
