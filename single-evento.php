@@ -23,11 +23,13 @@ get_header();
         $prefix = '_dci_evento_';
         $descrizione_breve = dci_get_meta("descrizione_breve", $prefix, $post->ID);
         //dates
-        $start_timestamp = dci_get_meta("data_orario_inizio", $prefix, $post->ID);
+        $recurrent = dci_get_meta("evento_ripetuto", $prefix, $post->ID) === "true";
+        $next_recurrence_timestamps = dci_get_evento_next_recurrence_timestamps($post->ID);
+        $start_timestamp = $next_recurrence_timestamps['_dci_evento_data_orario_inizio'];
         $start_date = date_i18n('d F Y', date($start_timestamp));
         $start_time = date_i18n('H:i', date($start_timestamp));
         $start_date_arr = explode('-', date_i18n('d-M-Y-H-i', date($start_timestamp)));
-        $end_timestamp = dci_get_meta("data_orario_fine", $prefix, $post->ID);
+        $end_timestamp = $next_recurrence_timestamps['_dci_evento_data_orario_fine'];
         $end_date = date_i18n('d F Y', date($end_timestamp));
         $end_time = date_i18n('H:i', date($end_timestamp));
         $end_date_arr = explode('-', date_i18n('d-M-Y-H-i', date($end_timestamp)));
@@ -64,13 +66,20 @@ get_header();
                 <div class="col-lg-8 px-lg-4 py-lg-2">
                     <h1><?php the_title(); ?></h1>
                     <h2 class="visually-hidden">Dettagli evento</h2>
-                    <?php if ($start_timestamp && $end_timestamp) {
-                        if ($start_date == $end_date) { ?>
-                            <p class="h4 py-2"><?php echo $start_date; ?> dalle <?php echo $start_time; ?> alle <?php echo $end_time; ?></p>
-                        <?php } else { ?>
-                            <p class="h4 py-2">dal <?php echo $start_date; ?> al <?php echo $end_date; ?></p>
-                        <?php }
-                    } ?>
+                    <p class="h4 py-2">
+                        <?php if ($start_timestamp && $end_timestamp) {
+                            if ($start_date == $end_date) { ?>
+                                <?php echo $start_date; ?> dalle <?php echo $start_time; ?> alle <?php echo $end_time; ?>
+                            <?php } else { ?>
+                                dal <?php echo $start_date; ?> al <?php echo $end_date; ?>
+                            <?php }
+                            if ($recurrent) {
+                            ?>
+                                (l'evento si ripete)
+                        <?php
+                            }
+                        } ?>
+                    </p>
                     <p>
                         <?php echo $descrizione_breve; ?>
                     </p>
@@ -285,7 +294,7 @@ get_header();
                             $data_fine = date_i18n("Ymd\THi00", date($end_timestamp));
                             $luogo = $luogo_evento->post_title ?? '';
                             ?>
-                            <div class="mt-5">
+                            <div class="mt-2">
                                 <a target="_blank" href="https://calendar.google.com/calendar/r/eventedit?text=<?php echo urlencode(get_the_title()); ?>&dates=<?php echo $data_inizio; ?>/<?php echo $data_fine; ?>&details=<?php echo urlencode($descrizione_breve); ?>:+<?php echo urlencode(get_permalink()); ?>&location=<?php echo urlencode($luogo); ?>" class="btn btn-outline-primary btn-icon">
                                     <svg class="icon icon-primary" aria-hidden="true">
                                         <use xlink:href="#it-plus-circle"></use>
@@ -293,6 +302,53 @@ get_header();
                                     <span>Aggiungi al calendario</span>
                                 </a>
                             </div>
+                            <?php
+                            if ($recurrent) {
+                            ?>
+                                <h3 class="h4 mt-4">Ricorrenze</h3>
+                                <div class="richtext-wrapper">
+                                    <p>L'evento si ripete nelle seguenti date:</p>
+                                    <ul>
+                                        <?php
+
+                                        $recurrences = dci_get_evento_recurrences($id);
+                                        $index_of_next_recurrence = dci_get_evento_next_recurrence_index($id);
+
+                                        for ($i = 0; $i < count($recurrences); $i++) {
+                                            $recurrence_start_timestamp = $recurrences[$i]['_dci_evento_data_orario_inizio'];
+                                            $recurrence_start_date = date_i18n('d F Y', date($recurrence_start_timestamp));
+                                            $recurrence_start_time = date_i18n('H:i', date($recurrence_start_timestamp));
+                                            $recurrence_start_date_arr = explode('-', date_i18n('d-M-Y-H-i', date($start_timestamp)));
+                                            $recurrence_end_timestamp = $recurrences[$i]['_dci_evento_data_orario_fine'];
+                                            $recurrence_end_date = date_i18n('d F Y', date($recurrence_end_timestamp));
+                                            $recurrence_end_time = date_i18n('H:i', date($recurrence_end_timestamp));
+                                            $is_next_recurrence = $index_of_next_recurrence == $i;
+                                        ?>
+                                            <li class="<?= $is_next_recurrence? 'fw-bold' : '' ?>">
+                                                <?php
+                                                if ($recurrence_start_date == $recurrence_end_date) { ?>
+                                                    <?= $recurrence_start_date; ?>
+                                                <?php } else { ?>
+                                                    dal <?= $recurrence_start_date; ?> al <?= $recurrence_end_date; ?>
+                                                <?php }
+                                                ?>
+                                                dalle <?= $recurrence_start_time; ?> alle <?= $recurrence_end_time; ?>
+                                                <?php
+                                                if($is_next_recurrence){
+                                                    ?>
+                                                    <span class="fw-normal"> (ricorrenza più vicina)</span>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </li>
+                                        <?php
+                                        }
+                                        ?>
+                                    </ul>
+                                </div>
+                            <?php
+                            }
+                            ?>
                         </article>
                     <?php } ?>
 

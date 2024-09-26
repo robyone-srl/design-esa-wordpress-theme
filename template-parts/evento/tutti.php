@@ -9,9 +9,8 @@ $args = array(
 	's'         => $query,
     'posts_per_page' => $load_posts,
 	'post_type' => 'evento',
-	'orderby' => 'meta_value',
-	'order' => 'DESC',
-	'meta_key' => '_dci_evento_data_orario_inizio',
+	'orderby' => 'title',
+    'order' => 'ASC',
 );
 
 $the_query = new WP_Query( $args );
@@ -21,6 +20,7 @@ $posts = $the_query->posts;
 $additional_filter = null;
 
 ?>
+<?php get_template_part("template-parts/home/calendario") ?>
 
 <div class="bg-grey-card py-3">
     <form role="search" id="search-form" method="get" class="search-form">
@@ -56,7 +56,7 @@ $additional_filter = null;
                 <p id="autocomplete-label" class="mb-4">
                     <strong>
                         <?php echo $the_query->found_posts; ?>
-                    </strong>risultati in ordine temporale
+                    </strong>risultati in ordine alfabetico
                 </p>
             </div>
             <div class="row g-2" id="load-more">

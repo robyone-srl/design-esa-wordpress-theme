@@ -3,7 +3,7 @@ global $post;
 
 $img = get_the_post_thumbnail_url($post->ID);
 $descrizione = dci_get_meta('descrizione_breve', '_dci_evento_',$post->ID);
-$timestamp = dci_get_meta('data_orario_inizio', '_dci_evento_',$post->ID);
+$timestamp = dci_get_evento_next_recurrence_timestamps($post->ID)['_dci_evento_data_orario_inizio'];
 $arrdata = explode('-', date_i18n("j-F-Y", $timestamp));
 ?>
 <div class="col-12 col-sm-6 col-lg-4">
