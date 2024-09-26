@@ -232,7 +232,7 @@ class Breadcrumb_Trail {
 				//$meta = sprintf( '<meta itemprop="position" content="%s" />', absint( $item_position ) );
 
 				// Build the list item.
-				$breadcrumb .= sprintf( '<%1$s %2$s>%5$s%3$s%4$s</%1$s>', tag_escape( $this->args['item_tag'] ),$attributes, $item, $meta, $separator );
+				$breadcrumb .= sprintf( '<%1$s %2$s>%4$s%3$s</%1$s>', tag_escape( $this->args['item_tag'] ),$attributes, $item, $separator );
 			}
 
 			// Close the unordered list.
