@@ -155,6 +155,17 @@ function dci_add_persona_pubblica_metaboxes() {
     ) );
 
     $cmb_user->add_field( array(
+        'id' => $prefix . 'orari_ricevimento',
+        'name'        => __( 'Orari di ricevimento', 'design_comuni_italia' ),
+        'desc' => __( 'Gli orari in cui questa persona è disponibile per ricevere il pubblico' , 'design_comuni_italia' ),
+        'type'    => 'wysiwyg',
+        'options' => array(
+            'textarea_rows' => 10,
+            'teeny' => false,
+        ),
+    ) );
+
+    $cmb_user->add_field( array(
         'id' => $prefix . 'punti_contatto',
         'name'        => __( 'Punti di contatto *', 'design_comuni_italia' ),
         'desc' => __( 'Telefono, mail o altri punti di contatto<br><a href="post-new.php?post_type=punto_contatto">Inserisci Punto di Contatto</a>' , 'design_comuni_italia' ),
