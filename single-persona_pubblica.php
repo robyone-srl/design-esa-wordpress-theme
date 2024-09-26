@@ -303,11 +303,13 @@ get_header();
                     <?php if ($inc_list && is_array($inc_list) && count($inc_list) > 0) {?>
                     <section id="incarichi" class="it-page-section mb-4">
                         <h2 class="h3 my-2">Incarichi</h2>
-                        <div class="card-wrapper card-teaser-wrapper">
-                            <?php foreach ($inc_list as $incarico) {
+                        <div class="row">
+                            <?php foreach ($inc_list as $incarico) { ?>
+                                <div class="col-xl-6 col-lg-8 col-md-12 pb-3"> <?php
                                     $inc_id = $incarico->ID;
-                                      get_template_part("template-parts/incarico/card-full");
-                                  } ?>
+                                    get_template_part("template-parts/incarico/card-full");
+                                ?> </div>
+                            <?php } ?>
                         </div>
                     </section>
                     <?php }?>

@@ -28,7 +28,7 @@ if($unita_organizzativa != "") {
 $locale = setlocale(LC_ALL, 'it_IT@euro', 'it_IT', 'it', 'it');
 ?>
 
-<div class="card card-teaser card-teaser-info rounded shadow-sm p-4 me-3">
+<div class="card card-teaser card-teaser-info card-wrapper rounded shadow-sm p-4 me-3">
     <div class="card-body pe-3">
         <h5 class="card-title">
             <?php echo $incarico_post->post_title; ?>
