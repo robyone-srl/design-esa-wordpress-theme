@@ -7,7 +7,8 @@ $eventi = dci_get_eventi_calendar_array();
 usort($eventi, fn($a, $b) => $a['_dci_evento_data_orario_inizio'] <=> $b['_dci_evento_data_orario_inizio']);
 $eventi = array_slice($eventi, 0, $quanti_eventi_mostrare);
 
-$url_eventi = get_permalink( get_page_by_title('Eventi') );
+
+$url_eventi = dci_get_template_page_url("page-templates/eventi.php");
 
 ?>
 	<div class="section section-muted pb-90 pb-lg-50 px-lg-5 pt-0">

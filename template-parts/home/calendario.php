@@ -21,6 +21,8 @@ foreach ($date as $data) {
 	}
 }
 
+$url_eventi = dci_get_template_page_url("page-templates/eventi.php");
+
 ?>
 	<div class="section section-muted pb-90 pb-lg-50 px-lg-5 pt-0">
 		<div class="container">
@@ -83,6 +85,17 @@ foreach ($date as $data) {
 					</div>
 					<div class="mt-4"> Nessun evento in programma. </div>
 				<?php } ?>
+			</div>
+			
+			<div class="d-flex justify-content-end">
+
+				<a href="<?= $url_eventi ?>" class="btn btn-outline-primary full-mb" aria-label="aria-label" data-element="live-button-events">
+					Mostra tutti gli eventi
+					<svg class="icon icon-primary icon-xs ml-10">
+						<use href="#it-arrow-right"></use>
+					</svg>
+				</a>
+
 			</div>
 		</div>
 	</div>
