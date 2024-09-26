@@ -610,7 +610,7 @@ function dci_evento_admin_script() {
  * @param $data
  * @return mixed
  */
-function dci_evento_set_post_content( $data ) {
+function dci_evento_set_post_content( $data, $postarr ) {
 
     if($data['post_type'] == 'evento') {
 
@@ -642,13 +642,14 @@ function dci_evento_set_post_content( $data ) {
             unset($_POST["_dci_evento_data_orario_fine"]);
         }
 
-        if ($_POST['_dci_evento_evento_ripetuto'] === "false") {
+        if (isset($_POST['_dci_evento_evento_ripetuto']) && $_POST['_dci_evento_evento_ripetuto'] === "false") {
             unset($_POST["_dci_evento_gruppo_eventi_ripetuti"]);
+            delete_post_meta($postarr['ID'], '_dci_evento_gruppo_eventi_ripetuti');
         }
     }
     return $data;
 }
-add_filter( 'wp_insert_post_data' , 'dci_evento_set_post_content' , '99', 1 );
+add_filter( 'wp_insert_post_data' , 'dci_evento_set_post_content' , '99', 2 );
 
 function dci_update_inizio_fine_recurrent_event($post_id){
     if(get_post_type($post_id) != 'evento')
