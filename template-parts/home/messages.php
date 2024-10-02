@@ -26,5 +26,5 @@ foreach($messages as $message): ?>
             </p>
         </div>
     </div>
-<?php }
+<?php 
 endforeach; ?>
