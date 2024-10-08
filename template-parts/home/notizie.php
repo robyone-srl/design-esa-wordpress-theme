@@ -56,6 +56,7 @@ if ($post_id || ($posts && is_array($posts) && count($posts) > 0)) {
                             <?php
                             foreach ($posts as $post) {
                                 if ($post) {
+									$scheda = $post;
                                     get_template_part("template-parts/home/notizia-evidenza");
                                 }
                             }
