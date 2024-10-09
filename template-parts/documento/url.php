@@ -4,7 +4,14 @@ global $url, $url_label;
 $icon = "it-link";
 
 $urlparts = parse_url($url);
-$urlhost = $urlparts["host"];
+
+if(isset($urlparts["host"])){
+	$urlhost = $urlparts["host"];
+}else{
+	$urlhost = NULL;
+}
+
+
 
 $siteurl = get_site_url();
 $siteurlparts = parse_url($siteurl);

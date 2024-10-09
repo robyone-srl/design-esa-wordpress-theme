@@ -264,9 +264,14 @@ function genera_pagine_figlie($slug_pagina)
                             <?php foreach ($socials as $social) { ?>
                                 <li class="list-inline-item">
                                     <a href="<?php echo $social['url_social'] ?>" title="Vai a <?php echo $social['nome_social']; ?>" aria-label="<?php echo $social['nome_social']; ?>" target="_blank" class="p-2 text-white">
+                                    <?php    
+                                    if(isset($social['icona_social']) && $social['icona_social'] != ""){?>
                                         <svg class="icon icon-sm icon-white align-top">
                                             <use xmlns:xlink="http://www.w3.org/1999/xlink" href="#<?php echo $social['icona_social'] ?>"></use>
                                         </svg>
+                                    <?php }else{ 
+                                        echo $social['nome_social'];
+                                     }?>
                                     </a>
                                 </li>
                             <?php } ?>
