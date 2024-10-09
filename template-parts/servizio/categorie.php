@@ -1,30 +1,25 @@
 <?php
 global $should_have_grey_background;
-$categorie_servizio_names = array_column(get_terms(
+
+$tipo_visualizzazione = dci_get_option('categorie_esplora_tipo', 'servizi');
+if($tipo_visualizzazione == 'filtro'){
+    $categorie_servizio_ids = dci_get_option('categorie_esplora', 'servizi');
+}else {
+	$categorie_servizio_ids = array_column(get_terms(
     array(
         'taxonomy' => 'categorie_servizio',
         'hide_empty' => false
     )
-), 'name');
+    ), 'term_id');
+}
 ?>
 <div class="<?= !($should_have_grey_background=(!$should_have_grey_background)) ? 'bg-grey-dsk':'' ?>">
     <div class="container py-5">
         <h2 class="title-xxlarge mb-4">Esplora per categoria</h2>
         <div class="row g-4">
-            <?php foreach ($categorie_servizio_names as $categoria_servizio_name) {
-                $args = array(
-                    'post_type' => 'servizio',
-                    'posts_per_page' => -1,
-                    'tax_query' => array(
-                        array(
-                            'taxonomy' => 'categorie_servizio',
-                            'field' => 'name',
-                            'terms' => $categoria_servizio_name,
-                        ),
-                    ),
-                );
-                $servizi = get_posts($args);
-                $categoria = get_term_by('name', $categoria_servizio_name, 'categorie_servizio');
+            <?php foreach ($categorie_servizio_ids as $categoria_servizio_id) {
+                
+                $categoria = get_term_by('term_id', $categoria_servizio_id, 'categorie_servizio');
                 $url = get_term_link($categoria->term_id, 'categorie_servizio');
             ?>
                 <div class="col-md-6 col-xl-4">

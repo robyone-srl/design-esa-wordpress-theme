@@ -24,6 +24,7 @@ get_header();
             $data_pubblicazione_arr = dci_get_data_pubblicazione_arr("data_pubblicazione", $prefix, $post->ID);
             $date = date_i18n('d F Y', mktime(0, 0, 0, $data_pubblicazione_arr[1], $data_pubblicazione_arr[0], $data_pubblicazione_arr[2]));
             $persone = dci_get_meta("persone", $prefix, $post->ID);
+            $luoghi = dci_get_meta("luoghi", $prefix, $post->ID);
             $contenuto = dci_get_wysiwyg_field("testo_completo", $prefix, $post->ID);
             $documenti = dci_get_meta("documenti", $prefix, $post->ID);
             $allegati = dci_get_meta("allegati", $prefix, $post->ID);
@@ -241,13 +242,19 @@ get_header();
                                 get_template_part("template-parts/unita-organizzativa/card");
                             } ?>
                         </div>
-                        <?php if(is_array($persone) && count($persone)) { ?>
-                            <div class="col-12 col-sm-4">
-                                <h3 class="h6">Persone</h3>
+
+                        <div class="col-12 col-sm-4">
+                            <?php if(is_array($persone) && count($persone)) { ?>
+                            <h3 class="h6">Persone</h3>
                                 <?php get_template_part("template-parts/single/persone"); ?>
-                            </div>
-                        <?php } ?>
+                            <?php }?>
+
+                        <?php if(is_array($luoghi) && count($luoghi)) { ?>
+                            <h3 class="h6">Luoghi</h3>
+                                <?php get_template_part("template-parts/single/luoghi"); ?>
+                            <?php }?>
                         </div>
+
                     </article>
                     <h2 class="visually-hidden">Ulteriori informazioni</h2>
                     <?php get_template_part('template-parts/single/page_bottom'); ?>

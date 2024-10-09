@@ -24,12 +24,15 @@ function dci_register_pagina_servizi_options(){
     $servizi_options = new_cmb2_box( $args );
     $servizi_options->add_field( array(
         'id' => $prefix . 'servizi_options',
-        'name'        => __( 'Servizi', 'design_comuni_italia' ),
-        'desc' => __( 'Configurazione della pagina Servizi' , 'design_comuni_italia' ),
+        'name'        => __( 'Servizi in evidenza', 'design_comuni_italia' ),
+        'desc' => __( 'Primi contenuti visualizzati nella pagina Servizi' , 'design_comuni_italia' ),
         'type' => 'title',
     ) );
+
+
+
     $servizi_options->add_field(array(
-            'name' => __('Servizi in evidenza', 'design_comuni_italia'),
+            'name' => __('Scegli servizi in evidenza', 'design_comuni_italia'),
             'desc' => __('Seleziona i servizi da mostrare nella sezione In Evidenza. NB: Selezionane 3 o multipli di 3 per evitare buchi nell\'impaginazione.  ', 'design_comuni_italia'),
             'id' => $prefix . 'servizi_evidenziati',
             'type'    => 'custom_attached_posts',
@@ -51,51 +54,65 @@ function dci_register_pagina_servizi_options(){
     );
 
     $servizi_options->add_field( array(
+        'id' => $prefix . 'tit_banner_secondario',
+        'name'        => __( 'Banner secondario', 'design_comuni_italia' ),
+        'desc' => __( 'Banner pensato per mostrare ulteriori servizi nella pagina Servizi' , 'design_comuni_italia' ),
+        'type' => 'title',
+    ) );
+
+    $servizi_options->add_field(array(
+        'name' => __('Categorie di servizi da mettere in banner ulteriore', 'design_comuni_italia'),
+        'desc' => __('Seleziona le categorie di servizi da mostrare in un banner secondario', 'design_comuni_italia'),
+        'id' => $prefix . 'categorie_banner_secondario',
+        'type' => 'taxonomy_multicheck_inline',
+        'taxonomy' => 'categorie_servizio',  
+    ));
+
+    $servizi_options->add_field( array(
         'id' => $prefix . 'titolo_banner_secondario',
-        'name' => 'Titolo del banner di servizi secondario, pensato per i servizi già inclusi che mostrati assieme agli altri causerebbero confusione.',
+        'name' => 'Titolo del banner secondario',
         'type' => 'textarea',
         'default' => 'Servizi inclusi',
     ) );
 
-    $servizi_options->add_field(array(
-            'name' => __('Categorie di servizi da mettere in banner ulteriore', 'design_comuni_italia'),
-            'desc' => __('Seleziona le categorie di servizi da mostrare in un banner secondario', 'design_comuni_italia'),
-            'id' => $prefix . 'categorie_banner_secondario',
-            'type' => 'taxonomy_multicheck_inline',
-            'taxonomy' => 'categorie_servizio',
-        )
-    );
+    $servizi_options->add_field( array(
+        'id' => $prefix . 'tit_banner_esplora_categorie',
+        'name'        => __( 'Banner esplora categorie', 'design_comuni_italia' ),
+        'desc' => __( 'Visualizzazione della lista delle categorie nella pagina Servizi' , 'design_comuni_italia' ),
+        'type' => 'title',
+    ) );
 
     $servizi_options->add_field(array(
-        'id' => $prefix . 'prenota_appuntamento',
-        'name' => __('Mostra pulsanti per la prenotazione degli appuntamenti', 'design_comuni_italia'),
-        'desc' => __('Se abilitata, vengono mostrati i collegamenti per il modulo di prenotazione degli appuntamenti (richiede collegamento informatico al servizio utilizzato dall\'ente)', 'design_comuni_italia'),
+        'name' => __('Tipo di visualizzazione per il banner di Esplora categorie', ''),
+        'id' => $prefix . 'categorie_esplora_tipo',
+        'desc' => __('Abilita o disabilita la scelta personalizzata', ''),
         'type' => 'radio_inline',
-        'default' => '',
+        'default' => 'tutte',
         'options' => array(
-            'true' => __('Si', 'design_comuni_italia'),
-            '' => __('No', 'design_comuni_italia'),
-        ),
-        'attributes' => array(
-            'data-conditional-value' => "false",
+            'tutte' => 'Tutte le categorie in ordine alfabetico',
+			'filtro'   => 'Scelta personalizzata',
         ),
     ));
-
+    
     $servizi_options->add_field(array(
-        'id' => $prefix . 'richiedi_assistenza',
-        'name' => __('Mostra pulsanti per la richiesta di assistenza', 'design_comuni_italia'),
-        'desc' => __('Se abilitata, vengono mostrati i collegamenti per il modulo di richiesta assistenza (richiede collegamento informatico al servizio utilizzato dall\'ente)', 'design_comuni_italia'),
-        'type' => 'radio_inline',
-        'default' => '',
-        'options' => array(
-            'true' => __('Si', 'design_comuni_italia'),
-            '' => __('No', 'design_comuni_italia'),
-        ),
+        'name' => __('Categorie servizi da riordinare', 'design_comuni_italia'),
+        'desc' => __('Scegli quali categorie mostrare nei servizi e in quale ordine. Eliminando tutte le opzioni e poi salvando, la scelta verrà reimpostata.', 'design_comuni_italia'),
+        'id' => $prefix . 'categorie_esplora',
+        'type' => 'pw_multiselect',
+        'taxonomy' => 'categorie_servizio',
+        'options' => dci_get_terms_options('categorie_servizio'),
         'attributes' => array(
-            'data-conditional-value' => "false",
+            'data-conditional-id' => 'categorie_esplora_tipo',
+            'data-conditional-value'  => 'filtro',
         ),
-    ));
+    )); 
 
+    $servizi_options->add_field( array(
+        'id' => $prefix . 'tit_servizi_esterni',
+        'name'        => __( 'Spazio dei servizi esterni', 'design_comuni_italia' ),
+        'desc' => __( 'Lista dei servizi esterni nel popup di accesso' , 'design_comuni_italia' ),
+        'type' => 'title',
+    ) );
 
     $servizi_options->add_field( array(
         'id' => $prefix . 'login_messaggio',
@@ -130,4 +147,44 @@ function dci_register_pagina_servizi_options(){
         'name'        => __( 'Link Servizio', 'design_comuni_italia' ),
         'type' => 'text_url',
     ) );
+
+    $servizi_options->add_field( array(
+        'id' => $prefix . 'tit_banner_altre',
+        'name'        => __( 'Altre opzioni', 'design_comuni_italia' ),
+        'desc' => __( 'Impostazioni legate al funzionamento dei servizi' , 'design_comuni_italia' ),
+        'type' => 'title',
+    ) );
+
+    $servizi_options->add_field(array(
+        'id' => $prefix . 'prenota_appuntamento',
+        'name' => __('Mostra pulsanti per la prenotazione degli appuntamenti', 'design_comuni_italia'),
+        'desc' => __('Se abilitata, vengono mostrati i collegamenti per il modulo di prenotazione degli appuntamenti (richiede collegamento informatico al servizio utilizzato dall\'ente)', 'design_comuni_italia'),
+        'type' => 'radio_inline',
+        'default' => '',
+        'options' => array(
+            'true' => __('Si', 'design_comuni_italia'),
+            '' => __('No', 'design_comuni_italia'),
+        ),
+        'attributes' => array(
+            'data-conditional-value' => "false",
+        ),
+    ));
+
+    $servizi_options->add_field(array(
+        'id' => $prefix . 'richiedi_assistenza',
+        'name' => __('Mostra pulsanti per la richiesta di assistenza', 'design_comuni_italia'),
+        'desc' => __('Se abilitata, vengono mostrati i collegamenti per il modulo di richiesta assistenza (richiede collegamento informatico al servizio utilizzato dall\'ente)', 'design_comuni_italia'),
+        'type' => 'radio_inline',
+        'default' => '',
+        'options' => array(
+            'true' => __('Si', 'design_comuni_italia'),
+            '' => __('No', 'design_comuni_italia'),
+        ),
+        'attributes' => array(
+            'data-conditional-value' => "false",
+        ),
+    ));
+
+
+    
 }
