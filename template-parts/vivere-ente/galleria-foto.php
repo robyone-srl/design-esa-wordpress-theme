@@ -7,6 +7,7 @@ $gallery = dci_get_option('gallery_items', 'vivi') ?: [];
 $nome_sezione = dci_get_option('gallery_title', 'vivi') ?: "";
 ?>
 <?php if (count($gallery) > 0) { ?>
+	
 	<section id="galleria">
 		<?php if ($nome_sezione) { ?>
 			<div class="section <?= $sfondo_grigio ? 'section-muted' : '' ?> px-lg-5 pt-0 py-0">
@@ -20,7 +21,11 @@ $nome_sezione = dci_get_option('gallery_title', 'vivi') ?: "";
 			</div>
 		<?php } ?>
 		<div class="section <?= $sfondo_grigio ? 'section-muted' : '' ?> px-0 pt-0 ">
+		
+<?php if (count($gallery) < 3) { echo '<div class ="container">'; } ?>
 			<?php get_template_part("template-parts/single/gallery"); ?>
+	<?php if (count($gallery) < 3) { echo '</div>'; } ?>
 		</div>
 	</section>
+
 <?php } ?>

@@ -426,14 +426,8 @@ function dci_add_documento_pubblico_metaboxes()
         'remove_default' => 'true',
     ) );
 
-    $cmb_events->add_field( array(
-        'id' => $prefix . 'business_events',
-        'name'    => __( 'Business Events', 'design_comuni_italia' ),
-        'type'             => 'taxonomy_multicheck_hierarchical',
-        'taxonomy'       => 'eventi_vita_impresa',
-        'show_option_none' => false,
-        'remove_default' => 'true',
-    ) );
+//Ex BusinessEvents
+
 }
 
 /**

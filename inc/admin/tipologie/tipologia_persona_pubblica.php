@@ -97,7 +97,7 @@ function dci_add_persona_pubblica_metaboxes() {
 
     $cmb_user->add_field( array(
         'id' => $prefix . 'incarichi_1',
-        'name'    => __( 'Incarichi' ),
+        'name'    => __( 'Incarichi *' ),
         'desc' => __( 'Gli incarichi che la persona ricopre. Puoi modificare queste informazioni dalle impostazioni degli incarichi.' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => dci_get_incarichi_con_unita_organizzativa(),

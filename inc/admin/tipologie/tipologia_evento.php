@@ -117,7 +117,7 @@ function dci_add_eventi_metaboxes() {
 
     $cmb_data_e_ora->add_field(array(
         'id' => $prefix . 'data_orario_inizio',
-        'name'    => __('Data e orario di inizio', 'design_comuni_italia'),
+        'name'    => __('Data e orario di inizio *', 'design_comuni_italia'),
         'type'    => 'text_datetime_timestamp',
         'date_format' => 'd-m-Y',
         'attributes' => array(
@@ -129,7 +129,7 @@ function dci_add_eventi_metaboxes() {
 
     $cmb_data_e_ora->add_field( array(
         'id' => $prefix . 'data_orario_fine',
-        'name'    => __( 'Data e orario di fine', 'design_comuni_italia' ),
+        'name'    => __( 'Data e orario di fine *', 'design_comuni_italia' ),
         'type'    => 'text_datetime_timestamp',
         'date_format' => 'd-m-Y',
         'attributes' => array(

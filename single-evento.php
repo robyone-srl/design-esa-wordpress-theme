@@ -51,6 +51,8 @@ get_header();
         $punti_contatto = dci_get_meta("punti_contatto", $prefix, $post->ID);
         $organizzatori = dci_get_meta("organizzatore", $prefix, $post->ID);
         $appuntamenti = dci_get_eventi_figli();
+        $appuntamenti_genitore = dci_get_meta("evento_genitore", $prefix, $post->ID);
+
         $patrocinato = dci_get_meta("patrocinato", $prefix, $post->ID);
         $sponsor = dci_get_meta("sponsor", $prefix, $post->ID);
         $more_info = dci_get_wysiwyg_field("ulteriori_informazioni", $prefix, $post->ID);
@@ -205,6 +207,19 @@ get_header();
                         <div class="richtext-wrapper lora">
                             <?php echo $descrizione; ?>
                         </div>
+
+                        <?php if($appuntamenti_genitore != null){ ?>
+                        <article id="appuntamenti" class="it-page-section mb-5">
+                            <h2 class="h3 mb-3">Evento Genitore</h2>
+                            <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
+                                <?php
+                                    $appuntamento = get_post($appuntamenti_genitore);
+                                    get_template_part('template-parts/single/appuntamento');
+                                ?>
+                            </div>
+                        </article>
+                        <?php } ?>
+
                         <?php if (is_array($persone) && count($persone)) { ?>
                             <div class="pt-3 mb-4">
                                 <h3 class="h4">Parteciperanno</h3>
@@ -212,7 +227,6 @@ get_header();
                             </div>
                         <?php  } ?>
                     </article>
-
                     <?php if ($video || (is_array($gallery) && count($gallery))) { ?>
                         <article id="media" class="it-page-section mb-5">
                             <h2 class="h3 mb-3">Media</h2>

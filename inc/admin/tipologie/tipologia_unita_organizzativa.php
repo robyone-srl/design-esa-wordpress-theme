@@ -43,7 +43,7 @@ function dci_register_post_type_unita_organizzativa() {
 add_action( 'edit_form_after_title', 'dci_unita_organizzativa_add_content_after_title' );
 function dci_unita_organizzativa_add_content_after_title($post) {
     if($post->post_type == "unita_organizzativa")
-        _e('<span><i>il <b>Titolo</b> è il <b>Nome dell\'Unità Organizzativa</b>.</i></span><br><br>', 'design_comuni_italia' );
+        _e('<span><i>il <b>Titolo</b> è il <b>Nome dell\'Unità Organizzativa *</b>.</i></span><br><br>', 'design_comuni_italia' );
 }
 
 /**

@@ -44,7 +44,7 @@ function dci_register_post_type_punto_contatto() {
 add_action( 'edit_form_after_title', 'dci_punto_contatto_add_content_after_title' );
 function dci_punto_contatto_add_content_after_title($post) {
     if($post->post_type == "punto_contatto")
-        _e('<span><i>il <b>Titolo</b> è il <b>Titolo del Punto di contatto</b></i></span><br><br><br> ', 'design_comuni_italia' );
+        _e('<span><i>il <b>Titolo</b> è il <b>Titolo del Punto di contatto *</b></i></span><br><br><br> ', 'design_comuni_italia' );
 }
 
 /**

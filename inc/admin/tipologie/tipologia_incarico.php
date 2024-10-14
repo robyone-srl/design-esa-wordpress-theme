@@ -43,7 +43,7 @@ function dci_register_post_type_incarico() {
 add_action( 'edit_form_after_title', 'dci_incarico_add_content_after_title' );
 function dci_incarico_add_content_after_title($post) {
     if($post->post_type == "incarico")
-        _e('<span><i>il <b>Titolo</b> è il <b>Titolo carica o incarico</b></i></span><br><br><br> ', 'design_comuni_italia' );
+        _e('<span><i>il <b>Titolo</b> è il <b>Titolo carica o incarico *</b></i></span><br><br><br> ', 'design_comuni_italia' );
 }
 
 /**
@@ -101,7 +101,7 @@ function dci_add_incarico_metaboxes()
     
 	$cmb_dati->add_field( array(
 		'id'        => $prefix . 'di_responsabilita',
-        'name'      => 'Incarico di responsabilità',
+        'name'      => 'Incarico di responsabilità *',
 		'desc'      => __( 'L\'incarico è di responsabilità (ad esempio direttore, referente…)?', 'design_comuni_italia' ),
 		'type'      => 'radio_inline',
 		'options'   => array(
