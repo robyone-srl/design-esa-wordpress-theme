@@ -1,5 +1,5 @@
 <?php
-    $pages = dci_get_children_pages_by_path('vivere-ente');
+    $pages = dci_get_children_pages_by_path('vivere-ente', true, null, 'menu_order');
     $arr_pages = array_keys((array)$pages);
 ?>
 <div class="container py-5">
@@ -7,6 +7,8 @@
         Scopri la nostra realtà
     </h2>
     <div class="row g-4">
+    <?php
+    ?>
         <?php foreach ($arr_pages as $key => $page_name) { 
             $page = $pages[$page_name]; ?>
         <div class="col-12 col-md-6 col-lg-4">

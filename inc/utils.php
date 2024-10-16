@@ -90,12 +90,18 @@ if(!function_exists("dci_get_children_pages")) {
 }
 
 if(!function_exists("dci_get_children_pages_by_path")) {
-    function dci_get_children_pages_by_path($parentpath = '', $only_direct = true)
+    function dci_get_children_pages_by_path($parentpath = '', $only_direct = true, $sort_order = null, $sort_column = null)
     {
 
        $args = array(
            'child_of' => 0
        );
+        if ($sort_order != null) {
+            $args['sort_order'] = $sort_order; 
+        }
+        if ($sort_column != null) {
+	        $args['sort_column'] = $sort_column; 
+        }
 
         if ($parentpath !== '') {
             $page = get_page_by_path($parentpath);
@@ -597,6 +603,9 @@ if (!function_exists("dci_get_eventi_figli")) {
         return $children;
     }
 }
+
+
+
 
 /**
  * Wrapper function for Argomenti taxonomy list
