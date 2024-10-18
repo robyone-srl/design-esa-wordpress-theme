@@ -115,14 +115,13 @@ function dci_add_incarico_metaboxes()
         'name'    => __( 'Unità organizzativa', 'design_comuni_italia' ),
         'desc' => __( 'L\'unità organizzativa alla quale si riferisce l\'incarico.' , 'design_comuni_italia' ),
         'type'    => 'pw_select',
-        'options' => dci_get_posts_options('unita_organizzativa'),'attributes' => array(
-            'placeholder' =>  __( 'Seleziona una Unità Organizzativa', 'design_comuni_italia' ),
-        ),
+        'options' => dci_get_posts_options('unita_organizzativa'),
         'column' => array(
             'position' => 3
         ),
         'attributes'    => array(
             'required'    => 'required',
+            'placeholder' =>  __( 'Seleziona una Unità Organizzativa', 'design_comuni_italia' ),
         ),
         'display_cb' => 't_incarico_display_unita_org_value',
     ) );
