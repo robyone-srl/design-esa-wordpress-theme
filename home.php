@@ -15,7 +15,7 @@ $home_sections = dci_get_option('home_sections', 'homepage') ?: dci_get_default_
 
 function get_section($name) 
 {
-    global $visualizzazione_eventi, $visualizzazione_notizie, $sfondo_grigio;
+    global $visualizzazione_eventi, $visualizzazione_notizie, $sfondo_grigio, $messages;
     switch ($name) {
         case 'hero':
             get_template_part("template-parts/home/hero");
