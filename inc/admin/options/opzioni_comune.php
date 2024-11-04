@@ -16,7 +16,7 @@ function dci_register_comune_options(){
         'option_key'   => 'dci_options',
         'tab_group'    => 'dci_options',
         'tab_title'    => __('Configurazione Ente', "design_comuni_italia"),
-        'capability'    => 'manage_options',
+        'capability'    => 'manage_theme_options',
         'position'        => 2, // Menu position. Only applicable if 'parent_slug' is left empty.
         'icon_url'        => 'dashicons-admin-tools', // Menu icon. Only applicable if 'parent_slug' is left empty.
     );
