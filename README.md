@@ -5,8 +5,8 @@
 **Design Enti Socio-Assistenziali Italia** è il tema di WordPress per i siti degli Enti socio-assistenziali italiani. Rispetta le linee guida di design dell’Agenzia per l’Italia digitale rilasciate dal Team per la Trasformazione Digitale. Utilizza Bootstrap Italia. <strong>Questa è una versione derivata da Design Comuni Italia, un fork nel quale Robyone ha applicato modifiche migliorative e necessarie per adattare il tema alle peculiarità del tipo di Ente a cui si riferisce. Robyone si impegna a proporre i cambiamenti per applicarli al tema nazionale e si impegna ad allineare ai nuovi aggiornamenti la fork. Codice sorgente pubblicato con medesima licenza del repository nazionale su <a href="https://github.com/robyone-srl/design-esa-wordpress-theme">https://github.com/robyone-srl/design-esa-wordpress-theme</a></strong>.
 
 ## **Indice**
-- [ Design Enti Socio-Assistenziali Italia](#-design-esa-italia)
-  - [**Introduzione**](#introduzione)
+- [ Design Enti Socio-Assistenziali Italia](#-design-enti-socio-assistenziali-italia)
+  - [Introduzione](#introduzione)
   - [**Indice**](#indice)
   - [**Un sito per gli Enti socio-assistenziali italiani**](#un-sito-per-gli-enti-socio-assistenziali-italiani)
     - [**Cos'è e cosa fa**](#cosè-e-cosa-fa)
@@ -18,13 +18,13 @@
     - [**Personalizzazione**](#personalizzazione)
     - [**Servizi esterni**](#servizi-esterni)
     - [**La community di riferimento**](#la-community-di-riferimento)
-    - [**Domande frequenti**](#faq)
+    - [**Domande frequenti**](#domande-frequenti)
     - [**Bootstrap Italia**](#bootstrap-italia)
   - [**Installazione e supporto**](#installazione-e-supporto)
     - [**Come scaricare il tema**](#come-scaricare-il-tema)
-    - [**Come inserire il tema all'interno di un'installazione WordPress**](#come-inserire-il-tema-allinterno-di-uninstallazione-wordpress)
-    - [**Aggiornamento libreria Bootstrap Italia**](#aggiornamento-libreria-bootstrap-italia)
-    - [**Come abilitare il tema**](#come-abilitare-il-tema)
+    - [Come inserire il tema all'interno di un'installazione WordPress](#come-inserire-il-tema-allinterno-di-uninstallazione-wordpress)
+    - [Aggiornamento libreria Bootstrap Italia](#aggiornamento-libreria-bootstrap-italia)
+    - [Come abilitare il tema](#come-abilitare-il-tema)
     - [**Supporto tecnico ed editoriale**](#supporto-tecnico-ed-editoriale)
   - [Licenze software dei componenti di terze parti](#licenze-software-dei-componenti-di-terze-parti)
     - [Componenti distribuiti con i template](#componenti-distribuiti-con-i-template)
