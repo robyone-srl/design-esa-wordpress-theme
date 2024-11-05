@@ -263,7 +263,7 @@ get_header();
                     </nav>
                 </div>
             </div>
-            <div class="col-12 col-lg-8 offset-lg-1">
+            <div class="col-12 col-lg-9">
                 <div class="it-page-sections-container">
 
                     <?php if($biografia || $curriculum_vitae) {  ?>

@@ -99,7 +99,7 @@ get_header();
   
     <div class="container">
       <div class="row border-top row-column-border row-column-menu-left border-light">
-        <aside class="col-lg-4">
+        <aside class="col-lg-3">
             <div class="cmp-navscroll sticky-top" aria-labelledby="accordion-title-one">
                 <nav class="navbar it-navscroll-wrapper navbar-expand-lg" aria-label="Indice della pagina" data-bs-navscroll>
                     <div class="navbar-custom" id="navbarNavProgress">
@@ -201,7 +201,7 @@ get_header();
             </div>
         </aside>
 
-                <section class="col-lg-8 it-page-sections-container border-light">
+                <section class="col-lg-9 it-page-sections-container border-light">
                     <article id="cos-e" class="it-page-section mb-5" data-audio>
                         <h2 class="h3 mb-3">Cos'è</h2>
                         <div class="richtext-wrapper lora">

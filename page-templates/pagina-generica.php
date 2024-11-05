@@ -60,7 +60,7 @@ get_header();
         <?php get_template_part('template-parts/single/image-large'); ?>
         <div class="container">
             <div class="row border-top border-light row-column-border row-column-menu-left">
-                <aside class="col-lg-4">
+                <aside class="col-lg-3">
                     <div class="cmp-navscroll sticky-top" aria-labelledby="accordion-title-one">
                         <nav class="navbar it-navscroll-wrapper navbar-expand-lg" aria-label="Indice della pagina" data-bs-navscroll>
                             <div class="navbar-custom" id="navbarNavProgress">
@@ -102,7 +102,7 @@ get_header();
                         </nav>
                     </div>
                 </aside>
-                <section class="col-lg-8 it-page-sections-container border-light">
+                <section class="col-lg-9 it-page-sections-container border-light">
                     <article id="content" class="it-page-section mb-30 richtext-wrapper lora">
                         <?php the_content() ?>
                     </article>

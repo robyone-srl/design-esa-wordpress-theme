@@ -202,7 +202,7 @@ get_header();
                         </nav>
                     </div>
                 </div>
-                <div class="col-12 col-lg-8 offset-lg-1">
+                <div class="col-12 col-lg-9">
                     <div class="it-page-sections-container">
                         <section id="competenze" class="it-page-section mb-4">
                             <h2 class="h3 my-2">Competenze</h2>
