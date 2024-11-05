@@ -34,5 +34,5 @@ function dci_register_taxonomy_eventi_vita_impresa() {
         )
     );
 
-    register_taxonomy( 'eventi_vita_impresa', array( 'documento', 'servizio'), $args );
+    //register_taxonomy( 'eventi_vita_impresa', array( 'documento', 'servizio'), $args );
 }

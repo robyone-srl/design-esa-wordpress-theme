@@ -34,5 +34,5 @@ function dci_register_taxonomy_eventi_vita_persone() {
         )
     );
 
-    register_taxonomy( 'eventi_vita_persone', array( 'documento_pubblico', 'documento_privato', 'servizio'), $args );
+    //register_taxonomy( 'eventi_vita_persone', array( 'documento_pubblico', 'documento_privato', 'servizio'), $args );
 }

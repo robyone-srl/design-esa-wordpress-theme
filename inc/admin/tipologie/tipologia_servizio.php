@@ -125,6 +125,61 @@ function dci_add_servizi_metaboxes() {
 		),
 	) );
 
+    //COS'È 
+    $cmb_cosa = new_cmb2_box( array(
+        'id'           => $prefix . 'box_cosa',
+        'title'        => __( 'Cos\'è', 'design_comuni_italia' ),
+        'object_types' => array( 'servizio' ),
+        'context'      => 'normal',
+        'priority'     => 'high',
+    ) );
+
+    $cmb_cosa->add_field( array(
+        'id' => $prefix . 'descrizione_estesa',
+        'name'        => __( 'Descrizione estesa', 'design_comuni_italia' ),
+        'desc' => __( 'Descrizione estesa e completa del servizio.' , 'design_comuni_italia' ),
+        'type' => 'wysiwyg',
+        'options'    => array(
+            'media_buttons' => false, // show insert/upload button(s)
+            'textarea_rows' => 10, // rows="..."
+            'teeny' => false, // output the minimal editor config used in Press This
+        ),
+    ) );
+    
+    $cmb_cosa->add_field( array(
+        'id' => $prefix . 'servizi_richiesti',
+        'name'    => __( 'Servizi richiesti ', 'design_comuni_italia' ),
+        'desc' => __( 'Servizi richiesti per accedere al servizio' , 'design_comuni_italia' ),
+        'type'    => 'pw_multiselect',
+        'options' => dci_get_posts_options('servizio'),
+        'attributes' => array(
+            'placeholder' =>  __( 'Seleziona i servizi necessari per usufruire di tale servizio', 'design_comuni_italia' ),
+        )
+    ) );
+    
+    $cmb_cosa->add_field( array(
+        'id' => $prefix . 'servizi_inclusi',
+        'name'    => __( 'Servizi inclusi ', 'design_comuni_italia' ),
+        'desc' => __( 'Servizi che vengono forniti assieme a questo servizio' , 'design_comuni_italia' ),
+        'type'    => 'pw_multiselect',
+        'options' => dci_get_posts_options('servizio'),
+        'attributes' => array(
+            'placeholder' =>  __( 'Seleziona i servizi inclusi con questo servizio', 'design_comuni_italia' ),
+        )
+    ) );
+
+    $cmb_cosa->add_field( array(
+        'id'      => $prefix . 'copertura_geografica',
+        'name'    => __( 'Copertura geografica', 'design_comuni_italia' ),
+        'desc'    => __( 'Eventuale area geografica a cui il servizio si riferisce. Ad esempio "le zone coperte da ZTL"' , 'design_comuni_italia' ),
+        'type'    => 'wysiwyg',
+        'options' => array(
+            'media_buttons' => false, // show insert/upload button(s)
+            'textarea_rows' => 10, // rows="..."
+            'teeny' => false, // output the minimal editor config used in Press This
+        ),
+    ) );
+
     //A CHI SI RIVOLGE
     $cmb_destinatari = new_cmb2_box( array(
         'id'           => $prefix . 'box_destinatari',
@@ -143,62 +198,6 @@ function dci_add_servizi_metaboxes() {
             'required'    => 'required'
         ),
         'options'    => array(
-            'media_buttons' => false, // show insert/upload button(s)
-            'textarea_rows' => 10, // rows="..."
-            'teeny' => false, // output the minimal editor config used in Press This
-        ),
-    ) );
-
-    $cmb_destinatari->add_field( array(
-    'id' => $prefix . 'servizi_richiesti',
-    'name'    => __( 'Servizi richiesti ', 'design_comuni_italia' ),
-    'desc' => __( 'Servizi richiesti per accedere al servizio' , 'design_comuni_italia' ),
-    'type'    => 'pw_multiselect',
-    'options' => dci_get_posts_options('servizio'),
-    'attributes' => array(
-        'placeholder' =>  __( 'Seleziona i servizi necessari per usufruire di tale servizio', 'design_comuni_italia' ),
-    )
-) );
-
-$cmb_destinatari->add_field( array(
-    'id' => $prefix . 'servizi_inclusi',
-    'name'    => __( 'Servizi inclusi ', 'design_comuni_italia' ),
-    'desc' => __( 'Servizi che vengono forniti assieme a questo servizio' , 'design_comuni_italia' ),
-    'type'    => 'pw_multiselect',
-    'options' => dci_get_posts_options('servizio'),
-    'attributes' => array(
-        'placeholder' =>  __( 'Seleziona i servizi inclusi con questo servizio', 'design_comuni_italia' ),
-    )
-) );
-
-
-    //DESCRIZIONE
-    $cmb_descrizione = new_cmb2_box( array(
-        'id'           => $prefix . 'box_descrizione',
-        'title'        => __( 'Cos\'è', 'design_comuni_italia' ),
-        'object_types' => array( 'servizio' ),
-        'context'      => 'normal',
-        'priority'     => 'high',
-    ) );
-
-    $cmb_descrizione->add_field( array(
-        'id' => $prefix . 'descrizione_estesa',
-        'name'        => __( 'Descrizione estesa', 'design_comuni_italia' ),
-        'desc' => __( 'Descrizione estesa e completa del servizio.' , 'design_comuni_italia' ),
-        'type' => 'wysiwyg',
-        'options'    => array(
-            'media_buttons' => false, // show insert/upload button(s)
-            'textarea_rows' => 10, // rows="..."
-            'teeny' => false, // output the minimal editor config used in Press This
-        ),
-    ) );
-
-    $cmb_descrizione->add_field( array(
-        'id'      => $prefix . 'copertura_geografica',
-        'name'    => __( 'Copertura geografica', 'design_comuni_italia' ),
-        'desc'    => __( 'Eventuale area geografica a cui il servizio si riferisce. Ad esempio "le zone coperte da ZTL"' , 'design_comuni_italia' ),
-        'type'    => 'wysiwyg',
-        'options' => array(
             'media_buttons' => false, // show insert/upload button(s)
             'textarea_rows' => 10, // rows="..."
             'teeny' => false, // output the minimal editor config used in Press This
@@ -270,6 +269,18 @@ $cmb_destinatari->add_field( array(
         'name'  => __( 'Output/Cosa si ottiene', 'design_comuni_italia' ),
         'desc'  => __( 'Indicare uno o più output prodotti dal servizio. Ad es.: "certificato di residenza", o "carta d\'identità elettronica"...' , 'design_comuni_italia' ),
         'type'  => 'wysiwyg',
+        'options' => array(
+            'media_buttons' => false, // show insert/upload button(s)
+            'textarea_rows' => 10, // rows="..."
+            'teeny' => false, // output the minimal editor config used in Press This
+        ),
+    ) );
+
+    $cmb_cosa_ottieni->add_field( array(
+        'id' => $prefix . 'procedure_collegate',
+        'name'        => __( 'Procedure collegate all\'esito', 'design_comuni_italia' ),
+        'desc' => __( 'Questo campo indica cosa fare per conoscere \'esito della procedura, e dove eventualmente ritirare l\'esito (sede dell\'ufficio, orari, numero sportelloetc, .)' , 'design_comuni_italia' ),
+        'type' => 'wysiwyg',
         'options' => array(
             'media_buttons' => false, // show insert/upload button(s)
             'textarea_rows' => 10, // rows="..."
@@ -377,44 +388,60 @@ $cmb_destinatari->add_field( array(
     ) );
 
     $cmb_accesso->add_field( array(
-        'id' => $prefix . 'procedure_collegate',
-        'name'        => __( 'Procedure collegate all\'esito', 'design_comuni_italia' ),
-        'desc' => __( 'Questo campo indica cosa fare per conoscere \'esito della procedura, e dove eventualmente ritirare l\'esito (sede dell\'ufficio, orari, numero sportello, etc.)' , 'design_comuni_italia' ),
-        'type' => 'wysiwyg',
+        'id' => $prefix . 'tipo_canale',
+        'name'        => __( 'Tipo di accesso al servizio', 'design_comuni_italia' ),
+        'desc' => __( 'Scegli se il servizio viene offerto tramite il digitale o luoghi fisici' , 'design_comuni_italia' ),
+        'type'    => 'radio_inline',
         'options' => array(
-            'media_buttons' => false, // show insert/upload button(s)
-            'textarea_rows' => 10, // rows="..."
-            'teeny' => false, // output the minimal editor config used in Press This
+            'digitale' => __( 'Canale digitale', 'cmb2' ),
+            'fisico'   => __( 'Canale fisico', 'cmb2' ),
         ),
+        'default' => 'digitale',
     ) );
 
     $cmb_accesso->add_field( array(
         'id' => $prefix . 'canale_digitale_text',
         'name'        => __( 'Introduzione canale digitale', 'design_comuni_italia' ),
-        //'desc' => __( Label introduttiva al canale digitale' , 'design_comuni_italia' ),
-        'type' => 'text'
+        'desc' => __( 'Testo introduttivo al canale digitale' , 'design_comuni_italia' ),
+        'type' => 'text',
+        'attributes' => array(
+			'data-conditional-id'    => $prefix.'tipo_canale',
+			'data-conditional-value' => "digitale",
+        )
     ) );
 
     $cmb_accesso->add_field( array(
         'id' => $prefix . 'canale_digitale_label',
         'name'        => __( 'Canale digitale label', 'design_comuni_italia' ),
-        'desc' => __( 'Label del bottone associato al link che segue ' , 'design_comuni_italia' ),
+        'desc' => __( 'Label del bottone associato al link di accesso al canale digitale' , 'design_comuni_italia' ),
         'type' => 'text',
-        'default' => 'Richiedi online'
+        'default' => 'Richiedi online',
+        'attributes' => array(
+			'data-conditional-id'    => $prefix.'tipo_canale',
+			'data-conditional-value' => "digitale",
+        )
     ) );
 
     $cmb_accesso->add_field( array(
         'id' => $prefix . 'canale_digitale_link',
         'name'        => __( 'Canale digitale', 'design_comuni_italia' ),
-        'desc' => __( 'Link per avviare la procedura di attivazione del servizio. Questo campo mette in relazione "Servizio" con il suo canale digitale di attivazione. ' , 'design_comuni_italia' ),
-        'type' => 'text_url'
+        'desc' => __( 'Link per avviare la procedura di attivazione o per accedere al servizio. Questo campo mette in relazione "Servizio" con il suo canale digitale. ' , 'design_comuni_italia' ),
+        'type' => 'text_url',
+        'attributes' => array(
+			'data-conditional-id'    => $prefix.'tipo_canale',
+			'data-conditional-value' => "digitale",
+        )
     ) );
 
     $cmb_accesso->add_field( array(
         'id' => $prefix . 'canale_fisico_text',
         'name'        => __( 'Introduzione canale fisico', 'design_comuni_italia' ),
-        'desc' => __( 'Label introduttiva al canale fisico' , 'design_comuni_italia' ),
-        'type' => 'text'
+        'desc' => __( 'Label introduttiva ai luoghi (canale fisico)' , 'design_comuni_italia' ),
+        'type' => 'text',
+        'attributes' => array(
+			'data-conditional-id'    => $prefix.'tipo_canale',
+			'data-conditional-value' => "fisico",
+        )
     ) );
 
     $cmb_accesso->add_field( array(
@@ -426,60 +453,10 @@ $cmb_destinatari->add_field( array(
         'attributes' => array(
             'placeholder' =>  __( 'Seleziona i luoghi', 'design_comuni_italia' ),
         ),
-    ) );
-
-    $cmb_accesso->add_field( array(
-        'id' => $prefix . 'vincoli',
-        'name'        => __( 'Vincoli', 'design_comuni_italia' ),
-        'desc' => __( 'Specificare anche eventuali vincoli. Ad es. "Non è possibile rinnovare la carta identità x mesi prima della scadenza."' , 'design_comuni_italia' ),
-        'type' => 'wysiwyg',
-        'options' => array(
-            'media_buttons' => false, // show insert/upload button(s)
-            'textarea_rows' => 10, // rows="..."
-            'teeny' => false, // output the minimal editor config used in Press This
-        ),
-    ) );
-
-    //CASI PARTICOLARI
-    $cmb_casi_particolari = new_cmb2_box( array(
-        'id'           => $prefix . 'box_casi_particolari',
-        'title'        => __( 'Casi particolari', 'design_comuni_italia' ),
-        'object_types' => array( 'servizio' ),
-        'context'      => 'normal',
-        'priority'     => 'high',
-    ) );
-
-    $cmb_casi_particolari->add_field( array(
-        'id' => $prefix . 'casi_particolari',
-        //'name'        => __( 'Casi particolari', 'design_comuni_italia' ),
-        'desc' => __( 'Eventuali casi particolari riferiti all\'ottenimento del Servizio in questione. Ad es. "Le persone con disabilità (legge 104) possono contattare direttamente l\'ufficio e concordare una procedura di rinnovo a domicilio"' , 'design_comuni_italia' ),
-        'type' => 'wysiwyg',
-        'options' => array(
-            'media_buttons' => false, // show insert/upload button(s)
-            'textarea_rows' => 10, // rows="..."
-            'teeny' => false, // output the minimal editor config used in Press This
-        ),
-    ) );
-
-    //ULTERIORI INFORMAZIONI
-    $cmb_informazioni = new_cmb2_box( array(
-        'id'           => $prefix . 'box_informazioni',
-        'title'        => __( 'Informazioni', 'design_comuni_italia' ),
-        'object_types' => array( 'servizio' ),
-        'context'      => 'normal',
-        'priority'     => 'high',
-    ) );
-
-    $cmb_informazioni->add_field( array(
-        'id'         => $prefix . 'ulteriori_informazioni',
-        'name'       => __( 'Ulteriori informazioni', 'design_comuni_italia' ),
-        'desc'       => __( 'Eventuali link a pagine web, siti, servizi esterni all\'ambito comunale utili all\'erogazione del servizio descritto. Ad esempio nella pagina servizio "Carta di IdTipologia Elettronica", potrebbe essere utile inserire in questo campo un link al Ministero dell\'Interno', 'design_comuni_italia' ),
-        'type'       => 'wysiwyg',
-        'options' => array(
-            'media_buttons' => false, // show insert/upload button(s)
-            'textarea_rows' => 10, // rows="..."
-            'teeny' => false, // output the minimal editor config used in Press This
-        ),
+        'attributes' => array(
+			'data-conditional-id'    => $prefix.'tipo_canale',
+			'data-conditional-value' => "fisico",
+        )
     ) );
 
 
@@ -500,6 +477,51 @@ $cmb_destinatari->add_field( array(
             'type' => 'file',
         )
     );
+
+    $cmb_condizioni_servizio->add_field( array(
+        'id' => $prefix . 'casi_particolari',
+        'name'        => __( 'Casi particolari', 'design_comuni_italia' ),
+        'desc' => __( 'Eventuali casi particolari riferiti all\'ottenimento del Servizio in questione. Ad es. "Le persone con disabilità (legge 104) possono contattare direttamente l\'ufficio e concordare una procedura di rinnovo a domicilio"' , 'design_comuni_italia' ),
+        'type' => 'wysiwyg',
+        'options' => array(
+            'media_buttons' => false, // show insert/upload button(s)
+            'textarea_rows' => 10, // rows="..."
+            'teeny' => false, // output the minimal editor config used in Press This
+        ),
+    ) );
+
+    
+    $cmb_condizioni_servizio->add_field( array(
+        'id' => $prefix . 'vincoli',
+        'name'        => __( 'Vincoli', 'design_comuni_italia' ),
+        'desc' => __( 'Specificare anche eventuali vincoli. Ad es. "Non è possibile rinnovare la carta identità x mesi prima della scadenza."' , 'design_comuni_italia' ),
+        'type' => 'wysiwyg',
+        'options' => array(
+            'media_buttons' => false, // show insert/upload button(s)
+            'textarea_rows' => 10, // rows="..."
+            'teeny' => false, // output the minimal editor config used in Press This
+        ),
+    ) );
+    
+    //DOCUMENTI
+    $cmb_documenti = new_cmb2_box( array(
+        'id'           => $prefix . 'box_documenti',
+        'title'        => __( 'Documenti', 'design_comuni_italia' ),
+        'object_types' => array( 'servizio' ),
+        'context'      => 'normal',
+        'priority'     => 'low',
+    ) );
+
+    $cmb_documenti->add_field( array(
+        'id' => $prefix . 'documenti',
+        'name'        => __( 'Documenti', 'design_comuni_italia' ),
+        'desc' => __( 'Link alle schede documenti correlati.' , 'design_comuni_italia' ),
+        'type'    => 'pw_multiselect',
+        'options' => dci_get_posts_options('documento_pubblico'),
+        'attributes' => array(
+            'placeholder' =>  __( 'Seleziona i Documenti Pubblici', 'design_comuni_italia' ),
+        ),
+    ) );
 
     //CONTATTI
     $cmb_contatti = new_cmb2_box( array(
@@ -533,23 +555,25 @@ $cmb_destinatari->add_field( array(
         ),
     ) );
 
-    //DOCUMENTI
-    $cmb_documenti = new_cmb2_box( array(
-        'id'           => $prefix . 'box_documenti',
-        'title'        => __( 'Documenti', 'design_comuni_italia' ),
+
+    //ULTERIORI INFORMAZIONI
+    $cmb_informazioni = new_cmb2_box( array(
+        'id'           => $prefix . 'box_informazioni',
+        'title'        => __( 'Informazioni', 'design_comuni_italia' ),
         'object_types' => array( 'servizio' ),
         'context'      => 'normal',
-        'priority'     => 'low',
+        'priority'     => 'high',
     ) );
 
-    $cmb_documenti->add_field( array(
-        'id' => $prefix . 'documenti',
-        'name'        => __( 'Documenti', 'design_comuni_italia' ),
-        'desc' => __( 'Link alle schede documenti correlati.' , 'design_comuni_italia' ),
-        'type'    => 'pw_multiselect',
-        'options' => dci_get_posts_options('documento_pubblico'),
-        'attributes' => array(
-            'placeholder' =>  __( 'Seleziona i Documenti Pubblici', 'design_comuni_italia' ),
+    $cmb_informazioni->add_field( array(
+        'id'         => $prefix . 'ulteriori_informazioni',
+        'name'       => __( 'Ulteriori informazioni', 'design_comuni_italia' ),
+        'desc'       => __( 'Eventuali link a pagine web, siti, servizi esterni all\'ambito comunale utili all\'erogazione del servizio descritto. Ad esempio nella pagina servizio "Carta di IdTipologia Elettronica", potrebbe essere utile inserire in questo campo un link al Ministero dell\'Interno', 'design_comuni_italia' ),
+        'type'       => 'wysiwyg',
+        'options' => array(
+            'media_buttons' => false, // show insert/upload button(s)
+            'textarea_rows' => 10, // rows="..."
+            'teeny' => false, // output the minimal editor config used in Press This
         ),
     ) );
 
@@ -569,25 +593,6 @@ $cmb_destinatari->add_field( array(
         'remove_default' => 'true',
     ) );
 
-    $cmb_events = new_cmb2_box( array(
-        'id'           => $prefix . 'box_events',
-        'title'        => __( 'Events collegati', 'design_comuni_italia' ),
-        'object_types' => array( 'servizio' ),
-        'context'      => 'side',
-        'priority'     => 'high',
-    ) );
-
-    $cmb_events->add_field( array(
-        'id' => $prefix . 'life_events',
-        'name'    => __( 'Life Events', 'design_comuni_italia' ),
-        'type'             => 'taxonomy_multicheck_hierarchical',
-        'taxonomy'       => 'eventi_vita_persone',
-        'show_option_none' => false,
-        'remove_default' => 'true',
-    ) );
-
-//Ex BusinessEvents
-
     //CODICE ENTE
 	$cmb_ipa = new_cmb2_box( array(
 		'id'           => $prefix . 'box_ipa',
@@ -606,23 +611,6 @@ $cmb_destinatari->add_field( array(
         ),
 	) );
 
-    //SETTORE MERCEOLOGICO
-    $cmb_settore_merceologico = new_cmb2_box( array(
-        'id'           => $prefix . 'box_settore_merceologico',
-        'title'        => __( 'Settore merceologico', 'design_comuni_italia' ),
-        'object_types' => array( 'servizio' ),
-        'context'      => 'side',
-        'priority'     => 'high',
-    ) );
-
-    $cmb_settore_merceologico->add_field( array(
-        'id' => $prefix . 'settore_merceologico',
-        'desc' => __( 'Classificazione del servizio basata su catalogo dei servizi (Classificazione NACE)', 'design_comuni_italia' ),
-        'type' => 'text',
-        'attributes'    => array(
-            'maxlength'  => '255',
-        ),
-    ) );
 
     	//STATO DEL SERVIZIO
 	$cmb_stato = new_cmb2_box( array(
