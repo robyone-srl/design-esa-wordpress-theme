@@ -10,19 +10,21 @@
 
 $visualizzazione_eventi = dci_get_option('visualizzazione_eventi', 'homepage') ?? '';
 $visualizzazione_notizie = dci_get_option('visualizzazione_notizie', 'homepage') ?? '';
-
 $home_sections = dci_get_option('home_sections', 'homepage') ?: dci_get_default_home_sections();
+$contatti_p_cont = dci_get_option("contattaci_contenuto", 'footer');
+
 
 function get_section($name) 
 {
+    $visualizza_contatto = dci_get_option('visualizzaContatto', 'footer');
     global $visualizzazione_eventi, $visualizzazione_notizie, $sfondo_grigio, $messages;
     switch ($name) {
         case 'hero':
             get_template_part("template-parts/home/hero");
             break;
         case 'messages': ?>
-            <section id="messages">
-                <?php
+            <section id="messages">               
+            <?php
                 $messages = dci_get_option("messages", "home_messages");
                 if ($messages && !empty($messages)) {
                     get_template_part("template-parts/home/messages");
@@ -75,8 +77,9 @@ function get_section($name)
             get_template_part("template-parts/common/valuta-servizio");
             break;
         case 'assistenza-contatti':
-            get_template_part("template-parts/common/assistenza-contatti");
-            break;
+            if($visualizza_contatto == 'visible')
+                get_template_part("template-parts/common/assistenza-contatti");
+            break; 
         default:
             break;
     }
@@ -94,8 +97,13 @@ get_header();
     <?php
     foreach($home_sections as $section){
         get_section($section);
-    }
-    ?>
+    } ?>
+           <?php 
+           $tipo_visualizzazione = dci_get_option('contattaci_tipo', 'footer');
+           if($tipo_visualizzazione == 'filtro' && $contatti_p_cont){
+               get_template_part("template-parts/common/contatti-personalizzati");
+           } ?>
+        </div>
 </main>
 <?php
 get_footer();
