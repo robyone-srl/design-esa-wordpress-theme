@@ -98,12 +98,8 @@ get_header();
     foreach($home_sections as $section){
         get_section($section);
     } ?>
-           <?php 
-           $tipo_visualizzazione = dci_get_option('contattaci_tipo', 'footer');
-           if($tipo_visualizzazione == 'filtro' && $contatti_p_cont){
-               get_template_part("template-parts/common/contatti-personalizzati");
-           } ?>
-        </div>
+           
+        
 </main>
 <?php
 get_footer();
