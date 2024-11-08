@@ -52,6 +52,10 @@ get_header();
         $argomenti = get_the_terms($post, 'argomenti');
         $documenti_ids = dci_get_meta("documenti");
 
+        //servizi
+        $serviziNecessari = dci_get_option('visual_servizi_necessari','servizi');
+        $serviziInclusi = dci_get_option('visual_servizi_inclusi','servizi');
+
         // valori per metatag
         $categorie = get_the_terms($post, 'categorie_servizio');
         $categoria_servizio = $categorie[0]->name;
@@ -330,25 +334,48 @@ get_header();
                                 $posts = get_posts($args);
 
                                 if (!empty($posts)) {
-                            ?>
-                                    <div class=" has-bg-grey p-4">
-                                        <h3 class="h4 title mb-3">Servizi necessari</h3>
-                                        <p>Questo servizio è limitato a chi gi&grave; usufruisce dei seguenti servizi.</p>
-                                        <div class="row g-4">
-                                            <?php
-                                            foreach ($posts as $servizio) { ?>
-                                                <div class="col-lg-6 col-md-12">
-                                                    <?php get_template_part("template-parts/servizio/card"); ?>
-                                                </div>
-                                            <?php } ?>
-                                        </div>
-                                    </div>
-                            <?php
-                                }
-                            }
-                            ?>
 
-                            <?php
+									if($serviziNecessari == 'enabled'){ ?>
+										<div class=" has-bg-grey p-4">
+
+											<a class="" data-bs-toggle="collapse" href="#collapseServiziNecessari" role="button" aria-expanded="false" aria-controls="collapseServiziNecessari">
+												<h3 class="title mb-3">Servizi necessari<svg class="icon ms-5"><use href="#it-expand"></use></svg></h3>
+											</a>
+											<div class="collapse" id="collapseServiziNecessari">
+												<p>Questo servizio è limitato a chi usufruisce di particolari servizi.</p>
+												<div class="row g-4">
+													<?php
+													foreach ($posts as $servizio) { ?>
+														<div class="col-lg-6 col-md-12">
+															<?php get_template_part("template-parts/servizio/card"); ?>
+														</div> <?php 
+													} ?>
+												</div>
+											</div>
+										</div> <?php 
+									} 
+									else 
+									{ 
+										if(count($posts) > 0) { ?>
+											<h3 class="title mb-3">Servizi necessari</h3>
+											<div class="alert alert-info" role="alert">
+												<p>Questo servizio è limitato a chi usufruisce di particolari servizi.</p>
+												<?php 
+												$i = 0;
+												foreach ($posts as $servizio_id) {
+													$serv_Sempl = get_post( $servizio_id );
+													echo '<a href="' . get_permalink($serv_Sempl->ID) . '">'. $serv_Sempl -> post_title . '</a>';
+													if($i < count($posts) -1 )
+													{
+														echo ", ";
+													}
+													$i++;
+												} ?> 
+											</div> <?php
+										}  
+									} ?> <?php 
+								}
+							} ?> <?php
                             $servizi_inclusi_id = dci_get_meta("servizi_inclusi");
                             if (!empty($servizi_inclusi_id)) {
                                 $servizi_inclusi_id = array_map('intval', $servizi_inclusi_id);
@@ -363,23 +390,47 @@ get_header();
                                 $posts = get_posts($args);
 
                                 if (!empty($posts)) {
-                            ?>
-                                    <div class=" has-bg-grey p-4">
-                                        <h3 class="h4 title mb-3">Servizi inclusi</h3>
-                                        <p>Usufruendo di questo servizio ci sono anche i seguenti servizi inclusi.</p>
-                                        <div class="row g-3">
-                                            <?php
-                                            foreach ($posts as $servizio) { ?>
-                                                <div class="col-lg-6 col-md-12">
-                                                    <?php get_template_part("template-parts/servizio/card-con-icona"); ?>
-                                                </div>
-                                            <?php } ?>
-                                        </div>
-                                    </div>
-                            <?php
-                                }
-                            }
-                            ?>
+								
+									if($serviziInclusi == 'enabled'){ ?>
+										<div class=" has-bg-grey p-4">
+											<a class="" data-bs-toggle="collapse" href="#collapseServiziInclusi" role="button" aria-expanded="false" aria-controls="collapseServiziInclusi">
+												<h3 class="title mb-3">Servizi inclusi<svg class="icon ms-5"><use href="#it-expand"></use></svg></h3>
+											</a>
+											<div class="collapse" id="collapseServiziInclusi">
+										
+												<p>Questo servizio offre anche i seguenti servizi.</p>
+												<div class="row g-3"> <?php 
+													foreach ($posts as $servizio) { ?>
+														<div class="col-lg-6 col-md-12">
+															<?php get_template_part("template-parts/servizio/card-con-icona"); ?>
+														</div> <?php 
+													} ?>
+												</div>
+											</div>
+										</div> <?php 
+									} 
+									else  
+									{ 
+										if(count($posts) > 0) { ?>
+											<h3 class="title mb-3 mt-3">Servizi inclusi</h3>
+											<div class="alert alert-info" role="alert">
+												<p class="mb-0">Con questo servizio viene incluso anche:
+													<?php $i = 0;
+													foreach ($posts as $servizio_id) {
+														$serv_Sempl = get_post( $servizio_id );
+														echo '<a href="' . get_permalink($serv_Sempl->ID) . '">'. $serv_Sempl -> post_title . '</a>';
+														if($i < count($posts) -1 ) 
+														{
+															echo ", ";
+														}
+														$i++;
+													} ?> 
+												</p>
+											</div> <?php
+										}  
+									} ?> <?php
+								}
+							} ?>
 
                             <?php if (!empty($copertura_geografica)) { ?>
                                 <h3 class="h4 title mb-3">Copertura geografica</h3>
