@@ -254,7 +254,7 @@ get_header();
                             <?php if ($is_luogo_esa && $luogo_evento) { ?>
                                 <?php
                                 $luogo = $luogo_evento;
-                                get_template_part("template-parts/single/luogo");
+                                get_template_part("template-parts/luogo/card-single");
                                 ?>
                             <?php } else if (!$is_luogo_esa) {
                                 get_template_part("template-parts/luogo/card", "custom");

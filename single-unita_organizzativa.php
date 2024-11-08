@@ -72,6 +72,7 @@ get_header();
                                     <h1> <?php the_title(); ?></h1>
                                 </div>
                                 <h2 class="visually-hidden">Dettagli dell'unit&agrave;</h2>
+                                <?php if(count($tipo_organizzazione) > 1) {?>
                                 <ul class="list-inline gap-1 my-3">
                                     <?php foreach ($tipo_organizzazione as $tipo) {
                                         ?>
@@ -83,7 +84,25 @@ get_header();
                                         <?php
                                     } ?>
                                 </ul>
-                                <p class="subtitle-small mb-3">
+                                <?php } else if (count($tipo_organizzazione) > 0) { ?>
+                                    <span class="chip chip-simple">
+                                        <span class="chip-label"><?php echo ucfirst($tipo_organizzazione[0]); ?></span>
+                                    </span>
+                                <?php } ?>
+
+                                
+                                <?php if(is_array($unita_organizzativa_genitore) && (count($unita_organizzativa_genitore) > 0)) { ?>
+                                    Dipende da: <?php 
+                                    $i = 0;
+                                    foreach ($unita_organizzativa_genitore as $uo_id) {
+                                        $ufficio = get_post( $uo_id );
+                                        echo '<a href="' . get_permalink($ufficio->ID) . '">'. $ufficio -> post_title . '</a>';
+                                        if($i < count($unita_organizzativa_genitore) -1 ) echo ", ";
+                                        $i++;
+                                    } ?>
+                                <?php }  ?>
+
+                                <p class="subtitle-small mb-3 mt-2">
                                     <?php echo $descrizione_breve ?>
                                 </p>
                             </div>
@@ -107,7 +126,7 @@ get_header();
         </div>
 
         <div class="container">
-            <div class="row row-column-menu-left mt-4 mt-lg-80 pb-lg-80 pb-40">
+            <div class="row row-column-menu-left pb-lg-80 pb-40">
                 <div class="col-12 col-lg-3 mb-4 border-col">
                     <div class="cmp-navscroll sticky-top">
                         <nav class="navbar it-navscroll-wrapper navbar-expand-lg" aria-label="Indice della pagina" data-bs-navscroll>
@@ -134,13 +153,6 @@ get_header();
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#competenze">
                                                                         <span class="title-medium">Competenze</span>
-                                                                    </a>
-                                                                </li>
-                                                            <?php } ?>
-                                                            <?php if ($unita_organizzativa_genitore) { ?>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#area">
-                                                                        <span class="title-medium">Area di riferimento</span>
                                                                     </a>
                                                                 </li>
                                                             <?php } ?>
@@ -211,24 +223,11 @@ get_header();
                             </div>
                         </section>
 
-                        <?php if ($unita_organizzativa_genitore) { ?>
-                            <section id="area" class="it-page-section mb-4">
-                                <h2 class="h3 my-2">Area di riferimento</h2>
-                                <h3 class="h6">La struttura organizzativa ha come riferimento:</h3>
-                                <div class="richtext-wrapper lora">
-                                    <?php foreach ($unita_organizzativa_genitore as $uo_id) {
-                                        $with_border = true;
-                                        get_template_part("template-parts/unita-organizzativa/card");
-                                    } ?>
-                                </div>
-                            </section>
-                        <?php } ?>
-
                         <?php if ($has_persone || $has_incarichi) { ?>
                             <section id="persone" class="it-page-section mb-4">
                                 <h2 class="h3 my-2">Persone</h2>
                                 <div class="richtext-wrapper lora">
-                                    <h3 class="h6">Le persone che fanno parte di questa unità:</h3>
+                                    <p>Le persone che fanno parte di questa unità:</p>
                                     <div class="d-flex gap-3 flex-column mt-2">
                                         <?php
                                         if ($has_incarichi) { ?>
@@ -236,7 +235,9 @@ get_header();
                                                 <?php foreach ($incarichi_di_responsabilita as $incarico_id) { 
                                                     if (FALSE !== get_post_status( $incarico_id ) ) { ?>
                                                     <div class="col-lg-6 col-md-12">
-                                                        <?php get_template_part("template-parts/incarico/card-person"); ?>
+                                                        <?php 
+                                                        $titleLevel = 3;
+                                                        get_template_part("template-parts/incarico/card-person"); ?>
                                                     </div>
                                                 <?php } } ?>
                                             </div>
@@ -245,7 +246,9 @@ get_header();
                                                     if (FALSE !== get_post_status( $incarico_id ) ) {
 												?>
                                                     <div class="col-lg-6 col-md-12">
-                                                        <?php get_template_part("template-parts/incarico/card-person"); ?>
+                                                        <?php 
+                                                        $titleLevel = 3;
+                                                        get_template_part("template-parts/incarico/card-person"); ?>
                                                     </div>
                                                 <?php } } ?>
                                             </div>
@@ -260,7 +263,9 @@ get_header();
                                                     $with_border = true;
                                                     $hide_incarichi = true; ?>
                                                     <div class="col-lg-6 col-md-12">
-                                                        <?php get_template_part("template-parts/persona_pubblica/card"); ?>
+                                                        <?php 
+                                                        $titleLevel = 3;
+                                                        get_template_part("template-parts/persona_pubblica/card"); ?>
                                                     </div>
                                                 <?php } } ?>
                                             </div>
@@ -292,21 +297,25 @@ get_header();
                                 </div>
                             </section>
                         <?php }
-                        if ($show_sede_principale) {
-                        ?>
-                            <section id="sede-principale" class="it-page-section mb-4">
-                                <h2 class="h3 my-2">Sede principale</h2>
+                        if ($show_sede_principale) { ?>
+                            <section id="sede-principale" class="it-page-section mb-4"> <?php 
+                            if(!$altre_sedi == "") { ?>
+                                <h2 class="h3 my-2">Sede principale</h2> <?php 
+                            }
+                            else 
+                            {?>
+                                <h2 class="h3 my-2">Sede</h2>
+                                <?php }?>
                                 <?php if ($is_sede_principale_esa && $sede_principale) { ?>
                                 <?php
                                 $luogo = $sede_principale;
-                                get_template_part("template-parts/single/luogo");
-                                ?>
-                                <?php } else if (!$is_sede_principale_esa) {
+                                get_template_part("template-parts/luogo/card-single");
+                                ?> <?php 
+                            } else if (!$is_sede_principale_esa) {
                                     $luogo_option_name = 'sede_principale_custom';
                                     get_template_part("template-parts/luogo/card", "custom");
-                                } ?>
-                            </section>
-                        <?php
+                            } ?>
+                            </section>  <?php
                         }
                         if ($altre_sedi && is_array($altre_sedi) && count($altre_sedi)) { ?>
                             <section id="altre-sedi" class="it-page-section mb-4">

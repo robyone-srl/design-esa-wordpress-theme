@@ -98,8 +98,7 @@ get_header();
     foreach($home_sections as $section){
         get_section($section);
     } ?>
-           
-        
+    
 </main>
 <?php
 get_footer();

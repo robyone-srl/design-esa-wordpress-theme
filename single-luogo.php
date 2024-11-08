@@ -99,7 +99,7 @@ get_header();
             </div>
 
             <div class="container">
-                <div class="row row-column-menu-left mt-4 mt-lg-80 pb-lg-80 pb-40">
+                <div class="row row-column-menu-left pb-lg-80 pb-40">
                     <div class="col-12 col-lg-3 mb-4 border-col">
                         <div class="cmp-navscroll sticky-top">
                             <nav class="navbar it-navscroll-wrapper navbar-expand-lg" aria-label="Indice della pagina" data-bs-navscroll>
@@ -126,14 +126,6 @@ get_header();
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" href="#descrizione">
                                                                             <span class="title-medium">Descrizione</span>
-                                                                        </a>
-                                                                    </li>
-																<?php } ?>
-
-																<?php if ($childof) { ?>
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link" href="#childof">
-                                                                            <span class="title-medium">Fa parte di</span>
                                                                         </a>
                                                                     </li>
 																<?php } ?>
@@ -236,23 +228,6 @@ get_header();
                                 </section>
                             <?php } ?>
 
-                            <?php if ($childof) { ?>
-                                <section id="childof" class="it-page-section mb-4">
-                                    <h2 class="h3 my-2">Fa parte di</h2>
-                                    <p>Il luogo è situato all'interno di un altro luogo</p>
-
-                                    <div class="row">
-                                        <?php 
-                                            ?><div class="col-xl-6 col-lg-8 col-md-12"><?php
-                                            $with_border = true;
-                                            $luogo = get_post( $childof );
-                                            get_template_part("template-parts/luogo/card-title");
-                                            ?></div><?php
-                                         ?>
-                                    </div>
-                                </section>
-                            <?php } ?>
-
                             <?php if ($indirizzo || $childof) { ?>
                                 <section id="dove_si_trova" class="it-page-section mb-4">
                                     <h2 class="h3 my-2">Dove si trova</h2>
@@ -260,6 +235,8 @@ get_header();
                                                         $luogo = !empty($childof)
                                                             ? get_post( $childof )
                                                             : $post;
+                                                            $isParent = !empty($childof);
+                                                            $showTitle = !empty($childof);
                                                         get_template_part("template-parts/luogo/card-single");
                                     ?>
                                 </section>

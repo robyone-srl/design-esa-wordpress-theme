@@ -1,6 +1,6 @@
 <?php
 
-    global $incarico_id, $with_border;
+    global $incarico_id, $with_border, $titleLevel;
 
     $incarico = get_post( $incarico_id );
     
@@ -13,15 +13,16 @@
     $descrizione_breve = dci_get_meta('descrizione_breve', $prefix, $persona->ID);
     $foto = dci_get_meta('foto', $prefix, $persona->ID);
 
+    if($titleLevel == "") $titleLevel = 4;
 ?>
 
 <div class="card card-wrapper card-teaser <?= $is_responsabile?'shadow':'border border-light shadow-sm'?> rounded p-4">
     <div class="card-body pe-3">
-        <h4 class="u-main-black mb-1 title-small-semi-bold-medium">
+        <h<?php echo $titleLevel; ?> class="u-main-black mb-1 title-small-semi-bold-medium">
             <a class="text-decoration-none" href="<?php echo get_permalink($persona->ID); ?>">
             <?php echo $persona->post_title; ?>
             </a>
-        </h4>
+        </h<?php echo $titleLevel; ?>>
         <div class="card-text">
             <?= $incarico->post_title ?>
         </div>

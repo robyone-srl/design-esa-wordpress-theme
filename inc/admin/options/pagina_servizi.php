@@ -54,6 +54,35 @@ function dci_register_pagina_servizi_options(){
     );
 
     $servizi_options->add_field( array(
+        'id' => $prefix . 'tit_modalita_visualizzazione',
+        'name'        => __( 'Modalità visualizzaizione servizi necessari e inclusi', 'design_comuni_italia' ),
+        'desc' => __( 'Cambia tra visualizazione estesa e compatta' , 'design_comuni_italia' ),
+        'type' => 'title',
+    ) );
+
+    $servizi_options->add_field(array(
+        'name' => __('Stile dei servizi necessari', 'design_comuni_italia'),
+        'id' => $prefix . 'visual_servizi_necessari',
+        'type' => 'radio_inline',
+        'default' => 'enabled',
+        'options' => array(
+            'enabled' => 'Estesa',
+			'disabled'   => 'Semplice',
+        ),
+    ));
+
+    $servizi_options->add_field(array(
+        'name' => __('Stile dei servizi inclusi', 'design_comuni_italia'),
+        'id' => $prefix . 'visual_servizi_inclusi',
+        'type' => 'radio_inline',
+        'default' => 'enabled',
+        'options' => array(
+            'enabled' => 'Estesa',
+			'disabled'   => 'Semplice',
+        ),
+    ));
+    
+    $servizi_options->add_field( array(
         'id' => $prefix . 'tit_banner_secondario',
         'name'        => __( 'Banner secondario', 'design_comuni_italia' ),
         'desc' => __( 'Banner pensato per mostrare ulteriori servizi nella pagina Servizi' , 'design_comuni_italia' ),

@@ -9,14 +9,28 @@ $quartiere = dci_get_meta("quartiere", $prefix, $luogo->ID);
 $circoscrizione = dci_get_meta("circoscrizione", $prefix, $luogo->ID);
 $post_title = $luogo->post_title;
 $permalink = get_permalink($luogo);
-$indirizzo = $indirizzo;
 
 ?>
 
 <div class="card card-bg rounded mt-4 no-after">
     <div class="card-header">
-        <?php if(isset($indirizzo) && $indirizzo != ""){ ?>
-			<div class="d-block"><strong><?php echo $indirizzo; ?></strong> </div>
+        <?php if($showTitle) { ?>
+        <div class="card-title h6">
+            <?php if($isParent) echo '<div class="d-block">Questo luogo fa parte di: </div>'; ?>
+
+
+            <a href="<?php echo $permalink; ?>" class="" data-focus-mouse="false">
+                 <?php echo $post_title; ?>
+            </a>
+        </div>
+         <?php
+        }?>
+
+
+        <?php 
+
+        if(isset($indirizzo) && $indirizzo != ""){ ?>
+			<div class="d-block"><?php echo $indirizzo; ?></div>
 		<?php } ?>
 
         <?php if($quartiere || $circoscrizione) { ?>
