@@ -127,7 +127,7 @@ get_header();
 																<?php if($persona != "") { ?>
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" href="#titolare">
-                                                                            <span class="title-medium">Titolare</span>
+                                                                            <span>Titolare</span>
                                                                         </a>
                                                                     </li>
 																<?php } ?>
@@ -135,7 +135,7 @@ get_header();
                                                                 <?php if($data_inizio_incarico != "" || $data_insediamento != "" || $data_conclusione_incarico != "") { ?>
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" href="#periodo">
-                                                                            <span class="title-medium">Periodo di svolgimento</span>
+                                                                            <span>Periodo di svolgimento</span>
                                                                         </a>
                                                                     </li>
 																<?php } ?>
@@ -144,7 +144,7 @@ get_header();
                                                                 <?php if($url_trasparenza) { ?>
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" href="#url_trasparenza">
-                                                                            <span class="title-medium">Trasparenza</span>
+                                                                            <span>Trasparenza</span>
                                                                         </a>
                                                                     </li>
                                                                 <?php } ?>
@@ -152,7 +152,7 @@ get_header();
                                                                 <?php if ($unita_organizzativa) {?>
                                                                     <li class="nav-item">
                                                                             <a class="nav-link" href="#unita_organizzativa">
-                                                                                <span class="title-medium">Unità organizzativa</span>
+                                                                                <span>Unità organizzativa</span>
                                                                             </a>
                                                                         </li>
 																<?php } ?>
@@ -160,7 +160,7 @@ get_header();
                                                                 <?php if ($responsabile_struttura) {?>
                                                                     <li class="nav-item">
                                                                             <a class="nav-link" href="#responsabile_struttura">
-                                                                                <span class="title-medium">Ruolo di responsabilità</span>
+                                                                                <span>Ruolo di responsabilità</span>
                                                                             </a>
                                                                         </li>
 																<?php } ?>
@@ -169,7 +169,7 @@ get_header();
                                                                 <?php if ($atto_nomina) {?>
                                                                     <li class="nav-item">
                                                                             <a class="nav-link" href="#atto_di_nomina">
-                                                                                <span class="title-medium">Atto di nomina</span>
+                                                                                <span>Atto di nomina</span>
                                                                             </a>
                                                                         </li>
 																<?php } ?>
@@ -177,7 +177,7 @@ get_header();
                                                                 <?php if($compensi) { ?>
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" href="#compensi">
-                                                                            <span class="title-medium">Compensi</span>
+                                                                            <span>Compensi</span>
                                                                         </a>
                                                                     </li>
 																<?php } ?>
@@ -185,7 +185,7 @@ get_header();
 																<?php if ($importi_viaggi_servizi) { ?>
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" href="#importi_viaggi_servizi">
-                                                                            <span class="title-medium">Importi di viaggi e servizi</span>
+                                                                            <span>Importi di viaggi e servizi</span>
                                                                         </a>
                                                                     </li>
 																<?php } ?>
@@ -193,7 +193,7 @@ get_header();
 																<?php if ($ulteriori_informazioni) { ?>
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" href="#more-info">
-                                                                            <span class="title-medium">Ulteriori informazioni</span>
+                                                                            <span>Ulteriori informazioni</span>
                                                                         </a>
                                                                     </li>
 																<?php } ?>
@@ -320,7 +320,11 @@ get_header();
             </div>
 			<?php get_template_part("template-parts/common/valuta-servizio"); ?>
 			<?php get_template_part('template-parts/single/more-posts', 'carousel'); ?>
-			<?php get_template_part("template-parts/common/assistenza-contatti"); ?>
+            <?php 
+                $visualizza_contatto = dci_get_option('visualizzaContatto', 'footer');
+                if($visualizza_contatto == 'visible')
+                    get_template_part("template-parts/common/assistenza-contatti"); 
+            ?>
 
 		<?php
 		endwhile; // End of the loop.

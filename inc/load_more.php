@@ -144,6 +144,8 @@ function load_more(){
         case "luogo":
             $out .= load_template_part("template-parts/luogo/card-full");
 			break;
+		case "contatto":
+			$out .= load_template_part("template-parts/punto-contatto/lista-contatti");
 		default:
 			break;
 		}

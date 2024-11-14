@@ -262,6 +262,11 @@ get_header();
                 </div>
             </div>
             <?php get_template_part("template-parts/common/valuta-servizio"); ?>
+            <?php 
+                $visualizza_contatto = dci_get_option('visualizzaContatto', 'footer');
+                if($visualizza_contatto == 'visible')
+                    get_template_part("template-parts/common/assistenza-contatti"); 
+            ?>
 
         <?php
         endwhile; // End of the loop.

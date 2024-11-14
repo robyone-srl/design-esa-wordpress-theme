@@ -1,5 +1,5 @@
 <?php
-global $pc_id, $title_level;
+global $pc_id, $title_level, $custom_style;
 $prefix = '_dci_punto_contatto_';
 
 $full_contatto = dci_get_full_punto_contatto($pc_id);
@@ -16,9 +16,12 @@ $other_contacts = array(
 );
 
 if($title_level == "") $title_level = 5;
+if($custom_style == "") $color = "info";
+else $color = "dark";
 ?>
 
-<div class="card card-teaser card-teaser-info card-wrapper rounded shadow-sm p-4 me-3">
+
+<div class="card card-teaser card-teaser-<?php echo $color ?> card-wrapper rounded shadow-sm p-4 me-3">
     <div class="card-body pe-3">
         <h<?php echo $title_level; ?> class="h5 card-title">
             <?php echo $contatto->post_title; ?>

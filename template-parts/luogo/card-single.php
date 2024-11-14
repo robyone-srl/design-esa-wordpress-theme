@@ -1,5 +1,5 @@
 <?php
-global $luogo;
+global $luogo, $isParent, $showTitle;
 $prefix = '_dci_luogo_';
 $c=0;
 

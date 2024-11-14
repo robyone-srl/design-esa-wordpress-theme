@@ -114,7 +114,11 @@ get_header();
 
         <?php wp_reset_query(); ?>
         <?php get_template_part("template-parts/common/valuta-servizio"); ?>
-        <?php get_template_part("template-parts/common/assistenza-contatti"); ?>
+        <?php 
+            $visualizza_contatto = dci_get_option('visualizzaContatto', 'footer');
+            if($visualizza_contatto == 'visible')
+                get_template_part("template-parts/common/assistenza-contatti"); 
+        ?>
       </main>
 <?php
 get_footer();

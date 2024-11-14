@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Definisce post type Servizio
  */
@@ -145,18 +144,7 @@ function dci_add_servizi_metaboxes() {
             'teeny' => false, // output the minimal editor config used in Press This
         ),
     ) );
-    
-    $cmb_cosa->add_field( array(
-        'id' => $prefix . 'servizi_richiesti',
-        'name'    => __( 'Servizi richiesti ', 'design_comuni_italia' ),
-        'desc' => __( 'Servizi richiesti per accedere al servizio' , 'design_comuni_italia' ),
-        'type'    => 'pw_multiselect',
-        'options' => dci_get_posts_options('servizio'),
-        'attributes' => array(
-            'placeholder' =>  __( 'Seleziona i servizi necessari per usufruire di tale servizio', 'design_comuni_italia' ),
-        )
-    ) );
-    
+
     $cmb_cosa->add_field( array(
         'id' => $prefix . 'servizi_inclusi',
         'name'    => __( 'Servizi inclusi ', 'design_comuni_italia' ),
@@ -190,13 +178,21 @@ function dci_add_servizi_metaboxes() {
     ) );
 
     $cmb_destinatari->add_field( array(
-        'id'         => $prefix . 'a_chi_e_rivolto',
-        'name'       => __( 'A chi è rivolto *', 'design_comuni_italia' ),
-        'desc'       => __( 'Descrizione testuale dei principali destinatari dell\'Evento' , 'design_comuni_italia' ),
-        'type'       => 'wysiwyg',
+        'id' => $prefix . 'servizi_richiesti',
+        'name'    => __( 'Servizi richiesti ', 'design_comuni_italia' ),
+        'desc' => __( 'Servizi richiesti per accedere al servizio' , 'design_comuni_italia' ),
+        'type'    => 'pw_multiselect',
+        'options' => dci_get_posts_options('servizio'),
         'attributes' => array(
-            'required'    => 'required'
-        ),
+            'placeholder' =>  __( 'Seleziona i servizi necessari per usufruire di tale servizio', 'design_comuni_italia' ),
+        )
+    ) );
+
+    $cmb_destinatari->add_field( array(
+        'id'         => $prefix . 'a_chi_e_rivolto',
+        'name'       => __( 'A chi è rivolto', 'design_comuni_italia' ),
+        'desc'       => __( 'Descrizione testuale dei principali destinatari dell\'Evento</br>Questo campo &egrave; obbligatorio <b>SOLO se non si inseriscono serivizi richiesti</b>' , 'design_comuni_italia' ),
+        'type'       => 'wysiwyg',
         'options'    => array(
             'media_buttons' => false, // show insert/upload button(s)
             'textarea_rows' => 10, // rows="..."
@@ -612,7 +608,7 @@ function dci_add_servizi_metaboxes() {
 	) );
 
 
-    	//STATO DEL SERVIZIO
+    //STATO DEL SERVIZIO
 	$cmb_stato = new_cmb2_box( array(
 		'id'           => $prefix . 'box_stato',
 		'title'        => __( 'Stato del Servizio *', 'design_comuni_italia' ),

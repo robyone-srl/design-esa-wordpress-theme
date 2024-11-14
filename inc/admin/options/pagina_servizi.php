@@ -64,10 +64,12 @@ function dci_register_pagina_servizi_options(){
         'name' => __('Stile dei servizi necessari', 'design_comuni_italia'),
         'id' => $prefix . 'visual_servizi_necessari',
         'type' => 'radio_inline',
-        'default' => 'enabled',
+        'default' => 'minimale',
         'options' => array(
-            'enabled' => 'Estesa',
-			'disabled'   => 'Semplice',
+            'estesa'    => 'Estesa',
+            'icona'     => 'Icona e titolo',
+            'titolo'     => 'Titolo',
+			'minimale'   => 'Minimale',
         ),
     ));
 
@@ -75,13 +77,15 @@ function dci_register_pagina_servizi_options(){
         'name' => __('Stile dei servizi inclusi', 'design_comuni_italia'),
         'id' => $prefix . 'visual_servizi_inclusi',
         'type' => 'radio_inline',
-        'default' => 'enabled',
+        'default' => 'minimale',
         'options' => array(
-            'enabled' => 'Estesa',
-			'disabled'   => 'Semplice',
+            'estesa'    => 'Estesa',
+            'icona'     => 'Icona e titolo',
+            'titolo'     => 'Titolo',
+			'minimale'   => 'Minimale',
         ),
     ));
-    
+
     $servizi_options->add_field( array(
         'id' => $prefix . 'tit_banner_secondario',
         'name'        => __( 'Banner secondario', 'design_comuni_italia' ),

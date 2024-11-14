@@ -20,7 +20,8 @@
     <div class="card-body pe-3">
         <h<?php echo $titleLevel; ?> class="u-main-black mb-1 title-small-semi-bold-medium">
             <a class="text-decoration-none" href="<?php echo get_permalink($persona->ID); ?>">
-            <?php echo $persona->post_title; ?>
+                <?php echo $persona->post_title; 
+                ?>
             </a>
         </h<?php echo $titleLevel; ?>>
         <div class="card-text">

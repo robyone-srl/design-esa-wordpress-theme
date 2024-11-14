@@ -34,28 +34,11 @@ function dci_add_page_metaboxes() {
         ),
     );
 
-    
-    //argomenti
-    $cmb_argomenti = new_cmb2_box( array(
-        'id'           => $prefix . 'box_argomenti',
-        'title'        => __( 'Argomenti', 'design_comuni_italia' ),
-        'object_types' => array( 'page' ),
-        'context'      => 'side',
-        'priority'     => 'high',
-    ) );
-    $cmb_argomenti->add_field( array(
-        'id' => $prefix . 'argomenti',
-        'type'             => 'taxonomy_multicheck_hierarchical',
-        'taxonomy'       => 'argomenti',
-        'show_option_none' => false,
-        'remove_default' => 'true',
-    ) );
-
     /**
      * disabilito editor body e title per le pagine del Sito dei Comuni
      * rendo il campo descrivione_breve readonly
      */
-    global $pagenow;
+    global $pagenow, $template_name;
     if (( $pagenow == 'post.php' ) || (get_post_type() == 'post')) {
 
         if(isset($_GET['post']))
@@ -72,6 +55,7 @@ function dci_add_page_metaboxes() {
         // Get the name of the Page Template file.
         $template_file = get_post_meta( $curr_page_id, '_wp_page_template', true );
         $template_name = basename($template_file, ".php");
+
 
         //se la pagina utilizza un template del Sito dei Comuni
         if (in_array($template_name, dci_get_pagine_template_names())) {
@@ -90,6 +74,51 @@ function dci_add_page_metaboxes() {
     }
 
     $cmb_descrizione->add_field($args);
+    
+    //argomenti
+    $cmb_argomenti = new_cmb2_box( array(
+        'id'           => $prefix . 'box_argomenti',
+        'title'        => __( 'Argomenti', 'design_comuni_italia' ),
+        'object_types' => array( 'page' ),
+        'context'      => 'side',
+        'priority'     => 'high',
+    ) );
+    $cmb_argomenti->add_field( array(
+        'id' => $prefix . 'argomenti',
+        'type'             => 'taxonomy_multicheck_hierarchical',
+        'taxonomy'       => 'argomenti',
+        'show_option_none' => false,
+        'remove_default' => 'true',
+    ) );
+
+    if($template_name == 'punti-di-contatto'){
+
+        //Contatti in evidenza
+        $cmb_contatti = new_cmb2_box(array(
+            'id'           => $prefix . 'box_contatti_evidenza',
+            'object_types' => array( 'page' ),
+            'context'      => 'after_title',
+            'priority'     => 'low',
+        ));
+        $cmb_contatti->add_field(array(
+            'id'      => $prefix . 'vedi_info_principali',
+            'name'   => __( 'Informazioni principali', 'design_comuni_italia' ),
+            'desc'        => __( ' Visualizza la sezione <b>dati fiscali e di contatto</b>', 'design_comuni_italia' ),
+            'type' => 'radio_inline',
+            'default' => 'false',
+            'options' => array(
+                'true'    => 'Attivo',
+                'false'     => 'Disattivo',
+            ),
+        ));
+        $cmb_contatti->add_field(array(
+            'id'      => $prefix . 'contatti_evidenza',
+            'name'   => __( 'Contatti in evidenza', 'design_comuni_italia' ),
+            'desc'        => __( ' Inserisci i contatti in evidenza', 'design_comuni_italia' ),
+            'type'    => 'pw_multiselect',
+            'options' => dci_get_posts_options('punto_contatto'),
+        ));
+    }
 
 }
 

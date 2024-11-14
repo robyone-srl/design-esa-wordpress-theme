@@ -83,12 +83,12 @@ get_header();
                                                         <ul class="link-list" data-element="page-index">
                                                             <li class="nav-item">
                                                                 <a class="nav-link" href="#content">
-                                                                    <span class="title-medium">Contenuto</span>
+                                                                    <span>Contenuto</span>
                                                                 </a>
                                                             </li>
                                                             <li class="nav-item">
                                                                 <a class="nav-link" href="#more-info">
-                                                                    <span class="title-medium">Ulteriori informazioni</span>
+                                                                    <span>Ulteriori informazioni</span>
                                                                 </a>
                                                             </li>
                                                         </ul>
@@ -117,7 +117,11 @@ get_header();
             </div>
         </div>
         <?php get_template_part("template-parts/common/valuta-servizio"); ?>
-
+        <?php 
+            $visualizza_contatto = dci_get_option('visualizzaContatto', 'footer');
+            if($visualizza_contatto == 'visible')
+                get_template_part("template-parts/common/assistenza-contatti"); 
+        ?>
     <?php
     endwhile; // End of the loop.
     ?>

@@ -98,108 +98,108 @@ get_header();
     <?php get_template_part('template-parts/single/image-large'); ?>
   
     <div class="container">
-      <div class="row border-top row-column-border row-column-menu-left border-light">
-        <aside class="col-lg-3">
-            <div class="cmp-navscroll sticky-top" aria-labelledby="accordion-title-one">
-                <nav class="navbar it-navscroll-wrapper navbar-expand-lg" aria-label="Indice della pagina" data-bs-navscroll>
-                    <div class="navbar-custom" id="navbarNavProgress">
-                        <div class="menu-wrapper">
-                            <div class="link-list-wrapper">
-                                <div class="accordion">
-                                    <div class="accordion-item">
-                                        <span class="accordion-header" id="accordion-title-one">
-                                        <button
-                                            class="accordion-button pb-10 px-3 text-uppercase"
-                                            type="button"
-                                            aria-controls="collapse-one"
-                                            aria-expanded="true"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#collapse-one"
-                                        >Indice della pagina
-                                            <svg class="icon icon-sm icon-primary align-top">
-                                                <use xlink:href="#it-expand"></use>
-                                            </svg>
-                                        </button>
-                                        </span>
-                                        <div class="progress">
-                                            <div class="progress-bar it-navscroll-progressbar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                        <div id="collapse-one" class="accordion-collapse collapse show" role="region" aria-labelledby="accordion-title-one">
-                                            <div class="accordion-body">
-                                                <ul class="link-list" data-element="page-index">
+        <div class="row border-top row-column-border row-column-menu-left border-light">
+            <aside class="col-lg-3">
+                <div class="cmp-navscroll sticky-top" aria-labelledby="accordion-title-one">
+                    <nav class="navbar it-navscroll-wrapper navbar-expand-lg" aria-label="Indice della pagina" data-bs-navscroll>
+                        <div class="navbar-custom" id="navbarNavProgress">
+                            <div class="menu-wrapper">
+                                <div class="link-list-wrapper">
+                                    <div class="accordion">
+                                        <div class="accordion-item">
+                                            <span class="accordion-header" id="accordion-title-one">
+                                            <button
+                                                class="accordion-button pb-10 px-3 text-uppercase"
+                                                type="button"
+                                                aria-controls="collapse-one"
+                                                aria-expanded="true"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#collapse-one"
+                                            >Indice della pagina
+                                                <svg class="icon icon-sm icon-primary align-top">
+                                                    <use xlink:href="#it-expand"></use>
+                                                </svg>
+                                            </button>
+                                            </span>
+                                            <div class="progress">
+                                                <div class="progress-bar it-navscroll-progressbar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                            <div id="collapse-one" class="accordion-collapse collapse show" role="region" aria-labelledby="accordion-title-one">
+                                                <div class="accordion-body">
+                                                    <ul class="link-list" data-element="page-index">
+                                                        <li class="nav-item">
+                                                        <a class="nav-link" href="#cos-e">
+                                                        <span>Cos'è</span>
+                                                        </a>
+                                                        </li>
+                                                    <?php if( $destinatari) { ?>
+                                                        <li class="nav-item">
+                                                        <a class="nav-link" href="#destinatari">
+                                                        <span>A chi è rivolto</span>
+                                                        </a>
+                                                        </li>
+                                                    <?php } ?>  
+                                                    <?php if( $show_luogo) { ?>
+                                                        <li class="nav-item">
+                                                        <a class="nav-link" href="#luogo">
+                                                        <span>Luogo</span>
+                                                        </a>
+                                                        </li>
+                                                    <?php } ?>
+                                                    <?php if ($start_timestamp && $end_timestamp) { ?>
+                                                        <li class="nav-item">
+                                                        <a class="nav-link" href="#date-e-orari">
+                                                        <span>Date e orari</span>
+                                                        </a>
+                                                        </li>
+                                                    <?php } ?>
+                                                    <?php if( is_array($costi) && count($costi) ) { ?>
+                                                        <li class="nav-item">
+                                                        <a class="nav-link" href="#costi">
+                                                        <span>Costi</span>
+                                                        </a>
+                                                        </li>
+                                                    <?php } ?>
+                                                    <?php if( $allegati ) { ?>
+                                                        <li class="nav-item">
+                                                        <a class="nav-link" href="#allegati">
+                                                        <span>Allegati</span>
+                                                        </a>
+                                                        </li>
+                                                    <?php } ?>
+                                                    <?php if( is_array($punti_contatto) && count($punti_contatto) ) { ?>
                                                     <li class="nav-item">
-                                                    <a class="nav-link" href="#cos-e">
-                                                    <span>Cos'è</span>
+                                                    <a class="nav-link" href="#contatti">
+                                                    <span>Contatti</span>
                                                     </a>
                                                     </li>
-                                                <?php if( $destinatari) { ?>
+                                                    <?php } ?>
+                                                    <?php if( is_array($appuntamenti) && count($appuntamenti) ) { ?>
                                                     <li class="nav-item">
-                                                    <a class="nav-link" href="#destinatari">
-                                                    <span>A chi è rivolto</span>
+                                                    <a class="nav-link" href="#appuntamenti">
+                                                    <span>Appuntamenti</span>
                                                     </a>
                                                     </li>
-                                                <?php } ?>  
-                                                <?php if( $show_luogo) { ?>
+                                                    <?php } ?>
+                                                    <?php if ( (is_array($patrocinato) && count($patrocinato)) || 
+                                                        (is_array($sponsor) && count($sponsor)) ) {  ?>
                                                     <li class="nav-item">
-                                                    <a class="nav-link" href="#luogo">
-                                                    <span>Luogo</span>
+                                                    <a class="nav-link" href="#ulteriori-informazioni">
+                                                    <span>Ulteriori informazioni</span>
                                                     </a>
                                                     </li>
-                                                <?php } ?>
-                                                <?php if ($start_timestamp && $end_timestamp) { ?>
-                                                    <li class="nav-item">
-                                                    <a class="nav-link" href="#date-e-orari">
-                                                    <span>Date e orari</span>
-                                                    </a>
-                                                    </li>
-                                                <?php } ?>
-                                                <?php if( is_array($costi) && count($costi) ) { ?>
-                                                    <li class="nav-item">
-                                                    <a class="nav-link" href="#costi">
-                                                    <span>Costi</span>
-                                                    </a>
-                                                    </li>
-                                                <?php } ?>
-                                                <?php if( $allegati ) { ?>
-                                                    <li class="nav-item">
-                                                    <a class="nav-link" href="#allegati">
-                                                    <span>Allegati</span>
-                                                    </a>
-                                                    </li>
-                                                <?php } ?>
-                                                <?php if( is_array($punti_contatto) && count($punti_contatto) ) { ?>
-                                                <li class="nav-item">
-                                                <a class="nav-link" href="#contatti">
-                                                <span>Contatti</span>
-                                                </a>
-                                                </li>
-                                                <?php } ?>
-                                                <?php if( is_array($appuntamenti) && count($appuntamenti) ) { ?>
-                                                <li class="nav-item">
-                                                <a class="nav-link" href="#appuntamenti">
-                                                <span>Appuntamenti</span>
-                                                </a>
-                                                </li>
-                                                <?php } ?>
-                                                <?php if ( (is_array($patrocinato) && count($patrocinato)) || 
-                                                    (is_array($sponsor) && count($sponsor)) ) {  ?>
-                                                <li class="nav-item">
-                                                <a class="nav-link" href="#ulteriori-informazioni">
-                                                <span>Ulteriori informazioni</span>
-                                                </a>
-                                                </li>
-                                                <?php } ?>
-                                                </ul>
+                                                    <?php } ?>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </nav>
-            </div>
-        </aside>
+                    </nav>
+                </div>
+            </aside>
 
                 <section class="col-lg-9 it-page-sections-container border-light">
                     <article id="cos-e" class="it-page-section mb-5" data-audio>
@@ -480,8 +480,13 @@ get_header();
                     <?php get_template_part('template-parts/single/page_bottom'); ?>
                 </section>
             </div>
-        </div>
-        <?php get_template_part("template-parts/common/valuta-servizio"); ?>
+            </div>
+            <?php get_template_part("template-parts/common/valuta-servizio"); ?>
+            <?php 
+                $visualizza_contatto = dci_get_option('visualizzaContatto', 'footer');
+                if($visualizza_contatto == 'visible')
+                    get_template_part("template-parts/common/assistenza-contatti"); 
+            ?>
 
         <!-- <?php get_template_part('template-parts/single/more-posts', 'carousel'); ?> -->
 

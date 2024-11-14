@@ -17,6 +17,7 @@ $contatti_p_cont = dci_get_option("contattaci_contenuto", 'footer');
 function get_section($name) 
 {
     $visualizza_contatto = dci_get_option('visualizzaContatto', 'footer');
+
     global $visualizzazione_eventi, $visualizzazione_notizie, $sfondo_grigio, $messages;
     switch ($name) {
         case 'hero':
@@ -98,7 +99,6 @@ get_header();
     foreach($home_sections as $section){
         get_section($section);
     } ?>
-    
 </main>
 <?php
 get_footer();

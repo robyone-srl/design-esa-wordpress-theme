@@ -1253,3 +1253,13 @@ body, .bg-white {
         min-height: 120px;
     }
 }
+
+/* Animations */
+
+.chevron {
+    transition: transform 0.3s ease;
+}
+
+a[data-bs-toggle="collapse"][aria-expanded="true"] .chevron {
+    transform: rotate(180deg);
+}

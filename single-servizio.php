@@ -7,7 +7,7 @@
  *
  * @package Design_Comuni_Italia
  */
-global $uo_id, $file_url, $hide_arguments;
+global $uo_id, $file_url, $hide_arguments, $serviziNecessari, $serviziInclusi, $nr_Servizi_Necessari;
 
 get_header();
 ?>
@@ -53,8 +53,8 @@ get_header();
         $documenti_ids = dci_get_meta("documenti");
 
         //servizi
-        $serviziNecessari = dci_get_option('visual_servizi_necessari','servizi');
-        $serviziInclusi = dci_get_option('visual_servizi_inclusi','servizi');
+        $stileNecessari = dci_get_option('visual_servizi_necessari','servizi');
+        $stileInclusi = dci_get_option('visual_servizi_inclusi','servizi');
 
         // valori per metatag
         $categorie = get_the_terms($post, 'categorie_servizio');
@@ -130,13 +130,13 @@ get_header();
                     <div class="cmp-heading pb-3 pb-lg-4">
                         <div class="row">
                             <div class="col-lg-8">
-                                <h1 class="title-xxxlarge" data-element="service-title">
+                                <h1 data-element="service-title">
                                     <?php the_title(); ?>
                                 </h1>
                                 <h2 class="visually-hidden">Dettagli del servizio</h2>
                                 <?php if ($sottotitolo) { ?>
                                     <div>
-                                        <p class="subtitle-small mb-3" data-element="service-description">
+                                        <p class="subtitle-small mb-3">
                                             <strong><?php echo $sottotitolo ?></strong>
                                         </p>
                                     </div>
@@ -319,63 +319,14 @@ get_header();
                                 <h2 class="h3 mb-3" id="description">Cos'&egrave;</h2>
                                 <div class="richtext-wrapper lora" data-element="service-extended-description"><?php echo $descrizione ?></div>
 
-                                <?php
-                            $servizi_richiesti_id = dci_get_meta("servizi_richiesti");
-                            if (!empty($servizi_richiesti_id)) {
-                                $servizi_richiesti_id = array_map('intval', $servizi_richiesti_id);
+                                 
+                            <?php if (!empty($copertura_geografica)) { ?>
+                                <h3 class="h4 title mb-3">Copertura geografica</h3>
+                                        
+                                <div class="richtext-wrapper lora"><?php echo $copertura_geografica ?></div>
+                            <?php } ?>
 
-                                $args = array(
-                                    'nopaging' => true,
-                                    'post_type' => 'servizio',
-                                    'post__in' => $servizi_richiesti_id,
-                                    'orderby' => 'post_title',
-                                    'order' => 'ASC',
-                                );
-                                $posts = get_posts($args);
-
-                                if (!empty($posts)) {
-
-									if($serviziNecessari == 'enabled'){ ?>
-										<div class=" has-bg-grey p-4">
-
-											<a class="" data-bs-toggle="collapse" href="#collapseServiziNecessari" role="button" aria-expanded="false" aria-controls="collapseServiziNecessari">
-												<h3 class="title mb-3">Servizi necessari<svg class="icon ms-5"><use href="#it-expand"></use></svg></h3>
-											</a>
-											<div class="collapse" id="collapseServiziNecessari">
-												<p>Questo servizio è limitato a chi usufruisce di particolari servizi.</p>
-												<div class="row g-4">
-													<?php
-													foreach ($posts as $servizio) { ?>
-														<div class="col-lg-6 col-md-12">
-															<?php get_template_part("template-parts/servizio/card"); ?>
-														</div> <?php 
-													} ?>
-												</div>
-											</div>
-										</div> <?php 
-									} 
-									else 
-									{ 
-										if(count($posts) > 0) { ?>
-											<h3 class="title mb-3">Servizi necessari</h3>
-											<div class="alert alert-info" role="alert">
-												<p>Questo servizio è limitato a chi usufruisce di particolari servizi.</p>
-												<?php 
-												$i = 0;
-												foreach ($posts as $servizio_id) {
-													$serv_Sempl = get_post( $servizio_id );
-													echo '<a href="' . get_permalink($serv_Sempl->ID) . '">'. $serv_Sempl -> post_title . '</a>';
-													if($i < count($posts) -1 )
-													{
-														echo ", ";
-													}
-													$i++;
-												} ?> 
-											</div> <?php
-										}  
-									} ?> <?php 
-								}
-							} ?> <?php
+                            <?php
                             $servizi_inclusi_id = dci_get_meta("servizi_inclusi");
                             if (!empty($servizi_inclusi_id)) {
                                 $servizi_inclusi_id = array_map('intval', $servizi_inclusi_id);
@@ -390,58 +341,118 @@ get_header();
                                 $posts = get_posts($args);
 
                                 if (!empty($posts)) {
-								
-									if($serviziInclusi == 'enabled'){ ?>
-										<div class=" has-bg-grey p-4">
-											<a class="" data-bs-toggle="collapse" href="#collapseServiziInclusi" role="button" aria-expanded="false" aria-controls="collapseServiziInclusi">
-												<h3 class="title mb-3">Servizi inclusi<svg class="icon ms-5"><use href="#it-expand"></use></svg></h3>
-											</a>
-											<div class="collapse" id="collapseServiziInclusi">
-										
-												<p>Questo servizio offre anche i seguenti servizi.</p>
-												<div class="row g-3"> <?php 
-													foreach ($posts as $servizio) { ?>
-														<div class="col-lg-6 col-md-12">
-															<?php get_template_part("template-parts/servizio/card-con-icona"); ?>
-														</div> <?php 
-													} ?>
-												</div>
-											</div>
-										</div> <?php 
-									} 
-									else  
-									{ 
-										if(count($posts) > 0) { ?>
-											<h3 class="title mb-3 mt-3">Servizi inclusi</h3>
-											<div class="alert alert-info" role="alert">
-												<p class="mb-0">Con questo servizio viene incluso anche:
-													<?php $i = 0;
-													foreach ($posts as $servizio_id) {
-														$serv_Sempl = get_post( $servizio_id );
-														echo '<a href="' . get_permalink($serv_Sempl->ID) . '">'. $serv_Sempl -> post_title . '</a>';
-														if($i < count($posts) -1 ) 
-														{
-															echo ", ";
-														}
-														$i++;
-													} ?> 
-												</p>
-											</div> <?php
-										}  
-									} ?> <?php
-								}
-							} ?>
+								    if($stileInclusi == 'estesa' || $stileInclusi == 'titolo' || $stileInclusi == 'icona'){ ?>
+									    <h3 class="h4 title mb-3"> Servizi inclusi</h3>
+                                        <div>
+                                            <p>
+                                                Con questo servizio ne vengono inclusi ulteriori.
+                                            </p>
 
-                            <?php if (!empty($copertura_geografica)) { ?>
-                                <h3 class="h4 title mb-3">Copertura geografica</h3>
+                                            <a class="btn btn-primary btn-icon btn-xs" data-bs-toggle="collapse" href="#collapseServiziInclusi" role="button" aria-expanded="false" aria-controls="collapseServiziInclusi">
+											    Mostra servizi inclusi 
+                                                <svg class="icon icon-white ms-5 chevron"><use href="#it-expand"></use></svg>
+											</a>
+											
+									        <div class="collapse clearfix mt-3 me-5" id="collapseServiziInclusi">
+										        <div class="row g-4">
+											        <?php foreach ($posts as $servizio) { ?>
+												        <div class="col-lg-6 col-md-12">
+                                                            <?php if($stileInclusi == 'estesa' || $stileInclusi == 'titolo') {
+                                                                    $mostra_dettagli = $stileInclusi == 'estesa';
+                                                                    get_template_part("template-parts/servizio/card");
+                                                            } else get_template_part("template-parts/servizio/card-con-icona"); ?>
+												        </div>
+                                                    <?php } ?>
+											    </div>
+										    </div>
+									    </div>
+                                    <?php  } else { ?>
+									    <h3 class="h4 title mb-3"> Servizi inclusi</h3>
                                         
-                                <div class="richtext-wrapper lora"><?php echo $copertura_geografica ?></div>
-                            <?php } ?>
+                                        <div class="richtext-wrapper lora">
+                                            <p>Con questo servizio viene incluso anche:
+											    <?php $i = 0;
+											    foreach ($posts as $servizio_id) {
+												    $serv_Sempl = get_post( $servizio_id );
+												    echo '<a href="' . get_permalink($serv_Sempl->ID) . '">'. $serv_Sempl -> post_title . '</a>';
+												    if($i < count($posts) -1 ) 
+												    {
+													    echo ", ";
+												    }
+												    $i++;
+											    } ?> 
+                                            </p>
+                                        </div>
+									<?php }
+							    } 
+                            }?>
+
                             </section>
                         <?php } ?>
+
                         <section class="it-page-section mb-30">
                             <h2 class="h3 mb-3" id="who-needs">A chi è rivolto</h2>
-                            <div class="richtext-wrapper lora" data-element="service-addressed">
+                            
+                            <div  data-element="service-addressed">
+                            
+                                <?php
+                                $servizi_richiesti_id = dci_get_meta("servizi_richiesti");
+                                if (!empty($servizi_richiesti_id)) {
+                                    $servizi_richiesti_id = array_map('intval', $servizi_richiesti_id);
+
+                                    $args = array(
+                                        'nopaging' => true,
+                                        'post_type' => 'servizio',
+                                        'post__in' => $servizi_richiesti_id,
+                                        'orderby' => 'post_title',
+                                        'order' => 'ASC',
+                                    );
+                                    $posts = get_posts($args);
+
+                                    if (!empty($posts)) {
+									    if($stileNecessari == 'estesa' || $stileNecessari == 'titolo' || $stileNecessari == 'icona'){ ?>
+                                        <div class="alert alert-info" role="alert">
+                                            <p class="mb-0">
+                                                <a class="d-flex justify-content-between" data-bs-toggle="collapse" href="#collapseServiziNecessari" role="button" aria-expanded="false" aria-controls="collapseServiziNecessari">
+											        <span>Questo servizio è limitato a chi usufruisce di particolari servizi </span>
+                                                    <svg class="icon ms-5 chevron"><use href="#it-expand"></use></svg>
+											    </a>
+                                            </p>
+											
+									        <div class="collapse clearfix mt-3 me-5" id="collapseServiziNecessari">
+										        <div class="row g-4">
+											    <?php foreach ($posts as $servizio) { ?>
+												    <div class="col-lg-6 col-md-12">
+                                                        <?php if($stileNecessari == 'estesa' || $stileNecessari == 'titolo') {
+                                                                $mostra_dettagli = $stileNecessari == 'estesa';
+                                                                get_template_part("template-parts/servizio/card");
+                                                              } else get_template_part("template-parts/servizio/card-con-icona"); ?>
+												    </div>
+                                                <?php } ?>
+												</div>
+											</div>
+										</div>
+                                        <?php  } else { ?>
+										    <div class="alert alert-info" role="alert">
+											    <p>Questo servizio è limitato a chi usufruisce di particolari servizi.</p>
+											    <?php 
+											    $i = 0;
+											    foreach ($posts as $servizio_id) {
+												    $serv_Sempl = get_post( $servizio_id );
+												    echo '<a href="' . get_permalink($serv_Sempl->ID) . '">'. $serv_Sempl -> post_title . '</a>';
+												    if($i < count($posts) -1 )
+												    {
+													    echo ", ";
+												    }
+												    $i++;
+											    } ?> 
+										    </div> <?php 
+									    }
+								    }
+							    } ?>
+                            </div>
+                            
+                            <div class="richtext-wrapper lora">
                                 <?php echo $destinatari ?>
                             </div>
                         </section>
@@ -623,61 +634,71 @@ get_header();
                             <section class="it-page-section mb-30">
                                 <h2 class="mb-3" id="submit-request">Condizioni di servizio</h2>
 
-                                <?php if ($condizioni_servizio) {
-                            $file_url = $condizioni_servizio;
-                        ?>
-                                <div class="richtext-wrapper lora">Per conoscere i dettagli di scadenze, requisiti e altre informazioni importanti, leggi i termini e le condizioni di servizio.
+                                <div class="pb-3">
+                                    <?php if ($condizioni_servizio) {
+                                        $file_url = $condizioni_servizio;
+                                    ?>
+                                            <div class="richtext-wrapper lora">Per conoscere i dettagli di scadenze, requisiti e altre informazioni importanti, leggi i termini e le condizioni di servizio.
+                                            </div>
+                                            <?php get_template_part("template-parts/single/attachment"); ?>
+                                    <?php } ?>
                                 </div>
-                                <?php get_template_part("template-parts/single/attachment"); ?>
-                        <?php } ?>
-
-
-                                <?php if (!empty($casi_particolari)) { ?>
-                                    <h3 class="h4 title mb-3">Casi particolari</h3>
+                               
+                                
+                                <div class="pb-3">
+                                    <?php if (!empty($casi_particolari)) { ?>
+                                        <h3 class="h4 title mb-3">Casi particolari</h3>
                                             
-                                    <div class="richtext-wrapper lora"><?php echo $casi_particolari ?></div>
-                                <?php } ?>
-
-                                <?php if (!empty($vincoli)) { ?>
-                                    <h3 class="h4 title mb-3">Vincoli</h3>
+                                        <div class="richtext-wrapper lora"><?php echo $casi_particolari ?></div>
+                                    <?php } ?>
+                                </div>
+                                
+                                <div>
+                                    <?php if (!empty($vincoli)) { ?>
+                                        <h3 class="h4 title mb-3">Vincoli</h3>
                                             
-                                    <div class="richtext-wrapper lora"><?php echo $vincoli ?></div>
-                                <?php } ?>
+                                        <div class="richtext-wrapper lora"><?php echo $vincoli ?></div>
+                                    <?php } ?>
+                                </div>
                             </section>
                         <?php } ?>
   
                         <section class="it-page-section">
                             <h2 class="mb-3 h3" id="contacts">Contatti</h2>
                             <?php if ($mostra_prenota_appuntamento) { ?>
-                                    <button type="button" class="btn btn-outline-primary t-primary bg-white mobile-full" onclick="location.href='<?php echo dci_get_template_page_url('page-templates/prenota-appuntamento.php'); ?>';" data-element="service-booking-access">
+                                    <button type="button" class="btn btn-outline-primary t-primary bg-white mobile-full mb-3" onclick="location.href='<?php echo dci_get_template_page_url('page-templates/prenota-appuntamento.php'); ?>';" data-element="service-booking-access">
                                         <span class="">Prenota appuntamento</span>
                                     </button>
+                                <?php } 
+
+                                $punti_contatto_id = dci_get_meta("punti_contatto");
+                                if (!empty($punti_contatto_id)) {
+                                ?>
+                                    <div class="row">
+                                        <?php
+                                        foreach ($punti_contatto_id as $pc_id) {
+                                        ?>
+                                            <div class="col-lg-6 col-md-12 mb-4">
+                                                <?php get_template_part("template-parts/punto-contatto/card"); ?>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                <?php }
+
+
+                                if($mostra_prenota_appuntamento || !empty($punti_contatto_id))
+                                {?>
+                                    <h3 class="mb-3 h4">Contatta ufficio</h3>
                                 <?php } ?>
-                            <h3 class="mb-3 h4">Contatta ufficio</h3>
-                            <div class="row">
-                                <div class="col-12 col-md-8 col-lg-6 mb-30">
-                                    <?php
-                                    $with_border = true;
-                                    $no_vertical_margin = true;
-                                    get_template_part("template-parts/unita-organizzativa/card-full");
-                                    ?>
-                                </div>
-                            </div>
-                            <?php
-                            $punti_contatto_id = dci_get_meta("punti_contatto");
-                            if (!empty($punti_contatto_id)) {
-                            ?>
-                                <h3 class="h4 mb-3">Contatti dedicati</h3>
                                 <div class="row">
-                                    <?php
-                                    foreach ($punti_contatto_id as $pc_id) {
-                                    ?>
-                                        <div class="col-lg-6 col-md-12 mb-4">
-                                            <?php get_template_part("template-parts/punto-contatto/card"); ?>
-                                        </div>
-                                    <?php } ?>
+                                    <div class="col-12 col-md-8 col-lg-6 mb-30">
+                                        <?php
+                                        $with_border = true;
+                                        $no_vertical_margin = true;
+                                        get_template_part("template-parts/unita-organizzativa/card-full");
+                                        ?>
+                                    </div>
                                 </div>
-                            <?php } ?>
 
                             <?php if ($more_info) {  ?>
                                 <section class="it-page-section mb-30">
@@ -712,7 +733,10 @@ get_header();
         </div>
         <?php get_template_part("template-parts/common/valuta-servizio"); ?>
         <?php get_template_part('template-parts/single/more-posts', 'carousel'); ?>
-        <?php get_template_part("template-parts/common/assistenza-contatti"); ?>
+        <?php 
+        $visualizza_contatto = dci_get_option('visualizzaContatto', 'footer');
+        if($visualizza_contatto == 'visible')
+            get_template_part("template-parts/common/assistenza-contatti"); ?>
 
     <?php
     endwhile; // End of the loop.

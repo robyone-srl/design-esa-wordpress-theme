@@ -23,7 +23,11 @@ get_header();
 			<?php get_template_part("template-parts/argomento/evidenza"); ?>			
 			<?php get_template_part("template-parts/argomento/argomenti"); ?>	
 			<?php get_template_part("template-parts/common/valuta-servizio"); ?>	
-			<?php get_template_part("template-parts/common/assistenza-contatti"); ?>			
+            <?php 
+                $visualizza_contatto = dci_get_option('visualizzaContatto', 'footer');
+                if($visualizza_contatto == 'visible')
+                    get_template_part("template-parts/common/assistenza-contatti"); 
+            ?>
 		<?php 
 			endwhile; // End of the loop.
 		?>

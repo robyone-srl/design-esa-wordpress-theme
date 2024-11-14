@@ -92,12 +92,12 @@ get_header();
                                                             <ul class="link-list" data-element="page-index">
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#dettagli">
-                                                                    <span class="title-medium">Dettagli</span>
+                                                                    <span>Dettagli</span>
                                                                     </a>
                                                                 </li>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#more-info">
-                                                                    <span class="title-medium">Ulteriori informazioni</span>
+                                                                    <span>Ulteriori informazioni</span>
                                                                     </a>
                                                                 </li>
                                                             </ul>

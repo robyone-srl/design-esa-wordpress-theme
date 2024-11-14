@@ -154,8 +154,9 @@ function loadSvg(){
     options.forEach(element => jQuery('.' + element).html('<img src= "' + theme_folder +'/assets/svg/' + element + '.svg" alt="'+element+'" style="width:30px; margin-right:10px;">'));
 }
 
-function controlla_che_campo_sia_compilato(field_id) {
-    if (jQuery("#" + field_id).val() !== undefined && !jQuery("#" + field_id).val()) {
+function controlla_che_wysiwyg_sia_compilato(field_id) {
+
+    if (tinymce.get(field_id) !== undefined && tinymce.get(field_id).getContent() == "") {
         // Show the alert
         var alertid = field_id + "-required-msj"
         if (!jQuery("#" + alertid).length) {

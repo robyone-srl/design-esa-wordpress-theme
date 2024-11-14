@@ -10,6 +10,8 @@
  * @package Design_Comuni_Italia
  */
 
+ global $custom_style;
+ $custom_style = "";
 
 function genera_voci_tassonomia($tassonomia, $titolo)
 {
@@ -74,7 +76,6 @@ $tipo_visualizzazione = dci_get_option('contattaci_tipo', 'footer');
 if($tipo_visualizzazione == 'filtro' && $contatti_p_cont){
     get_template_part("template-parts/common/contatti-personalizzati");
 } 
-
 ?>
 
 <footer class="it-footer" id="footer">
@@ -188,7 +189,6 @@ if($tipo_visualizzazione == 'filtro' && $contatti_p_cont){
                         <div class="col-md-4">
                             <p class="footer-info">
                                 <strong><?php echo dci_get_option("nome_comune"); ?></strong>
-
 
                                 <?php
                                 if (dci_get_option("indirizzo", 'contatti')) {

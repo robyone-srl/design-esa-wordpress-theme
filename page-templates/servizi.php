@@ -40,8 +40,12 @@ function close_alternate_div_background()
 			get_template_part("template-parts/servizio/banner-secondario");
 			get_template_part("template-parts/servizio/categorie");
 			get_template_part("template-parts/servizio/tutti-servizi");
-			get_template_part("template-parts/common/valuta-servizio");
-			get_template_part("template-parts/common/assistenza-contatti");
+			get_template_part("template-parts/common/valuta-servizio"); 
+
+            $visualizza_contatto = dci_get_option('visualizzaContatto', 'footer');
+            if($visualizza_contatto == 'visible')
+                get_template_part("template-parts/common/assistenza-contatti"); 
+
 
 		
 		endwhile; // End of the loop.

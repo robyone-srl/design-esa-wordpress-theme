@@ -62,4 +62,23 @@ function dci_register_pagina_luoghi_options(){
             )
         )
     );
+
+    $luoghi_options->add_field( array(
+        'id' => $prefix . 'servizi_luoghi_tipo',
+        'name'        => __( 'Servizi nei luoghi', 'design_comuni_italia' ),
+        'desc' => __( 'Configurazione dei servizi nella pagina luoghi' , 'design_comuni_italia' ),
+        'type' => 'title',
+    ) );
+
+    $luoghi_options->add_field(array(
+        'name' => __('Stile servizi presenti', 'design_comuni_italia'),
+        'id' => $prefix . 'visual_servizi_luogo',
+        'type' => 'radio_inline',
+        'default' => 'enabled',
+        'options' => array(
+            'enabled' => 'Testo completo',
+			'disabled' => 'Semplice',
+            'custom' => 'Icona',
+        ),
+    ));
 }

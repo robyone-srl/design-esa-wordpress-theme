@@ -109,12 +109,10 @@ get_header();
                                     </p>
                                 </div>
                             </div>
-
-
                         </div>
                         <div class="col-lg-3 offset-lg-1 mt-5 mt-lg-0">
                             <?php
-        get_template_part('template-parts/single/actions');
+                                get_template_part('template-parts/single/actions');
                             ?>
                         </div>
                     </div>
@@ -126,13 +124,7 @@ get_header();
     <?php get_template_part('template-parts/single/foto-large'); ?>
 
     <div class="container">
-        <div class="row justify-content-center">
-            <hr class="d-none d-lg-block mt-2" />
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="row row-column-menu-left mt-4 mt-lg-80 pb-lg-80 pb-40">
+         <div class="row border-top row-column-border row-column-menu-left border-light">
             <div class="col-12 col-lg-3 mb-4 border-col">
                 <div class="cmp-navscroll sticky-top">
                     <nav class="navbar it-navscroll-wrapper navbar-expand-lg" aria-label="Indice della pagina" data-bs-navscroll>
@@ -158,7 +150,7 @@ get_header();
                                                         <?php if ($biografia || $curriculum_vitae) { ?>
                                                         <li class="nav-item">
                                                             <a class="nav-link" href="#biografia">
-                                                                <span class="title-medium">Biografia e curriculum</span>
+                                                                <span>Biografia e curriculum</span>
                                                             </a>
                                                         </li>
                                                         <?php } ?>
@@ -166,7 +158,7 @@ get_header();
                                                         <?php if ($competenze) { ?>
                                                         <li class="nav-item">
                                                             <a class="nav-link" href="#competenze">
-                                                                <span class="title-medium">Competenze</span>
+                                                                <span>Competenze</span>
                                                             </a>
                                                         </li>
                                                         <?php } ?>
@@ -174,7 +166,7 @@ get_header();
                                                         <?php if ($inc_list && is_array($inc_list) && count($inc_list) > 0) {?>
                                                         <li class="nav-item">
                                                             <a class="nav-link" href="#incarichi">
-                                                                <span class="title-medium">Incarichi</span>
+                                                                <span>Incarichi</span>
                                                             </a>
                                                         </li>
                                                         <?php } ?>
@@ -182,7 +174,7 @@ get_header();
                                                         <?php if ($organizzazioni && is_array($organizzazioni) && count($organizzazioni) > 0) {?>
                                                         <li class="nav-item">
                                                             <a class="nav-link" href="#organizzazioni">
-                                                                <span class="title-medium">Fa parte di</span>
+                                                                <span>Fa parte di</span>
                                                             </a>
                                                         </li>
                                                         <?php } ?>
@@ -190,7 +182,7 @@ get_header();
                                                         <?php if ($orari_ricevimento) { ?>
                                                         <li class="nav-item">
                                                             <a class="nav-link" href="#orari_ricevimento">
-                                                                <span class="title-medium">Orari di ricevimento</span>
+                                                                <span>Orari di ricevimento</span>
                                                             </a>
                                                         </li>
                                                         <?php } ?>
@@ -198,7 +190,7 @@ get_header();
                                                         <?php if ($punti_contatto && is_array($punti_contatto) && count($punti_contatto) > 0) { ?>
                                                         <li class="nav-item">
                                                             <a class="nav-link" href="#contatti">
-                                                                <span class="title-medium">Contatti</span>
+                                                                <span>Contatti</span>
                                                             </a>
                                                         </li>
                                                         <?php } ?>
@@ -206,52 +198,37 @@ get_header();
                                                         <?php if ($gallery && is_array($gallery) && count($gallery) > 0) {?>
                                                         <li class="nav-item">
                                                             <a class="nav-link" href="#gallery">
-                                                                <span class="title-medium">Galleria di immagini</span>
+                                                                <span>Galleria di immagini</span>
                                                             </a>
                                                         </li>
-                                                        <?php } ?>
-
-                                                        <?php
-        if (
-            ($dichiarazione_redditi && is_array($dichiarazione_redditi) && count($dichiarazione_redditi) > 0)
-            || ($variazione_situazione_patrimoniale && is_array($variazione_situazione_patrimoniale) && count($variazione_situazione_patrimoniale) > 0)
-        )
-        {
-                                                        ?>
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#situazione_patrimoniale">
-                                                                <span class="title-medium">Situazione patrimoniale</span>
-                                                            </a>
-                                                        </li>
-                                                        <?php
-        }
-                                                        ?>
-
-                                                        <?php
-        if (
-             ($spese_elettorali && is_array($spese_elettorali) && count($spese_elettorali) > 0)
-             || ($altre_cariche && is_array($altre_cariche) && count($altre_cariche) > 0)
-        )
-        {
-                                                        ?>
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#altri_documenti">
-                                                                <span class="title-medium">Altri documenti</span>
-                                                            </a>
-                                                        </li>
-                                                        <?php
-        }
-                                                        ?>
-
-
-
-                                                        <?php if ($more_info) { ?>
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#more-info">
-                                                                <span class="title-medium">Ulteriori informazioni</span>
-                                                            </a>
-                                                        </li>
-                                                        <?php } ?>
+                                                        <?php } 
+                                                        if (
+                                                            ($dichiarazione_redditi && is_array($dichiarazione_redditi) && count($dichiarazione_redditi) > 0)
+                                                            || ($variazione_situazione_patrimoniale && is_array($variazione_situazione_patrimoniale) && count($variazione_situazione_patrimoniale) > 0)
+                                                        ) { ?>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" href="#situazione_patrimoniale">
+                                                                    <span>Situazione patrimoniale</span>
+                                                                </a>
+                                                            </li>  <?php
+                                                        } 
+                                                        if (
+                                                             ($spese_elettorali && is_array($spese_elettorali) && count($spese_elettorali) > 0)
+                                                             || ($altre_cariche && is_array($altre_cariche) && count($altre_cariche) > 0)
+                                                        ) { ?>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" href="#altri_documenti">
+                                                                    <span>Altri documenti</span>
+                                                                </a>
+                                                            </li> <?php
+                                                        }  
+                                                        if ($more_info) { ?>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" href="#more-info">
+                                                                    <span>Ulteriori informazioni</span>
+                                                                </a>
+                                                            </li> <?php 
+                                                        } ?>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -275,16 +252,16 @@ get_header();
                         <?php if ($curriculum_vitae != "") {?>
                         <div class="card-wrapper card-teaser-wrapper">
                             <?php
-                                  $doc = attachment_url_to_postid($curriculum_vitae);
+                                $doc = attachment_url_to_postid($curriculum_vitae);
 
-                                  if($doc != 0) {
-                                      $idfile = $doc;
-                                      get_template_part("template-parts/documento/file");
-                                  } else {
-                                      $url = $curriculum_vitae;
-                                      $url_label = "Curriculum vitae";
-                                      get_template_part("template-parts/documento/url");
-                                  }
+                                if($doc != 0) {
+                                    $idfile = $doc;
+                                    get_template_part("template-parts/documento/file");
+                                } else {
+                                    $url = $curriculum_vitae;
+                                    $url_label = "Curriculum vitae";
+                                    get_template_part("template-parts/documento/url");
+                                }
                             ?>
                         </div>
                         <?php }?>
@@ -467,7 +444,11 @@ get_header();
     </div>
     <?php get_template_part("template-parts/common/valuta-servizio"); ?>
     <?php get_template_part('template-parts/single/more-posts', 'carousel'); ?>
-    <?php get_template_part("template-parts/common/assistenza-contatti"); ?>
+    <?php 
+        $visualizza_contatto = dci_get_option('visualizzaContatto', 'footer');
+        if($visualizza_contatto == 'visible')
+            get_template_part("template-parts/common/assistenza-contatti"); 
+    ?>
 
     <?php
     endwhile; // End of the loop.

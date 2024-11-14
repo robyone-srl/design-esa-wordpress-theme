@@ -182,7 +182,7 @@ function dci_add_luogo_metaboxes() {
         ),
     ) );
 
-    /**
+    /*
     $cmb_gallerie_multimediali = new_cmb2_box( array(
         'id'           => $prefix . 'box_gallerie_multimediali',
         'title'        => __( 'Gallerie multimediali', 'design_comuni_italia' ),
@@ -220,7 +220,7 @@ function dci_add_luogo_metaboxes() {
         'query_args' => array( 'type' => array('image','video') )
     ) );
 
-    /*** fine repeater gallerie **/
+    fine repeater gallerie */
 
 
     //SERVIZI

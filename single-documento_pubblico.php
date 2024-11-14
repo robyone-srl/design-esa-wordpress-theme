@@ -122,7 +122,7 @@ get_header();
                                                                 <?php if( $autori) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#autore">
-                                                                        <span class="title-medium">Autori</span>
+                                                                        <span>Autori</span>
                                                                     </a>
                                                                 </li>
                                                                 <?php } ?>
@@ -375,7 +375,11 @@ get_header();
             </div><!-- ./container -->
 
             <?php get_template_part("template-parts/common/valuta-servizio"); ?>
-            <?php get_template_part("template-parts/common/assistenza-contatti"); ?>
+            <?php 
+                $visualizza_contatto = dci_get_option('visualizzaContatto', 'footer');
+                if($visualizza_contatto == 'visible')
+                    get_template_part("template-parts/common/assistenza-contatti"); 
+            ?>
 
         <?php
         endwhile; // End of the loop.
