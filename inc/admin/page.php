@@ -34,10 +34,7 @@ function dci_add_page_metaboxes() {
         ),
     );
 
-    /**
-     * disabilito editor body e title per le pagine del Sito dei Comuni
-     * rendo il campo descrivione_breve readonly
-     */
+    //Recupero Template Name
     global $pagenow, $template_name;
     if (( $pagenow == 'post.php' ) || (get_post_type() == 'post')) {
 
@@ -57,7 +54,10 @@ function dci_add_page_metaboxes() {
         $template_name = basename($template_file, ".php");
 
 
-        //se la pagina utilizza un template del Sito dei Comuni
+        /**
+         * disabilito editor body e title per le pagine del Sito dei Comuni
+         * rendo il campo descrivione_breve readonly
+         
         if (in_array($template_name, dci_get_pagine_template_names())) {
 
             remove_post_type_support( 'page', 'editor' );
@@ -70,26 +70,29 @@ function dci_add_page_metaboxes() {
                 'readonly' => true
             );
         }
+        */
 
     }
 
     $cmb_descrizione->add_field($args);
     
-    //argomenti
-    $cmb_argomenti = new_cmb2_box( array(
-        'id'           => $prefix . 'box_argomenti',
-        'title'        => __( 'Argomenti', 'design_comuni_italia' ),
-        'object_types' => array( 'page' ),
-        'context'      => 'side',
-        'priority'     => 'high',
-    ) );
-    $cmb_argomenti->add_field( array(
-        'id' => $prefix . 'argomenti',
-        'type'             => 'taxonomy_multicheck_hierarchical',
-        'taxonomy'       => 'argomenti',
-        'show_option_none' => false,
-        'remove_default' => 'true',
-    ) );
+    if(!$template_name == 'punti-di-contatto'){
+        //argomenti
+        $cmb_argomenti = new_cmb2_box( array(
+            'id'           => $prefix . 'box_argomenti',
+            'title'        => __( 'Argomenti', 'design_comuni_italia' ),
+            'object_types' => array( 'page' ),
+            'context'      => 'side',
+            'priority'     => 'high',
+        ) );
+        $cmb_argomenti->add_field( array(
+            'id' => $prefix . 'argomenti',
+            'type'             => 'taxonomy_multicheck_hierarchical',
+            'taxonomy'       => 'argomenti',
+            'show_option_none' => false,
+            'remove_default' => 'true',
+        ) );
+    }
 
     if($template_name == 'punti-di-contatto'){
 
@@ -118,6 +121,42 @@ function dci_add_page_metaboxes() {
             'type'    => 'pw_multiselect',
             'options' => dci_get_posts_options('punto_contatto'),
         ));
+    }
+
+    if($template_name == 'unita-organizzative'){
+
+        $cmb_uo = new_cmb2_box( array(
+            'id'           => $prefix . 'box_uo',
+            'title'        => __( 'Unità organizzativa', 'design_comuni_italia' ),
+            'object_types' => array( 'page' ),
+            'context'      => 'normal',
+            'priority'     => 'high',
+        ) );
+
+        $cmb_uo->add_field( array(
+            'id'      => $prefix . 'uo_select',
+            'name'    => __( 'Selezione tipo uità organizzativa', 'design_comuni_italia' ),
+            'type'    => 'radio_inline',
+            'options' => array(
+                'tutti'  => 'Tutte le unità organizzative',
+                'scegli' => 'Scegli l\'unità organizzativa',
+            ),
+            'default' => 'tutti',
+        ) );
+
+        $cmb_uo->add_field( array(
+            'id'               => $prefix . 'uo_tipo',
+            'name'             => __( 'Tipo di organizzazione *', 'design_comuni_italia' ),
+            'type'             => 'taxonomy_radio_hierarchical',
+            'taxonomy'         => 'tipi_unita_organizzativa',
+            'show_option_none' => false,
+            'remove_default'   => 'true',
+            'attributes'       => [
+                'required' => 'required',
+			    'data-conditional-id'    => $prefix.'uo_select',
+			    'data-conditional-value' => 'scegli',
+            ]
+        ) );
     }
 
 }

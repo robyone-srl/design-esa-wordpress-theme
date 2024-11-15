@@ -21,7 +21,7 @@ get_header();
 		foreach ( $container_posts as $container_post ) {
 			$with_shadow = true;
 			?>
-			<?php get_template_part("template-parts/hero/hero"); ?>
+			<?php get_template_part("template-parts/unita-organizzativa/hero"); ?>
 			<?php get_template_part("template-parts/unita-organizzativa/tutte-uo"); ?>
 			<?php get_template_part("template-parts/common/valuta-servizio"); ?>
             <?php 

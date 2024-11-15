@@ -1,12 +1,20 @@
 <?php
 global $the_query, $load_posts, $load_card_type, $additional_filter;
 
+$post_id = get_the_ID();
+$organizzazione = get_the_terms($post_id, 'tipi_unita_organizzativa');
+
+$tipo_organizzazione = $organizzazione[0]->slug;
+
+
 $load_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 10;
 
 $query = isset($_GET['search']) ? $_GET['search'] : null;
 
 $tax_query = array();
-switch ($post->post_name){
+
+/*
+switch ($tipo_organizzazione){
 	case 'aree-gestionali':
 
         $tax = array (
@@ -49,6 +57,23 @@ switch ($post->post_name){
         $descrizione = 'tutti gli organi di governo e controllo';
         break;
 }
+*/
+$opzione_visualizzazione = dci_get_meta('uo_select', '_dci_page_');
+//var_dump($opzione_visualizzazione);
+
+if($opzione_visualizzazione == 'scegli'){
+
+    //var_dump($tipo_organizzazione);
+
+    $tax = array (
+        'taxonomy' => 'tipi_unita_organizzativa',
+        'field' => 'slug',
+        'terms' => $organizzazione[0]->slug,
+    );
+    array_push($tax_query, $tax);
+}
+$descrizione = 'le unit&agrave; organizzative';
+
 
 $args = array(
 	's'         => $query,

@@ -190,10 +190,13 @@
                 "argomenti"
             ]
         },
-        "page": {
-            "name" : "page",
-            "singular_name" : "Pagina",
-            "plural_name" : "Pagine"
-        }
+      "page": {
+        "name": "page",
+        "singular_name": "Pagina",
+        "plural_name": "Pagine",
+        "taxonomy": [
+          "argomenti"
+        ]
+      }
     }
 }
