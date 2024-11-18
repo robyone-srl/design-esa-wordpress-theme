@@ -72,8 +72,8 @@ function genera_pagine_figlie($slug_pagina)
 
 $contatti_p_cont = dci_get_option("contattaci_contenuto", 'footer');
  
-$tipo_visualizzazione = dci_get_option('contattaci_tipo', 'footer');
-if($tipo_visualizzazione == 'filtro' && $contatti_p_cont){
+$tipo_visualizzazione_servizi = dci_get_option('contattaci_tipo', 'footer');
+if($tipo_visualizzazione_servizi == 'filtro' && $contatti_p_cont){
     get_template_part("template-parts/common/contatti-personalizzati");
 } 
 ?>

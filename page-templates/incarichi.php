@@ -17,7 +17,7 @@ get_header();
 
 			$with_shadow = true;
 			?>
-			<?php get_template_part("template-parts/hero/hero"); ?>
+			<?php get_template_part("template-parts/incarico/hero"); ?>
 			<?php get_template_part("template-parts/incarico/tutti"); ?>
 			<?php get_template_part("template-parts/common/valuta-servizio"); ?>
             <?php 

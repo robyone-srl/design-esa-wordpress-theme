@@ -55,7 +55,7 @@ $servizi_evidenza = dci_get_option('servizi_evidenziati', 'servizi');
                         <?php foreach ($posts as $servizio) {
                             $load_card_type = "servizio";
                             ?>
-                            <div class="col-12 col-lg-6">
+                            <div class="col-12 col-lg-4">
                             <?php
                             get_template_part("template-parts/servizio/card");
                             ?>

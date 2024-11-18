@@ -1,8 +1,8 @@
 <?php
 global $should_have_grey_background;
 
-$tipo_visualizzazione = dci_get_option('categorie_esplora_tipo', 'servizi');
-if($tipo_visualizzazione == 'filtro'){
+$tipo_visualizzazione_servizi = dci_get_option('categorie_esplora_tipo', 'servizi');
+if($tipo_visualizzazione_servizi == 'filtro'){
     $categorie_servizio_ids = dci_get_option('categorie_esplora', 'servizi');
 }else {
 	$categorie_servizio_ids = array_column(get_terms(

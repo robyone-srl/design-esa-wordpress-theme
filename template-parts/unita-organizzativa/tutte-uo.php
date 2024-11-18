@@ -68,7 +68,7 @@ if($opzione_visualizzazione == 'scegli'){
     $tax = array (
         'taxonomy' => 'tipi_unita_organizzativa',
         'field' => 'slug',
-        'terms' => $organizzazione[0]->slug,
+        'terms' => $tipo_organizzazione,
     );
     array_push($tax_query, $tax);
 }

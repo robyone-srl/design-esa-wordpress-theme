@@ -57,7 +57,7 @@ function dci_add_page_metaboxes() {
         /**
          * disabilito editor body e title per le pagine del Sito dei Comuni
          * rendo il campo descrivione_breve readonly
-         
+         */
         if (in_array($template_name, dci_get_pagine_template_names())) {
 
             remove_post_type_support( 'page', 'editor' );
@@ -70,7 +70,7 @@ function dci_add_page_metaboxes() {
                 'readonly' => true
             );
         }
-        */
+        
 
     }
 
@@ -154,6 +154,78 @@ function dci_add_page_metaboxes() {
             'attributes'       => [
                 'required' => 'required',
 			    'data-conditional-id'    => $prefix.'uo_select',
+			    'data-conditional-value' => 'scegli',
+            ]
+        ) );
+    }
+
+    if($template_name == 'persone-incaricate'){
+
+        $cmb_pi = new_cmb2_box( array(
+            'id'           => $prefix . 'box_pi',
+            'title'        => __( 'Persone incaricate', 'design_comuni_italia' ),
+            'object_types' => array( 'page' ),
+            'context'      => 'normal',
+            'priority'     => 'high',
+        ) );
+
+        $cmb_pi->add_field( array(
+            'id'      => $prefix . 'pi_select',
+            'name'    => __( 'Seleziona incarico', 'design_comuni_italia' ),
+            'type'    => 'radio_inline',
+            'options' => array(
+                'tutti'  => 'Tutti gli incarichi',
+                'scegli' => 'Scegli l\'incarico',
+            ),
+            'default' => 'tutti',
+        ) );
+
+        $cmb_pi->add_field( array(
+            'id'               => $prefix . 'pi_tipo',
+            'name'             => __( 'Tipo incarico *', 'design_comuni_italia' ),
+            'type'             => 'taxonomy_radio_hierarchical',
+            'taxonomy'         => 'tipi_incarico',
+            'show_option_none' => false,
+            'remove_default'   => 'true',
+            'attributes'       => [
+                'required' => 'required',
+			    'data-conditional-id'    => $prefix.'pi_select',
+			    'data-conditional-value' => 'scegli',
+            ]
+        ) );
+    }
+
+    if($template_name == 'incarichi'){
+
+        $cmb_i = new_cmb2_box( array(
+            'id'           => $prefix . 'box_i',
+            'title'        => __( 'Persone incaricate', 'design_comuni_italia' ),
+            'object_types' => array( 'page' ),
+            'context'      => 'normal',
+            'priority'     => 'high',
+        ) );
+
+        $cmb_i->add_field( array(
+            'id'      => $prefix . 'i_select',
+            'name'    => __( 'Seleziona incarico', 'design_comuni_italia' ),
+            'type'    => 'radio_inline',
+            'options' => array(
+                'tutti'  => 'Tutti gli incarichi',
+                'scegli' => 'Scegli l\'incarico',
+            ),
+            'default' => 'tutti',
+        ) );
+
+        $cmb_i->add_field( array(
+            'id'               => $prefix . 'i_tipo',
+            'name'             => __( 'Tipo incarico *', 'design_comuni_italia' ),
+            'type'             => 'taxonomy_radio_hierarchical',
+            'taxonomy'         => 'tipi_incarico',
+            'show_option_none' => false,
+            'remove_default'   => 'true',
+            'attributes'       => [
+                'required' => 'required',
+			    'data-conditional-id'    => $prefix.'i_select',
 			    'data-conditional-value' => 'scegli',
             ]
         ) );

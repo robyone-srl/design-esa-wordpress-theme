@@ -17,7 +17,7 @@ get_header();
 
 			$with_shadow = true;
 			?>
-			<?php get_template_part("template-parts/hero/hero"); ?>
+			<?php get_template_part("template-parts/persona_pubblica/hero"); ?>
 			<?php get_template_part("template-parts/persona_pubblica/incaricate"); ?>
 			<?php get_template_part("template-parts/common/valuta-servizio"); ?>
             <?php 

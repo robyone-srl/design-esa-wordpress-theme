@@ -8,7 +8,7 @@
  * @package Design_CDR_Italia
  * Developer : Alessio Lazzaron, Marco Rubin
  */
-global $file_url, $hide_arguments, $luogo, $tipo_visualizzazione;
+global $file_url, $hide_arguments, $luogo, $mostra_dettagli_servizi, $mostra_dettagli_sede;
 
 get_header();
 ?>
@@ -46,7 +46,19 @@ get_header();
             $sede_di = dci_get_meta('sede_di', $prefix, $post->ID);
 
             $servizi = dci_get_meta('servizi_erogati', $prefix, $post->ID) ?: [];
-            $tipo_visualizzazione = dci_get_option('visual_servizi_luogo', 'luoghi');
+            $tipo_visualizzazione_servizi = dci_get_option('visual_servizi_luogo', 'luoghi');
+            if($tipo_visualizzazione_servizi == 'enabled'){
+                $mostra_dettagli_servizi = true;
+            } else {
+                 $mostra_dettagli_servizi = false;
+            }
+            
+            $tipo_visualizzazione_sede = dci_get_meta('view_select', $prefix, $post->ID);
+            if($tipo_visualizzazione_sede == 'enabled'){
+                $mostra_dettagli_sede = true;
+            } else {
+                 $mostra_dettagli_sede = false;
+            }
 
             $nome_alternativo = dci_get_meta('nome_alternativo', $prefix, $post->ID);
 			$more_info = dci_get_wysiwyg_field("ulteriori_informazioni", $prefix, $post->ID);
@@ -255,47 +267,22 @@ get_header();
                             <?php if ($servizi_privati || (is_array($servizi) && count($servizi))) { ?>
                                 <section id="servizi" class="it-page-section mb-4"> <?php 
                                     
-                                    if (!empty($servizi) &&  is_array($servizi) && count($servizi)) { 
-                                        
-                                        if($tipo_visualizzazione == 'enabled'){ ?>
-                                            <h2 class="h3 my-2">Servizi presenti nel luogo</h2>
-                                            <div class="row g-2"> <?php 
-                                                foreach ($servizi as $servizio_id) { ?>
-                                                    <div class="col-lg-4 col-md-12">
-                                                        <?php
-                                                        $servizio = get_post($servizio_id);
-                                                        $with_map = false;
-                                                        get_template_part("template-parts/servizio/card");?>
-                                                    </div> <?php 
-                                                } ?>
-                                            </div> <?php
-                                        }
-                                        if($tipo_visualizzazione == 'disabled'){ ?>
-                                            <h2 class="h3 my-2">Servizi presenti nel luogo</h2>
-                                            <div class="row g-2"> <?php 
-                                                foreach ($servizi as $servizio_id) { ?>
-                                                    <div class="col-lg-4 col-md-12">
-                                                        <?php
-                                                        $servizio = get_post($servizio_id);
-                                                        $with_map = false;
-                                                        get_template_part("template-parts/servizio/card");?>
-                                                    </div> <?php 
-                                                } ?>
-                                            </div> <?php
-                                        }
-                                        if($tipo_visualizzazione == 'custom'){ ?>
-                                            <h2 class="h3 my-2">Servizi presenti nel luogo</h2>
-                                            <div class="row g-2"> <?php 
-                                                foreach ($servizi as $servizio_id) { ?>
-                                                    <div class="col-lg-4 col-md-12">
-                                                        <?php
-                                                        $servizio = get_post($servizio_id);
-                                                        $with_map = false;
+                                    if (!empty($servizi) &&  is_array($servizi) && count($servizi)) {  ?>
+                                        <h2 class="h3 my-2">Servizi presenti nel luogo</h2>
+                                        <div class="row g-2"> <?php 
+                                            foreach ($servizi as $servizio_id) { ?>
+                                                <div class="col-lg-4 col-md-12">
+                                                    <?php
+                                                    $servizio = get_post($servizio_id);
+                                                    $with_map = false;
+                                                    if($tipo_visualizzazione_servizi == 'enabled' || $tipo_visualizzazione_servizi == 'disabled'){
+                                                        get_template_part("template-parts/servizio/card");
+                                                    } else
                                                         get_template_part("template-parts/servizio/card-con-icona");?>
-                                                    </div> <?php 
-                                                } ?>
-                                            </div> <?php
-                                        }
+                                                </div> <?php 
+                                            } ?>
+                                        </div> <?php
+                                        
 							        }
 
                                     if ($servizi_privati) { 
@@ -355,9 +342,6 @@ get_header();
                                             } ?>
                                     </div>
 							        <?php } ?>
-
-                                   
-
                                 </section>
                             <?php } ?>
 

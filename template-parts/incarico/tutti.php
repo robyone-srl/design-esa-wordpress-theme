@@ -1,6 +1,14 @@
 <?php
 global $the_query, $load_posts, $load_card_type, $tax_query;
 
+$post_id = get_the_ID();
+$incarico = get_the_terms($post_id, 'tipi_incarico');
+
+$tipo_incarico = $incarico[0]->slug;
+
+$query = isset($_GET['search']) ? $_GET['search'] : null;
+
+/*
 switch ($post->post_name){
 	case 'politici': $tipo_incarico = 'politico'; $descrizione = 'degli incarichi'; $load_posts = 9; break;
 	case 'personale-amministrativo': $tipo_incarico = 'amministrativo'; $descrizione = 'degli incarichi'; $load_posts = 9; break;
@@ -10,8 +18,7 @@ switch ($post->post_name){
     default:
     $tipo_incarico = ''; $descrizione = 'di tutti gli incarichi'; $load_posts = 9; break;
 }
-
-$query = isset($_GET['search']) ? $_GET['search'] : null;
+*/
 
 $args = array(
 	's'         => $query,
@@ -22,16 +29,18 @@ $args = array(
 	'order'          => 'ASC',
 );
 
-if($tipo_incarico!="") {
+$opzione_visualizzazione = dci_get_meta('i_select', '_dci_page_');
+
+if($opzione_visualizzazione == 'scegli'){
     $tax_query = array(
         array (
             'taxonomy' => 'tipi_incarico',
             'field' => 'slug',
             'terms' => $tipo_incarico
         ));
-    
-    $args['tax_query'] = $tax_query;
-} 
+    $args['tax_query'] = $tax_query; 
+}
+$descrizione = 'degli incarichi';
 
 $the_query = new WP_Query( $args );
 $incarichi = $the_query->posts;

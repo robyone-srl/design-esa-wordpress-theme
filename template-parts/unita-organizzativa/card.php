@@ -1,5 +1,5 @@
 <?php
-    global $uo_id, $with_border;
+    global $uo_id, $with_border, $mostra_dettagli_sede;
     $ufficio = get_post( $uo_id );
 
     $prefix = '_dci_unita_organizzativa_';
@@ -17,7 +17,7 @@
             <?php echo $ufficio->post_title; ?>
             </a>
         </h4>
-	   <?php if ($descrizione_breve) {
+	   <?php if ($descrizione_breve && $mostra_dettagli_sede) {
 		        echo '<div class="card-text"><p class="u-main-black">'.$descrizione_breve.'</p></div>';
 	   } ?>
     </div>
@@ -37,7 +37,7 @@
             <?php echo $ufficio->post_title; ?>
             </a>
         </h4>
-	   <?php if ($descrizione_breve) {
+	   <?php if ($descrizione_breve && $mostra_dettagli_sede) {
 		        echo '<div class="card-text"><p class="u-main-black">'.$descrizione_breve.'</p></div>';
 	   } ?>
     </div>
