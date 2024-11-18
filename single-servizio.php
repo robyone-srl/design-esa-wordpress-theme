@@ -321,7 +321,7 @@ get_header();
 
                                  
                             <?php if (!empty($copertura_geografica)) { ?>
-                                <h3 class="h4 title mb-3">Copertura geografica</h3>
+                                <h3 class="h4 title mb-3">Il servizio viene erogato nei seguenti luoghi.</h3>
                                         
                                 <div class="richtext-wrapper lora"><?php echo $copertura_geografica ?></div>
                             <?php } ?>
@@ -358,7 +358,7 @@ get_header();
 											        <?php foreach ($posts as $servizio) { ?>
 												        <div class="col-lg-6 col-md-12">
                                                             <?php if($stileInclusi == 'estesa' || $stileInclusi == 'titolo') {
-                                                                    $mostra_dettagli = $stileInclusi == 'estesa';
+                                                                    $mostra_dettagli_servizi = $stileInclusi == 'estesa';
                                                                     get_template_part("template-parts/servizio/card");
                                                             } else get_template_part("template-parts/servizio/card-con-icona"); ?>
 												        </div>
@@ -424,7 +424,7 @@ get_header();
 											    <?php foreach ($posts as $servizio) { ?>
 												    <div class="col-lg-6 col-md-12">
                                                         <?php if($stileNecessari == 'estesa' || $stileNecessari == 'titolo') {
-                                                                $mostra_dettagli = $stileNecessari == 'estesa';
+                                                                $mostra_dettagli_servizi = $stileNecessari == 'estesa';
                                                                 get_template_part("template-parts/servizio/card");
                                                               } else get_template_part("template-parts/servizio/card-con-icona"); ?>
 												    </div>
