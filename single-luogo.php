@@ -53,7 +53,7 @@ get_header();
                  $mostra_dettagli_servizi = false;
             }
             
-            $tipo_visualizzazione_sede = dci_get_meta('view_select', $prefix, $post->ID);
+            $tipo_visualizzazione_sede = dci_get_option('view_select', 'luoghi');
             if($tipo_visualizzazione_sede == 'enabled'){
                 $mostra_dettagli_sede = true;
             } else {

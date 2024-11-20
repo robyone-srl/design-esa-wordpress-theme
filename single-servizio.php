@@ -259,7 +259,7 @@ get_header();
                                                             <?php } ?>
                                                             <?php if (!empty($documenti_ids)) { ?>
                                                                 <li class="nav-item">
-                                                                    <a class="nav-link" href="#costs">
+                                                                    <a class="nav-link" href="#docs">
                                                                         <span>Documenti correlati</span>
                                                                     </a>
                                                                 </li>
@@ -314,7 +314,7 @@ get_header();
                 </div>
                 <div class="col-12 col-lg-9">
                     <div class="it-page-sections-container">
-                        <?php if ($descrizione) { ?>
+                        <?php if ($descrizione || dci_get_meta("servizi_inclusi")) { ?>
                             <section class="it-page-section mb-30">
                                 <h2 class="h3 mb-3" id="description">Cos'&egrave;</h2>
                                 <div class="richtext-wrapper lora" data-element="service-extended-description"><?php echo $descrizione ?></div>
@@ -592,7 +592,7 @@ get_header();
 
                         <?php if (!empty($documenti_ids)) { ?>
                             <section class="it-page-section mb-30">
-                                <h2 class="h3 mb-3" id="costs">Documenti correlati</h2>
+                                <h2 class="h3 mb-3" id="docs">Documenti correlati</h2>
                                 <div class="richtext-wrapper lora" data-element="service-document">
                                     <div class="row">
                                         <?php

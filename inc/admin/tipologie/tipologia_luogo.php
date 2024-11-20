@@ -430,17 +430,6 @@ function dci_add_luogo_metaboxes() {
     ) );
 
     $cmb_informazioni->add_field( array(
-        'id'      => $prefix . 'view_select',
-        'name'    => __( 'Modalità visualizzazione', 'design_comuni_italia' ),
-        'type' => 'radio_inline',
-        'default' => 'enabled',
-        'options' => array(
-            'enabled' => 'Testo completo',
-			'disabled' => 'Semplice',
-            ),
-        ) );
-
-    $cmb_informazioni->add_field( array(
         'id'         => $prefix . 'ulteriori_informazioni',
         'name'       => __( 'Ulteriori informazioni', 'design_comuni_italia' ),
         'desc'       => __( 'Ulteriori informazioni sul Luogo, FAQ ed eventuali riferimenti normativi', 'design_comuni_italia' ),

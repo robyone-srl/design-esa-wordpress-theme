@@ -61,8 +61,8 @@ function dci_register_pagina_servizi_options(){
     ) );
 
     $servizi_options->add_field(array(
-        'name' => __('Stile dei servizi necessari', 'design_comuni_italia'),
-        'id' => $prefix . 'visual_servizi_necessari',
+        'name' => __('Stile dei servizi inclusi', 'design_comuni_italia'),
+        'id' => $prefix . 'visual_servizi_inclusi',
         'type' => 'radio_inline',
         'default' => 'minimale',
         'options' => array(
@@ -74,8 +74,8 @@ function dci_register_pagina_servizi_options(){
     ));
 
     $servizi_options->add_field(array(
-        'name' => __('Stile dei servizi inclusi', 'design_comuni_italia'),
-        'id' => $prefix . 'visual_servizi_inclusi',
+        'name' => __('Stile dei servizi necessari', 'design_comuni_italia'),
+        'id' => $prefix . 'visual_servizi_necessari',
         'type' => 'radio_inline',
         'default' => 'minimale',
         'options' => array(

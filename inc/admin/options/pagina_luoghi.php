@@ -81,4 +81,22 @@ function dci_register_pagina_luoghi_options(){
             'custom' => 'Icona',
         ),
     ));
+
+    $luoghi_options->add_field( array(
+        'id' => $prefix . 'uo_luoghi_tipo',
+        'name'        => __( 'Unit&agrave; organizzative nei luoghi', 'design_comuni_italia' ),
+        'desc' => __( 'Configurazione delle unit&agrave; organizzative nella pagina luoghi' , 'design_comuni_italia' ),
+        'type' => 'title',
+    ) );
+
+    $luoghi_options->add_field( array(
+        'id'      => $prefix . 'view_select',
+        'name'    => __( 'Modalit&agrave; visualizzazione', 'design_comuni_italia' ),
+        'type' => 'radio_inline',
+        'default' => 'enabled',
+        'options' => array(
+            'enabled' => 'Testo completo',
+			'disabled' => 'Semplice',
+        ),
+    ) );
 }
