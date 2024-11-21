@@ -6,6 +6,7 @@ $organizzazione = get_the_terms($post_id, 'tipi_unita_organizzativa');
 
 $tipo_organizzazione = $organizzazione[0]->slug;
 
+$opzione_visualizzazione = dci_get_meta('uo_select', '_dci_page_');
 
 $load_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 10;
 
@@ -13,52 +14,52 @@ $query = isset($_GET['search']) ? $_GET['search'] : null;
 
 $tax_query = array();
 
-/*
-switch ($tipo_organizzazione){
-	case 'aree-gestionali':
+if($opzione_visualizzazione == null){
+    switch ($post->post_name){
+	    case 'aree-gestionali':
 
-        $tax = array (
-            'taxonomy' => 'tipi_unita_organizzativa',
-            'field' => 'slug',
-            'terms' => 'ufficio',
-            'operator' => 'NOT IN',
-        );
-        array_push($tax_query, $tax);
+            $tax = array (
+                'taxonomy' => 'tipi_unita_organizzativa',
+                'field' => 'slug',
+                'terms' => 'ufficio',
+                'operator' => 'NOT IN',
+            );
+            array_push($tax_query, $tax);
 
-        $tax = array (
-		    'taxonomy' => 'tipi_unita_organizzativa',
-		    'field' => 'slug',
-		    'terms' => 'struttura-amministrativa',
-	    );
-        array_push($tax_query, $tax);
+            $tax = array (
+		        'taxonomy' => 'tipi_unita_organizzativa',
+		        'field' => 'slug',
+		        'terms' => 'struttura-amministrativa',
+	        );
+            array_push($tax_query, $tax);
 
-        $descrizione = 'tutte le aree gestionali';
-        break;
+            $descrizione = 'tutte le aree gestionali';
+            break;
 
-	case 'uffici':
+	    case 'uffici':
 
-        $tax = array (
-		    'taxonomy' => 'tipi_unita_organizzativa',
-		    'field' => 'slug',
-		    'terms' => 'ufficio',
-	    );
-        array_push($tax_query, $tax);
+            $tax = array (
+		        'taxonomy' => 'tipi_unita_organizzativa',
+		        'field' => 'slug',
+		        'terms' => 'ufficio',
+	        );
+            array_push($tax_query, $tax);
 
-        $descrizione = 'tutti gli uffici';
-        break;
+            $descrizione = 'tutti gli uffici';
+            break;
 
-    case 'organi-di-governo-e-controllo':
-        $tax = array (
-            'taxonomy' => 'tipi_unita_organizzativa',
-            'field' => 'slug',
-            'terms' => ' struttura-di-governo-e-controllo',
-        );
-        array_push($tax_query, $tax);
-        $descrizione = 'tutti gli organi di governo e controllo';
-        break;
+        case 'organi-di-governo-e-controllo':
+            $tax = array (
+                'taxonomy' => 'tipi_unita_organizzativa',
+                'field' => 'slug',
+                'terms' => ' struttura-di-governo-e-controllo',
+            );
+            array_push($tax_query, $tax);
+            $descrizione = 'tutti gli organi di governo e controllo';
+            break;
+    }
 }
-*/
-$opzione_visualizzazione = dci_get_meta('uo_select', '_dci_page_');
+
 //var_dump($opzione_visualizzazione);
 
 if($opzione_visualizzazione == 'scegli'){
@@ -71,8 +72,11 @@ if($opzione_visualizzazione == 'scegli'){
         'terms' => $tipo_organizzazione,
     );
     array_push($tax_query, $tax);
+    $descrizione = 'le unit&agrave; organizzative';
+}else if($opzione_visualizzazione == 'tutti'){
+    $descrizione = 'le unit&agrave; organizzative';
 }
-$descrizione = 'le unit&agrave; organizzative';
+
 
 
 $args = array(

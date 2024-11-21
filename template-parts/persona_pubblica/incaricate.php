@@ -4,33 +4,44 @@ global $the_query, $load_posts, $load_card_type, $tax_query, $additional_filter,
 $post_id = get_the_ID();
 $incarico = get_the_terms($post_id, 'tipi_incarico');
 
-$tipo_incarico = $incarico[0]->slug;
+$tipologia_incarico = $incarico[0]->slug;
 //var_dump($tipo_incarico);
 
-$search_value = isset($_GET['search']) ? $_GET['search'] : null;
+$opzione_visualizzazione = dci_get_meta('pi_select', '_dci_page_');
 
 $query = $_GET['search'] ?? null;
 
-/*
-switch ($post->post_name){
-	case 'politici': $tipo_incarico = 'politico'; $descrizione = 'del personale'; break;
-	case 'personale-amministrativo': $tipo_incarico = 'amministrativo'; $descrizione = 'del personale'; break;
-	case 'personale-sanitario': $tipo_incarico = 'sanitario'; $descrizione = 'del personale'; break;
-	case 'personale-socio-assistenziale': $tipo_incarico = 'socio-assistenziale'; $descrizione = 'del personale'; break;
-	case 'altro': $tipo_incarico = 'altro'; $descrizione = 'del personale'; break;
+if($opzione_visualizzazione == null){
+    switch ($post->post_name){
+	    case 'politici': $tipo_incarico = 'politico'; $descrizione = 'del personale'; break;
+	    case 'personale-amministrativo': $tipo_incarico = 'amministrativo'; $descrizione = 'del personale'; break;
+	    case 'personale-sanitario': $tipo_incarico = 'sanitario'; $descrizione = 'del personale'; break;
+	    case 'personale-socio-assistenziale': $tipo_incarico = 'socio-assistenziale'; $descrizione = 'del personale'; break;
+	    case 'altro': $tipo_incarico = 'altro'; $descrizione = 'del personale'; break;
+    }
 }
-*/
-$opzione_visualizzazione = dci_get_meta('pi_select', '_dci_page_');
 
 if($opzione_visualizzazione == 'scegli'){
     $tax_query = array(
 	    array (
 		    'taxonomy' => 'tipi_incarico',
 		    'field' => 'slug',
-		    'terms' => $tipo_incarico
-	    ));
-}
+		    'terms' => $tipologia_incarico
+	    )
+    );
     $descrizione = 'gli incarichi';
+} else if ($opzione_visualizzazione == 'tutti'){
+    $descrizione = 'gli incarichi';
+}
+
+if($opzione_visualizzazione == null){
+    $tax_query = array(
+	array (
+		'taxonomy' => 'tipi_incarico',
+		'field' => 'slug',
+		'terms' => $tipo_incarico
+	));
+}
 
 $args_incarichi = array(
 	'post_type' => 'incarico',
@@ -50,7 +61,7 @@ foreach($incarichi as $incarico) {
 
 $filter_ids = array_unique($persone_ids);
 
-
+$search_value = isset($_GET['search']) ? $_GET['search'] : null;
 $args = array(
 	's'         => $search_value,
 	'posts_per_page'    => -1,

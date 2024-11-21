@@ -46,6 +46,7 @@ get_header();
             $sede_di = dci_get_meta('sede_di', $prefix, $post->ID);
 
             $servizi = dci_get_meta('servizi_erogati', $prefix, $post->ID) ?: [];
+
             $tipo_visualizzazione_servizi = dci_get_option('visual_servizi_luogo', 'luoghi');
             if($tipo_visualizzazione_servizi == 'enabled'){
                 $mostra_dettagli_servizi = true;
@@ -54,7 +55,7 @@ get_header();
             }
             
             $tipo_visualizzazione_sede = dci_get_option('view_select', 'luoghi');
-            if($tipo_visualizzazione_sede == 'enabled'){
+            if($tipo_visualizzazione_sede == 'enabled' || $tipo_visualizzazione_sede == null){
                 $mostra_dettagli_sede = true;
             } else {
                  $mostra_dettagli_sede = false;

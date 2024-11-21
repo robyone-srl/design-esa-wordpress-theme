@@ -78,7 +78,7 @@ function get_section($name)
             get_template_part("template-parts/common/valuta-servizio");
             break;
         case 'assistenza-contatti':
-            if($visualizza_contatto == 'visible')
+            if($visualizza_contatto == 'visible' || $visualizza_contatto == null)
                 get_template_part("template-parts/common/assistenza-contatti");
             break; 
         default:
