@@ -4,6 +4,8 @@ global $servizio, $hide_categories, $mostra_dettagli_servizi;
 $prefix = '_dci_servizio_';
 $categorie = get_the_terms($servizio->ID, 'categorie_servizio');
 $descrizione_breve = dci_get_meta('descrizione_breve', $prefix, $servizio->ID);
+if($mostra_dettagli_servizi == null)
+    $mostra_dettagli_servizi = true;
 
 if($servizio->post_status == "publish") {
     ?>
