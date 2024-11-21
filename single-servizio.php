@@ -321,7 +321,7 @@ get_header();
 
                                  
                             <?php if (!empty($copertura_geografica)) { ?>
-                                <h3 class="h4 title mb-3">Il servizio viene erogato nei seguenti luoghi.</h3>
+                                <h3 class="h4 title mb-3">Territorio di riferimento</h3>
                                         
                                 <div class="richtext-wrapper lora"><?php echo $copertura_geografica ?></div>
                             <?php } ?>
