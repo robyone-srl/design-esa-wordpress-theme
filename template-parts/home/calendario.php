@@ -76,26 +76,21 @@ $url_eventi = dci_get_template_page_url("page-templates/eventi.php");
 						</div>
 					</div>
 				<?php } else { ?>
-					<div class="it-carousel-wrapper it-carousel-landscape-abstract-four-cols it-calendar-wrapper">
-						<div class="it-header-block">
-							<div class="it-header-block-title">
-								<h3 class="mb-0 text-center home-carousel-title"><?php echo $full_date; ?></h3>
-							</div>
-						</div>
-					</div>
-					<div class="mt-4"> Nessun evento in programma. </div>
+					
+					<div class="h4 mt-4"> Nessun evento in programma. </div>
 				<?php } ?>
 			</div>
-			
-			<div class="d-flex justify-content-end">
+			<?php 
+			if($post->post_name != 'comitato-ospiti'){ ?>
+				<div class="d-flex justify-content-end">
 
-				<a href="<?= $url_eventi ?>" class="btn btn-outline-primary full-mb" aria-label="aria-label" data-element="live-button-events">
-					Mostra tutti gli eventi
-					<svg class="icon icon-primary icon-xs ml-10">
-						<use href="#it-arrow-right"></use>
-					</svg>
-				</a>
-
-			</div>
+					<a href="<?= $url_eventi ?>" class="btn btn-outline-primary full-mb" aria-label="aria-label" data-element="live-button-events">
+						Mostra tutti gli eventi
+						<svg class="icon icon-primary icon-xs ml-10">
+							<use href="#it-arrow-right"></use>
+						</svg>
+					</a>
+				</div>
+			<?php } ?>
 		</div>
 	</div>
