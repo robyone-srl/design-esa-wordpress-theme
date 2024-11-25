@@ -80,8 +80,6 @@ $url_eventi = dci_get_template_page_url("page-templates/eventi.php");
 					<div class="h4 mt-4"> Nessun evento in programma. </div>
 				<?php } ?>
 			</div>
-			<?php 
-			if($post->post_name != 'comitato-ospiti'){ ?>
 				<div class="d-flex justify-content-end">
 
 					<a href="<?= $url_eventi ?>" class="btn btn-outline-primary full-mb" aria-label="aria-label" data-element="live-button-events">
@@ -91,6 +89,5 @@ $url_eventi = dci_get_template_page_url("page-templates/eventi.php");
 						</svg>
 					</a>
 				</div>
-			<?php } ?>
 		</div>
 	</div>

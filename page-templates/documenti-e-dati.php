@@ -26,6 +26,8 @@ get_header();
 				$with_shadow = true;
 				get_template_part("template-parts/hero/hero"); 
 			?>
+			
+			<?php get_template_part('template-parts/single/image-large'); ?>
 			<?php get_template_part("template-parts/documento/evidenza"); ?>
 			<?php get_template_part("template-parts/documento/tutti-documenti"); ?>
 			<?php get_template_part("template-parts/documento/categorie"); ?>

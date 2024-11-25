@@ -18,6 +18,7 @@ get_header();
 			$with_shadow = true;
 			?>
 			<?php get_template_part("template-parts/hero/hero"); ?>
+			<?php get_template_part('template-parts/single/image-large'); ?>
 			<?php get_template_part("template-parts/novita/evidenza"); ?>
 			<?php get_template_part("template-parts/novita/tutte-novita"); ?>
 			<?php get_template_part("template-parts/novita/argomenti"); ?>

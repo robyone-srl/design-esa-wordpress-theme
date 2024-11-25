@@ -25,6 +25,7 @@ $description = dci_get_meta('descrizione','_dci_page_',$post->ID);
 get_header();
 ?>
    <main>
+
         <div class="container" id="main-container">
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-10">
@@ -32,6 +33,7 @@ get_header();
                 </div>
             </div>
         </div>
+
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-10">
@@ -41,9 +43,7 @@ get_header();
                                 <h1 class="text-black hero-title" data-element="page-name">
                                     Domande frequenti
                                 </h1>
-                                <p class="titillium hero-text">
                                     <?php echo $description; ?>
-                                </p>
                             </div>
                         </section>
                     </div>

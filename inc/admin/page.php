@@ -52,12 +52,12 @@ function dci_add_page_metaboxes() {
         // Get the name of the Page Template file.
         $template_file = get_post_meta( $curr_page_id, '_wp_page_template', true );
         $template_name = basename($template_file, ".php");
-
+        
 
         /**
          * disabilito editor body e title per le pagine del Sito dei Comuni
          * rendo il campo descrivione_breve readonly
-         */
+         
         if (in_array($template_name, dci_get_pagine_template_names())) {
 
             remove_post_type_support( 'page', 'editor' );
@@ -70,6 +70,7 @@ function dci_add_page_metaboxes() {
                 'readonly' => true
             );
         }
+        */
         
 
     }
@@ -127,7 +128,7 @@ function dci_add_page_metaboxes() {
 
         $cmb_uo = new_cmb2_box( array(
             'id'           => $prefix . 'box_uo',
-            'title'        => __( 'Unità organizzativa', 'design_comuni_italia' ),
+            'title'        => __( 'Filtra in base al tipo di unità organizzativa', 'design_comuni_italia' ),
             'object_types' => array( 'page' ),
             'context'      => 'normal',
             'priority'     => 'high',
@@ -135,11 +136,11 @@ function dci_add_page_metaboxes() {
 
         $cmb_uo->add_field( array(
             'id'      => $prefix . 'uo_select',
-            'name'    => __( 'Selezione tipo uità organizzativa', 'design_comuni_italia' ),
+            'name'    => __( 'Scegli cosa mostrare', 'design_comuni_italia' ),
             'type'    => 'radio_inline',
             'options' => array(
-                'tutti'  => 'Tutte le unità organizzative',
-                'scegli' => 'Scegli l\'unità organizzativa',
+                'tutti'  => 'Tutti i tipi di unità organizzativa',
+                'scegli' => 'Scegli il tipo di unità organizzativa',
             ),
             'default' => 'tutti',
         ) );
@@ -152,85 +153,80 @@ function dci_add_page_metaboxes() {
             'show_option_none' => false,
             'remove_default'   => 'true',
             'attributes'       => [
-                'required' => 'required',
 			    'data-conditional-id'    => $prefix.'uo_select',
 			    'data-conditional-value' => 'scegli',
             ]
         ) );
     }
 
-    if($template_name == 'persone-incaricate'){
 
-        $cmb_pi = new_cmb2_box( array(
-            'id'           => $prefix . 'box_pi',
-            'title'        => __( 'Persone incaricate', 'design_comuni_italia' ),
-            'object_types' => array( 'page' ),
-            'context'      => 'normal',
-            'priority'     => 'high',
-        ) );
-
-        $cmb_pi->add_field( array(
-            'id'      => $prefix . 'pi_select',
-            'name'    => __( 'Seleziona incarico', 'design_comuni_italia' ),
-            'type'    => 'radio_inline',
-            'options' => array(
-                'tutti'  => 'Tutti gli incarichi',
-                'scegli' => 'Scegli l\'incarico',
-            ),
-            'default' => 'tutti',
-        ) );
-
-        $cmb_pi->add_field( array(
-            'id'               => $prefix . 'pi_tipo',
-            'name'             => __( 'Tipo incarico *', 'design_comuni_italia' ),
-            'type'             => 'taxonomy_radio_hierarchical',
-            'taxonomy'         => 'tipi_incarico',
-            'show_option_none' => false,
-            'remove_default'   => 'true',
-            'attributes'       => [
-                'required' => 'required',
-			    'data-conditional-id'    => $prefix.'pi_select',
-			    'data-conditional-value' => 'scegli',
-            ]
-        ) );
-    }
-
-    if($template_name == 'incarichi'){
+    if($template_name == 'incarichi' || $template_name == 'persone-incaricate'){
 
         $cmb_i = new_cmb2_box( array(
-            'id'           => $prefix . 'box_i',
-            'title'        => __( 'Persone incaricate', 'design_comuni_italia' ),
+            'id'           => $prefix . 'box_tipo_incarico',
+            'title'        => __( 'Filtra in base al tipo di incarico', 'design_comuni_italia' ),
             'object_types' => array( 'page' ),
             'context'      => 'normal',
             'priority'     => 'high',
         ) );
 
         $cmb_i->add_field( array(
-            'id'      => $prefix . 'i_select',
-            'name'    => __( 'Seleziona incarico', 'design_comuni_italia' ),
+            'id'      => $prefix . 'filtro_tipo_incarico_select',
+            'name'    => __( 'Scegli cosa mostrare', 'design_comuni_italia' ),
             'type'    => 'radio_inline',
             'options' => array(
-                'tutti'  => 'Tutti gli incarichi',
-                'scegli' => 'Scegli l\'incarico',
+                'tutti'  => 'Mostra tutti i tipi di incarico',
+                'scegli' => 'Scegli il tipo di incarico',
             ),
             'default' => 'tutti',
         ) );
 
         $cmb_i->add_field( array(
-            'id'               => $prefix . 'i_tipo',
+            'id'               => $prefix . 'tipo_incarico',
             'name'             => __( 'Tipo incarico *', 'design_comuni_italia' ),
             'type'             => 'taxonomy_radio_hierarchical',
             'taxonomy'         => 'tipi_incarico',
             'show_option_none' => false,
             'remove_default'   => 'true',
             'attributes'       => [
-                'required' => 'required',
-			    'data-conditional-id'    => $prefix.'i_select',
+			    'data-conditional-id'    => $prefix.'filtro_tipo_incarico_select',
 			    'data-conditional-value' => 'scegli',
             ]
         ) );
     }
+    if($template_name == 'default'){
 
+        //CONTATTI
+        $cmb_contatti = new_cmb2_box( array(
+            'id'           => $prefix . 'box_contatti',
+            'title'        => __( 'Contatti', 'design_comuni_italia' ),
+            'object_types' => array( 'page' ),
+            'context'      => 'normal',
+            'priority'     => 'high',
+        ) );
+
+        $cmb_contatti->add_field( array(
+            'id' => $prefix . 'unita_responsabile',
+            'name'    => __( 'Unità Organizzativa responsabile', 'design_comuni_italia' ),
+            'desc' => __( 'Link dell\'ufficio resposanbile dell\'erogazione di questo Servizio' , 'design_comuni_italia' ),
+            'type'    => 'pw_select',
+            'options' => dci_get_posts_options('unita_organizzativa'),
+            'attributes' => array(
+                'placeholder' =>  __( 'Seleziona le Unità Organizzative', 'design_comuni_italia' ),
+            )
+        ) );
+
+        $cmb_contatti->add_field( array(
+            'id' => $prefix . 'punti_contatto',
+            'name'        => __( 'Contatti dedicati', 'design_comuni_italia' ),
+            'desc' => __( 'Telefono, mail o altri punti di contatto che sono specifici di questo servizio, diversi da quello dell\'ufficio indicato sopra<br><a href="post-new.php?post_type=punto_contatto">Inserisci Punto di Contatto</a>' , 'design_comuni_italia' ),
+            'type'    => 'pw_multiselect',
+            'options' => dci_get_posts_options('punto_contatto'),
+            'attributes'    => array(
+                'placeholder' =>  __( 'Seleziona i Punti di Contatto', 'design_comuni_italia' ),
+            ),
+        ) );
+    }
 }
 
 /**
@@ -238,7 +234,7 @@ function dci_add_page_metaboxes() {
  * @param $actions
  * @param $post
  * @return mixed
- */
+
 function dci_page_row_actions( $actions, $post ) {
 
     //se la pagina ha slug tra le pagine create all'attivazione del tema
@@ -249,4 +245,5 @@ function dci_page_row_actions( $actions, $post ) {
     }
     return $actions;
 }
-add_filter( 'page_row_actions', 'dci_page_row_actions', 10, 2 );
+add_filter( 'page_row_actions', 'dci_page_row_actions', 10, 2 ); 
+*/

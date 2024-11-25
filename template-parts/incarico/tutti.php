@@ -6,7 +6,7 @@ $incarico = get_the_terms($post_id, 'tipi_incarico');
 
 $tipologia_incarico = $incarico[0]->slug;
 
-$opzione_visualizzazione = dci_get_meta('i_select', '_dci_page_');
+$opzione_visualizzazione = dci_get_meta('filtro_tipo_incarico_select', '_dci_page_');
 
 if($opzione_visualizzazione == null){
     switch ($post->post_name){

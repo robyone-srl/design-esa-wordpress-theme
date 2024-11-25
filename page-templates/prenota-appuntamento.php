@@ -45,6 +45,7 @@ get_header();
                         </div>
                     </div>
                 </div>
+                <?php get_template_part('template-parts/single/image-large'); ?>
                 <?php get_template_part("template-parts/prenotazione/tabs"); ?>
                 <div class="container">
                     <div class="row">

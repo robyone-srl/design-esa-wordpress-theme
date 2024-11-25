@@ -55,6 +55,8 @@ get_header();
                 </div>
             </div>
         </div>
+        
+		<?php get_template_part('template-parts/single/image-large'); ?>
         <div class="container container-assistenza">
             <div class="row mt-lg-50">
                 <div class="col-12 col-lg-3 d-lg-block mb-4 d-none">

@@ -7,7 +7,7 @@ $incarico = get_the_terms($post_id, 'tipi_incarico');
 $tipologia_incarico = $incarico[0]->slug;
 //var_dump($tipo_incarico);
 
-$opzione_visualizzazione = dci_get_meta('pi_select', '_dci_page_');
+$opzione_visualizzazione = dci_get_meta('filtro_tipo_incarico_select', '_dci_page_');
 
 $query = $_GET['search'] ?? null;
 

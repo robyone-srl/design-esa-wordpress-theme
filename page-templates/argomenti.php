@@ -20,6 +20,7 @@ get_header();
 				$with_shadow = true; 
 				get_template_part("template-parts/hero/hero"); 
 			?>
+			<?php get_template_part('template-parts/single/image-large'); ?>
 			<?php get_template_part("template-parts/argomento/evidenza"); ?>			
 			<?php get_template_part("template-parts/argomento/argomenti"); ?>	
 			<?php get_template_part("template-parts/common/valuta-servizio"); ?>	

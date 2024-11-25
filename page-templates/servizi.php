@@ -34,7 +34,7 @@ function close_alternate_div_background()
 			the_post();
 		
 			get_template_part("template-parts/hero/hero");
-			
+			get_template_part('template-parts/single/image-large');
 			$should_have_grey_background = true;
 			get_template_part("template-parts/servizio/servizi-in-evidenza");
 			get_template_part("template-parts/servizio/banner-secondario");
