@@ -19,9 +19,10 @@ get_header();
 
 		
 		foreach ( $container_posts as $container_post ) {
-			$with_shadow = true;
+			$with_shadow = false;
 			?>
 			<?php get_template_part("template-parts/unita-organizzativa/hero"); ?>
+			<?php get_template_part("template-parts/common/content"); ?>
 			<?php get_template_part('template-parts/single/image-large'); ?>
 			<?php get_template_part("template-parts/unita-organizzativa/tutte-uo"); ?>
 			<?php get_template_part("template-parts/common/valuta-servizio"); ?>

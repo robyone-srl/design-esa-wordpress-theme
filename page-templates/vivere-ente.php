@@ -20,6 +20,7 @@ get_header();
 			$didascalia = dci_get_option('didascalia', 'vivi');
 			?>
 			<?php get_template_part("template-parts/hero/hero"); ?>
+			<?php get_template_part("template-parts/common/content"); ?>
 			<section class="hero-img mb-20 mb-lg-50">
 				<section class="it-hero-wrapper it-hero-small-size cmp-hero-img-small">
 					<div class="img-responsive-wrapper">

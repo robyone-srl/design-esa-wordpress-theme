@@ -55,6 +55,8 @@ get_header();
         //servizi
         $stileNecessari = dci_get_option('visual_servizi_necessari','servizi');
         $stileInclusi = dci_get_option('visual_servizi_inclusi','servizi');
+        $servizi_richiesti_id = dci_get_meta("servizi_richiesti");
+        $servizi_inclusi_id = dci_get_meta("servizi_inclusi");
 
         // valori per metatag
         $categorie = get_the_terms($post, 'categorie_servizio');
@@ -215,7 +217,7 @@ get_header();
                                                                     </a>
                                                                 </li>
                                                             <?php } ?>
-                                                            <?php if ($destinatari) { ?>
+                                                            <?php if ($destinatari || $servizi_richiesti_id) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#who-needs">
                                                                         <span>A chi è rivolto</span>
@@ -327,7 +329,6 @@ get_header();
                             <?php } ?>
 
                             <?php
-                            $servizi_inclusi_id = dci_get_meta("servizi_inclusi");
                             if (!empty($servizi_inclusi_id)) {
                                 $servizi_inclusi_id = array_map('intval', $servizi_inclusi_id);
 
@@ -396,7 +397,6 @@ get_header();
                             <div  data-element="service-addressed">
                             
                                 <?php
-                                $servizi_richiesti_id = dci_get_meta("servizi_richiesti");
                                 if (!empty($servizi_richiesti_id)) {
                                     $servizi_richiesti_id = array_map('intval', $servizi_richiesti_id);
 

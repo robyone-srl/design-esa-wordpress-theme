@@ -17,9 +17,10 @@ get_header();
 		endwhile;
 
 		foreach ( $container_posts as $container_post ) {
-			$with_shadow = true;	
+			$with_shadow = false;	
 		?>
 			<?php get_template_part("template-parts/punto-contatto/hero"); ?>
+			<?php get_template_part("template-parts/common/content"); ?>
 			<?php get_template_part('template-parts/single/image-large'); ?>
 			<?php  
 				$visualizza_dati_fiscali = dci_get_meta('vedi_info_principali','_dci_page_');

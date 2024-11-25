@@ -3,7 +3,6 @@
 
     if (!$title) $title = get_the_title();
     if (!$description) $description = dci_get_meta('descrizione','_dci_page_',$post->ID ?? null);
-    if(!$content) $content = get_the_content();
 
     $argomenti = get_the_terms($post, 'argomenti');
     $post_url = get_permalink();
@@ -18,7 +17,7 @@
         </div>
     </div>
 </div>
-<div class="container">
+<div class="container pb-4">
     <div class="row justify-content-center <?php echo $with_shadow? 'row-shadow' : ''?>">
         <div class="<?php echo is_array($argomenti) && count($argomenti) ? "col-lg-7 col-md-6 pt-4" :"col-lg-10"; ?>">
             <div class="cmp-hero">
@@ -32,12 +31,6 @@
                         </div>
                     </div>
                 </section>
-            </div>
-            <div class="pt-4 pb-4">
-                <?php
-                if($content != '')
-                    echo $content; 
-                ?>
             </div>
         </div>
         <?php if (is_array($argomenti) && count($argomenti) ) { ?>

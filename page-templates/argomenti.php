@@ -17,9 +17,10 @@ get_header();
 			
 			?>
 			<?php
-				$with_shadow = true; 
+				$with_shadow = false; 
 				get_template_part("template-parts/hero/hero"); 
 			?>
+			<?php get_template_part("template-parts/common/content"); ?>
 			<?php get_template_part('template-parts/single/image-large'); ?>
 			<?php get_template_part("template-parts/argomento/evidenza"); ?>			
 			<?php get_template_part("template-parts/argomento/argomenti"); ?>	

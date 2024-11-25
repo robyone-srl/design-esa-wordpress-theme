@@ -3,7 +3,6 @@
 
     if (!$title) $title = get_the_title();
     if (!$description) $description = dci_get_meta('descrizione','_dci_page_',$post->ID ?? null);
-    if(!$content) $content = get_the_content();
 ?>
 
 <div class="container" id="main-container">
@@ -27,12 +26,6 @@
                         </div>
                     </div>
                 </section>
-            </div>
-            <div class="pt-4 pb-4">
-                <?php
-                if($content != '')
-                    echo $content; 
-                ?>
             </div>
         </div>
        

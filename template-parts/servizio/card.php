@@ -27,7 +27,7 @@ if($servizio->post_status == "publish") {
                     </div>
                 <?php } ?>
 
-                <div class="card-body p-0">
+                <div class="card-body p-2">
                     <h3 class="green-title-big t-primary <?php if(!$mostra_dettagli_servizi) echo "pt-2"; ?>">
                         <a class="text-decoration-none" href="<?php echo get_permalink($servizio->ID); ?>" data-element="service-link"><?php echo $servizio->post_title; ?></a>
                     </h3>

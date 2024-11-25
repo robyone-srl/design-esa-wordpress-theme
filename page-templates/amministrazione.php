@@ -15,6 +15,7 @@ get_header();
 			the_post();
 			?>
 			<?php get_template_part("template-parts/hero/hero"); ?>
+			<?php get_template_part("template-parts/common/content"); ?>
 			<?php get_template_part('template-parts/single/image-large'); ?>
 			<?php get_template_part("template-parts/amministrazione/evidenza"); ?>
 			<?php get_template_part("template-parts/amministrazione/cards-list"); ?>

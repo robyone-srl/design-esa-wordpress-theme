@@ -26,9 +26,10 @@ get_header();
 
 		?>
 		<?php 
-			$with_shadow = true;
+			$with_shadow = false;
 			get_template_part("template-parts/hero/hero"); 
 		?>
+		<?php get_template_part("template-parts/common/content"); ?>
 			
 		<?php if( $img ) { ?>
 			<section class="hero-img mb-20 mb-lg-50">

@@ -43,6 +43,7 @@ get_header();
       $title = $obj->name;
       $description = $obj->description;
       $data_element = 'data-element="page-name"';
+      $hide_arguments = true;
       get_template_part("template-parts/hero/hero"); 
     ?>
   
