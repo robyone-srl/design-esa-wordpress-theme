@@ -45,7 +45,7 @@ get_header();
             $sede_principale = $sede_principale_id ? get_post($sede_principale_id) : null;
         }
         $show_sede_principale = $sede_principale ?? false || !$is_sede_principale_esa;
-        $altre_sedi = dci_get_meta("altre_sedi", $prefix, $post->ID);
+        $altre_sedi = dci_get_meta("altre_sedi_luoghi", $prefix, $post->ID);
         $punti_contatto = dci_get_meta("contatti", $prefix, $post->ID);
         $allegati = dci_get_meta("allegati", $prefix, $post->ID);
 
@@ -314,13 +314,15 @@ get_header();
                         if ($altre_sedi && is_array($altre_sedi) && count($altre_sedi)) { ?>
                             <section id="altre-sedi" class="it-page-section mb-4">
                                 <h2 class="h3 my-2">Altre sedi</h2>
-                                <?php foreach ($altre_sedi as $sede_id) {
-                                    $luogo = get_post($sede_id);
-                                ?><div class="col-xl-6 col-lg-8 col-12 mb-4"><?php
-                                                                            $with_border = false;
-                                                                            get_template_part("template-parts/luogo/card-title");
-                                                                            ?></div><?php
-                                                                                } ?>
+                                <div class="row">
+                                    <?php foreach ($altre_sedi as $sede_id) { ?>
+                                        <div class="col-xl-6 col-lg-8 col-12 mb-4"><?php
+                                            $luogo = get_post($sede_id);
+                                            $with_border = false;
+                                            get_template_part("template-parts/luogo/card-title"); ?>
+                                        </div><?php
+                                    } ?>
+                                </div>
                             </section>
                         <?php  } ?>
 
@@ -330,7 +332,7 @@ get_header();
                                 <h2 class="h3 my-2">Contatti</h2>
                                 <div class="row">
                                     <?php foreach ($punti_contatto as $pc_id) { ?>
-                                        <div class="col-xl-6 col-lg-8 col-12 mb-4 card-wrapper">
+                                        <div class="col-md-6 col-sm-12 mb-3 card-wrapper">
                                             <?php
                                             $with_border = true;
                                             get_template_part("template-parts/punto-contatto/card"); ?>

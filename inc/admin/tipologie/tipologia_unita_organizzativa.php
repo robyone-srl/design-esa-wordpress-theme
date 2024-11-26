@@ -314,10 +314,10 @@ function dci_add_unita_organizzativa_metaboxes() {
 	) );
 
     $cmb_contatti->add_field( array(
-        'id' => $prefix . 'altre_sedi',
+        'id' => $prefix . 'altre_sedi_luoghi',
         'name'        => __( 'Altre sedi', 'design_comuni_italia' ),
         'desc' => __( 'Relazioni con eventuali altri luoghi che sono definibili come sedi' , 'design_comuni_italia' ),
-        'type'    => 'pw_select',
+        'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('luogo'),
         'attributes' => array(
             'placeholder' =>  __( 'Seleziona i Luoghi', 'design_comuni_italia' ),

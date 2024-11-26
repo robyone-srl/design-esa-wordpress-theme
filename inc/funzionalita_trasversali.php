@@ -34,7 +34,7 @@ function dci_get_sedi_ufficio(WP_REST_Request $request) {
         $sedi_ids [] = $sede_principale;
     }
 
-    $altre_sedi [] = dci_get_meta('altre_sedi','_dci_unita_organizzativa_', $id);
+    $altre_sedi [] = dci_get_meta('altre_sedi_luoghi','_dci_unita_organizzativa_', $id);
 
     if (!empty($altre_sedi[0])) {
         foreach ($altre_sedi[0] as $sede) {
