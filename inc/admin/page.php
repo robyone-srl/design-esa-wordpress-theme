@@ -192,7 +192,7 @@ function dci_add_page_metaboxes() {
             ]
         ) );
     }
-    if($template_name == 'default'){
+    if($template_name == 'default' || $template_name == 'pagina-generica'){
 
         //CONTATTI
         $cmb_contatti = new_cmb2_box( array(

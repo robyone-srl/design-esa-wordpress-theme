@@ -45,7 +45,6 @@ get_header();
   
     <div class="bg-grey-card">
       <form role="search" id="search-form" method="get" class="search-form">
-          <button type="submit" class="d-none"></button>
           <div class="container">
             <div class="row ">
               <h2 class="visually-hidden">Esplora tutti gli eventi</h2>

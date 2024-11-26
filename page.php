@@ -9,6 +9,7 @@
 global $uo_id, $inline;
 
 $mostra_prenota_appuntamento = dci_get_option("prenota_appuntamento", "servizi");
+$punti_contatto_id = dci_get_meta('punti_contatto', '_dci_page_');
 $uo_id = intval(dci_get_meta("unita_responsabile", "_dci_page_"));
 
 
@@ -88,11 +89,13 @@ get_header();
                                                                     <span>Contenuto</span>
                                                                 </a>
                                                             </li>
-                                                            <li class="nav-item">
-                                                                <a class="nav-link" href="#contacts">
-                                                                    <span>Unità Contatti</span>
-                                                                </a>
-                                                            </li>
+                                                            <?php if($mostra_prenota_appuntamento || !empty($punti_contatto_id) || !empty($punti_contatto_id)) { ?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#contacts">
+                                                                        <span> Contatti</span>
+                                                                    </a>
+                                                                </li>
+                                                            <?php } ?>
                                                             <li class="nav-item">
                                                                 <a class="nav-link" href="#more-info">
                                                                     <span>Ulteriori informazioni</span>
@@ -115,41 +118,40 @@ get_header();
                     </article>
                 
                     <article id="contacts" class="it-page-section mb-30 richtext-wrapper lora">
-                    
-                        <h2 class="mb-3 h3" id="contacts">Contatti</h2> <?php 
-                        if ($mostra_prenota_appuntamento) { ?>
-                            <button type="button" class="btn btn-outline-primary t-primary bg-white mobile-full mb-3" onclick="location.href='<?php echo dci_get_template_page_url('page-templates/prenota-appuntamento.php'); ?>';" data-element="service-booking-access">
-                                <span class="">Prenota appuntamento</span>
-                            </button> <?php 
-                        } 
+                        <?php if($mostra_prenota_appuntamento || !empty($punti_contatto_id) || !empty($punti_contatto_id)) { ?>
+                            <h2 class="mb-3 h3" id="contacts">Contatti</h2> <?php 
+                            if ($mostra_prenota_appuntamento) { ?>
+                                <button type="button" class="btn btn-outline-primary t-primary bg-white mobile-full mb-3" onclick="location.href='<?php echo dci_get_template_page_url('page-templates/prenota-appuntamento.php'); ?>';" data-element="service-booking-access">
+                                    <span class="">Prenota appuntamento</span>
+                                </button> <?php 
+                            } 
 
-                        $punti_contatto_id = dci_get_meta('punti_contatto', '_dci_page_');
-                        if (!empty($punti_contatto_id)) { ?>
-                            <div class="row">
-                                <?php
-                                foreach ($punti_contatto_id as $pc_id) {
-                                ?>
-                                    <div class="col-lg-6 col-md-12 mb-4">
-                                        <?php get_template_part("template-parts/punto-contatto/card"); ?>
-                                    </div>
-                                <?php } ?>
-                            </div> <?php 
-                        }
-
-                        if(!empty($uo_id)){
-                            if($mostra_prenota_appuntamento || !empty($punti_contatto_id)) {?>
-                                <h3 class="mb-3 h4">Contatta ufficio</h3>  <?php 
-                            } ?>
-                            <div class="row">
-                                <div class="col-12 col-md-8 col-lg-6 mb-30">
+                        
+                            if (!empty($punti_contatto_id)) { ?>
+                                <div class="row">
                                     <?php
-                                    $with_border = true;
-                                    $no_vertical_margin = true;
-                                    get_template_part("template-parts/unita-organizzativa/card-full");
+                                    foreach ($punti_contatto_id as $pc_id) {
                                     ?>
-                                </div>
-                            </div> <?php
-                        } ?>
+                                        <div class="col-lg-6 col-md-12 mb-4">
+                                            <?php get_template_part("template-parts/punto-contatto/card"); ?>
+                                        </div>
+                                    <?php } ?>
+                                </div> <?php 
+                            }
+
+                            if(!empty($uo_id)){ ?>
+                                <h3 class="mb-3 h4">Contatta ufficio</h3>
+                                <div class="row">
+                                    <div class="col-12 col-md-8 col-lg-6 mb-30">
+                                        <?php
+                                        $with_border = true;
+                                        $no_vertical_margin = true;
+                                        get_template_part("template-parts/unita-organizzativa/card-full");
+                                        ?>
+                                    </div>
+                                </div> <?php
+                            } 
+                        }?>
 
                     </article>
 

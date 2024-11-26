@@ -51,7 +51,6 @@ get_header();
             </div>
         </div>
         <form>
-            <button type="submit" class="d-none"></button>
             <div class="container">
                 <div class="row">
                     <div class="col-12 col-lg-8 offset-lg-2 px-sm-3 mt-2">

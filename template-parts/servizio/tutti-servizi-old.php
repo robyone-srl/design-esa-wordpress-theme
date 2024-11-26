@@ -25,7 +25,6 @@
 
 <div class="bg-grey-card">
     <form role="search" id="search-form" method="get" class="search-form">
-        <button type="submit" class="d-none"></button>
         <div class="container">
             <div class="row">
             <div class="col-12">
