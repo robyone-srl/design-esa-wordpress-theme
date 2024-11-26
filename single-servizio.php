@@ -736,7 +736,8 @@ get_header();
         <?php 
         $visualizza_contatto = dci_get_option('visualizzaContatto', 'footer');
         if($visualizza_contatto == 'visible')
-            get_template_part("template-parts/common/assistenza-contatti"); ?>
+            get_template_part("template-parts/common/assistenza-contatti"); 
+        ?>
 
     <?php
     endwhile; // End of the loop.
