@@ -160,7 +160,7 @@ function dci_scripts()
 {
 
 	//wp_deregister_script('jquery');
-	wp_enqueue_style('dci-comuni', get_template_directory_uri() . '/assets/css/bootstrap-italia-comuni.min.css', array('dci-bootstrap-italia-min'));
+	wp_enqueue_style('ddci-bootstrap-italia-min', get_template_directory_uri() . '/assets/css/bootstrap-italia-comuni.min.css', array('dci-bootstrap-italia-min'));
 	wp_enqueue_style('dci-comuni', get_template_directory_uri() . '/assets/css/cdr.css');
 
 	wp_enqueue_style('dci-font', get_template_directory_uri() . '/assets/css/fonts.css', array('dci-comuni'));
