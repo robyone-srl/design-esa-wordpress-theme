@@ -267,20 +267,14 @@ get_header();
                                 </section>
                             <?php }?>
 
-                            <?php if ($atto_nomina) {
-                                $doc = get_post(attachment_url_to_postid($atto_nomina));
-                            ?>
+                            <?php if ($atto_nomina) { ?>
                                 <article id="atto_di_nomina" class="it-page-section mb-5">
-                                    <h2 class="h3 mb-3">Allegati</h2>
-                                    <div class="card card-teaser shadow mt-3 rounded">
-                                        <div class="card-body">
-                                            <h3 class="card-title h5 m-0">
-                                                <svg class="icon" aria-hidden="true">
-                                                    <use xlink:href="#it-clip"></use>
-                                                </svg>
-                                                <a class="text-decoration-none" href="<?php echo $atto_nomina; ?>" title="Scarica la locandina <?php echo $doc->post_title; ?>" aria-label="Scarica la locandina <?php echo $doc->post_title; ?>"><?php echo $doc->post_title; ?></a>
-                                            </h3>
-                                        </div>
+                                    <h2 class="h3 mb-3">Atto di nomina</h2>
+                                    <div class="col-md-6 col-sm-12 mb-3 card-wrapper">
+                                        <?php
+                                        $documento = get_post($atto_nomina);
+                                        $with_border = true;
+                                        get_template_part("template-parts/documento/card"); ?>
                                     </div>
                                 </article>
                             <?php } ?>
@@ -289,13 +283,13 @@ get_header();
                             <?php if ($responsabile_struttura) {?>
                                 <section id="responsabile_struttura" class="it-page-section mb-4">
                                     <h2 class="h3 my-2">Ruolo di responsabilità</h2>
-                                            <div class="card-wrapper card-teaser-wrapper">
-                                                <?php
-                                                    $uo_id = $responsabile_struttura;
-                                                    $with_border = true;
-                                                    get_template_part("template-parts/unita-organizzativa/card");
-                                                ?>
-                                            </div>
+                                        <div class="card-wrapper card-teaser-wrapper">
+                                            <?php
+                                                $uo_id = $responsabile_struttura;
+                                                $with_border = true;
+                                                get_template_part("template-parts/unita-organizzativa/card");
+                                            ?>
+                                        </div>
                                 </section>
                             <?php }?>
 
