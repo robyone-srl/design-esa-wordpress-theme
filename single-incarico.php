@@ -47,7 +47,7 @@ get_header();
             }
 
             $persona = dci_get_meta('persona', $prefix, $post->ID);
-            
+
             if($persona != "") {
                 $persona = get_post($persona);
             }
@@ -66,20 +66,22 @@ get_header();
                         <div class="cmp-heading pb-3 pb-lg-4">
                             <div class="row">
                                 <div class="col-lg-8">
-
                                     <div class="row">
                                         <div class="col-auto">
-                                        <div class="titolo-sezione">
-                                        <h1> <?php the_title(); ?></h1>
-                                    </div>
-                                    <h2 class="visually-hidden">Dettagli dell'incarico</h2>
-                                    <p class="subtitle-small mb-3" data-element="service-description">
-										Incarico <?php echo strtolower($tipo_incarico[0]->name); ?> assunto da <?php echo $persona->post_title ?>
-                                    </p>
+                                            <div class="titolo-sezione">
+                                                <h1> <?php the_title(); ?></h1>
                                             </div>
-                                     </div>
-                                
-                                    
+                                            
+                                            <h2 class="visually-hidden">Dettagli dell'incarico</h2>
+                                            <p class="subtitle-small mb-3" data-element="service-description">
+										        Incarico <?php echo strtolower($tipo_incarico[0]->name); ?> 
+                                                <?php if($persona != "") { ?>
+                                                assunto da <?php echo $persona->post_title ?>
+                                                <?php } ?>
+                                            </p>
+                                            
+                                        </div>
+                                    </div>  
                                 </div>
                                 <div class="col-lg-3 offset-lg-1 mt-5 mt-lg-0">
 									<?php
@@ -95,13 +97,7 @@ get_header();
 			<?php get_template_part('template-parts/single/foto-large'); ?>
 
             <div class="container">
-                <div class="row justify-content-center">
-                    <hr class="d-none d-lg-block mt-2" />
-                </div>
-            </div>
-
-            <div class="container">
-                <div class="row row-column-menu-left mt-4 mt-lg-80 pb-lg-80 pb-40">
+                <div class="row border-top row-column-border row-column-menu-left border-light">
                     <div class="col-12 col-lg-3 mb-4 border-col">
                         <div class="cmp-navscroll sticky-top">
                             <nav class="navbar it-navscroll-wrapper navbar-expand-lg" aria-label="Indice della pagina" data-bs-navscroll>
@@ -270,6 +266,25 @@ get_header();
                                             </div>
                                 </section>
                             <?php }?>
+
+                            <?php if ($atto_nomina) {
+                                $doc = get_post(attachment_url_to_postid($atto_nomina));
+                            ?>
+                                <article id="atto_di_nomina" class="it-page-section mb-5">
+                                    <h2 class="h3 mb-3">Allegati</h2>
+                                    <div class="card card-teaser shadow mt-3 rounded">
+                                        <div class="card-body">
+                                            <h3 class="card-title h5 m-0">
+                                                <svg class="icon" aria-hidden="true">
+                                                    <use xlink:href="#it-clip"></use>
+                                                </svg>
+                                                <a class="text-decoration-none" href="<?php echo $atto_nomina; ?>" title="Scarica la locandina <?php echo $doc->post_title; ?>" aria-label="Scarica la locandina <?php echo $doc->post_title; ?>"><?php echo $doc->post_title; ?></a>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </article>
+                            <?php } ?>
+
 
                             <?php if ($responsabile_struttura) {?>
                                 <section id="responsabile_struttura" class="it-page-section mb-4">

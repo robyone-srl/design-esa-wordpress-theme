@@ -1,14 +1,28 @@
 <?php
-global $luogo, $isParent, $showTitle;
+global $luogo, $showTitle, $showPermalink, $showParent;
 $prefix = '_dci_luogo_';
 $c=0;
 
-$posizione_gps = dci_get_meta("posizione_gps", $prefix, $luogo->ID);
-$indirizzo = dci_get_meta("indirizzo", $prefix, $luogo->ID);
-$quartiere = dci_get_meta("quartiere", $prefix, $luogo->ID);
-$circoscrizione = dci_get_meta("circoscrizione", $prefix, $luogo->ID);
 $post_title = $luogo->post_title;
 $permalink = get_permalink($luogo);
+
+$childof = dci_get_meta("childof", $prefix, $luogo->ID);
+
+if(!empty($childof)) {
+    $childofwhile = $childof;
+    while(!empty($childofwhile)) {
+        $posizione_gps = dci_get_meta("posizione_gps", $prefix, $childof);
+        $indirizzo = dci_get_meta("indirizzo", $prefix, $childof);
+        $quartiere = dci_get_meta("quartiere", $prefix, $childof);
+        $circoscrizione = dci_get_meta("circoscrizione", $prefix, $childof);
+        $childofwhile = dci_get_meta("childof", $prefix, $childof);
+    }  
+} else {
+    $posizione_gps = dci_get_meta("posizione_gps", $prefix, $luogo->ID);
+    $indirizzo = dci_get_meta("indirizzo", $prefix, $luogo->ID);
+    $quartiere = dci_get_meta("quartiere", $prefix, $luogo->ID);
+    $circoscrizione = dci_get_meta("circoscrizione", $prefix, $luogo->ID);
+}
 
 ?>
 
@@ -16,18 +30,28 @@ $permalink = get_permalink($luogo);
     <div class="card-header">
         <?php if($showTitle) { ?>
         <div class="card-title h6">
-            <?php if($isParent) echo '<div class="d-block">Questo luogo fa parte di: </div>'; ?>
+            <?php if($showTitle) { 
+                echo '<p class="mb-0">';
+                echo $showPermalink ? '<a href="' . get_permalink($luogo)  . '">':'';
+                echo $post_title;
+                echo $showPermalink ? '</a>':'';
+                if($childof && !$showParent) {
+                    echo '<small class="d-block">di ' . get_the_title($childof)  . '</small>';
+                }
+                echo "</p>";
+            } ?>
 
-
-            <a href="<?php echo $permalink; ?>" class="" data-focus-mouse="false">
-                 <?php echo $post_title; ?>
-            </a>
         </div>
-         <?php
-        }?>
-
-
-        <?php 
+            <?php
+        } ?>
+            <?php if($childof && $showParent) {
+                echo "<p>";
+                echo '<span class="d-block">Questo luogo fa parte di: </span>';
+                    ?><a href="<?php echo get_permalink($childof); ?>" data-focus-mouse="false">
+                         <?php echo get_the_title($childof); ?>
+                    </a><?php
+                echo "</p>";
+            }
 
         if(isset($indirizzo) && $indirizzo != ""){ ?>
 			<div class="d-block"><?php echo $indirizzo; ?></div>

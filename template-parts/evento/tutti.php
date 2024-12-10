@@ -9,13 +9,13 @@ $args = array(
 	's'         => $query,
     'posts_per_page' => $load_posts,
 	'post_type' => 'evento',
-	'orderby' => 'title',
-    'order' => 'ASC',
+	'meta_key' => '_dci_evento_data_orario_inizio',
+    'orderby' => 'meta_value',
+    'order' => 'DESC',
 );
 
 $the_query = new WP_Query( $args );
 $posts = $the_query->posts;
-//var_dump($the_query->found_posts);
 
 $additional_filter = null;
 
@@ -55,7 +55,7 @@ $additional_filter = null;
                 <p id="autocomplete-label" class="mb-4">
                     <strong>
                         <?php echo $the_query->found_posts; ?>
-                    </strong>risultati in ordine alfabetico
+                    </strong>risultati ordinati per data di inizio decrescente
                 </p>
             </div>
             <div class="row g-2" id="load-more">

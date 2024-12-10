@@ -303,6 +303,9 @@ get_header();
                                 <?php if ($is_sede_principale_esa && $sede_principale) { ?>
                                 <?php
                                 $luogo = $sede_principale;
+                                $showTitle = true;
+                                $showParent = true;
+                                $showPermalink = true;
                                 get_template_part("template-parts/luogo/card-single");
                                 ?> <?php 
                             } else if (!$is_sede_principale_esa) {

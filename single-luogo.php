@@ -237,11 +237,9 @@ get_header();
                                 <section id="dove_si_trova" class="it-page-section mb-4">
                                     <h2 class="h3 my-2">Dove si trova</h2>
                                     <?php
-                                                        $luogo = !empty($childof)
-                                                            ? get_post( $childof )
-                                                            : $post;
-                                                        $isParent = !empty($childof);
-                                                        $showTitle = !empty($childof);
+                                                        $luogo = $post;
+                                                        $showTitle = false;
+                                                        $showParent = true;
                                                         get_template_part("template-parts/luogo/card-single");
                                     ?>
                                 </section>

@@ -254,6 +254,8 @@ get_header();
                             <?php if ($is_luogo_esa && $luogo_evento) { ?>
                                 <?php
                                 $luogo = $luogo_evento;
+                                $showTitle = true;
+                                $showPermalink = true;
                                 get_template_part("template-parts/luogo/card-single");
                                 ?>
                             <?php } else if (!$is_luogo_esa) {
