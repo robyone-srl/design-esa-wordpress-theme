@@ -4,6 +4,10 @@ global $scheda;
 $post_id = dci_get_option('notizia_evidenziata', 'homepage', true)[0] ?? null;
 if ($post_id) {
     $post = get_post($post_id);
+	if ($post->post_status != "publish") {
+		$post_id = null;
+		$post = null;
+	}
 }
 
 // schede evidenziate, per escludere dalla query le notizie già evidenziate
