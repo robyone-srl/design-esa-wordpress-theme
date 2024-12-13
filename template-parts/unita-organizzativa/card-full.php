@@ -14,7 +14,6 @@ foreach ($punti_contatto as $pc_id) {
 }
 $other_contacts = array(
     'linkedin',
-    'pec',
     'skype',
     'telegram',
     'twitter',
@@ -41,7 +40,7 @@ $card_link_class = !$with_border ? "text-decoration-none" : "";
                 </h5>
                 <div class="card-text" data-element="service-area">
                     <?php foreach ($contatti as $full_contatto) { ?>
-                        <div class="card-text mb-3">
+                        <div class="card-text my-3">
                             <?php if (array_key_exists('indirizzo', $full_contatto) && is_array($full_contatto['indirizzo']) && count($full_contatto['indirizzo'])) {
                                 echo '<div class="mb-3">';
                                 foreach ($full_contatto['indirizzo'] as $dati) {
@@ -82,6 +81,17 @@ $card_link_class = !$with_border ? "text-decoration-none" : "";
                                     <p>
                                         Email:
                                         <a target="_blank" aria-label="invia un'email a <?php echo $dati['valore']; ?>" title="invia un'email a <?php echo $dati['valore']; ?>" href="mailto:<?php echo $dati['valore']; ?>">
+                                            <?php echo $dati['valore']; ?>
+                                        </a>
+                                        <?php echo $dati['dettagli']; ?>
+                                    </p>
+                            <?php }
+                            } ?>
+                            <?php if (array_key_exists('pec', $full_contatto) && is_array($full_contatto['pec']) && count($full_contatto['pec'])) {
+                                foreach ($full_contatto['pec'] as $dati) { ?>
+                                    <p>
+                                        Posta elettronica certificata (PEC):
+                                        <a aria-label="invia un'email PEC a <?php echo $dati['valore']; ?>" title="invia un'email PEC a <?php echo $dati['valore']; ?>" href="mailto:<?php echo $dati['valore']; ?>">
                                             <?php echo $dati['valore']; ?>
                                         </a>
                                         <?php echo $dati['dettagli']; ?>

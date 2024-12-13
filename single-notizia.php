@@ -103,7 +103,7 @@ get_header();
                                                             <ul class="link-list" data-element="page-index">
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#descrizione">
-                                                                    <span>Descrizione</span>
+                                                                    <span>Contenuto</span>
                                                                     </a>
                                                                 </li>
                                                                 <?php if( is_array($documenti) && count($documenti) ) { ?>

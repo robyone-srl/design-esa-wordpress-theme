@@ -8,7 +8,6 @@ $voci = dci_get_meta('voci', $prefix, $pc_id);
 
 $other_contacts = array(
     'linkedin',
-    'pec',
     'skype',
     'telegram',
     'twitter',
@@ -73,7 +72,20 @@ else $color = "dark";
                     <p>
                         Email:
                         <a  
-                        target="_blank" 
+                        aria-label="invia un'email a <?php echo $dati['valore']; ?>"
+                        title="invia un'email a <?php echo $dati['valore']; ?>" 
+                        href="mailto:<?php echo $dati['valore']; ?>">
+                            <?php echo $dati['valore']; ?>
+                        </a>
+                        <?php echo $dati['dettagli']; ?>
+                    </p>
+               <?php }
+            } ?>
+            <?php if (array_key_exists('pec', $full_contatto) && is_array($full_contatto['pec']) && count ($full_contatto['pec']) ) {
+                foreach ($full_contatto['pec'] as $dati) { ?>
+                    <p>
+                        Posta elettronica certificata (PEC):
+                        <a  
                         aria-label="invia un'email a <?php echo $dati['valore']; ?>"
                         title="invia un'email a <?php echo $dati['valore']; ?>" 
                         href="mailto:<?php echo $dati['valore']; ?>">
