@@ -4,7 +4,11 @@ global $the_query, $load_posts, $load_card_type, $tax_query;
 $post_id = get_the_ID();
 $incarico = get_the_terms($post_id, 'tipi_incarico');
 
-$tipologia_incarico = $incarico[0]->slug;
+$tipologia_incarico = [];
+
+foreach ($incarico as $tipo) {
+	array_push($tipologia_incarico, $tipo->slug);
+}
 
 $opzione_visualizzazione = dci_get_meta('filtro_tipo_incarico_select', '_dci_page_');
 

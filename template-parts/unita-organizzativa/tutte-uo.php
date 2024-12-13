@@ -1,10 +1,15 @@
 <?php
-global $the_query, $load_posts, $load_card_type, $additional_filter;
+
+global $the_query, $load_posts, $load_card_type, $additional_filter, $tax_query;
 
 $post_id = get_the_ID();
 $organizzazione = get_the_terms($post_id, 'tipi_unita_organizzativa');
 
-$tipo_organizzazione = $organizzazione[0]->slug;
+$tipo_organizzazione = [];
+
+foreach ($organizzazione as $tipo) {
+	array_push($tipo_organizzazione, $tipo->slug);
+}
 
 $opzione_visualizzazione = dci_get_meta('uo_select', '_dci_page_');
 
@@ -60,12 +65,7 @@ if($opzione_visualizzazione == null){
     }
 }
 
-//var_dump($opzione_visualizzazione);
-
 if($opzione_visualizzazione == 'scegli'){
-
-    //var_dump($tipo_organizzazione);
-
     $tax = array (
         'taxonomy' => 'tipi_unita_organizzativa',
         'field' => 'slug',
@@ -92,7 +92,7 @@ $the_query = new WP_Query( $args );
 $posts = $the_query->posts;
 //var_dump($the_query->found_posts);
 
-$additional_filter = $tax_query;
+//$additional_filter = $tax_query;
 
 ?>
 

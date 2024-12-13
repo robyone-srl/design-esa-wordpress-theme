@@ -146,7 +146,7 @@ function dci_add_page_metaboxes() {
         $cmb_uo->add_field( array(
             'id'               => $prefix . 'uo_tipo',
             'name'             => __( 'Tipo di organizzazione *', 'design_comuni_italia' ),
-            'type'             => 'taxonomy_radio_hierarchical',
+            'type'             => 'taxonomy_multicheck_hierarchical',
             'taxonomy'         => 'tipi_unita_organizzativa',
             'show_option_none' => false,
             'remove_default'   => 'true',
@@ -182,7 +182,7 @@ function dci_add_page_metaboxes() {
         $cmb_i->add_field( array(
             'id'               => $prefix . 'tipo_incarico',
             'name'             => __( 'Tipo incarico *', 'design_comuni_italia' ),
-            'type'             => 'taxonomy_radio_hierarchical',
+            'type'             => 'taxonomy_multicheck_hierarchical',
             'taxonomy'         => 'tipi_incarico',
             'show_option_none' => false,
             'remove_default'   => 'true',
@@ -226,6 +226,19 @@ function dci_add_page_metaboxes() {
         ) );
     }
 }
+
+/**
+ * aggiungo js per controllo compilazione campi
+ */
+
+ add_action( 'admin_print_scripts-post-new.php', 'dci_page_admin_script', 11 );
+ add_action( 'admin_print_scripts-post.php', 'dci_page_admin_script', 11 );
+ 
+ function dci_page_admin_script() {
+     global $post_type;
+     if( 'page' == $post_type )
+         wp_enqueue_script( 'page-admin-script', get_template_directory_uri() . '/inc/admin-js/page.js' );
+ }
 
 /**
  * disabilito quick edit del titolo per le pagine del Sito dei Comuni
