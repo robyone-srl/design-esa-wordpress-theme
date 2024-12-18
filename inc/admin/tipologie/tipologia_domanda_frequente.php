@@ -69,6 +69,34 @@ function dci_add_domanda_frequente_metaboxes() {
             'required'    => 'required',
         ),
     ) );
+    $cmb_correlati = new_cmb2_box( array(
+        'id'           => $prefix . 'box_correlati',
+        'title'        => __( 'Contenuti correlati' ),
+        'object_types' => array( 'domanda_frequente' ),
+        'context'      => 'normal',
+        'priority'     => 'high',
+    ) );
+    $cmb_correlati ->add_field( array(
+        'desc' => __('Seleziona i contenuti da mostrare vicino alla risposta alla domanda ', 'design_comuni_italia'),
+        'id' => $prefix . 'correlati',
+        'type'    => 'custom_attached_posts',
+        'column'  => true, // Output in the admin post-listing as a custom column. https://github.com/CMB2/CMB2/wiki/Field-Parameters#column
+        'options' => array(
+            'show_thumbnails' => false, // Show thumbnails on the left
+            'filter_boxes'    => true, // Show a text box for filtering the results
+            'query_args'      => array(
+                'posts_per_page' => -1,
+                'post_type'      => array(
+                    'punto_contatto',
+                    'documento_pubblico',
+                    'page'
+                ),
+            ), // override the get_posts args
+        ),
+        'attributes' => [
+            'data-max-items' => 5, //change the value here to how many posts may be attached.
+        ],
+    ));
 
 }
 

@@ -26,6 +26,9 @@ if($custom_style == "none") $color = null;
 
 <div class="card card-teaser card-teaser<?php if($color !=null) echo '-'. $color ?> card-wrapper rounded shadow-sm p-4 <?php if($custom_style != 'none') {echo 'me-3';} else {echo 'my-0';} ?> ">
     <div class="card-body pe-3">
+        <div class="category-top">
+            <span class="category title-xsmall-semi-bold fw-semibold" >Contatto</span>
+        </div>
         <h<?php echo $title_level; ?> class="h5 card-title">
             <?php echo $contatto->post_title; ?>
         </h<?php echo $title_level; ?>>

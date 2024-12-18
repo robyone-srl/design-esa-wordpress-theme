@@ -5,7 +5,7 @@
  *
  * @package Design_Comuni_Italia
  */
-global $the_query, $load_posts, $load_card_type, $label, $label_no_more, $classes;
+global $the_query, $load_posts, $load_card_type, $label, $label_no_more, $classes, $content;
 
 $max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 20;
 $load_posts = 10;
@@ -21,6 +21,7 @@ $the_query = new WP_Query( $args );
 $faqs = $the_query->posts;
 
 $description = dci_get_meta('descrizione','_dci_page_',$post->ID);
+$content = get_the_content();
 
 get_header();
 ?>
@@ -43,7 +44,13 @@ get_header();
                                 <h1 class="text-black hero-title" data-element="page-name">
                                     Domande frequenti
                                 </h1>
-                                    <?php echo $description; ?>
+                                <?php echo $description;
+                                 
+                                if($content != ''){?>
+                                    <div class="mt-3"> <?php
+                                        echo $content;  ?> 
+                                    </div> <?php 
+                                } ?>
                             </div>
                         </section>
                     </div>
