@@ -15,21 +15,19 @@ $other_contacts = array(
 );
 $color = "";
 
-if($title_level == "") $title_level = 5;
+if($title_level == "") $title_level = 3;
 
 if($custom_style == "") $color = "info";
 else $color = "dark";
 if($custom_style == "none") $color = null;
 
 ?>
-
-
-<div class="card card-teaser card-teaser<?php if($color !=null) echo '-'. $color ?> card-wrapper rounded shadow-sm p-4 <?php if($custom_style != 'none') {echo 'me-3';} else {echo 'my-0';} ?> ">
-    <div class="card-body pe-3">
+<div class="card card-teaser no-after rounded shadow-sm mb-0 border border-light">
+    <div class="card-body pb-5">
         <div class="category-top">
             <span class="category title-xsmall-semi-bold fw-semibold" >Contatto</span>
         </div>
-        <h<?php echo $title_level; ?> class="h5 card-title">
+        <h<?php echo $title_level; ?> class="h3 card-title text-paragraph-medium u-grey-light">
             <?php echo $contatto->post_title; ?>
         </h<?php echo $title_level; ?>>
         <div class="card-text">

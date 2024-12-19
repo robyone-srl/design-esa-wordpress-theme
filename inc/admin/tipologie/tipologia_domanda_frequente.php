@@ -78,7 +78,7 @@ function dci_add_domanda_frequente_metaboxes() {
     ) );
     $cmb_correlati ->add_field( array(
         'desc' => __('Seleziona i contenuti da mostrare vicino alla risposta alla domanda ', 'design_comuni_italia'),
-        'id' => $prefix . 'correlati',
+        'id' => $prefix . 'correlato',
         'type'    => 'custom_attached_posts',
         'column'  => true, // Output in the admin post-listing as a custom column. https://github.com/CMB2/CMB2/wiki/Field-Parameters#column
         'options' => array(

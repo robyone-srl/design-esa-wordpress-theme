@@ -92,6 +92,11 @@ get_header();
                                                                     </a>
                                                                 </li>
                                                                 <li class="nav-item">
+                                                                    <a class="nav-link" href="#contenuti_evidenza">
+                                                                    <span>Contenuti correlati</span>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="nav-item">
                                                                     <a class="nav-link" href="#more-info">
                                                                     <span>Ulteriori informazioni</span>
                                                                     </a>
@@ -113,9 +118,12 @@ get_header();
                         <div class="richtext-wrapper lora">
                             <?php echo $risposta; ?>
                         </div>
-                    </article>
+                    </article> <?php
                     
-                    <h2 class="visually-hidden">Ulteriori informazioni</h2>
+                    $show_title = true;
+                    get_template_part("template-parts/domanda-frequente/contenuti-evidenza"); ?>
+
+                    <h2 class="visually-hidden" id="more-info">Ulteriori informazioni</h2>
                     <?php get_template_part('template-parts/single/page_bottom'); ?>
                     </section>
                 </div>
