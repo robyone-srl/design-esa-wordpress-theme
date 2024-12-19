@@ -17,18 +17,22 @@
                 ?>
             </h2>
             <div class="row g-4">
-                <?php foreach ($contatti_p_cont as $pc_id) {
-                    echo 
-                    ('
-                        <div class="col-md-6 col-xl-4">                        
-                        <div class="cmp-card-simple card-wrapper pb-0 rounded">
-                    ');
-                    get_template_part("template-parts/punto-contatto/card");
-                    echo 
-                    ('
-                        </div>
-                        </div>
-                    ');
+                <?php
+                foreach ($contatti_p_cont as $pc_id) {
+                    $contatto = get_post($pc_id);
+                    if(isset($contatto)){
+                        echo 
+                        ('
+                            <div class="col-md-6 col-xl-4">                        
+                            <div class="cmp-card-simple card-wrapper pb-0 rounded">
+                        ');
+                        get_template_part("template-parts/punto-contatto/card");
+                        echo 
+                        ('
+                            </div>
+                            </div>
+                        ');
+                    }
                 } ?>
             </div>
             

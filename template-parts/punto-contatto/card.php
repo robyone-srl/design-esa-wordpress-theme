@@ -4,6 +4,8 @@ $prefix = '_dci_punto_contatto_';
 
 $full_contatto = dci_get_full_punto_contatto($pc_id);
 $contatto = get_post($pc_id);
+
+if(isset($contatto)){
 $voci = dci_get_meta('voci', $prefix, $pc_id);
 
 $other_contacts = array(
@@ -119,4 +121,5 @@ if($custom_style == "none") $color = null;
             } ?>
         </div>
     </div>
-</div>
+</div> <?php
+} ?>
