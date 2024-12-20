@@ -333,14 +333,17 @@ get_header();
                         <?php if ($punti_contatto && is_array($punti_contatto) && count($punti_contatto) > 0) { ?>
                             <section id="contatti" class="it-page-section mb-4">
                                 <h2 class="h3 my-2">Contatti</h2>
-                                <div class="row">
-                                    <?php foreach ($punti_contatto as $pc_id) { ?>
-                                        <div class="col-md-6 col-sm-12 mb-3 card-wrapper">
-                                            <?php
-                                            $with_border = true;
-                                            get_template_part("template-parts/punto-contatto/card"); ?>
-                                        </div>
-                                    <?php  } ?>
+                                <div class="row">  <?php 
+                                    foreach ($punti_contatto as $pc_id) { 
+                                        $contatto = get_post($pc_id);
+                                        if(isset($contatto)){?>
+                                            <div class="col-md-6 col-sm-12 mb-3 card-wrapper">
+                                                <?php
+                                                $with_border = true;
+                                                get_template_part("template-parts/punto-contatto/card"); ?>
+                                            </div>  <?php  
+                                        }
+                                    } ?>
                                 </div>
                             </section>
                         <?php } ?>

@@ -128,14 +128,15 @@ get_header();
 
                         
                             if (!empty($punti_contatto_id)) { ?>
-                                <div class="row">
-                                    <?php
-                                    foreach ($punti_contatto_id as $pc_id) {
-                                    ?>
-                                        <div class="col-lg-6 col-md-12 mb-4">
-                                            <?php get_template_part("template-parts/punto-contatto/card"); ?>
-                                        </div>
-                                    <?php } ?>
+                                <div class="row"> <?php
+                                    foreach ($punti_contatto_id as $pc_id) {  
+                                        $contatto = get_post($pc_id);
+                                            if(isset($contatto)){ ?>
+                                            <div class="col-lg-6 col-md-12 mb-4">
+                                                <?php get_template_part("template-parts/punto-contatto/card"); ?>
+                                            </div> <?php 
+                                            }    
+                                        } ?>
                                 </div> <?php 
                             }
 

@@ -632,7 +632,7 @@ get_header();
                          
                         <?php if ($condizioni_servizio || $casi_particolari || $vincoli) {  ?>
                             <section class="it-page-section mb-30">
-                                <h2 class="mb-3" id="submit-request">Condizioni di servizio</h2>
+                                <h2 class="mb-3" id="conditions">Condizioni di servizio</h2>
 
                                 <div class="pb-3">
                                     <?php if ($condizioni_servizio) {
@@ -674,14 +674,16 @@ get_header();
                                 $punti_contatto_id = dci_get_meta("punti_contatto");
                                 if (!empty($punti_contatto_id)) {
                                 ?>
-                                    <div class="row">
-                                        <?php
+                                    <div class="row"> <?php
                                         foreach ($punti_contatto_id as $pc_id) {
-                                        ?>
-                                            <div class="col-lg-6 col-md-12 mb-4">
-                                                <?php get_template_part("template-parts/punto-contatto/card"); ?>
-                                            </div>
-                                        <?php } ?>
+                                            $contatto = get_post($pc_id);
+                                            if(isset($contatto)){ ?>
+                                        
+                                                <div class="col-lg-6 col-md-12 mb-4">
+                                                    <?php get_template_part("template-parts/punto-contatto/card"); ?>
+                                                </div> <?php 
+                                            }
+                                        } ?>
                                     </div>
                                 <?php }
 

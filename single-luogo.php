@@ -301,15 +301,18 @@ get_header();
                                 <section id="contatti" class="it-page-section mb-4">
                                     <h2 class="h3 my-2">Contatti</h2>
                                     
-                                    <div class="row">
-                                        <?php foreach ($punti_contatto as $pc_id) { ?>
-                                            <div class="col-xl-6 col-lg-8 col-md-12 ">
-                                                <?php
-                                                $with_border = true;
-                                                $title_level = 3;
-                                                get_template_part("template-parts/punto-contatto/card"); ?>
-                                            </div>
-                                        <?php  } ?>
+                                    <div class="row"> <?php 
+                                        foreach ($punti_contatto as $pc_id) { 
+                                            $contatto = get_post($pc_id);
+                                            if(isset($contatto)){?>
+                                                <div class="col-xl-6 col-lg-8 col-md-12 ">
+                                                    <?php
+                                                    $with_border = true;
+                                                    $title_level = 3;
+                                                    get_template_part("template-parts/punto-contatto/card"); ?>
+                                                </div> <?php  
+                                            }
+                                        } ?>
                                     </div>
 
                                     <?php if ($gestito_da && is_array($gestito_da) && count($gestito_da) > 0) { ?>
