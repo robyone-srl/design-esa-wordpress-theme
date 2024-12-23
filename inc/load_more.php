@@ -136,7 +136,7 @@ function load_more(){
 			break;
 		case "servizio":
 				$servizio = $post;
-				$out .= '<div class="col-12 col-lg-6">'.load_template_part("template-parts/servizio/card").'</div>';
+				$out .= '<div class="col-12 col-lg-4">'.load_template_part("template-parts/servizio/card").'</div>';
 			break;
 		case "unita-organizzativa":
                 $out .= load_template_part("template-parts/unita-organizzativa/cards-list");
