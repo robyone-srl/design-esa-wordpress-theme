@@ -1,10 +1,12 @@
 <?php
-$CSS_NAME_BOOTSTRAP = 'bootstrap-italia-custom.min.css';
+//$CSS_NAME_BOOTSTRAP = 'bootstrap-italia-custom.min.css';
 $CSS_NAME_ICONS = 'icons.css';
+$CSS_NAME_COMUNI = 'custom-comuni.css';
 
 function dci_register_bootstrap_italia_options(){
     global $CSS_NAME_BOOTSTRAP;
     global $CSS_NAME_ICONS;
+    global $CSS_NAME_COMUNI;
     
     $prefix = '';
 
@@ -37,11 +39,40 @@ function dci_register_bootstrap_italia_options(){
         'type' => 'title',
     ) );
 
-    dci_add_custom_file_field_to_box($header_options, $CSS_NAME_BOOTSTRAP, 'bootstrap_italia_css_file', 'use_bootstrap_italia_css');
+    dci_add_custom_file_field_to_box($header_options, $CSS_NAME_COMUNI, 'comuni_css_file', 'use_comuni_css');
+    //dci_add_custom_file_field_to_box($header_options, $CSS_NAME_BOOTSTRAP, 'bootstrap_italia_css_file', 'use_bootstrap_italia_css');
     dci_add_custom_file_field_to_box($header_options, $CSS_NAME_ICONS, 'icons_css_file', 'use_icons_css');
 }
 
+function custom_comuni_css_file_option_update(string $object_id, array $updated, CMB2 $cmb) {
+    global $CSS_NAME_COMUNI;
+    if(!isset($cmb->data_to_save['use_comuni_css'])){
+        unlink(dci_get_custom_css_file_path($CSS_NAME_COMUNI));
+    }
 
+    $uploaded_css =  $_FILES['comuni_css_file']['tmp_name'] ?? false;
+
+    if(is_uploaded_file($uploaded_css)){
+        $file = dci_get_custom_css_file_path($CSS_NAME_COMUNI);
+
+        wp_mkdir_p(dci_get_custom_css_folder_path($CSS_NAME_COMUNI));
+        
+        move_uploaded_file($uploaded_css, $file);
+    }
+}
+add_action( 'cmb2_save_options-page_fields_dci_options_bootstrap_italia', 'custom_comuni_css_file_option_update', 10, 3 );
+
+
+function load_comuni_custom_css(){
+    global $CSS_NAME_COMUNI;
+    $file_comuni = dci_get_custom_css_file_path($CSS_NAME_COMUNI);
+    if(file_exists($file_comuni))
+        wp_register_style( 'dci-comuni', dci_get_custom_css_file_url($CSS_NAME_COMUNI));
+
+}
+add_action('wp_enqueue_scripts', 'load_comuni_custom_css');
+
+/*
 function custom_bi_css_file_option_update(string $object_id, array $updated, CMB2 $cmb) {
     global $CSS_NAME_BOOTSTRAP;
     if(!isset($cmb->data_to_save['use_bootstrap_italia_css'])){
@@ -69,7 +100,7 @@ function load_bi_custom_css(){
 
 }
 add_action( 'wp_enqueue_scripts', 'load_bi_custom_css' );
-
+*/
 
 
 

@@ -1,8 +1,8 @@
 <?php
-$CSS_NAME_COMUNI = 'custom-comuni.css';
+//$CSS_NAME_COMUNI = 'custom-comuni.css';
 
 function dci_register_comune_options(){
-    global $CSS_NAME_COMUNI;
+    //global $CSS_NAME_COMUNI;
     $prefix = '';
 
     /**
@@ -112,7 +112,7 @@ function dci_register_comune_options(){
         'type' => 'checkbox',
     ) );
 
-    dci_add_custom_file_field_to_box($header_options, $CSS_NAME_COMUNI, 'comuni_css_file', 'use_comuni_css');
+    //dci_add_custom_file_field_to_box($header_options, $CSS_NAME_COMUNI, 'comuni_css_file', 'use_comuni_css');
     
     $header_options->add_field( array(
         'id' => $prefix . 'home_istruzioni_barra_chiara_scura',
@@ -158,7 +158,7 @@ function dci_register_comune_options(){
     ) );
 }
 
-
+/*
 function custom_comuni_css_file_option_update(string $object_id, array $updated, CMB2 $cmb) {
     global $CSS_NAME_COMUNI;
     if(!isset($cmb->data_to_save['use_comuni_css'])){
@@ -186,3 +186,4 @@ function load_comuni_custom_css(){
 
 }
 add_action('wp_enqueue_scripts', 'load_comuni_custom_css');
+*/
