@@ -7,8 +7,10 @@ if(!function_exists("dci_argomenti_array")){
     function dci_argomenti_array() {
         $argomenti_arr = [
             "Accesso all'informazione",
+            "Accoglienza",
             "Aiuto a domicilio",
             "Anzianità",
+            "Anziano",
             "Appalto di lavori",
             "Assistenza agli anziani",
             "Assistenza sanitaria",
@@ -18,22 +20,23 @@ if(!function_exists("dci_argomenti_array")){
             "Cittadino",
             "Comunicazione istituzionale",
             "Concorsi",
+            "Contratto pubblico",
             "Covid-19",
             "Cure palliative",
             "Famiglia",
             "Formazione del personale",
             "Lavoro",
+            "Ospite",
+            "Pagamenti",
+            "Protezione dei dati / Privacy",
+            "Qualità del prodotto",
             "Servizio civile",
+            "Sicurezza degli edifici",
+            "Sicurezza del lavoro",
             "Transizione digitale",
             "Trasparenza amministrativa",
             "Vita sociale",
             "Volontariato",
-            "Anziano",
-            "Protezione dei dati / Privacy",
-            "Contratto pubblico",
-            "Qualità del prodotto",
-            "Sicurezza del lavoro",
-            "Sicurezza degli edifici"
         ];
         return $argomenti_arr;
     }
@@ -49,11 +52,7 @@ if(!function_exists("dci_tipi_unita_organizzativa_array")){
                 'area',
                 'ufficio'
             ],
-            'struttura di governo e controllo' => [
-                'consiglio di amministrazione',
-                'collegio dei revisori',
-                'nucleo di valutazione'
-            ],
+            'struttura di governo e controllo',
             'altra struttura' => [
                 'biblioteca',
                 'museo',
