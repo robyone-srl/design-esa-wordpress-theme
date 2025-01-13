@@ -688,7 +688,65 @@ function dci_servizio_set_post_content( $data ) {
             $info = $_POST['_dci_servizio_ulteriori_informazioni'];
         }
 
-        $content = $descrizione_breve.'<br>'.$descrizione_estesa.'<br>'.$info;
+        $cosa_serve_introduzione = '';
+        if (isset($_POST['_dci_servizio_cosa_serve_introduzione'])) {
+            $cosa_serve_introduzione = $_POST['_dci_servizio_cosa_serve_introduzione'];
+        }
+
+        $come_fare = '';
+        if (isset($_POST['_dci_servizio_box_come_fare'])) {
+            $come_fare = $_POST['_dci_servizio_box_come_fare'];
+        }
+
+        $cosa_ottieni = '';
+        if (isset($_POST['_dci_servizio_box_cosa_ottieni'])) {
+            $cosa_ottieni = $_POST['_dci_servizio_box_cosa_ottieni'];
+        }
+
+        $desinatari = '';
+        if (isset($_POST['_dci_servizio_box_destinatari'])) {
+            $desinatari = $_POST['_dci_servizio_box_destinatari'];
+        }
+
+        $procedure = '';
+        if (isset($_POST['_dci_servizio_procedure_collegate'])) {
+            $procedure = $_POST['_dci_servizio_procedure_collegate'];
+        }
+
+        $tempi = '';
+        if (isset($_POST['_dci_servizio_box_tempi'])) {
+            $tempi = $_POST['_dci_servizio_box_tempi'];
+        }
+
+        $costi = '';
+        if (isset($_POST['_dci_servizio_costi'])) {
+            $costi = $_POST['_dci_servizio_costi'];
+        }
+
+        $casi_particolari = '';
+        if (isset($_POST['_dci_servizio_casi_particolari'])) {
+            $casi_particolari = $_POST['_dci_servizio_casi_particolari'];
+        }
+
+        $vincoli = '';
+        if (isset($_POST['_dci_servizio_vincoli'])) {
+            $vincoli = $_POST['_dci_servizio_vincoli'];
+        }
+
+        $content = $descrizione_breve
+            .'<br>'.$descrizione_estesa
+            .'<br>'.$info
+            .'<br>'.$cosa_serve_introduzione
+            .'<br>'.$cosa_ottieni
+            .'<br>'.$desinatari
+            .'<br>'.$procedure
+            .'<br>'.$tempi
+            .'<br>'.$costi
+            .'<br>'.$casi_particolari
+            .'<br>'.$vincoli
+            .'<br>'.$come_fare;
+
+
 
         $data['post_content'] = $content;
     }
