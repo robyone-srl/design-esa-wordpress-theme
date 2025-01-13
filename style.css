@@ -1263,3 +1263,9 @@ body, .bg-white {
 a[data-bs-toggle="collapse"][aria-expanded="true"] .chevron {
     transform: rotate(180deg);
 }
+
+/* Custom footer */
+.it-footer .footer-info, .it-footer .footer-info p, .it-footer .footer-info li {
+    font-size: 1rem;
+    line-height: 1.5;
+}

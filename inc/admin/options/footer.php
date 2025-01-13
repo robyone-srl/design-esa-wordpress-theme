@@ -77,17 +77,6 @@ function dci_register_footer_options(){
         ),
     ));
 
-    $footer_options->add_field( array(
-        'name'        => __( 'Titolo Contatti', 'design_comuni_italia' ),
-        'id' => $prefix . 'contattaci_titolo',
-        'desc'        => __( 'Inserisci il titolo da visualizzare sopra ai contatti, altrimenti verr&agrave; visualizzato "<b>Contattaci</b>."', 'design_comuni_italia' ),
-        'type' => 'text',
-        'attributes'    => array(
-            'data-conditional-id' => 'contattaci_tipo',
-            'data-conditional-value'  => 'filtro',
-        ),
-    ) );
-
     $footer_options->add_field(array(
         'name' => __('Contatti da visualizzare', 'design_comuni_italia'),
         'desc' => __('Scegli quali contatti mostrare nella sezione contattaci.', 'design_comuni_italia'),

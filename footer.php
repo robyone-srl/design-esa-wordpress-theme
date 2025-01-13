@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The template for displaying the footer
  *
@@ -69,13 +68,6 @@ function genera_pagine_figlie($slug_pagina)
     </ul>
 <?php
 }
-
-$contatti_p_cont = dci_get_option("contattaci_contenuto", 'footer');
- 
-$tipo_visualizzazione_servizi = dci_get_option('contattaci_tipo', 'footer');
-if($tipo_visualizzazione_servizi == 'filtro' && $contatti_p_cont){
-    get_template_part("template-parts/common/contatti-personalizzati");
-} 
 ?>
 
 <footer class="it-footer" id="footer">
@@ -187,52 +179,167 @@ if($tipo_visualizzazione_servizi == 'filtro' && $contatti_p_cont){
                     <h3 class="footer-heading-title">Contatti</h3>
                     <div class="row">
                         <div class="col-md-4">
-                            <p class="footer-info">
-                                <strong><?php echo dci_get_option("nome_comune"); ?></strong>
-
-                                <?php
-                                if (dci_get_option("indirizzo", 'contatti')) {
-                                ?>
-                                    <br /><a href="https://www.openstreetmap.org/search?query=<?php echo urlencode(dci_get_option("indirizzo", 'contatti')); ?>" title="Mappa e indicazioni stradali"><?php echo dci_get_option("indirizzo", 'contatti'); ?></a>
-                                <?php
-                                }
-                                ?>
-
-                                <?php
-                                $codice_fiscale = dci_get_option("CF", 'contatti');
-                                $partita_iva = dci_get_option("PIVA", 'contatti');
-
-                                if ($codice_fiscale && $codice_fiscale == $partita_iva) {
-                                    echo '<br />Codice fiscale / P.IVA: ' . $codice_fiscale;
-                                } else {
-                                ?>
-                                    <br /><?php if ($codice_fiscale) echo 'Codice fiscale: ' . $codice_fiscale; ?>
-                                    <br /><?php if ($partita_iva) echo 'Partita IVA: ' . $partita_iva; ?>
-                                <?php
-                                }
-                                ?>
-                                <br /><br />
-                                <?php
-                                $ufficio_id = dci_get_option("scheda_URP", 'contatti');
-                                $ufficio = get_post($ufficio_id);
-                                if ($ufficio_id) { ?>
-                                    <a href="<?php echo get_post_permalink($ufficio_id); ?>" class="list-item" title="Vai alla pagina: URP">
-                                        <?php echo $ufficio->post_title ?>
-                                    </a>
-                                <?php } ?>
-                                <?php if (dci_get_option("numero_verde", 'contatti')) echo '<br />Numero verde: <a href="tel:' . preg_replace('/\s+/', '', dci_get_option("numero_verde", 'contatti')) . '">' . dci_get_option("numero_verde", 'contatti') . '</a>'; ?>
-                                <?php if (dci_get_option("SMS_Whatsapp", 'contatti')) echo '<br />SMS e WhatsApp: <a href="tel:' . preg_replace('/\s+/', '', dci_get_option("SMS_Whatsapp", 'contatti')) . '">' . dci_get_option("SMS_Whatsapp", 'contatti') . '</a>'; ?>
-                                <?php
-                                if (dci_get_option("PEC", 'contatti')) echo '<br />PEC: '; ?>
-                                <a href="mailto:<?php echo dci_get_option("PEC", 'contatti'); ?>" class="list-item" title="PEC <?php echo dci_get_option("nome_comune"); ?>"><?php echo dci_get_option("PEC", 'contatti'); ?></a>
-                                <?php if (dci_get_option("centralino_unico", 'contatti')) echo '<br />Centralino unico: <a href="' . preg_replace('/\s+/', '', dci_get_option("centralino_unico", 'contatti')) . '">' . dci_get_option("centralino_unico", 'contatti') . '</a>'; ?>
+                            <div class="footer-info">
+                                <h4 class="mb-0 h6"><strong><?php echo dci_get_option("nome_comune"); ?></strong></h4>
+                                <ul class="list-unstyled">
+                                    <?php if (dci_get_option("indirizzo", 'contatti')) {?>
+                                        <li><a href="https://www.openstreetmap.org/search?query=<?php echo urlencode(dci_get_option("indirizzo", 'contatti')); ?>" title="Mappa e indicazioni stradali"><?php echo dci_get_option("indirizzo", 'contatti'); ?></a></li>
+                                    <?php } 
+                                        $codice_fiscale = dci_get_option("CF", 'contatti');
+                                        $partita_iva = dci_get_option("PIVA", 'contatti');
+                                  
+                                        if ($codice_fiscale && $codice_fiscale == $partita_iva) {
+                                            echo '<li>Codice fiscale / P.IVA: ' . $codice_fiscale.'</li>';
+                                        } else {
+                                        ?>
+                                            <?php if ($codice_fiscale) echo '<li>Codice fiscale: ' . $codice_fiscale.'</li>'; ?>
+                                            <?php if ($partita_iva) echo '<li>Partita IVA: ' . $partita_iva.'</li>'; ?>
+                                        <?php
+                                        }
+                                    $ufficio_id = dci_get_option("scheda_URP", 'contatti');
+                                    $ufficio = get_post($ufficio_id);
+                                    if ($ufficio_id) { ?>
+                                        <li>
+                                            <a href="<?php echo get_post_permalink($ufficio_id); ?>" class="list-item" title="Vai alla pagina: URP">
+                                                <?php echo $ufficio->post_title ?>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
+                                    <?php if (dci_get_option("numero_verde", 'contatti')) echo '<li>Numero verde: <a href="tel:' . preg_replace('/\s+/', '', dci_get_option("numero_verde", 'contatti')) . '">' . dci_get_option("numero_verde", 'contatti') . '</a></li>'; ?>
+                                    <?php if (dci_get_option("SMS_Whatsapp", 'contatti')) echo '<li>SMS e WhatsApp: <a href="tel:' . preg_replace('/\s+/', '', dci_get_option("SMS_Whatsapp", 'contatti')) . '">' . dci_get_option("SMS_Whatsapp", 'contatti') . '</a></li>'; ?>
+                                    <?php if (dci_get_option("PEC", 'contatti')) { ?>
+                                        <li>PEC: <a href="mailto:<?php echo dci_get_option("PEC", 'contatti'); ?>" class="list-item" title="PEC <?php echo dci_get_option("nome_comune"); ?>"><?php echo dci_get_option("PEC", 'contatti'); ?></a></li>
+                                    <?php }
+                                    if (dci_get_option("centralino_unico", 'contatti')) echo '<li>Centralino unico: <a href="' . preg_replace('/\s+/', '', dci_get_option("centralino_unico", 'contatti')) . '">' . dci_get_option("centralino_unico", 'contatti') . '</a></li>'; ?>
                                 
-                                <?php if(dci_get_option("cuf", 'contatti') || dci_get_option("cipa", 'contatti')) { ?>
-                                    <br /><br />
-                                    <?php if (dci_get_option("cuf", 'contatti')) echo '<br />Codice univoco di fatturazione (CUF): ' . dci_get_option("cuf", 'contatti'); ?>
-                                    <?php if (dci_get_option("cipa", 'contatti')) echo '<br />Codice Indice delle Pubbliche Amministrazioni (IPA): ' . dci_get_option("cipa", 'contatti'); ?>
-                                <?php } ?>
-                            </p>
+                                    <?php if(dci_get_option("cuf", 'contatti') || dci_get_option("cipa", 'contatti')) { ?>
+                                        <?php if (dci_get_option("cuf", 'contatti')) echo '<li>Codice univoco di fatturazione (CUF): ' . dci_get_option("cuf", 'contatti').'</li>'; ?>
+                                        <?php if (dci_get_option("cipa", 'contatti')) echo '<li>Codice Indice delle Pubbliche Amministrazioni (IPA): ' . dci_get_option("cipa", 'contatti').'</li>'; ?>
+                                    <?php } 
+
+                                    $contatti_p_cont = dci_get_option("contattaci_contenuto", 'footer');
+                                    $tipo_visualizzazione_servizi = dci_get_option('contattaci_tipo', 'footer');
+                                    global $pc_id;
+                                    $contatti_p_cont = dci_get_option("contattaci_contenuto", 'footer');
+
+                                    if($tipo_visualizzazione_servizi == 'filtro' && $contatti_p_cont){
+                                        if (is_array($contatti_p_cont) && count($contatti_p_cont)) { 
+                                            foreach ($contatti_p_cont as $pc_id) {
+                                                $contatto = get_post($pc_id);
+                                                if(isset($contatto)){
+
+                                                $prefix = '_dci_punto_contatto_';
+
+                                                $full_contatto = dci_get_full_punto_contatto($pc_id);
+                                                $contatto = get_post($pc_id);
+
+                                                if(isset($contatto)){
+                                                    $voci = dci_get_meta('voci', $prefix, $pc_id);
+
+                                                    $other_contacts = array(
+                                                        'linkedin',
+                                                        'skype',
+                                                        'telegram',
+                                                        'twitter',
+                                                        'whatsapp'
+                                                    );
+
+                                                    echo '<li>';
+                                                    echo '<h4 class="h6 mt-2 mb-0">'.$contatto->post_title.'</h4>';
+
+                                                        if (array_key_exists('indirizzo', $full_contatto) && is_array($full_contatto['indirizzo']) && count ($full_contatto['indirizzo']) ) {
+                                                            foreach ($full_contatto['indirizzo'] as $dati) {
+                                                                echo $dati['valore'];
+                                                                if($dati['dettagli']) { echo $dati['dettagli']; }
+                                                            } 
+                                                        }
+                                                        if (array_key_exists('telefono', $full_contatto) && is_array($full_contatto['telefono']) && count ($full_contatto['telefono']) ) {
+                                                            foreach ($full_contatto['telefono'] as $dati) {
+                                                                ?>
+                                                                Telefono: 
+                                                                <a 
+                                                                target="_blank" 
+                                                                aria-label="contatta telefonicamente tramite il numero <?php echo $dati['valore']; ?>" 
+                                                                title="chiama <?php echo $dati['valore']; ?>" 
+                                                                href="tel:<?php echo $dati['valore']; ?>">
+                                                                    <?php echo $dati['valore']; ?>
+                                                                </a>
+                                                                <?php echo $dati['dettagli']; ?>
+                                                                <?php
+                                                            }
+                                                        }
+                                                        if (array_key_exists('url', $full_contatto) && is_array($full_contatto['url']) && count ($full_contatto['url']) ) {
+                                                            foreach ($full_contatto['url'] as $dati) { ?>
+                                                                <p>
+                                                                    Collegamento web:
+                                                                    <a 
+                                                                    target="_blank" 
+                                                                    aria-label="scopri di pi첫 su <?php echo $dati['valore']; ?> - link esterno - apertura nuova scheda" 
+                                                                    title="vai sul sito <?php echo $dati['valore']; ?>" 
+                                                                    href="<?php echo $dati['valore']; ?>">
+                                                                        <?php echo $dati['valore']; ?>
+                                                                    </a>
+                                                                    <?php echo $dati['dettagli']; ?>
+                                                                </p>
+                                                            <?php }
+                                                        }
+                                                        if (array_key_exists('email', $full_contatto) && is_array($full_contatto['email']) && count ($full_contatto['email']) ) {
+                                                            foreach ($full_contatto['email'] as $dati) { ?>
+                                                                <p>
+                                                                    Email:
+                                                                    <a  
+                                                                    aria-label="invia un'email a <?php echo $dati['valore']; ?>"
+                                                                    title="invia un'email a <?php echo $dati['valore']; ?>" 
+                                                                    href="mailto:<?php echo $dati['valore']; ?>">
+                                                                        <?php echo $dati['valore']; ?>
+                                                                    </a>
+                                                                    <?php echo $dati['dettagli']; ?>
+                                                                </p>
+                                                            <?php }
+                                                        }
+                                                        if (array_key_exists('pec', $full_contatto) && is_array($full_contatto['pec']) && count ($full_contatto['pec']) ) {
+                                                            foreach ($full_contatto['pec'] as $dati) { ?>
+                                                                <p>
+                                                                    Posta elettronica certificata (PEC):
+                                                                    <a  
+                                                                    aria-label="invia un'email a <?php echo $dati['valore']; ?>"
+                                                                    title="invia un'email a <?php echo $dati['valore']; ?>" 
+                                                                    href="mailto:<?php echo $dati['valore']; ?>">
+                                                                        <?php echo $dati['valore']; ?>
+                                                                    </a>
+                                                                    <?php echo $dati['dettagli']; ?>
+                                                                </p> <?php 
+                                                            }
+                                                        }
+                                                        foreach ($other_contacts as $type) {
+                                                            if (array_key_exists($type, $full_contatto) &&  is_array($full_contatto[$type]) && count ($full_contatto[$type]) ) {
+                                                                foreach ($full_contatto[$type] as $dati) {
+                                                                    echo '<p class="py-0 my-0">';
+                                                                    if($icon = SOCIAL_ICONS[$type] ?? false)
+                                                                    { ?>
+                                                                        <svg class="icon icon-secondary icon-sm" aria-hidden="true">
+                                                                            <use xlink:href="#<?= $icon ?>"></use>
+                                                                        </svg>
+                                                                        <span class="visually-hidden"><?= $type ?></span>
+                                                                    <?php }
+                                                                    else
+                                                                        echo $type.': ';
+
+                                                                    echo $dati['valore'].(trim($dati['dettagli']) ? '('.$dati['dettagli'].')' : '') .'</p>';
+                                                                }
+                                                            } 
+                                                        }
+                                                    echo '</li>';
+                                                    }
+                                                }
+                                            } 
+                                        }
+                                     
+                                    }  ?>
+
+
+                                </ul>
+                            </div>
                         </div>
                         <div class="col-md-4">
                             <?php
