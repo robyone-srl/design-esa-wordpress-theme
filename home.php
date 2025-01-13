@@ -45,6 +45,20 @@ function get_section($name)
                 ?>
             </section>
         <?php break;
+        case 'luoghi-evidenza': ?>
+            <section id="luoghi-evidenza">
+                <?php
+                get_template_part("template-parts/vivere-ente/luoghi");
+                ?>
+            </section>
+        <?php break;
+        case 'servizi-evidenza': ?>
+            <section id="servizi-evidenza">
+                <?php
+                get_template_part("template-parts/servizio/servizi-in-evidenza");
+                ?>
+            </section>
+        <?php break;
         case 'calendario': ?>
             <section id="calendario">
                 <?php
@@ -85,8 +99,6 @@ function get_section($name)
             break;
     }
 }
-
-
 
 get_header();
 ?>
