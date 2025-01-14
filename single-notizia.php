@@ -239,6 +239,7 @@ get_header();
                             <h3 class="h6">Questa pagina è gestita da</h3>
                             <?php foreach ($a_cura_di as $uo_id) {
                                 $with_border = true;
+                                $mostra_dettagli_sede = true;
                                 get_template_part("template-parts/unita-organizzativa/card");
                             } ?>
                         </div>

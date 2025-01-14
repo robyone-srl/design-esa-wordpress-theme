@@ -18,7 +18,7 @@
             </a>
         </h4>
 	   <?php if ($descrizione_breve && $mostra_dettagli_sede) {
-		        echo '<div class="card-text mt-3"><p class="u-main-black">'.$descrizione_breve.'</p></div>';
+		        echo '<div class="card-text mt-2"><p class="u-main-black">'.$descrizione_breve.'</p></div>';
 	   } ?>
     </div>
     <?php if ($img) { ?>
