@@ -167,6 +167,18 @@ function dci_register_pagina_home_options(){
 
 
     $home_options->add_field( array(
+        'id' => $prefix . 'nascondi_scaduti',
+        'name'        => __( 'Nascondi eventi scaduti', 'design_comuni_italia' ),
+        'desc' => __( 'Scegli se nascondere gli eventi non più attivi' , 'design_comuni_italia' ),
+        'type'    => 'radio_inline',
+        'options' => array(
+            'false' => __( 'Mantieni visibili', 'cmb2' ),
+            'true'   => __( 'Nascondi', 'cmb2' ),
+        ),
+        'default' => 'false',
+    ) );
+
+    $home_options->add_field( array(
 		    'name'        => __('Schede in evidenza', 'design_comuni_italia'),
 		    'desc' => __( 'Definisci il contenuto delle Schede in evidenza' , 'design_comuni_italia' ),
             'id' => $prefix . 'schede_evidenziate',

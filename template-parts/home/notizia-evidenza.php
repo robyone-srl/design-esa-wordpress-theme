@@ -10,6 +10,9 @@ $page = get_page_by_path( dci_get_group($post->post_type) );
 
 $page_macro_slug = dci_get_group($post->post_type);
 $page_macro = get_page_by_path($page_macro_slug);
+
+$arrdata = dci_get_data_pubblicazione_arr("data_pubblicazione", '_dci_notizia_', $post->ID);
+$monthName = date_i18n('M', mktime(0, 0, 0, $arrdata[1], 10));
 ?>
 
 <?php if ($img) { ?>
@@ -21,6 +24,9 @@ $page_macro = get_page_by_path($page_macro_slug);
                 <use xlink:href="#<?php #echo $icon ?>"></use>
             </svg> -->
             <span class="category fw-semibold" ><?php echo $page->post_title ?></span>
+            
+            <span class="data"><?php echo $arrdata[0].' '.strtoupper($monthName).' '.$arrdata[2] ?></span>
+
             </div>
             <h3 class="card-title h5"><?php echo $post->post_title ?></h4>
             <p class="card-text text-secondary" style="margin-bottom: 40px!important;"><?php echo $descrizione_breve ?></p>
@@ -49,6 +55,8 @@ $page_macro = get_page_by_path($page_macro_slug);
                 <use xlink:href="#<?php #echo $icon ?>"></use>
             </svg> -->
             <span class="category title-xsmall-semi-bold fw-semibold"><?php echo $page->post_title ?></span>
+
+            <span class="data"><?php echo $arrdata[0].' '.strtoupper($monthName).' '.$arrdata[2] ?></span>
         </div>
         <h3 class="card-title h5">
             <?php echo $post->post_title ?>
