@@ -67,7 +67,7 @@ function load_comuni_custom_css(){
     global $CSS_NAME_COMUNI;
     $file_comuni = dci_get_custom_css_file_path($CSS_NAME_COMUNI);
     if(file_exists($file_comuni))
-        wp_register_style( 'dci-comuni', dci_get_custom_css_file_url($CSS_NAME_COMUNI));
+        wp_register_style( 'dci-bootstrap-italia-min', dci_get_custom_css_file_url($CSS_NAME_COMUNI));
 
 }
 add_action('wp_enqueue_scripts', 'load_comuni_custom_css');
