@@ -41,6 +41,35 @@ function dci_register_pagina_vivi_options(){
         //'desc' => __( 'didascalia.' , 'design_comuni_italia' ),
         'type' => 'text',
     ) );
+
+    $vivi_options->add_field( array(
+        'id' => $prefix . 'vivi_visualizzazione_eventi',
+        'name'        => __( 'Visualizzazione eventi', 'design_comuni_italia' ),
+        'desc' => __( 'Scegli se mostrare i prossimi eventi organizzati manualmente o uno dopo l\'altro' , 'design_comuni_italia' ),
+        'type'    => 'radio_inline',
+        'options' => array(
+            'in-evidenza' => __( 'In evidenza', 'cmb2' ),
+            'in-lista'   => __( 'In lista, uno dopo l\'altro', 'cmb2' ),
+        ),
+        'default' => 'in-evidenza',
+    ) );
+    
+    $vivi_options->add_field(array(
+        'id' => $prefix . 'vivi_numero_eventi',
+        'name' => __('Lista eventi', 'design_comuni_italia'),
+        'desc' => __('Seleziona il numero di eventi da mostrare.', 'design_comuni_italia'),
+        'type' => 'radio_inline',
+        'default' => 3,
+        'options' => array(
+            3 => __(3, 'design_comuni_italia'),
+            6 => __(6, 'design_comuni_italia'),
+        ),
+        'attributes' => array(
+			'data-conditional-id'    => $prefix.'vivi_visualizzazione_eventi',
+			'data-conditional-value' => "in-lista",
+        ),
+    ));
+
     $vivi_options->add_field(array(
             'name' => __('Eventi in evidenza', 'design_comuni_italia'),
             'desc' => __('Seleziona gli eventi in evidenza. NB: Selezionane 3 o multipli di 3 per evitare buchi nell\'impaginazione.  ', 'design_comuni_italia'),
@@ -59,6 +88,8 @@ function dci_register_pagina_vivi_options(){
             ),
             'attributes' => array(
                 'data-max-items' => 6, //change the value here to how many posts may be attached.
+                'data-conditional-id'    => $prefix.'vivi_visualizzazione_eventi',
+                'data-conditional-value' => "in-evidenza",
             )
         )
     );

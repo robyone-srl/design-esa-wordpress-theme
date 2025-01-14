@@ -13,7 +13,8 @@ get_header();
 		<?php
 		while ( have_posts() ) :
 			the_post();
-			
+
+			$visualizzazione_eventi = dci_get_option('vivi_visualizzazione_eventi', 'vivi') ?? 'in-evidenza';
 			$img = !empty(dci_get_option('immagine', 'vivi'))
     			? dci_get_option('immagine', 'vivi')
     			: get_template_directory_uri()."\assets\placeholders\img-placeholder-500x384.png";
@@ -35,7 +36,13 @@ get_header();
 					<?php echo $didascalia; ?>
 				</p>
 			</section>
-			<?php get_template_part("template-parts/vivere-ente/eventi"); ?>
+			<?php
+			if($visualizzazione_eventi == 'in-evidenza'){
+				get_template_part("template-parts/vivere-ente/eventi");
+			}else{
+				get_template_part("template-parts/vivere-ente/calendario", $visualizzazione_eventi);
+			}
+			 ?>
 			<?php get_template_part("template-parts/vivere-ente/luoghi"); ?>
 			<?php get_template_part("template-parts/vivere-ente/cards-list"); ?>
 			<?php get_template_part("template-parts/vivere-ente/galleria-foto"); ?>
