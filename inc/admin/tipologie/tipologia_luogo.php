@@ -394,6 +394,20 @@ function dci_add_luogo_metaboxes() {
         ),
     ) );
 
+    $cmb_contatti->add_field( array(
+        'id' => $prefix . 'sede_di_1',
+        'name'    => __( 'Sede di: ', 'design_comuni_italia' ),
+        'desc' => __( 'Link alle unità organizzative (uffici, aree, organi) presenti nel luogo. Puoi modificare il luogo di un\'unità organizzativa nelle sue impostazioni.' , 'design_comuni_italia' ),
+        'type'    => 'pw_multiselect',
+        'options' => dci_get_posts_options('unita_organizzativa'),
+        'default_cb' => 'set_to_current_luogo_sede_di',
+        'attributes' => array(
+            'placeholder' =>  __( 'Seleziona le Unità Organizzative', 'design_comuni_italia' ),
+            'disabled' => 'true',
+            'required' => 'required'
+        )
+    ) );
+
 
     //ULTERIORI INFORMAZIONI
     $cmb_informazioni = new_cmb2_box( array(
@@ -412,20 +426,6 @@ function dci_add_luogo_metaboxes() {
         'options' => dci_get_posts_options('unita_organizzativa'),
         'attributes' => array(
             'placeholder' =>  __( 'Seleziona le Unità Organizzative', 'design_comuni_italia' ),
-        )
-    ) );
-
-    $cmb_informazioni->add_field( array(
-        'id' => $prefix . 'sede_di_1',
-        'name'    => __( 'Sede di: ', 'design_comuni_italia' ),
-        'desc' => __( 'Link alle unità organizzative (uffici, aree, organi) presenti nel luogo. Puoi modificare il luogo di un\'unità organizzativa nelle sue impostazioni.' , 'design_comuni_italia' ),
-        'type'    => 'pw_multiselect',
-        'options' => dci_get_posts_options('unita_organizzativa'),
-        'default_cb' => 'set_to_current_luogo_sede_di',
-        'attributes' => array(
-            'placeholder' =>  __( 'Seleziona le Unità Organizzative', 'design_comuni_italia' ),
-            'disabled' => 'true',
-            'required' => 'required'
         )
     ) );
 
