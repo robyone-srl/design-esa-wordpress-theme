@@ -168,7 +168,7 @@ function dci_register_pagina_home_options(){
 
     $home_options->add_field( array(
         'id' => $prefix . 'giorni_per_filtro',
-        'name' => 'Giorni da considerare come filtro notiv&agrave',
+        'name' => 'Giorni da considerare come filtro novit&agrave',
         'desc' => '<br>Se compilato con un numero di giorni maggiore di 0, verranno mostrate solo le notizie pubblicate da meno di X giorni dalla data odierna',
         'type' => 'text_small',
         'attributes' => array(
