@@ -1,5 +1,9 @@
 <?php
 global $scheda;
+
+$giorni_per_filtro = dci_get_option("giorni_per_filtro", "homepage");
+$data_limite_filtro = strtotime("-". $giorni_per_filtro . " day");
+
 // Per mostrare la notizia più recente
 $post_id = dci_get_option('notizia_evidenziata', 'homepage', true)[0] ?? null;
 if ($post_id) {
@@ -25,6 +29,19 @@ if ($notizie_in_home && $notizie_in_home > 0) {
         'order'          => 'DESC',
         'exclude'        => [...($post_id ? [$post_id] : []), ...$schede],
     );
+
+    if($giorni_per_filtro != "" || $giorni_per_filtro > 0) {
+        $filter = array(
+                'date_query' => array(
+            		array(
+						'after' => '-'. $giorni_per_filtro . ' day',
+                		'inclusive' => true,
+            		),
+            	),
+        );
+		$args = array_merge($args,$filter);       	
+    }
+
     $posts = get_posts($args);
     //$post  = array_shift( $posts  );
 }

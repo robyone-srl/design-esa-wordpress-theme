@@ -167,15 +167,15 @@ function dci_register_pagina_home_options(){
 
 
     $home_options->add_field( array(
-        'id' => $prefix . 'nascondi_scaduti',
-        'name'        => __( 'Nascondi eventi scaduti', 'design_comuni_italia' ),
-        'desc' => __( 'Scegli se nascondere gli eventi non più attivi' , 'design_comuni_italia' ),
-        'type'    => 'radio_inline',
-        'options' => array(
-            'false' => __( 'Mantieni visibili', 'cmb2' ),
-            'true'   => __( 'Nascondi', 'cmb2' ),
+        'id' => $prefix . 'giorni_per_filtro',
+        'name' => 'Giorni da considerare come filtro notiv&agrave',
+        'desc' => '<br>Se compilato con un numero di giorni maggiore di 0, verranno mostrate solo le notizie pubblicate da meno di X giorni dalla data odierna',
+        'type' => 'text_small',
+        'attributes' => array(
+            'type' => 'number',
+            'pattern' => '\d*',
+            'min' => 0,
         ),
-        'default' => 'false',
     ) );
 
     $home_options->add_field( array(
