@@ -51,8 +51,6 @@ $monthName         = date_i18n('M', mktime(0, 0, 0, $arrdata[1], 10));
 $descrizione_breve = dci_get_meta("descrizione_breve", '_dci_notizia_', $post->ID);
 $argomenti         = dci_get_meta("argomenti", '_dci_notizia_', $post->ID);
 
-$hide_expired = dci_get_option('nascondi_scaduti', 'homepage') ?? 'false';
-
 $overlapping = "";
 
 if ($post_id || ($posts && is_array($posts) && count($posts) > 0)) {
@@ -80,16 +78,7 @@ if ($post_id || ($posts && is_array($posts) && count($posts) > 0)) {
                             foreach ($posts as $post) {
                                 if ($post) {
 									$scheda = $post;
-                                    if($hide_expired == 'true'){
-                                        $end_date = date_i18n('d/m/y', dci_get_meta('data_scadenza'));
-                                        $now_date = date_i18n('d/m/y', time());
-                                        if($end_date >= $now_date)
-                                            get_template_part("template-parts/home/notizia-evidenza");
-                                    }
-                                    if($hide_expired == 'false'){
-                                        get_template_part("template-parts/home/notizia-evidenza");
-                                    }
-                                        
+                                    get_template_part("template-parts/home/notizia-evidenza"); 
                                 }
                             }
                             ?>
