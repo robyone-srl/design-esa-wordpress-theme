@@ -23,6 +23,7 @@ foreach ($date as $data) {
 
 $url_eventi = dci_get_template_page_url("page-templates/eventi.php");
 
+if($total_eventi>0){
 ?>
 	<div class="section section-muted pb-90 pb-lg-50 px-lg-5 pt-0">
 		<div class="container">
@@ -93,3 +94,4 @@ $url_eventi = dci_get_template_page_url("page-templates/eventi.php");
 			<?php } ?>
 		</div>
 	</div>
+<?php } ?>

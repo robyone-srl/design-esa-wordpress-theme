@@ -10,6 +10,8 @@ $eventi = array_slice($eventi, 0, $quanti_eventi_mostrare);
 
 $url_eventi = dci_get_template_page_url("page-templates/eventi.php");
 
+
+if(count($eventi)>0){
 ?>
 	<div class="section section-muted pb-90 pb-lg-50 px-lg-5 pt-0">
 		<div class="container">
@@ -48,3 +50,4 @@ $url_eventi = dci_get_template_page_url("page-templates/eventi.php");
 			</div>
 		</div>
 	</div>
+<?php } ?>
