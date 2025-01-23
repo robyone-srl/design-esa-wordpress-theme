@@ -71,28 +71,16 @@ function dci_register_pagina_vivi_options(){
     ));
 
     $vivi_options->add_field(array(
-            'name' => __('Eventi in evidenza', 'design_comuni_italia'),
-            'desc' => __('Seleziona gli eventi in evidenza. NB: Selezionane 3 o multipli di 3 per evitare buchi nell\'impaginazione.  ', 'design_comuni_italia'),
-            'id' => $prefix . 'eventi_evidenziati',
-            'type'    => 'custom_attached_posts',
-            'column'  => true, // Output in the admin post-listing as a custom column. https://github.com/CMB2/CMB2/wiki/Field-Parameters#column
-            'options' => array(
-                'show_thumbnails' => false, // Show thumbnails on the left
-                'filter_boxes'    => true, // Show a text box for filtering the results
-                'query_args'      => array(
-                    'posts_per_page' => -1,
-                    'post_type'      => array(
-                        'evento'
-                    )
-                ), // override the get_posts args
-            ),
-            'attributes' => array(
-                'data-max-items' => 6, //change the value here to how many posts may be attached.
-                'data-conditional-id'    => $prefix.'vivi_visualizzazione_eventi',
-                'data-conditional-value' => "in-evidenza",
-            )
-        )
-    );
+        'id' => $prefix . 'vivi_visualizzazione_luoghi',
+        'name' => __('Visualizzazione Luoghi', 'design_comuni_italia'),
+        'desc' => __('Seleziona il tipo di visualizzazione dei luoghi.', 'design_comuni_italia'),
+        'type' => 'radio_inline',
+        'options' => array(
+            'true' => 'in evidenza',
+            'false' => 'personalizzato',
+        ),
+        'default' => 'true',
+    ));
 
     $vivi_options->add_field(array(
             'name' => __('Luoghi in evidenza', 'design_comuni_italia'),
@@ -112,6 +100,8 @@ function dci_register_pagina_vivi_options(){
             ),
             'attributes' => array(
                 'data-max-items' => 6, //change the value here to how many posts may be attached.
+                'data-conditional-id'    => $prefix.'vivi_visualizzazione_luoghi',
+			    'data-conditional-value' => "false",
             )
         )
     );
