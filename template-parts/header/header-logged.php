@@ -21,7 +21,7 @@ $last_notification = get_user_meta($current_user->ID,"_dci_last_notification", t
 ?>
 
 <div class="it-user-wrapper nav-item dropdown">
-    <a aria-expanded="false" class="btn btn-primary btn-icon" data-bs-toggle="dropdown" href="#">
+    <a aria-expanded="false" class="btn btn-primary btn-icon py-sm-2" data-bs-toggle="dropdown" href="#">
         <span class="rounded-icon">
             <img src="<?php echo dci_get_user_avatar($current_user); ?>" class="border rounded-circle icon-white" alt="<?php echo dci_get_display_name($current_user->ID); ?>" style="max-width:20px;"/>
         </span>
