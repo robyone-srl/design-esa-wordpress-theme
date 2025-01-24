@@ -46,7 +46,7 @@ function get_section($name)
             </section>
         <?php break;
         case 'luoghi-evidenza': ?>
-            <section id="luoghi-evidenza">
+            <section id="luoghi-evidenza" aria-describedby="novita-in-evidenza">
                 <?php
                 get_template_part("template-parts/vivere-ente/luoghi");
                 ?>
