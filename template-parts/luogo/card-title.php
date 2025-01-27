@@ -1,9 +1,11 @@
 <?php
-global $luogo;
+global $luogo, $show_descrizione;
 
 $card_title = $luogo->post_title;
+$descrizione_breve = dci_get_meta("descrizione_breve", '', $luogo->ID);
 $indirizzo = dci_get_meta("indirizzo", '', $luogo->ID);
 
+if($show_descrizione == '' || $show_descrizione == null) $show_descrizione = false;
 ?>
 
 <div class="card card-teaser rounded border border-light shadow-sm mb-3">
@@ -23,8 +25,12 @@ $indirizzo = dci_get_meta("indirizzo", '', $luogo->ID);
                     </a>
                 </div>
                 <div class="card-text">
-                    <small>
-                        <?php echo $indirizzo; ?>
+                    <small> <?php
+                        if($show_descrizione){
+                            echo $descrizione_breve;
+                        } else {
+                            echo $indirizzo;
+                        } ?>
                     </small>
                 </div>
             </div>

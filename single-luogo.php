@@ -229,7 +229,20 @@ get_header();
                                     <h2 class="h3 my-2">Caratteristiche</h2>
                                     <div class="richtext-wrapper lora">
                                         <?php echo $descrizione ?>
-                                    </div>
+                                    </div> <?php
+                                    $arr_figli = get_children($post->ID);
+                                    if($arr_figli){ ?>
+                                        <h3 class="h4">Ospita</h3>
+                                        <div class="row"> <?php
+                                            foreach($arr_figli as $arr_figli_id){ ?> 
+                                                <div class="col-xl-5 col-lg-7 col-md-12"> <?php 
+                                                    $luogo = $arr_figli_id;
+                                                    $show_descrizione = true;
+                                                    get_template_part("template-parts/luogo/card-title"); ?> 
+                                                </div> <?php
+                                            } ?>
+                                        </div> <?php
+                                    } ?>
                                 </section>
                             <?php } ?>
 
