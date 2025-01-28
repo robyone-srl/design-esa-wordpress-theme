@@ -1,110 +1,72 @@
 {
   "pagine": {
-    "Amministrazione": {
-      "title": "Amministrazione",
-      "slug": "amministrazione",
-      "description": "Tutte le informazioni sulla struttura amministrativa dell'Ente'. Scopri gli organi di governo e controllo, gli uffici e il personale e consulta i documenti pubblici, le statistiche e i bandi di gara.",
-      "template_name": "amministrazione",
-      "children": {
-        "Organi governo": {
-          "title": "Organi di governo e controllo",
-          "slug": "organi-di-governo-e-controllo",
-          "description": "Le informazioni sul Consiglio di amministrazione, il Collegio dei revisori e il Nucleo di valutazione.",
-          "template_name": "unita-organizzative",
-          "children": {}
-        },
-        "Aree gestionali": {
-          "title": "Aree gestionali",
-          "slug": "aree-gestionali",
-          "description": "La struttura organizzativa è suddivisa in aree di competenze che gestiscono i servizi erogati agli ospiti.",
-          "template_name": "unita-organizzative",
-          "children": {}
-        },
-        "Uffici": {
-          "title": "Uffici",
-          "slug": "uffici",
-          "description": "Le informazioni e i contatti degli Uffici, come le competenze e gli orari di apertura al pubblico.",
-          "template_name": "unita-organizzative",
-          "children": {}
-        },
-        "Personale amministrativo": {
-          "title": "Personale amministrativo",
-          "slug": "personale-amministrativo",
-          "description": "Personale da contattare per informazioni e supporto ai servizi amministrativi erogati dagli uffici.",
-          "template_name": "incarichi",
-          "children": {}
-        },
-        "Personale sanitario": {
-          "title": "Personale sanitario",
-          "slug": "personale-sanitario",
-          "description": "Personale da contattare per informazioni e supporto ai servizi socio-sanitari erogati.",
-          "template_name": "incarichi",
-          "children": {}
-        },
-        "Personale socio-assistenziale": {
-          "title": "Personale socio-assistenziale",
-          "slug": "personale-socio-assistenziale",
-          "description": "Personale da contattare per informazioni e supporto ai servizi sociali e assistenziali.",
-          "template_name": "incarichi",
-          "children": {}
-        },
-        "Documenti e dati": {
-          "title": "Documenti e dati",
-          "slug": "documenti-e-dati",
-          "description": "Bandi di concorso, avvisi, graduatorie, statistiche e documenti pubblici.",
-          "template_name": "documenti-e-dati",
-          "children": {}
-        }
-      }
-    },
-    "Novità": {
-      "title": "Novità",
-      "slug": "novita",
-      "description": "Tutte le novità dall'Ente per i cittadini per restare aggiornati.",
-      "template_name": "novita",
-      "children": {}
-    },
     "Servizi": {
       "title": "Servizi",
       "slug": "servizi",
       "description": "Tutti i servizi che l'Ente offre ai cittadini e ai propri ospiti.",
-      "template_name": "servizi",
+      "template_name": "servizi"
+    },
+    "Come fare per": {
+      "title": "Come fare per",
+      "slug": "procedure",
+      "description": "Scopri e approfondisci tutte le procedure e i servizi amministrativi offerti",
+      "template_name": "procedure"
+    },
+    "Luoghi": {
+      "title": "Luoghi",
+      "slug": "luoghi",
+      "description": "Tutti i luoghi dove i cittadini usufruiscono dei servizi offerti",
+      "template_name": "luoghi",
+      "children": {}
+    },
+    "IPAB Comunica": {
+      "title": "IPAB Comunica",
+      "slug": "novita",
+      "description": "Tutte le notizie ed eventi per restare aggiornati.",
+      "template_name": "novita",
       "children": {
-        "Assistenza": {
-          "title": "Assistenza",
-          "slug": "assistenza",
-          "description": "I campi contraddistinti dal simbolo asterisco sono obbligatori.",
-          "template_name": "assistenza",
+        "Notizie": {
+          "title": "Notizie",
+          "slug": "notizie",
+          "description": "Notizie e comunicati stampa",
+          "template_name": "notizie",
           "children": {}
         },
-        "Prenotazioni": {
-          "title": "Prenotazioni",
-          "slug": "prenotazioni",
-          "description": "",
-          "template_name": "prenota-appuntamento",
-          "children": {}
-        }
-      }
-    },
-    "Vivere l'Ente": {
-      "title": "Vivere l'Ente",
-      "slug": "vivere-ente",
-      "description": "Tutti gli eventi, le iniziative, i luoghi d'interesse, le informazioni sulla storia dell'Ente.",
-      "template_name": "vivere-ente",
-      "children": {
         "Eventi": {
           "title": "Eventi",
           "slug": "eventi",
           "description": "Tutti gli eventi proposti dall'Ente.",
           "template_name": "eventi",
           "children": {}
-        },
-        "Luoghi": {
-          "title": "Luoghi",
-          "slug": "luoghi",
-          "description": "Tutti i luoghi d'interesse dell'Ente.",
-          "template_name": "luoghi",
+        }
+      }
+    },
+    "Istituzione": {
+      "title": "Istituzione",
+      "slug": "amministrazione",
+      "description": "Tutte le informazioni sull'organizzazione dell'Ente",
+      "template_name": "amministrazione",
+      "children": {
+        "Organizzazione": {
+          "title": "Organizzazione",
+          "slug": "organizzazione",
+          "description": "Tutte le informazioni sulla struttura organizzativa, dalle aree gestionali agli uffici.",
+          "template_name": "unita-organizzative",
           "children": {}
+        },
+        "Personale": {
+              "title": "Personale",
+              "slug": "personale",
+              "description": "Personale da contattare per informazioni e supporto ai servizi erogati.",
+              "template_name": "persone_incaricate",
+              "children": {}
+        },
+        "Documenti": {
+              "title": "Documenti",
+              "slug": "documenti",
+              "description": "Bandi di concorso, avvisi, graduatorie, statistiche e documenti.",
+              "template_name": "documenti",
+              "children": {}
         },
         "Storia": {
           "title": "Storia",
@@ -117,13 +79,6 @@
           "title": "Valori e obiettivi",
           "slug": "valori-obiettivi",
           "description": "I valori dell'Ente.",
-          "template_name": "",
-          "children": {}
-        },
-        "Committato ospiti": {
-          "title": "Comitato ospiti",
-          "slug": "comitato-ospiti",
-          "description": "Comitato ospiti dell'Ente.",
           "template_name": "",
           "children": {}
         }

@@ -69,8 +69,8 @@
             "name" : "documento_pubblico",
             "capability" : "documenti_pubblici",
             "prefix" : "_dci_documento_pubblico_",
-            "singular_name" : "Documento Pubblico",
-            "plural_name" : "Documenti Pubblici",
+            "singular_name" : "Documento",
+            "plural_name" : "Documenti",
             "group_id": "amministrazione",
             "group_name" : "Amministrazione",
             "taxonomy" : [
@@ -78,34 +78,12 @@
                 "argomenti"
             ]
         },
-        "documento_privato" : {
-            "name" : "documento_privato",
-            "capability" : "documenti_privati",
-            "prefix" : "_dci_documento_privato_",
-            "singular_name" : "Documento Privato",
-            "plural_name" : "Documenti Privati",
-            "taxonomy" : [
-                "argomenti"
-            ]
-        },
-        "dataset" : {
-            "name" : "dataset",
-            "capability" : "datasets",
-            "prefix" : "_dci_dataset_",
-            "singular_name" : "Dataset",
-            "plural_name" : "Dataset",
-            "group_id": "amministrazione",
-            "group_name" : "Amministrazione",
-            "taxonomy" : [
-                "temi_dataset"
-            ]
-        },
         "persona_pubblica" : {
             "name" : "persona_pubblica",
             "capability" : "persone_pubbliche",
             "prefix" : "_dci_persona_pubblica_",
-            "singular_name" : "Persona Pubblica",
-            "plural_name" : "Persone Pubbliche",
+            "singular_name" : "Persona",
+            "plural_name" : "Persone",
             "group_id": "amministrazione",
             "group_name" : "Amministrazione",
             "taxonomy" : []
@@ -120,30 +98,6 @@
                 "tipi_punto_contatto"
             ]
         },
-        "pratica" : {
-            "name" : "pratica",
-            "capability" : "pratiche",
-            "prefix" : "_dci_pratica_",
-            "singular_name" : "Pratica",
-            "plural_name" : "Pratiche",
-            "taxonomy" : [
-                "stati_pratica"
-            ]
-        },
-        "pagamento" : {
-            "name" : "pagamento",
-            "capability" : "pagamenti",
-            "prefix" : "_dci_pagamento_",
-            "singular_name" : "Pagamento",
-            "plural_name" : "Pagamenti"
-        },
-        "messaggio" : {
-            "name" : "messaggio",
-            "capability" : "messaggi",
-            "prefix" : "_dci_messaggio_",
-            "singular_name" : "Messaggio",
-            "plural_name" : "Messaggi"
-        },
         "incarico" : {
             "name" : "incarico",
             "capability" : "incarichi",
@@ -154,20 +108,6 @@
                 "tipi_incarico"
             ]
         },
-        "appuntamento" : {
-            "name" : "appuntamento",
-            "capability" : "appuntamenti",
-            "prefix" : "_dci_appuntamento_",
-            "singular_name" : "Appuntamento",
-            "plural_name" : "Appuntamenti"
-        },
-        "fase" : {
-            "name" : "fase",
-            "capability" : "fasi",
-            "prefix" : "_dci_fase_",
-            "singular_name" : "Fase",
-            "plural_name" : "Fasi"
-        },
         "sito_tematico" : {
             "name" : "sito_tematico",
             "capability" : "siti_tematici",
@@ -175,6 +115,17 @@
             "singular_name" : "Sito Tematico",
             "plural_name" : "Siti Tematici",
             "group_name" : "Sito Tematico",
+            "taxonomy" : [
+                "argomenti"
+            ]
+        },
+        "procedure" : {
+            "name" : "procedura",
+            "group_name" : "Come fare per",
+            "capability" : "procedure",
+            "prefix" : "_dci_procedura_",
+            "singular_name" : "Come fare per",
+            "plural_name" : "Come fare per",
             "taxonomy" : [
                 "argomenti"
             ]
