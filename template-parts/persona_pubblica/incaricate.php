@@ -32,9 +32,9 @@ if($opzione_visualizzazione == 'scegli'){
 		    'terms' => $tipologia_incarico
 	    )
     );
-    $descrizione = 'gli incarichi';
+    $descrizione = 'degli incarichi';
 } else if ($opzione_visualizzazione == 'tutti'){
-    $descrizione = 'gli incarichi';
+    $descrizione = 'degli incarichi';
 }
 
 if($opzione_visualizzazione == null){
