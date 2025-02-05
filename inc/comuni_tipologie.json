@@ -127,9 +127,9 @@
             "singular_name" : "Come fare per",
             "plural_name" : "Come fare per",
             "taxonomy" : [
-                "argomenti"
-            ]
-        },
+              "argomenti"
+        ]
+      },
         "domanda_frequente" : {
             "name" : "domanda_frequente",
             "group_name" : "Domanda frequente",

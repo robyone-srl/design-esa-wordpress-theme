@@ -73,11 +73,73 @@ function dci_add_fase_metaboxes() {
         )
     ) );
 
-
     $cmb_dati->add_field(array(
         'name'       => __('Descrizione', 'design_comuni_italia' ),
         'id'         => $prefix . 'desc_fase',
         'type'       => 'textarea',
+    ) );
+
+    //Servizi inclusi
+    $cmb_dati->add_field( array(
+        'id' => $prefix . 'servizi_inclusi',
+        'name'    => __( 'Servizi inclusi ', 'design_comuni_italia' ),
+        'desc' => __( 'Seleziona i servizi riguardanti questa fase' , 'design_comuni_italia' ),
+        'type'    => 'pw_multiselect',
+        'options' => dci_get_posts_options('servizio'),
+        'attributes' => array(
+            'placeholder' =>  __( 'Seleziona i servizi inclusi', 'design_comuni_italia' ),
+        )
+    ) );
+
+    //DOCUMENTI
+    $cmb_documenti = new_cmb2_box( array(
+        'id'           => $prefix . 'box_documenti',
+        'title'        => __( 'Documenti', 'design_comuni_italia' ),
+        'object_types' => array( 'fase' ),
+        'context'      => 'normal',
+        'priority'     => 'low',
+    ) );
+
+    $cmb_documenti->add_field( array(
+        'id' => $prefix . 'documenti',
+        'name'        => __( 'Documenti', 'design_comuni_italia' ),
+        'desc' => __( 'Link alle schede documenti correlati.' , 'design_comuni_italia' ),
+        'type'    => 'pw_multiselect',
+        'options' => dci_get_posts_options('documento_pubblico'),
+        'attributes' => array(
+            'placeholder' =>  __( 'Seleziona i Documenti Pubblici', 'design_comuni_italia' ),
+        ),
+    ) );
+
+    //Contatti
+    $cmb_contatti = new_cmb2_box( array(
+        'id'           => $prefix . 'box_contatti',
+        'title'        => 'Contatti',
+        'object_types' => array( 'fase' ),
+        'context'      => 'normal',
+        'priority'     => 'high',
+    ) );
+
+    $cmb_contatti->add_field( array(
+        'id'        => $prefix . 'unita_responsabile',
+        'name'      => 'Unita&grave; Organizzativa responsabile',
+        'desc'      => 'Link dell\'ufficio resposanbile' ,
+        'type'      => 'pw_select',
+        'options'   => dci_get_posts_options('unita_organizzativa'),
+        'attributes' => array(
+            'placeholder'   =>  'Seleziona le Unità Organizzative',
+        )
+    ) );
+
+    $cmb_contatti->add_field( array(
+        'id'        => $prefix . 'punti_contatto',
+        'name'      => 'Contatti dedicati',
+        'desc'      => 'Telefono, mail o altri punti di contatto a cui rivolgersi per ulteriori informazioni',
+        'type'      => 'pw_multiselect',
+        'options'   => dci_get_posts_options('punto_contatto'),
+        'attributes'    => array(
+            'placeholder' =>  'Seleziona i Punti di Contatto',
+        ),
     ) );
 
 }

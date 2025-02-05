@@ -127,6 +127,7 @@ function dci_get_pagine_template_names(){
 function dci_get_sercheable_tipologie() {
     $arrayTipologie = array(
         'unita_organizzativa',
+        'procedura',
         'evento',
         'luogo',
         'documento_pubblico',
@@ -230,6 +231,7 @@ function dci_get_admin_menu_order() {
         'index.php',
         'dci_options',
         'separator1',
+        'edit.php?post_type=procedura',
         'edit.php?post_type=notizia',
         'edit.php?post_type=servizio',
         'edit.php?post_type=fase',

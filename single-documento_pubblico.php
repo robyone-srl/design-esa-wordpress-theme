@@ -299,14 +299,14 @@ get_header();
                             <?php if ($servizi && is_array($servizi) && count($servizi)>0 ) { ?>
                             <section id="servizi" class="it-page-section mb-5">
                                 <h2 class="h3 mb-3">Servizi collegati</h2>
-                                <div class="row">
-                                    <div class="col-12 col-sm-8">
-                                        <?php foreach ($servizi as $servizio_id) {
+                                <div class="row">  
+                                        <?php foreach ($servizi as $servizio_id) { ?>
+											<div class="col-xl-5 col-lg-7 col-md-12 pt-3"> <?php
                                             $servizio = get_post($servizio_id);
                                             $with_border = true;
-                                            get_template_part("template-parts/servizio/card");
+                                            get_template_part("template-parts/servizio/card"); ?>
+											</div> <?php
                                         } ?>
-                                    </div>
                                 </div>
                             </section>
                             <?php } ?>
