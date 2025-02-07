@@ -161,22 +161,39 @@ function dci_add_documento_pubblico_metaboxes()
     //DOCUMENTO
     $cmb_documento = new_cmb2_box(array(
         'id' => $prefix . 'box_documento',
-        'title' => __('Documento principale *', 'design_comuni_italia'),
+        'title' => __('Scarica documento *', 'design_comuni_italia'),
         'object_types' => array('documento_pubblico'),
         'context' => 'normal',
         'priority' => 'high',
     ));
 
+    $cmb_documento->add_field( array(
+        'name'      => 'Origine documento',
+        'id'        => $prefix . 'doc_type',
+        'desc'      => 'Indicare qui la provenienza del documento </br> Se allegato selezionare interno, se si vuole inserire un link selezionare esterno',
+        'type'      => 'radio_inline',
+        'options' => array(
+            'intern' => 'Interno',
+            'extern'   => 'Esterno',
+        ),
+        'default' => 'intern',
+    ) );
+
     $cmb_documento->add_field(array(
         'id' => $prefix . 'url_documento',
-        'name' => __('URL', 'design_comuni_italia'),
+        'name' => __('URL documento e allegati', 'design_comuni_italia'),
         'desc' => __('Link al documento vero e proprio', 'design_comuni_italia'),
-        'type' => 'text_url'
+        'type' => 'text_url',
+        'attributes' => array(
+            'data-conditional-id'    => $prefix.'doc_type',
+            'data-conditional-value' => 'extern',
+        )
     ));
+
 
     $cmb_documento->add_field(array(
         'id' => $prefix . 'file_documento',
-        'name' => __('Carica file', 'design_comuni_italia'),
+        'name' => __('File principale', 'design_comuni_italia'),
         'desc' => __('Se non è presente un link a risorsa esterna, bisogna ricordarsi di allegare il documento vero e proprio, in un formato scaricabile e stampabile da parte dell\'utente', 'design_comuni_italia'),
         'type' => 'file',
         // 'preview_size' => array( 100, 100 ), // Default: array( 50, 50 )
@@ -185,21 +202,17 @@ function dci_add_documento_pubblico_metaboxes()
         'text' => array(
             'add_upload_file_text' => __('Aggiungi un nuovo file', 'design_comuni_italia'), // default: "Add or Upload Files"
             'remove_image_text' => __('Rimuovi immagine', 'design_comuni_italia'), // default: "Remove Image"
-            'remove_text' => __('Rimuovi', 'design_comuni_italia'), // default: "Remove"
+            'remove_text' => __('Rimuovi', 'design_comuni_italia') // default: "Remove"
         ),
+        'attributes' => array(
+            'data-conditional-id'    => $prefix . 'doc_type',
+            'data-conditional-value' => 'intern',
+        )
     ));
-
-    $cmb_allegati = new_cmb2_box(array(
-        'id' => $prefix . 'box_allegati',
-        'title' => __('Allegati', 'design_comuni_italia'),
-        'object_types' => array('documento_pubblico'),
-        'context' => 'normal',
-        'priority' => 'high',
-    ));
-
-    $cmb_allegati->add_field(array(
+    
+    $cmb_documento->add_field(array(
         'id' => $prefix . 'file_allegati',
-        'name' => __('Carica file', 'design_comuni_italia'),
+        'name' => __('File allegati', 'design_comuni_italia'),
         'desc' => __('Eventuali allegati al documento principale', 'design_comuni_italia'),
         'type' => 'file_list',
         'text' => array(
@@ -207,16 +220,46 @@ function dci_add_documento_pubblico_metaboxes()
             'remove_image_text' => __('Rimuovi allegato', 'design_comuni_italia'), // default: "Remove Image"
             'remove_text' => __('Rimuovi', 'design_comuni_italia'), // default: "Remove"
         ),
+        'attributes' => array(
+            'data-conditional-id'    => $prefix . 'doc_type',
+            'data-conditional-value' => 'intern',
+        )
     ));
+
+    $cmb_documento->add_field(array(
+        'id' => $prefix . 'formati',
+        'name' => 'Formati disponibili',
+        'desc' => 'Lista dei formati in cui è disponibile il documento',
+        'type' => 'wysiwyg',
+        'options' => array(
+            'media_buttons' => false, // show insert/upload button(s)
+            'textarea_rows' => 10, // rows="..."
+            'teeny' => false, // output the minimal editor config used in Press This
+        ),
+        'after_field' => '<input name="format_conditional" type="hidden" data-conditional-id="' . $prefix . 'doc_type' . '" data-conditional-value="extern">',
+    ));
+
 
     //DESCRIZIONE
     $cmb_descrizione = new_cmb2_box(array(
-        'id' => $prefix . 'box_descrizione',
-        'title' => __('Descrizione', 'design_comuni_italia'),
+        'id' => $prefix . 'box_contenuto',
+        'title' => __('Contenuto', 'design_comuni_italia'),
         'object_types' => array('documento_pubblico'),
         'context' => 'normal',
         'priority' => 'high',
     ));
+    
+    $cmb_descrizione->add_field( array(
+        'name'      => 'Modalità inserimento',
+        'id'        => $prefix . 'content_type',
+        'desc'      => 'Scegli "Contenuto completo su pagina web" per farlo visionare direttamente tramite la pagina senza scaricamento. In entrambi i casi ti verrà chiesto di caricare la versione scaricabile.',
+        'type'      => 'radio_inline',
+        'options' => array(
+            'onlydesc' => 'Solo descrizione',
+            'webcontent'   => 'Contenuto completo su pagina web',
+        ),
+        'default' => 'onlydesc',
+    ) );
 
     $cmb_descrizione->add_field( array(
         'id' => $prefix . 'descrizione_estesa',
@@ -228,8 +271,39 @@ function dci_add_documento_pubblico_metaboxes()
             'textarea_rows' => 10, // rows="..."
             'teeny' => false, // output the minimal editor config used in Press This
         ),
+        'after_field' => '<input name="format_conditional_content" type="hidden" data-conditional-id="' . $prefix . 'content_type' . '" data-conditional-value="onlydesc">',
+
     ));
 
+    
+    $cmb_descrizione->add_field(array(
+        'id' => $prefix . 'indice',
+        'name' => 'Elenco delle informazioni contenute',
+        'desc' => 'Inserire l\'indice dei contenuti del documento',
+        'type' => 'wysiwyg',
+        'options' => array(
+            'media_buttons' => false, // show insert/upload button(s)
+            'textarea_rows' => 10, // rows="..."
+            'teeny' => false, // output the minimal editor config used in Press This
+        ),
+        'after_field' => '<input name="format_conditional_content" type="hidden" data-conditional-id="' . $prefix . 'content_type' . '" data-conditional-value="onlydesc">',
+
+    ));
+
+    $cmb_descrizione->add_field(array(
+        'id' => $prefix . 'content',
+        'name' => 'Contenuto',
+        'desc' => 'Inserire i contenuti dei documenti',
+        'type' => 'wysiwyg',
+        'options' => array(
+            'media_buttons' => false, // show insert/upload button(s)
+            'textarea_rows' => 10, // rows="..."
+            'teeny' => false, // output the minimal editor config used in Press This
+        ),
+        'after_field' => '<input name="format_conditional_content" type="hidden" data-conditional-id="' . $prefix . 'content_type' . '" data-conditional-value="webcontent">',
+    ));
+
+    /*
     $cmb_descrizione->add_field(array(
         'id' => $prefix . 'gallery',
         'name' => __('Galleria', 'design_comuni_italia'),
@@ -238,59 +312,7 @@ function dci_add_documento_pubblico_metaboxes()
         // 'preview_size' => array( 100, 100 ), // Default: array( 50, 50 )
         'query_args' => array('type' => 'image'), // Only images attachment
     ));
-
-    $cmb_descrizione->add_field(array(
-        'id' => $prefix . 'ufficio_responsabile',
-        'name' => __('Ufficio responsabile del documento *', 'design_comuni_italia'),
-        'desc' => __('Link alla scheda dell\'ufficio responsabile del documento', 'design_comuni_italia'),
-        'type' => 'pw_multiselect',
-        'options' => dci_get_posts_options('unita_organizzativa'),
-        'attributes' => array(
-            'required' => 'required',
-            'placeholder' =>  __( 'Seleziona le Unità Organizzative', 'design_comuni_italia' ),
-        )
-    ));
-
-
-	$cmb_descrizione->add_field( array(
-        'id' => $prefix . 'autori',
-        'name'    => __( 'Autore/i', 'design_comuni_italia' ),
-        'desc' => __( 'Persone che hanno redatto il documento.' , 'design_comuni_italia' ),
-        'type'    => 'pw_multiselect',
-        'options' => dci_get_posts_options('persona_pubblica'),
-        'attributes' => array(
-            'placeholder' =>  __( 'Seleziona le Persone Pubbliche', 'design_comuni_italia' ),
-        )
-    ) );
-	
-
-    $cmb_descrizione->add_field(array(
-        'id' => $prefix . 'formati',
-        'name' => __('Formati disponibili *', 'design_comuni_italia'),
-        'desc' => __('Lista dei formati in cui è disponibile il documento', 'design_comuni_italia'),
-        'type' => 'wysiwyg',
-        'options' => array(
-            'media_buttons' => false, // show insert/upload button(s)
-            'textarea_rows' => 10, // rows="..."
-            'teeny' => false, // output the minimal editor config used in Press This
-        ),
-        'attributes' => array(
-            'required' => 'required'
-        )
-    ));
-
-    $cmb_descrizione->add_field( array(
-        'id' => $prefix . 'licenza',
-        'name'    => __( 'Licenza di distribuzione *', 'design_comuni_italia' ),
-        'desc' => __( 'Licenza con il quale il documento viene distribuito', 'design_comuni_italia' ),
-        'type'             => 'taxonomy_radio_hierarchical',
-        'taxonomy'       => 'licenze',
-        'show_option_none' => false,
-        'remove_default' => 'true',
-        'attributes'    => array(
-            'required'    => 'required',
-        ),
-    ) );
+    */
 
     //SERVIZIO
     $cmb_servizi = new_cmb2_box(array(
@@ -345,26 +367,6 @@ function dci_add_documento_pubblico_metaboxes()
         ) )
     ));
 
-
-    //dataset
-    $cmb_dataset = new_cmb2_box(array(
-        'id' => $prefix . 'box_dataset',
-        'title' => __('Dataset', 'design_comuni_italia'),
-        'object_types' => array('documento_pubblico'),
-        'context' => 'normal',
-        'priority' => 'high',
-    ));
-
-    $cmb_dataset->add_field( array(
-        'id' => $prefix . 'dataset',
-        'desc' => __( 'Schede Dataset collegate al documento' , 'design_comuni_italia' ),
-        'type'    => 'pw_multiselect',
-        'options' => dci_get_posts_options('dataset'),
-        'attributes' => array(
-            'placeholder' =>  __( 'Seleziona i Dataset', 'design_comuni_italia' ),
-        ),
-    ) );
-
     //ULTERIORI INFORMAZIONI
     $cmb_informazioni = new_cmb2_box(array(
         'id' => $prefix . 'box_informazioni',
@@ -373,6 +375,45 @@ function dci_add_documento_pubblico_metaboxes()
         'context' => 'normal',
         'priority' => 'high',
     ));
+
+    
+    $cmb_informazioni->add_field(array(
+        'id' => $prefix . 'ufficio_responsabile',
+        'name' => __('Ufficio responsabile del documento *', 'design_comuni_italia'),
+        'desc' => __('Link alla scheda dell\'ufficio responsabile del documento', 'design_comuni_italia'),
+        'type' => 'pw_multiselect',
+        'options' => dci_get_posts_options('unita_organizzativa'),
+        'attributes' => array(
+            'required' => 'required',
+            'placeholder' =>  __( 'Seleziona le Unità Organizzative', 'design_comuni_italia' ),
+        )
+    ));
+
+
+	$cmb_informazioni->add_field( array(
+        'id' => $prefix . 'autori',
+        'name'    => __( 'Autore/i', 'design_comuni_italia' ),
+        'desc' => __( 'Persone che hanno redatto il documento.' , 'design_comuni_italia' ),
+        'type'    => 'pw_multiselect',
+        'options' => dci_get_posts_options('persona_pubblica'),
+        'attributes' => array(
+            'placeholder' =>  __( 'Seleziona le Persone Pubbliche', 'design_comuni_italia' ),
+        )
+    ) );
+	
+
+    $cmb_informazioni->add_field( array(
+        'id' => $prefix . 'licenza',
+        'name'    => __( 'Licenza di distribuzione *', 'design_comuni_italia' ),
+        'desc' => __( 'Licenza con il quale il documento viene distribuito', 'design_comuni_italia' ),
+        'type'             => 'taxonomy_radio_hierarchical',
+        'taxonomy'       => 'licenze',
+        'show_option_none' => false,
+        'remove_default' => 'true',
+        'attributes'    => array(
+            'required'    => 'required',
+        ),
+    ) );
 
     $cmb_informazioni->add_field(array(
         'id' => $prefix . 'ulteriori_informazioni',
@@ -409,22 +450,7 @@ function dci_add_documento_pubblico_metaboxes()
         ),
     ));
 
-    $cmb_events = new_cmb2_box( array(
-        'id'           => $prefix . 'box_events',
-        'title'        => __( 'Events collegati', 'design_comuni_italia' ),
-        'object_types' => array( 'documento_pubblico' ),
-        'context'      => 'side',
-        'priority'     => 'high',
-    ) );
 
-    $cmb_events->add_field( array(
-        'id' => $prefix . 'life_events',
-        'name'    => __( 'Life Events', 'design_comuni_italia' ),
-        'type'             => 'taxonomy_multicheck_hierarchical',
-        'taxonomy'       => 'eventi_vita_persone',
-        'show_option_none' => false,
-        'remove_default' => 'true',
-    ) );
 
 //Ex BusinessEvents
 
