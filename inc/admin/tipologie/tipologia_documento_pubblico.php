@@ -492,7 +492,16 @@ function dci_documento_pubblico_set_post_content( $data ) {
             $info = $_POST['_dci_documento_pubblico_ulteriori_informazioni'];
         }
 
-        $content = $descrizione_breve.'<br>'.$descrizione_estesa.'<br>'.$info;
+        $contenuto_doc = '';
+        if (isset($_POST['_dci_documento_pubblico_content'])) {
+            $info = $_POST['_dci_documento_pubblico_content'];
+        }
+
+        $content = $descrizione_breve
+            .'<br>'.$descrizione_estesa
+            .'<br>'.$contenuto_doc
+            .'<br>'.$info;
+
         $data['post_content'] = $content;
     }
 
