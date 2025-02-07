@@ -230,7 +230,12 @@ get_header();
                                     <div class="richtext-wrapper lora">
                                         <?php echo $descrizione ?>
                                     </div> <?php
-                                    $arr_figli = get_children($post->ID);
+	                                $args = array(
+		                                'post_parent'    => $post->ID,
+		                                'order'          => 'ASC',
+		                                'post_type'      => 'luogo',
+	                                );
+                                    $arr_figli = get_children($args);
                                     if($arr_figli){ ?>
                                         <h3 class="h4">Ospita</h3>
                                         <div class="row"> <?php

@@ -466,11 +466,14 @@ get_header();
                                 <?php } else { ?>
                                     <p>Il servizio viene erogato nei seguenti luoghi.</p>
                                 <?php } ?>
-
-                                <?php foreach ($canale_fisico_luoghi_id as $luogo_id) {
-                                    $luogo = get_post($luogo_id);
-                                    get_template_part("template-parts/luogo/card-title");
+                                <div class="row"> <?php 
+                                foreach ($canale_fisico_luoghi_id as $luogo_id) { ?>
+                                    <div class="col-xl-6 col-lg-7 col-md-12"> <?php
+                                        $luogo = get_post($luogo_id);
+                                        get_template_part("template-parts/luogo/card-title"); ?>
+                                    </div> <?php
                                 } ?>
+                                </div>
                             </section>
                         <?php } ?>
                         <?php if ($come_fare) { ?>
