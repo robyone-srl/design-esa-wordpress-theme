@@ -41,8 +41,13 @@ get_header();
             $riferimenti_normativi = dci_get_wysiwyg_field("riferimenti_normativi"); 			
             $documenti_collegati = dci_get_meta("documenti_collegati");
 
+
             $modalita_pagina = dci_get_meta("content_type");
+            if($modalita_pagina == '')
+                $modalita_pagina = 'onlydesc';
+
             $contenuto_documento = dci_get_meta("content");
+
             ?>
             <div class="container" id="main-container">
                 <div class="row">
