@@ -25,6 +25,7 @@ get_header();
             $data_protocollo = dci_get_meta("data_protocollo");			
             $tipo_documento = wp_get_post_terms( $post->ID, array( 'tipi_documento', 'tipi_doc_albo_pretorio' ) );
             $descrizione_breve = dci_get_meta("descrizione_breve");
+            $indice = dci_get_meta("indice");
             $url_documento = dci_get_meta("url_documento");
             $file_documento = dci_get_meta("file_documento");
             $file_allegati = dci_get_meta("file_allegati") ?? [];
@@ -36,10 +37,12 @@ get_header();
             $servizi = dci_get_meta("servizi");
             $data_inizio = dci_get_meta("data_inizio");
             $data_fine = dci_get_meta("data_fine");
-            $dataset = dci_get_meta("dataset");
             $more_info = dci_get_wysiwyg_field("ulteriori_informazioni");
             $riferimenti_normativi = dci_get_wysiwyg_field("riferimenti_normativi"); 			
             $documenti_collegati = dci_get_meta("documenti_collegati");
+
+            $modalita_pagina = dci_get_meta("content_type");
+            $contenuto_documento = dci_get_meta("content");
             ?>
             <div class="container" id="main-container">
                 <div class="row">
@@ -97,6 +100,8 @@ get_header();
                                                     <div id="collapse-one" class="accordion-collapse collapse show" role="region" aria-labelledby="accordion-title-one">
                                                         <div class="accordion-body">
                                                             <ul class="link-list" data-element="page-index">
+
+                                                            <?php if( $modalita_pagina == 'onlydesc' ) { ?>
                                                                 <?php if( $descrizione) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#descrizione">
@@ -105,94 +110,117 @@ get_header();
                                                                 </li>
                                                                 <?php } ?>
 
+                                                                <?php if( $indice ) { ?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#indice">
+                                                                        <span>Indice documento</span>
+                                                                    </a>
+                                                                </li>
+                                                                <?php } ?>
+                                                            <?php } else { ?>
+                                                                <?php if( $contenuto_documento ) { ?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#doc_content">
+                                                                        <span>Contenuto documento</span>
+                                                                    </a>
+                                                                </li>
+                                                                <?php } ?>
+                                                            <?php } ?>
                                                                 <?php if( $url_documento || $file_documento || !empty($file_allegati)) { ?>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#documento">
-                                                                        <span>Documento</span>
-                                                                    </a>
-                                                                </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" href="#documento">
+                                                                            <span>Scarica documento</span>
+                                                                        </a>
+                                                                    </li>
                                                                 <?php } ?>
 
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#ufficio_responsabile">
-                                                                        <span>Ufficio responsabile</span>
-                                                                    </a>
-                                                                </li>
+                                                                <?php 
+                                                                if($modalita_pagina == 'webcontent'){
 
-                                                                <?php if( $autori) { ?>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#autore">
-                                                                        <span>Autori</span>
-                                                                    </a>
-                                                                </li>
-                                                                <?php } ?>
+                                                                    if( 
+                                                                        $autori ||
+                                                                        ($servizi && count($servizi)) ||
+                                                                        $data_inizio ||
+                                                                        $data_fine ||
+                                                                        $more_info ||
+                                                                        $riferimenti_normativi ||
+                                                                        ( is_array($documenti_collegati) && count($documenti_collegati) )
+                                                                    ) { ?>
+                                                                        <li class="nav-item">
+                                                                            <a class="nav-link" href="#metadata">
+                                                                                <span>Metadati</span>
+                                                                            </a>
+                                                                        </li> <?php 
+                                                                    }
+                                                                }else{ ?>
 
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#formati_disponibili">
-                                                                        <span>Formati disponibili</span>
-                                                                    </a>
-                                                                </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" href="#ufficio_responsabile">
+                                                                            <span>Ufficio responsabile</span>
+                                                                        </a>
+                                                                    </li>
 
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#licenza_distribuzione">
-                                                                        <span>Licenza di distribuzione</span>
-                                                                    </a>
-                                                                </li>																
+                                                                    <?php if( $autori) { ?>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" href="#autore">
+                                                                            <span>Autori</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <?php } ?>
 
-                                                                <?php if( $servizi && count($servizi) ) { ?>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#servizi">
-                                                                        <span>Servizi collegati</span>
-                                                                    </a>
-                                                                </li>
-                                                                <?php } ?>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" href="#licenza_distribuzione">
+                                                                            <span>Licenza di distribuzione</span>
+                                                                        </a>
+                                                                    </li>																
 
-                                                                <?php if( $data_inizio) { ?>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#data_inizio">
-                                                                        <span>Data inizio</span>
-                                                                    </a>
-                                                                </li>
-                                                                <?php } ?>
+                                                                    <?php if( $servizi && count($servizi) ) { ?>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" href="#servizi">
+                                                                            <span>Servizi collegati</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <?php } ?>
 
-                                                                <?php if( $data_fine) { ?>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#data_fine">
-                                                                        <span>Data fine</span>
-                                                                    </a>
-                                                                </li>
-                                                                <?php } ?>
+                                                                    <?php if( $data_inizio) { ?>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" href="#data_inizio">
+                                                                            <span>Data inizio</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <?php } ?>
 
-                                                                <?php if( $dataset && count($dataset) ) { ?>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#dataset">
-                                                                        <span>Dataset</span>
-                                                                    </a>
-                                                                </li>
-                                                                <?php } ?>
+                                                                    <?php if( $data_fine) { ?>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" href="#data_fine">
+                                                                            <span>Data fine</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <?php } ?>
 
-                                                                <?php if( $more_info) { ?>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#ulteriori_informazioni">
-                                                                        <span>Ulteriori informazioni</span>
-                                                                    </a>
-                                                                </li>
-                                                                <?php } ?>
+                                                                    <?php if( $more_info) { ?>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" href="#ulteriori_informazioni">
+                                                                            <span>Ulteriori informazioni</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <?php } ?>
 
-                                                                <?php if( $riferimenti_normativi) { ?>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#riferimenti_normativi">
-                                                                        <span>Riferimenti normativi</span>
-                                                                    </a>
-                                                                </li>
-                                                                <?php } ?>
+                                                                    <?php if( $riferimenti_normativi) { ?>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" href="#riferimenti_normativi">
+                                                                            <span>Riferimenti normativi</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <?php } ?>
 
-                                                                <?php if( is_array($documenti_collegati) && count($documenti_collegati) ) { ?>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#documenti_collegati">
-                                                                        <span>Documenti collegati</span>
-                                                                    </a>
-                                                                </li>
+                                                                    <?php if( is_array($documenti_collegati) && count($documenti_collegati) ) { ?>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" href="#documenti_collegati">
+                                                                            <span>Documenti collegati</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <?php } ?>
                                                                 <?php } ?>
                                                             </ul>
                                                         </div>
@@ -208,18 +236,39 @@ get_header();
 
                     <div class="col-12 col-lg-9">
                         <div class="it-page-sections-container">
+
+                        <?php if($modalita_pagina == 'onlydesc'){ ?>
                             <?php if( $descrizione) { ?>
                             <section id="descrizione" class="it-page-section mb-5">
                                 <h2 class="h3 mb-3">Descrizione</h2>
                                 <div class="richtext-wrapper lora">
                                     <?php echo $descrizione; ?>
-							                  </div>
+							    </div>
                             </section>
                             <?php } ?>
 
+                            <?php if( $indice) { ?>
+                            <section id="indice" class="it-page-section mb-5">
+                                <h2 class="h3 mb-3">Indice documento</h2>
+                                <div class="richtext-wrapper lora">
+                                    <?php echo $indice; ?>
+							    </div>
+                            </section>
+                            <?php } ?>
+                        <?php } else { ?>
+                            <?php if( $contenuto_documento) { ?>
+                            <section id="doc_content" class="it-page-section mb-5">
+                                <h2 class="h3 mb-3">Contenuto documento</h2>
+                                <div class="richtext-wrapper lora">
+                                    <?= $contenuto_documento ?>
+							    </div>
+                            </section>
+                            <?php } ?>
+                        <?php } ?>
+
                             <?php if( $url_documento || $file_documento ) { ?>
                             <section id="documento" class="it-page-section mb-5">
-                                <h2 class="h3 mb-3">Documento</h2>
+                                <h2 class="h3 mb-3">Scarica documento</h2>
                                 <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
                                 <?php
                                     if ( $file_documento ) {
@@ -235,10 +284,11 @@ get_header();
                                             </svg>
                                             <div class="card-body">
                                                 <h3 class="card-title h5">
-                                                    <a class="text-decoration-none" href="<?php echo $url_documento; ?>" aria-label="Scarica il documento" title="Scarica il documento">
-                                                        Scarica il documento
+                                                    <a class="text-decoration-none" href="<?php echo $url_documento; ?>" aria-label="Scarica il documento (collegamento esterno)" title="Scarica il documento (collegamento esterno)">
+                                                        Scarica il documento (collegamento esterno)
                                                     </a>
                                                 </h3>
+                                            <span> Formati disponibili: <?= $formati ?> <span>
                                             </div>
                                         </div>
                                     <?php } ?>
@@ -255,114 +305,230 @@ get_header();
                             </section>
                             <?php } ?>
 
-                            <section id="ufficio_responsabile" class="it-page-section mb-5">
-                                <h2 class="h3 mb-3">Ufficio responsabile</h2>
-                                <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
-                                    <?php foreach ($ufficio_responsabile as $uo_id) {
-                                        $with_border = true;
-                                        get_template_part("template-parts/unita-organizzativa/card");
-                                    } ?>
-                                </div>
-                            </section>
+                            <?php if($modalita_pagina == 'onlydesc'){ ?>
 
-                            <?php if ($autori &&  is_array($autori) && count($autori)) { ?>
-                            <section id="autore" class="it-page-section mb-5">
-                                <h2 class="h3 mb-3">Autori</h2>
-                                <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
-                                    <?php foreach ($autori as $pp_id) { ?>
-                                        <?php get_template_part("template-parts/persona_pubblica/card"); ?>
-                                    <?php } ?>
-                                </div>
-                            </section>
-                            <?php } ?>
-
-                            <?php if ($formati) { ?>
-                            <section id="formati_disponibili" class="it-page-section mb-5">
-                                <h2 class="h3 mb-3">Formati disponibili</h2>
-                                <div class="richtext-wrapper lora">
-                                    <?php echo $formati ?>		
-                                </div>
-                            </section>
-                            <?php } ?>
-
-                            <?php if ($licenza) { ?>
-                            <section id="licenza_distribuzione" class="it-page-section mb-5">
-                                <h2 class="h3 mb-3">Licenza di distribuzione</h2>
-                                <div class="richtext-wrapper lora">
-                                    <?php foreach($licenza as $tipo) { 
-                                        echo $tipo->name;
-                                    } ?>
-                                </div>
-                            </section>
-                            <?php } ?>
-
-                            <?php if ($servizi && is_array($servizi) && count($servizi)>0 ) { ?>
-                            <section id="servizi" class="it-page-section mb-5">
-                                <h2 class="h3 mb-3">Servizi collegati</h2>
-                                <div class="row">  
-                                        <?php foreach ($servizi as $servizio_id) { ?>
-											<div class="col-xl-5 col-lg-7 col-md-12 pt-3"> <?php
-                                            $servizio = get_post($servizio_id);
+                                <section id="ufficio_responsabile" class="it-page-section mb-5">
+                                    <h2 class="h3 mb-3">Ufficio responsabile</h2>
+                                    <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
+                                        <?php foreach ($ufficio_responsabile as $uo_id) {
                                             $with_border = true;
-                                            get_template_part("template-parts/servizio/card"); ?>
-											</div> <?php
+                                            get_template_part("template-parts/unita-organizzativa/card");
                                         } ?>
+                                    </div>
+                                </section>
+
+                                <?php if ($autori &&  is_array($autori) && count($autori)) { ?>
+                                <section id="autore" class="it-page-section mb-5">
+                                    <h2 class="h3 mb-3">Autori</h2>
+                                    <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
+                                        <?php foreach ($autori as $pp_id) { ?>
+                                            <?php get_template_part("template-parts/persona_pubblica/card"); ?>
+                                        <?php } ?>
+                                    </div>
+                                </section>
+                                <?php } ?>
+
+                                <?php if ($licenza) { ?>
+                                <section id="licenza_distribuzione" class="it-page-section mb-5">
+                                    <h2 class="h3 mb-3">Licenza di distribuzione</h2>
+                                    <div class="richtext-wrapper lora">
+                                        <?php foreach($licenza as $tipo) { 
+                                            echo $tipo->name;
+                                        } ?>
+                                    </div>
+                                </section>
+                                <?php } ?>
+
+                                <?php if ($servizi && is_array($servizi) && count($servizi)>0 ) { ?>
+                                <section id="servizi" class="it-page-section mb-5">
+                                    <h2 class="h3 mb-3">Servizi collegati</h2>
+                                    <div class="row">
+                                        <div class="col-12 col-sm-8">
+                                            <?php foreach ($servizi as $servizio_id) {
+                                                $servizio = get_post($servizio_id);
+                                                $with_border = true;
+                                                get_template_part("template-parts/servizio/card");
+                                            } ?>
+                                        </div>
+                                    </div>
+                                </section>
+                                <?php } ?>
+
+                                <?php if ($data_inizio) { ?>
+                                <section id="data_inizio" class="it-page-section mb-5">
+                                    <h2 class="h3 mb-3">Data inizio</h2>
+                                    <div class="richtext-wrapper lora">
+                                        <?php
+                                            echo date_i18n('j F Y', strtotime($data_inizio));
+                                        ?>
+                                    </div>
+                                </section>
+                                <?php } ?>
+
+                                <?php if ($data_fine) { ?>
+                                <section id="data_fine" class="it-page-section mb-5">
+                                    <h2 class="h3 mb-3">Data fine</h2>
+                                    <div class="richtext-wrapper lora">
+                                        <?php
+                                            echo date_i18n('j F Y', strtotime($data_fine));
+                                        ?>
+                                    </div>
+                                </section>
+                                <?php } ?>
+
+                                <?php if ( $more_info ) {  ?>
+                                <section id="ulteriori_informazioni" class="it-page-section mb-5">
+                                    <h2 class="h3 mb-3">Ulteriori informazioni</h2>
+                                    <div class="richtext-wrapper lora">
+                                        <?php echo $more_info ?>
+                                    </div>
+                                </section>
+                                <?php }  ?>
+
+                                <?php if ( $riferimenti_normativi ) { ?>
+                                <section id="riferimenti_normativi" class="it-page-section mb-5">
+                                    <h2 class="h3 mb-3">Riferimenti normativi</h2>
+                                    <div class="richtext-wrapper lora">
+                                        <?php echo $riferimenti_normativi ?>
+                                    </div>
+                                </section>
+                                <?php } ?>
+
+                                <?php if( is_array($documenti_collegati) && count($documenti_collegati) ) { ?>
+                                <section id="documenti_collegati" class="it-page-section mb-5">
+                                    <h2 class="h3 mb-3">Documenti collegati</h2>
+                                    <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
+                                        <?php foreach ($documenti_collegati as $documento_id) {
+                                            $documento = get_post($documento_id);
+                                            $with_border = true;
+                                            get_template_part("template-parts/documento/card");
+                                        } ?>
+                                    </div>
+                                </section>
+                                <?php } ?>
+                            <?php } else {
+                                if( 
+                                    $autori ||
+                                    ($servizi && count($servizi)) ||
+                                    $data_inizio ||
+                                    $data_fine ||
+                                    $more_info ||
+                                    $riferimenti_normativi ||
+                                    ( is_array($documenti_collegati) && count($documenti_collegati) )
+                                ) { ?>
+                                <div id="metadata" class="it-page-section mb-5">
+                                    <h2 class="h3 mb-3">Metadati</h2>
+
+                                    <div class="metadata_content">
+                                        <section id="ufficio_responsabile" class="it-page-section mb-5">
+                                            <h3 class="h4 mb-3">Ufficio responsabile</h3>
+                                            <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
+                                                <?php foreach ($ufficio_responsabile as $uo_id) {
+                                                    $with_border = true;
+                                                    get_template_part("template-parts/unita-organizzativa/card");
+                                                } ?>
+                                            </div>
+                                        </section>
+
+                                        <?php if ($autori &&  is_array($autori) && count($autori)) { ?>
+                                        <section id="autore" class="it-page-section mb-5">
+                                            <h3 class="h4 mb-3">Autori</h3>
+                                            <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
+                                                <?php foreach ($autori as $pp_id) { ?>
+                                                    <?php get_template_part("template-parts/persona_pubblica/card"); ?>
+                                                <?php } ?>
+                                            </div>
+                                        </section>
+                                        <?php } ?>
+
+                                        <?php if ($licenza) { ?>
+                                        <section id="licenza_distribuzione" class="it-page-section mb-5">
+                                            <h3 class="h4 mb-3">Licenza di distribuzione</h3>
+                                            <div class="richtext-wrapper lora">
+                                                <?php foreach($licenza as $tipo) { 
+                                                    echo $tipo->name;
+                                                } ?>
+                                            </div>
+                                        </section>
+                                        <?php } ?>
+
+                                        <?php if ($servizi && is_array($servizi) && count($servizi)>0 ) { ?>
+                                        <section id="servizi" class="it-page-section mb-5">
+                                            <h3 class="h4 mb-3">Servizi collegati</h3>
+                                            <div class="row">
+                                                <div class="col-12 col-sm-8">
+                                                    <?php foreach ($servizi as $servizio_id) {
+                                                        $servizio = get_post($servizio_id);
+                                                        $with_border = true;
+                                                        get_template_part("template-parts/servizio/card");
+                                                    } ?>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <?php } ?>
+
+                                        <?php if ($data_inizio) { ?>
+                                        <section id="data_inizio" class="it-page-section mb-5">
+                                            <h3 class="h4 mb-3">Data inizio</h3>
+                                            <div class="richtext-wrapper lora">
+                                                <?php
+                                                    echo date_i18n('j F Y', strtotime($data_inizio));
+                                                ?>
+                                            </div>
+                                        </section>
+                                        <?php } ?>
+
+                                        <?php if ($data_fine) { ?>
+                                        <section id="data_fine" class="it-page-section mb-5">
+                                            <h3 class="h4 mb-3">Data fine</h3>
+                                            <div class="richtext-wrapper lora">
+                                                <?php
+                                                    echo date_i18n('j F Y', strtotime($data_fine));
+                                                ?>
+                                            </div>
+                                        </section>
+                                        <?php } ?>
+
+                                        <?php if ( $more_info ) {  ?>
+                                        <section id="ulteriori_informazioni" class="it-page-section mb-5">
+                                            <h3 class="h4 mb-3">Ulteriori informazioni</h3>
+                                            <div class="richtext-wrapper lora">
+                                                <?php echo $more_info ?>
+                                            </div>
+                                        </section>
+                                        <?php }  ?>
+
+                                        <?php if ( $riferimenti_normativi ) { ?>
+                                        <section id="riferimenti_normativi" class="it-page-section mb-5">
+                                            <h3 class="h4 mb-3">Riferimenti normativi</h3>
+                                            <div class="richtext-wrapper lora">
+                                                <?php echo $riferimenti_normativi ?>
+                                            </div>
+                                        </section>
+                                        <?php } ?>
+
+                                        <?php if( is_array($documenti_collegati) && count($documenti_collegati) ) { ?>
+                                        <section id="documenti_collegati" class="it-page-section mb-5">
+                                            <h3 class="h4 mb-3">Documenti collegati</h3>
+                                            <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
+                                                <?php foreach ($documenti_collegati as $documento_id) {
+                                                    $documento = get_post($documento_id);
+                                                    $with_border = true;
+                                                    get_template_part("template-parts/documento/card");
+                                                } ?>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <?php } ?>
+
                                 </div>
-                            </section>
+                                <?php } ?>
+
                             <?php } ?>
 
-                            <?php if ($data_inizio) { ?>
-                            <section id="data_inizio" class="it-page-section mb-5">
-                                <h2 class="h3 mb-3">Data inizio</h2>
-                                <div class="richtext-wrapper lora">
-                                    <?php
-                                        echo date_i18n('j F Y', strtotime($data_inizio));
-                                    ?>
-                                </div>
-                            </section>
-                            <?php } ?>
 
-                            <?php if ($data_fine) { ?>
-                            <section id="data_fine" class="it-page-section mb-5">
-                                <h2 class="h3 mb-3">Data fine</h2>
-                                <div class="richtext-wrapper lora">
-                                    <?php
-                                        echo date_i18n('j F Y', strtotime($data_fine));
-                                    ?>
-                                </div>
-                            </section>
-                            <?php } ?>
 
-                            <?php if ( $more_info ) {  ?>
-                            <section id="ulteriori_informazioni" class="it-page-section mb-5">
-                                <h2 class="h3 mb-3">Ulteriori informazioni</h2>
-                                <div class="richtext-wrapper lora">
-                                    <?php echo $more_info ?>
-                                </div>
-                            </section>
-                            <?php }  ?>
 
-                            <?php if ( $riferimenti_normativi ) { ?>
-                            <section id="riferimenti_normativi" class="it-page-section mb-5">
-                                <h2 class="h3 mb-3">Riferimenti normativi</h2>
-                                <div class="richtext-wrapper lora">
-                                    <?php echo $riferimenti_normativi ?>
-                                </div>
-                            </section>
-                            <?php } ?>
-
-                            <?php if( is_array($documenti_collegati) && count($documenti_collegati) ) { ?>
-                            <section id="documenti_collegati" class="it-page-section mb-5">
-                                <h2 class="h3 mb-3">Documenti collegati</h2>
-                                <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
-                                    <?php foreach ($documenti_collegati as $documento_id) {
-                                        $documento = get_post($documento_id);
-                                        $with_border = true;
-                                        get_template_part("template-parts/documento/card");
-                                    } ?>
-                                </div>
-                            </section>
-                            <?php } ?>
                         </div><!-- /it-page-sections-container -->
 
                         <div>
