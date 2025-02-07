@@ -9,13 +9,13 @@ function dci_register_pagina_avvisi_options(){
 
     $args = array(
         'id'           => 'dci_options_messages',
-        'title'        => esc_html__( 'Avvisi in Home', 'design_comuni_italia' ),
+        'title'        => esc_html__( 'Avvisi di allerta', 'design_comuni_italia' ),
         'object_types' => array( 'options-page' ),
         'option_key'   => 'home_messages',
         'capability'    => 'manage_theme_options',
         'parent_slug'  => 'dci_options',
         'tab_group'    => 'dci_options',
-        'tab_title'    => __('Avvisi in Home', "design_comuni_italia"),	);
+        'tab_title'    => __('Avvisi di allerta', "design_comuni_italia"),	);
 
     // 'tab_group' property is supported in > 2.4.0.
     if ( version_compare( CMB2_VERSION, '2.4.0' ) ) {
@@ -26,7 +26,7 @@ function dci_register_pagina_avvisi_options(){
 
     $alerts_options->add_field( array(
         'id' => $prefix . 'messages_istruzioni',
-        'name'        => __( 'Avvisi di allerta in home page', 'design_comuni_italia' ),
+        'name'        => __( 'Avvisi di allerta in pagina iniziale', 'design_comuni_italia' ),
         'desc' => __( 'Inserisci messaggi che saranno visualizzati nella homepage.' , 'design_comuni_italia' ),
         'type' => 'title',
     ) );

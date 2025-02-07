@@ -23,7 +23,7 @@ $additional_filter = null;
 <?php get_template_part("template-parts/home/calendario") ?>
 
 <div class="bg-grey-card py-3">
-    <form role="search" id="search-form" method="get" class="search-form">
+    <form role="search" id="search-form" method="get" class="search-form" action="#search-form">
         <div class="container">
             <h2 class="title-xxlarge mb-4 mt-5 mb-lg-10">
                 Esplora tutti gli eventi

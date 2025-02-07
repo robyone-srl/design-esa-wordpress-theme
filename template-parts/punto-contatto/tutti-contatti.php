@@ -35,7 +35,7 @@ $additional_filter = $tax_query;
 ?>
 
 <div class="py-3">
-    <form role="search" id="search-form" method="get" class="search-form">
+    <form role="search" id="search-form" method="get" class="search-form" action="#search-form">
         <div class="container">
             <h2 class="title-xxlarge mb-4 mt-5 mb-lg-10">
                 Esplora <?= $descrizione ?>
