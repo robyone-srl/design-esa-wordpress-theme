@@ -41,7 +41,7 @@ $procedure_evidenza = dci_get_option('procedure_evidenziate', 'procedure');
 
 <div class="container py-5">
     <h2>Tutte le procedure</h2>
-    <div class="row row-column-menu-left border-light">
+    <div class="row row-column-menu-left border-light mt-3">
         <form role="search" id="search-form" method="get" class="search-form px-0" action="#search-form">
 
             <div class="container">
@@ -90,7 +90,7 @@ $procedure_evidenza = dci_get_option('procedure_evidenziate', 'procedure');
                     <div class="col-12 col-lg-9">
                         <div id="tutte-procedure" class="<?= !($should_have_grey_background=(!$should_have_grey_background)) ? 'bg-grey-dsk':'' ?>">
                             
-                            <div class="pt-lg-10 pb-lg-50">
+                            <div class="pt-lg-30 pb-lg-60 ps-4">
                                 <p id="autocomplete-label" class="mb-4">
                                     <strong><?php echo $the_query->found_posts; ?> </strong> procedure trovate in ordine alfabetico
                                 </p>
