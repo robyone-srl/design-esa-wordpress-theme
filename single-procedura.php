@@ -175,11 +175,11 @@ get_header();
                                                             $posts = get_posts($args);
 
                                                             if (!empty($posts)) { ?>
-									                            <h4 class="h5 title mt-3"> Servizi inclusi</h3>
+									                            <h4 class="h5 title mt-3"> Servizi collegati</h3>
                                                                 <div>
 
                                                                     <a class="btn btn-primary btn-icon btn-xs" data-bs-toggle="collapse" href="#collapseServiziInclusi<?= $n_fase ?>" role="button" aria-expanded="false" aria-controls="collapseServiziInclusi<?= $n_fase ?>">
-											                            Mostra servizi inclusi 
+											                            Mostra servizi collegati 
                                                                         <svg class="icon icon-white ms-5 chevron"><use href="#it-expand"></use></svg>
 											                        </a>
 											
