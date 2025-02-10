@@ -160,7 +160,7 @@ get_header();
                                                             <?php if ($servizi && is_array($servizi) && count($servizi) > 0) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#servizi">
-                                                                        <span>Servizi offerti</span>
+                                                                        <span>Servizi gestiti</span>
                                                                     </a>
                                                                 </li>
                                                             <?php } ?>
@@ -272,7 +272,7 @@ get_header();
 
                         <?php if ($servizi &&  is_array($servizi) && count($servizi)) { ?>
                             <section id="servizi" class="it-page-section mb-4">
-                                <h2 class="h3 my-2">Servizi offerti</h2>
+                                <h2 class="h3 my-2">Servizi gestiti</h2>
                                 <div class="row g-2">
                                     <?php
                                     foreach ($servizi as $servizio_id) { 
