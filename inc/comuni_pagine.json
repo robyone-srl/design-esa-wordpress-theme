@@ -6,11 +6,17 @@
       "description": "Tutti i servizi che l'Ente offre ai cittadini e ai propri ospiti.",
       "template_name": "servizi"
     },
+    "Contatti": {
+      "title": "Contatti",
+      "slug": "contatti",
+      "description": "Tutti i contatti dell'Ente.",
+      "template_name": "punti-di-contatto"
+    },
     "Come fare per": {
       "title": "Come fare per",
       "slug": "procedure",
       "description": "Scopri e approfondisci tutte le procedure e i servizi amministrativi offerti",
-      "template_name": "procedure"
+      "template_name": "procedura"
     },
     "Luoghi": {
       "title": "Luoghi",
@@ -55,18 +61,18 @@
           "children": {}
         },
         "Personale": {
-              "title": "Personale",
-              "slug": "personale",
-              "description": "Personale da contattare per informazioni e supporto ai servizi erogati.",
-              "template_name": "persone_incaricate",
-              "children": {}
+          "title": "Personale",
+          "slug": "personale",
+          "description": "Personale da contattare per informazioni e supporto ai servizi erogati.",
+          "template_name": "persone_incaricate",
+          "children": {}
         },
         "Documenti": {
-              "title": "Documenti",
-              "slug": "documenti",
-              "description": "Bandi di concorso, avvisi, graduatorie, statistiche e documenti.",
-              "template_name": "documenti",
-              "children": {}
+          "title": "Documenti",
+          "slug": "documenti",
+          "description": "Bandi di concorso, avvisi, graduatorie, statistiche e documenti.",
+          "template_name": "documenti-e-dati",
+          "children": {}
         },
         "Storia": {
           "title": "Storia",

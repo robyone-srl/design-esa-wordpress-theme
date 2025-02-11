@@ -53,8 +53,7 @@ if(!function_exists("dci_tipi_unita_organizzativa_array")){
 if(!function_exists("dci_categorie_servizio_array")){
     function dci_categorie_servizio_array() {
         $categorie_servizio_arr = [
-            'Servizi socio-assistenziali',
-			'Servizi per gli ospiti'
+            'Servizi socio-assistenziali'
         ];
         return $categorie_servizio_arr;
     }

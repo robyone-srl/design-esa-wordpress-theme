@@ -38,6 +38,7 @@ function close_alternate_div_background()
 			get_template_part('template-parts/single/image-large');
 			$should_have_grey_background = true;
 			get_template_part("template-parts/procedura/procedure-in-evidenza");
+			$should_have_grey_background = false;
 			get_template_part("template-parts/procedura/tutte-procedure");
 			get_template_part("template-parts/common/valuta-servizio"); 
 			

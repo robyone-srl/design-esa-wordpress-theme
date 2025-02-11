@@ -1,5 +1,5 @@
 <?php
-    $pages = dci_get_children_pages('amministrazione');
+    $pages = dci_get_children_pages('amministrazione',false);
     $arr_pages = array_keys((array)$pages);
 ?>
 <div class="container py-5">

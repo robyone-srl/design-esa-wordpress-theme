@@ -63,7 +63,7 @@ if(!function_exists("dci_get_children_pages")) {
        );
 
         if ($parent !== '') {
-            $page = get_page_by_title($parent);
+            $page = get_page_by_path($parent);
             $args['child_of'] =  $page->ID ;
             if ($only_direct) {
                 $args['parent'] =  $page->ID ;
