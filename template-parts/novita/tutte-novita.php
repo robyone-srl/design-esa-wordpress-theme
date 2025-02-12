@@ -10,7 +10,6 @@ global $the_query, $load_posts, $load_card_type;
     );
 
     $the_query = new WP_Query( $args );
-    $posts = $the_query->posts;
 
     usort($posts, function($a, $b) {
         return dci_get_data_pubblicazione_ts("data_pubblicazione", '_dci_notizia_', $b->ID) - dci_get_data_pubblicazione_ts("data_pubblicazione", '_dci_notizia_', $a->ID);
@@ -59,11 +58,18 @@ global $the_query, $load_posts, $load_card_type;
                 </div>
             </div>
             <div class="row g-4" id="load-more">
-                <?php
-                foreach ( $posts as $post ) {
-                    $load_card_type = 'notizia';
-                    get_template_part('template-parts/novita/cards-list');
-                }
+
+                <?php 
+                if ($the_query->have_posts()) :
+                    while ($the_query->have_posts()) :
+			                $the_query->the_post();
+                            $post = get_post();
+
+                            $load_card_type = "notizia";
+                            get_template_part("template-parts/novita/cards-list");
+		            endwhile;
+                endif; 
+
                 wp_reset_postdata();
                 ?>
             </div>
