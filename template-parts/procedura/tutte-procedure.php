@@ -4,7 +4,7 @@ global $posts, $the_query, $load_posts, $procedura, $load_card_type, $should_hav
 $max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 4;
 $load_posts = 4;
 
-$query = isset($_GET['s']) ? dci_removeslashes($_GET['search']) : null;
+$query = isset($_GET['search']) ? dci_removeslashes($_GET['search']) : null;
 
 $args = array(
     's' => $query,
