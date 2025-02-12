@@ -61,7 +61,7 @@ $the_query = new WP_Query($args);
                         wp_reset_postdata();
                         ?>
                     </div>
-                    
+                    <?php get_template_part("template-parts/search/more-results"); ?>
                 </div>
             </div>
         </div>
