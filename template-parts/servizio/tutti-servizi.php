@@ -12,15 +12,6 @@ $args = array(
     'order'          => 'ASC'
 );
 $the_query = new WP_Query($args);
-
-$posts = $the_query->posts;
-
-// Per selezionare i contenuti in evidenza tramite flag
-// $post_types = dci_get_post_types_grouped('servizi');
-// $servizi_evidenza = dci_get_highlighted_posts( $post_types, 10);
-
-//Per selezionare i contenuti in evidenza tramite configurazione
-$servizi_evidenza = dci_get_option('servizi_evidenziati', 'servizi');
 ?>
 <div id="tutti-servizi" class="<?= !($should_have_grey_background=(!$should_have_grey_background)) ? 'bg-grey-dsk':'' ?>">
     <form role="search" id="search-form" method="get" class="search-form">
@@ -52,21 +43,27 @@ $servizi_evidenza = dci_get_option('servizi_evidenziati', 'servizi');
                         </p>
                     </div>
                     <div class="row g-4" id="load-more">
-                        <?php foreach ($posts as $servizio) {
-                            $load_card_type = "servizio";
-                            ?>
-                            <div class="col-12 col-lg-4">
-                            <?php
-                            get_template_part("template-parts/servizio/card");
-                            ?>
-                            </div>
-                            <?php
-                        } ?>
+                        <?php 
+
+
+                        if ($the_query->have_posts()) :
+                            while ($the_query->have_posts()) :
+			                        $servizio = $the_query->the_post();
+                                    $servizio = get_post();
+
+                                    $load_card_type = "servizio";  ?>
+                                    <div class="col-12 col-lg-4">  <?php
+                                        get_template_part("template-parts/servizio/card"); ?>
+                                    </div>  <?php
+		                    endwhile;
+                        endif; 
+
+                        wp_reset_postdata();
+                        ?>
                     </div>
-                    <?php get_template_part("template-parts/search/more-results"); ?>
+                    
                 </div>
             </div>
         </div>
     </form>
 </div>
-<?php wp_reset_query(); ?>

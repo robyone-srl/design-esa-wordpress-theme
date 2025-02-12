@@ -89,15 +89,10 @@ $args = array(
 );
 
 $the_query = new WP_Query( $args );
-$posts = $the_query->posts;
-//var_dump($the_query->found_posts);
-
-//$additional_filter = $tax_query;
-
 ?>
 
 <div class="bg-grey-card py-3">
-    <form role="search" id="search-form" method="get" class="search-form">
+    <form role="search" id="search-form" method="get" class="search-form" action="#search-form">
         <div class="container">
             <h2 class="title-xxlarge mb-4 mt-5 mb-lg-10">
                 Esplora <?= $descrizione ?>
@@ -133,12 +128,25 @@ $posts = $the_query->posts;
                 </p>
             </div>
             <div class="row g-2" id="load-more">
-                <?php
-				foreach ($posts as $post) {
-					$load_card_type = 'unita-organizzativa';
-					get_template_part( 'template-parts/unita-organizzativa/cards-list' );
-				}
+
+                <?php 
+
+                
+                if ($the_query->have_posts()) :
+                    while ($the_query->have_posts()) :
+			            $the_query->the_post();
+                        $post = get_post();
+                        /*echo "<pre>";
+                        //print_r($post);
+                        echo "<pre>";*/
+                        $load_card_type = "unita-organizzativa";  
+                        get_template_part("template-parts/unita-organizzativa/cards-list");
+		            endwhile;
+                endif; 
+
+                wp_reset_postdata();
                 ?>
+
             </div>
             <?php
 			get_template_part("template-parts/search/more-results");

@@ -76,11 +76,10 @@ $args = array(
 );
 
 $the_query = new WP_Query( $args );
-$persone = $the_query->posts;
 ?>
 
 <div class="bg-grey-card py-3">
-    <form role="search" id="search-form" method="get" class="search-form">
+    <form role="search" id="search-form" method="get" class="search-form" action="#search-form">
         <div class="container">
             <h2 class="title-xxlarge mb-4 mt-5 mb-lg-10">
                 Elenco <?= $descrizione ?>
@@ -114,11 +113,21 @@ $persone = $the_query->posts;
                 </p>
             </div>
             <div  class="row g-2" id="load-more">
-                <?php
-				    foreach ($persone as $post) {
-                        get_template_part( 'template-parts/persona_pubblica/cards-list' );
-				    }
-				?>
+
+
+                <?php 
+                if ($the_query->have_posts()) :
+                    while ($the_query->have_posts()) :
+			                $persone = $the_query->the_post();
+                            $persone = get_post();
+
+                            get_template_part("template-parts/persona_pubblica/cards-list");
+		            endwhile;
+                endif; 
+
+                wp_reset_postdata();
+                ?>
+
             </div>
 			<?php
 				$load_card_type = 'persona_pubblica';

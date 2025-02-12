@@ -12,13 +12,11 @@ global $the_query, $load_posts, $load_card_type;
         'order'          => 'ASC'
      );
      $the_query = new WP_Query( $args );
-
-     $posts = $the_query->posts;
 ?>
 
 
 <div class="bg-grey-card py-5">
-  <form role="search" id="search-form" method="get" class="search-form">
+  <form role="search" id="search-form" method="get" class="search-form" action="#search-form">
     <div class="container">
       <h2 class="title-xxlarge mb-4">
         Esplora tutti i documenti
@@ -47,11 +45,24 @@ global $the_query, $load_posts, $load_card_type;
         </div>
       </div>
       <div class="row g-4" id="load-more">
-          <?php
-          $load_card_type = 'documento';
-          foreach ( $posts as $post ) { get_template_part('template-parts/documento/cards-list'); }
-          wp_reset_postdata();
-          ?>
+
+        <?php 
+
+
+        if ($the_query->have_posts()) :
+            while ($the_query->have_posts()) :
+			    $the_query->the_post();
+                $post = get_post();
+
+                $load_card_type = "documento";  
+                get_template_part("template-parts/documento/cards-list");
+		    endwhile;
+        endif; 
+
+        wp_reset_postdata();
+        ?>
+
+
       </div>
       <?php get_template_part("template-parts/search/more-results"); ?>
     </div>

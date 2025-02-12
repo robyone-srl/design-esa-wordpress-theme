@@ -42,8 +42,6 @@ function force_post_title( $post )  {
                         '_dci_unita_organizzativa_competenze',
                         '_dci_luogo_modalita_accesso',
                         '_dci_dataset_distribuzione',
-                        '_dci_documento_privato_formati',
-                        '_dci_documento_pubblico_formati',
                         '_dci_evento_descrizione_completa',
                         '_dci_evento_a_chi_e_rivolto',
                         '_dci_messaggio_testo_messaggio',

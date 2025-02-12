@@ -37,7 +37,7 @@ function dci_register_pagina_home_options(){
         'type' => 'pw_multiselect',
         'options' => array(
             'hero' => 'Hero',
-            'messages' => 'Avvisi',
+            'messages' => 'Avvisi di allerta',
             'notizie' => 'Notizie',
             'contenuti-evidenza' => 'Contenuti in evidenza',
             'luoghi-evidenza' => 'Luoghi in evidenza',

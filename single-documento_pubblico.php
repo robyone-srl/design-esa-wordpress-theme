@@ -118,7 +118,7 @@ get_header();
                                                                 <?php if( $indice ) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#indice">
-                                                                        <span>Indice documento</span>
+                                                                        <span>Elenco delle informazioni contenute</span>
                                                                     </a>
                                                                 </li>
                                                                 <?php } ?>
@@ -254,7 +254,7 @@ get_header();
 
                             <?php if( $indice) { ?>
                             <section id="indice" class="it-page-section mb-5">
-                                <h2 class="h3 mb-3">Indice documento</h2>
+                                <h2 class="h3 mb-3">Elenco delle informazioni contenute</h2>
                                 <div class="richtext-wrapper lora">
                                     <?php echo $indice; ?>
 							    </div>

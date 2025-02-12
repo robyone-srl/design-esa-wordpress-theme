@@ -14,7 +14,7 @@ function dci_register_main_options_metabox() {
 
     dci_register_contatti_options();
 
-    dci_register_bootstrap_italia_options();
+    dci_register_grafica_options();
 
     dci_register_pagina_avvisi_options();
 
