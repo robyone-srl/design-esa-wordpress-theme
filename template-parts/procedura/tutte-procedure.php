@@ -29,7 +29,6 @@ if ( isset( $_GET["post_terms"] ) ) {
 
 $the_query = new WP_Query($args);
 
-$posts = $the_query->posts;
 // Per selezionare i contenuti in evidenza tramite flag
 // $post_types = dci_get_post_types_grouped('servizi');
 // $procedure_evidenza = dci_get_highlighted_posts( $post_types, 10);
@@ -95,16 +94,22 @@ $procedure_evidenza = dci_get_option('procedure_evidenziate', 'procedure');
                                     <strong><?php echo $the_query->found_posts; ?> </strong> procedure trovate in ordine alfabetico
                                 </p>
                                 <div class="row g-4" id="load-more">
-                                    <?php foreach ($posts as $procedura) {
-                                        $load_card_type = "procedura";
-                                        ?>
-                                        <div class="col-12 col-lg-6">
-                                        <?php 
-                                        $mostra_dettagli_procedura = true;
-                                        get_template_part("template-parts/procedura/card"); ?>
-                                        </div>
-                                        <?php
-                                    } ?>
+                                    <?php 
+                                    if ($the_query->have_posts()) :
+                                        while ($the_query->have_posts()) :
+			                                    $the_query->the_post();
+                                                $procedura = get_post();
+
+                                                $load_card_type = "procedura";  ?>
+                                                <div class="col-12 col-lg-6">  <?php
+                                                    $mostra_dettagli_procedura = true;
+                                                    get_template_part("template-parts/procedura/card"); ?>
+                                                </div>  <?php
+		                                endwhile;
+                                    endif; 
+
+                                    wp_reset_postdata();
+                                    ?>
                                 </div>
                                 <?php get_template_part("template-parts/search/more-results"); ?>
                             </div>
