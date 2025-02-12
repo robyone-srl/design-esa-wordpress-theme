@@ -32,9 +32,9 @@ if($opzione_visualizzazione == 'scegli'){
 		    'terms' => $tipologia_incarico
 	    )
     );
-    $descrizione = 'gli incarichi';
+    $descrizione = 'degli incarichi';
 } else if ($opzione_visualizzazione == 'tutti'){
-    $descrizione = 'gli incarichi';
+    $descrizione = 'degli incarichi';
 }
 
 if($opzione_visualizzazione == null){
@@ -76,7 +76,6 @@ $args = array(
 );
 
 $the_query = new WP_Query( $args );
-$persone = $the_query->posts;
 ?>
 
 <div class="bg-grey-card py-3">
@@ -114,11 +113,21 @@ $persone = $the_query->posts;
                 </p>
             </div>
             <div  class="row g-2" id="load-more">
-                <?php
-				    foreach ($persone as $post) {
-                        get_template_part( 'template-parts/persona_pubblica/cards-list' );
-				    }
-				?>
+
+
+                <?php 
+                if ($the_query->have_posts()) :
+                    while ($the_query->have_posts()) :
+			                $persone = $the_query->the_post();
+                            $persone = get_post();
+
+                            get_template_part("template-parts/persona_pubblica/cards-list");
+		            endwhile;
+                endif; 
+
+                wp_reset_postdata();
+                ?>
+
             </div>
 			<?php
 				$load_card_type = 'persona_pubblica';

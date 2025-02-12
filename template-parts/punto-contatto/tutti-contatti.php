@@ -28,8 +28,6 @@ $args = array(
 );
 
 $the_query = new WP_Query( $args );
-$posts = $the_query->posts;
-
 $additional_filter = $tax_query;
 
 ?>
@@ -71,11 +69,19 @@ $additional_filter = $tax_query;
                 </p>
             </div>
             <div class="row g-2" id="load-more">
-                <?php
-				foreach ($posts as $post) {
-					$load_card_type = 'contatto';
-					get_template_part( 'template-parts/punto-contatto/lista-contatti');
-				}
+
+                <?php 
+                if ($the_query->have_posts()) :
+                    while ($the_query->have_posts()) :
+			            $the_query->the_post();
+                        $post = get_post();
+
+                        $load_card_type = "contatto";  
+                        get_template_part("template-parts/punto-contatto/lista-contatti");
+		            endwhile;
+                endif; 
+
+                wp_reset_postdata();
                 ?>
             </div>
             <?php
