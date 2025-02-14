@@ -427,9 +427,9 @@ function createMenu()
     //aggiungo le voci
 
     //Main menu
-    dci_create_page_menu_item(__( 'Istituzione', 'design_comuni_italia'),$menu_main);
-    dci_create_page_menu_item(__( 'Come fare per', 'design_comuni_italia'),$menu_main);
     dci_create_page_menu_item(__( 'Servizi', 'design_comuni_italia'),$menu_main);
+    dci_create_page_menu_item(__( 'Come fare per', 'design_comuni_italia'),$menu_main);
+    dci_create_page_menu_item(__( 'Luoghi', 'design_comuni_italia'),$menu_main);
     dci_create_page_menu_item(__( "IPAB comunica", 'design_comuni_italia'),$menu_main);
     //assegno menu a header main location
     dci_add_menu_to_location($menu_main,'menu-header-main');
@@ -466,15 +466,15 @@ function createMenu()
     dci_create_term_menu_item('avviso','tipi_notizia',$menu_novita, 'Avvisi');
 
     //assegno menu quarta colonna footer (sopra)
-    dci_add_menu_to_location($menu_novita,'menu-footer-col-4-1'); // tolgo questa linea così le voci nel footer vengono generate automaticamente, ma resta l'opzione di collegare il menu alla posizione per controllarlo manualmente
+    //dci_add_menu_to_location($menu_novita,'menu-footer-col-4-1'); // tolgo questa linea così le voci nel footer vengono generate automaticamente, ma resta l'opzione di collegare il menu alla posizione per controllarlo manualmente
 
     //voci menu Vivere ente
     //placeholder
-    dci_create_page_menu_item(__( 'Luoghi', 'design_comuni_italia'), $menu_vivere_ente);
-    dci_create_page_menu_item(__( 'Eventi', 'design_comuni_italia'), $menu_vivere_ente);
+    dci_create_page_menu_item(__( 'Luoghi', 'design_comuni_italia'), $menu_novita);
+    dci_create_page_menu_item(__( 'Eventi', 'design_comuni_italia'), $menu_novita);
 
     //assegno menu quarta colonna footer (sotto)
-    dci_add_menu_to_location($menu_vivere_ente,'menu-footer-col-4-2'); // tolgo questa linea così le voci nel footer vengono generate automaticamente, ma resta l'opzione di collegare il menu alla posizione per controllarlo manualmente
+    dci_add_menu_to_location($menu_novita,'menu-footer-col-4-2'); // tolgo questa linea così le voci nel footer vengono generate automaticamente, ma resta l'opzione di collegare il menu alla posizione per controllarlo manualmente
 
     //voci menu Argomenti (in alto a destra)
     dci_create_page_menu_item(__('Argomenti', 'design_comuni_italia'), $menu_argomenti, __('Tutti gli argomenti...','design_comuni_italia'));
