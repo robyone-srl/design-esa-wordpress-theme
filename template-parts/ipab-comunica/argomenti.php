@@ -1,5 +1,5 @@
 <?php
-    $argomenti = array(get_page_by_title('novita'),get_page_by_title('eventi'));
+    $argomenti = array(get_page_by_title('notizie'),get_page_by_title('eventi'));
 ?>
 
 <div class="container py-5" id="argomento">
