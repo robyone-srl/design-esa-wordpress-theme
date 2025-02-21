@@ -63,14 +63,11 @@ function dci_add_fase_metaboxes() {
         )
     ) );
     $cmb_dati->add_field( array(
-        'name'       => __('Data *', 'design_comuni_italia' ),
+        'name'       => __('Data', 'design_comuni_italia' ),
         'desc'       => __('Data', 'design_comuni_italia' ),
         'id'         => $prefix . 'data_fase',
         'type'       => 'text_date',
         'date_format' => 'd-m-Y',
-        'attributes' => array(
-            'required'            => true
-        )
     ) );
 
     $cmb_dati->add_field(array(
