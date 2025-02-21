@@ -1,39 +1,45 @@
 <?php
 global $posts, $the_query, $load_posts, $procedura, $load_card_type, $should_have_grey_background;
 
-$max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 4;
-$load_posts = 4;
+$max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 8;
+$load_posts = 8;
 
 $query = isset($_GET['search']) ? dci_removeslashes($_GET['search']) : null;
 
-$args = array(
-    's' => $query,
-    'taxonomy' => 'argomenti',
-    'posts_per_page' => $max_posts,
+$post_types = array();
+if (isset($_GET["post_types"])) {
+    $post_types = $_GET["post_types"];
+}
+
+$post_terms = array();
+if (isset($_GET["post_terms"])) {
+    $post_terms = $_GET["post_terms"];
+}
+
+$query_args = array(
+    's'              => isset($query) ? $query : '', // Gestisci la ricerca se presente
+    'posts_per_page' => isset($max_posts) ? $max_posts : 10,
     'post_type'      => 'procedura',
     'orderby'        => 'post_title',
     'order'          => 'ASC'
 );
 
-if ( isset( $_GET["post_terms"] ) ) {
-    $taxquery = array(
-        array(
-            'taxonomy' => 'argomenti',
-            'field' => 'id',
-            'terms' => $_GET["post_terms"]
-        )
-    );
-        
-    $args['tax_query'] = $taxquery ;
+if (!empty($post_types)) {
+    $query_args['post_type'] = $post_types;
 }
 
-$the_query = new WP_Query($args);
+if (!empty($post_terms)) {
+    $query_args['tax_query'] = array(
+        array(
+            'taxonomy' => 'argomenti',
+            'field'    => 'id',
+            'terms'    => $post_terms
+        )
+    );
+}
 
-// Per selezionare i contenuti in evidenza tramite flag
-// $post_types = dci_get_post_types_grouped('servizi');
-// $procedure_evidenza = dci_get_highlighted_posts( $post_types, 10);
+$the_query = new WP_Query($query_args);
 
-//Per selezionare i contenuti in evidenza tramite configurazione
 $procedure_evidenza = dci_get_option('procedure_evidenziate', 'procedure');
 
 ?>
@@ -46,7 +52,7 @@ $procedure_evidenza = dci_get_option('procedure_evidenziate', 'procedure');
             <div class="container">
                 <div class="row">
                     
-                    <div class="cmp-input-search">
+                    <div class="cmp-input-search mb-4">
                         <div class="form-group autocomplete-wrapper mb-0">
                             <div class="input-group">
                                 <label for="autocomplete-two" class="visually-hidden">Cerca una parola chiave</label>

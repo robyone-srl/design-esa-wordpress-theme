@@ -22,7 +22,7 @@ get_header();
         $destinatari = dci_get_wysiwyg_field("a_chi_e_rivolto");
         $descrizione = dci_get_wysiwyg_field("descrizione_estesa");
         $come_fare_intro = dci_get_wysiwyg_field("cosa_serve_introduzione");
-        $come_fare_list = dci_get_meta("cosa_serve_list");
+        $come_fare_list = dci_get_meta("come_fare_list");
         //canali di prenotazione
         $more_info = dci_get_wysiwyg_field("ulteriori_informazioni");
         $argomenti = get_the_terms($post, 'argomenti');
@@ -131,6 +131,14 @@ get_header();
                 </div>
                 <div class="col-12 col-lg-9">
                     <div class="it-page-sections-container">
+                        <?php if (!empty($descrizione)) { ?>
+                            <section class="it-page-section mb-30">
+                                <h2 class="h3 mb-3" id="description">Panoramica</h2>
+                                <div class="richtext-wrapper lora">
+                                    <?php echo $descrizione ?>
+                                </div>
+                            </section>
+                        <?php } ?>
                         <section class="it-page-section mb-30">
                             <h2 class="h3 mb-3" id="who-needs">A chi &egrave; rivolto</h2>
                             <div class="richtext-wrapper lora">
@@ -140,8 +148,18 @@ get_header();
 
                         <?php if ($come_fare_intro ?? false) { ?>
                             <section class="it-page-section mb-30">
-                                <h2 class="h3 mb-3" id="needed">Come fare</h2> <?php 
-                                echo $come_fare_intro;
+                                <h2 class="h3 mb-3" id="needed">Come fare</h2> 
+                                <div class="richtext-wrapper lora" data-element="service-needed"><?php 
+                                    echo $come_fare_intro;
+                                    if (!empty($come_fare_list)) { ?>
+                                        <ul>
+                                            <?php
+                                            foreach ($come_fare_list as $come_fare_item) { ?>
+                                                <li><span><?php echo $come_fare_item ?></span></li>
+                                            <?php } ?>
+                                        </ul> <?php
+                                    } ?>
+                                </div> <?php
                                     $n_fase = 0;
                                     if (!empty($fasi_scadenze)) foreach ($fasi_scadenze as $fase_id) {
                                         $fase = get_post($fase_id); ?>
@@ -218,7 +236,7 @@ get_header();
                                                         $punti_contatto_id = dci_get_meta('punti_contatto', '_dci_fase_', $fase->ID);
                                                         if (!empty($punti_contatto_id)) {
                                                         ?>
-                                                            <h4 class="mb-3 h5" id="contacts">Contatti</h2>
+                                                            <h4 class="my-3 h5" id="contacts">Contatti</h2>
                                                             <div class="row"> <?php
                                                                 foreach ($punti_contatto_id as $pc_id) {
                                                                     $contatto = get_post($pc_id);
