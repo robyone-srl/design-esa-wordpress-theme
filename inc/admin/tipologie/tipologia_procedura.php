@@ -140,6 +140,13 @@ function dci_add_procedura_metaboxes() {
             'teeny'         => false, // output the minimal editor config used in Press This
         ),
     ) );
+    $cmb_cosa_serve->add_field( array(
+        'id'         => $prefix . 'come_fare_list',
+        'name'       => __( 'Come fare (lista)', 'design_comuni_italia' ),
+        'desc'       => __( 'la lista dei passaggi da fare' , 'design_comuni_italia' ),
+        'type'       => 'textarea',
+        'repeatable' => true
+    ) );
 
     $cmb_cosa_serve->add_field( array(
         'id'        => $prefix . 'fasi',
