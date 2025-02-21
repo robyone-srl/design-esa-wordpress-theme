@@ -53,6 +53,7 @@ if(!function_exists("dci_tipi_unita_organizzativa_array")){
 if(!function_exists("dci_categorie_servizio_array")){
     function dci_categorie_servizio_array() {
         $categorie_servizio_arr = [
+            'Servizi per gli ospiti',
             'Servizi socio-assistenziali'
         ];
         return $categorie_servizio_arr;
@@ -127,7 +128,7 @@ if(!function_exists("dci_tipi_incarico_array")){
 if(!function_exists("dci_tipi_notizia_array")){
     function dci_tipi_notizia_array() {
         $tipi_notizia_arr = [
-            'Notizie',
+            'Parliamo di noi',
             'Comunicati',
             'Avvisi'
         ];
@@ -426,15 +427,42 @@ if(!function_exists('dci_get_tipi_documento_descriptions_array')){
 if(!function_exists('dci_get_categorie_servizio_descriptions_array')){
     function dci_get_categorie_servizio_descriptions_array(){
         $categorie_servizio_descriptions_arr = [
-            'Servizi socio-assistenziali' => 'La struttura, nell\'ambito dei suoi obiettivi e delle possibilità di assistenza, offre servizi socio-assistenziali come la residenzialità, la semi-residenzialità, i ricoveri temporanei e l\'assistenza domiciliare',
-			'Assistenza amministrativa' => 'Servizi orientati ad agevolare le persone nelle pratiche amministrative',
-			'Servizi integrativi' => 'Servizi complementari alla socio-assistenza come l\'animazione, la ristorazione e la pulizia degli ambienti',
-			'Servizi aggiuntivi' => 'Servizi offerti anche alle persone che non intendono risiedere nella struttura'
+            'Servizi per gli ospiti' => 'Servizi complementari alla socio-assistenza come l\'animazione, la ristorazione e la pulizia degli ambienti',
+            'Servizi socio-assistenziali' => 'La struttura, nell\'ambito dei suoi obiettivi e delle possibilità di assistenza, offre servizi socio-assistenziali come la residenzialità'
             ];
         return $categorie_servizio_descriptions_arr;
     }
 }
 
+/**
+ * descrizioni dei termini della tassonomia Argomenti
+ */
+if(!function_exists('dci_get_argomenti_descriptions_array')){
+    function dci_get_argomenti_descriptions_array(){
+        $argomenti_descriptions_arr = [
+            "Accoglienza" => "Informazioni legate all'ingresso dei nuovi ospiti nelle nostre strutture",
+            "Aiuto a domicilio" => "Servizi, documenti, uffici, notizie e altre informazioni relativi all\'Aiuto a domicilio",
+            "Anziano" => "Servizi, documenti, uffici, notizie e altre informazioni relativi all\'Anziano",
+            "Assistenza agli anziani" => "Ecco alcune informazioni sui servizi agli anziani della Casa di Riposo",
+            "Cittadino" => "Servizi, documenti e notizie rivolte ai cittadini",
+            "Comunicazione istituzionale" => "Tutte le informazioni e i contenuti riguardanti la comunicazione istituzionale del nostro Ente",
+            "Covid-19" => "Servizi, documenti, uffici, notizie e altre informazioni relativi al Covid-19",
+            "Cure palliative" => "Servizi, documenti, uffici, notizie e altre informazioni relativi alle Cure palliative",
+            "Familiare" => "Informazioni e i riferimenti dedicati ai familiari dei nostri ospiti",
+            "Lavoro" => "Informazioni, novità, documenti per i dipendenti e chi desidera iniziare a collaborare con noi",
+            "Lavoratore" => "Servizi, documenti, uffici, notizie e altre informazioni relativi al Lavoratore",
+            "Ospite" => "Tutte le informazioni rivolte ai nostri Ospiti raccolte in un unico spazio",
+            "Pagamenti" => "Servizi, documenti, uffici, notizie e altre informazioni relativi al Servizio civile",
+            "Protezione dei dati personali" => "Una raccolta di informative sulla riservatezza dei dati rivolte a diverse persone",
+            "Qualità" => "L\'Ente è attento al miglioramento continuo dei servizi",
+            "Servizio civile" => "Servizi, documenti, uffici, notizie e altre informazioni relativi al Servizio civile",
+            "Trasparenza amministrativa" => "Documenti e collegamenti utili per visionare le informazioni della trasparenza",
+            "Volontario" => "Servizi, documenti, uffici, notizie e altre informazioni relativi al Volontario",
+            "Volontariato" => "Il Centro Servizi promuove le attività di volontariato. Ecco le informazioni per i volontari e gli aspiranti volontari"
+        ];
+        return $argomenti_descriptions_arr;
+    }
+}
 
 /**
  * Vocabolario immagini degli argomenti
