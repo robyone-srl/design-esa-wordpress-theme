@@ -170,8 +170,6 @@ function genera_pagine_figlie($slug_pagina)
                             "menu_class" => "footer-list",
                             'walker' => new Footer_Menu_Walker()
                         ));
-                    } else {
-                        genera_pagine_figlie('vivere-ente');
                     }
                     ?>
                 </div>
