@@ -1219,7 +1219,7 @@ if(!function_exists("dci_get_img")) {
         $image_alt = "";
         $image_title = "";
 
-        if($img_post) {
+        if($img_post && is_array(wp_get_attachment_image_src($img_post -> ID, $size))) {
             $scaled_url = wp_get_attachment_image_src($img_post -> ID, $size)[0];
             $image_alt = get_post_meta( $img_post->ID, '_wp_attachment_image_alt', true);
             $image_title = get_the_title( $img_post->ID );
