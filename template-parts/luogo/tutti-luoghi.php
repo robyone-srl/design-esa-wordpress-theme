@@ -13,9 +13,6 @@ global $the_query, $load_posts, $load_card_type;
         'order'          => 'ASC'
     );
     $the_query = new WP_Query( $args );
-
-    $posts = $the_query->posts;
-
 ?>
 
 
@@ -51,11 +48,18 @@ global $the_query, $load_posts, $load_card_type;
                 </div>
             </div>
             <div class="row g-4" id="load-more">
-                <?php
-                foreach ( $posts as $post ) {
-                    $load_card_type = 'luogo';
-                    get_template_part('template-parts/luogo/card-full');
-                }
+                <?php 
+                if ($the_query->have_posts()) :
+                    while ($the_query->have_posts()) :
+			            $the_query->the_post();
+                        $post = get_post();
+
+                        $load_card_type = "luogo";  
+                        get_template_part("template-parts/luogo/card-full");
+		            endwhile;
+                endif; 
+
+                wp_reset_postdata();
                 ?>
             </div>
             <?php get_template_part("template-parts/search/more-results"); ?>
