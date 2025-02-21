@@ -1,0 +1,368 @@
+{
+  "pagine_test": {
+    "Contatto1": {
+      "post_title": "Gianfranco Lamon",
+      "voci": [
+        {
+          "tipo": "telefono",
+          "valore": "3288 745087",
+          "dettagli": "numero di telefono"
+        },
+        {
+          "tipo": "email",
+          "valore": "g.lamon@gmail.com",
+          "dettagli": "email del contatto"
+        },
+        {
+          "tipo": "email",
+          "valore": "email@example.it",
+          "dettagli": "email n.2 del contatto"
+        }
+      ],
+      "categorie_contatto": [
+        "telefono",
+        "email",
+        "email"
+      ],
+      "post_type": "punto_contatto"
+    },
+    "Contatto2": {
+      "post_title": "Alberto Rami",
+      "voci": [
+        {
+          "tipo": "telefono",
+          "valore": "3288 898989",
+          "dettagli": "numero di telefono"
+        },
+        {
+          "tipo": "email",
+          "valore": "a.rami@gmail.com",
+          "dettagli": "email del contatto"
+        },
+        {
+          "tipo": "email",
+          "valore": "email@example.it",
+          "dettagli": "email n.2 del contatto"
+        }
+      ],
+      "categorie_contatto": [
+        "telefono",
+        "email",
+        "email"
+      ],
+      "post_type": "punto_contatto"
+    },
+    "Contatto4": {
+      "post_title": "Direttore",
+      "voci": [
+        {
+          "tipo": "email",
+          "valore": "direttore@mail.it",
+          "dettagli": "email del direttore"
+        }
+      ],
+      "categorie_contatto": [
+        "email"
+      ],
+      "post_type": "punto_contatto"
+    },
+    "Luogo1": {
+      "post_title": "Sede",
+      "descrizione_breve": "Sede dell'ente'",
+      "modalita_accesso": "Attraverso l'entrata principale'",
+      "indirizzo": "Via esempio n1",
+      "posizione": {
+        "lat": 45.398368144121505,
+        "lng": 11.299409477783449
+      },
+      "cap": "35010",
+      "post_type": "luogo",
+      "contatto_collegato": [ 2 ]
+    },
+    "Luogo2": {
+      "post_title": "Luogo prova2",
+      "descrizione_breve": "Descizione breve del luogo2",
+      "modalita_accesso": "Come accedere a questo luogo2",
+      "indirizzo": "Via prova n2",
+      "posizione": {
+        "lat": 49.398368144121505,
+        "lng": 64.299409477783449
+      },
+      "cap": "35012",
+      "post_type": "luogo",
+      "contatto_collegato": [ 1 ]
+    },
+    "uo1": {
+      "post_title": "Unita organizzativa test",
+      "descrizione_breve": "Descizione breve unita organizzativa",
+      "competenze": "Competenze unita organizzativa",
+      "tipo_unità_organizzativa": [ "fondazione" ],
+      "sede_principale": [ true ],
+      "post_type": "unita_organizzativa",
+      "contatto_collegato": [ 1 ],
+      "luogo_collegato": [ 1 ]
+    },
+    "uo2": {
+      "post_title": "Risorse umane, Affari Generali, Organizzazione, Pianificazione e controllo di gestione",
+      "descrizione_breve": "Si occupa della gestione del personale e dell'organizzazione dell'Ente",
+      "competenze": "L'ufficio si occupa dell'organizzazione e la pianificazione dei servizi, dell'amministrazione trasparente e del sito web. Inoltre, gestisce il personale dipendente.",
+      "tipo_unità_organizzativa": [ "ufficio" ],
+      "sede_principale": [ true ],
+      "post_type": "unita_organizzativa",
+      "contatto_collegato": [ 2 ],
+      "luogo_collegato": [ 0 ]
+    },
+    "uo3": {
+      "post_title": "Direzione",
+      "descrizione_breve": "Si occupa della gestione amministrativa, tecnica e finanziaria dell’Ente",
+      "competenze": "La direzione si occupa della gestione amministrativa, tecnica e finanziaria dell’Ente. L'ufficio provvede adozione di tutti i provvedimenti di organizzazione delle risorse umane e strumentali compresi quelli che impegnano l’Ente verso l’esterno finalizzati al raggiungimento degli obiettivi stabiliti dal Consiglio di Amministrazione e risponde dei risultati conseguiti.",
+      "tipo_unità_organizzativa": [ "ufficio" ],
+      "sede_principale": [ true ],
+      "post_type": "unita_organizzativa",
+      "contatto_collegato": [ 3 ],
+      "luogo_collegato": [ 0 ]
+    },
+    "Notizia1": {
+      "post_title": "Pubblicato il nuovo sito web",
+      "descrizione_breve": "Un nuovo sito web per l'azienda di servizi alla persona",
+      "testo_completo": "È stato pubblicato il nuovo sito web, realizzato secondo le linee guida dell'Agenzia Italiana del Digitale (Agid).",
+      "categoria_notizia": "avvisi",
+      "argomenti_notizie": [ "Comunicazione istituzionale" ],
+      "post_type": "notizia",
+      "uo_collegata": [ 1 ],
+      "luogo_collegato": [ 0 ]
+    },
+    "Servizio1": {
+      "post_title": "Servizio di prova",
+      "descrizione_breve": "Descrizione servizio di prova",
+      "cosa_serve_introduzione": "Introduzione al servizio",
+      "come_fare": "Procedure per ottenere il servizio",
+      "tempi": "Tempi e scadenze del servizio",
+      "categorie": [ "Servizi-per-gli-ospiti" ],
+      "argomenti_servizi": "cittadino",
+      "a_chi_e_rivolto": "Servizio rivolto al pubblico",
+      "post_type": "servizio",
+      "uo_collegata": [ 1 ]
+    },
+    "Servizio2": {
+      "post_title": "Servizio di prova2",
+      "descrizione_breve": "Descrizione servizio di prova2",
+      "cosa_serve_introduzione": "Introduzione al servizio2",
+      "come_fare": "Procedure per ottenere il servizio2",
+      "tempi": "Tempi e scadenze del servizio2",
+      "categorie": [ "Servizi-socio-assistenziali" ],
+      "argomenti_servizi": "cittadino",
+      "a_chi_e_rivolto": "Servizio rivolto al pubblico2",
+      "post_type": "servizio",
+      "uo_collegata": [ 0 ]
+    },
+    "1Fase1": {
+      "post_title": "Colloquio di inserimento",
+      "titolo_fase": "Colloquio di inserimento",
+      "desc_fase": "L’Ufficio Sociale, ha l’obiettivo di conoscere la persona che sarà accolta, in merito alle condizioni di salute, alle risorse residue ed ai bisogni assistenziali e sanitari, alla storia personale. I familiari vengono informati sulle caratteristiche della struttura o del nucleo e sui servizi offerti. Il personale del nucleo viene poi informato e preparato ad accogliere il nuovo Ospite, con lo scopo di favorire la presa in carico globale della persona e di garantire risposte adeguate ai suoi bisogni e quanto più possibile personalizzate.",
+      "post_type": "fase",
+      "servizio_collegato": [ 0 ],
+      "contatto_collegato": [ 0, 1 ],
+      "uo_collegata": [ 1 ]
+    },
+    "1Fase2": {
+      "post_title": "Definizione di giorno e ora dell'ingresso",
+      "titolo_fase": "Definizione di giorno e ora dell'ingresso",
+      "desc_fase": "Il giorno e l’ora dell’ingresso vengono solitamente concordati con i famigliari",
+      "post_type": "fase",
+      "servizio_collegato": [ 0, 1 ],
+      "contatto_collegato": [ 0 ],
+      "uo_collegata": [ 1 ]
+    },
+    "1Fase3": {
+      "post_title": "Ingresso",
+      "titolo_fase": "Ingresso",
+      "desc_fase": "Inizia la residenza dell'ospite. Gli orari di apertura della struttura favoriscono il più possibile la presenza dei famigliari che rivestono un ruolo decisivo, accanto al gruppo di lavoro, nel determinare la qualità della relazione e della cura, in particolare nella fase di inserimento.",
+      "post_type": "fase",
+      "servizio_collegato": [ 1 ],
+      "contatto_collegato": [],
+      "uo_collegata": []
+    },
+    "1Fase4": {
+      "post_title": "Prime visite e conoscenza dell'ospite",
+      "titolo_fase": "Prime visite e conoscenza dell'ospite",
+      "desc_fase": "Entro il giorno successivo all’ingresso il medico curante esegue la visita e nei giorni successivi viene programmato un colloquio con i famigliari per raccogliere l’anamnesi sanitaria dell’ospite. Nella prima settimana dall’ingresso tutte le figure professionali conoscono l’ospite e nel corso delle prime quattro settimane realizzano gli approfondimenti necessari per disporre di una sua maggior conoscenza;",
+      "post_type": "fase",
+      "servizio_collegato": [],
+      "contatto_collegato": [],
+      "uo_collegata": []
+    },
+    "1Fase5": {
+      "post_title": "Piano di Assistenza Individualizzato (PAI)",
+      "titolo_fase": "Piano di Assistenza Individualizzato (PAI)",
+      "desc_fase": "entro 30 giorni dall’ingresso viene convocata l’equipe multiprofessionale, l’Unità Operativa Interna (UOI) e predisposto il Piano di Assistenza Individualizzato (PAI). All’incontro sono invitati anche i famigliari degli ospiti che vengono informati sulle attività svolte. La loro presenza assume un valore fondamentale nella conoscenza dell’anziano, nell’individuazione e nella condivisione degli obiettivi di salute che vengono fissati.",
+      "post_type": "fase",
+      "servizio_collegato": [ 2 ],
+      "contatto_collegato": [],
+      "uo_collegata": []
+    },
+    "2Fase1": {
+      "post_title": "Verifica dei Diritti e Autorizzazioni",
+      "titolo_fase": "Verifica dei Diritti e Autorizzazioni",
+      "desc_fase": "Prima di tutto, assicurati di essere autorizzato a richiedere gli atti. Ad esempio, se la richiesta riguarda un familiare, potrebbe essere necessario un consenso scritto o una procura. \n Verifica le normative locali o interne della casa di riposo relative alla privacy (es. GDPR) e al trattamento dei dati.",
+      "post_type": "fase",
+      "servizio_collegato": [],
+      "contatto_collegato": [],
+      "uo_collegata": []
+    },
+    "2Fase2": {
+      "post_title": "Identificazione del Tipo di Atto",
+      "titolo_fase": "Identificazione del Tipo di Atto",
+      "desc_fase": "<ul>Determina esattamente quale tipo di documento o atto desideri ricevere. Può trattarsi di: <li>• Cartella clinica</li><li>• Piano di cura</li><li>• Fatture o documenti amministrativi</li><li>• Certificati di assistenza</li><ul/>",
+      "post_type": "fase",
+      "servizio_collegato": [],
+      "contatto_collegato": [],
+      "uo_collegata": []
+    },
+    "2Fase3": {
+      "post_title": "Redazione della Richiesta Scritta",
+      "titolo_fase": "Redazione della Richiesta Scritta",
+      "desc_fase": "<ul>Scrivi una lettera formale o una e-mail indirizzata alla direzione della casa di riposo, indicando: <li>• I tuoi dati</li><li>I dati del residente (nome, cognome, eventuale numero di protocollo o codice identificativo)</li><li>• Il tipo di atti o documenti richiesti</li></ul>",
+      "post_type": "fase",
+      "servizio_collegato": [],
+      "contatto_collegato": [ 2 ],
+      "uo_collegata": []
+    },
+    "2Fase4": {
+      "post_title": "Invio della Richiesta",
+      "titolo_fase": "Invio della Richiesta",
+      "desc_fase": "Invia la richiesta alla casa di riposo tramite uno dei canali ufficiali disponibili (posta elettronica certificata (PEC), raccomandata, e-mail ordinaria, etc.). \n Se invii la richiesta fisicamente, assicurati di utilizzare modalità che consentano di tracciare l’invio (ad esempio, raccomandata con ricevuta di ritorno).",
+      "post_type": "fase",
+      "servizio_collegato": [],
+      "contatto_collegato": [ 3 ],
+      "uo_collegata": [ 1 ]
+    },
+    "2Fase5": {
+      "post_title": "Attesa della Risposta",
+      "titolo_fase": "Attesa della Risposta",
+      "desc_fase": "Dopo aver inviato la richiesta, attendi una risposta ufficiale dalla casa di riposo. I tempi di risposta possono variare, ma in generale dovresti ricevere una comunicazione entro 30 giorni.",
+      "post_type": "fase",
+      "servizio_collegato": [],
+      "contatto_collegato": [],
+      "uo_collegata": []
+    },
+    "2Fase6": {
+      "post_title": "Ricezione degli Atti",
+      "titolo_fase": "Ricezione degli Atti",
+      "desc_fase": "Una volta ricevuti i documenti, verifica che siano completi e conformi a quanto richiesto \n Se noti errori o se non ti è stato fornito tutto quanto richiesto, puoi chiedere chiarimenti o fare una nuova richiesta.",
+      "post_type": "fase",
+      "servizio_collegato": [],
+      "contatto_collegato": [],
+      "uo_collegata": []
+    },
+    "2Fase7": {
+      "post_title": "Eventuali Reclami o Richieste di Chiarimento",
+      "titolo_fase": "Eventuali Reclami o Richieste di Chiarimento",
+      "desc_fase": "Se la richiesta non viene evasa correttamente o tempestivamente, puoi chiedere un chiarimento al responsabile della casa di riposo. \n Se il problema persiste, potresti considerare di inoltrare un reclamo ufficiale o di rivolgerti ad un'autorità competente, come il garante per la protezione dei dati personali o un avvocato.",
+      "post_type": "fase",
+      "servizio_collegato": [],
+      "contatto_collegato": [],
+      "uo_collegata": []
+    },
+    "3Fase1": {
+      "post_title": "Raccolta Prove",
+      "titolo_fase": "Raccolta Prove",
+      "desc_fase": "Raccogli qualsiasi prova o documentazione che supporti la tua segnalazione (foto, testimoni, registrazioni).",
+      "post_type": "fase",
+      "servizio_collegato": [],
+      "contatto_collegato": [],
+      "uo_collegata": []
+    },
+    "3Fase2": {
+      "post_title": "Redazione della Segnalazione",
+      "titolo_fase": "Redazione della Segnalazione",
+      "desc_fase": " Scrivi una segnalazione chiara e dettagliata, indicando <ul><li> • Il tipo di illecito (abuso, negligenza, maltrattamenti, etc.)</li><li> • Data, ora e luogo dell'incidente </li><li> • Dettagli degli implicati e delle circostanze </li></ul>.",
+      "post_type": "fase",
+      "servizio_collegato": [],
+      "contatto_collegato": [],
+      "uo_collegata": []
+    },
+    "3Fase3": {
+      "post_title": "Invio alla Direzione",
+      "titolo_fase": "Invio alla Direzione",
+      "desc_fase": "Invia la segnalazione alla direzione della casa di riposo tramite i canali ufficiali (PEC, raccomandata, e-mail). Se l'illiceità è grave, valuta di inviare una copia anche alle autorità competenti.",
+      "post_type": "fase",
+      "servizio_collegato": [],
+      "contatto_collegato": [3],
+      "uo_collegata": [2]
+    },
+    "3Fase4": {
+      "post_title": "Contatto con le Autorità",
+      "titolo_fase": "Contatto con le Autorità",
+      "desc_fase": "Se necessario, contatta le forze dell'ordine o l'autorità competente (ad esempio, il Garante per la protezione dei dati, i servizi sociali).",
+      "post_type": "fase",
+      "servizio_collegato": [],
+      "contatto_collegato": [],
+      "uo_collegata": []
+    },
+    "3Fase5": {
+      "post_title": "Follow-up",
+      "titolo_fase": "Follow-up",
+      "desc_fase": "Se non ricevi risposte o se l'azione non è adeguata, prendi ulteriori provvedimenti, come rivolgersi a un avvocato o a un'associazione di tutela dei diritti.",
+      "post_type": "fase",
+      "servizio_collegato": [],
+      "contatto_collegato": [],
+      "uo_collegata": []
+    },
+    "Procedura1": {
+      "post_title": "Accedere al soggiorno con impegnativa di residenzialità",
+      "descrizione_breve": "Descrizione servizio di prova",
+      "panoramica": "Il soggiorno residenziale risponde al bisogno di assistenza e protezione delle persone anziane che per diversi motivi non possono più rimanere nel proprio ambiente di vita. Include anche servizi che hanno l’obiettivo di promuovere la salute dell’ospite attraverso azioni o metodologie in grado di stimolare e mantenere le capacità residue.\nPuò essere a lungo termine o temporaneo (da un minimo di 15 ad un massimo di 90 giorni).",
+      "a_chi_e_rivolto": "Il servizio è rivolto agli anziani non-autosufficienti inseriti nella graduatoria unica dell’Azienda Unità Locale Socio Sanitaria (ULSS).",
+      "cosa_serve_introduzione": "La pratica di accoglimento si formalizza richiedendo la valutazione dell'Unità Valutativa Multi Dimensionale (UVMD) al Distretto Socio-Sanitario di residenza e presentare successivamente la domanda di ammissione presso gli uffici dell'ente.\nDocumentazione necessaria da allegare alla domanda di ammissione: ",
+      "come_fare_list": [
+        "documentazione necessaria da allegare alla domanda di ammissione:",
+        "autocertificazione di residenza;",
+        "fotocopia carta di identità, codice fiscale, tessera sanitaria regionale;",
+        "fotocopia tessera di esenzione ticket, codice 7R2;",
+        "fotocopia tessera sanitaria europea;",
+        "fotocopia Scheda Valutazione Multidimensionale dell'Adulto e dell'Anziano (SVAMA);",
+        "eventuale fotocopia verbale di invalidità;",
+        "fotocopia ultimo modello CUD o 730 o UNICO o modello ISEE;",
+        "atto di impegno al pagamento della retta, su modulo predisposto dall’Ente;",
+        "consenso al trattamento dei dati personali, su modulo predisposto dall’Ente."
+      ],
+      "ulteriori_informazioni": "Viene riportato il <a href='https://casamarani.robyone.net/documento_pubblico/costi-rette-di-soggiorno/'>prospetto dei costi</a> relativi ai nostri servizi aggiornato a maggio 2024.",
+      "argomenti_procedura": "Assistenza agli anziani",
+      "fasi_collegate": [ 0, 1, 2, 3, 4 ],
+      "post_type": "procedura"
+    },
+    "Procedura2": {
+      "post_title": "Richiesta atti",
+      "descrizione_breve": "Accesso agli atti amministrativi",
+      "panoramica": "Il soggiorno residenziale risponde al bisogno di assistenza e protezione delle persone anziane che per diversi motivi non possono più rimanere nel proprio ambiente di vita. Include anche servizi che hanno l’obiettivo di promuovere la salute dell’ospite attraverso azioni o metodologie in grado di stimolare e mantenere le capacità residue.\nPuò essere a lungo termine o temporaneo (da un minimo di 15 ad un massimo di 90 giorni).",
+      "a_chi_e_rivolto": "Il servizio è rivolto a tutti i cittadini.",
+      "cosa_serve_introduzione": "Puoi richiedere un atto compilando il modulo online. \n Sono necessarie alcune informazioni per effettuare la richiesta, tra le quali:",
+      "come_fare_list": [
+        "informazioni identificative come dati anagrafici, codice fiscale e copia PDF della carta d'identità;",
+        "dati di contatto come telefono e indirizzo di posta elettronica;",
+        "contenuto della richiesta."
+      ],
+      "ulteriori_informazioni": "",
+      "argomenti_procedura": "Trasparenza amministrativa",
+      "fasi_collegate": [ 5, 6, 7, 8, 9, 10, 11 ],
+      "post_type": "procedura"
+    },
+    "Procedura3": {
+      "post_title": "Segnalazione atti illeciti",
+      "descrizione_breve": "Servizio di segnalazione di condotte illecite avvenute nell'amministrazione",
+      "panoramica": "La segnalazione di illeciti e irregolarità costituisce una delle misure obbligatorie nella prevenzione della corruzione prevista dal diritto internazionale e recepita dal Piano Nazionale Anticorruzione (PNA). \n Viene garantito un elevato livello di protezione degli informatori segnalanti o whistleblower che segnalano violazioni di disposizioni normative nazionali o dell’Unione Europea che ledono l’interesse pubblico o l’integrità dell’amministrazione, di cui siano venute a conoscenza nell’ambito delle loro attività professionali",
+      "a_chi_e_rivolto": "<ul>Il canale di segnalazione è rivolto: <li>ai dipendenti</li><li>i lavoratori autonomi nonché i titolari</li><li>i lavoratori o i collaboratori</li><li> i liberi professionisti e i consulenti</li><li> ai dipendenti</li><li> ai dipendenti</li><li> i volontari e i tirocinanti, retribuiti e non retribuiti</li><li> gli azionisti e le persone con funzioni di amministrazione, direzione, controllo, vigilanza o rappresentanza.</li></ul>",
+      "cosa_serve_introduzione": "Per effettuare una segnalazione è possibile:",
+      "come_fare_list": [
+        "effettuare una segnalazione orale direttamente al Direttore attraverso il numero telefonico dell'ufficio del Direttore;",
+        "richiedere un colloquio presso l'ufficio del Direttore;",
+        "inoltrare una segnalazione attraverso il canale digitale pubblicato in questa pagina."
+      ],
+      "ulteriori_informazioni": "Normativa di riferimento: <ul><li><a href='https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2023-03-10;24'>Decreto legislativo 24 del 10 marzo 2023 in attuazione della Direttiva (UE) 2019/1937</a></li><li><a href='https://www.anticorruzione.it/-/del.311.2023.linee.guida.whistleblowing'>Linee Guida Autorità Nazionale AntiCorruzione (ANAC)</a></li></ul>",
+      "argomenti_procedura": "Comunicazione istituzionale",
+      "fasi_collegate": [ 12, 13, 14, 15, 16 ],
+      "post_type": "procedura"
+    }
+  }
+}

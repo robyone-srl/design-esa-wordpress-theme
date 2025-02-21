@@ -303,10 +303,19 @@ function updateArgomentiDescription() {
         'taxonomy' =>'argomenti',
         'hide_empty' => false,
     ));
+    
+    $descriptions = dci_get_argomenti_descriptions_array();
+
     foreach($terms as $term){
-        $args = array(
-            'description' => 'Servizi, documenti, uffici, notizie e altre informazioni relativi a '.$term->name
-        );
+        if(array_key_exists($term->name, $descriptions)){
+            $args = array(
+                'description' => $descriptions[$term->name]
+            );
+        } else {
+            $args = array(
+                'description' => 'Servizi, documenti, uffici, notizie e altre informazioni relativi a '.$term->name
+            );
+        }
         wp_update_term($term->term_id,'argomenti',$args);
     }
 }
@@ -412,11 +421,12 @@ function createMenu()
 {
     //creo i menu
     $menu_main = dci_create_menu(__('Main Menu', "design_comuni_italia"));
-    $menu_amministrazione = dci_create_menu(__('Istituzione', "design_comuni_italia"));
-    $menu_novita = dci_create_menu(__('IPAB comunica', "design_comuni_italia"));
-    $menu_servizi = dci_create_menu(__('Categorie di Servizio', "design_comuni_italia"));
-    $menu_documenti = dci_create_menu(__('Tipi di Documento', "design_comuni_italia"));
-    $menu_vivere_ente =  dci_create_menu(__('Vivere l\'ente', "design_comuni_italia"));
+    $menu_amministrazione = dci_create_menu(__('Area istituzionale', "design_comuni_italia"));
+    $menu_informativa = dci_create_menu(__('Area informativa', "design_comuni_italia"));
+    //$menu_novita = dci_create_menu(__('IPAB comunica', "design_comuni_italia"));
+    //$menu_servizi = dci_create_menu(__('Categorie di Servizio', "design_comuni_italia"));
+    //$menu_documenti = dci_create_menu(__('Tipi di Documento', "design_comuni_italia"));
+    //$menu_vivere_ente =  dci_create_menu(__('Vivere l\'ente', "design_comuni_italia"));
     //$menu_documenti_dati = dci_create_menu(__('Tutti i documenti', "design_comuni_italia"));
     $menu_argomenti = dci_create_menu(__('Argomenti', 'design_comuni_italia'));
     $menu_info_1 = dci_create_menu('Info 1', 'design_comuni_italia');
@@ -434,47 +444,54 @@ function createMenu()
     //assegno menu a header main location
     dci_add_menu_to_location($menu_main,'menu-header-main');
 
-    //menu Amministrazione
+    //menu Informativa
+    dci_create_page_menu_item(__( 'Servizi', 'design_comuni_italia'),$menu_informativa);
+    dci_create_page_menu_item(__( 'Come fare per', 'design_comuni_italia'),$menu_informativa);
+    dci_create_page_menu_item(__( 'Luoghi', 'design_comuni_italia'),$menu_informativa);
+    dci_create_page_menu_item(__( "IPAB comunica", 'design_comuni_italia'),$menu_informativa);
+    //assegno menu prima colonna footer
+    dci_add_menu_to_location($menu_informativa,'menu-footer-col-1'); 
+
+    //menu Istituzionale
     dci_create_page_menu_item(__( 'Organizzazione', 'design_comuni_italia'),$menu_amministrazione);
-    dci_create_page_menu_item(__( 'Personale', 'design_comuni_italia'),$menu_amministrazione);
     dci_create_page_menu_item(__( 'Documenti', 'design_comuni_italia'),$menu_amministrazione);
+    dci_create_page_menu_item(__( 'Personale', 'design_comuni_italia'),$menu_amministrazione);
     dci_create_page_menu_item(__( 'Storia', 'design_comuni_italia'),$menu_amministrazione);
     dci_create_page_menu_item(__( 'Valori e obiettivi', 'design_comuni_italia'),$menu_amministrazione);
 
     //assegno menu prima colonna footer
-    dci_add_menu_to_location($menu_amministrazione,'menu-footer-col-1'); 
+    dci_add_menu_to_location($menu_amministrazione,'menu-footer-col-2'); 
 
     //menu Servizi
-    // pagine di secondo livello (corrispondenza con termini dei tassonomia)
+    /* pagine di secondo livello (corrispondenza con termini dei tassonomia)
     foreach( dci_categorie_servizio_array() as $term_name) {
         dci_create_term_menu_item($term_name,'categorie_servizio',$menu_servizi);
-    }
+    }*/
     //assegno menu seconda colonna footer
-    dci_add_menu_to_location($menu_servizi,'menu-footer-col-2'); // tolgo questa linea così le voci nel footer vengono generate automaticamente, ma resta l'opzione di collegare il menu alla posizione per controllarlo manualmente
+    //dci_add_menu_to_location($menu_servizi,'menu-footer-col-2'); // tolgo questa linea così le voci nel footer vengono generate automaticamente, ma resta l'opzione di collegare il menu alla posizione per controllarlo manualmente
 
     //menu Documenti
-    // pagine di secondo livello (corrispondenza con termini dei tassonomia)
+    /* pagine di secondo livello (corrispondenza con termini dei tassonomia)
     foreach( dci_tipi_documento_array() as $term_name) {
         dci_create_term_menu_item($term_name,'tipi_documento',$menu_documenti);
-    }
+    }*/
     //assegno menu terza colonna footer
-    dci_add_menu_to_location($menu_documenti,'menu-footer-col-3');  // tolgo questa linea così le voci nel footer vengono generate automaticamente, ma resta l'opzione di collegare il menu alla posizione per controllarlo manualmente
+    //dci_add_menu_to_location($menu_documenti,'menu-footer-col-3');  // tolgo questa linea così le voci nel footer vengono generate automaticamente, ma resta l'opzione di collegare il menu alla posizione per controllarlo manualmente
 
-    //voci menu Novità
+    /*voci menu Novità
     dci_create_term_menu_item('notizia','tipi_notizia',$menu_novita, 'Notizie');
     dci_create_term_menu_item('comunicato stampa','tipi_notizia',$menu_novita, 'Comunicati');
     dci_create_term_menu_item('avviso','tipi_notizia',$menu_novita, 'Avvisi');
-
-    //assegno menu quarta colonna footer (sopra)
+    //assegno menu quarta colonna footer (sopra)*/
     //dci_add_menu_to_location($menu_novita,'menu-footer-col-4-1'); // tolgo questa linea così le voci nel footer vengono generate automaticamente, ma resta l'opzione di collegare il menu alla posizione per controllarlo manualmente
 
     //voci menu Vivere ente
-    //placeholder
+    /*placeholder
     dci_create_page_menu_item(__( 'Luoghi', 'design_comuni_italia'), $menu_novita);
-    dci_create_page_menu_item(__( 'Eventi', 'design_comuni_italia'), $menu_novita);
+    dci_create_page_menu_item(__( 'Eventi', 'design_comuni_italia'), $menu_novita);*/
 
     //assegno menu quarta colonna footer (sotto)
-    dci_add_menu_to_location($menu_novita,'menu-footer-col-4-2'); // tolgo questa linea così le voci nel footer vengono generate automaticamente, ma resta l'opzione di collegare il menu alla posizione per controllarlo manualmente
+    //dci_add_menu_to_location($menu_novita,'menu-footer-col-4-2'); // tolgo questa linea così le voci nel footer vengono generate automaticamente, ma resta l'opzione di collegare il menu alla posizione per controllarlo manualmente
 
     //voci menu Argomenti (in alto a destra)
     dci_create_page_menu_item(__('Argomenti', 'design_comuni_italia'), $menu_argomenti, __('Tutti gli argomenti...','design_comuni_italia'));
@@ -484,9 +501,8 @@ function createMenu()
     //menu info colonna 1
     //dci_create_custom_menu_item(__( 'Leggi le FAQ', 'design_comuni_italia'),$menu_info_1);
     //dci_create_archive_menu_item('domanda_frequente', $menu_info_1, __( 'Leggi le FAQ', 'design_comuni_italia'));
-    dci_create_page_menu_item(__('Domande frequenti', 'design_comuni_italia'), $menu_info_1, __('Leggi le FAQ','design_comuni_italia'));
+    dci_create_page_menu_item(__('Domande frequenti', 'design_comuni_italia'), $menu_info_1, __('Leggi le domande frequenti','design_comuni_italia'));
     dci_create_page_menu_item(__('Prenotazioni', 'design_comuni_italia'), $menu_info_1, __( 'Prenotazione appuntamento', 'design_comuni_italia'));
-    dci_create_custom_menu_item(__( 'Segnalazione disservizio', 'design_comuni_italia'),$menu_info_1);
     dci_create_page_menu_item(__( 'Assistenza', 'design_comuni_italia'), $menu_info_1, __( 'Richiesta assistenza', 'design_comuni_italia'));
     //assegno menu a location
     dci_add_menu_to_location($menu_info_1,'menu-footer-info-1');
