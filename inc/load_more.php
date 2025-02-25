@@ -119,6 +119,9 @@ function load_more(){
 		case "domanda-frequente":
                 $out .= load_template_part("template-parts/domanda-frequente/item");
 			break;
+		case "procedura" :
+				$out.= load_template_part("template-parts/procedura/card");
+			break;
 		case "incarico":
                 $out .= load_template_part("template-parts/incarico/cards-list");
 			break;
@@ -146,6 +149,7 @@ function load_more(){
 			break;
 		case "contatto":
 			$out .= load_template_part("template-parts/punto-contatto/lista-contatti");
+			break;
 		default:
 			break;
 		}
