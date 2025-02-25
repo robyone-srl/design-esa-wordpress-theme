@@ -99,9 +99,7 @@ function genera_pagine_figlie($slug_pagina)
                             "menu_class" => "footer-list",
                             'walker' => new Footer_Menu_Walker()
                         ));
-                    } else {
-                        genera_pagine_figlie('amministrazione');
-                    }
+                    } 
                     ?>
                 </div>
                 <div class="col-md-3 footer-items-wrapper">
@@ -118,8 +116,6 @@ function genera_pagine_figlie($slug_pagina)
                             "menu_class" => "footer-list",
                             'walker' => new Footer_Menu_Walker()
                         ));
-                    } else {
-                        genera_voci_tassonomia('categorie_servizio', "Categorie di servizio");
                     } ?>
                 </div>
                 <div class="col-md-3 footer-items-wrapper">
@@ -136,8 +132,6 @@ function genera_pagine_figlie($slug_pagina)
                             "menu_class" => "footer-list",
                             'walker' => new Footer_Menu_Walker()
                         ));
-                    } else {
-                        genera_voci_tassonomia('tipi_documento', "Tipi di documento");
                     } ?>
                 </div>
                 <div class="col-md-3 footer-items-wrapper">
@@ -154,8 +148,6 @@ function genera_pagine_figlie($slug_pagina)
                             "container_class" => "footer-list",
                             'walker' => new Footer_Menu_Walker()
                         ));
-                    } else {
-                        genera_voci_tassonomia('tipi_notizia', "Tipi di notizia");
                     }
                     ?>
                     <?php
