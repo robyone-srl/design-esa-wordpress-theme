@@ -67,7 +67,7 @@
       "post_type": "punto_contatto"
     },
     "Luogo1": {
-      "post_title": "Sede",
+      "post_title": "Sede 2",
       "descrizione_breve": "Sede dell'ente'",
       "modalita_accesso": "Attraverso l'entrata principale'",
       "indirizzo": "Via esempio n1",
@@ -80,7 +80,7 @@
       "contatto_collegato": [ 2 ]
     },
     "Luogo2": {
-      "post_title": "Luogo prova2",
+      "post_title": "Sede 1",
       "descrizione_breve": "Descizione breve del luogo2",
       "modalita_accesso": "Come accedere a questo luogo2",
       "indirizzo": "Via prova n2",
@@ -133,19 +133,19 @@
       "luogo_collegato": [ 0 ]
     },
     "Servizio1": {
-      "post_title": "Servizio di prova",
+      "post_title": "Assistenza domiciliare",
       "descrizione_breve": "Descrizione servizio di prova",
       "cosa_serve_introduzione": "Introduzione al servizio",
       "come_fare": "Procedure per ottenere il servizio",
       "tempi": "Tempi e scadenze del servizio",
-      "categorie": [ "Servizi-per-gli-ospiti" ],
+      "categorie": [ "Servizi-socio-assistenziali" ],
       "argomenti_servizi": "cittadino",
       "a_chi_e_rivolto": "Servizio rivolto al pubblico",
       "post_type": "servizio",
       "uo_collegata": [ 1 ]
     },
     "Servizio2": {
-      "post_title": "Servizio di prova2",
+      "post_title": "Soggiorno residenziale",
       "descrizione_breve": "Descrizione servizio di prova2",
       "cosa_serve_introduzione": "Introduzione al servizio2",
       "come_fare": "Procedure per ottenere il servizio2",
@@ -161,7 +161,7 @@
       "titolo_fase": "Colloquio di inserimento",
       "desc_fase": "L’Ufficio Sociale, ha l’obiettivo di conoscere la persona che sarà accolta, in merito alle condizioni di salute, alle risorse residue ed ai bisogni assistenziali e sanitari, alla storia personale. I familiari vengono informati sulle caratteristiche della struttura o del nucleo e sui servizi offerti. Il personale del nucleo viene poi informato e preparato ad accogliere il nuovo Ospite, con lo scopo di favorire la presa in carico globale della persona e di garantire risposte adeguate ai suoi bisogni e quanto più possibile personalizzate.",
       "post_type": "fase",
-      "servizio_collegato": [ 0 ],
+      "servizio_collegato": [ 0, 1],
       "contatto_collegato": [ 0, 1 ],
       "uo_collegata": [ 1 ]
     },
@@ -335,7 +335,7 @@
     "Procedura2": {
       "post_title": "Richiesta atti",
       "descrizione_breve": "Accesso agli atti amministrativi",
-      "panoramica": "Il soggiorno residenziale risponde al bisogno di assistenza e protezione delle persone anziane che per diversi motivi non possono più rimanere nel proprio ambiente di vita. Include anche servizi che hanno l’obiettivo di promuovere la salute dell’ospite attraverso azioni o metodologie in grado di stimolare e mantenere le capacità residue.\nPuò essere a lungo termine o temporaneo (da un minimo di 15 ad un massimo di 90 giorni).",
+      "panoramica": "In questa sezione puoi richiedere l'accesso agli atti amministrativi e sanitari relativi agli ospiti della casa di riposo.",
       "a_chi_e_rivolto": "Il servizio è rivolto a tutti i cittadini.",
       "cosa_serve_introduzione": "Puoi richiedere un atto compilando il modulo online. \n Sono necessarie alcune informazioni per effettuare la richiesta, tra le quali:",
       "come_fare_list": [
