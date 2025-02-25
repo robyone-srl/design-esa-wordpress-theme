@@ -22,6 +22,8 @@ function dci_theme_activation() {
         //inserisco le descrizioni di default per la tassonomia Tipi di Documento
         updateTipiDocumento();
     
+        //inserisco le descrizioni di default per la tassonomia Tipi di Notizia
+        updateCategorieNotizia();
     
         //creo le pagine
         insertPages($pagine = dci_get_pagine_obj());
@@ -347,6 +349,21 @@ function updateTipiDocumento() {
             'description' => $descriptions[$term->name]
         );
         wp_update_term($term->term_id,'tipi_documento',$args);
+    }
+}
+
+function updateCategorieNotizia() {
+    $terms =  get_terms(array(
+        'taxonomy' =>'tipi_notizia',
+        'hide_empty' => false,
+    ));
+    $descriptions = dci_get_categorie_notizia_descriptions_array();
+    foreach($terms as $term){
+
+        $args = array(
+            'description' => $descriptions[$term->name]
+        );
+        wp_update_term($term->term_id,'tipi_notizia',$args);
     }
 }
 

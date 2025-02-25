@@ -435,6 +435,20 @@ if(!function_exists('dci_get_categorie_servizio_descriptions_array')){
 }
 
 /**
+ * descrizioni dei termini della tassonomia notizie
+ */
+if(!function_exists('dci_get_categorie_notizia_descriptions_array')){
+    function dci_get_categorie_notizia_descriptions_array(){
+        $categorie_notizia_descriptions_arr = [
+            'Parliamo di noi' => 'Novità che riguardano argomenti di interesse pubblico',
+            'Comunicati' => 'Aggiornamenti che provengono dalla direzione del centro servizi',
+            'Avvisi' => 'Articoli dedicati alla vita della casa di riposo, su curiosità e attività svolte'   
+        ];
+        return $categorie_notizia_descriptions_arr;
+    }
+}
+
+/**
  * descrizioni dei termini della tassonomia Argomenti
  */
 if(!function_exists('dci_get_argomenti_descriptions_array')){
