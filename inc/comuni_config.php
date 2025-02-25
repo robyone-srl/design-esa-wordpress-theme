@@ -197,7 +197,7 @@ function dci_get_post_types_grouped($group = "", $tag = false)
 function dci_get_group_ids() {
     return array(
       'amministrazione',
-      'novita',
+      'ipab-comunica',
       'servizi',
       'vivere-il-comune',
       'documenti-e-dati',

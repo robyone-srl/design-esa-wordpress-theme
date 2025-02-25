@@ -32,7 +32,7 @@
             "prefix" : "_dci_notizia_",
             "singular_name" : "Notizia",
             "plural_name" : "Notizie",
-            "group_id": "novita",
+            "group_id": "ipab-comunica",
             "group_name" : "Novità",
             "taxonomy" : [
                 "tipi_notizia",

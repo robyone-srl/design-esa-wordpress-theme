@@ -27,7 +27,7 @@
     },
     "IPAB Comunica": {
       "title": "IPAB Comunica",
-      "slug": "novita",
+      "slug": "ipab-comunica",
       "description": "Tutte le notizie ed eventi per restare aggiornati.",
       "template_name": "ipab-comunica",
       "children": {
@@ -35,7 +35,7 @@
           "title": "Notizie",
           "slug": "notizie",
           "description": "Notizie e comunicati stampa",
-          "template_name": "notizie",
+          "template_name": "novita",
           "children": {}
         },
         "Eventi": {
