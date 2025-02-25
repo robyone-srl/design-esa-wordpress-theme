@@ -168,22 +168,99 @@ function inserimento_info_prova() {
         return $ids_selezionati;
     }
 
+    //Settings ENTE
     update_option('dci_options', array_merge(get_option('dci_options', array()), array(
         'nome_comune' => 'San Camillo de Lellis',
+        'nome_regione' => 'Regione Veneto',
+        'url_sito_regione' => 'https://www.regione.veneto.it/',
         'motto_comune' => 'Istituzione Pubblica di Assistenza e Beneficenza (IPAB)'
     )));
+    
+    //Settings Contatti ENTE
+    update_option('contatti', array_merge(get_option('contatti', array()), array(
+        'indirizzo' => 'Viale Giorgio Ribotta, 5, 00144 Roma',
+        'CF' => '0044110067',
+        'PIVA' => '0044110067',
+        'PEC' => 'pec@ipabsancamillo.it',
+        'cuf' => 'c0044f',
+        'cipa' => 'ipabscl',
+        'centralino_unico' => '0437001672'
+    )));
 
+    //Settings Homepage
+    update_option('homepage', array_merge(get_option('homepage', array()), array(
+        'hero_title' => 'Benvenuto',
+        'hero_description' => 'Siamo una istituzione IPAB',
+        'hero_button_title' => 'Chi siamo',
+        'hero_button_link' => '#'
+    )));
+    $options = get_option( 'homepage' );  
+    $options['notizie_in_home'] = 3;  
+    update_option( 'homepage', $options ); 
+
+    //Settings footer
+    $option_name = 'footer';
+    update_option($option_name, array_merge(get_option($option_name, array()), array(
+        'media_policy' => '#',
+        'sitemap' => '#'
+    )));
+    $options = get_option( $option_name );  
+    $options['visualizzaContatto'] = 'visible';  
+    update_option( $option_name, $options ); 
+
+    $options = get_option( $option_name );  
+    $options['contattaci_tipo'] = 'tutte';  
+    update_option( $option_name, $options ); 
+
+    //Settings servizi
+    $option_name = 'servizi';
+    update_option($option_name, array_merge(get_option($option_name, array()), array(
+        'titolo_banner_secondario' => 'Servizi per gli ospiti',
+        'login_messaggio' => 'Da qui puoi accedere ai diversi servizi della casa di riposo che richiedono una autenticazione personale.'
+    )));
+    $options = get_option( $option_name );  
+    $options['visual_servizi_inclusi'] = 'titolo';  
+    update_option( $option_name, $options );
+
+    $options = get_option( $option_name );  
+    $options['visual_servizi_necessari'] = 'titolo';  
+    update_option( $option_name, $options );
+    
+    $options = get_option( $option_name );  
+    $options['categorie_banner_secondario'] = array('Servizi per gli ospiti');  
+    update_option( $option_name, $options );
+
+    $options = get_option( $option_name );  
+    $options['categorie_esplora_tipo'] = 'tutte';  
+    update_option( $option_name, $options );
+
+    $options = get_option( $option_name );  
+    $options['prenota_appuntamento'] = '';  
+    update_option( $option_name, $options );
+
+    $options = get_option( $option_name );  
+    $options['richiedi_assistenza'] = '';  
+    update_option( $option_name, $options );
+
+    //Settings vivi
+    $option_name = 'vivi';
+    update_option($option_name, array_merge(get_option($option_name, array()), array(
+        'gallery_title' => 'Le nostre foto'
+    )));
+    $options = get_option( $option_name );  
+    $options['vivi_visualizzazione_eventi'] = 'in-evidenza';  
+    update_option( $option_name, $options );
+
+    $options = get_option( $option_name );  
+    $options['vivi_visualizzazione_luoghi'] = 'true';  
+    update_option( $option_name, $options );
+
+    //Settings IPAB comunica
     $options = get_option( 'comunica' );  
-    $options['notizie_in_comunica'] = 6;  
-
+    $options['notizie_in_comunica'] = 3;  
     update_option( 'comunica', $options ); 
 
-
-
-
-
-
-    
+ 
     if ( !current_user_can('publish_pages') ) {
         wp_send_json_error('Non hai i permessi per creare una pagina.');
     }
@@ -385,8 +462,8 @@ function inserimento_info_prova() {
 
             echo "<br>Procedura creata correttamente | ID: ".$post_id;
         }
-        
+
     }
-    
+
 }
 add_action('wp_ajax_inserimento_info_prova', 'inserimento_info_prova');
