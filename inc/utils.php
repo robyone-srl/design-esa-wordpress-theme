@@ -1359,6 +1359,25 @@ function dci_get_incarichi_con_nomi(){
     return $incarichi_organizzati;
 }
 
+function dci_get_uo_figlia(){
+    $args = [
+        'post_type' => 'unita_organizzativa',
+        'posts_per_page' => -1
+    ];
+
+    $unita = get_posts($args);
+
+    $unita_organizzate = array();
+
+    foreach($unita as $uo){
+        $id_incarico = dci_get_meta('unita_organizzativa_genitore', '_dci_unita_organizzativa_', $uo->ID);
+        if(isset($id_incarico[0]) && ($id_incarico[0] == get_the_id())){
+            $unita_organizzate[] = $uo->ID;
+        }     
+    }
+    return $unita_organizzate;
+}
+
 function dci_get_default_home_sections(){
     return [
         'hero',

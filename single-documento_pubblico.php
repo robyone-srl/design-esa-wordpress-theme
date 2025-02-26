@@ -25,7 +25,7 @@ get_header();
             $data_protocollo = dci_get_meta("data_protocollo");			
             $tipo_documento = wp_get_post_terms( $post->ID, array( 'tipi_documento', 'tipi_doc_albo_pretorio' ) );
             $descrizione_breve = dci_get_meta("descrizione_breve");
-            $indice = dci_get_meta("indice");
+            $indice = dci_get_wysiwyg_field("indice");
             $url_documento = dci_get_meta("url_documento");
             $file_documento = dci_get_meta("file_documento");
             $file_allegati = dci_get_meta("file_allegati") ?? [];
@@ -46,7 +46,7 @@ get_header();
             if($modalita_pagina == '')
                 $modalita_pagina = 'onlydesc';
 
-            $contenuto_documento = dci_get_meta("content");
+            $contenuto_documento = dci_get_wysiwyg_field("content");
 
             ?>
             <div class="container" id="main-container">
