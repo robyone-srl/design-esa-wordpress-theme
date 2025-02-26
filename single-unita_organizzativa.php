@@ -28,6 +28,8 @@ get_header();
         $tipo_organizzazione = array_column($tipi_organizzazione, 'name') ?? null;
         $unita_organizzativa_genitore = dci_get_meta("unita_organizzativa_genitore", $prefix, $post->ID);
 
+        $unità_organizzative_figlie = dci_get_uo_figlia() ?? false;
+
         $incarichi = dci_get_meta("incarichi", $prefix, $post->ID);
         $incarichi = is_array($incarichi) ? $incarichi : [];
         $incarichi_di_responsabilita = array_filter($incarichi, fn ($incarico) => dci_get_meta('di_responsabilita', '_dci_incarico_', $incarico) == "true");
@@ -47,6 +49,8 @@ get_header();
         $show_sede_principale = $sede_principale ?? false || !$is_sede_principale_esa;
         $altre_sedi = dci_get_meta("altre_sedi_luoghi", $prefix, $post->ID);
         $punti_contatto = dci_get_meta("contatti", $prefix, $post->ID);
+        $orario_ricevimento= dci_get_wysiwyg_field("orario_ricevimento");
+
         $allegati = dci_get_meta("allegati", $prefix, $post->ID);
 
         $more_info = dci_get_wysiwyg_field("ulteriori_informazioni");
@@ -160,7 +164,7 @@ get_header();
                                                             <?php if ($servizi && is_array($servizi) && count($servizi) > 0) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#servizi">
-                                                                        <span>Servizi offerti</span>
+                                                                        <span>Servizi gestiti</span>
                                                                     </a>
                                                                 </li>
                                                             <?php } ?>
@@ -183,6 +187,13 @@ get_header();
                                                                     </a>
                                                                 </li>
                                                             <?php } ?>
+                                                            <?php if ($orario_ricevimento) { ?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#orari">
+                                                                        <span>Orari di ricevimento</span>
+                                                                    </a>
+                                                                </li>
+															<?php } ?>
                                                             <?php if ($allegati && is_array($allegati) && count($allegati) > 0) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#allegati">
@@ -215,6 +226,20 @@ get_header();
                             <div class="richtext-wrapper lora">
                                 <?php echo $competenze ?>
                             </div>
+
+                            <?php if(is_array($unità_organizzative_figlie) && (count($unità_organizzative_figlie) > 0)) { ?>
+                                <h3 class="h4 my-2">Unità organizzative</h3>
+                                <div class="row g-2">
+                                    <?php foreach ($unità_organizzative_figlie as $uo_id) {
+                                        $with_border = false; ?>
+                                        <div class="col-lg-6 col-md-12 ">
+                                            <?php 
+                                            get_template_part("template-parts/unita-organizzativa/card"); ?>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+                        <?php }  ?>
+
                         </section>
 
                         <?php if ($has_persone || $has_incarichi) { ?>
@@ -272,7 +297,7 @@ get_header();
 
                         <?php if ($servizi &&  is_array($servizi) && count($servizi)) { ?>
                             <section id="servizi" class="it-page-section mb-4">
-                                <h2 class="h3 my-2">Servizi offerti</h2>
+                                <h2 class="h3 my-2">Servizi gestiti</h2>
                                 <div class="row g-2">
                                     <?php
                                     foreach ($servizi as $servizio_id) { 
@@ -347,7 +372,14 @@ get_header();
                                 </div>
                             </section>
                         <?php } ?>
-
+                        <?php if ($orario_ricevimento) { ?>
+                            <section id="orari" class="it-page-section mb-4">
+                                <h2 class="h3 my-2">Orari e modalità di ricevimento</h2>
+                                <div class="richtext-wrapper lora">
+                                    <?php echo $orario_ricevimento ?>
+                                </div>
+                            </section>
+                        <?php } ?>
                         <?php if ($allegati && is_array($allegati) && count($allegati) > 0) { ?>
                             <section id="allegati" class="it-page-section mb-4">
                                 <h2 class="h3 my-2">Documenti</h2>

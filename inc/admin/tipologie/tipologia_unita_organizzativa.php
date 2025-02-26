@@ -133,6 +133,16 @@ function dci_add_unita_organizzativa_metaboxes() {
             'placeholder' =>  __( 'Seleziona le Unità Organizzative', 'design_comuni_italia' ),
         )
     ) );
+    $cmb_struttura->add_field( array(
+        'id' => $prefix . 'uo_figlia_1',
+        'name'    => __( 'Unità organizzativa figlia', 'design_comuni_italia' ),
+        'desc' => __( '.' , 'design_comuni_italia' ),
+        'type'    => 'pw_multiselect',
+        'options' => dci_get_uo_figlia(),//dci_get_children_pages_by_path
+        'attributes' => array(
+            'placeholder' =>  __( 'Seleziona gli incarichi', 'design_comuni_italia' ),
+        )
+    ) );
 
     $cmb_struttura->add_field( array(
         'id' => $prefix . 'tipo_organizzazione',
@@ -208,6 +218,18 @@ function dci_add_unita_organizzativa_metaboxes() {
         'object_types' => array( 'unita_organizzativa' ),
         'context'      => 'normal',
         'priority'     => 'high',
+    ) );
+
+    $cmb_contatti->add_field( array(
+        'id'         => $prefix . 'orario_ricevimento',
+        'name'       => __('Orari e modalità di ricevimento ', 'design_comuni_italia' ),
+        'desc'       => __( 'Orario di apertura al pubblico del luogo.  ' ),
+        'type' => 'wysiwyg',
+        'options' => array(
+            'media_buttons' => false, // show insert/upload button(s)
+            'textarea_rows' => 10, // rows="..."
+            'teeny' => false, // output the minimal editor config used in Press This
+        ),
     ) );
 
     
