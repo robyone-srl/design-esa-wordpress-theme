@@ -307,6 +307,7 @@ function cambiaRisultato() {
 					break;
 				
 					case 'sito_tematico':
+					$post->guid = dci_get_meta("link", '_dci_sito_tematico_', $post->ID);
 					$tipo = ('
 						<span class="text-decoration-none title-xsmall-bold mb-2 category text-uppercase text-primary">
 						Sito tematico

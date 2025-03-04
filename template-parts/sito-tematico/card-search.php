@@ -3,6 +3,7 @@ global $post;
 
 $prefix = '_dci_sito_tematico_';
 $descrizione_breve = dci_get_meta('descrizione_breve', $prefix, $post->ID);
+$link = dci_get_meta("link", $prefix, $post->ID);
 ?>
 
 <div class="card card-teaser card-teaser-image card-flex no-after rounded shadow-sm border border-light mb-0 p-3">
@@ -15,7 +16,7 @@ $descrizione_breve = dci_get_meta('descrizione_breve', $prefix, $post->ID);
         </div>
         <div class="card-body px-3 pb-3">
             <h4 class="card-title text-paragraph-medium u-grey-light">
-		        <a href="<?= $post->guid ?>" class="text-decoration-none"><?= $post->post_title; ?></a>
+		        <a href="<?= $link ?>" class="text-decoration-none"><?= $post->post_title; ?></a>
 	        </h4>
 	        <p class="text-paragraph-card u-grey-light m-0"><?php echo $descrizione_breve; ?></p>
         </div>
