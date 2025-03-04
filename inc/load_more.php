@@ -150,6 +150,9 @@ function load_more(){
 		case "contatto":
 			$out .= load_template_part("template-parts/punto-contatto/lista-contatti");
 			break;
+		case "procedura":
+		$out .= load_template_part("template-parts/procedura/card");
+			break;
 		default:
 			break;
 		}
