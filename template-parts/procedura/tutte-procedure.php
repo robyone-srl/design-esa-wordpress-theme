@@ -1,8 +1,8 @@
 <?php
 global $posts, $the_query, $load_posts, $procedura, $load_card_type, $should_have_grey_background;
 
-$max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 8;
-$load_posts = 8;
+$max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 4;
+$load_posts = 4;
 
 $query = isset($_GET['search']) ? dci_removeslashes($_GET['search']) : null;
 
@@ -16,20 +16,20 @@ if (isset($_GET["post_terms"])) {
     $post_terms = $_GET["post_terms"];
 }
 
-$query_args = array(
-    's'              => isset($query) ? $query : '', // Gestisci la ricerca se presente
-    'posts_per_page' => isset($max_posts) ? $max_posts : 10,
+$args = array(
+    's'              => $query,
+    'posts_per_page' => $max_posts,
     'post_type'      => 'procedura',
     'orderby'        => 'post_title',
     'order'          => 'ASC'
 );
 
 if (!empty($post_types)) {
-    $query_args['post_type'] = $post_types;
+    $args['post_type'] = $post_types;
 }
 
 if (!empty($post_terms)) {
-    $query_args['tax_query'] = array(
+    $args['tax_query'] = array(
         array(
             'taxonomy' => 'argomenti',
             'field'    => 'id',
@@ -38,9 +38,7 @@ if (!empty($post_terms)) {
     );
 }
 
-$the_query = new WP_Query($query_args);
-
-$procedure_evidenza = dci_get_option('procedure_evidenziate', 'procedure');
+$the_query = new WP_Query($args);
 
 ?>
 
@@ -120,7 +118,6 @@ $procedure_evidenza = dci_get_option('procedure_evidenziate', 'procedure');
                                 <?php get_template_part("template-parts/search/more-results"); ?>
                             </div>
                         </div>
-                        <?php wp_reset_query(); ?>
                     </div>
                 </div>
             </div>
