@@ -54,13 +54,16 @@
             </div>
             <div class="row mt-4">
                 <div class="col-12 col-lg-3 offset-lg-9">
-                <button 
-                    type="button" 
-                    class="btn btn-primary text-button w-100"
-                    onclick="location.href='<?= dci_get_search_query_url(post_types: ['luogo'], argomenti_ids: [$argomento->term_id]); ?>'"
-                >
-                    Tutti i luoghi
-                </button>
+                    <button 
+                        type="button" 
+                        class="btn btn-outline-primary w-100"
+                        onclick="location.href='<?= dci_get_template_page_url("page-templates/luoghi.php"); ?>'"
+                    >
+                        Tutti i luoghi
+                        <svg class="icon icon-primary">
+                            <use xlink:href="#it-arrow-right"></use>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>

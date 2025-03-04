@@ -37,10 +37,13 @@
                 <div class="col-12 col-lg-3 offset-lg-9">
                     <button 
                         type="button" 
-                        class="btn btn-primary text-button w-100"
-                        onclick="location.href='<?= dci_get_search_query_url(post_types: ['domanda_frequente'], argomenti_ids: [$argomento->term_id]); ?>'"
+                        class="btn btn-outline-primary w-100"
+                        onclick="location.href='<?= dci_get_template_page_url("page-templates/domande-frequenti.php"); ?>'"
                     >
-                        Tutte le domande frequenti
+                        Domande frequenti
+                        <svg class="icon icon-primary">
+                            <use xlink:href="#it-arrow-right"></use>
+                        </svg>
                     </button>
                 </div>
             </div>
