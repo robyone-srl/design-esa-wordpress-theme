@@ -1,0 +1,32 @@
+{
+  "tipi_tipologie": {
+    "uo": {
+      "name": "Unità organizzative",
+      "value": "amministrazione"
+    },
+    "luogo": {
+      "name": "Luoghi",
+      "value": "luoghi"
+    },
+    "documento": {
+      "name": "Documento",
+      "value": "documenti-e-dati"
+    },
+    "domanda": {
+      "name": "Domanda frequente",
+      "value": "domande-frequenti"
+    },
+    "servizio": {
+      "name": "Servizi",
+      "value": "servizi"
+    },
+    "sito": {
+      "name": "Siti tematici",
+      "value": "siti-tematici"
+    },
+    "page": {
+      "name": "Pagine",
+      "value": "page"
+    }
+  }
+}

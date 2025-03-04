@@ -36,7 +36,7 @@ get_header();
         <div class="row">
           <div class="col-12 px-0 px-lg-2">
             <div
-              class="it-hero-card it-hero-bottom-overlapping rounded hero-p pb-lg-80 drop-shadow <?php echo ($img? '' : 'mt-0'); ?>"
+              class="it-hero-card it-hero-bottom-overlapping rounded hero-p drop-shadow <?php echo ($img? '' : 'mt-0'); ?>"
             >
   
                 <div class="row justify-content-center">
@@ -53,7 +53,7 @@ get_header();
                       <?php echo $argomento->name; ?>
                     </h1>
                     <h2 class="visually-hidden" id="news-details">Dettagli dell'argomento</h2>
-                    <p class="u-main-black text-paragraph-regular-medium mb-60">
+                    <p class="u-main-black text-paragraph-regular-medium">
                         <?php echo $argomento->description; ?>
                     </p>
                   </div>
@@ -88,20 +88,43 @@ get_header();
     </div>
     <?php 
 
-    $posts = dci_get_posts_by_term('any','argomenti', $argomento->name);
+    $visualizzazione = dci_get_option('visualizzazione_argomenti','argomenti') ?? 'classic';
+
+    if($visualizzazione == 'classic'){
+        $posts = dci_get_posts_by_term('any','argomenti', $argomento->name);
+        if(empty($posts)){
+            $check = false;
+        } else {
+            $check = true;
+        }
+    }else{
+        $posts = dci_get_grouped_posts_by_term('argomenti-tutti', 'argomenti', $argomento->name, -1);
+        $check = dci_get_grouped_posts_by_term('novita-evento', 'argomenti', $argomento->name, -1);
+
+        if(!empty($check)){
+            $check = true;
+        }
+    }
     
-    if($posts) {
-      $first_printed = false;
+    if($posts || $check) {
+        $first_printed = false;
+
+        
+        if($visualizzazione == 'classic'){
     ?>
-    	<?php get_template_part("template-parts/argomento/page-detail"); ?>
-    	<?php get_template_part("template-parts/argomento/novita-detail"); ?>
-    	<?php get_template_part("template-parts/argomento/amministrazione-detail"); ?>
-    	<?php get_template_part("template-parts/argomento/servizi-detail"); ?>
-    	<?php get_template_part("template-parts/argomento/documenti-detail"); ?>
-    	<?php get_template_part("template-parts/argomento/luoghi-detail"); ?>
-    	<?php get_template_part("template-parts/argomento/siti-tematici-detail"); ?>
-    	<?php get_template_part("template-parts/argomento/procedura-detail"); ?>
-    <?php
+        <?php get_template_part("template-parts/argomento/page-detail"); ?>
+        <?php get_template_part("template-parts/argomento/novita-detail"); ?>
+        <?php get_template_part("template-parts/argomento/amministrazione-detail"); ?>
+        <?php get_template_part("template-parts/argomento/servizi-detail"); ?>
+        <?php get_template_part("template-parts/argomento/documenti-detail"); ?>
+        <?php get_template_part("template-parts/argomento/luoghi-detail"); ?>
+        <?php get_template_part("template-parts/argomento/siti-tematici-detail"); ?>
+        <?php 
+        } else {
+        ?>
+        <?php get_template_part("template-parts/argomento/tutte-categorie");
+        }
+
     } else {
     ?>
     <div class="bg-grey-card pt-40 pt-md-100 pb-50">
