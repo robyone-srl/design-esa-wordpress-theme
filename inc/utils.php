@@ -321,7 +321,7 @@ if(!function_exists("dci_get_grouped_posts_by_term")) {
                     'field' => 'slug',
                     'terms' => $terms)
             ),
-            'orderby' => 'date',
+            'orderby' => 'title',
             'order' => 'ASC',
         );
         $queried_object = get_queried_object(); 
