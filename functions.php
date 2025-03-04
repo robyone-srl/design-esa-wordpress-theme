@@ -216,11 +216,6 @@ add_action('wp_enqueue_scripts', 'dci_scripts');
 
 
 function cambiaRisultato() {
-    if( !isset($_GET['term']) || !isset($_GET['post_type']) ) {
-        wp_send_json_error( array( 'data' => 'Termine o tipo di post mancanti' ) );
-        return; 
-    }
-
     $term = $_GET['term'];
     $post_type = $_GET['post_type'];
 

@@ -127,18 +127,21 @@ function dci_get_pagine_template_names(){
 function dci_get_sercheable_tipologie() {
     $arrayTipologie = array(
         'unita_organizzativa',
-        'procedura',
         'evento',
         'luogo',
         'documento_pubblico',
         'domanda_frequente',
-        'notizia',
-        'servizio',
-        'persona_pubblica',
-        'sito_tematico',
         'dataset',
-        'page',
-        'post'
+        'evento',
+        'luogo',
+        'notizia',
+        'pagina',
+        'persona_pubblica',
+        'post',
+        'procedura',
+        'servizio',
+        'sito_tematico',
+        'unita_organizzativa'
     );
     if ( post_type_exists( 'amm-trasparente' ) ) { // Compatibilità plugin amministrazione-trasparente
         $arrayTipologie[] = 'amm-trasparente';
@@ -152,16 +155,16 @@ function dci_get_sercheable_tipologie() {
  */
 function dci_get_sercheable_tipologie_argomenti() {
     $arrayTipologie = array(
-        'unita_organizzativa',
-        'luogo',
         'documento_pubblico',
         'domanda_frequente',
-        'servizio',
-        'persona_pubblica',
-        'sito_tematico',
         'dataset',
+        'luogo',
+        'persona_pubblica',
         'page',
-        'post'
+        'post',
+        'servizio',
+        'sito_tematico',
+        'unita_organizzativa'
     );
     if ( post_type_exists( 'amm-trasparente' ) ) { // Compatibilità plugin amministrazione-trasparente
         $arrayTipologie[] = 'amm-trasparente';

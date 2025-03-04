@@ -89,52 +89,44 @@ get_header();
     <?php 
 
     $visualizzazione = dci_get_option('visualizzazione_argomenti','argomenti') ?? 'classic';
+    $showEmptyMessage = false;
 
     if($visualizzazione == 'classic'){
         $posts = dci_get_posts_by_term('any','argomenti', $argomento->name);
+        
         if(empty($posts)){
-            $check = false;
+            $showEmptyMessage = true;
         } else {
-            $check = true;
+            get_template_part("template-parts/argomento/page-detail");
+            get_template_part("template-parts/argomento/notizie-detail");
+            get_template_part("template-parts/argomento/eventi-detail");
+            get_template_part("template-parts/argomento/amministrazione-detail");
+            get_template_part("template-parts/argomento/servizi-detail");
+            get_template_part("template-parts/argomento/documenti-detail");
+            get_template_part("template-parts/argomento/luoghi-detail");
+            get_template_part("template-parts/argomento/siti-tematici-detail");
         }
-    }else{
-        $posts = dci_get_grouped_posts_by_term('argomenti-tutti', 'argomenti', $argomento->name, -1);
-        $check = dci_get_grouped_posts_by_term('novita-evento', 'argomenti', $argomento->name, -1);
-
-        if(!empty($check)){
-            $check = true;
-        }
-    }
-    
-    if($posts || $check) {
+    } else {
         $first_printed = false;
 
-        
-        if($visualizzazione == 'classic'){
-    ?>
-        <?php get_template_part("template-parts/argomento/page-detail"); ?>
-        <?php get_template_part("template-parts/argomento/novita-detail"); ?>
-        <?php get_template_part("template-parts/argomento/amministrazione-detail"); ?>
-        <?php get_template_part("template-parts/argomento/servizi-detail"); ?>
-        <?php get_template_part("template-parts/argomento/documenti-detail"); ?>
-        <?php get_template_part("template-parts/argomento/luoghi-detail"); ?>
-        <?php get_template_part("template-parts/argomento/siti-tematici-detail"); ?>
-        <?php 
-        } else {
-        ?>
-        <?php get_template_part("template-parts/argomento/tutte-categorie");
-        }
+        get_template_part("template-parts/argomento/notizie-detail");
+        get_template_part("template-parts/argomento/eventi-detail");
+        get_template_part("template-parts/argomento/tutte-categorie");
 
-    } else {
-    ?>
-    <div class="bg-grey-card pt-40 pt-md-100 pb-50">
-        <div class="container">
-        	<div class="alert alert-info" role="alert">
-  				Non sono presenti contenuti legati a questo argomento.
-			</div>
+        if($first_printed == false) 
+            $showEmptyMessage = true;
+    }
+    
+    if($showEmptyMessage) {
+        ?>
+        <div class="bg-grey-card pt-40 pt-md-100 pb-50">
+            <div class="container">
+        	    <div class="alert alert-info" role="alert">
+  				    Non sono presenti contenuti legati a questo argomento.
+			    </div>
+            </div>
         </div>
-    </div>
-    <?php
+        <?php
     }
     ?>
     

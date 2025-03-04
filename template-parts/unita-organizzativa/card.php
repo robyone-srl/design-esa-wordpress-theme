@@ -1,5 +1,5 @@
 <?php
-    global $uo_id, $with_border, $mostra_dettagli_sede;
+    global $uo_id, $with_border, $mostra_dettagli_sede, $h100;
     $ufficio = get_post( $uo_id );
 
     $prefix = '_dci_unita_organizzativa_';
@@ -10,7 +10,7 @@
     if($with_border) {
 ?>
 
-<div class="card card-teaser card-teaser-info rounded shadow-sm p-3 mb-2">
+<div class="card card-teaser card-teaser-info rounded shadow-sm p-3 mb-2 <?php echo $h100==true ? "h-100" : ""; ?>">
     <div class="card-body pe-3">
         <h4 class="card-title text-paragraph-regular-medium-semi">
             <a class="text-decoration-none" href="<?php echo get_permalink($ufficio->ID); ?>" data-element="service-area">
