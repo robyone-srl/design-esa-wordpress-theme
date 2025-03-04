@@ -126,8 +126,6 @@ function dci_get_pagine_template_names(){
  */
 function dci_get_sercheable_tipologie() {
     $arrayTipologie = array(
-        'unita_organizzativa',
-        'evento',
         'luogo',
         'documento_pubblico',
         'domanda_frequente',
