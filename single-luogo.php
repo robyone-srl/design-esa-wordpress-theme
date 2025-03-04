@@ -138,6 +138,14 @@ get_header();
                                                                     </li>
 																<?php } ?>
 
+                                                                <?php if ($gallery && is_array($gallery) && count($gallery) > 0) {?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#gallery">
+                                                                        <span>Galleria di immagini</span>
+                                                                    </a>
+                                                                </li>
+                                                                <?php } ?>
+
 																<?php if ($indirizzo || $childof) { ?>
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" href="#dove_si_trova">
@@ -171,6 +179,14 @@ get_header();
                                                                 <?php } ?>
 
                                                                 
+                                                                <?php if ($sede_di && is_array($sede_di) && count($sede_di) > 0) { ?>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" href="#sede_di">
+                                                                            <span>Sede di</span>
+                                                                        </a>
+                                                                    </li>
+                                                                <?php } ?>
+                                                                
 																<?php if ($punti_contatto && is_array($punti_contatto) && count($punti_contatto) > 0) { ?>
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" href="#contatti">
@@ -179,29 +195,12 @@ get_header();
                                                                     </li>
 																<?php } ?>
 
-                                                                
-                                                                <?php if ($sede_di && is_array($sede_di) && count($sede_di) > 0) { ?>
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link" href="#sede_di">
-                                                                            <span>Sede di</span>
-                                                                        </a>
-                                                                    </li>
-                                                                <?php } ?>
-
                                                                 <?php if ($luoghi_collegati && is_array($luoghi_collegati) && count($luoghi_collegati) > 0) { ?>
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" href="#luoghi_collegati">
                                                                             <span>Luoghi correlati</span>
                                                                         </a>
                                                                     </li>
-                                                                <?php } ?>
-
-                                                                <?php if ($gallery && is_array($gallery) && count($gallery) > 0) {?>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#gallery">
-                                                                        <span>Galleria di immagini</span>
-                                                                    </a>
-                                                                </li>
                                                                 <?php } ?>
 
 																<?php if ($more_info || $nome_alternativo) { ?>
@@ -250,6 +249,17 @@ get_header();
                                     } ?>
                                 </section>
                             <?php } ?>
+
+                            
+                            <?php if (is_array($gallery) && count($gallery)) { ?>
+                            <section id="gallery" class="it-page-section mb-4">
+                                <h3>
+                                    Galleria di immagini
+                                </h3>
+                                <?php get_template_part("template-parts/single/gallery");?>
+                            </section>
+                            <?php } ?>
+
 
                             <?php if ($indirizzo || $childof) { ?>
                                 <section id="dove_si_trova" class="it-page-section mb-4">
@@ -311,6 +321,33 @@ get_header();
                                 </section>
                             <?php } ?>
 
+							<?php if ($sede_di && is_array($sede_di) && count($sede_di) > 0) { ?>
+                                <section id="sede_di" class="it-page-section mb-4">
+                                    <h2 class="h3 my-2">Sede di</h2>
+
+                                    <div class="alert alert-info">
+                                        <p class="mb-0">
+                                            <a class="d-flex justify-content-between" data-bs-toggle="collapse" href="#collapseUnita" role="button" aria-expanded="false" aria-controls="collapseUnita">
+                                                <span>Questo luogo è sede di <?php if (count($sede_di) == 1) { echo "1 unità organizzativa"; } else { echo count($sede_di) . " unità organizzative"; } ?> </span>
+                                                <svg class="icon ms-5 chevron"><use href="#it-expand"></use></svg>
+                                            </a>
+                                        </p>
+                                        
+                                        <div class="collapse clearfix mt-3 me-5" id="collapseUnita">
+                                            <div class="row g-4">
+                                            <?php foreach ($sede_di as $uo_id) {
+                                            ?><div class="col-xl-6 col-lg-8 col-md-12"><?php
+                                                $with_border = true;
+												$h100 = true;
+                                                get_template_part("template-parts/unita-organizzativa/card");
+                                            ?></div><?php
+                                            } ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            <?php } ?>
+							
 							<?php if 
                             (
                                     ($gestito_da && is_array($gestito_da) && count($gestito_da) > 0) ||
@@ -348,23 +385,6 @@ get_header();
                                 </section>
 							<?php } ?>
 
-                            <?php if ($sede_di && is_array($sede_di) && count($sede_di) > 0) { ?>
-                                <section id="sede_di" class="it-page-section mb-4">
-                                    <h2 class="h3 my-2">Sede di</h2>
-
-                                    <?php if ($sede_di) { ?>
-                                    <div class="row">
-                                            <?php foreach ($sede_di as $uo_id) {
-                                            ?><div class="col-xl-6 col-lg-8 col-md-12"><?php
-                                                $with_border = true;
-                                                get_template_part("template-parts/unita-organizzativa/card");
-                                            ?></div><?php
-                                            } ?>
-                                    </div>
-							        <?php } ?>
-                                </section>
-                            <?php } ?>
-
                             <?php if ($luoghi_collegati && is_array($luoghi_collegati) && count($luoghi_collegati) > 0) { ?>
                                 <section id="luoghi_collegati" class="it-page-section mb-4">
                                     <h2 class="h3 my-2">Luoghi correlati</h2>
@@ -380,17 +400,6 @@ get_header();
                                     </div>
                                 </section>
                             <?php } ?>
-
-
-                            <?php if (is_array($gallery) && count($gallery)) { ?>
-                            <section id="gallery" class="it-page-section mb-4">
-                                <h3>
-                                    Galleria di immagini
-                                </h3>
-                                <?php get_template_part("template-parts/single/gallery");?>
-                            </section>
-                            <?php } ?>
-
 
 							<?php if ($more_info || $nome_alternativo) { ?>
                                 <section id="more-info" class="it-page-section mb-4">
