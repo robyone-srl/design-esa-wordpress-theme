@@ -39,38 +39,34 @@ $post_terms = isset($_GET['post_terms']) ? (array)$_GET['post_terms'] : array();
                         Filtra per argomenti
                     </legend>
                     <div class="categoy-list pb-4">
-                        <ul>
-                            <?php 
-                                if ($filtered_terms && !is_wp_error($filtered_terms)) {
-                                    foreach ($filtered_terms as $argomento) {
-                                        $arg_id = $argomento->term_id; 
-                            ?>
-                                        <li>
-                                            <div class="form-check">
-                                                <div class="checkbox-body border-light py-1">
-                                                    <input
-                                                        type="checkbox" 
-                                                        id="<?php echo $arg_id; ?>" 
-                                                        name="post_terms[]" 
-                                                        value="<?php echo $arg_id; ?>"
-                                                        <?php if (in_array($arg_id, $post_terms)) echo " checked "; ?>
-                                                        onChange="this.form.submit()"
-                                                    />
-                                                    <label 
-                                                        for="<?php echo $arg_id; ?>" 
-                                                        class="subtitle-small_semi-bold mb-0 category-list__list"
-                                                    >
-                                                        <?php echo($argomento->name); ?> 
-                                                    </label>
-                                                </div>
+                        <ul> <?php 
+                            if ($filtered_terms && !is_wp_error($filtered_terms)) {
+                                foreach ($filtered_terms as $argomento) {
+                                    $arg_id = $argomento->term_id;  ?>
+                                    <li>
+                                        <div class="form-check">
+                                            <div class="checkbox-body border-light py-1">
+                                                <input
+                                                    type="checkbox" 
+                                                    id="<?php echo $arg_id; ?>" 
+                                                    name="post_terms[]" 
+                                                    value="<?php echo $arg_id; ?>"
+                                                    <?php if (in_array($arg_id, $post_terms)) echo " checked "; ?>
+                                                    onChange="this.form.submit()"
+                                                />
+                                                <label 
+                                                    for="<?php echo $arg_id; ?>" 
+                                                    class="subtitle-small_semi-bold mb-0 category-list__list"
+                                                >
+                                                    <?php echo($argomento->name); ?> 
+                                                </label>
                                             </div>
-                                        </li> 
-                            <?php 
-                                    }
-                                } else { ?>
-                                    <p class="text-paragraph-regular-medium ps-2 mb-0">Nessun filtro disponibile</p> 
-                                <?php } 
-                            ?>
+                                        </div>
+                                    </li>  <?php 
+                                }
+                            } else { ?>
+                                <p class="text-paragraph-regular-medium ps-2 mb-0">Nessun filtro disponibile</p> 
+                            <?php } ?>
                         </ul>
                     </div>
                 </fieldset>   
