@@ -31,7 +31,7 @@ function dci_register_pagina_argomenti_options(){
     $argomenti_options->add_field( array(
         'id' => $prefix . 'argomenti_evidenziati',
         'name'        => __( 'Argomenti in Evidenza', 'design_comuni_italia' ),
-        'desc' => __( 'Seleziona gli argomenti in evidenza.' , 'design_comuni_italia' ),
+        'desc' => __( 'Seleziona gli argomenti da visualizzare in evidenza nella pagina Tutti gli argomenti.' , 'design_comuni_italia' ),
         'type'             => 'pw_multiselect',
         'options' => dci_get_terms_options('argomenti'),
         'show_option_none' => false,
@@ -39,6 +39,18 @@ function dci_register_pagina_argomenti_options(){
         'attributes' => array(
             'data-maximum-selection-length' => '8',
         ),
+    ) );
+
+    $argomenti_options->add_field( array(
+        'id' => $prefix . 'visualizzazione_argomenti',
+        'name'        => 'Visualizzazione argomenti',
+        'desc' =>'Scegli se mostrare gli argomenti nel modo classico (Argomenti in evidenza + card appena sotto) oppure con i contenuti in evidenza e successivamente una ricerca' ,
+        'type'    => 'radio_inline',
+        'options' => array(
+            'classic' =>'Classica',
+            'search'   => 'Ricerca',
+        ),
+        'default' => 'classic',
     ) );
 
 }

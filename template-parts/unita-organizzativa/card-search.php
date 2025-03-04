@@ -1,0 +1,25 @@
+<?php
+global $post;
+
+    $prefix = '_dci_unita_organizzativa_';
+	$descrizione_breve = dci_get_meta("descrizione_breve", $prefix, $post->ID);
+
+    $tipo_organizzazione = get_the_terms($post->ID, 'tipi_unita_organizzativa');
+?>
+
+<div class="card card-teaser card-teaser-image card-flex no-after rounded shadow-sm border border-light mb-0 p-3">
+    <div class="content aling-top">
+        <div class="card-header border-0">
+            <?php
+            echo '<span class="text-decoration-none title-xsmall-bold mb-2 category text-uppercase text-primary">';
+            echo $tipo_organizzazione[0]->name; 
+            echo '</span>';?>
+        </div>
+        <div class="card-body px-3 pb-3">
+            <h4 class="card-title text-paragraph-medium u-grey-light">
+		        <a href="<?= $post->guid ?>" class="text-decoration-none"><?= $post->post_title; ?></a>
+	        </h4>
+	        <p class="text-paragraph-card u-grey-light m-0"><?php echo $descrizione_breve; ?></p>
+        </div>
+    </div>
+</div>

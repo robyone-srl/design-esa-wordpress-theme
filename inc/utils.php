@@ -278,6 +278,32 @@ if(!function_exists("dci_get_posts_by_term")) {
 }
 
 /**
+ * get all posts of given post type and taxonomy term ordered by date
+ * @param string $post_type
+ * @param string $taxonomy_name
+ * @param string $term_name
+ * @return mixed
+ */
+if(!function_exists("dci_get_posts_by_term_by_date")) {
+    function dci_get_posts_by_term_by_date( $post_type = 'post', $taxonomy_name = '', $term_name = '', $order = false ) {
+        $order = $order ? 'ASC' : 'DESC';
+        $posts = get_posts(array(
+                'showposts' => -1,
+                'post_type' => $post_type,
+                'tax_query' => array(
+                    array(
+                        'taxonomy' => $taxonomy_name,
+                        'field' => 'name',
+                        'terms' => array($term_name))
+                ),
+                'orderby' => 'date',
+                'order' => $order)
+        );
+        return $posts;
+    }
+}
+
+/**
  * get all posts ordered by date, given their groupname
  */
 if(!function_exists("dci_get_grouped_posts_by_term")) {
@@ -296,10 +322,11 @@ if(!function_exists("dci_get_grouped_posts_by_term")) {
                     'terms' => $terms)
             ),
             'orderby' => 'date',
-            'order' => 'DESC',
+            'order' => 'ASC',
         );
-        if (get_class(get_queried_object())== "WP_Post"){
-            $args['post__not_in'] = array(get_queried_object()->ID);
+        $queried_object = get_queried_object(); 
+        if (is_object($queried_object) && (get_class($queried_object) == "WP_Post")) {
+            $args['post__not_in'] = array($queried_object->ID);
         }
         $posts = get_posts($args);
         return $posts;
