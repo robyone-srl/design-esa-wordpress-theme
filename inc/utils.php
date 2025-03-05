@@ -293,7 +293,7 @@ if(!function_exists("dci_get_posts_by_term_by_date")) {
                 'tax_query' => array(
                     array(
                         'taxonomy' => $taxonomy_name,
-                        'field' => 'name',
+                        'field' => 'slug',
                         'terms' => array($term_name))
                 ),
                 'orderby' => 'date',
