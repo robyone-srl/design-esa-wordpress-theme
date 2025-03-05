@@ -347,14 +347,15 @@ get_header();
                                 <?php if ($servizi && is_array($servizi) && count($servizi)>0 ) { ?>
                                 <section id="servizi" class="it-page-section mb-5">
                                     <h2 class="h3 mb-3">Servizi collegati</h2>
-                                    <div class="row">
-                                        <div class="col-12 col-sm-8">
-                                            <?php foreach ($servizi as $servizio_id) {
-                                                $servizio = get_post($servizio_id);
-                                                $with_border = true;
-                                                get_template_part("template-parts/servizio/card");
-                                            } ?>
-                                        </div>
+                                    <div class="row g-4">
+                                        
+                                        <?php foreach ($servizi as $servizio_id) {
+                                            $servizio = get_post($servizio_id);
+                                            $with_border = true;
+                                            ?> <div class="col-12 col-lg-6"><?php
+                                            get_template_part("template-parts/servizio/card");
+                                            ?> </div> <?php
+                                        } ?>
                                     </div>
                                 </section>
                                 <?php } ?>
@@ -460,14 +461,15 @@ get_header();
                                         <?php if ($servizi && is_array($servizi) && count($servizi)>0 ) { ?>
                                             <section id="servizi" class="it-page-section mb-5">
                                                 <h3 class="h4 mb-3">Servizi collegati</h3>
-                                                <div class="row">
-                                                    <div class="col-12 col-sm-8">
-                                                        <?php foreach ($servizi as $servizio_id) {
-                                                            $servizio = get_post($servizio_id);
-                                                            $with_border = true;
-                                                            get_template_part("template-parts/servizio/card");
-                                                        } ?>
-                                                    </div>
+                                                <div class="row g-4">
+                                        
+                                                    <?php foreach ($servizi as $servizio_id) {
+                                                        $servizio = get_post($servizio_id);
+                                                        $with_border = true;
+                                                        ?> <div class="col-12 col-lg-6"><?php
+                                                        get_template_part("template-parts/servizio/card");
+                                                        ?> </div> <?php
+                                                    } ?>
                                                 </div>
                                             </section>
                                         <?php } ?>
