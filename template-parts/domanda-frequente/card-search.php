@@ -7,7 +7,7 @@ $descrizione_breve = dci_get_meta("risposta", '_dci_domanda_frequente_', $post->
 
 <div class="card card-teaser card-teaser-image card-flex no-after rounded shadow-sm border border-light mb-0 p-3">
     <div class="content aling-top">
-        <div class="card-header border-0">
+        <div class="card-header border-0 pb-1">
             <?php
             echo '<span class="text-decoration-none title-xsmall-bold mb-2 category text-uppercase text-primary">';
             echo 'Domanda frequente' ; 
