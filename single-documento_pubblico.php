@@ -293,7 +293,7 @@ get_header();
                                                         Scarica il documento (collegamento esterno)
                                                     </a>
                                                 </h3>
-                                            <span> Formati disponibili: <?= $formati ?> <span>
+                                            <span> Formati disponibili: <?= $formati ?> </span>
                                             </div>
                                         </div>
                                     <?php } ?>
@@ -436,96 +436,95 @@ get_header();
                                         </section>
 
                                         <?php if ($autori &&  is_array($autori) && count($autori)) { ?>
-                                        <section id="autore" class="it-page-section mb-5">
-                                            <h3 class="h4 mb-3">Autori</h3>
-                                            <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
-                                                <?php foreach ($autori as $pp_id) { ?>
-                                                    <?php get_template_part("template-parts/persona_pubblica/card"); ?>
-                                                <?php } ?>
-                                            </div>
-                                        </section>
+                                            <section id="autore" class="it-page-section mb-5">
+                                                <h3 class="h4 mb-3">Autori</h3>
+                                                <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
+                                                    <?php foreach ($autori as $pp_id) { ?>
+                                                        <?php get_template_part("template-parts/persona_pubblica/card"); ?>
+                                                    <?php } ?>
+                                                </div>
+                                            </section>
                                         <?php } ?>
 
                                         <?php if ($licenza) { ?>
-                                        <section id="licenza_distribuzione" class="it-page-section mb-5">
-                                            <h3 class="h4 mb-3">Licenza di distribuzione</h3>
-                                            <div class="richtext-wrapper lora">
-                                                <?php foreach($licenza as $tipo) { 
-                                                    echo $tipo->name;
-                                                } ?>
-                                            </div>
-                                        </section>
+                                            <section id="licenza_distribuzione" class="it-page-section mb-5">
+                                                <h3 class="h4 mb-3">Licenza di distribuzione</h3>
+                                                <div class="richtext-wrapper lora">
+                                                    <?php foreach($licenza as $tipo) { 
+                                                        echo $tipo->name;
+                                                    } ?>
+                                                </div>
+                                            </section>
                                         <?php } ?>
 
                                         <?php if ($servizi && is_array($servizi) && count($servizi)>0 ) { ?>
-                                        <section id="servizi" class="it-page-section mb-5">
-                                            <h3 class="h4 mb-3">Servizi collegati</h3>
-                                            <div class="row">
-                                                <div class="col-12 col-sm-8">
-                                                    <?php foreach ($servizi as $servizio_id) {
-                                                        $servizio = get_post($servizio_id);
-                                                        $with_border = true;
-                                                        get_template_part("template-parts/servizio/card");
-                                                    } ?>
+                                            <section id="servizi" class="it-page-section mb-5">
+                                                <h3 class="h4 mb-3">Servizi collegati</h3>
+                                                <div class="row">
+                                                    <div class="col-12 col-sm-8">
+                                                        <?php foreach ($servizi as $servizio_id) {
+                                                            $servizio = get_post($servizio_id);
+                                                            $with_border = true;
+                                                            get_template_part("template-parts/servizio/card");
+                                                        } ?>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </section>
+                                            </section>
                                         <?php } ?>
 
                                         <?php if ($data_inizio) { ?>
-                                        <section id="data_inizio" class="it-page-section mb-5">
-                                            <h3 class="h4 mb-3">Data inizio</h3>
-                                            <div class="richtext-wrapper lora">
-                                                <?php
-                                                    echo date_i18n('j F Y', strtotime($data_inizio));
-                                                ?>
-                                            </div>
-                                        </section>
+                                            <section id="data_inizio" class="it-page-section mb-5">
+                                                <h3 class="h4 mb-3">Data inizio</h3>
+                                                <div class="richtext-wrapper lora">
+                                                    <?php
+                                                        echo date_i18n('j F Y', strtotime($data_inizio));
+                                                    ?>
+                                                </div>
+                                            </section>
                                         <?php } ?>
 
                                         <?php if ($data_fine) { ?>
-                                        <section id="data_fine" class="it-page-section mb-5">
-                                            <h3 class="h4 mb-3">Data fine</h3>
-                                            <div class="richtext-wrapper lora">
-                                                <?php
-                                                    echo date_i18n('j F Y', strtotime($data_fine));
-                                                ?>
-                                            </div>
-                                        </section>
+                                            <section id="data_fine" class="it-page-section mb-5">
+                                                <h3 class="h4 mb-3">Data fine</h3>
+                                                <div class="richtext-wrapper lora">
+                                                    <?php
+                                                        echo date_i18n('j F Y', strtotime($data_fine));
+                                                    ?>
+                                                </div>
+                                            </section>
                                         <?php } ?>
 
                                         <?php if ( $more_info ) {  ?>
-                                        <section id="ulteriori_informazioni" class="it-page-section mb-5">
-                                            <h3 class="h4 mb-3">Ulteriori informazioni</h3>
-                                            <div class="richtext-wrapper lora">
-                                                <?php echo $more_info ?>
-                                            </div>
-                                        </section>
+                                            <section id="ulteriori_informazioni" class="it-page-section mb-5">
+                                                <h3 class="h4 mb-3">Ulteriori informazioni</h3>
+                                                <div class="richtext-wrapper lora">
+                                                    <?php echo $more_info ?>
+                                                </div>
+                                            </section>
                                         <?php }  ?>
 
                                         <?php if ( $riferimenti_normativi ) { ?>
-                                        <section id="riferimenti_normativi" class="it-page-section mb-5">
-                                            <h3 class="h4 mb-3">Riferimenti normativi</h3>
-                                            <div class="richtext-wrapper lora">
-                                                <?php echo $riferimenti_normativi ?>
-                                            </div>
-                                        </section>
+                                            <section id="riferimenti_normativi" class="it-page-section mb-5">
+                                                <h3 class="h4 mb-3">Riferimenti normativi</h3>
+                                                <div class="richtext-wrapper lora">
+                                                    <?php echo $riferimenti_normativi ?>
+                                                </div>
+                                            </section>
                                         <?php } ?>
 
                                         <?php if( is_array($documenti_collegati) && count($documenti_collegati) ) { ?>
-                                        <section id="documenti_collegati" class="it-page-section mb-5">
-                                            <h3 class="h4 mb-3">Documenti collegati</h3>
-                                            <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
-                                                <?php foreach ($documenti_collegati as $documento_id) {
-                                                    $documento = get_post($documento_id);
-                                                    $with_border = true;
-                                                    get_template_part("template-parts/documento/card");
-                                                } ?>
-                                            </div>
-                                        </section>
+                                            <section id="documenti_collegati" class="it-page-section mb-5">
+                                                <h3 class="h4 mb-3">Documenti collegati</h3>
+                                                <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
+                                                    <?php foreach ($documenti_collegati as $documento_id) {
+                                                        $documento = get_post($documento_id);
+                                                        $with_border = true;
+                                                        get_template_part("template-parts/documento/card");
+                                                    } ?>
+                                                </div>
+                                            </section>
+                                        <?php } ?>
                                     </div>
-                                    <?php } ?>
-
                                 </div>
                                 <?php } ?>
 
