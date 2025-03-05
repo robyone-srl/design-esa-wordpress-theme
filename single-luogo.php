@@ -296,19 +296,30 @@ get_header();
                                     
                                     if (!empty($servizi) &&  is_array($servizi) && count($servizi)) {  ?>
                                         <h2 class="h3 my-2">Servizi presenti nel luogo</h2>
-                                        <div class="row g-2"> <?php 
-                                            foreach ($servizi as $servizio_id) { ?>
-                                                <div class="col-lg-4 col-md-12">
-                                                    <?php
-                                                    $servizio = get_post($servizio_id);
-                                                    $with_map = false;
-                                                    if($tipo_visualizzazione_servizi == 'enabled' || $tipo_visualizzazione_servizi == 'disabled'){
-                                                        get_template_part("template-parts/servizio/card");
-                                                    } else
-                                                        get_template_part("template-parts/servizio/card-con-icona");?>
-                                                </div> <?php 
-                                            } ?>
-                                        </div> <?php
+                                        <p>In questo luogo vengono erogati <?php echo count($servizi); ?> servizi.</p>
+
+                                            <a class="btn btn-primary btn-icon btn-xs" data-bs-toggle="collapse" href="#collapseServiziPresenti" role="button" aria-expanded="false" aria-controls="collapseServiziPresenti">
+											    Mostra i servizi presenti 
+                                                <svg class="icon icon-white ms-5 chevron"><use href="#it-expand"></use></svg>
+											</a>
+											
+									        <div class="collapse clearfix mt-3 me-5" id="collapseServiziPresenti">
+										        <div class="row g-4">
+											        <?php foreach ($servizi as $servizio_id) { ?>
+														<div class="col-lg-4 col-md-12">
+															<?php
+															$servizio = get_post($servizio_id);
+															$with_map = false;
+															if($tipo_visualizzazione_servizi == 'enabled' || $tipo_visualizzazione_servizi == 'disabled'){
+																get_template_part("template-parts/servizio/card");
+															} else
+																get_template_part("template-parts/servizio/card-con-icona");?>
+														</div> <?php 
+													} ?>
+											    </div>
+										    </div>
+									
+									<?php
                                         
 							        }
 
@@ -325,26 +336,24 @@ get_header();
                                 <section id="sede_di" class="it-page-section mb-4">
                                     <h2 class="h3 my-2">Sede di</h2>
 
-                                    <div class="alert alert-info">
-                                        <p class="mb-0">
-                                            <a class="d-flex justify-content-between" data-bs-toggle="collapse" href="#collapseUnita" role="button" aria-expanded="false" aria-controls="collapseUnita">
-                                                <span>Questo luogo è sede di <?php if (count($sede_di) == 1) { echo "1 unità organizzativa"; } else { echo count($sede_di) . " unità organizzative"; } ?> </span>
-                                                <svg class="icon ms-5 chevron"><use href="#it-expand"></use></svg>
-                                            </a>
-                                        </p>
-                                        
-                                        <div class="collapse clearfix mt-3 me-5" id="collapseUnita">
-                                            <div class="row g-4">
-                                            <?php foreach ($sede_di as $uo_id) {
-                                            ?><div class="col-xl-6 col-lg-8 col-md-12"><?php
-                                                $with_border = true;
-												$h100 = true;
-                                                get_template_part("template-parts/unita-organizzativa/card");
-                                            ?></div><?php
-                                            } ?>
-                                            </div>
-                                        </div>
-                                    </div>
+									<p>Questo luogo è sede di <?php if (count($sede_di) == 1) { echo "1 unità organizzativa"; } else { echo count($sede_di) . " unità organizzative"; } ?>.</p>
+
+                                            <a class="btn btn-primary btn-icon btn-xs" data-bs-toggle="collapse" href="#collapseUnitaPresenti" role="button" aria-expanded="false" aria-controls="collapseUnitaPresenti">
+											    Mostra le unità
+                                                <svg class="icon icon-white ms-5 chevron"><use href="#it-expand"></use></svg>
+											</a>
+											
+									        <div class="collapse clearfix mt-3 me-5" id="collapseUnitaPresenti">
+										        <div class="row g-4">
+											        <?php foreach ($sede_di as $uo_id) {
+														?><div class="col-xl-6 col-lg-8 col-md-12"><?php
+															$with_border = true;
+															$h100 = true;
+															get_template_part("template-parts/unita-organizzativa/card");
+														?></div><?php
+														} ?>
+											    </div>
+										    </div>
                                 </section>
                             <?php } ?>
 							
