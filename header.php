@@ -12,8 +12,8 @@
 $theme_locations = get_nav_menu_locations();
 $current_group = dci_get_current_group();
 
-$barra_intestazione_light = dci_get_option("tema_chiaro_nav_intestazione");
-$barra_principale_light = dci_get_option("tema_chiaro_nav_principale");
+$barra_intestazione_light = dci_get_option("tema_chiaro_nav_intestazione", "grafica");
+$barra_principale_light = dci_get_option("tema_chiaro_nav_principale", "grafica");
 ?>
 <!doctype html>
 <html lang="it">
