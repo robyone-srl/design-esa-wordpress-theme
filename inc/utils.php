@@ -293,7 +293,7 @@ if(!function_exists("dci_get_posts_by_term_by_date")) {
                 'tax_query' => array(
                     array(
                         'taxonomy' => $taxonomy_name,
-                        'field' => 'name',
+                        'field' => 'slug',
                         'terms' => array($term_name))
                 ),
                 'orderby' => 'date',
@@ -475,7 +475,7 @@ function dci_get_empty_calendar_array($days) {
     return $calendar;
 }
 
-function dci_get_eventi_calendar_array() {
+function dci_get_eventi_calendar_array($days = 30) {
     $args = array(
         'post_type' => 'evento',
         'fields' => 'ids',
@@ -534,7 +534,14 @@ function dci_get_eventi_calendar_array() {
             ));
         }
     }
-   return $eventi_calendar_array;
+	
+	$results = [];
+	foreach($eventi_calendar_array as $evento) {
+		if(strtotime($evento["data_inizio"]) <= strtotime('+' . $days . ' days'))
+			$results[] = $evento;
+	}
+	
+   return $results;
 }
 
 function dci_create_calendar($days = 7){

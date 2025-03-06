@@ -46,7 +46,7 @@
 
                         <button 
                             type="button" 
-                            class="btn btn-outline-primary btn-xs mb-2 mb-md-0 mx-1" 
+                            class="btn btn-outline-primary btn-xs mb-2 mb-md-0 ms-2 mx-1" 
                             data-bs-toggle="modal" 
                             data-bs-target="#moreOptionsModal"
                             id="btn-more-options" 
