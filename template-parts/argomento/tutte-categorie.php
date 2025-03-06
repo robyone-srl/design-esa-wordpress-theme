@@ -121,6 +121,9 @@
                         case "page":
                                 get_template_part("template-parts/common/card-search");
 			                break;
+                        case "procedura":
+                                get_template_part("template-parts/procedura/card-search");
+			                break;
 		            } 
 
                 }?>

@@ -162,7 +162,8 @@ function dci_get_sercheable_tipologie_argomenti() {
         'post',
         'servizio',
         'sito_tematico',
-        'unita_organizzativa'
+        'unita_organizzativa',
+        'procedura'
     );
     if ( post_type_exists( 'amm-trasparente' ) ) { // Compatibilità plugin amministrazione-trasparente
         $arrayTipologie[] = 'amm-trasparente';

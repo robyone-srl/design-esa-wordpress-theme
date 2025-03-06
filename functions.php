@@ -331,6 +331,14 @@ function cambiaRisultato() {
 						</span>
 					');
 					break;
+					case "procedura":
+					$descrizione_breve = dci_get_meta('descrizione_breve','_dci_procedura_',$post->ID);
+					$tipo = ('
+						<span class="text-decoration-none title-xsmall-bold mb-2 category text-uppercase text-primary">
+						Procedura
+						</span>
+					');
+					break;
 				}
 
 				ob_start(); 
