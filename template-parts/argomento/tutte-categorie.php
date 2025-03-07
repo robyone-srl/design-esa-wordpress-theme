@@ -62,7 +62,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="moreOptionsModalLabel">Seleziona un'opzione</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
                         </div>
                         <div class="modal-body">
                             <div class="form-check">
@@ -120,6 +120,9 @@
 			                break;
                         case "page":
                                 get_template_part("template-parts/common/card-search");
+			                break;
+                        case "procedura":
+                                get_template_part("template-parts/procedura/card-search");
 			                break;
 		            } 
 
