@@ -1,8 +1,25 @@
 <?php
 global $recurrence_index, $argomento, $first_printed;
 
+$quanti_eventi_mostrare = dci_get_option('quanti_eventi_mostrare', 'homepage') ?: 3;
+
 $eventi = dci_get_posts_by_term_by_date( 'evento' , 'argomenti', $argomento->slug, true);
-$eventi = array_slice($eventi, 0, 3);
+$oggi_timestamp = current_time('timestamp');  
+
+$eventi = array_filter($eventi, function($evento) use ($oggi_timestamp) {
+    $start_timestamp = get_post_meta($evento->ID, '_dci_evento_data_orario_inizio', true);
+    
+    return $start_timestamp >= $oggi_timestamp;
+});
+
+usort($eventi, function($a, $b) {
+    $data_inizio_a = get_post_meta($a->ID, '_dci_evento_data_orario_inizio', true);
+    $data_inizio_b = get_post_meta($b->ID, '_dci_evento_data_orario_inizio', true);
+    return $data_inizio_a <=> $data_inizio_b;
+});
+
+
+$eventi = array_slice($eventi, 0, $quanti_eventi_mostrare);
 $url_eventi = dci_get_template_page_url("page-templates/eventi.php");
 
 if($first_printed){
