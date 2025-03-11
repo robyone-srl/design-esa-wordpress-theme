@@ -1,9 +1,7 @@
 <?php
 global $recurrence_index, $argomento, $first_printed;
 
-$quanti_eventi_mostrare = dci_get_option('quanti_eventi_mostrare', 'homepage') ?: 3;
-
-$eventi = dci_get_posts_by_term_by_date( 'evento' , 'argomenti', $argomento->slug, true);
+$eventi = dci_get_posts_by_term_by_date('evento', 'argomenti', $argomento->slug, true);
 $oggi_timestamp = current_time('timestamp');  
 
 $eventi = array_filter($eventi, function($evento) use ($oggi_timestamp) {
@@ -18,50 +16,72 @@ usort($eventi, function($a, $b) {
     return $data_inizio_a <=> $data_inizio_b;
 });
 
+$eventi_per_pagina = 3;
 
-$eventi = array_slice($eventi, 0, $quanti_eventi_mostrare);
-$url_eventi = dci_get_template_page_url("page-templates/eventi.php");
+$total_eventi = count($eventi);
 
-if($first_printed){
-	$padding = 3;
+if ($total_eventi <= $eventi_per_pagina) {
+    $eventi_visibili = $eventi;
+    $pagine_eventi_totali = 1; 
 } else {
-	$padding = 'lg-70';
+    $pagine_eventi_totali = ceil($total_eventi / $eventi_per_pagina);
+    $pagina_eventi_corrente = isset($_GET['pagina_eventi']) ? intval($_GET['pagina_eventi']) : 1;
+    $pagina_eventi_corrente = min($pagina_eventi_corrente, $pagine_eventi_totali);
+    $offset_eventi = ($pagina_eventi_corrente - 1) * $eventi_per_pagina;
+    $eventi_visibili = array_slice($eventi, $offset_eventi, $eventi_per_pagina);
 }
 
-if(count($eventi)>0){
+if ($eventi_visibili && is_array($eventi_visibili) && count($eventi_visibili) > 0) {
 ?>
-
-<div class="section-content pb-5 pt-<?=$padding?> bg-grey-dsk">
-	<div class="container">
-		<div class="row row-title pt-5 pt-lg-60 pb-3">
-			<div class="col-12">
-				<h3 class="u-grey-light border-bottom border-semi-dark pb-2 pb-lg-3 title-large-semi-bold">Prossimi eventi</h3>
-			</div>
-		</div>
-
-		<div class="row g-4">
-			<?php
-			foreach ($eventi as $evento) {
-				$post = get_post($evento->ID);
-				get_template_part("template-parts/evento/card-full");
-			} ?>
-		</div>
-		<div class="row mt-4">
-            <div class="col-12 col-lg-3 offset-lg-9">
-                <button 
-                    type="button" 
-                    class="btn btn-outline-primary w-100"
-                    onclick="location.href='<?= dci_get_template_page_url("page-templates/eventi.php"); ?>'"
-                >
-                    Mostra tutti gli eventi
-                    <svg class="icon icon-primary">
-                        <use xlink:href="#it-arrow-right"></use>
-                    </svg>
-                </button>
+    <div class="section-content pb-5 pt-<?= $first_printed ? 3 : 'lg-70' ?> bg-grey-dsk" id="eventi">
+        <div class="container">
+            <div class="row row-title pt-5 pt-lg-60 pb-3">
+                <div class="col-12">
+                    <h3 class="u-grey-light border-bottom border-semi-dark pb-2 pb-lg-3 title-large-semi-bold">Prossimi eventi</h3>
+                </div>
             </div>
+
+            <div class="row g-4">
+                <?php
+                foreach ($eventi_visibili as $evento) {
+                    $post = get_post($evento->ID);
+                    get_template_part("template-parts/evento/card-full");
+                } ?>
+            </div>
+
+            <?php if ($pagine_eventi_totali > 1): ?>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <nav>
+                            <ul class="pagination justify-content-center">
+                                <?php if ($pagina_eventi_corrente > 1): ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="<?= add_query_arg('pagina_eventi', $pagina_eventi_corrente - 1) ?>#eventi" aria-label="Precedente">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+
+                                <?php for ($i = 1; $i <= $pagine_eventi_totali; $i++): ?>
+                                    <li class="page-item <?= ($i == $pagina_eventi_corrente) ? 'active' : '' ?>">
+                                        <a class="page-link <?= ($i == $pagina_eventi_corrente) ? 'border border-primary rounded' : '' ?>" href="<?= add_query_arg('pagina_eventi', $i) ?>#eventi" data-page="<?= $i ?>"><?= $i ?></a>
+                                    </li>
+                                <?php endfor; ?>
+
+                                <?php if ($pagina_eventi_corrente < $pagine_eventi_totali): ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="<?= add_query_arg('pagina_eventi', $pagina_eventi_corrente + 1) ?>#eventi" aria-label="Successivo">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
-	</div>
-</div>
-<?php 
-	$first_printed = true;
+    </div>
+<?php
+    $first_printed = true;
 } ?>
