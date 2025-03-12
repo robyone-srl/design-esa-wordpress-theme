@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    var currentNotiziePage = $('#notizie-pagination-container').data('notizia-corrente');
-    var totalNotiziePages = $('#notizie-pagination-container').data('notizie-totali');
+    var currentNotiziePage = parseInt($('#notizie-pagination-container').data('notizia-corrente')); 
+    var totalNotiziePages = parseInt($('#notizie-pagination-container').data('notizie-totali'));
     var maxPages = 5;
 
     $('#notizie-pagination .page-link').on('click', function (e) {
@@ -9,9 +9,9 @@ $(document).ready(function () {
         var page = $(this).data('page');
         var slugArgomento = $('#notizie-pagination-container').data('slug');
 
-        if ($(this).parent().hasClass('page-item-prev')) {
+        if ($(this).closest('li').is('#prev-page-notizie')) {
             page = Math.max(1, currentNotiziePage - 1);
-        } else if ($(this).parent().hasClass('page-item-next')) {
+        } else if ($(this).closest('li').is('#next-page-notizie')) {
             page = Math.min(totalNotiziePages, currentNotiziePage + 1);
         } else {
             page = $(this).data('page');
@@ -19,7 +19,7 @@ $(document).ready(function () {
 
         if (page !== currentNotiziePage) {
             currentNotiziePage = page;
-            loadNotiziePage(page, slugArgomento);
+            loadNotiziePage(page, slugArgomento, maxPages, currentNotiziePage, totalNotiziePages);
             updateNotiziePagination(maxPages, currentNotiziePage, totalNotiziePages);
         }
     });
@@ -45,7 +45,7 @@ $(document).ready(function () {
 
         if (page !== currentEventiPage) {
             currentEventiPage = page;
-            loadEventiPage(page, slugArgomento);
+            loadEventiPage(page, slugArgomento, maxPages, currentEventiPage, totalEventiPages);
             updateEventiPagination(maxPages, currentEventiPage, totalEventiPages);
         }
     });
@@ -181,7 +181,7 @@ function updateNotiziePagination(maxPages, currentNotiziePage, totalNotiziePages
     }
 }
 
-function loadNotiziePage(page, slugArgomento) {
+function loadNotiziePage(page, slugArgomento, maxPages, currentNotiziePage, totalNotiziePages) {
     var container = $('#notizie-row');
 
     container.html(`<div id="loading-overlay" class="w-100 h-100 bg-white bg-opacity-75 d-flex justify-content-center align-items-center">
@@ -257,7 +257,7 @@ function updateEventiPagination(maxPages, currentEventiPage, totalEventiPages) {
     }
 }
 
-function loadEventiPage(page, slugArgomento) {
+function loadEventiPage(page, slugArgomento, maxPages, currentEventiPage, totalEventiPages) {
     var container = $('#eventi-row');
 
     container.html(`<div id="loading-overlay" class="w-100 h-100 bg-grey-dsk bg-opacity-75 d-flex justify-content-center align-items-center">
@@ -282,7 +282,7 @@ function loadEventiPage(page, slugArgomento) {
         success: function (response) {
             if ($.trim(response) !== '') {
                 container.html(response);
-                updateEventiPagination();
+                updateEventiPagination(maxPages, currentEventiPage, totalEventiPages);
             }
         },
         error: function (error) {
