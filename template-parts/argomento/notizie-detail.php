@@ -1,7 +1,7 @@
 <?php
 global $scheda, $argomento, $first_printed;
 
-$risultato_notizie = dci_get_posts_by_term_by_date('notizia', 'argomenti', $argomento->slug, false);
+$risultato_notizie = dci_get_posts_by_term_by_date('notizia', 'argomenti', $argomento->slug, true);
 
 $notizie_per_pagina = 3;
 
