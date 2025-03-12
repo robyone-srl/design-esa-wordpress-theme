@@ -92,7 +92,7 @@
                 </div>
             </div>
 
-            <div class="row mx-0" id="tutte-cargorie-card-row">
+            <div class="row mx-0" id="tutte-cargorie-card-row" data-slug="<?=$argomento->slug?>">
 
             <div class="card-wrapper px-0 card-teaser-wrapper card-teaser-wrapper-equal card-teaser-block-3" id="tutti">
                     

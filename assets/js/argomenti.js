@@ -261,11 +261,12 @@ $(document).ready(function () {
             $(".filters-list .btn-extra-filter").remove();
 
             var existentButtons = $('.filters-list button[data-post-type="' + optionValue + '"]');
+            var argomento = $('#tutte-cargorie-card-row').data('slug');
 
             if (!existentButtons.length) {
                 var newButtonHtml = `<button type="button" class="btn btn-extra-filter btn-outline-primary btn-xs w-150" 
                                             data-post-type="${optionValue}" 
-                                            data-term="<?php echo $argomento->slug; ?>">
+                                            data-term="${argomento}">
                                             ${optionLabel}
                                           </button>`;
                 $('.filters-list').append(newButtonHtml);
