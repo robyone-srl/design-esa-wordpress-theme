@@ -106,9 +106,6 @@
 		                case "documento_pubblico":
                                 get_template_part("template-parts/documento/card-search");
 			                break;
-		                case "domanda_frequente":
-                                get_template_part("template-parts/domanda-frequente/card-search");
-			                break;
 		                case "unita_organizzativa":
                                 get_template_part("template-parts/unita-organizzativa/card-search");
 			                break;

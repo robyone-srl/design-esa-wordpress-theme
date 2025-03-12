@@ -394,15 +394,6 @@ function cambiaRisultato() {
 					');
 					break;
 				
-					case 'domanda_frequente':
-					$descrizione_breve = dci_get_meta("risposta", '_dci_domanda_frequente_', $post->ID);
-					$tipo = ('
-						<span class="text-decoration-none title-xsmall-bold mb-2 category text-uppercase text-primary">
-						Domanda frequente
-						</span>
-					');
-					break;
-				
 					case 'sito_tematico':
 					$post->guid = dci_get_meta("link", '_dci_sito_tematico_', $post->ID);
 					$tipo = ('
