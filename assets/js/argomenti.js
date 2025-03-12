@@ -3,51 +3,6 @@ $(document).ready(function () {
     var totalNotiziePages = $('#notizie-pagination-container').data('notizie-totali');
     var maxPages = 5;
 
-    function updateNotiziePagination() {
-        if (currentNotiziePage <= 1) {
-            $('#prev-page-notizie').hide();
-        } else {
-            $('#prev-page-notizie').show();
-        }
-
-        if (currentNotiziePage >= totalNotiziePages) {
-            $('#next-page-notizie').hide();
-        } else {
-            $('#next-page-notizie').show();
-        }
-
-        $('#notizie-pagination .page-item').removeClass('active');
-        $('#notizie-pagination .page-link').removeClass('border border-primary rounded');
-
-        $('#page-notizie-' + currentNotiziePage).addClass('active');
-        $('#page-notizie-' + currentNotiziePage).find('.page-link').addClass('border border-primary rounded');
-
-        var startPage = Math.max(1, currentNotiziePage - Math.floor(maxPages / 2));
-        var endPage = Math.min(totalNotiziePages, startPage + maxPages - 1);
-
-        if (endPage - startPage + 1 < maxPages && startPage > 1) {
-            startPage = Math.max(1, endPage - maxPages + 1);
-        }
-
-        $('#notizie-pagination .page-item').each(function () {
-            var pageNum = parseInt($(this).find('.page-link').data('page'));
-
-            if (pageNum < startPage || pageNum > endPage) {
-                $(this).hide();
-            } else {
-                $(this).show();
-            }
-        });
-
-        if (currentNotiziePage === 1) {
-            $('#prev-page-notizie').hide();
-        }
-
-        if (currentNotiziePage === totalNotiziePages) {
-            $('#next-page-notizie').hide();
-        }
-    }
-
     $('#notizie-pagination .page-link').on('click', function (e) {
         e.preventDefault();
 
@@ -65,91 +20,14 @@ $(document).ready(function () {
         if (page !== currentNotiziePage) {
             currentNotiziePage = page;
             loadNotiziePage(page, slugArgomento);
-            updateNotiziePagination();
+            updateNotiziePagination(maxPages, currentNotiziePage, totalNotiziePages);
         }
     });
 
-    function loadNotiziePage(page, slugArgomento) {
-        var container = $('#notizie-row');
-
-        container.html(`<div id="loading-overlay" class="w-100 h-100 bg-white bg-opacity-75 d-flex justify-content-center align-items-center">
-                    <div class="text-center">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Caricamento...</span>
-                        </div>
-                        <p class="mt-2">Caricamento...</p>
-                    </div>
-                </div>`);
-
-        var data = {
-            action: 'load_notizie_page',
-            pagina_notizie: page,
-            slug_argomento: slugArgomento
-        };
-
-        $.ajax({
-            url: myAjax.ajaxurl,
-            method: 'POST',
-            data: data,
-            success: function (response) {
-                if ($.trim(response) !== '') {
-                    container.html(response);
-                    updateNotiziePagination();
-                }
-            }
-        });
-    }
-
-    updateNotiziePagination(); 
+    updateNotiziePagination(maxPages, currentNotiziePage, totalNotiziePages); 
 
     var currentEventiPage = $('#pagination-container').data('evento-corrente');
     var totalEventiPages = $('#pagination-container').data('eventi-totali');
-    var maxPages = 5;
-
-    function updatePaginationButtons() {
-        if (currentEventiPage <= 1) {
-            $('#prev-page').hide();
-        } else {
-            $('#prev-page').show();
-        }
-
-        if (currentEventiPage >= totalEventiPages) {
-            $('#next-page').hide();
-        } else {
-            $('#next-page').show();
-        }
-
-        $('#eventi-pagination .page-item').removeClass('active');
-        $('#eventi-pagination .page-link').removeClass('border border-primary rounded');
-
-        $('#page-' + currentEventiPage).addClass('active');
-        $('#page-' + currentEventiPage).find('.page-link').addClass('border border-primary rounded');
-
-        var startPage = Math.max(1, currentEventiPage - Math.floor(maxPages / 2));
-        var endPage = Math.min(totalEventiPages, startPage + maxPages - 1);
-
-        if (endPage - startPage + 1 < maxPages && startPage > 1) {
-            startPage = Math.max(1, endPage - maxPages + 1);
-        }
-
-        $('#eventi-pagination .page-item').each(function () {
-            var pageNum = parseInt($(this).find('.page-link').data('page'));
-
-            if (pageNum < startPage || pageNum > endPage) {
-                $(this).hide();
-            } else {
-                $(this).show();
-            }
-        });
-
-        if (currentEventiPage === 1) {
-            $('#prev-page').hide();
-        }
-
-        if (currentEventiPage === totalEventiPages) {
-            $('#next-page').hide();
-        }
-    }
 
     $('#eventi-pagination .page-link').on('click', function (e) {
         e.preventDefault();
@@ -168,45 +46,11 @@ $(document).ready(function () {
         if (page !== currentEventiPage) {
             currentEventiPage = page;
             loadEventiPage(page, slugArgomento);
-            updatePaginationButtons();
+            updateEventiPagination();
         }
     });
 
-    function loadEventiPage(page, slugArgomento) {
-        var container = $('#eventi-row');
-
-        container.html(`<div id="loading-overlay" class="w-100 h-100 bg-grey-dsk bg-opacity-75 d-flex justify-content-center align-items-center">
-                    <div class="text-center">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Caricamento...</span>
-                        </div>
-                        <p class="mt-2">Caricamento...</p>
-                    </div>
-                </div>`);
-
-        var data = {
-            action: 'load_eventi_page',
-            pagina_eventi: page,
-            slug_argomento: slugArgomento
-        };
-
-        $.ajax({
-            url: myAjax.ajaxurl,
-            method: 'POST',
-            data: data,
-            success: function (response) {
-                if ($.trim(response) !== '') {
-                    container.html(response);
-                    updatePaginationButtons();
-                }
-            },
-            error: function (error) {
-                console.error('Errore AJAX:', error);
-            }
-        });
-    }
-
-    updatePaginationButtons();
+    updateEventiPagination();
 
     $('.filters-list').on('click', 'button[data-term]', function () {
         var btn = $(this);
@@ -290,8 +134,163 @@ $(document).ready(function () {
             }
         }
     });
-
-    function resetButtonHighlighting() {
-        $('.filters-list button').removeClass('btn-primary').addClass('btn-outline-primary');
-    }
 });
+
+function updateNotiziePagination(maxPages, currentNotiziePage, totalNotiziePages) {
+    if (currentNotiziePage <= 1) {
+        $('#prev-page-notizie').hide();
+    } else {
+        $('#prev-page-notizie').show();
+    }
+
+    if (currentNotiziePage >= totalNotiziePages) {
+        $('#next-page-notizie').hide();
+    } else {
+        $('#next-page-notizie').show();
+    }
+
+    $('#notizie-pagination .page-item').removeClass('active');
+    $('#notizie-pagination .page-link').removeClass('border border-primary rounded');
+
+    $('#page-notizie-' + currentNotiziePage).addClass('active');
+    $('#page-notizie-' + currentNotiziePage).find('.page-link').addClass('border border-primary rounded');
+
+    var startPage = Math.max(1, currentNotiziePage - Math.floor(maxPages / 2));
+    var endPage = Math.min(totalNotiziePages, startPage + maxPages - 1);
+
+    if (endPage - startPage + 1 < maxPages && startPage > 1) {
+        startPage = Math.max(1, endPage - maxPages + 1);
+    }
+
+    $('#notizie-pagination .page-item').each(function () {
+        var pageNum = parseInt($(this).find('.page-link').data('page'));
+
+        if (pageNum < startPage || pageNum > endPage) {
+            $(this).hide();
+        } else {
+            $(this).show();
+        }
+    });
+
+    if (currentNotiziePage === 1) {
+        $('#prev-page-notizie').hide();
+    }
+
+    if (currentNotiziePage === totalNotiziePages) {
+        $('#next-page-notizie').hide();
+    }
+}
+
+function loadNotiziePage(page, slugArgomento) {
+    var container = $('#notizie-row');
+
+    container.html(`<div id="loading-overlay" class="w-100 h-100 bg-white bg-opacity-75 d-flex justify-content-center align-items-center">
+                    <div class="text-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Caricamento...</span>
+                        </div>
+                        <p class="mt-2">Caricamento...</p>
+                    </div>
+                </div>`);
+
+    var data = {
+        action: 'load_notizie_page',
+        pagina_notizie: page,
+        slug_argomento: slugArgomento
+    };
+
+    $.ajax({
+        url: myAjax.ajaxurl,
+        method: 'POST',
+        data: data,
+        success: function (response) {
+            if ($.trim(response) !== '') {
+                container.html(response);
+                updateNotiziePagination(maxPages, currentNotiziePage, totalNotiziePages);
+            }
+        }
+    });
+}
+
+function updateEventiPagination(maxPages, currentEventiPage, totalEventiPages) {
+    if (currentEventiPage <= 1) {
+        $('#prev-page').hide();
+    } else {
+        $('#prev-page').show();
+    }
+
+    if (currentEventiPage >= totalEventiPages) {
+        $('#next-page').hide();
+    } else {
+        $('#next-page').show();
+    }
+
+    $('#eventi-pagination .page-item').removeClass('active');
+    $('#eventi-pagination .page-link').removeClass('border border-primary rounded');
+
+    $('#page-' + currentEventiPage).addClass('active');
+    $('#page-' + currentEventiPage).find('.page-link').addClass('border border-primary rounded');
+
+    var startPage = Math.max(1, currentEventiPage - Math.floor(maxPages / 2));
+    var endPage = Math.min(totalEventiPages, startPage + maxPages - 1);
+
+    if (endPage - startPage + 1 < maxPages && startPage > 1) {
+        startPage = Math.max(1, endPage - maxPages + 1);
+    }
+
+    $('#eventi-pagination .page-item').each(function () {
+        var pageNum = parseInt($(this).find('.page-link').data('page'));
+
+        if (pageNum < startPage || pageNum > endPage) {
+            $(this).hide();
+        } else {
+            $(this).show();
+        }
+    });
+
+    if (currentEventiPage === 1) {
+        $('#prev-page').hide();
+    }
+
+    if (currentEventiPage === totalEventiPages) {
+        $('#next-page').hide();
+    }
+}
+
+function loadEventiPage(page, slugArgomento) {
+    var container = $('#eventi-row');
+
+    container.html(`<div id="loading-overlay" class="w-100 h-100 bg-grey-dsk bg-opacity-75 d-flex justify-content-center align-items-center">
+                    <div class="text-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Caricamento...</span>
+                        </div>
+                        <p class="mt-2">Caricamento...</p>
+                    </div>
+                </div>`);
+
+    var data = {
+        action: 'load_eventi_page',
+        pagina_eventi: page,
+        slug_argomento: slugArgomento
+    };
+
+    $.ajax({
+        url: myAjax.ajaxurl,
+        method: 'POST',
+        data: data,
+        success: function (response) {
+            if ($.trim(response) !== '') {
+                container.html(response);
+                updateEventiPagination();
+            }
+        },
+        error: function (error) {
+            console.error('Errore AJAX:', error);
+        }
+    });
+}
+
+function resetButtonHighlighting() {
+    $('.filters-list button').removeClass('btn-primary').addClass('btn-outline-primary');
+}
