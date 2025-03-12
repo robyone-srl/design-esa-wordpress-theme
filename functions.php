@@ -211,8 +211,104 @@ function dci_scripts()
 	if (is_singular() && comments_open() && get_option('thread_comments')) {
 		wp_enqueue_script('comment-reply');
 	}
+	wp_enqueue_script('dci-argomenti', get_template_directory_uri() . '/assets/js/argomenti.js', array('jquery'), null, true);
+	$ajax_url = admin_url('admin-ajax.php');
+	$inline_script = "
+		var myAjax = {
+			'ajaxurl': '{$ajax_url}'
+		};
+	";
+	wp_add_inline_script('dci-argomenti', $inline_script);
 }
 add_action('wp_enqueue_scripts', 'dci_scripts');
+
+function load_eventi_page() {
+    if (isset($_POST['slug_argomento'])) {
+        $slug_argomento = sanitize_text_field($_POST['slug_argomento']);
+
+        $pagina_eventi_corrente = isset($_POST['pagina_eventi']) ? intval($_POST['pagina_eventi']) : 1; 
+        $argomento = get_term_by('slug', $slug_argomento, 'argomenti'); 
+
+        $eventi = dci_get_posts_by_term_by_date('evento', 'argomenti', $argomento->slug, true);
+        $oggi_timestamp = current_time('timestamp');
+
+        $eventi = array_filter($eventi, function($evento) use ($oggi_timestamp) {
+            $start_timestamp = get_post_meta($evento->ID, '_dci_evento_data_orario_inizio', true);
+            return $start_timestamp >= $oggi_timestamp;
+        });
+
+        usort($eventi, function($a, $b) {
+            $data_inizio_a = get_post_meta($a->ID, '_dci_evento_data_orario_inizio', true);
+            $data_inizio_b = get_post_meta($b->ID, '_dci_evento_data_orario_inizio', true);
+            return $data_inizio_a <=> $data_inizio_b;
+        });
+
+        $eventi_per_pagina = 3;
+        $total_eventi = count($eventi);
+
+        if ($total_eventi <= $eventi_per_pagina) {
+            $eventi_visibili = $eventi;
+        } else {
+            $offset_eventi = ($pagina_eventi_corrente - 1) * $eventi_per_pagina;
+            $eventi_visibili = array_slice($eventi, $offset_eventi, $eventi_per_pagina);
+        }
+
+        ob_start();
+        if ($eventi_visibili && is_array($eventi_visibili) && count($eventi_visibili) > 0) {
+            foreach ($eventi_visibili as $evento) {
+                $post = get_post($evento->ID);
+                $args = ["post" => $post];
+                get_template_part("template-parts/evento/card-full", "", $args);
+            }
+        }
+        $html = ob_get_clean();
+
+        echo $html;
+        die();  
+    }
+}
+
+add_action('wp_ajax_load_eventi_page', 'load_eventi_page');
+add_action('wp_ajax_nopriv_load_eventi_page', 'load_eventi_page');
+
+function load_notizie_page() {
+    if (isset($_POST['slug_argomento'])) {
+        $slug_argomento = sanitize_text_field($_POST['slug_argomento']);
+        $pagina_notizie_corrente = isset($_POST['pagina_notizie']) ? intval($_POST['pagina_notizie']) : 1;
+
+        $argomento = get_term_by('slug', $slug_argomento, 'argomenti');
+
+        $risultato_notizie = dci_get_posts_by_term_by_date('notizia', 'argomenti', $argomento->slug, true);
+
+        $notizie_per_pagina = 3;
+        $total_notizie = count($risultato_notizie);
+
+        if ($total_notizie <= $notizie_per_pagina) {
+            $notizie_visibili = $risultato_notizie;
+        } else {
+            $offset = ($pagina_notizie_corrente - 1) * $notizie_per_pagina;
+            $notizie_visibili = array_slice($risultato_notizie, $offset, $notizie_per_pagina);
+        }
+
+        ob_start();
+        if ($notizie_visibili && is_array($notizie_visibili) && count($notizie_visibili) > 0) {
+			echo'<div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal card-teaser-block-3">';
+				foreach ($notizie_visibili as $notizia) {
+					$scheda = $notizia;
+					$args = ["scheda" => $scheda];
+					get_template_part("template-parts/home/notizia-evidenza", "", $args);
+				}
+			echo'</div>';
+        }
+        $html = ob_get_clean();
+
+        echo $html;
+        die();
+    }
+}
+
+add_action('wp_ajax_load_notizie_page', 'load_notizie_page');
+add_action('wp_ajax_nopriv_load_notizie_page', 'load_notizie_page');
 
 
 function cambiaRisultato() {

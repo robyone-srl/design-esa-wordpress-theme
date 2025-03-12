@@ -1,7 +1,7 @@
 <?php
 global $scheda, $argomento, $first_printed;
 
-$risultato_notizie = dci_get_posts_by_term_by_date( 'notizia', 'argomenti', $argomento->slug, true);
+$risultato_notizie = dci_get_posts_by_term_by_date('notizia', 'argomenti', $argomento->slug, true);
 
 $notizie_per_pagina = 3;
 
@@ -20,14 +20,14 @@ if ($total_notizie <= $notizie_per_pagina) {
 
 if ($notizie_visibili && is_array($notizie_visibili) && count($notizie_visibili) > 0) {
 ?>
-    <div class="section-content py-5" id="notizie"> 
+    <div class="section-content py-5" id="notizie">
         <div class="container">
             <div class="row row-title pt-30 pt-lg-60 pb-3">
                 <div class="col-12">
                     <h3 class="u-grey-light border-bottom border-semi-dark pb-2 pb-lg-3 title-large-semi-bold">Notizie recenti</h3>
                 </div>
             </div>
-            <div class="row mb-2">
+            <div class="row mb-2" id="notizie-row">
                 <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal card-teaser-block-3">
                     <?php
                     foreach ($notizie_visibili as $i) {
@@ -41,27 +41,47 @@ if ($notizie_visibili && is_array($notizie_visibili) && count($notizie_visibili)
             </div>
 
             <?php if ($pagine_notizie_totali > 1): ?>
-                <div class="row mt-4">
+                <div class="row mt-4" id="notizie-pagination-container" data-notizia-corrente="<?=$pagina_notizie_corrente?>" data-notizie-totali="<?=$pagine_notizie_totali?>" data-slug="<?=$argomento->slug?>">
                     <div class="col-12">
                         <nav>
-                            <ul class="pagination justify-content-center">
+                            <ul class="pagination justify-content-center" id="notizie-pagination">
                                 <?php if ($pagina_notizie_corrente > 1): ?>
-                                    <li class="page-item">
-                                        <a class="page-link" href="<?= add_query_arg('pagina_notizie', $pagina_notizie_corrente - 1) ?>#notizie" aria-label="Precedente">
+                                    <li class="page-item" id="prev-page-notizie">
+                                        <a class="page-link" href="javascript:void(0);" data-page="<?= $pagina_notizie_corrente - 1 ?>" aria-label="Precedente">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                <?php else: ?>
+                                    <li class="page-item" id="prev-page-notizie" style="display: none;">
+                                        <a class="page-link" href="javascript:void(0);" aria-label="Precedente">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
                                 <?php endif; ?>
 
-                                <?php for ($i = 1; $i <= $pagine_notizie_totali; $i++): ?>
-                                    <li class="page-item <?= ($i == $pagina_notizie_corrente) ? 'active' : '' ?>">
-                                        <a class="page-link <?= ($i == $pagina_notizie_corrente) ? 'border border-primary rounded' : '' ?>" href="<?= add_query_arg('pagina_notizie', $i) ?>#notizie" data-page="<?= $i ?>"><?= $i ?></a>
+                                <?php 
+                                $maxPages = 5;
+                                $startPage = max(1, $pagina_notizie_corrente - floor($maxPages / 2));
+                                $endPage = min($pagine_notizie_totali, $startPage + $maxPages - 1);
+
+                                for ($i = $startPage; $i <= $endPage; $i++): ?>
+                                    <li class="page-item <?= ($i == $pagina_notizie_corrente) ? 'active' : '' ?>" id="page-notizie-<?= $i ?>">
+                                        <a class="page-link <?= ($i == $pagina_notizie_corrente) ? 'border border-primary rounded' : '' ?>" 
+                                           href="javascript:void(0);" data-page="<?= $i ?>">
+                                           <?= $i ?>
+                                        </a>
                                     </li>
                                 <?php endfor; ?>
 
                                 <?php if ($pagina_notizie_corrente < $pagine_notizie_totali): ?>
-                                    <li class="page-item">
-                                        <a class="page-link" href="<?= add_query_arg('pagina_notizie', $pagina_notizie_corrente + 1) ?>#notizie" aria-label="Successivo">
+                                    <li class="page-item" id="next-page-notizie">
+                                        <a class="page-link" href="javascript:void(0);" data-page="<?= $pagina_notizie_corrente + 1 ?>" aria-label="Successivo">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                <?php else: ?>
+                                    <li class="page-item" id="next-page-notizie" style="display: none;">
+                                        <a class="page-link" href="javascript:void(0);" aria-label="Successivo">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
                                     </li>
@@ -75,4 +95,5 @@ if ($notizie_visibili && is_array($notizie_visibili) && count($notizie_visibili)
     </div>
 <?php
     $first_printed = true;
-} ?>
+}
+?>

@@ -22,7 +22,7 @@ $total_eventi = count($eventi);
 
 if ($total_eventi <= $eventi_per_pagina) {
     $eventi_visibili = $eventi;
-    $pagine_eventi_totali = 1; 
+    $pagine_eventi_totali = 1;
 } else {
     $pagine_eventi_totali = ceil($total_eventi / $eventi_per_pagina);
     $pagina_eventi_corrente = isset($_GET['pagina_eventi']) ? intval($_GET['pagina_eventi']) : 1;
@@ -41,7 +41,7 @@ if ($eventi_visibili && is_array($eventi_visibili) && count($eventi_visibili) > 
                 </div>
             </div>
 
-            <div class="row g-4">
+            <div class="row g-4" id="eventi-row">
                 <?php
                 foreach ($eventi_visibili as $evento) {
                     $post = get_post($evento->ID);
@@ -50,27 +50,42 @@ if ($eventi_visibili && is_array($eventi_visibili) && count($eventi_visibili) > 
             </div>
 
             <?php if ($pagine_eventi_totali > 1): ?>
-                <div class="row mt-4">
+                <div class="row mt-4" id="pagination-container" data-evento-corrente="<?=$pagina_eventi_corrente?>" data-eventi-totali="<?=$pagine_eventi_totali?>" data-slug="<?=$argomento->slug?>">
                     <div class="col-12">
                         <nav>
-                            <ul class="pagination justify-content-center">
+                            <ul class="pagination justify-content-center" id="eventi-pagination">
                                 <?php if ($pagina_eventi_corrente > 1): ?>
-                                    <li class="page-item">
-                                        <a class="page-link" href="<?= add_query_arg('pagina_eventi', $pagina_eventi_corrente - 1) ?>#eventi" aria-label="Precedente">
+                                    <li class="page-item page-item-prev" id="prev-page">
+                                        <a class="page-link" href="javascript:void(0);" data-page="<?= $pagina_eventi_corrente - 1 ?>" aria-label="Precedente">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                <?php else: ?>
+                                    <li class="page-item page-item-prev" id="prev-page" style="display: none;">
+                                        <a class="page-link" href="javascript:void(0);" aria-label="Precedente">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
                                 <?php endif; ?>
 
                                 <?php for ($i = 1; $i <= $pagine_eventi_totali; $i++): ?>
-                                    <li class="page-item <?= ($i == $pagina_eventi_corrente) ? 'active' : '' ?>">
-                                        <a class="page-link <?= ($i == $pagina_eventi_corrente) ? 'border border-primary rounded' : '' ?>" href="<?= add_query_arg('pagina_eventi', $i) ?>#eventi" data-page="<?= $i ?>"><?= $i ?></a>
+                                    <li class="page-item <?= ($i == $pagina_eventi_corrente) ? 'active' : '' ?>" id="page-<?= $i ?>">
+                                        <a class="page-link <?= ($i == $pagina_eventi_corrente) ? 'border border-primary rounded' : '' ?>" 
+                                           href="javascript:void(0);" data-page="<?= $i ?>">
+                                           <?= $i ?>
+                                        </a>
                                     </li>
                                 <?php endfor; ?>
 
                                 <?php if ($pagina_eventi_corrente < $pagine_eventi_totali): ?>
-                                    <li class="page-item">
-                                        <a class="page-link" href="<?= add_query_arg('pagina_eventi', $pagina_eventi_corrente + 1) ?>#eventi" aria-label="Successivo">
+                                    <li class="page-item page-item-next" id="next-page">
+                                        <a class="page-link" href="javascript:void(0);" data-page="<?= $pagina_eventi_corrente + 1 ?>" aria-label="Successivo">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                <?php else: ?>
+                                    <li class="page-item page-item-next" id="next-page" style="display: none;">
+                                        <a class="page-link" href="javascript:void(0);" aria-label="Successivo">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
                                     </li>
@@ -80,8 +95,10 @@ if ($eventi_visibili && is_array($eventi_visibili) && count($eventi_visibili) > 
                     </div>
                 </div>
             <?php endif; ?>
+
         </div>
     </div>
 <?php
     $first_printed = true;
 } ?>
+

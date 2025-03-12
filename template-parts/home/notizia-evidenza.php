@@ -1,6 +1,9 @@
 <?php
 global $scheda;
 
+if($args && is_array($args) && count($args) > 0)
+    extract($args);
+
 $post = get_post($scheda)??null;
 $img = get_the_post_thumbnail_url();
 $descrizione_breve = dci_get_meta('descrizione_breve');

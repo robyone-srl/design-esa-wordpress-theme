@@ -1,6 +1,9 @@
 <?php
 global $post, $recurrence_index;
 
+if($args && is_array($args) && count($args) > 0)
+    extract($args);
+
 $recurrence_index ??= -1;
 
 if($recurrence_index >= 0)

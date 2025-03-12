@@ -92,7 +92,7 @@
                 </div>
             </div>
 
-            <div class="row mx-0">
+            <div class="row mx-0" id="tutte-cargorie-card-row">
 
             <div class="card-wrapper px-0 card-teaser-wrapper card-teaser-wrapper-equal card-teaser-block-3" id="tutti">
                     
@@ -135,83 +135,4 @@
     $first_printed = true;
 } ?>
 
-<script>
-$(document).ready(function() {
-    $('.filters-list').on('click', 'button[data-term]', function() {
-        var btn = $(this);
-
-        resetButtonHighlighting();
-
-        btn.removeClass('btn-outline-primary').addClass('btn-primary');
-        if (btn.data('term')) {
-            var term = btn.data('term');
-            var postType = btn.data('post-type');
-
-            $.ajax({
-                url: '<?php echo admin_url('admin-ajax.php'); ?>',
-                type: 'GET',
-                data: {
-                    action: 'cambiaRisultato',
-                    term: term,
-                    post_type: postType
-                },
-                success: function(response) {
-                    if (response.success) {
-                        var htmlContent = response.data.data;
-                        if (typeof htmlContent === 'string') {
-                            var cleanData = htmlContent.replace(/\\r\\n/g, '').replace(/\\n/g, '').replace(/\\t/g, '').replace(/\\\"/g, '"');
-                            $('#tutti .card-wrapper').html(cleanData);
-                        }
-                    } else {
-                        $('#tutti .card-wrapper').html('<p class="pt-5 d-flex justify-content-center w-100 text-center">Nessun risultato</p>');
-                    }
-                },
-            });
-        }
-    });
-
-    $('#save-selection').on('click', function() {
-        var selectedOption = $('input[name="filterOption"]:checked');
-
-        if (selectedOption.length > 0) {
-            var optionValue = selectedOption.val();
-            var optionLabel = selectedOption.parent().children('label').text();
-
-            $(".filters-list .btn-extra-filter").remove();
-
-            var existentButtons = $('.filters-list button[data-post-type="' + optionValue + '"]');
-
-            if (!existentButtons.length) {
-                var newButtonHtml = `<button type="button" class="btn btn-extra-filter btn-outline-primary btn-xs w-150" 
-                                        data-post-type="${optionValue}" 
-                                        data-term="<?php echo $argomento->slug; ?>">
-                                        ${optionLabel}
-                                      </button>`;
-                $('.filters-list').append(newButtonHtml);
-
-                var newButton = $('.filters-list button[data-post-type="' + optionValue + '"]');
-
-                newButton.trigger('click');
-            } else {
-                existentButtons.removeClass('btn-outline-primary').addClass('btn-primary');
-
-                existentButtons.trigger('click');
-            }
-
-            resetButtonHighlighting();
-
-            $('.filters-list button[data-post-type="' + optionValue + '"]').toggleClass('btn-primary btn-outline-primary');
-
-            var modal = bootstrap.Modal.getInstance($('#moreOptionsModal')[0]);
-            if (modal) {
-                modal.hide();
-            }
-        }
-    });
-
-    function resetButtonHighlighting() {
-        $('.filters-list button').removeClass('btn-primary').addClass('btn-outline-primary');
-    }
-});
-</script>
 
