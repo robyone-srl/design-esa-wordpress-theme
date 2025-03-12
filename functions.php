@@ -328,7 +328,7 @@ function cambiaRisultato() {
         $response_content = ''; 
 
 		foreach ($posts as $post) {
-			if(($post->post_type != 'notizia') && ($post->post_type != 'evento')){
+			if(($post->post_type != 'notizia') && ($post->post_type != 'evento') && ($post->post_type != 'domanda_frequente')){
 				$card_title = $post->post_title;
 				$descrizione_breve = dci_get_meta("descrizione_breve", '', $post->ID);
 				$img = get_the_post_thumbnail_url($post) ?? '';
@@ -402,7 +402,7 @@ function cambiaRisultato() {
 						</span>
 					');
 					break;
-				
+
 					case 'documento_pubblico':
 					$tipo = ('
 						<span class="text-decoration-none title-xsmall-bold mb-2 category text-uppercase text-primary">
