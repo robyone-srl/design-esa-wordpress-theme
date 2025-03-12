@@ -46,11 +46,11 @@ $(document).ready(function () {
         if (page !== currentEventiPage) {
             currentEventiPage = page;
             loadEventiPage(page, slugArgomento);
-            updateEventiPagination();
+            updateEventiPagination(maxPages, currentEventiPage, totalEventiPages);
         }
     });
 
-    updateEventiPagination();
+    updateEventiPagination(maxPages, currentEventiPage, totalEventiPages);
 
     $('.filters-list').on('click', 'button[data-term]', function () {
         var btn = $(this);
