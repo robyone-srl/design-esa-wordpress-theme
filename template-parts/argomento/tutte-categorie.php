@@ -1,7 +1,22 @@
 <?php
-    global $argomento, $first_printed;
+global $argomento, $first_printed;
 
-    $posts = dci_get_grouped_posts_by_term('argomenti-tutti', 'argomenti', $argomento->name, -1);
+$posts = dci_get_grouped_posts_by_term('argomenti-griglia', 'argomenti', $argomento->name, -1);
+
+$total_cards = count($posts);
+$card_per_pagina = 9;
+
+if ($total_cards <= $card_per_pagina) {
+    $card_visibili = $posts;
+    $pagine_card_totali = 1; 
+} else {
+    $pagine_card_totali = ceil($total_cards / $card_per_pagina);
+    $pagina_card_corrente = isset($_POST['pagina_card']) ? intval($_POST['pagina_card']) : 1;
+    $pagina_card_corrente = min($pagina_card_corrente, $pagine_card_totali);
+    $offset = ($pagina_card_corrente - 1) * $card_per_pagina;
+    $card_visibili = array_slice($posts, $offset, $card_per_pagina);
+}
+
     if($posts) {
 ?>
 <section id="tutti" class="pb-5">
@@ -19,7 +34,7 @@
                             <button 
                                 type="button" 
                                 class="btn btn-primary btn-xs mb-2 mb-md-0"
-                                data-post-type="argomenti-tutti"
+                                data-post-type="argomenti-griglia"
                                 data-term="<?= $argomento->slug ?>" 
                             >
                                 Tutti
@@ -66,7 +81,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="filterOption" id="optTutti" value="argomenti-tutti">
+                                <input class="form-check-input" type="radio" name="filterOption" id="optTutti" value="argomenti-griglia">
                                 <label class="form-check-label" for="optTutti">Tutti</label>
                             </div>
                             <?php 
@@ -94,36 +109,89 @@
 
             <div class="row mx-0" id="tutte-cargorie-card-row" data-slug="<?=$argomento->slug?>">
 
-            <div class="card-wrapper px-0 card-teaser-wrapper card-teaser-wrapper-equal card-teaser-block-3" id="tutti">
-                    
+                <div class="card-wrapper px-0 card-teaser-wrapper card-teaser-wrapper-equal card-teaser-block-3" id="tutti">
             
-                <?php foreach ($posts as $post) {
+                    <?php foreach ($card_visibili as $post) {
 
-                    switch ($post->post_type) {
-		                case "servizio":
-				                get_template_part("template-parts/".$post->post_type."/card-search");
-			                break;
-		                case "documento_pubblico":
-                                get_template_part("template-parts/documento/card-search");
-			                break;
-		                case "unita_organizzativa":
-                                get_template_part("template-parts/unita-organizzativa/card-search");
-			                break;
-                        case "luogo":
-                                get_template_part("template-parts/".$post->post_type."/card-search");
-			                break;
-                        case "sito_tematico":
-                                get_template_part("template-parts/sito-tematico/card-search");
-			                break;
-                        case "page":
-                                get_template_part("template-parts/common/card-search");
-			                break;
-                        case "procedura":
-                                get_template_part("template-parts/procedura/card-search");
-			                break;
-		            } 
+                        switch ($post->post_type) {
+		                    case "servizio":
+				                    get_template_part("template-parts/".$post->post_type."/card-search");
+			                    break;
+		                    case "documento_pubblico":
+                                    get_template_part("template-parts/documento/card-search");
+			                    break;
+		                    case "unita_organizzativa":
+                                    get_template_part("template-parts/unita-organizzativa/card-search");
+			                    break;
+                            case "luogo":
+                                    get_template_part("template-parts/".$post->post_type."/card-search");
+			                    break;
+                            case "sito_tematico":
+                                    get_template_part("template-parts/sito-tematico/card-search");
+			                    break;
+                            case "page":
+                                    get_template_part("template-parts/common/card-search");
+			                    break;
+                            case "procedura":
+                                    get_template_part("template-parts/procedura/card-search");
+			                    break;
+		                }
+                    }?>
+                </div>
+            <div>
 
-                }?>
+            <div id="pagination_container">
+                <?php if ($pagine_card_totali > 1): ?>
+                    <div class="row mt-4" id="card-pagination-container" data-card-corrente="<?=$pagina_card_corrente?>" data-card-totali="<?=$pagine_card_totali?>" data-slug="<?=$argomento->slug?>">
+                        <div class="col-12">
+                            <nav>
+                                <ul class="pagination justify-content-center" id="card-pagination">
+                                    <?php if ($pagina_card_corrente > 1): ?>
+                                        <li class="page-item" id="prev-page-card">
+                                            <a class="page-link" href="javascript:void(0);" data-page="<?= $pagina_card_corrente - 1 ?>" aria-label="Precedente">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                    <?php else: ?>
+                                        <li class="page-item" id="prev-page-card" style="display: none;">
+                                            <a class="page-link" href="javascript:void(0);" aria-label="Precedente">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+
+                                    <?php 
+                                    $maxPages = 5;
+                                    $startPage = max(1, $pagina_card_corrente - floor($maxPages / 2));
+                                    $endPage = min($pagine_card_totali, $startPage + $maxPages - 1);
+
+                                    for ($i = $startPage; $i <= $endPage; $i++): ?>
+                                        <li class="page-item <?= ($i == $pagina_card_corrente) ? 'active' : '' ?>" id="page-card-<?= $i ?>">
+                                            <a class="page-link <?= ($i == $pagina_card_corrente) ? 'border border-primary rounded' : '' ?>" 
+                                               href="javascript:void(0);" data-page="<?= $i ?>">
+                                               <?= $i ?>
+                                            </a>
+                                        </li>
+                                    <?php endfor; ?>
+
+                                    <?php if ($pagina_card_corrente < $pagine_card_totali): ?>
+                                        <li class="page-item" id="next-page-card">
+                                            <a class="page-link" href="javascript:void(0);" data-page="<?= $pagina_card_corrente + 1 ?>" aria-label="Successivo">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    <?php else: ?>
+                                        <li class="page-item" id="next-page-card" style="display: none;">
+                                            <a class="page-link" href="javascript:void(0);" aria-label="Successivo">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>    
+                <?php endif; ?>
             </div>
         </div>
     </div>

@@ -170,6 +170,30 @@ function dci_get_sercheable_tipologie_argomenti() {
 }
 
 /**
+ * restituisce un array contenente i post type presenti nella griglia della scheda dell'argomento
+ * @return string[]
+ */
+function dci_get_grid_tipologie_argomenti() {
+    $arrayTipologie = array(
+        'documento_pubblico',
+        'dataset',
+        'luogo',
+        'pagina',
+        'persona_pubblica',
+        'post',
+        'page',
+        'procedura',
+        'servizio',
+        'sito_tematico',
+        'unita_organizzativa'
+    );
+    if ( post_type_exists( 'amm-trasparente' ) ) { // Compatibilità plugin amministrazione-trasparente
+        $arrayTipologie[] = 'amm-trasparente';
+    }
+    return $arrayTipologie;
+}
+
+/**
  * restituisce l'associazione tra i type ricercabili e i post_type wordpress
  * @param string $type
  *
@@ -199,6 +223,9 @@ function dci_get_post_types_grouped($group = "", $tag = false)
         $post_types = array("domanda_frequente");
     else if ($group === "argomenti-tutti")
         $post_types = dci_get_sercheable_tipologie_argomenti();
+    else if ($group === "argomenti-griglia") {
+        $post_types = dci_get_grid_tipologie_argomenti();
+    }
     else if (($group === "page") || ($group === "pagina"))
         $post_types = array("page");
     else

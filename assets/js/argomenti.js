@@ -1,3 +1,14 @@
+let postTypeDefault = 'argomenti-griglia';
+let loadingHtml = `<div id="loading-overlay" class="w-100 h-100 bg-white bg-opacity-75 d-flex justify-content-center align-items-center pt-5">
+                <div class="text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Caricamento...</span>
+                    </div>
+                    <p class="mt-2">Caricamento...</p>
+                </div>
+            </div>`;
+
+
 $(document).ready(function () {
     var currentNotiziePage = parseInt($('#notizie-pagination-container').data('notizia-corrente')); 
     var totalNotiziePages = parseInt($('#notizie-pagination-container').data('notizie-totali'));
@@ -25,6 +36,49 @@ $(document).ready(function () {
     });
 
     updateNotiziePagination(maxPages, currentNotiziePage, totalNotiziePages); 
+
+    var pageCurrent = parseInt($('#card-pagination-container').data('card-corrente'));
+    var pagesTotal = parseInt($('#card-pagination-container').data('card-totali'));
+    var pageCount = 9;
+
+    $('#card-pagination .page-link').on('click', function (e) {
+        //e.preventDefault();
+
+        var page = $(this).data('page');
+        var slugArgomento = $('#card-pagination-container').data('slug');
+
+        if ($(this).closest('li').is('#prev-page-card')) {
+            page = Math.max(1, pageCurrent - 1);
+        } else if ($(this).closest('li').is('#next-page-card')) {
+            page = Math.min(pagesTotal, pageCurrent + 1);
+        } else {
+            page = $(this).data('page');
+        }
+
+        if (page !== pageCurrent) {
+            pageCurrent = page;
+
+            $('#card-pagination .page-item').removeClass('active');
+            $('#card-pagination .page-link').removeClass('border border-primary rounded');
+
+            $('#page-card-' + pageCurrent).addClass('active');
+            $('#page-card-' + pageCurrent).find('.page-link').addClass('border border-primary rounded');;
+
+           if (page == 1) {
+                $('#prev-page-card').hide();
+            } else {
+                $('#prev-page-card').show();
+            }
+
+            if (page == pagesTotal) {
+                $('#next-page-card').hide();
+            } else {
+                $('#next-page-card').show();
+            }
+
+            loadCardPage(page, slugArgomento, pageCount, pageCurrent, pagesTotal);
+        }
+    });
 
     var currentEventiPage = $('#pagination-container').data('evento-corrente');
     var totalEventiPages = $('#pagination-container').data('eventi-totali');
@@ -58,41 +112,21 @@ $(document).ready(function () {
         resetButtonHighlighting();
 
         btn.removeClass('btn-outline-primary').addClass('btn-primary');
+
         if (btn.data('term')) {
-            var term = btn.data('term');
+            var slugArgomento = btn.data('term');
             var postType = btn.data('post-type');
+            postTypeDefault = postType;
             var container = $('#tutti .card-wrapper');
+            var page = 1;
 
-            container.html(`<div id="loading-overlay" class="w-100 h-100 bg-white bg-opacity-75 d-flex justify-content-center align-items-center pt-5">
-                    <div class="text-center">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Caricamento...</span>
-                        </div>
-                        <p class="mt-2">Caricamento...</p>
-                    </div>
-                </div>`);
+            container.html(loadingHtml);
 
-            $.ajax({
-                url: myAjax.ajaxurl,
-                type: 'GET',
-                data: {
-                action: 'cambiaRisultato',
-                term: term,
-                post_type: postType
-            },
-                success: function (response) {
-                    if (response.success) {
-                        var htmlContent = response.data.data;
-                        if (typeof htmlContent === 'string') {
-                            var cleanData = htmlContent.replace(/\\r\\n/g, '').replace(/\\n/g, '').replace(/\\t/g, '').replace(/\\\"/g, '"');
-                            container.html(cleanData);
-                        }
-                    } else {
-                        $('#tutti .card-wrapper').html('<p class="pt-5 d-flex justify-content-center w-100 text-center">Nessun risultato</p>');
-                    }
-                },
-            });
-}
+            console.log('load_card_page' + '|' + slugArgomento + " | " + postType);
+
+            requestPageContent('load_card_page', container, page, slugArgomento, postType, pageCount, pageCurrent, pagesTotal, true);
+
+        }
     });
 
     $('#save-selection').on('click', function () {
@@ -100,6 +134,7 @@ $(document).ready(function () {
 
         if (selectedOption.length > 0) {
             var optionValue = selectedOption.val();
+            postTypeDefault = optionValue;
             var optionLabel = selectedOption.parent().children('label').text();
 
             $(".filters-list .btn-extra-filter").remove();
@@ -109,10 +144,10 @@ $(document).ready(function () {
 
             if (!existentButtons.length) {
                 var newButtonHtml = `<button type="button" class="btn btn-extra-filter btn-outline-primary btn-xs w-150" 
-                                            data-post-type="${optionValue}" 
-                                            data-term="${argomento}">
-                                            ${optionLabel}
-                                          </button>`;
+                                        data-post-type="${optionValue}" 
+                                        data-term="${argomento}">
+                                        ${optionLabel}
+                                      </button>`;
                 $('.filters-list').append(newButtonHtml);
 
                 var newButton = $('.filters-list button[data-post-type="' + optionValue + '"]');
@@ -207,6 +242,102 @@ function loadNotiziePage(page, slugArgomento, maxPages, currentNotiziePage, tota
             if ($.trim(response) !== '') {
                 container.html(response);
                 updateNotiziePagination(maxPages, currentNotiziePage, totalNotiziePages);
+            }
+        }
+    });
+}
+
+function updateCardPagination(pageCount, pageCurrent, pagesTotal, resetPaginationValue) {
+    pagesTotal = Math.max(pagesTotal, 1);
+
+    if (resetPaginationValue) {
+        pageCurrent = 1;
+    }
+    console.log('Paginazione | totale pagine-> ' + pagesTotal + '| pagina corrente-> ' + pageCurrent);
+
+    var startPage = Math.max(1, pageCurrent - Math.floor(pageCount / 2));
+    var endPage = Math.min(pagesTotal, startPage + pageCount - 1);
+
+    if (endPage - startPage + 1 < pageCount && startPage > 1) {
+        startPage = Math.max(1, endPage - pageCount + 1);
+    }
+
+    $('#card-pagination .page-item').each(function () {
+        var pageNum = parseInt($(this).find('.page-link').data('page'));
+
+        if (pageNum < startPage || pageNum > endPage) {
+            $(this).hide();
+        } else {
+            $(this).show();
+        }
+    });
+
+    if (pageCurrent === 1) {
+        $('#prev-page-card').hide();
+    } else {
+        $('#prev-page-card').show();
+    }
+
+    if (pageCurrent === pagesTotal) {
+        $('#next-page-card').hide();
+    } else {
+        $('#next-page-card').show();
+    }
+
+    if (pagesTotal <= 1) {
+        $('#card-pagination').hide();
+    } else {
+        $('#card-pagination').show();
+    }
+
+    $('#card-pagination .page-item').removeClass('active');
+    $('#card-pagination .page-link').removeClass('border border-primary rounded');
+
+    $('#page-card-' + pageCurrent).addClass('active');
+    $('#page-card-' + pageCurrent).find('.page-link').addClass('border border-primary rounded');
+}
+
+function loadCardPage(page, slugArgomento, pageCount, pageCurrent, pagesTotal) {
+    var container = $('#tutti .card-wrapper');
+    console.log('Caricamento pagina card:', page, slugArgomento, postTypeDefault);
+
+    container.html(loadingHtml);
+
+    console.log('load_card_page' + '|' + page + '|' + slugArgomento + '|' + postTypeDefault);
+
+    requestPageContent('load_card_page', container, page, slugArgomento, postTypeDefault, pageCount, pageCurrent, false);
+}
+
+function requestPageContent(action, container, page, slugArgomento, postTypeDefault, pageCount, pageCurrent, pagesTotal, resetPaginationValue) {
+    var data = {
+        action: action,
+        pagina_card: page,
+        term: slugArgomento,
+        post_type: postTypeDefault
+    };
+    console.log(data);
+    $.ajax({
+        url: myAjax.ajaxurl,
+        type: 'POST',
+        data: data,
+        success: function (response) {
+            if (response.success) {
+                container.empty();
+                response.data.data.forEach(function (post) {
+                    var cardHTML = createCardHTML(post);
+                    container.append(cardHTML);
+                });
+
+                pagesTotal = response.data.total_pages;
+                console.log('pagesTotal : ' + pagesTotal);
+                console.log('current_page : ' + response.data.current_page);
+                console.log('page_count : ' + response.data.page_count);
+                console.log('posts_total : ' + response.data.posts_total);
+                console.log('offset : ' + response.data.offset);
+
+                updateCardPagination(pageCount, pageCurrent, pagesTotal, resetPaginationValue);
+            } else {
+                $('#tutti .card-wrapper').html('<p class="pt-5 d-flex justify-content-center w-100 text-center">Nessun risultato</p>');
             }
         }
     });
