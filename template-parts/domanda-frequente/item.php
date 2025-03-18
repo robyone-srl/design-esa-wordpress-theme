@@ -5,7 +5,7 @@ $description = dci_get_wysiwyg_field('risposta');
 ?>
 
 
-<div class="accordion-item">
+<div class="accordion-item rounded">
     <div class="accordion-header" id="headingfaq-<?php echo $i; ?>">
         <button class="accordion-button collapsed title-snall-semi-bold py-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapsefaq-<?php echo $i; ?>" aria-expanded="true" aria-controls="collapsefaq-<?php echo $i; ?>">
             <div class="button-wrapper">

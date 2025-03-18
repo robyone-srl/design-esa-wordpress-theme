@@ -111,6 +111,7 @@ get_header();
 
         get_template_part("template-parts/argomento/notizie-detail");
         get_template_part("template-parts/argomento/eventi-detail");
+        get_template_part("template-parts/argomento/domande-frequenti");
         get_template_part("template-parts/argomento/tutte-categorie");
 
         if($first_printed == false) 
