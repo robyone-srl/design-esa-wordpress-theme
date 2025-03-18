@@ -168,7 +168,7 @@ if ($total_cards <= $card_per_pagina) {
                                     for ($i = $startPage; $i <= $endPage; $i++): ?>
                                         <li class="page-item <?= ($i == $pagina_card_corrente) ? 'active' : '' ?>" id="page-card-<?= $i ?>">
                                             <a class="page-link <?= ($i == $pagina_card_corrente) ? 'border border-primary rounded' : '' ?>" 
-                                               href="javascript:void(0);" data-page="<?= $i ?>">
+                                               href="#" data-page="<?= $i ?>">
                                                <?= $i ?>
                                             </a>
                                         </li>
@@ -176,13 +176,13 @@ if ($total_cards <= $card_per_pagina) {
 
                                     <?php if ($pagina_card_corrente < $pagine_card_totali): ?>
                                         <li class="page-item" id="next-page-card">
-                                            <a class="page-link" href="javascript:void(0);" data-page="<?= $pagina_card_corrente + 1 ?>" aria-label="Successivo">
+                                            <a class="page-link" href="#" data-page="<?= $pagina_card_corrente + 1 ?>" aria-label="Successivo">
                                                 <span aria-hidden="true">&raquo;</span>
                                             </a>
                                         </li>
                                     <?php else: ?>
                                         <li class="page-item" id="next-page-card" style="display: none;">
-                                            <a class="page-link" href="javascript:void(0);" aria-label="Successivo">
+                                            <a class="page-link" href="#" aria-label="Successivo">
                                                 <span aria-hidden="true">&raquo;</span>
                                             </a>
                                         </li>
