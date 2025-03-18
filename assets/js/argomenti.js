@@ -105,8 +105,6 @@ $(document).ready(function () {
 
             container.html(loadingHtml);
 
-            console.log('load_card_page' + '|' + slugArgomento + " | " + postType);
-
             requestPageContent('load_card_page', container, 1, slugArgomento, postType, pageCount, pagesTotal);
 
         }
@@ -239,12 +237,6 @@ function updateCardPagination(pageCount, pageCurrent, pagesTotal, slugArgomento)
     if (endPage - startPage + 1 < pageCount && startPage > 1) {
         startPage = Math.max(1, endPage - pageCount + 1);
     }
-
-    console.log('Paginazione | pageCount ' + pageCount);
-    console.log('Paginazione | pageCurrent ' + pageCurrent);
-    console.log('Paginazione | pagesTotal ' + pagesTotal);
-    console.log('Paginazione | slugArgomento ' + slugArgomento);
-
     var container = $('#pagination_container');
 
     container.empty();
@@ -298,7 +290,6 @@ function requestPageContent(action, container, page, slugArgomento, postTypeDefa
         success: function (response) {
 
             if (response.success) {
-                console.log(response);
                 container.empty();
                 response.data.data.forEach(function (post) {
                     var cardHTML = createCardHTML(post);
@@ -311,9 +302,6 @@ function requestPageContent(action, container, page, slugArgomento, postTypeDefa
             } else {
                 $('#tutti .card-wrapper').html('<p class="pt-5 d-flex justify-content-center w-100 text-center">Nessun risultato</p>');
             }
-        },
-        error: function (xhr, status, error) {
-            console.error('Errore nella richiesta AJAX:', status, error);
         }
     });
 }
@@ -390,9 +378,6 @@ function loadEventiPage(page, slugArgomento, maxPages, currentEventiPage, totalE
                 container.html(response);
                 updateEventiPagination(maxPages, currentEventiPage, totalEventiPages);
             }
-        },
-        error: function (error) {
-            console.error('Errore AJAX:', error);
         }
     });
 }
