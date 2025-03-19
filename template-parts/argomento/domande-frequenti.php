@@ -1,24 +1,23 @@
 <?php
-global $argomento, $i, $the_query, $load_posts, $load_card_type, $label, $label_no_more, $classes, $content;
-$load_posts = 10;
-
-$post_types = dci_get_post_types_grouped('domande-frequenti');
+global $argomento, $i, $the_query, $load_posts, $load_card_type, $label, $label_no_more, $classes, $content, $tax_query;
+$load_posts = 5;
 
 $args = array(
-    'showposts' => -1,
-    'post_type' => $post_types,
+    'posts_per_page' => 5,
+    'post_type' => 'domanda_frequente',
     'tax_query' => array(
         array(
             'taxonomy' => 'argomenti',
             'field' => 'slug',
-            'terms' => $argomento->name)
+            'terms' => $argomento->slug
+        )
     ),
-    'orderby' => 'title',
-    'order' => 'ASC',
+    'orderby' => 'post_title',
+    'order' => 'ASC'
 );
 $the_query = new WP_Query( $args );
 $faqs = $the_query->posts;
-
+$content = get_the_content();
 if(count($faqs)>0){
 ?>
 <div class="section primary-bg-a4 py-5">
@@ -33,7 +32,7 @@ if(count($faqs)>0){
         <div class="row align-items-center py-2">
             <div class="col-12 col-lg-8 offset-lg-2 px-0 px-sm-3">
                 <div class="cmp-accordion faq">
-                    <div class="accordion" id="accordion-faq">    
+                    <div class="accordion" id="load-more">    
                         <?php 
                             $i = 0;
                             foreach ($faqs as $post) {
@@ -51,6 +50,11 @@ if(count($faqs)>0){
                 $label = "Carica altre domande";
                 $label_no_more = "Nessuna altra domanda";
                 $classes = "btn btn-outline-primary w-100 title-medium-bold";
+                $tax_query = array(
+                    'taxonomy' => 'argomenti',
+                    'field' => 'slug',
+                    'terms' => $argomento->slug
+                );
                 get_template_part("template-parts/search/more-results");
             ?>
         </div>
