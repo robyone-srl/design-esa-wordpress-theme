@@ -20,7 +20,7 @@ $faqs = $the_query->posts;
 $content = get_the_content();
 if(count($faqs)>0){
 ?>
-<div class="section primary-bg-a4 py-5">
+<div class="section primary-bg-a2 py-5">
     <div class="container
 ">
         <div class="border-bottom border-2 border-primary mb-4">  
