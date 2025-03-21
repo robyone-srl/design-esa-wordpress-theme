@@ -1,7 +1,7 @@
 <?php
 global $argomento, $first_printed;
 
-$posts = dci_get_grouped_posts_by_term('argomenti-griglia', 'argomenti', $argomento->name, -1);
+$posts = dci_get_grouped_posts_by_term('argomenti-griglia', 'argomenti', $argomento->slug, -1);
 
 $total_cards = count($posts);
 $card_per_pagina = 9;
