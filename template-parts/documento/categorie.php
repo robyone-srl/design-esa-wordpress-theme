@@ -2,8 +2,10 @@
     $categorie = get_terms('tipi_documento', array(
         'hide_empty' => true,
     ) );
-?>
 
+
+    if($categorie){
+?>
 <div class="container py-5" id="argomento">
   <h2 class="title-xxlarge mb-4">Esplora per categoria</h2>
   <div class="row g-4">
@@ -26,3 +28,5 @@
     <?php } ?>
   </div>
 </div>
+
+<?php } ?>
