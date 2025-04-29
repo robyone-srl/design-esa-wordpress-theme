@@ -1,8 +1,6 @@
 <?php
 $nascondi_login = dci_get_option('nascondi_pulsante_login');
 
-var_dump($nascondi_login);
-
 $barra_superiore_light = dci_get_option("tema_chiaro_nav_superiore");
 ?>
 
