@@ -31,7 +31,7 @@ $monthName = date_i18n('M', mktime(0, 0, 0, $arrdata[1], 10));
             <span class="data"><?php echo $arrdata[0].' '.strtoupper($monthName).' '.$arrdata[2] ?></span>
 
             </div>
-            <h3 class="card-title h5"><?php echo $post->post_title ?></h4>
+            <h3 class="card-title h5"><?php echo $post->post_title ?></h3>
             <p class="card-text text-secondary" style="margin-bottom: 40px!important;"><?php echo $descrizione_breve ?></p>
         </div>
         <div class="card-image card-image-rounded pb-5">            
