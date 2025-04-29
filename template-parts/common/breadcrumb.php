@@ -27,3 +27,5 @@
   }
   ?>
 </div>
+
+<?php //inc/breadcrumb ?>

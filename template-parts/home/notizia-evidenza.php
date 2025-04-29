@@ -13,6 +13,9 @@ $page_macro = get_page_by_path($page_macro_slug);
 
 $arrdata = dci_get_data_pubblicazione_arr("data_pubblicazione", '_dci_notizia_', $post->ID);
 $monthName = date_i18n('M', mktime(0, 0, 0, $arrdata[1], 10));
+
+$tipo = get_the_terms($post->term_id, 'tipi_notizia')[0];
+$title = strtoupper($tipo->name);
 ?>
 
 <?php if ($img) { ?>
@@ -23,7 +26,7 @@ $monthName = date_i18n('M', mktime(0, 0, 0, $arrdata[1], 10));
             <!-- <svg class="icon">
                 <use xlink:href="#<?php #echo $icon ?>"></use>
             </svg> -->
-            <span class="category fw-semibold" ><?php echo $page->post_title ?></span>
+            <span class="category fw-semibold" ><?php echo $title ?></span>
             
             <span class="data"><?php echo $arrdata[0].' '.strtoupper($monthName).' '.$arrdata[2] ?></span>
 
@@ -54,7 +57,7 @@ $monthName = date_i18n('M', mktime(0, 0, 0, $arrdata[1], 10));
             <!-- <svg class="icon">
                 <use xlink:href="#<?php #echo $icon ?>"></use>
             </svg> -->
-            <span class="category title-xsmall-semi-bold fw-semibold"><?php echo $page->post_title ?></span>
+            <span class="category title-xsmall-semi-bold fw-semibold"><?php echo $title ?></span>
 
             <span class="data"><?php echo $arrdata[0].' '.strtoupper($monthName).' '.$arrdata[2] ?></span>
         </div>
