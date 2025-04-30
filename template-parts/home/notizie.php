@@ -83,13 +83,12 @@ if ($post_id || ($posts && is_array($posts) && count($posts) > 0)) {
                         ?>
                     </div>
                 </div>
-                <div class="row my-4 justify-content-md-center">
-                    <a class="read-more pb-3" href="<?php echo dci_get_template_page_url("page-templates/novita.php"); ?>">
-                        <button type="button" class="btn btn-outline-primary">Tutte le novità
-                            <svg class="icon">
-                                <use xlink:href="#it-arrow-right"></use>
-                            </svg>
-                        </button>
+                <div class="d-flex justify-content-start">
+                    <a class="btn btn-outline-primary full-mb" href="<?php echo dci_get_template_page_url("page-templates/novita.php"); ?>">
+                        Tutte le novità
+                        <svg class="icon icon-primary icon-xs ml-10">
+                            <use xlink:href="#it-arrow-right"></use>
+                        </svg>
                     </a>
                 </div>
             <?php } ?>
