@@ -11,13 +11,13 @@ $oggi_t = time();
 
 $eventi = dci_get_eventi_calendar_array();
 usort($eventi, fn($a, $b) => $a['_dci_evento_data_orario_inizio'] <=> $b['_dci_evento_data_orario_inizio']);
-$eventi = array_slice($eventi, 0, $quanti_eventi_mostrare);
-
 
 foreach($eventi as $evento){
 	if($evento['_dci_evento_data_orario_inizio'] >= $oggi_t || $evento['_dci_evento_data_orario_fine'] >= $oggi_t)
 		array_push($eventi_c, $evento);
 }
+
+$eventi_c = array_slice($eventi_c, 0, $quanti_eventi_mostrare);
 
 if(count($eventi_c)){
 ?>
