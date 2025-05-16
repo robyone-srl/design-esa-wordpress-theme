@@ -478,6 +478,13 @@ function menu_item_desc($item_id, $item)
 		<button class="set_custom_image button" id="menu_item_logo[<?= $item_id ?>]_button">Scegli immagine</button>
 		<button style="<?= $imgid ? '':'display: none' ?>" class="remove_custom_image button" id="menu_item_logo[<?= $item_id ?>]_remove_button">Rimuovi immagine</button>
 	</p>
+	<?php
+	$classId = get_post_meta($item_id, 'menu_item_icon_class', true);
+	?>
+	<p>
+		<label id="label_icon_class" for="menu_item_icon_class[<?= $item_id ?>]">Classe icona</label>
+		<input type="text" value="<?= $classId ?>" placeholder="Classe icona da mostrare" id="menu_item_icon_class[<?= $item_id ?>]" class="widefat edit-menu-item-title" name="menu_item_icon_class[<?= $item_id ?>]">
+	</p>
 <?php
 }
 add_action('wp_nav_menu_item_custom_fields', 'menu_item_desc', 10, 2);
@@ -489,6 +496,23 @@ function save_menu_item_desc($menu_id, $menu_item_db_id)
 		update_post_meta($menu_item_db_id, 'menu_item_logo', $sanitized_data);
 	} else {
 		delete_post_meta($menu_item_db_id, 'menu_item_logo');
+	}
+
+	echo"<pre>";
+	print_r($_POST);
+	echo"</pre>";
+	var_dump(isset($_POST['menu_item_icon_class'][$menu_item_db_id]));
+	echo"<br> Item Logo : ";
+	var_dump($_POST['menu_item_logo'][$menu_item_db_id]);
+	echo"<br> Item Icon Class : ";
+	var_dump($_POST['menu_item_icon_class'][$menu_item_db_id]);
+
+
+	if (isset($_POST['menu_item_icon_class'][$menu_item_db_id])) {
+		$sanitized_data = sanitize_text_field($_POST['menu_item_icon_class'][$menu_item_db_id]);
+		update_post_meta($menu_item_db_id, 'menu_item_icon_class', $sanitized_data);
+	} else {
+		delete_post_meta($menu_item_db_id, 'menu_item_icon_class');
 	}
 }
 add_action('wp_update_nav_menu_item', 'save_menu_item_desc', 10, 2);

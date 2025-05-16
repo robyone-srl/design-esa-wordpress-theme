@@ -22,6 +22,8 @@ class Main_Menu_Walker extends Walker_Nav_Menu
 	function start_el(&$output, $item, $depth = 0, $args = [], $id = 0)
 	{
 		$img_id = get_post_meta($item->ID, 'menu_item_logo', true);
+		$iconClassItem = get_post_meta($item->ID, 'menu_item_icon_class', true);
+
 
 		$output .= "<li class='nav-item'>";
 		// set active tab
@@ -40,7 +42,7 @@ class Main_Menu_Walker extends Walker_Nav_Menu
 		if ($item->title == 'Vivere il Comune') $data_element .= 'live';
 
 		if ($item->url && $item->url != '#') {
-			$output .= '<a class="nav-link ' . $active_class . '" href="' . $item->url . '" data-element="' . $data_element . '">';
+			$output .= '<a class="d-flex align-items-center nav-link ' . $active_class . '" href="' . $item->url . '" data-element="' . $data_element . '">';
 		} else {
 			$output .= '<span>';
 		}
@@ -49,6 +51,10 @@ class Main_Menu_Walker extends Walker_Nav_Menu
 			$output .= '<svg width="28" height="28" aria-hidden="true" class="me-2 mb-1">       
 			<image xlink:href="' . wp_get_attachment_image_url($img_id, 'small') . '" width="28" height="28"/>    
 			</svg>';
+
+		if($iconClassItem ?? false){
+			$output .= '<i class="'.$iconClassItem.' title-large me-2 mb-1"></i>';
+		}
 
 		$output .= $item->title;
 
