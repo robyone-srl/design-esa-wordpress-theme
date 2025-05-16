@@ -641,12 +641,8 @@ function dci_add_servizi_metaboxes() {
 		'id'        => $prefix . 'classi_icona',
 		'desc'      => __( 'Classe icona', 'design_comuni_italia' ),
 		'type'      => 'text',
-		'options'   => array(
-			"true"  => __( 'Attivo', 'design_comuni_italia' ),
-			"false" => __( 'Disattivo', 'design_comuni_italia' ),
-		),
         'attributes'=>[
-            'pldaceholder' => 'fa-solid fa-shield-halved'
+            'placeholder' => 'fa-solid fa-shield-halved'
         ]
 	) );
 }
