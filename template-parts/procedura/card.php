@@ -15,6 +15,7 @@ if($procedura->post_status == "publish") {
                     <h3 class="green-title-big t-primary">
                         <a class="text-decoration-none" href="<?php echo get_permalink($procedura->ID); ?>" data-element="service-link"><?php echo $procedura->post_title; ?></a>
                     </h3>
+                    <?php if($mostra_dettagli_procedura) echo$descrizione_breve; ?>
                 </div>
             </div>
         </div>
