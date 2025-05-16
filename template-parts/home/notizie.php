@@ -56,7 +56,7 @@ $overlapping = "";
 if ($post_id || ($posts && is_array($posts) && count($posts) > 0)) {
 ?>
     <!-- Tag section is opened in home.php -->
-    <div class="section-content">
+    <div class="section-content mb-5">
         <div class="container">
             <?php if ($post_id) {
                 ?> <h2 id="novita-in-evidenza" class="visually-hidden">Novità in evidenza</h2> <?php
