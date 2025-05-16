@@ -11,6 +11,7 @@ global $uo_id, $inline;
 $mostra_prenota_appuntamento = dci_get_option("prenota_appuntamento", "servizi");
 $punti_contatto_id = dci_get_meta('punti_contatto', '_dci_page_');
 $uo_id = intval(dci_get_meta("unita_responsabile", "_dci_page_"));
+$procedure = dci_get_meta('procedure', '_dci_page_');
 
 
 get_header();
@@ -96,6 +97,13 @@ get_header();
                                                                     </a>
                                                                 </li>
                                                             <?php } ?>
+                                                            <?php if(!empty($procedure)) { ?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#procedures">
+                                                                        <span> Procedure</span>
+                                                                    </a>
+                                                                </li>
+                                                            <?php } ?>
                                                             <li class="nav-item">
                                                                 <a class="nav-link" href="#more-info">
                                                                     <span>Ulteriori informazioni</span>
@@ -131,12 +139,12 @@ get_header();
                                 <div class="row"> <?php
                                     foreach ($punti_contatto_id as $pc_id) {  
                                         $contatto = get_post($pc_id);
-                                            if(isset($contatto)){ ?>
+                                        if(isset($contatto)){ ?>
                                             <div class="col-lg-6 col-md-12 mb-4">
                                                 <?php get_template_part("template-parts/punto-contatto/card"); ?>
                                             </div> <?php 
-                                            }    
-                                        } ?>
+                                        }    
+                                    } ?>
                                 </div> <?php 
                             }
 
@@ -156,7 +164,24 @@ get_header();
 
                     </article>
 
-
+                    <article id="procedures">
+                        <?php 
+                        if(!empty($procedure)){ ?>
+                            <h3 class="mb-3 h4">Procedure collegate</h3>
+                            <div class="row">
+                                <?php 
+                                foreach ($procedure as $procedura_singola) {  
+                                    $procedura = get_post($procedura_singola);
+                                    if(isset($procedura)){ ?>
+                                        <div class="col-lg-6 col-md-12 mb-4">
+                                            <?php 
+                                            $mostra_dettagli_procedura = true;
+                                            get_template_part("template-parts/procedura/card"); ?>
+                                        </div> <?php 
+                                    }    
+                                } ?>
+                            </div> <?php 
+                        } ?> 
                     </article>
                     <article id="more-info">
                         <div class="row variable-gutters">
