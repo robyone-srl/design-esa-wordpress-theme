@@ -1,153 +1,160 @@
 {
-    "tipologie" :{
-        "evento" : {
-            "name" : "evento",
-            "capability" : "eventi",
-            "prefix" : "_dci_evento_",
-            "singular_name" : "Evento",
-            "plural_name" : "Eventi",
-            "group_id" : "vivere-ente",
-            "group_name" : "Vivere Ente",
-            "taxonomy" : [
-                "tipi_evento",
-                "argomenti"
-            ]
-        },
-        "luogo" : {
-            "name" : "luogo",
-            "capability" : "luoghi",
-            "prefix" : "_dci_luogo_",
-            "singular_name" : "Luogo",
-            "plural_name" : "Luoghi",
-            "group_id": "vivere-ente",
-            "group_name" : "Vivere Ente",
-            "taxonomy" : [
-                "tipi_luogo",
-                "argomenti"
-            ]
-        },
-        "notizia" :  {
-            "name" : "notizia",
-            "capability" : "notizie",
-            "prefix" : "_dci_notizia_",
-            "singular_name" : "Notizia",
-            "plural_name" : "Notizie",
-            "group_id": "ipab-comunica",
-            "group_name" : "Novità",
-            "taxonomy" : [
-                "tipi_notizia",
-                "argomenti"
-            ]
-        },
-        "unita_organizzativa" : {
-            "name" : "unita_organizzativa",
-            "capability" : "unita_organizzative",
-            "prefix" : "_dci_unita_organizzativa_",
-            "singular_name" : "Unità Organizzativa",
-            "plural_name" : "Unità Organizzative",
-            "group_id": "amministrazione",
-            "group_name" : "Amministrazione",
-            "taxonomy" : [
-                "tipi_unita_organizzativa",
-                "argomenti"
-            ]
-        },
-        "servizio" : {
-            "name" : "servizio",
-            "capability" : "servizi",
-            "prefix" : "_dci_servizio_",
-            "singular_name" : "Servizio",
-            "plural_name" : "Servizi",
-            "group_id": "servizi",
-            "group_name" : "Servizi",
-            "taxonomy" : [
-                "tipi_servizio",
-                "argomenti"
-            ]
-        },
-        "documento_pubblico" : {
-            "name" : "documento_pubblico",
-            "capability" : "documenti_pubblici",
-            "prefix" : "_dci_documento_pubblico_",
-            "singular_name" : "Documento",
-            "plural_name" : "Documenti",
-            "group_id": "amministrazione",
-            "group_name" : "Amministrazione",
-            "taxonomy" : [
-                "tipi_documento",
-                "argomenti"
-            ]
-        },
-        "persona_pubblica" : {
-            "name" : "persona_pubblica",
-            "capability" : "persone_pubbliche",
-            "prefix" : "_dci_persona_pubblica_",
-            "singular_name" : "Persona",
-            "plural_name" : "Persone",
-            "group_id": "amministrazione",
-            "group_name" : "Amministrazione",
-            "taxonomy" : []
-        },
-        "punto_contatto" : {
-            "name" : "punto_contatto",
-            "capability" : "punti_contatto",
-            "prefix" : "_dci_punto_contatto_",
-            "singular_name" : "Punti di Contatto",
-            "plural_name" : "Punto di Contatto",
-            "taxonomy" : [
-                "tipi_punto_contatto"
-            ]
-        },
-        "incarico" : {
-            "name" : "incarico",
-            "capability" : "incarichi",
-            "prefix" : "_dci_incarico_",
-            "singular_name" : "Incarico",
-            "plural_name" : "Incarichi",
-            "taxonomy" : [
-                "tipi_incarico"
-            ]
-        },
-        "sito_tematico" : {
-            "name" : "sito_tematico",
-            "capability" : "siti_tematici",
-            "prefix" : "_dci_sito_tematico_",
-            "singular_name" : "Sito Tematico",
-            "plural_name" : "Siti Tematici",
-            "group_name" : "Sito Tematico",
-            "taxonomy" : [
-                "argomenti"
-            ]
-        },
-        "procedure" : {
-            "name" : "procedura",
-            "group_name" : "Come fare per",
-            "capability" : "procedure",
-            "prefix" : "_dci_procedura_",
-            "singular_name" : "Come fare per",
-            "plural_name" : "Come fare per",
-            "taxonomy" : [
-              "argomenti"
-        ]
-      },
-        "domanda_frequente" : {
-            "name" : "domanda_frequente",
-            "group_name" : "Domanda frequente",
-            "capability" : "domande_frequenti",
-            "prefix" : "_dci_domanda_frequente_",
-            "singular_name" : "Domanda Frequente",
-            "plural_name" : "Domande Frequenti",
-            "taxonomy" : [
-                "argomenti"
-            ]
-        },
-      "page": {
-        "name": "page",
-        "singular_name": "Pagina",
-        "plural_name": "Pagine",
-        "taxonomy": [
-          "argomenti"
-        ]
-      }
+  "tipologie": {
+    "evento": {
+      "name": "evento",
+      "capability": "eventi",
+      "prefix": "_dci_evento_",
+      "singular_name": "Evento",
+      "plural_name": "Eventi",
+      "group_id": "vivere-ente",
+      "group_name": "Vivere Ente",
+      "taxonomy": [
+        "tipi_evento",
+        "argomenti"
+      ]
+    },
+    "luogo": {
+      "name": "luogo",
+      "capability": "luoghi",
+      "prefix": "_dci_luogo_",
+      "singular_name": "Luogo",
+      "plural_name": "Luoghi",
+      "group_id": "vivere-ente",
+      "group_name": "Vivere Ente",
+      "taxonomy": [
+        "tipi_luogo",
+        "argomenti"
+      ]
+    },
+    "notizia": {
+      "name": "notizia",
+      "capability": "notizie",
+      "prefix": "_dci_notizia_",
+      "singular_name": "Notizia",
+      "plural_name": "Notizie",
+      "group_id": "ipab-comunica",
+      "group_name": "Novità",
+      "taxonomy": [
+        "tipi_notizia",
+        "argomenti"
+      ]
+    },
+    "unita_organizzativa": {
+      "name": "unita_organizzativa",
+      "capability": "unita_organizzative",
+      "prefix": "_dci_unita_organizzativa_",
+      "singular_name": "Unità Organizzativa",
+      "plural_name": "Unità Organizzative",
+      "group_id": "amministrazione",
+      "group_name": "Amministrazione",
+      "taxonomy": [
+        "tipi_unita_organizzativa",
+        "argomenti"
+      ]
+    },
+    "servizio": {
+      "name": "servizio",
+      "capability": "servizi",
+      "prefix": "_dci_servizio_",
+      "singular_name": "Servizio",
+      "plural_name": "Servizi",
+      "group_id": "servizi",
+      "group_name": "Servizi",
+      "taxonomy": [
+        "tipi_servizio",
+        "argomenti"
+      ]
+    },
+    "documento_pubblico": {
+      "name": "documento_pubblico",
+      "capability": "documenti_pubblici",
+      "prefix": "_dci_documento_pubblico_",
+      "singular_name": "Documento",
+      "plural_name": "Documenti",
+      "group_id": "amministrazione",
+      "group_name": "Amministrazione",
+      "taxonomy": [
+        "tipi_documento",
+        "argomenti"
+      ]
+    },
+    "persona_pubblica": {
+      "name": "persona_pubblica",
+      "capability": "persone_pubbliche",
+      "prefix": "_dci_persona_pubblica_",
+      "singular_name": "Persona",
+      "plural_name": "Persone",
+      "group_id": "amministrazione",
+      "group_name": "Amministrazione",
+      "taxonomy": []
+    },
+    "punto_contatto": {
+      "name": "punto_contatto",
+      "capability": "punti_contatto",
+      "prefix": "_dci_punto_contatto_",
+      "singular_name": "Punti di Contatto",
+      "plural_name": "Punto di Contatto",
+      "taxonomy": [
+        "tipi_punto_contatto"
+      ]
+    },
+    "incarico": {
+      "name": "incarico",
+      "capability": "incarichi",
+      "prefix": "_dci_incarico_",
+      "singular_name": "Incarico",
+      "plural_name": "Incarichi",
+      "taxonomy": [
+        "tipi_incarico"
+      ]
+    },
+    "sito_tematico": {
+      "name": "sito_tematico",
+      "capability": "siti_tematici",
+      "prefix": "_dci_sito_tematico_",
+      "singular_name": "Sito Tematico",
+      "plural_name": "Siti Tematici",
+      "group_name": "Sito Tematico",
+      "taxonomy": [
+        "argomenti"
+      ]
+    },
+    "procedure": {
+      "name": "procedura",
+      "group_name": "Come fare per",
+      "capability": "procedure",
+      "prefix": "_dci_procedura_",
+      "singular_name": "Come fare per",
+      "plural_name": "Come fare per",
+      "taxonomy": [
+        "argomenti"
+      ]
+    },
+    "domanda_frequente": {
+      "name": "domanda_frequente",
+      "group_name": "Domanda frequente",
+      "capability": "domande_frequenti",
+      "prefix": "_dci_domanda_frequente_",
+      "singular_name": "Domanda Frequente",
+      "plural_name": "Domande Frequenti",
+      "taxonomy": [
+        "argomenti"
+      ]
+    },
+    "fase": {
+      "name": "fase",
+      "capability": "fasi",
+      "prefix": "_dci_fase_",
+      "singular_name": "Fase",
+      "plural_name": "Fasi"
+    },
+    "page": {
+      "name": "page",
+      "singular_name": "Pagina",
+      "plural_name": "Pagine",
+      "taxonomy": [
+        "argomenti"
+      ]
     }
+  }
 }
