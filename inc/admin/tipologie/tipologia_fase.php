@@ -73,7 +73,7 @@ function dci_add_fase_metaboxes() {
     $cmb_dati->add_field(array(
         'name'       => __('Descrizione', 'design_comuni_italia' ),
         'id'         => $prefix . 'desc_fase',
-        'type'       => 'textarea',
+        'type'       => 'wysiwyg',
     ) );
 
     //Servizi inclusi

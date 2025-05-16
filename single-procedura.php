@@ -139,13 +139,14 @@ get_header();
                                 </div>
                             </section>
                         <?php } ?>
-                        <section class="it-page-section mb-30">
-                            <h2 class="h3 mb-3" id="who-needs">A chi &egrave; rivolto</h2>
-                            <div class="richtext-wrapper lora">
-                                <?php echo $destinatari ?>
-                            </div>
-                        </section>
-
+                        <?php if (!empty($destinatari)) { ?>
+                            <section class="it-page-section mb-30">
+                                <h2 class="h3 mb-3" id="who-needs">A chi &egrave; rivolto</h2>
+                                <div class="richtext-wrapper lora">
+                                    <?php echo $destinatari ?>
+                                </div>
+                            </section>
+                        <?php } ?>
                         <?php if ($come_fare_intro ?? false) { ?>
                             <section class="it-page-section mb-30">
                                 <h2 class="h3 mb-3" id="needed">Come fare</h2> 
@@ -172,8 +173,7 @@ get_header();
 										    </div>
 									        <div class="collapse clearfix border-start" id="collapsefase<?= $n_fase ?>">
 										        <div class="collapse-body p-3"> <?php 
-                                                    if (!empty(dci_get_meta('desc_fase', '_dci_fase_', $fase->ID))) { ?>
-                                                        <h4 class="h5">Introduzione</h4>
+                                                    if (!empty(dci_get_wysiwyg_field('desc_fase', '_dci_fase_', $fase->ID))) { ?>
                                                         <p class="info-text mb-0">
                                                                 <?php echo dci_get_meta('desc_fase', '_dci_fase_', $fase->ID); ?>
                                                         </p> <?php 
@@ -304,7 +304,6 @@ get_header();
                 </div>
             </div>
         </div>
-        </div>
         <?php get_template_part("template-parts/common/valuta-servizio"); ?>
         <?php get_template_part('template-parts/single/more-posts', 'carousel'); ?>
         <?php 
@@ -314,7 +313,7 @@ get_header();
         ?>
 
     <?php
-    endwhile; // End of the loop.
+    endwhile;
     ?>
 </main>
 <?php
