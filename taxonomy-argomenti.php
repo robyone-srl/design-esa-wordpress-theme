@@ -92,7 +92,7 @@ get_header();
     $showEmptyMessage = false;
 
     if($visualizzazione == 'classic'){
-        $posts = dci_get_posts_by_term('any','argomenti', $argomento->slug);
+        $posts = dci_get_grouped_posts_by_term('argomenti-griglia','argomenti', $argomento->slug);
         
         if(empty($posts)){
             $showEmptyMessage = true;
