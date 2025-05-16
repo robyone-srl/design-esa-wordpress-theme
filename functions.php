@@ -498,15 +498,6 @@ function save_menu_item_desc($menu_id, $menu_item_db_id)
 		delete_post_meta($menu_item_db_id, 'menu_item_logo');
 	}
 
-	echo"<pre>";
-	print_r($_POST);
-	echo"</pre>";
-	var_dump(isset($_POST['menu_item_icon_class'][$menu_item_db_id]));
-	echo"<br> Item Logo : ";
-	var_dump($_POST['menu_item_logo'][$menu_item_db_id]);
-	echo"<br> Item Icon Class : ";
-	var_dump($_POST['menu_item_icon_class'][$menu_item_db_id]);
-
 
 	if (isset($_POST['menu_item_icon_class'][$menu_item_db_id])) {
 		$sanitized_data = sanitize_text_field($_POST['menu_item_icon_class'][$menu_item_db_id]);
