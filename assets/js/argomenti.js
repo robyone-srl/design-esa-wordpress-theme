@@ -1,3 +1,4 @@
+let maxPages = 5;
 let loadingHtml = `<div id="loading-overlay" class="w-100 h-100 bg-white bg-opacity-75 d-flex justify-content-center align-items-center pt-5">
                 <div class="text-center">
                     <div class="spinner-border text-primary" role="status">
@@ -12,7 +13,6 @@ $(document).ready(function () {
 
     /* NOTIZIE E LINK */
 
-    var maxPages = 5;
     var currentNotiziePage = parseInt($('#notizie-pagination-container').data('notizia-corrente')); 
     var totalNotiziePages = parseInt($('#notizie-pagination-container').data('notizie-totali'));
 
@@ -231,7 +231,7 @@ function updateCardPagination(container, itemsPerPage, pageCurrent, pagesTotal, 
     pagesTotal = Math.max(pagesTotal, 1);
 
     var startPage = Math.max(1, pageCurrent - Math.floor(itemsPerPage / 2));
-    var endPage = Math.min(pagesTotal, startPage + itemsPerPage - 1);
+    var endPage = Math.min(pagesTotal, startPage + maxPages - 1);
 
     if (endPage - startPage + 1 < itemsPerPage && startPage > 1) {
         startPage = Math.max(1, endPage - itemsPerPage + 1);

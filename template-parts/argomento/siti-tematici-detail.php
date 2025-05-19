@@ -52,7 +52,7 @@ if ($total_cards <= $card_per_pagina) {
                                     <?php endif; ?>
 
                                     <?php 
-                                    $maxPages = 3;
+                                    $maxPages = 5;
                                     $startPage = max(1, $pagina_card_corrente - floor($maxPages / 2));
                                     $endPage = min($pagine_card_totali, $startPage + $maxPages - 1);
 
