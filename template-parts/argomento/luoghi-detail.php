@@ -1,72 +1,89 @@
 <?php
-    global $argomento;
+global $argomento, $first_printed;
 
-    $posts = dci_get_grouped_posts_by_term( 'luoghi' , 'argomenti', $argomento->slug, 3 );
+$posts = dci_get_grouped_posts_by_term('luoghi', 'argomenti', $argomento->slug, -1);
+
+$total_cards = count($posts);
+$card_per_pagina = 3;
+
+if ($total_cards <= $card_per_pagina) {
+    $card_visibili = $posts;
+    $pagine_card_totali = 1; 
+} else {
+    $pagine_card_totali = ceil($total_cards / $card_per_pagina);
+    $pagina_card_corrente = isset($_POST['pagina_card']) ? intval($_POST['pagina_card']) : 1;
+    $pagina_card_corrente = min($pagina_card_corrente, $pagine_card_totali);
+    $offset = ($pagina_card_corrente - 1) * $card_per_pagina;
+    $card_visibili = array_slice($posts, $offset, $card_per_pagina);
+}
 
     if($posts) {
 ?>
-<section id="luoghi">
-    <div class="pt-40 <?php echo $first_printed ? "pt-lg-80  pb-40" : "pt-md-100 pb-50"; ?>">
+<section id="tutti" class="pb-5">
+    <div class="pt-40 <?php echo $first_printed ? "pt-lg-80 pb-40" : "pt-md-100 pb-50"; ?>">
         <div class="container">
-            <div class="row row-title">
-                <div class="col-12">
-                    <h3 class="u-grey-light border-bottom border-semi-dark pb-2 pb-lg-3 title-large-semi-bold">Luoghi
-                    </h3>
-                </div>
+            <div class="border-bottom border-2 border-light">
+                <div class="row align-items-center pb-2">
+                    <h3 class="col-12 col-md-5 title-large-semi-bold pb-0 mb-0">
+                    Luoghi                 
+                </div>               
             </div>
-            <div class="row mx-0">
+
                 <div class="card-wrapper px-0 card-teaser-wrapper card-teaser-wrapper-equal card-teaser-block-3">
-                <?php foreach ($posts as $post) { 
-                    $description = dci_get_meta('descrizione_breve');
-                    $img = get_the_post_thumbnail_url();    
-                    $tipi_luogo = get_the_terms($post->ID, 'tipi_luogo');
-                ?>
-                    <div class="card card-teaser card-teaser-image card-flex no-after rounded shadow-sm border border-light mb-0">
-                        <div class="card-image-wrapper with-read-more">
-                            <div class="card-body p-3">
-                                <?php 
-                        			$count = 1;
-                        			if ( is_array($tipi_luogo) && count($tipi_luogo) ) {
-                    			?><div class="category-top"><?php
-                        			foreach ($tipi_luogo as $tipo_luogo) {
-                    			?>
-                        			<?php echo $count == 1 ? '' : ' - '; ?>
-                        			<a class="title-xsmall-semi-bold fw-semibold text-decoration-none" href="<?php echo get_term_link($tipo_luogo->term_id); ?>">
-                            			<?php echo $tipo_luogo->name;?>
-                        			</a>
-                    			<?php ++$count; }
-                    			?></div><?php } ?>
-                                    
-                                    <h4 class="card-title text-paragraph-medium u-grey-light">
-                                        <a href="<?php echo get_permalink(); ?>" class="text-decoration-none"><?php echo the_title(); ?></a>
-                                    </h4>
-                                <p class="text-paragraph-card u-grey-light m-0"><?php echo $description; ?></p>
-                            </div>
-                        <?php if ($img) { ?>
-                            <div class="card-image card-image-rounded">
-                                <?php dci_get_img($img); ?>
-                            </div>
-                        <?php } ?>
+                    <?php foreach ($card_visibili as $post) {
+
+				        get_template_part("template-parts/".$post->post_type."/card-search");
+
+                    }?>
+                </div>
+
+            <div class="pagination-container">
+                <?php if ($pagine_card_totali > 1): ?>
+                    <div class="row mt-4 card-pagination-row" data-card-corrente="<?=$pagina_card_corrente?>" data-card-totali="<?=$pagine_card_totali?>" data-post-type="luoghi" data-posts-per-page="<?=$card_per_pagina?>">
+                        <div class="col-12">
+                            <nav>
+                                <ul class="pagination justify-content-center card-pagination-ul">
+                                    <?php if ($pagina_card_corrente > 1): ?>
+                                        <li class="page-item prev-page-card">
+                                            <a class="page-link" href="javascript:void(0);" data-page="<?= $pagina_card_corrente - 1 ?>" aria-label="Precedente">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+
+                                    <?php 
+                                    $maxPages = 3;
+                                    $startPage = max(1, $pagina_card_corrente - floor($maxPages / 2));
+                                    $endPage = min($pagine_card_totali, $startPage + $maxPages - 1);
+
+                                    for ($i = $startPage; $i <= $endPage; $i++): ?>
+                                        <li class="page-item <?= ($i == $pagina_card_corrente) ? 'active' : '' ?> page-card-<?= $i ?>">
+                                            <a class="page-link <?= ($i == $pagina_card_corrente) ? 'border border-primary rounded' : '' ?>" 
+                                               href="#" data-page="<?= $i ?>">
+                                               <?= $i ?>
+                                            </a>
+                                        </li>
+                                    <?php endfor; ?>
+
+                                    <?php if ($pagina_card_corrente < $pagine_card_totali): ?>
+                                        <li class="page-item next-page-card">
+                                            <a class="page-link" href="#" data-page="<?= $pagina_card_corrente + 1 ?>" aria-label="Successivo">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                </ul>
+                            </nav>
                         </div>
-                    </div>
-                <?php } ?>
-                </div>
+                    </div>    
+                <?php endif; ?>
             </div>
-            <div class="row mt-4">
-                <div class="col-12 col-lg-3 offset-lg-9">
-                    <button 
-                        type="button" 
-                        class="btn btn-outline-primary w-100"
-                        onclick="location.href='<?= dci_get_template_page_url("page-templates/luoghi.php"); ?>'"
-                    >
-                        Tutti i luoghi
-                        <svg class="icon icon-primary">
-                            <use xlink:href="#it-arrow-right"></use>
-                        </svg>
-                    </button>
-                </div>
-            </div>
+
         </div>
     </div>
 </section>
-<?php } ?>
+<?php 
+    $first_printed = true;
+} ?>
+
+

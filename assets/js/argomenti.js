@@ -1,7 +1,3 @@
-let postTypeDefault = 'argomenti-griglia';
-let pageCurrent = 1;
-let pageCount = 9;
-let pagesTotal = 1;
 let loadingHtml = `<div id="loading-overlay" class="w-100 h-100 bg-white bg-opacity-75 d-flex justify-content-center align-items-center pt-5">
                 <div class="text-center">
                     <div class="spinner-border text-primary" role="status">
@@ -17,7 +13,6 @@ $(document).ready(function () {
     /* NOTIZIE E LINK */
 
     var maxPages = 5;
-
     var currentNotiziePage = parseInt($('#notizie-pagination-container').data('notizia-corrente')); 
     var totalNotiziePages = parseInt($('#notizie-pagination-container').data('notizie-totali'));
 
@@ -73,41 +68,45 @@ $(document).ready(function () {
 
     /* ALTRI CONTENUTI */
 
-    pagesTotal = parseInt($('#card-pagination-container').data('card-totali'));
-    $('#pagination_container').on('click', '.page-link', function (e) {
+
+    $('.pagination-container').on('click', '.page-link', function (e) {
         e.preventDefault();
 
+        var paginationRow = $(this).closest('.card-pagination-row');
+
+
         var page = $(this).data('page');
-        var slugArgomento = $('#card-pagination-container').data('slug');
+        var pageCurrent = paginationRow.data('card-corrente');
 
         if (page !== pageCurrent) {
             pageCurrent = page;
 
-            var container = $('#tutti .card-wrapper');
-            container.html(loadingHtml);
+            
+            var container = paginationRow.parent().parent();
+            
+            var slugArgomento = $('main').data('slug');
+            var postType = paginationRow.data('post-type');
+            var itemsPerPage = paginationRow.data('posts-per-page');
 
-            requestPageContent('load_card_page', container, page, slugArgomento, postTypeDefault, pageCount, pagesTotal);
+            requestPageContent('load_card_page', container, page, slugArgomento, postType, itemsPerPage);
         }
     });
 
-    $('.filters-list').on('click', 'button[data-term]', function () {
+    $('.filters-list').on('click', 'button[data-post-type]', function () {
         var btn = $(this);
 
         resetButtonHighlighting();
 
         btn.removeClass('btn-outline-primary').addClass('btn-primary');
 
-        if (btn.data('term')) {
-            var slugArgomento = btn.data('term');
-            var postType = btn.data('post-type');
-            postTypeDefault = postType;
-            var container = $('#tutti .card-wrapper');
+        var slugArgomento = $('main').data('slug');
+        var postType = btn.data('post-type');
+        var container = $(this).parents('.container');
+        var itemsPerPage = $(this).parents('.container').find('.card-pagination-row').data('posts-per-page');
 
-            container.html(loadingHtml);
+        requestPageContent('load_card_page', container, 1, slugArgomento, postType, itemsPerPage);
 
-            requestPageContent('load_card_page', container, 1, slugArgomento, postType, pageCount, pagesTotal);
 
-        }
     });
 
     $('#save-selection').on('click', function () {
@@ -228,26 +227,31 @@ function loadNotiziePage(page, slugArgomento, maxPages, currentNotiziePage, tota
     });
 }
 
-function updateCardPagination(pageCount, pageCurrent, pagesTotal, slugArgomento) {
+function updateCardPagination(container, itemsPerPage, pageCurrent, pagesTotal, postType) {
     pagesTotal = Math.max(pagesTotal, 1);
 
-    var startPage = Math.max(1, pageCurrent - Math.floor(pageCount / 2));
-    var endPage = Math.min(pagesTotal, startPage + pageCount - 1);
+    var startPage = Math.max(1, pageCurrent - Math.floor(itemsPerPage / 2));
+    var endPage = Math.min(pagesTotal, startPage + itemsPerPage - 1);
 
-    if (endPage - startPage + 1 < pageCount && startPage > 1) {
-        startPage = Math.max(1, endPage - pageCount + 1);
+    if (endPage - startPage + 1 < itemsPerPage && startPage > 1) {
+        startPage = Math.max(1, endPage - itemsPerPage + 1);
     }
-    var container = $('#pagination_container');
 
-    container.empty();
+    var paginationRow = container.find('.card-pagination-row');
 
-    var content = [];
     
     if (pagesTotal > 1) {
-        content.push(`<div class="row mt-4" id="card-pagination-container" data-card-corrente="${pageCurrent}" data-card-totali="${pagesTotal}" data-slug="${slugArgomento}"> <div class="col-12"> <nav> <ul class="pagination justify-content-center" id="card-pagination"> `);
+        var content = [];
+        var paginationUl = container.find('.card-pagination-ul');
+        paginationUl.empty();
+
+        paginationRow.data('card-corrente', pageCurrent);
+        paginationRow.data('card-totali', pagesTotal);
+        paginationRow.data('post-type', postType); 
+        paginationRow.data('posts-per-page', itemsPerPage);
 
         if (pageCurrent > 1) {
-            content.push(`<li class="page-item" id="prev-page-card">
+            content.push(`<li class="page-item prev-page-card">
                 <a class="page-link" href="#" data-page="${pageCurrent - 1}" aria-label="Precedente">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
@@ -255,7 +259,7 @@ function updateCardPagination(pageCount, pageCurrent, pagesTotal, slugArgomento)
         }
 
         for (let i = startPage; i <= endPage; i++) {
-            content.push(`<li class="page-item ${(i == pageCurrent) ? 'active' : ''}">
+            content.push(`<li class="page-item ${(i == pageCurrent) ? 'active' : ''} page-card-${i}">
                 <a class="page-link ${(i == pageCurrent) ? 'border border-primary rounded' : ''}" href="#" data-page="${i}">
                     ${i}
                 </a>
@@ -263,24 +267,32 @@ function updateCardPagination(pageCount, pageCurrent, pagesTotal, slugArgomento)
         }
 
         if (pageCurrent < pagesTotal) {
-            content.push(`<li class="page-item" id="next-page-card">
+            content.push(`<li class="page-item next-page-card">
                 <a class="page-link" href="#" data-page="${pageCurrent + 1}" aria-label="Successivo">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>`);
         }
-        content.push(`</ul> </nav> </div> </div>`);
+        paginationUl.html(content.join(''));
+
+    } else {
+        paginationRow.empty();
     }
-    container.html(content.join(''));
+    
 }
 
-function requestPageContent(action, container, page, slugArgomento, postTypeDefault, pageCount, pagesTotal, resetPaginationValue) {
-    
+function requestPageContent(action, container, page, slugArgomento, postType, itemsPerPage) {
+
+    var cardWrapper = container.find('.card-wrapper');
+
+    cardWrapper.html(loadingHtml);
+
     var data = {
         action: action,
         pagina_card: page,
         term: slugArgomento,
-        post_type: postTypeDefault
+        post_type: postType,
+        post_per_page: itemsPerPage
 
     };
     $.ajax({
@@ -290,17 +302,17 @@ function requestPageContent(action, container, page, slugArgomento, postTypeDefa
         success: function (response) {
 
             if (response.success) {
-                container.empty();
+                cardWrapper.empty();
                 response.data.data.forEach(function (post) {
                     var cardHTML = createCardHTML(post);
-                    container.append(cardHTML);
+                    cardWrapper.append(cardHTML);
                 });
 
                 pageCurrent = page;
-                pagesTotal = response.data.total_pages;
-                updateCardPagination(pageCount, page, pagesTotal, slugArgomento);
+                var pagesTotal = response.data.total_pages;
+                updateCardPagination(container, itemsPerPage, page, pagesTotal, postType);
             } else {
-                $('#tutti .card-wrapper').html('<p class="pt-5 d-flex justify-content-center w-100 text-center">Nessun risultato</p>');
+                container.html('<p class="pt-5 d-flex justify-content-center w-100 text-center">Nessun risultato</p>');
             }
         }
     });

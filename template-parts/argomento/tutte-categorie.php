@@ -35,7 +35,6 @@ if ($total_cards <= $card_per_pagina) {
                                 type="button" 
                                 class="btn btn-primary btn-xs mb-2 mb-md-0"
                                 data-post-type="argomenti-griglia"
-                                data-term="<?= $argomento->slug ?>" 
                             >
                                 Tutti
                             </button>
@@ -44,7 +43,6 @@ if ($total_cards <= $card_per_pagina) {
                                 type="button" 
                                 class="btn btn-outline-primary btn-xs mb-2 mb-md-0"
                                 data-post-type="servizi"
-                                data-term="<?= $argomento->slug ?>" 
                             >
                                 Servizi
                             </button>
@@ -53,7 +51,6 @@ if ($total_cards <= $card_per_pagina) {
                                 type="button" 
                                 class="btn btn-outline-primary btn-xs mb-2 mb-md-0"
                                 data-post-type="amministrazione"
-                                data-term="<?= $argomento->slug ?>" 
                             >
                                 Unit&agrave; organizzative
                             </button>
@@ -107,10 +104,7 @@ if ($total_cards <= $card_per_pagina) {
                 </div>
             </div>
 
-            <div class="row mx-0" id="tutte-cargorie-card-row" data-slug="<?=$argomento->slug?>">
-
-                <div class="card-wrapper px-0 card-teaser-wrapper card-teaser-wrapper-equal card-teaser-block-3" id="tutti">
-            
+                <div class="card-wrapper px-0 card-teaser-wrapper card-teaser-wrapper-equal card-teaser-block-3">
                     <?php foreach ($card_visibili as $post) {
 
                         switch ($post->post_type) {
@@ -138,23 +132,16 @@ if ($total_cards <= $card_per_pagina) {
 		                }
                     }?>
                 </div>
-            <div>
 
-            <div id="pagination_container">
+            <div class="pagination-container">
                 <?php if ($pagine_card_totali > 1): ?>
-                    <div class="row mt-4" id="card-pagination-container" data-card-corrente="<?=$pagina_card_corrente?>" data-card-totali="<?=$pagine_card_totali?>" data-slug="<?=$argomento->slug?>">
+                    <div class="row mt-4 card-pagination-row" data-card-corrente="<?=$pagina_card_corrente?>" data-card-totali="<?=$pagine_card_totali?>" data-post-type="argomenti-griglia" data-posts-per-page="<?=$card_per_pagina?>">
                         <div class="col-12">
                             <nav>
-                                <ul class="pagination justify-content-center" id="card-pagination">
+                                <ul class="pagination justify-content-center card-pagination-ul">
                                     <?php if ($pagina_card_corrente > 1): ?>
-                                        <li class="page-item" id="prev-page-card">
+                                        <li class="page-item prev-page-card">
                                             <a class="page-link" href="javascript:void(0);" data-page="<?= $pagina_card_corrente - 1 ?>" aria-label="Precedente">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                    <?php else: ?>
-                                        <li class="page-item" id="prev-page-card" style="display: none;">
-                                            <a class="page-link" href="javascript:void(0);" aria-label="Precedente">
                                                 <span aria-hidden="true">&laquo;</span>
                                             </a>
                                         </li>
@@ -166,7 +153,7 @@ if ($total_cards <= $card_per_pagina) {
                                     $endPage = min($pagine_card_totali, $startPage + $maxPages - 1);
 
                                     for ($i = $startPage; $i <= $endPage; $i++): ?>
-                                        <li class="page-item <?= ($i == $pagina_card_corrente) ? 'active' : '' ?>" id="page-card-<?= $i ?>">
+                                        <li class="page-item <?= ($i == $pagina_card_corrente) ? 'active' : '' ?> page-card-<?= $i ?>">
                                             <a class="page-link <?= ($i == $pagina_card_corrente) ? 'border border-primary rounded' : '' ?>" 
                                                href="#" data-page="<?= $i ?>">
                                                <?= $i ?>
@@ -175,14 +162,8 @@ if ($total_cards <= $card_per_pagina) {
                                     <?php endfor; ?>
 
                                     <?php if ($pagina_card_corrente < $pagine_card_totali): ?>
-                                        <li class="page-item" id="next-page-card">
+                                        <li class="page-item next-page-card">
                                             <a class="page-link" href="#" data-page="<?= $pagina_card_corrente + 1 ?>" aria-label="Successivo">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
-                                    <?php else: ?>
-                                        <li class="page-item" id="next-page-card" style="display: none;">
-                                            <a class="page-link" href="#" aria-label="Successivo">
                                                 <span aria-hidden="true">&raquo;</span>
                                             </a>
                                         </li>
@@ -193,6 +174,7 @@ if ($total_cards <= $card_per_pagina) {
                     </div>    
                 <?php endif; ?>
             </div>
+
         </div>
     </div>
 </section>

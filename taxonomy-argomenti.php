@@ -21,7 +21,7 @@ if(!$img) {
 
 get_header();
 ?>
-<main>
+<main data-slug="<?=$argomento->slug?>">
     <div class="it-hero-wrapper it-wrapped-container" id="main-container">
       <?php if ($img) { ?>
       <div class="img-responsive-wrapper">
@@ -97,13 +97,15 @@ get_header();
         if(empty($posts)){
             $showEmptyMessage = true;
         } else {
-            get_template_part("template-parts/argomento/page-detail");
+            $first_printed = false;
             get_template_part("template-parts/argomento/notizie-detail");
             get_template_part("template-parts/argomento/eventi-detail");
+            get_template_part("template-parts/argomento/domande-frequenti");
             get_template_part("template-parts/argomento/amministrazione-detail");
-            get_template_part("template-parts/argomento/servizi-detail");
             get_template_part("template-parts/argomento/documenti-detail");
             get_template_part("template-parts/argomento/luoghi-detail");
+            get_template_part("template-parts/argomento/page-detail");
+            get_template_part("template-parts/argomento/servizi-detail");
             get_template_part("template-parts/argomento/siti-tematici-detail");
         }
     } else {

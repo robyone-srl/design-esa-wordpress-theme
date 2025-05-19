@@ -315,7 +315,7 @@ function load_card_page() {
 	$term = $_POST['term'];
     $post_type = isset($_POST['post_type']) ? $_POST['post_type'] : 'argomenti-griglia';
 	$page_current = isset($_POST['pagina_card']) ? intval($_POST['pagina_card']) : 1;
-
+	$post_per_page = isset($_POST['post_per_page']) ? intval($_POST['post_per_page']) : 9;
     if (isset($term, $post_type, $page_current)) {
 
 		if ($page_current <= 0) {
@@ -325,11 +325,10 @@ function load_card_page() {
 
         $posts = dci_get_grouped_posts_by_term($post_type, 'argomenti', $term, -1);
         $posts_total = count($posts);
-        $page_count = 9;
 
-        if ($posts_total > $page_count) {
-            $offset = ($page_current - 1) * $page_count;
-            $posts = array_slice($posts, $offset, $page_count);
+        if ($posts_total > $post_per_page) {
+            $offset = ($page_current - 1) * $post_per_page;
+            $posts = array_slice($posts, $offset, $post_per_page);
         }
 
         $content = [];
@@ -340,10 +339,10 @@ function load_card_page() {
         if (!empty($content)) {
             wp_send_json_success([
 				'data' => $content,
-				'page_count' => $page_count,
+				'page_count' => $post_per_page,
 				'posts_total' => $posts_total,
 				'offset' => $offset,
-				'total_pages' => ceil($posts_total / $page_count),
+				'total_pages' => ceil($posts_total / $post_per_page),
 				'current_page' => $page_current
 				
 			]);
