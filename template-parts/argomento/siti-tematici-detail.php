@@ -1,5 +1,5 @@
 <?php
-global $argomento, $first_printed;
+global $argomento, $first_printed, $grey_background;
 
 $posts = dci_get_grouped_posts_by_term('siti-tematici', 'argomenti', $argomento->slug, -1);
 
@@ -19,10 +19,10 @@ if ($total_cards <= $card_per_pagina) {
 
     if($posts) {
 ?>
-<section id="tutti" class="pb-5">
-    <div class="pt-40 <?php echo $first_printed ? "pt-lg-80 pb-40" : "pt-md-100 pb-50"; ?>">
+<section id="siti-tematici" class="pb-5">
+    <div class="pt-40 <?php echo $first_printed ? "pt-lg-80 pb-60" : "pt-md-100 pb-40"; ?> <?=$grey_background ? "bg-grey-dsk" : "";?>">
         <div class="container">
-            <div class="border-bottom border-2 border-light">
+            <div class="border-bottom border-2 <?=$grey_background ? "" : "border-light";?>">
                 <div class="row align-items-center pb-2">
                     <h3 class="col-12 col-md-5 title-large-semi-bold pb-0 mb-0">
                     Siti tematici                 
@@ -84,6 +84,11 @@ if ($total_cards <= $card_per_pagina) {
 </section>
 <?php 
     $first_printed = true;
+    if($grey_background == true){
+        $grey_background = false;
+    }else{
+        $grey_background = true;
+    }
 } ?>
 
 

@@ -6,7 +6,7 @@
     if($posts) {
 ?>
 
-<section id="siti-tematici">
+<section id="domande-frequenti">
     <div class="pt-40 <?php echo $first_printed ? "pt-lg-80  pb-40" : "pt-md-100 pb-50"; ?>">
         <div class="container">
             <div class="row row-title">

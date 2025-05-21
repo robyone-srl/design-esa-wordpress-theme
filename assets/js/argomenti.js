@@ -7,67 +7,17 @@ let loadingHtml = `<div id="loading-overlay" class="w-100 h-100 bg-white bg-opac
                     <p class="mt-2">Caricamento...</p>
                 </div>
             </div>`;
+let darkLoadingHtml = `<div id="loading-overlay" class="w-100 h-100 bg-grey-dsk bg-opacity-75 d-flex justify-content-center align-items-center pt-5">
+                <div class="text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Caricamento...</span>
+                    </div>
+                    <p class="mt-2">Caricamento...</p>
+                </div>
+            </div>`;
 
 
 $(document).ready(function () {
-
-    /* NOTIZIE E LINK */
-
-    var currentNotiziePage = parseInt($('#notizie-pagination-container').data('notizia-corrente')); 
-    var totalNotiziePages = parseInt($('#notizie-pagination-container').data('notizie-totali'));
-
-
-    $('#notizie-pagination .page-link').on('click', function (e) {
-        e.preventDefault();
-
-        var page = $(this).data('page');
-        var slugArgomento = $('#notizie-pagination-container').data('slug');
-
-        if ($(this).closest('li').is('#prev-page-notizie')) {
-            page = Math.max(1, currentNotiziePage - 1);
-        } else if ($(this).closest('li').is('#next-page-notizie')) {
-            page = Math.min(totalNotiziePages, currentNotiziePage + 1);
-        } else {
-            page = $(this).data('page');
-        }
-
-        if (page !== currentNotiziePage) {
-            currentNotiziePage = page;
-            loadNotiziePage(page, slugArgomento, maxPages, currentNotiziePage, totalNotiziePages);
-            updateNotiziePagination(maxPages, currentNotiziePage, totalNotiziePages);
-        }
-    });
-
-    updateNotiziePagination(maxPages, currentNotiziePage, totalNotiziePages); 
-
-    var currentEventiPage = $('#pagination-container').data('evento-corrente');
-    var totalEventiPages = $('#pagination-container').data('eventi-totali');
-
-    $('#eventi-pagination .page-link').on('click', function (e) {
-        e.preventDefault();
-
-        var page = $(this).data('page');
-        var slugArgomento = $('#notizie-pagination-container').data('slug');
-
-        if ($(this).parent().hasClass('page-item-prev')) {
-            page = Math.max(1, currentEventiPage - 1);
-        } else if ($(this).parent().hasClass('page-item-next')) {
-            page = Math.min(totalEventiPages, currentEventiPage + 1);
-        } else {
-            page = $(this).data('page');
-        }
-
-        if (page !== currentEventiPage) {
-            currentEventiPage = page;
-            loadEventiPage(page, slugArgomento, maxPages, currentEventiPage, totalEventiPages);
-            updateEventiPagination(maxPages, currentEventiPage, totalEventiPages);
-        }
-    });
-
-    updateEventiPagination(maxPages, currentEventiPage, totalEventiPages);
-
-    /* ALTRI CONTENUTI */
-
 
     $('.pagination-container').on('click', '.page-link', function (e) {
         e.preventDefault();
@@ -151,82 +101,6 @@ $(document).ready(function () {
     });
 });
 
-function updateNotiziePagination(maxPages, currentNotiziePage, totalNotiziePages) {
-    if (currentNotiziePage <= 1) {
-        $('#prev-page-notizie').hide();
-    } else {
-        $('#prev-page-notizie').show();
-    }
-
-    if (currentNotiziePage >= totalNotiziePages) {
-        $('#next-page-notizie').hide();
-    } else {
-        $('#next-page-notizie').show();
-    }
-
-    $('#notizie-pagination .page-item').removeClass('active');
-    $('#notizie-pagination .page-link').removeClass('border border-primary rounded');
-
-    $('#page-notizie-' + currentNotiziePage).addClass('active');
-    $('#page-notizie-' + currentNotiziePage).find('.page-link').addClass('border border-primary rounded');
-
-    var startPage = Math.max(1, currentNotiziePage - Math.floor(maxPages / 2));
-    var endPage = Math.min(totalNotiziePages, startPage + maxPages - 1);
-
-    if (endPage - startPage + 1 < maxPages && startPage > 1) {
-        startPage = Math.max(1, endPage - maxPages + 1);
-    }
-
-    $('#notizie-pagination .page-item').each(function () {
-        var pageNum = parseInt($(this).find('.page-link').data('page'));
-
-        if (pageNum < startPage || pageNum > endPage) {
-            $(this).hide();
-        } else {
-            $(this).show();
-        }
-    });
-
-    if (currentNotiziePage === 1) {
-        $('#prev-page-notizie').hide();
-    }
-
-    if (currentNotiziePage === totalNotiziePages) {
-        $('#next-page-notizie').hide();
-    }
-}
-
-function loadNotiziePage(page, slugArgomento, maxPages, currentNotiziePage, totalNotiziePages) {
-    var container = $('#notizie-row');
-
-    container.html(`<div id="loading-overlay" class="w-100 h-100 bg-white bg-opacity-75 d-flex justify-content-center align-items-center">
-                    <div class="text-center">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Caricamento...</span>
-                        </div>
-                        <p class="mt-2">Caricamento...</p>
-                    </div>
-                </div>`);
-
-    var data = {
-        action: 'load_notizie_page',
-        pagina_notizie: page,
-        slug_argomento: slugArgomento
-    };
-
-    $.ajax({
-        url: myAjax.ajaxurl,
-        method: 'POST',
-        data: data,
-        success: function (response) {
-            if ($.trim(response) !== '') {
-                container.html(response);
-                updateNotiziePagination(maxPages, currentNotiziePage, totalNotiziePages);
-            }
-        }
-    });
-}
-
 function updateCardPagination(container, itemsPerPage, pageCurrent, pagesTotal, postType) {
     pagesTotal = Math.max(pagesTotal, 1);
 
@@ -239,17 +113,17 @@ function updateCardPagination(container, itemsPerPage, pageCurrent, pagesTotal, 
 
     var paginationRow = container.find('.card-pagination-row');
 
-    
+
     if (pagesTotal > 1) {
         var content = [];
-        var paginationUl = container.find('.card-pagination-ul');
-        paginationUl.empty();
+        paginationRow.empty();
 
         paginationRow.data('card-corrente', pageCurrent);
         paginationRow.data('card-totali', pagesTotal);
         paginationRow.data('post-type', postType); 
         paginationRow.data('posts-per-page', itemsPerPage);
 
+        content.push(`<ul class="pagination justify-content-center card-pagination-ul">`);
         if (pageCurrent > 1) {
             content.push(`<li class="page-item prev-page-card">
                 <a class="page-link" href="#" data-page="${pageCurrent - 1}" aria-label="Precedente">
@@ -273,7 +147,8 @@ function updateCardPagination(container, itemsPerPage, pageCurrent, pagesTotal, 
                 </a>
             </li>`);
         }
-        paginationUl.html(content.join(''));
+        content.push(`</ul>`);
+        paginationRow.html(content.join(''));
 
     } else {
         paginationRow.empty();
@@ -285,8 +160,12 @@ function requestPageContent(action, container, page, slugArgomento, postType, it
 
     var cardWrapper = container.find('.card-wrapper');
 
-    cardWrapper.html(loadingHtml);
-
+    if (postType == 'evento') {
+        cardWrapper.html(darkLoadingHtml);
+    } else {
+        cardWrapper.html(loadingHtml);
+    }
+    
     var data = {
         action: action,
         pagina_card: page,
@@ -303,10 +182,20 @@ function requestPageContent(action, container, page, slugArgomento, postType, it
 
             if (response.success) {
                 cardWrapper.empty();
-                response.data.data.forEach(function (post) {
-                    var cardHTML = createCardHTML(post);
-                    cardWrapper.append(cardHTML);
-                });
+
+                if (postType == 'novita' || postType == 'evento') {
+                    console.log('dentro');
+                    var item = response.data;
+                    console.log(response.data.data);
+                    cardWrapper.html(response.data.data);
+                } else {
+                    console.log('fuori');
+                    response.data.data.forEach(function (post) {
+
+                        var cardHTML = createCardHTML(post);
+                        cardWrapper.append(cardHTML);
+                    });
+                }
 
                 pageCurrent = page;
                 var pagesTotal = response.data.total_pages;
@@ -318,81 +207,6 @@ function requestPageContent(action, container, page, slugArgomento, postType, it
     });
 }
 
-function updateEventiPagination(maxPages, currentEventiPage, totalEventiPages) {
-    if (currentEventiPage <= 1) {
-        $('#prev-page').hide();
-    } else {
-        $('#prev-page').show();
-    }
-
-    if (currentEventiPage >= totalEventiPages) {
-        $('#next-page').hide();
-    } else {
-        $('#next-page').show();
-    }
-
-    $('#eventi-pagination .page-item').removeClass('active');
-    $('#eventi-pagination .page-link').removeClass('border border-primary rounded');
-
-    $('#page-' + currentEventiPage).addClass('active');
-    $('#page-' + currentEventiPage).find('.page-link').addClass('border border-primary rounded');
-
-    var startPage = Math.max(1, currentEventiPage - Math.floor(maxPages / 2));
-    var endPage = Math.min(totalEventiPages, startPage + maxPages - 1);
-
-    if (endPage - startPage + 1 < maxPages && startPage > 1) {
-        startPage = Math.max(1, endPage - maxPages + 1);
-    }
-
-    $('#eventi-pagination .page-item').each(function () {
-        var pageNum = parseInt($(this).find('.page-link').data('page'));
-
-        if (pageNum < startPage || pageNum > endPage) {
-            $(this).hide();
-        } else {
-            $(this).show();
-        }
-    });
-
-    if (currentEventiPage === 1) {
-        $('#prev-page').hide();
-    }
-
-    if (currentEventiPage === totalEventiPages) {
-        $('#next-page').hide();
-    }
-}
-
-function loadEventiPage(page, slugArgomento, maxPages, currentEventiPage, totalEventiPages) {
-    var container = $('#eventi-row');
-
-    container.html(`<div id="loading-overlay" class="w-100 h-100 bg-grey-dsk bg-opacity-75 d-flex justify-content-center align-items-center">
-                    <div class="text-center">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Caricamento...</span>
-                        </div>
-                        <p class="mt-2">Caricamento...</p>
-                    </div>
-                </div>`);
-
-    var data = {
-        action: 'load_eventi_page',
-        pagina_eventi: page,
-        slug_argomento: slugArgomento
-    };
-
-    $.ajax({
-        url: myAjax.ajaxurl,
-        method: 'POST',
-        data: data,
-        success: function (response) {
-            if ($.trim(response) !== '') {
-                container.html(response);
-                updateEventiPagination(maxPages, currentEventiPage, totalEventiPages);
-            }
-        }
-    });
-}
 
 function resetButtonHighlighting() {
     $('.filters-list button').removeClass('btn-primary').addClass('btn-outline-primary');

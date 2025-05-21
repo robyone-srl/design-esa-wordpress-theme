@@ -98,6 +98,7 @@ get_header();
             $showEmptyMessage = true;
         } else {
             $first_printed = false;
+            $grey_background = true;
             get_template_part("template-parts/argomento/notizie-detail");
             get_template_part("template-parts/argomento/eventi-detail");
             get_template_part("template-parts/argomento/domande-frequenti");

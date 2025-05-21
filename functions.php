@@ -223,89 +223,73 @@ function dci_scripts()
 }
 add_action('wp_enqueue_scripts', 'dci_scripts');
 
-function load_eventi_page() {
-    if (isset($_POST['slug_argomento'])) {
-        $slug_argomento = sanitize_text_field($_POST['slug_argomento']);
+function load_eventi_page($posts) {
+
+		$page_current = isset($_POST['pagina_card']) ? intval($_POST['pagina_card']) : 1;
+		$post_per_page = isset($_POST['post_per_page']) ? intval($_POST['post_per_page']) : 9;
+        /*
+		$slug_argomento = sanitize_text_field($_POST['slug_argomento']);
 
         $pagina_eventi_corrente = isset($_POST['pagina_eventi']) ? intval($_POST['pagina_eventi']) : 1; 
         $argomento = get_term_by('slug', $slug_argomento, 'argomenti'); 
 
         $eventi = dci_get_posts_by_term_by_date('evento', 'argomenti', $argomento->slug, true);
-        $oggi_timestamp = current_time('timestamp');
+		*/
+		$eventi = [];
+        $oggi_timestamp = time();
 
-        $eventi = array_filter($eventi, function($evento) use ($oggi_timestamp) {
-            $start_timestamp = get_post_meta($evento->ID, '_dci_evento_data_orario_inizio', true);
-            return $start_timestamp >= $oggi_timestamp;
-        });
-
-        usort($eventi, function($a, $b) {
+		usort($posts, function($a, $b) {
             $data_inizio_a = get_post_meta($a->ID, '_dci_evento_data_orario_inizio', true);
             $data_inizio_b = get_post_meta($b->ID, '_dci_evento_data_orario_inizio', true);
             return $data_inizio_a <=> $data_inizio_b;
         });
 
-        $eventi_per_pagina = 3;
+		foreach($posts as $evento){
+			$start_timestamp = get_post_meta($evento->ID, '_dci_evento_data_orario_inizio', true);
+			$end_timestamp = get_post_meta($evento->ID, '_dci_evento_data_orario_fine', true);
+			if($start_timestamp >= $oggi_timestamp || $end_timestamp >= $oggi_timestamp){
+				array_push($eventi, $evento);
+			}
+		}
+
         $total_eventi = count($eventi);
 
-        if ($total_eventi <= $eventi_per_pagina) {
+        if ($total_eventi <= $post_per_page) {
             $eventi_visibili = $eventi;
         } else {
-            $offset_eventi = ($pagina_eventi_corrente - 1) * $eventi_per_pagina;
-            $eventi_visibili = array_slice($eventi, $offset_eventi, $eventi_per_pagina);
+            $offset_eventi = ($page_current - 1) * $post_per_page;
+            $eventi_visibili = array_slice($eventi, $offset_eventi, $post_per_page);
         }
 
         ob_start();
-        if ($eventi_visibili && is_array($eventi_visibili) && count($eventi_visibili) > 0) {
             foreach ($eventi_visibili as $evento) {
                 $post = get_post($evento->ID);
                 $args = ["post" => $post];
                 get_template_part("template-parts/evento/card-full", "", $args);
             }
-        }
         $html = ob_get_clean();
-
-        echo $html;
-        die();  
-    }
+		
+        return [
+			'cards' => $html,
+			'total_events' => $total_eventi
+		];
 }
 
 add_action('wp_ajax_load_eventi_page', 'load_eventi_page');
 add_action('wp_ajax_nopriv_load_eventi_page', 'load_eventi_page');
 
-function load_notizie_page() {
-    if (isset($_POST['slug_argomento'])) {
-        $term = sanitize_text_field($_POST['slug_argomento']);
-        $pagina_notizie_corrente = isset($_POST['pagina_notizie']) ? intval($_POST['pagina_notizie']) : 1;
+function load_notizie_page($posts) {
 
-        $argomento = get_term_by('slug', $slug_argomento, 'argomenti');
+    ob_start();
 
-        $risultato_notizie = dci_get_posts_by_term_by_date('notizia', 'argomenti', $term, true);
+		foreach ($posts as $post) {
+			$scheda = $post;
+			$args = ["scheda" => $scheda];
+			get_template_part("template-parts/home/notizia-evidenza", "", $args);
+		}
+	$html = ob_get_clean();
 
-        $notizie_per_pagina = 3;
-        $total_notizie = count($risultato_notizie);
-
-        if ($total_notizie <= $notizie_per_pagina) {
-            $notizie_visibili = $risultato_notizie;
-        } else {
-            $offset = ($pagina_notizie_corrente - 1) * $notizie_per_pagina;
-            $notizie_visibili = array_slice($risultato_notizie, $offset, $notizie_per_pagina);
-        }
-
-        ob_start();
-        if ($notizie_visibili && is_array($notizie_visibili) && count($notizie_visibili) > 0) {
-			echo'<div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal card-teaser-block-3">';
-				foreach ($notizie_visibili as $notizia) {
-					$scheda = $notizia;
-					$args = ["scheda" => $scheda];
-					get_template_part("template-parts/home/notizia-evidenza", "", $args);
-				}
-			echo'</div>';
-        }
-        $html = ob_get_clean();
-
-        echo $html;
-        die();
-    }
+    return $html;
 }
 
 add_action('wp_ajax_load_notizie_page', 'load_notizie_page');
@@ -326,14 +310,23 @@ function load_card_page() {
         $posts = dci_get_grouped_posts_by_term($post_type, 'argomenti', $term, -1);
         $posts_total = count($posts);
 
-        if ($posts_total > $post_per_page) {
+        if (($posts_total > $post_per_page) && $post_type != 'evento') {
             $offset = ($page_current - 1) * $post_per_page;
             $posts = array_slice($posts, $offset, $post_per_page);
         }
 
         $content = [];
-        if ($posts && is_array($posts) && count($posts) > 0) {
-            $content = get_card_content($posts);
+        if ($posts && is_array($posts) && count($posts) > 0){
+
+			if($post_type == 'novita'){
+				$content = load_notizie_page($posts);
+			}else if($post_type == 'evento'){
+				$response = load_eventi_page($posts);
+				$content = $response['cards'];
+				$posts_total = $response['total_events'];
+			}else{
+				$content = get_card_content($posts);
+			}
         }
 
         if (!empty($content)) {
@@ -344,7 +337,6 @@ function load_card_page() {
 				'offset' => $offset,
 				'total_pages' => ceil($posts_total / $post_per_page),
 				'current_page' => $page_current
-				
 			]);
         } else {
             wp_send_json_error(['message' => 'Nessun risultato']);
@@ -360,7 +352,7 @@ function get_card_content($card_visibili){
 	$content = [];
 	foreach ($card_visibili as $post) {
 					
-		if(($post->post_type != 'notizia') && ($post->post_type != 'evento') && ($post->post_type != 'domanda_frequente')){
+		if($post->post_type != 'domanda_frequente'){
 					
 			$index = 0;
 			$card_title = $post->post_title;
@@ -375,19 +367,6 @@ function get_card_content($card_visibili){
 						<span class="text-decoration-none title-xsmall-bold mb-2 category text-uppercase text-primary">
 						Luogo
 						</span>
-					');
-				break;
-				
-				case 'notizia':
-					$arrdata = dci_get_data_pubblicazione_arr("data_pubblicazione", '_dci_notizia_', $post->ID);
-					$monthName = date_i18n('M', mktime(0, 0, 0, $arrdata[1], 10));
-					$page = get_page_by_path( dci_get_group($post->post_type) );   
-					$tipo = ('
-						<span class="text-decoration-none title-xsmall-bold mb-2 category text-uppercase text-primary">
-						'.$page->post_title.
-						' - '.
-						$arrdata[0].' '.strtoupper($monthName).' '.$arrdata[2].
-						'</span>
 					');
 				break;
 				
@@ -458,10 +437,10 @@ function get_card_content($card_visibili){
 			$tipo = trim($tipo);
 				 
 			$content[] = [
-				'title' => $card_title,
-				'desc' => $descrizione_breve,
-				'head' => $tipo,
-				'link' => $post->guid,
+				'title' => $card_title ?? false,
+				'desc' => $descrizione_breve ?? false,
+				'head' => $tipo ?? false,
+				'link' => $post->guid ?? false,
 				'img' => $img ?? false
 			];
 
