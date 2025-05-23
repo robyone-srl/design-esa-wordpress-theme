@@ -220,6 +220,8 @@ function dci_scripts()
 	";
 	wp_add_inline_script('dci-argomenti', $inline_script);
 	wp_enqueue_script('dci-argomenti_card', get_template_directory_uri() . '/assets/js/argomenti_card.js', array(), false, false);
+	wp_enqueue_script('dci-ordering-results', get_template_directory_uri() . '/assets/js/ordering.js', array(), false, false);
+
 }
 add_action('wp_enqueue_scripts', 'dci_scripts');
 
