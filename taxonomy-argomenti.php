@@ -88,7 +88,21 @@ get_header();
     </div>
     <?php 
 
-    $visualizzazione = dci_get_option('visualizzazione_argomenti','argomenti') ?? 'classic';
+    $view_style = dci_get_term_meta("post_view_arg" ,"dci_term_", $argomento->term_id) ?? 'base';
+
+    switch($view_style){
+        case 'base' :
+            $visualizzazione = dci_get_option('visualizzazione_argomenti','argomenti') ?? 'classic';
+            break;
+            
+        case 'classic' :
+            $visualizzazione = 'classic';
+            break;
+
+        case 'search' :
+        $visualizzazione = 'search';
+    }
+
     $showEmptyMessage = false;
 
     if($visualizzazione == 'classic'){
