@@ -641,6 +641,7 @@ function dci_add_servizi_metaboxes() {
 		'id'        => $prefix . 'classi_icona',
 		'desc'      => __( 'Classe icona', 'design_comuni_italia' ),
 		'type'      => 'text',
+
         'attributes'=>[
             'placeholder' => 'fa-solid fa-shield-halved'
         ]

@@ -211,194 +211,225 @@ function dci_scripts()
 	if (is_singular() && comments_open() && get_option('thread_comments')) {
 		wp_enqueue_script('comment-reply');
 	}
+	wp_enqueue_script('dci-argomenti', get_template_directory_uri() . '/assets/js/argomenti.js', array('jquery'), null, true);
+	$ajax_url = admin_url('admin-ajax.php');
+	$inline_script = "
+		var myAjax = {
+			'ajaxurl': '{$ajax_url}'
+		};
+	";
+	wp_add_inline_script('dci-argomenti', $inline_script);
+	wp_enqueue_script('dci-argomenti_card', get_template_directory_uri() . '/assets/js/argomenti_card.js', array(), false, false);
 }
 add_action('wp_enqueue_scripts', 'dci_scripts');
 
+function load_eventi_page($posts) {
 
-function cambiaRisultato() {
-    $term = $_GET['term'];
-    $post_type = $_GET['post_type'];
+		$page_current = isset($_POST['pagina_card']) ? intval($_POST['pagina_card']) : 1;
+		$post_per_page = isset($_POST['post_per_page']) ? intval($_POST['post_per_page']) : 9;
 
-    
-    $posts = dci_get_grouped_posts_by_term( 
-        $post_type,
-        'argomenti',
-        $term,
-        -1
-    );
+		$eventi = [];
+        $oggi_timestamp = time();
 
-    if ($posts) {
+		usort($posts, function($a, $b) {
+            $data_inizio_a = get_post_meta($a->ID, '_dci_evento_data_orario_inizio', true);
+            $data_inizio_b = get_post_meta($b->ID, '_dci_evento_data_orario_inizio', true);
+            return $data_inizio_a <=> $data_inizio_b;
+        });
 
-        $response_content = ''; 
+		foreach($posts as $evento){
+			$start_timestamp = get_post_meta($evento->ID, '_dci_evento_data_orario_inizio', true);
+			$end_timestamp = get_post_meta($evento->ID, '_dci_evento_data_orario_fine', true);
+			if($start_timestamp >= $oggi_timestamp || $end_timestamp >= $oggi_timestamp){
+				array_push($eventi, $evento);
+			}
+		}
+
+        $total_eventi = count($eventi);
+
+        if ($total_eventi <= $post_per_page) {
+            $eventi_visibili = $eventi;
+        } else {
+            $offset_eventi = ($page_current - 1) * $post_per_page;
+            $eventi_visibili = array_slice($eventi, $offset_eventi, $post_per_page);
+        }
+
+        ob_start();
+            foreach ($eventi_visibili as $evento) {
+                $post = get_post($evento->ID);
+                $args = ["post" => $post];
+                get_template_part("template-parts/evento/card-full", "", $args);
+            }
+        $html = ob_get_clean();
+		
+        return [
+			'cards' => $html,
+			'total_events' => $total_eventi
+		];
+}
+
+add_action('wp_ajax_load_eventi_page', 'load_eventi_page');
+add_action('wp_ajax_nopriv_load_eventi_page', 'load_eventi_page');
+
+function load_notizie_page($posts) {
+
+    ob_start();
 
 		foreach ($posts as $post) {
-			if(($post->post_type != 'notizia') && ($post->post_type != 'evento')){
-				$card_title = $post->post_title;
-				$descrizione_breve = dci_get_meta("descrizione_breve", '', $post->ID);
-				$img = get_the_post_thumbnail_url($post) ?? '';
-				$tipo = '';
+			$scheda = $post;
+			$args = ["scheda" => $scheda];
+			get_template_part("template-parts/home/notizia-evidenza", "", $args);
+		}
+	$html = ob_get_clean();
 
-				switch ($post->post_type) {
-					case 'luogo':
-						$descrizione_breve = dci_get_meta("indirizzo", '', $post->ID);
-						$tipo = ('
-							<span class="text-decoration-none title-xsmall-bold mb-2 category text-uppercase text-primary">
-							Luogo
-							</span>
-						');
-					break;
+    return $html;
+}
+
+add_action('wp_ajax_load_notizie_page', 'load_notizie_page');
+add_action('wp_ajax_nopriv_load_notizie_page', 'load_notizie_page');
+
+function load_card_page() {
+	$term = $_POST['term'];
+    $post_type = isset($_POST['post_type']) ? $_POST['post_type'] : 'argomenti-griglia';
+	$page_current = isset($_POST['pagina_card']) ? intval($_POST['pagina_card']) : 1;
+	$post_per_page = isset($_POST['post_per_page']) ? intval($_POST['post_per_page']) : 9;
+    if (isset($term, $post_type, $page_current)) {
+
+		if ($page_current <= 0) {
+			wp_send_json_error(['message' => 'Pagina non valida']);
+			return;
+		}
+
+        $posts = dci_get_grouped_posts_by_term($post_type, 'argomenti', $term, -1);
+        $posts_total = count($posts);
+
+        if (($posts_total > $post_per_page) && $post_type != 'evento') {
+            $offset = ($page_current - 1) * $post_per_page;
+            $posts = array_slice($posts, $offset, $post_per_page);
+        }
+
+        $content = [];
+        if ($posts && is_array($posts) && count($posts) > 0){
+
+			if($post_type == 'novita'){
+				$content = load_notizie_page($posts);
+			}else if($post_type == 'evento'){
+				$response = load_eventi_page($posts);
+				$content = $response['cards'];
+				$posts_total = $response['total_events'];
+			}else{
+				$content = get_card_content($posts);
+			}
+        }
+
+        if (!empty($content)) {
+            wp_send_json_success([
+				'data' => $content,
+				'page_count' => $post_per_page,
+				'posts_total' => $posts_total,
+				'offset' => $offset,
+				'total_pages' => ceil($posts_total / $post_per_page),
+				'current_page' => $page_current
+			]);
+        } else {
+            wp_send_json_error(['message' => 'Nessun risultato']);
+        }
+    } else {
+        wp_send_json_error(['message' => 'Parametri mancanti']);
+    }
+}
+add_action('wp_ajax_load_card_page', 'load_card_page');
+add_action('wp_ajax_nopriv_load_card_page', 'load_card_page');
+
+function get_card_content($card_visibili){
+	$content = [];
+	foreach ($card_visibili as $post) {
+					
+		if($post->post_type != 'domanda_frequente'){
+					
+			$index = 0;
+			$card_title = $post->post_title;
+			$descrizione_breve = dci_get_meta("descrizione_breve", '', $post->ID);
+			$img = get_the_post_thumbnail_url($post) ?? '';
+			$tipo = '';
+
+			switch ($post->post_type) {
+				case 'luogo':
+					$descrizione_breve = dci_get_meta("indirizzo", '', $post->ID);
+					$tipo = ('
+						<span class="text-decoration-none title-xsmall-bold mb-2 category text-uppercase text-primary">
+						Luogo
+						</span>
+					');
+				break;
 				
-					case 'notizia':
-						$arrdata = dci_get_data_pubblicazione_arr("data_pubblicazione", '_dci_notizia_', $post->ID);
-						$monthName = date_i18n('M', mktime(0, 0, 0, $arrdata[1], 10));
-						$page = get_page_by_path( dci_get_group($post->post_type) );   
-						$tipo = ('
-							<span class="text-decoration-none title-xsmall-bold mb-2 category text-uppercase text-primary">
-							'.$page->post_title.
-							' - '.
-							$arrdata[0].' '.strtoupper($monthName).' '.$arrdata[2].
-							'</span>
-						');
-					break;
-				
-					case 'servizio':
-						$categorie = get_the_terms($post->ID, 'categorie_servizio');
-						if (is_array($categorie) && count($categorie)) {
-							$count = 1;
-							foreach ($categorie as $categoria) {
-								$tipo .= $count == 1 ? '' : ' - ';
-								$tipo .= '<a class="text-decoration-none title-xsmall-bold mb-2 category text-uppercase" href="'.get_term_link($categoria->term_id).'">';
-								$tipo .=  $categoria->name ; 
-								$tipo .= '</a>';
-								++$count;
-							}
+				case 'servizio':
+					$categorie = get_the_terms($post->ID, 'categorie_servizio');
+					if (is_array($categorie) && count($categorie)) {
+						$count = 1;
+						foreach ($categorie as $categoria) {
+							$tipo .= $count == 1 ? '' : ' - ';
+							$tipo .= '<a class="text-decoration-none title-xsmall-bold mb-2 category text-uppercase" href="'.get_term_link($categoria->term_id).'">';
+							$tipo .=  $categoria->name ; 
+							$tipo .= '</a>';
+							++$count;
 						}
-					break;
+					}
+				break;
 				
-					case 'evento':
-						$timestampI = dci_get_evento_next_recurrence_timestamps($post->ID)['_dci_evento_data_orario_inizio'];
-						$timestampF = dci_get_evento_next_recurrence_timestamps($post->ID)['_dci_evento_data_orario_fine'];
-						$arrdataI = explode('-', date_i18n("j-F-Y", $timestampI));
-						$arrdataF = explode('-', date_i18n("j-F-Y", $timestampF));
-						$tipo = ('
-							<span class="text-decoration-none title-xsmall-bold mb-2 category text-uppercase text-primary">'.
-							$arrdataI[0].' '.$arrdataI[1].' '.$arrdataI[2].
-							' - '.
-							$arrdataF[0].' '.$arrdataF[1].' '.$arrdataF[2].
-							'</span>
-						');
-					break;
-				
-					case 'unita_organizzativa':
+				case 'unita_organizzativa':
 					$tipo_organizzazione = get_the_terms($post->ID, 'tipi_unita_organizzativa');
 					$tipo = ('
 						<span class="text-decoration-none title-xsmall-bold mb-2 category text-uppercase text-primary">'.
 						$tipo_organizzazione[0]->name.
 						'</span>
 					');
-					break;
+				break;
 				
-					case 'domanda_frequente':
-					$descrizione_breve = dci_get_meta("risposta", '_dci_domanda_frequente_', $post->ID);
-					$tipo = ('
-						<span class="text-decoration-none title-xsmall-bold mb-2 category text-uppercase text-primary">
-						Domanda frequente
-						</span>
-					');
-					break;
-				
-					case 'sito_tematico':
+				case 'sito_tematico':
 					$post->guid = dci_get_meta("link", '_dci_sito_tematico_', $post->ID);
 					$tipo = ('
 						<span class="text-decoration-none title-xsmall-bold mb-2 category text-uppercase text-primary">
 						Sito tematico
 						</span>
 					');
-					break;
-				
-					case 'documento_pubblico':
+				break;
+
+				case 'documento_pubblico':
 					$tipo = ('
 						<span class="text-decoration-none title-xsmall-bold mb-2 category text-uppercase text-primary">
 						Documento
 						</span>
 					');
-					break;
-					case "page":
+				break;
+				case "page":
 					$descrizione_breve = dci_get_meta('descrizione','_dci_page_',$post->ID);
 					$tipo = ('
 						<span class="text-decoration-none title-xsmall-bold mb-2 category text-uppercase text-primary">
 						Pagina
 						</span>
 					');
-					break;
-					case "procedura":
-					$descrizione_breve = dci_get_meta('descrizione_breve','_dci_procedura_',$post->ID);
-					$tipo = ('
-						<span class="text-decoration-none title-xsmall-bold mb-2 category text-uppercase text-primary">
-						Procedura
-						</span>
-					');
-					break;
-				}
-
-				ob_start(); 
-				if($img){ ?>
-					<div class="card card-teaser card-teaser-image card-flex no-after rounded shadow-sm border border-light mb-0">
-						<div class="card-image-wrapper with-read-more">
-							<div class="content aling-top">
-								<div class="card-header border-0 pb-1">
-									<?php
-									echo $tipo; 
-									?>
-								</div>
-								<div class="card-body ps-3 pb-3">
-									<h4 class="card-title text-paragraph-medium u-grey-light">
-										<a class="text-decoration-none" href="<?= $post->guid ?>" data-element="service-link"><?php echo $post->post_title; ?></a>
-									</h4>
-									<p class="text-paragraph-card u-grey-light m-0"><?php echo $descrizione_breve; ?></p>
-								</div>
-							</div>
-							<div class="card-image card-image-rounded pb-5">            
-								<?php dci_get_img($img); ?>
-							</div>
-						</div>
-					</div>
-				<?php }else{ ?>
-					<div class="card card-teaser card-teaser-image card-flex no-after rounded shadow-sm border border-light mb-0 p-3">
-						<div class="content aling-top">
-							<div class="card-header border-0 pb-1">
-								<?php
-									echo $tipo; 
-								?>
-							</div>
-							<div class="card-body px-3 pb-3">
-								<h4 class="card-title text-paragraph-medium u-grey-light">
-									<a href="<?= $post->guid ?>" class="text-decoration-none"><?= $card_title; ?></a>
-								</h4>
-								<p class="text-paragraph-card u-grey-light m-0"><?php echo $descrizione_breve; ?></p>
-							</div>
-						</div>
-					</div>
-					<?php
-				}
-				$response_content .= ob_get_clean();
+				break;
 			}
+
+			$tipo = preg_replace('/\r|\n|\t/', '', $tipo);
+			$tipo = trim($tipo);
+				 
+			$content[] = [
+				'title' => $card_title ?? false,
+				'desc' => $descrizione_breve ?? false,
+				'head' => $tipo ?? false,
+				'link' => $post->guid ?? false,
+				'img' => $img ?? false
+			];
+
+			$index++;
 		}
-
-		$response_content = stripslashes(trim($response_content));
-
-		wp_send_json_success( array( 'data' => $response_content ) );
-
-    } else {
-        wp_send_json_error( array( 'data' => 'Nessun post trovato per il termine ' . $term ) );
-    }
-
-    wp_die(); 
+	}
+	return $content;
 }
-
-
-add_action('wp_ajax_cambiaRisultato', 'cambiaRisultato');
-add_action('wp_ajax_nopriv_cambiaRisultato', 'cambiaRisultato');
+add_action('wp_ajax_get_card_content', 'get_card_content');
+add_action('wp_ajax_nopriv_get_card_content', 'get_card_content');
 
 function add_menu_link_class($atts, $item, $args)
 {

@@ -136,7 +136,6 @@ function dci_add_unita_organizzativa_metaboxes() {
     $cmb_struttura->add_field( array(
         'id' => $prefix . 'uo_figlia_1',
         'name'    => __( 'Unità organizzativa figlia', 'design_comuni_italia' ),
-        'desc' => __( '.' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => dci_get_uo_figlia(),//dci_get_children_pages_by_path
         'attributes' => array(

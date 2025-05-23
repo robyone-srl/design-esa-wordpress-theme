@@ -26,7 +26,7 @@
                 }
             ?>
             <div class="d-flex justify-content-end">
-                <a href="<?= $url_luoghi ?>" class="btn btn-outline-primary full-mb" aria-label="aria-label" data-element="live-button-locations">
+                <a href="<?= $url_luoghi ?>" class="btn btn-outline-primary full-mb" aria-label="Tutti i luoghi" data-element="live-button-locations">
                     Tutti i luoghi 
                     <svg class="icon icon-primary icon-xs ml-10">
                       <use href="#it-arrow-right"></use>

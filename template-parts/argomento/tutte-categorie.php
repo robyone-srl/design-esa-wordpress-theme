@@ -1,7 +1,22 @@
 <?php
-    global $argomento, $first_printed;
+global $argomento, $first_printed;
 
-    $posts = dci_get_grouped_posts_by_term('argomenti-tutti', 'argomenti', $argomento->name, -1);
+$posts = dci_get_grouped_posts_by_term('argomenti-griglia', 'argomenti', $argomento->slug, -1);
+
+$total_cards = count($posts);
+$card_per_pagina = 9;
+
+if ($total_cards <= $card_per_pagina) {
+    $card_visibili = $posts;
+    $pagine_card_totali = 1; 
+} else {
+    $pagine_card_totali = ceil($total_cards / $card_per_pagina);
+    $pagina_card_corrente = isset($_POST['pagina_card']) ? intval($_POST['pagina_card']) : 1;
+    $pagina_card_corrente = min($pagina_card_corrente, $pagine_card_totali);
+    $offset = ($pagina_card_corrente - 1) * $card_per_pagina;
+    $card_visibili = array_slice($posts, $offset, $card_per_pagina);
+}
+
     if($posts) {
 ?>
 <section id="tutti" class="pb-5">
@@ -19,8 +34,7 @@
                             <button 
                                 type="button" 
                                 class="btn btn-primary btn-xs mb-2 mb-md-0"
-                                data-post-type="argomenti-tutti"
-                                data-term="<?= $argomento->slug ?>" 
+                                data-post-type="argomenti-griglia"
                             >
                                 Tutti
                             </button>
@@ -29,7 +43,6 @@
                                 type="button" 
                                 class="btn btn-outline-primary btn-xs mb-2 mb-md-0"
                                 data-post-type="servizi"
-                                data-term="<?= $argomento->slug ?>" 
                             >
                                 Servizi
                             </button>
@@ -38,7 +51,6 @@
                                 type="button" 
                                 class="btn btn-outline-primary btn-xs mb-2 mb-md-0"
                                 data-post-type="amministrazione"
-                                data-term="<?= $argomento->slug ?>" 
                             >
                                 Unit&agrave; organizzative
                             </button>
@@ -62,11 +74,11 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="moreOptionsModalLabel">Seleziona un'opzione</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
                         </div>
                         <div class="modal-body">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="filterOption" id="optTutti" value="argomenti-tutti">
+                                <input class="form-check-input" type="radio" name="filterOption" id="optTutti" value="argomenti-griglia">
                                 <label class="form-check-label" for="optTutti">Tutti</label>
                             </div>
                             <?php 
@@ -92,42 +104,77 @@
                 </div>
             </div>
 
-            <div class="row mx-0">
+                <div class="card-wrapper px-0 card-teaser-wrapper card-teaser-wrapper-equal card-teaser-block-3">
+                    <?php foreach ($card_visibili as $post) {
 
-            <div class="card-wrapper px-0 card-teaser-wrapper card-teaser-wrapper-equal card-teaser-block-3" id="tutti">
-                    
-            
-                <?php foreach ($posts as $post) {
+                        switch ($post->post_type) {
+		                    case "servizio":
+				                    get_template_part("template-parts/".$post->post_type."/card-search");
+			                    break;
+		                    case "documento_pubblico":
+                                    get_template_part("template-parts/documento/card-search");
+			                    break;
+		                    case "unita_organizzativa":
+                                    get_template_part("template-parts/unita-organizzativa/card-search");
+			                    break;
+                            case "luogo":
+                                    get_template_part("template-parts/".$post->post_type."/card-search");
+			                    break;
+                            case "sito_tematico":
+                                    get_template_part("template-parts/sito-tematico/card-search");
+			                    break;
+                            case "page":
+                                    get_template_part("template-parts/common/card-search");
+			                    break;
+                            case "procedura":
+                                    get_template_part("template-parts/procedura/card-search");
+			                    break;
+		                }
+                    }?>
+                </div>
 
-                    switch ($post->post_type) {
-		                case "servizio":
-				                get_template_part("template-parts/".$post->post_type."/card-search");
-			                break;
-		                case "documento_pubblico":
-                                get_template_part("template-parts/documento/card-search");
-			                break;
-		                case "domanda_frequente":
-                                get_template_part("template-parts/domanda-frequente/card-search");
-			                break;
-		                case "unita_organizzativa":
-                                get_template_part("template-parts/unita-organizzativa/card-search");
-			                break;
-                        case "luogo":
-                                get_template_part("template-parts/".$post->post_type."/card-search");
-			                break;
-                        case "sito_tematico":
-                                get_template_part("template-parts/sito-tematico/card-search");
-			                break;
-                        case "page":
-                                get_template_part("template-parts/common/card-search");
-			                break;
-                        case "procedura":
-                                get_template_part("template-parts/procedura/card-search");
-			                break;
-		            } 
+            <div class="pagination-container">
+                <?php if ($pagine_card_totali > 1): ?>
+                    <div class="row mt-4 card-pagination-row" data-card-corrente="<?=$pagina_card_corrente?>" data-card-totali="<?=$pagine_card_totali?>" data-post-type="argomenti-griglia" data-posts-per-page="<?=$card_per_pagina?>">
+                        <div class="col-12">
+                            <nav>
+                                <ul class="pagination justify-content-center card-pagination-ul">
+                                    <?php if ($pagina_card_corrente > 1): ?>
+                                        <li class="page-item prev-page-card">
+                                            <a class="page-link" href="javascript:void(0);" data-page="<?= $pagina_card_corrente - 1 ?>" aria-label="Precedente">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
 
-                }?>
+                                    <?php 
+                                    $maxPages = 5;
+                                    $startPage = max(1, $pagina_card_corrente - floor($maxPages / 2));
+                                    $endPage = min($pagine_card_totali, $startPage + $maxPages - 1);
+
+                                    for ($i = $startPage; $i <= $endPage; $i++): ?>
+                                        <li class="page-item <?= ($i == $pagina_card_corrente) ? 'active' : '' ?> page-card-<?= $i ?>">
+                                            <a class="page-link <?= ($i == $pagina_card_corrente) ? 'border border-primary rounded' : '' ?>" 
+                                               href="#" data-page="<?= $i ?>">
+                                               <?= $i ?>
+                                            </a>
+                                        </li>
+                                    <?php endfor; ?>
+
+                                    <?php if ($pagina_card_corrente < $pagine_card_totali): ?>
+                                        <li class="page-item next-page-card">
+                                            <a class="page-link" href="#" data-page="<?= $pagina_card_corrente + 1 ?>" aria-label="Successivo">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>    
+                <?php endif; ?>
             </div>
+
         </div>
     </div>
 </section>
@@ -135,83 +182,4 @@
     $first_printed = true;
 } ?>
 
-<script>
-$(document).ready(function() {
-    $('.filters-list').on('click', 'button[data-term]', function() {
-        var btn = $(this);
-
-        resetButtonHighlighting();
-
-        btn.removeClass('btn-outline-primary').addClass('btn-primary');
-        if (btn.data('term')) {
-            var term = btn.data('term');
-            var postType = btn.data('post-type');
-
-            $.ajax({
-                url: '<?php echo admin_url('admin-ajax.php'); ?>',
-                type: 'GET',
-                data: {
-                    action: 'cambiaRisultato',
-                    term: term,
-                    post_type: postType
-                },
-                success: function(response) {
-                    if (response.success) {
-                        var htmlContent = response.data.data;
-                        if (typeof htmlContent === 'string') {
-                            var cleanData = htmlContent.replace(/\\r\\n/g, '').replace(/\\n/g, '').replace(/\\t/g, '').replace(/\\\"/g, '"');
-                            $('#tutti .card-wrapper').html(cleanData);
-                        }
-                    } else {
-                        $('#tutti .card-wrapper').html('<p class="pt-5 d-flex justify-content-center w-100 text-center">Nessun risultato</p>');
-                    }
-                },
-            });
-        }
-    });
-
-    $('#save-selection').on('click', function() {
-        var selectedOption = $('input[name="filterOption"]:checked');
-
-        if (selectedOption.length > 0) {
-            var optionValue = selectedOption.val();
-            var optionLabel = selectedOption.parent().children('label').text();
-
-            $(".filters-list .btn-extra-filter").remove();
-
-            var existentButtons = $('.filters-list button[data-post-type="' + optionValue + '"]');
-
-            if (!existentButtons.length) {
-                var newButtonHtml = `<button type="button" class="btn btn-extra-filter btn-outline-primary btn-xs w-150" 
-                                        data-post-type="${optionValue}" 
-                                        data-term="<?php echo $argomento->slug; ?>">
-                                        ${optionLabel}
-                                      </button>`;
-                $('.filters-list').append(newButtonHtml);
-
-                var newButton = $('.filters-list button[data-post-type="' + optionValue + '"]');
-
-                newButton.trigger('click');
-            } else {
-                existentButtons.removeClass('btn-outline-primary').addClass('btn-primary');
-
-                existentButtons.trigger('click');
-            }
-
-            resetButtonHighlighting();
-
-            $('.filters-list button[data-post-type="' + optionValue + '"]').toggleClass('btn-primary btn-outline-primary');
-
-            var modal = bootstrap.Modal.getInstance($('#moreOptionsModal')[0]);
-            if (modal) {
-                modal.hide();
-            }
-        }
-    });
-
-    function resetButtonHighlighting() {
-        $('.filters-list button').removeClass('btn-primary').addClass('btn-outline-primary');
-    }
-});
-</script>
 

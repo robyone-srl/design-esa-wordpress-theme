@@ -21,7 +21,7 @@ if(!$img) {
 
 get_header();
 ?>
-<main>
+<main data-slug="<?=$argomento->slug?>">
     <div class="it-hero-wrapper it-wrapped-container" id="main-container">
       <?php if ($img) { ?>
       <div class="img-responsive-wrapper">
@@ -88,22 +88,39 @@ get_header();
     </div>
     <?php 
 
-    $visualizzazione = dci_get_option('visualizzazione_argomenti','argomenti') ?? 'classic';
+    $view_style = dci_get_term_meta("post_view_arg" ,"dci_term_", $argomento->term_id) ?? 'base';
+
+    switch($view_style){
+        case 'base' :
+            $visualizzazione = dci_get_option('visualizzazione_argomenti','argomenti') ?? 'classic';
+            break;
+            
+        case 'classic' :
+            $visualizzazione = 'classic';
+            break;
+
+        case 'search' :
+        $visualizzazione = 'search';
+    }
+
     $showEmptyMessage = false;
 
     if($visualizzazione == 'classic'){
-        $posts = dci_get_posts_by_term('any','argomenti', $argomento->name);
+        $posts = dci_get_grouped_posts_by_term('argomenti-griglia','argomenti', $argomento->slug);
         
         if(empty($posts)){
             $showEmptyMessage = true;
         } else {
-            get_template_part("template-parts/argomento/page-detail");
+            $first_printed = false;
+            $grey_background = true;
             get_template_part("template-parts/argomento/notizie-detail");
             get_template_part("template-parts/argomento/eventi-detail");
+            get_template_part("template-parts/argomento/domande-frequenti");
             get_template_part("template-parts/argomento/amministrazione-detail");
-            get_template_part("template-parts/argomento/servizi-detail");
             get_template_part("template-parts/argomento/documenti-detail");
             get_template_part("template-parts/argomento/luoghi-detail");
+            get_template_part("template-parts/argomento/page-detail");
+            get_template_part("template-parts/argomento/servizi-detail");
             get_template_part("template-parts/argomento/siti-tematici-detail");
         }
     } else {
@@ -111,6 +128,7 @@ get_header();
 
         get_template_part("template-parts/argomento/notizie-detail");
         get_template_part("template-parts/argomento/eventi-detail");
+        get_template_part("template-parts/argomento/domande-frequenti");
         get_template_part("template-parts/argomento/tutte-categorie");
 
         if($first_printed == false) 

@@ -9,12 +9,8 @@
       "value": "luoghi"
     },
     "documento": {
-      "name": "Documento",
+      "name": "Documenti",
       "value": "documenti-e-dati"
-    },
-    "domanda": {
-      "name": "Domanda frequente",
-      "value": "domande-frequenti"
     },
     "servizio": {
       "name": "Servizi",

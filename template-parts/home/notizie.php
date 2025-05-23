@@ -56,7 +56,7 @@ $overlapping = "";
 if ($post_id || ($posts && is_array($posts) && count($posts) > 0)) {
 ?>
     <!-- Tag section is opened in home.php -->
-    <div class="section-content">
+    <div class="section-content mb-5">
         <div class="container">
             <?php if ($post_id) {
                 ?> <h2 id="novita-in-evidenza" class="visually-hidden">Novità in evidenza</h2> <?php
@@ -85,10 +85,11 @@ if ($post_id || ($posts && is_array($posts) && count($posts) > 0)) {
                 </div>
                 <div class="d-flex justify-content-start">
                     <a class="btn btn-outline-primary full-mb" href="<?php echo dci_get_template_page_url("page-templates/novita.php"); ?>">
-                        Tutte le novità
-                        <svg class="icon icon-primary icon-xs ml-10">
-                            <use xlink:href="#it-arrow-right"></use>
-                        </svg>
+                       Tutte le novità
+                            <svg class="icon icon-primary icon-xs ml-10">
+                                <use xlink:href="#it-arrow-right"></use>
+                            </svg>
+                       
                     </a>
                 </div>
             <?php } ?>

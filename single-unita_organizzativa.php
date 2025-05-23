@@ -180,13 +180,6 @@ get_header();
                                                                     </a>
                                                                 </li>
                                                             <?php } ?>
-                                                            <?php if ($punti_contatto && is_array($punti_contatto) && count($punti_contatto) > 0) { ?>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#contatti">
-                                                                        <span>Contatti</span>
-                                                                    </a>
-                                                                </li>
-                                                            <?php } ?>
                                                             <?php if ($orario_ricevimento) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#orari">
@@ -194,6 +187,13 @@ get_header();
                                                                     </a>
                                                                 </li>
 															<?php } ?>
+                                                            <?php if ($punti_contatto && is_array($punti_contatto) && count($punti_contatto) > 0) { ?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#contatti">
+                                                                        <span>Contatti</span>
+                                                                    </a>
+                                                                </li>
+                                                            <?php } ?>
                                                             <?php if ($allegati && is_array($allegati) && count($allegati) > 0) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#allegati">
@@ -354,7 +354,14 @@ get_header();
                             </section>
                         <?php  } ?>
 
-
+                        <?php if ($orario_ricevimento) { ?>
+                            <section id="orari" class="it-page-section mb-4">
+                                <h2 class="h3 my-2">Orari e modalità di ricevimento</h2>
+                                <div class="richtext-wrapper lora">
+                                    <?php echo $orario_ricevimento ?>
+                                </div>
+                            </section>
+                        <?php } ?>
                         <?php if ($punti_contatto && is_array($punti_contatto) && count($punti_contatto) > 0) { ?>
                             <section id="contatti" class="it-page-section mb-4">
                                 <h2 class="h3 my-2">Contatti</h2>
@@ -369,14 +376,6 @@ get_header();
                                             </div>  <?php  
                                         }
                                     } ?>
-                                </div>
-                            </section>
-                        <?php } ?>
-                        <?php if ($orario_ricevimento) { ?>
-                            <section id="orari" class="it-page-section mb-4">
-                                <h2 class="h3 my-2">Orari e modalità di ricevimento</h2>
-                                <div class="richtext-wrapper lora">
-                                    <?php echo $orario_ricevimento ?>
                                 </div>
                             </section>
                         <?php } ?>

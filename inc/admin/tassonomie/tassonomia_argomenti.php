@@ -72,6 +72,21 @@ function dci_register_taxonomy_metabox() {
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('unita_organizzativa'),
     ) );
+    $cmb_term->add_field( array(
+        'id' => $prefix . 'post_view_arg',
+        'name'    =>'Visualizzazione contenuti',
+        'desc' => 'Scegli come visualizzare i contenuti dentro la pagina dell\'argomento:</br> 
+                    <b>Globale</b>: considera il valore impostato in <i>Configurazione > Argomenti</i>,</br>
+                    <b>Classica</b>: ogni tipo di contenuto viene visualizzato indipendentemente,</br>
+                    <b>Ricerca</b>: i contenuti vengono ragruppati insieme (escluse notizie, eventi e domande frequenti)</br> con la possibilit&aacute; di filtrare per tipo.',
+        'type'    => 'radio_inline',
+        'options' => [
+            'base' => 'Globale',
+            'classic' => "Classica",
+            'search' => "Ricerca"
+        ],
+        'default' => 'base'
+    ) );
 }
 
 add_action('current_screen', 'dci_current_screen_callback');

@@ -266,7 +266,7 @@ function genera_pagine_figlie($slug_pagina)
                                                                     Collegamento web:
                                                                     <a 
                                                                     target="_blank" 
-                                                                    aria-label="scopri di pi첫 su <?php echo $dati['valore']; ?> - link esterno - apertura nuova scheda" 
+                                                                    aria-label="scopri di più su <?php echo $dati['valore']; ?> - link esterno - apertura nuova scheda" 
                                                                     title="vai sul sito <?php echo $dati['valore']; ?>" 
                                                                     href="<?php echo $dati['valore']; ?>">
                                                                         <?php echo $dati['valore']; ?>
