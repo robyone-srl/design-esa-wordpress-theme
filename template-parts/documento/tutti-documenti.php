@@ -91,11 +91,11 @@ $the_query = new WP_Query($args);
                     </div>
                     <div class="modal-body">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="filterOption" id="opt-data-pubb" value="data-pubb" <?= $order_option ===
-                            "data-pubb"
+                            <input class="form-check-input" type="radio" name="filterOption" id="opt-alphabetical" value="alphabetical" <?= $order_option ===
+                            "alphabetical"
                                 ? "checked"
-                                : "" ?> >
-                            <label class="form-check-label" for="opt-data-pubb">Ordine di pubblicazione decrescente</label>
+                                : "" ?>>
+                            <label class="form-check-label" for="opt-alphabetical">Ordine alfabetico</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="filterOption" id="opt-data-pubb-asc" value="data-pubb-asc" <?= $order_option ===
@@ -105,11 +105,11 @@ $the_query = new WP_Query($args);
                             <label class="form-check-label" for="opt-data-pubb-asc">Ordine di pubblicazione crescente</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="filterOption" id="opt-alphabetical" value="alphabetical" <?= $order_option ===
-                            "alphabetical"
+                            <input class="form-check-input" type="radio" name="filterOption" id="opt-data-pubb" value="data-pubb" <?= $order_option ===
+                            "data-pubb"
                                 ? "checked"
-                                : "" ?>>
-                            <label class="form-check-label" for="opt-alphabetical">Ordine alfabetico</label>
+                                : "" ?> >
+                            <label class="form-check-label" for="opt-data-pubb">Ordine di pubblicazione decrescente</label>
                         </div>
                     </div>
                     <div class="modal-footer">
