@@ -17,6 +17,9 @@ $args = [
 if ($order_option === "data-pubb") {
     $args["orderby"] = "date";
     $args["order"] = "DESC";
+} else if($order_option === "data-pubb-asc"){
+    $args["orderby"] = "date";
+    $args["order"] = "ASC";
 } else {
     $args["orderby"] = "post_title";
     $args["order"] = "ASC";
@@ -54,10 +57,12 @@ $the_query = new WP_Query($args);
             <div class="d-flex align-items-center justify-content-between" data-current-order="<?php echo esc_attr(
                 $order_option
             ); ?>"> 
-                 <p id="autocomplete-label" class="u-grey-light text-paragraph-card mt-4 mb-4 mt-lg-30 mb-lg-30 mb-0 mt-0">
+                 <p id="autocomplete-label" class="u-grey-light text-paragraph-card mt-4 mb-4 mt-lg-30 mb-lg-30 mb-0 mt-0 pe-2">
                     <span class="badge rounded-pill bg-primary"> <?= $the_query->found_posts ?> </span> documenti trovati in <strong id="current-order-text">
                     <?php if ($order_option === "data-pubb") {
-                        echo "ordine di pubblicazione";
+                        echo "ordine di pubblicazione decrescente";
+                    } else if($order_option === "data-pubb-asc") {
+                        echo "ordine di pubblicazione crescente";
                     } else {
                         echo "ordine alfabetico";
                     } ?>
@@ -67,7 +72,10 @@ $the_query = new WP_Query($args);
                 <div class="btn-group">
                     <button type="button" class="btn btn-outline-primary btn-xs" data-bs-toggle="modal" data-bs-target="#OrderModal">
                         <span class="visually-hidden">Apri opzioni di ordinamento</span>
-                        . . .
+                        <use xlink:href="#it-more-actions"></use>
+                        <svg class="icon icon-sm icon-primary align-top">
+                            <use xlink:href="#it-more-actions"></use>
+                        </svg>
                     </button>
                 </div>
             </div>
@@ -87,7 +95,14 @@ $the_query = new WP_Query($args);
                             "data-pubb"
                                 ? "checked"
                                 : "" ?> >
-                            <label class="form-check-label" for="opt-data-pubb">Ordine di pubblicazione</label>
+                            <label class="form-check-label" for="opt-data-pubb">Ordine di pubblicazione decrescente</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="filterOption" id="opt-data-pubb-asc" value="data-pubb-asc" <?= $order_option ===
+                            "data-pubb-asc"
+                                ? "checked"
+                                : "" ?> >
+                            <label class="form-check-label" for="opt-data-pubb-asc">Ordine di pubblicazione crescente</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="filterOption" id="opt-alphabetical" value="alphabetical" <?= $order_option ===
