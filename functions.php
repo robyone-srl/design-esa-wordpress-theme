@@ -227,14 +227,7 @@ function load_eventi_page($posts) {
 
 		$page_current = isset($_POST['pagina_card']) ? intval($_POST['pagina_card']) : 1;
 		$post_per_page = isset($_POST['post_per_page']) ? intval($_POST['post_per_page']) : 9;
-        /*
-		$slug_argomento = sanitize_text_field($_POST['slug_argomento']);
 
-        $pagina_eventi_corrente = isset($_POST['pagina_eventi']) ? intval($_POST['pagina_eventi']) : 1; 
-        $argomento = get_term_by('slug', $slug_argomento, 'argomenti'); 
-
-        $eventi = dci_get_posts_by_term_by_date('evento', 'argomenti', $argomento->slug, true);
-		*/
 		$eventi = [];
         $oggi_timestamp = time();
 
@@ -382,20 +375,6 @@ function get_card_content($card_visibili){
 							++$count;
 						}
 					}
-				break;
-				
-				case 'evento':
-					$timestampI = dci_get_evento_next_recurrence_timestamps($post->ID)['_dci_evento_data_orario_inizio'];
-					$timestampF = dci_get_evento_next_recurrence_timestamps($post->ID)['_dci_evento_data_orario_fine'];
-					$arrdataI = explode('-', date_i18n("j-F-Y", $timestampI));
-					$arrdataF = explode('-', date_i18n("j-F-Y", $timestampF));
-					$tipo = ('
-						<span class="text-decoration-none title-xsmall-bold mb-2 category text-uppercase text-primary">'.
-						$arrdataI[0].' '.$arrdataI[1].' '.$arrdataI[2].
-						' - '.
-						$arrdataF[0].' '.$arrdataF[1].' '.$arrdataF[2].
-						'</span>
-					');
 				break;
 				
 				case 'unita_organizzativa':
