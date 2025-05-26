@@ -6,7 +6,7 @@ $query = isset($_GET["search"]) ? dci_removeslashes($_GET["search"]) : null;
 
 $order_option = isset($_GET["order_by"])
     ? sanitize_text_field($_GET["order_by"])
-    : "alphabetical";
+    : "alphabetical_asc";
 
 $args = [
     "s" => $query,
@@ -17,17 +17,19 @@ $args = [
 if ($order_option === "data-pubb") {
     $args["orderby"] = "date";
     $args["order"] = "DESC";
-} else if($order_option === "data-pubb-asc"){
+} else if ($order_option === "data-pubb-asc") {
     $args["orderby"] = "date";
     $args["order"] = "ASC";
-} else {
+} else if ($order_option === "alphabetical_desc") {
+    $args["orderby"] = "post_title";
+    $args["order"] = "DESC";
+} else { 
     $args["orderby"] = "post_title";
     $args["order"] = "ASC";
 }
 
 $the_query = new WP_Query($args);
 ?>
-
 
 <div class="bg-grey-card py-5">
   <form role="search" id="search-form" method="get" class="search-form" action="#search-form">
@@ -41,9 +43,7 @@ $the_query = new WP_Query($args);
             <div class="input-group">
               <label for="autocomplete-two" class="visually-hidden">Cerca</label>
               <input type="search" class="autocomplete form-control" placeholder="Cerca per parola chiave"
-                id="autocomplete-two" name="search" value="<?php echo esc_attr(
-                    $query
-                ); ?>" data-bs-autocomplete="[]" />
+                id="autocomplete-two" name="search" value="<?php echo esc_attr($query); ?>" data-bs-autocomplete="[]" />
               <div class="input-group-append">
                 <button class="btn btn-primary" type="submit" id="button-3">
                   Invio
@@ -54,26 +54,31 @@ $the_query = new WP_Query($args);
                   <use href="#it-search"></use>
                 </svg></span>
             </div>
-            <div class="d-flex align-items-center justify-content-between" data-current-order="<?php echo esc_attr(
-                $order_option
-            ); ?>"> 
-                 <p id="autocomplete-label" class="u-grey-light text-paragraph-card mt-4 mb-4 mt-lg-30 mb-lg-30 mb-0 mt-0 pe-2">
+            
+            <input type="hidden" name="order_by" id="hidden-order-by" value="<?php echo esc_attr($order_option); ?>">
+
+            <div class="d-flex align-items-center justify-content-between" data-current-order="<?php echo esc_attr($order_option); ?>">
+                <p id="autocomplete-label" class="u-grey-light text-paragraph-card mt-4 mb-4 mt-lg-30 mb-lg-30 mb-0 mt-0 pe-2">
                     <span class="badge rounded-pill bg-primary"> <?= $the_query->found_posts ?> </span> documenti trovati in <strong id="current-order-text">
-                    <?php if ($order_option === "data-pubb") {
-                        echo "ordine di pubblicazione decrescente";
-                    } else if($order_option === "data-pubb-asc") {
-                        echo "ordine di pubblicazione crescente";
-                    } else {
-                        echo "ordine alfabetico";
-                    } ?>
+                    <?php
+                        if ($order_option === "data-pubb") {
+                            echo "ordine di pubblicazione decrescente";
+                        } else if ($order_option === "data-pubb-asc") {
+                            echo "ordine di pubblicazione crescente";
+                        } else if ($order_option === "alphabetical_desc") {
+                            echo "ordine alfabetico inverso (Z-A)";
+                        } else { 
+                            echo "ordine alfabetico (A-Z)";
+                        }
+                    ?>
                     </strong>
                 </p>
 
                 <div class="btn-group">
-                    <button type="button" class="btn btn-outline-primary btn-xs" data-bs-toggle="modal" data-bs-target="#OrderModal">
+                    <button type="button" class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#OrderModal">
                         <span class="visually-hidden">Apri opzioni di ordinamento</span>
                         <use xlink:href="#it-more-actions"></use>
-                        <svg class="icon icon-sm icon-primary align-top">
+                        <svg class="icon icon-sm icon-white align-top">
                             <use xlink:href="#it-more-actions"></use>
                         </svg>
                     </button>
@@ -91,24 +96,19 @@ $the_query = new WP_Query($args);
                     </div>
                     <div class="modal-body">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="filterOption" id="opt-alphabetical" value="alphabetical" <?= $order_option ===
-                            "alphabetical"
-                                ? "checked"
-                                : "" ?>>
-                            <label class="form-check-label" for="opt-alphabetical">Ordine alfabetico</label>
+                            <input class="form-check-input" type="radio" name="filterOption" id="opt-alphabetical_asc" value="alphabetical_asc" <?= $order_option === "alphabetical_asc" ? "checked" : "" ?>>
+                            <label class="form-check-label" for="opt-alphabetical_asc">Ordine alfabetico (A-Z)</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="filterOption" id="opt-data-pubb-asc" value="data-pubb-asc" <?= $order_option ===
-                            "data-pubb-asc"
-                                ? "checked"
-                                : "" ?> >
+                            <input class="form-check-input" type="radio" name="filterOption" id="opt-alphabetical_desc" value="alphabetical_desc" <?= $order_option === "alphabetical_desc" ? "checked" : "" ?>>
+                            <label class="form-check-label" for="opt-alphabetical_desc">Ordine alfabetico inverso (Z-A)</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="filterOption" id="opt-data-pubb-asc" value="data-pubb-asc" <?= $order_option === "data-pubb-asc" ? "checked" : "" ?> >
                             <label class="form-check-label" for="opt-data-pubb-asc">Ordine di pubblicazione crescente</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="filterOption" id="opt-data-pubb" value="data-pubb" <?= $order_option ===
-                            "data-pubb"
-                                ? "checked"
-                                : "" ?> >
+                            <input class="form-check-input" type="radio" name="filterOption" id="opt-data-pubb" value="data-pubb" <?= $order_option === "data-pubb" ? "checked" : "" ?> >
                             <label class="form-check-label" for="opt-data-pubb">Ordine di pubblicazione decrescente</label>
                         </div>
                     </div>
