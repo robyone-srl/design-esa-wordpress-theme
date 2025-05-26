@@ -75,7 +75,7 @@ $the_query = new WP_Query($args);
                 </p>
 
                 <div class="btn-group">
-                    <button type="button" class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#OrderModal">
+                    <button type="button" title="Apri opzioni di ordinamento" class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#OrderModal">
                         <span class="visually-hidden">Apri opzioni di ordinamento</span>
                         <use xlink:href="#it-more-actions"></use>
                         <svg class="icon icon-sm icon-white align-top">
@@ -114,7 +114,7 @@ $the_query = new WP_Query($args);
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Chiudi</button>
-                        <button type="button" class="btn btn-primary" id="save-selection" disabled>Salva</button>
+                        <button type="submit" class="btn btn-primary" id="save-selection" disabled>Salva</button>
                     </div>
                 </div>
             </div>

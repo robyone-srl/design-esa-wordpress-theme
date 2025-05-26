@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const orderModalElement = document.getElementById('OrderModal');
 
     if (!saveButton || !orderModalElement) {
-        console.warn("Elementi per la gestione dell'ordinamento non trovati.");
         return;
     }
 
@@ -58,18 +57,6 @@ document.addEventListener('DOMContentLoaded', function () {
             orderModalInstance.hide();
 
             document.body.insertAdjacentHTML('beforeend', loadingHtml);
-
-            setTimeout(() => {
-                const searchForm = document.getElementById('search-form');
-                if (searchForm) {
-                    searchForm.submit();
-                } else {
-                    console.error("Form di ricerca non trovato, impossibile sottomere.");
-                    const currentUrl = new URL(window.location.href);
-                    currentUrl.searchParams.set('order_by', orderValue);
-                    window.location.href = currentUrl.toString();
-                }
-            }, 150);
         }
     });
 });
