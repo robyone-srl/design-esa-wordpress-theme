@@ -581,92 +581,211 @@ remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
 
 
 /**
- * Registra l'hook per accodare lo script JavaScript necessario.
- * Questa funzione viene agganciata a 'cmb2_admin_init'.
- * NOTA: Questa funzione ora si occupa SOLO di accodare lo script.
+ * Aggiunge una pagina di menu "Utilities" in WordPress Admin.
  */
-add_action( 'cmb2_admin_init', 'dci_enqueue_migration_script_for_button' );
-
-function dci_enqueue_migration_script_for_button() {
-    // Aggiunge l'azione per accodare gli script JavaScript necessari nelle pagine di amministrazione.
-    add_action( 'admin_enqueue_scripts', 'dci_enqueue_migration_assets_updated' );
+add_action( 'admin_menu', 'dci_add_utilities_admin_page' );
+function dci_add_utilities_admin_page() {
+    add_menu_page(
+       'Utilities',
+       'Utilities', 
+       'manage_options',
+       'dci_data_migration_utilities',  
+       'dci_render_utilities_page_content', 
+       'dashicons-admin-tools',
+       80
+    );
 }
 
 /**
- * Funzione di callback per CMB2 per renderizzare il pulsante di migrazione dopo un campo.
- *
- * @param array    $field_args Argomenti del campo CMB2.
- * @param CMB2_Field $field      Oggetto del campo CMB2.
+ * Renderizza il contenuto per la pagina di Utilities.
  */
-function dci_render_migration_button_for_cmb2( $field_args, $field ) {
-    // L'ID del campo corrente (il campo multiselect a cui stiamo aggiungendo il pulsante)
-    $multi_select_field_id = $field_args['id'];
-    $post_id = $field->object_id; // Ottiene l'ID del post corrente
-
-    // Deriviamo l'ID del campo sorgente (selezione singola)
-    $base_id_part = '';
-    $target_suffix = 'unita_organizzative'; // Il suffisso dell'ID del campo corrente (multiselect)
-    $source_suffix = 'unita_organizzativa';   // Il suffisso dell'ID del campo sorgente (select)
-
-    if ( substr( $multi_select_field_id, -strlen( $target_suffix ) ) === $target_suffix ) {
-        $base_id_part = substr( $multi_select_field_id, 0, -strlen( $target_suffix ) );
-    } else {
-        // Fallback se il prefisso non può essere derivato facilmente.
-        // Potrebbe essere necessario un approccio più robusto se i prefissi variano molto.
-        // Per ora, assumiamo che il $field->cmb->prefix() possa dare una mano,
-        // o che il formato dell'ID sia consistente.
-        // Se il $field->cmb object e il suo prefix() method sono disponibili:
-        // $prefix = $field->cmb->prefix();
-        // $single_select_field_id = $prefix . $source_suffix;
-        // Tuttavia, la derivazione basata sul suffisso è generalmente più affidabile se gli ID sono coerenti.
-    }
-    $single_select_field_id = $base_id_part . $source_suffix; // Questo è il meta_key del vecchio campo
-
-    // Legge il valore del campo sorgente direttamente dai post meta
-    $source_value_from_meta = '';
-    if ($post_id && $single_select_field_id) {
-        $source_value_from_meta = get_post_meta( $post_id, $single_select_field_id, true );
-    }
-
-    // Output dell'HTML per il pulsante e il contenitore dei messaggi
+function dci_render_utilities_page_content() {
     ?>
-    <div style="margin-top: 15px; padding: 12px; border: 1px solid #ccd0d4; border-left-width: 4px; border-left-color: #007cba; background-color: #f6f7f7; border-radius: 4px;">
-        <button type="button" class="button dci-migrate-button"
-                data-source-field-id="<?php echo esc_attr( $single_select_field_id ); ?>"
-                data-target-field-id="<?php echo esc_attr( $multi_select_field_id ); ?>"
-                data-source-value-from-meta="<?php echo esc_attr( $source_value_from_meta ); // Aggiunto valore da meta ?>">
-            <span class="dashicons dashicons-migrate" style="vertical-align: middle; margin-right: 5px;"></span>
-            Trasferisci da '<?php echo esc_html( basename( $single_select_field_id ) ); ?>' a '<?php echo esc_html( basename( $multi_select_field_id ) ); ?>'
-        </button>
-        <p class="cmb2-metabox-description" style="margin-top: 8px; font-size: 0.9em;">
-            Clicca questo pulsante per copiare il valore salvato per il campo obsoleto
-            (<code><?php echo esc_html($single_select_field_id); ?></code>, valore attuale: <strong><?php echo esc_html( $source_value_from_meta ? $source_value_from_meta : 'Nessuno o non trovato' ); ?></strong>)
-            in questo campo a selezione multipla (<code><?php echo esc_html($multi_select_field_id); ?></code>).<br>
-            <strong>Importante:</strong> Dopo aver trasferito il valore, ricorda di <strong>Salvare</strong> o <strong>Aggiornare</strong> il post per rendere effettive le modifiche.
-        </p>
-        <div class="dci-migration-message" style="margin-top: 10px; padding: 10px; border-radius: 3px; display: none; border-width: 1px; border-style: solid;"></div>
+    <div class="wrap">
+        <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+        <p><?='Utilizza questa pagina per eseguire operazioni di migrazione dati su tutti i post.'?></p>
+
+        <div id="dci-migration-controls">
+            <h2><?='Migrazione Unità Organizzativa'?></h2>
+            <p>
+                <?='Questa operazione cercherà in tutti i post il vecchio campo "Unità Organizzativa" (singolo) e trasferirà il suo valore al nuovo campo "Unità Organizzative" (multiplo), se non già presente.'?>
+            </p>
+            <p>
+                <strong><?='Attenzione:'?></strong> <?='Questa operazione potrebbe richiedere del tempo su siti con molti post. Si consiglia di eseguire un backup del database prima di procedere.'?>
+            </p>
+
+            <button id="dci-start-bulk-migration-button" class="button button-primary">
+                <?='Avvia Migrazione Massiva Unità Organizzative'?>
+            </button>
+            <span id="dci-bulk-migration-spinner" class="spinner" style="float: none; visibility: hidden; margin-left: 5px;"></span>
+        </div>
+
+        <div id="dci-migration-feedback" style="margin-top: 20px; padding: 15px; border: 1px solid #ccd0d4; background-color: #f6f7f7; display: none;">
+            <h3><?='Risultati Migrazione:'?></h3>
+            <div id="dci-migration-results-content"></div>
+        </div>
     </div>
     <?php
 }
 
 /**
- * Accoda lo script JavaScript esterno per la logica del pulsante di migrazione.
- * (Questa funzione rimane sostanzialmente la stessa della versione precedente,
- * ma le ho dato un nome leggermente diverso per chiarezza nel contesto di questo snippet)
- *
- * @param string $hook_suffix Il suffisso della pagina di amministrazione corrente.
+ * Accoda lo script JavaScript per la pagina di utilities.
  */
-function dci_enqueue_migration_assets_updated( $hook_suffix ) {
-    // Esegui lo script solo nelle pagine di modifica ('post.php') o creazione ('post-new.php') dei post.
-    // Potresti voler restringere ulteriormente al/ai post_type specifico/i dove usi questo metabox.
-    if ( 'post.php' === $hook_suffix || 'post-new.php' === $hook_suffix ) {
-        
-        wp_enqueue_script(
-            'dci-uo-migration-script', 
-            get_template_directory_uri() . '/assets/js/uo_migration.js', 
-            array( 'jquery' ),      
-            false,                
-            true                    
-        );
+add_action( 'admin_enqueue_scripts', 'dci_enqueue_utilities_page_scripts' );
+function dci_enqueue_utilities_page_scripts( $hook_suffix ) {
+    // Accoda lo script solo per la nostra pagina di utilities
+    if ( 'toplevel_page_dci_data_migration_utilities' !== $hook_suffix ) {
+        return;
+    }
+
+    // Assumendo che lo script si trovi in 'inc/admin-js/uo_bulk_migration.js' del tuo tema
+    // Modifica il percorso se necessario.
+    $script_path = get_template_directory_uri() . '/assets/js/uo_bulk_migration.js';
+    $script_version = '1.0.1'; // Cambia per invalidare la cache
+
+    wp_enqueue_script(
+        'dci-bulk-migration-script',
+        $script_path,
+        array( 'jquery' ),
+        $script_version,
+        true
+    );
+
+    // Passa dati allo script, come il nonce per AJAX e l'action hook
+    wp_localize_script(
+        'dci-bulk-migration-script',
+        'dci_bulk_migration_params',
+        array(
+            'ajax_url'      => admin_url( 'admin-ajax.php' ),
+            'nonce'         => wp_create_nonce( 'dci_bulk_migration_nonce' ),
+            'action'        => 'dci_perform_bulk_migration',
+            'text_processing' => 'Elaborazione in corso...',
+            'text_error'    => 'Si è verificato un errore. Controlla la console del browser per i dettagli.',
+        )
+    );
+}
+
+/**
+ * Gestore AJAX per l'operazione di migrazione massiva.
+ */
+add_action( 'wp_ajax_dci_perform_bulk_migration', 'dci_ajax_perform_bulk_migration_handler' );
+function dci_ajax_perform_bulk_migration_handler() {
+    // Verifica Nonce e permessi utente
+    check_ajax_referer( 'dci_bulk_migration_nonce', 'nonce' );
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_send_json_error( 'Non hai i permessi per eseguire questa operazione.', 403 );
+        return;
+    }
+
+    // *** IMPORTANTE: Definisci qui il prefisso corretto per i tuoi campi meta ***
+    // Questo prefisso deve corrispondere a quello usato quando hai definito i campi in CMB2.
+    // Esempio: se l'ID del campo era $prefix . 'unita_organizzativa', e $prefix era '_mytheme_',
+    // allora il meta_key sarà '_mytheme_unita_organizzativa'.
+    $meta_prefix = '_dci_incarico_'; // MODIFICA QUESTO PREFISSO!
+
+    $old_meta_key = $meta_prefix . 'unita_organizzativa';
+    $new_meta_key = $meta_prefix . 'unita_organizzative';
+
+    // Post type da processare. Modifica se necessario (es. 'page', 'tuo_custom_post_type')
+    // Per processare più post type: array('post', 'page')
+    $post_types_to_process = array('incarico'); // MODIFICA QUESTO ARRAY DI POST TYPE!
+
+    $args = array(
+        'post_type'      => $post_types_to_process,
+        'posts_per_page' => -1, // Processa tutti i post corrispondenti
+        'post_status'    => 'any', // Considera tutti gli stati dei post
+        'meta_query'     => array(
+            array(
+                'key'     => $old_meta_key,
+                'compare' => 'EXISTS', // Processa solo i post che hanno il vecchio meta key
+            ),
+        ),
+        'fields'         => 'ids', // Ottieni solo gli ID per efficienza
+    );
+
+    $post_ids = get_posts( $args );
+
+    $processed_count = 0;
+    $updated_count = 0;
+    $already_migrated_count = 0;
+    $no_value_old_field_count = 0;
+    $errors = array();
+
+    if ( empty( $post_ids ) ) {
+        wp_send_json_success( array(
+            'message' => 'Nessun post trovato con il vecchio campo meta da migrare.',
+            'stats'   => array(
+                'processed' => $processed_count,
+                'updated'   => $updated_count,
+                'already_migrated' => $already_migrated_count,
+                'no_value_old_field' => $no_value_old_field_count,
+            )
+        ) );
+        return;
+    }
+
+    foreach ( $post_ids as $post_id ) {
+        $processed_count++;
+        $old_value = get_post_meta( $post_id, $old_meta_key, true );
+
+        if ( empty( $old_value ) ) {
+            // Il meta key esiste ma il valore è vuoto
+            $no_value_old_field_count++;
+            continue;
+        }
+
+        $new_values_array = get_post_meta( $post_id, $new_meta_key, true );
+        if ( ! is_array( $new_values_array ) ) {
+            $new_values_array = array();
+        }
+
+        // Rimuovi eventuali valori vuoti dall'array esistente
+        $new_values_array = array_filter( $new_values_array, function($value) {
+            return !empty($value);
+        });
+
+        if ( ! in_array( $old_value, $new_values_array ) ) {
+            $new_values_array[] = $old_value;
+            $update_result = update_post_meta( $post_id, $new_meta_key, $new_values_array );
+            if ( false === $update_result ) {
+                $errors[] = sprintf( 'Errore durante l\'aggiornamento del post ID %d.', $post_id );
+            } else {
+                $updated_count++;
+            }
+        } else {
+            $already_migrated_count++;
+        }
+    }
+
+    $response_message = sprintf(
+        'Migrazione completata. Post processati: %d. Post aggiornati: %d. Valori già migrati/presenti: %d. Vecchio campo vuoto (ma esistente): %d.',
+        $processed_count,
+        $updated_count,
+        $already_migrated_count,
+        $no_value_old_field_count
+    );
+
+    if ( ! empty( $errors ) ) {
+        $response_message .= "\n" . 'Si sono verificati alcuni errori:' . "\n" . implode( "\n", $errors );
+        wp_send_json_error( array(
+            'message' => $response_message,
+            'stats'   => array(
+                'processed' => $processed_count,
+                'updated'   => $updated_count,
+                'already_migrated' => $already_migrated_count,
+                'no_value_old_field' => $no_value_old_field_count,
+                'errors'    => count($errors)
+            )
+        ) );
+    } else {
+        wp_send_json_success( array(
+            'message' => $response_message,
+            'stats'   => array(
+                'processed' => $processed_count,
+                'updated'   => $updated_count,
+                'already_migrated' => $already_migrated_count,
+                'no_value_old_field' => $no_value_old_field_count,
+            )
+        ) );
     }
 }

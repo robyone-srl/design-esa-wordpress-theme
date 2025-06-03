@@ -108,17 +108,16 @@ function dci_add_incarico_metaboxes()
 			"" => __( 'Non è di responsabilità', 'design_comuni_italia' ),
 		),
 	) );
-    
+
     $cmb_dati->add_field( array(
         'id' => $prefix . 'unita_organizzative',
         'name'    => 'Unità organizzative',
-        'desc' => 'Le unità organizzative alla quale si riferisce l\'incarico.' ,
+        'desc' => 'Le unità organizzative alla quali si riferisce l\'incarico.' ,
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('unita_organizzativa'),
         'attributes'    => array(
             'placeholder' =>  __( 'Seleziona una Unità Organizzative', 'design_comuni_italia' ),
         ),
-        'after_field'   => 'dci_render_migration_button_for_cmb2', 
     ) );
 
     

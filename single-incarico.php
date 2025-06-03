@@ -40,8 +40,6 @@ get_header();
 
             $unita_organizzativa = dci_get_meta('unita_organizzative', $prefix, $post->ID);
 
-            var_dump($unita_organizzativa);
-
             $url_trasparenza = dci_get_meta("url_trasparenza", $prefix, $post->ID);
 
             $persona = dci_get_meta('persona', $prefix, $post->ID);
