@@ -38,13 +38,11 @@ get_header();
 
             $atto_nomina = dci_get_meta("atto_nomina", $prefix, $post->ID);
 
-            $unita_organizzativa = dci_get_meta('unita_organizzativa', $prefix, $post->ID);
+            $unita_organizzativa = dci_get_meta('unita_organizzative', $prefix, $post->ID);
+
+            var_dump($unita_organizzativa);
 
             $url_trasparenza = dci_get_meta("url_trasparenza", $prefix, $post->ID);
-
-            if($unita_organizzativa != "") {
-                $unita_organizzativa = get_post($unita_organizzativa);
-            }
 
             $persona = dci_get_meta('persona', $prefix, $post->ID);
 
@@ -257,13 +255,15 @@ get_header();
                             <?php if ($unita_organizzativa) {?>
                                 <section id="unita_organizzativa" class="it-page-section mb-4">
                                     <h2 class="h3 my-2">Unità organizzativa</h2>
+                                        <?php foreach($unita_organizzativa as $uo){ ?>
                                             <div class="card-wrapper card-teaser-wrapper">
                                                 <?php
-                                                    $uo_id = $unita_organizzativa;
+                                                    $uo_id = get_post($uo);
                                                     $with_border = true;
                                                     get_template_part("template-parts/unita-organizzativa/card");
                                                 ?>
                                             </div>
+                                            <?php } ?>
                                 </section>
                             <?php }?>
 

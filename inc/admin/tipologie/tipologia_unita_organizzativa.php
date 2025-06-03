@@ -133,16 +133,20 @@ function dci_add_unita_organizzativa_metaboxes() {
             'placeholder' =>  __( 'Seleziona le Unità Organizzative', 'design_comuni_italia' ),
         )
     ) );
+
+    $uo_figlie = dci_get_children_pages_by_path('amministrazione',true, null, 'menu_order');
+    $arr_uo_figlie = array_keys((array)$uo_figlie);
     $cmb_struttura->add_field( array(
         'id' => $prefix . 'uo_figlia_1',
         'name'    => __( 'Unità organizzativa figlia', 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
-        'options' => dci_get_uo_figlia(),//dci_get_children_pages_by_path
+        'options' => $arr_uo_figlie,
         'attributes' => array(
             'placeholder' =>  __( 'Seleziona gli incarichi', 'design_comuni_italia' ),
         )
     ) );
 
+    //var_dump(dci_get_children_pages_by_path('unita_organizzativa',true, null, 'menu_order'));
     $cmb_struttura->add_field( array(
         'id' => $prefix . 'tipo_organizzazione',
         'name'        => __( 'Tipo di organizzazione *', 'design_comuni_italia' ),

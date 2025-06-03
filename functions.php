@@ -578,3 +578,95 @@ function set_views($post_ID) {
 
 //keeps the count accurate by removing prefetching
 remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
+
+
+/**
+ * Registra l'hook per accodare lo script JavaScript necessario.
+ * Questa funzione viene agganciata a 'cmb2_admin_init'.
+ * NOTA: Questa funzione ora si occupa SOLO di accodare lo script.
+ */
+add_action( 'cmb2_admin_init', 'dci_enqueue_migration_script_for_button' );
+
+function dci_enqueue_migration_script_for_button() {
+    // Aggiunge l'azione per accodare gli script JavaScript necessari nelle pagine di amministrazione.
+    add_action( 'admin_enqueue_scripts', 'dci_enqueue_migration_assets_updated' );
+}
+
+/**
+ * Funzione di callback per CMB2 per renderizzare il pulsante di migrazione dopo un campo.
+ *
+ * @param array    $field_args Argomenti del campo CMB2.
+ * @param CMB2_Field $field      Oggetto del campo CMB2.
+ */
+function dci_render_migration_button_for_cmb2( $field_args, $field ) {
+    // L'ID del campo corrente (il campo multiselect a cui stiamo aggiungendo il pulsante)
+    $multi_select_field_id = $field_args['id'];
+    $post_id = $field->object_id; // Ottiene l'ID del post corrente
+
+    // Deriviamo l'ID del campo sorgente (selezione singola)
+    $base_id_part = '';
+    $target_suffix = 'unita_organizzative'; // Il suffisso dell'ID del campo corrente (multiselect)
+    $source_suffix = 'unita_organizzativa';   // Il suffisso dell'ID del campo sorgente (select)
+
+    if ( substr( $multi_select_field_id, -strlen( $target_suffix ) ) === $target_suffix ) {
+        $base_id_part = substr( $multi_select_field_id, 0, -strlen( $target_suffix ) );
+    } else {
+        // Fallback se il prefisso non può essere derivato facilmente.
+        // Potrebbe essere necessario un approccio più robusto se i prefissi variano molto.
+        // Per ora, assumiamo che il $field->cmb->prefix() possa dare una mano,
+        // o che il formato dell'ID sia consistente.
+        // Se il $field->cmb object e il suo prefix() method sono disponibili:
+        // $prefix = $field->cmb->prefix();
+        // $single_select_field_id = $prefix . $source_suffix;
+        // Tuttavia, la derivazione basata sul suffisso è generalmente più affidabile se gli ID sono coerenti.
+    }
+    $single_select_field_id = $base_id_part . $source_suffix; // Questo è il meta_key del vecchio campo
+
+    // Legge il valore del campo sorgente direttamente dai post meta
+    $source_value_from_meta = '';
+    if ($post_id && $single_select_field_id) {
+        $source_value_from_meta = get_post_meta( $post_id, $single_select_field_id, true );
+    }
+
+    // Output dell'HTML per il pulsante e il contenitore dei messaggi
+    ?>
+    <div style="margin-top: 15px; padding: 12px; border: 1px solid #ccd0d4; border-left-width: 4px; border-left-color: #007cba; background-color: #f6f7f7; border-radius: 4px;">
+        <button type="button" class="button dci-migrate-button"
+                data-source-field-id="<?php echo esc_attr( $single_select_field_id ); ?>"
+                data-target-field-id="<?php echo esc_attr( $multi_select_field_id ); ?>"
+                data-source-value-from-meta="<?php echo esc_attr( $source_value_from_meta ); // Aggiunto valore da meta ?>">
+            <span class="dashicons dashicons-migrate" style="vertical-align: middle; margin-right: 5px;"></span>
+            Trasferisci da '<?php echo esc_html( basename( $single_select_field_id ) ); ?>' a '<?php echo esc_html( basename( $multi_select_field_id ) ); ?>'
+        </button>
+        <p class="cmb2-metabox-description" style="margin-top: 8px; font-size: 0.9em;">
+            Clicca questo pulsante per copiare il valore salvato per il campo obsoleto
+            (<code><?php echo esc_html($single_select_field_id); ?></code>, valore attuale: <strong><?php echo esc_html( $source_value_from_meta ? $source_value_from_meta : 'Nessuno o non trovato' ); ?></strong>)
+            in questo campo a selezione multipla (<code><?php echo esc_html($multi_select_field_id); ?></code>).<br>
+            <strong>Importante:</strong> Dopo aver trasferito il valore, ricorda di <strong>Salvare</strong> o <strong>Aggiornare</strong> il post per rendere effettive le modifiche.
+        </p>
+        <div class="dci-migration-message" style="margin-top: 10px; padding: 10px; border-radius: 3px; display: none; border-width: 1px; border-style: solid;"></div>
+    </div>
+    <?php
+}
+
+/**
+ * Accoda lo script JavaScript esterno per la logica del pulsante di migrazione.
+ * (Questa funzione rimane sostanzialmente la stessa della versione precedente,
+ * ma le ho dato un nome leggermente diverso per chiarezza nel contesto di questo snippet)
+ *
+ * @param string $hook_suffix Il suffisso della pagina di amministrazione corrente.
+ */
+function dci_enqueue_migration_assets_updated( $hook_suffix ) {
+    // Esegui lo script solo nelle pagine di modifica ('post.php') o creazione ('post-new.php') dei post.
+    // Potresti voler restringere ulteriormente al/ai post_type specifico/i dove usi questo metabox.
+    if ( 'post.php' === $hook_suffix || 'post-new.php' === $hook_suffix ) {
+        
+        wp_enqueue_script(
+            'dci-uo-migration-script', 
+            get_template_directory_uri() . '/assets/js/uo_migration.js', 
+            array( 'jquery' ),      
+            false,                
+            true                    
+        );
+    }
+}
