@@ -758,7 +758,7 @@ function dci_ajax_perform_bulk_migration_handler() {
     }
 
     $response_message = sprintf(
-        'Migrazione completata. Post processati: %d. Post aggiornati: %d. Valori già migrati/presenti: %d. Vecchio campo vuoto (ma esistente): %d.',
+        'Migrazione completata. Post processati: %d. Post aggiornati: %d. Valori già migrati/presenti: %d. ',
         $processed_count,
         $updated_count,
         $already_migrated_count,
