@@ -535,7 +535,6 @@ function dci_add_servizi_metaboxes() {
         'type'    => 'pw_select',
         'options' => dci_get_posts_options('unita_organizzativa'),
         'attributes' => array(
-            'required' => 'required',
             'placeholder' =>  __( 'Seleziona le Unità Organizzative', 'design_comuni_italia' ),
         )
     ) );

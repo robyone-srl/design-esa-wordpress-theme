@@ -42,6 +42,9 @@ get_header();
 
             $url_trasparenza = dci_get_meta("url_trasparenza", $prefix, $post->ID);
 
+            $servizi_incarico = dci_get_meta("servizi_incarico", $prefix, $post->ID);
+            $sede = dci_get_meta("sede_incarico_1", $prefix, $post->ID);
+
             $persona = dci_get_meta('persona', $prefix, $post->ID);
 
             if($persona != "") {
@@ -149,6 +152,22 @@ get_header();
                                                                         </li>
 																<?php } ?>
 
+                                                                <?php if ($servizi_incarico) {?>
+                                                                    <li class="nav-item">
+                                                                            <a class="nav-link" href="#servizi_incarico">
+                                                                                <span>Servizi</span>
+                                                                            </a>
+                                                                        </li>
+																<?php } ?>
+
+                                                                <?php if ($sede) {?>
+                                                                    <li class="nav-item">
+                                                                            <a class="nav-link" href="#sede">
+                                                                                <span>Sede</span>
+                                                                            </a>
+                                                                    </li>
+																<?php } ?>
+
                                                                 <?php if ($responsabile_struttura) {?>
                                                                     <li class="nav-item">
                                                                             <a class="nav-link" href="#responsabile_struttura">
@@ -205,7 +224,7 @@ get_header();
 
                             <?php 
                             if ($persona) {?>
-                                <section id="persona" class="it-page-section mb-4">
+                                <section id="titolare" class="it-page-section mb-4">
                                     <h2 class="h3 my-2">Titolare</h2>
                                             <div class="card-wrapper card-teaser-wrapper">
                                                 <?php 
@@ -264,6 +283,43 @@ get_header();
                                             <?php } ?>
                                 </section>
                             <?php }?>
+
+                            <?php if ($servizi_incarico &&  is_array($servizi_incarico) && count($servizi_incarico)) { ?>
+                                <section id="servizi" class="it-page-section mb-4">
+                                    <h2 class="h3 my-2">Servizi gestiti</h2>
+                                    <div class="row g-2">
+                                        <?php
+                                        foreach ($servizi_incarico as $servizio_id) { 
+										    if (FALSE !== get_post_status( $servizio_id ) ) {?>
+                                            <?php
+                                            $servizio = get_post($servizio_id);
+                                            $with_map = false;
+                                            if ($servizio != null) {
+                                            ?>
+                                                <div class="col-lg-6 col-md-12">
+                                                    <?php get_template_part("template-parts/servizio/card"); ?>
+                                                </div>
+                                        <?php
+                                            } }
+                                        } ?>
+                                    </div>
+                                </section>
+                            <?php }?>
+
+                            <?php if ($sede && is_array($sede) && count($sede)) { ?>
+                                <section id="sede" class="it-page-section mb-4">
+                                    <h2 class="h3 my-2">Sede</h2>
+                                    <div class="row">
+                                        <?php foreach ($sede as $sede_id) { ?>
+                                            <div class="col-xl-6 col-lg-8 col-12 mb-4"><?php
+                                                $luogo = get_post($sede_id);
+                                                $with_border = false;
+                                                get_template_part("template-parts/luogo/card-title"); ?>
+                                            </div><?php
+                                        } ?>
+                                    </div>
+                                </section>
+                            <?php  } ?>
 
                             <?php if ($atto_nomina) { ?>
                                 <article id="atto_di_nomina" class="it-page-section mb-5">

@@ -120,7 +120,30 @@ function dci_add_incarico_metaboxes()
         ),
     ) );
 
+    $cmb_dati->add_field( array(
+        'id' => $prefix . 'servizi_incarico',
+        'name'        => 'Servizi dell\'incarico',
+        'desc' => 'Scegli i servizi erogati da questo ruolo' ,
+        'type'    => 'pw_multiselect',
+        'options' => dci_get_posts_options('servizio'),
+        'attributes' => array(
+            'placeholder' =>  'Seleziona i servizi',
+        ),
+    ) );
     
+    $cmb_dati->add_field( array(
+        'id' => $prefix . 'sede_incarico_1',
+        'name'        => 'Sede dell\'incarico',
+        'desc' => 'Scegli la sede dell\' incarico' ,
+        'type'    => 'pw_multiselect',
+        'options' => dci_get_posts_options('luogo'),
+        'default_cb' => 'set_to_current_sede',
+        'attributes' => array(
+            'placeholder' =>  'Seleziona le sedi',
+            'data-maximum-selection-length' => '1',
+        ),
+    ) );
+
     $cmb_dati->add_field( array(
         'id' => $prefix . 'compensi',
         'name'        => __( 'Compensi', 'design_comuni_italia' ),
@@ -250,7 +273,7 @@ function t_incarico_display_persona_value( $field_args, $field ) {
  * @param  CMB2_Field $field      The field object
  */
 function t_incarico_display_unita_org_value( $field_args, $field ) {
-    $list = dci_get_posts_options('unita_organizzativa');
+    $list = dci_get_posts_options('unita_organizzative');
     
     if($field->value)
         echo $list[intval($field->value)];
@@ -260,6 +283,12 @@ function t_incarico_display_unita_org_value( $field_args, $field ) {
 }
 
 
-new dci_bidirectional_cmb2("_dci_incarico_", "incarico", "unita_organizzativa", "box_dati", "_dci_unita_organizzativa_incarichi");
+new dci_bidirectional_cmb2("_dci_incarico_", "incarico", "unita_organizzative", "box_dati", "_dci_unita_organizzativa_incarichi");
+
+new dci_bidirectional_cmb2("_dci_incarico_", "incarico", "sede_incarico_1", "box_dati", "_dci_luogo_persone_del_luogo_1");
 
 new dci_bidirectional_cmb2("_dci_incarico_", "incarico", "persona", "box_dati", "_dci_persona_pubblica_incarichi");
+
+function set_to_current_sede($field_args, $field  ) {
+	return dci_get_meta("sede_incarico_1", "_dci_incarico_", $field->object_id) ?? [];
+}

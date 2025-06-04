@@ -39,6 +39,8 @@ get_header();
 
             $punti_contatto = dci_get_meta("punti_contatto", $prefix, $post->ID);
 
+            $incarichi = dci_get_meta("persone_del_luogo_1", $prefix, $post->ID);
+
             $gestito_da = dci_get_meta('struttura_responsabile', $prefix, $post->ID);
 
             $gallery = dci_get_meta("gallery", $prefix, $post->ID);
@@ -187,7 +189,11 @@ get_header();
                                                                     </li>
                                                                 <?php } ?>
                                                                 
-																<?php if ($punti_contatto && is_array($punti_contatto) && count($punti_contatto) > 0) { ?>
+																<?php if (
+                                                                    ($punti_contatto && is_array($punti_contatto) && count($punti_contatto) > 0) ||
+                                                                    ($gestito_da && is_array($gestito_da) && count($gestito_da) > 0) ||
+                                                                    ($incarichi && is_array($incarichi) && count($incarichi) > 0)
+                                                                ) { ?>
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" href="#contatti">
                                                                             <span>Contatti</span>
@@ -360,7 +366,8 @@ get_header();
 							<?php if 
                             (
                                     ($gestito_da && is_array($gestito_da) && count($gestito_da) > 0) ||
-                                    ($punti_contatto && is_array($punti_contatto) && count($punti_contatto) > 0) 
+                                    ($punti_contatto && is_array($punti_contatto) && count($punti_contatto) > 0) ||
+                                    ($incarichi && is_array($incarichi) && count($incarichi) > 0)
                             ){ ?>
                                 <section id="contatti" class="it-page-section mb-4">
                                     <h2 class="h3 my-2">Contatti</h2>
@@ -391,6 +398,19 @@ get_header();
                                                 } ?>
                                         </div>
 							        <?php } ?>
+
+                                    <?php if ($incarichi) { ?>
+                                        <h3 class="h4 mt-4 mb-2">Incarichi correlati</h3>
+                                        <div class="row g-2">
+                                            <?php foreach ($incarichi as $incarico_id) { ?>
+                                                <div class="col-lg-6 col-md-12">
+                                                    <?php 
+                                                    $titleLevel = 3;
+                                                    get_template_part("template-parts/incarico/card-person"); ?>
+                                                </div>
+                                            <?php } ?>
+                                        </div>
+                                    <?php } ?>
                                 </section>
 							<?php } ?>
 

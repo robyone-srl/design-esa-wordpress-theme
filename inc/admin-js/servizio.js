@@ -21,6 +21,26 @@ jQuery(document).ready(function () {
         });
     });
 
+    var unitaResponsabileField = jQuery('#_dci_servizio_unita_responsabile');
+    var puntiContattoField = jQuery('#_dci_servizio_punti_contatto');
+
+    var unitaResponsabileContainerClass = '.cmb2-id--dci-servizio-unita-responsabile';
+    var puntiContattoContainerClass = '.cmb2-id--dci-servizio-punti-contatto';
+    var commonContactsContainerClass = '.cmb-type-pw-select, .cmb-type-pw-multiselect';
+
+    unitaResponsabileField.on('change', function () {
+        if (jQuery(this).val() !== '' && jQuery(this).val() !== null) {
+            dci_remove_highlight_missing_field(unitaResponsabileContainerClass);
+        }
+    });
+
+    puntiContattoField.on('change', function () {
+        var selectedPuntiContatto = jQuery(this).val();
+        if (selectedPuntiContatto !== null && selectedPuntiContatto.length > 0) {
+            dci_remove_highlight_missing_field(puntiContattoContainerClass);
+        }
+    });
+
     jQuery('form[name="post"]').on('submit', function (e) {
 
         /**
@@ -77,6 +97,25 @@ jQuery(document).ready(function () {
 
             if (!controlla_che_wysiwyg_sia_compilato('_dci_servizio_tempi_text'))
                 return false
+        }  
+
+        if (document.activeElement.id !== 'publish' && document.activeElement.name !== 'save') {
+            return true;
+        }
+
+        var unitaResponsabileValue = unitaResponsabileField.val();
+        var puntiContattoValue = puntiContattoField.val();
+
+        var isUnitaResponsabileEmpty = (unitaResponsabileValue === null || unitaResponsabileValue === '');
+        var isPuntiContattoEmpty = (puntiContattoValue === null || puntiContattoValue.length === 0);
+
+        dci_remove_highlight_missing_field(unitaResponsabileContainerClass);
+        dci_remove_highlight_missing_field(puntiContattoContainerClass);
+
+        if (isUnitaResponsabileEmpty && isPuntiContattoEmpty) {
+            dci_highlight_missing_field(unitaResponsabileContainerClass, "È necessario compilare almeno uno tra 'Unità Organizzativa responsabile' o 'Contatti dedicati'.");
+            e.preventDefault();
+            return false;
         }
 
         return true;
