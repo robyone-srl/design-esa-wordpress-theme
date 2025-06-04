@@ -38,12 +38,12 @@ get_header();
 
             $atto_nomina = dci_get_meta("atto_nomina", $prefix, $post->ID);
 
-            $unita_organizzativa = dci_get_meta('unita_organizzative', $prefix, $post->ID);
+            $unita_organizzativa = dci_get_meta('incarico_unita_organizzative', $prefix, $post->ID);
 
             $url_trasparenza = dci_get_meta("url_trasparenza", $prefix, $post->ID);
 
             $servizi_incarico = dci_get_meta("servizi_incarico", $prefix, $post->ID);
-            $sede = dci_get_meta("sede_incarico_1", $prefix, $post->ID);
+            $sede = dci_get_meta("luoghi_incarico", $prefix, $post->ID);
 
             $persona = dci_get_meta('persona', $prefix, $post->ID);
 

@@ -31,7 +31,7 @@ jQuery( document ).ready(function($) {
 
     var puntiContattoLuogoField = $('#_dci_luogo_punti_contatto');
     var strutturaResponsabileLuogoField = $('#_dci_luogo_struttura_responsabile');
-    var personeDelLuogoField = $('#_dci_luogo_persone_del_luogo_1');
+    var personeDelLuogoField = $('#_dci_luogo_incarichi');
 
     var puntiContattoLuogoContainerClass = '.cmb2-id--dci-luogo-punti-contatto';
     var strutturaResponsabileLuogoContainerClass = '.cmb2-id--dci-luogo-struttura-responsabile';

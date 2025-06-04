@@ -39,7 +39,7 @@ get_header();
 
             $punti_contatto = dci_get_meta("punti_contatto", $prefix, $post->ID);
 
-            $incarichi = dci_get_meta("persone_del_luogo_1", $prefix, $post->ID);
+            $incarichi = dci_get_meta("incarichi", $prefix, $post->ID);
 
             $gestito_da = dci_get_meta('struttura_responsabile', $prefix, $post->ID);
 

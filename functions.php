@@ -684,7 +684,7 @@ function dci_ajax_perform_bulk_migration_handler() {
     $meta_prefix = '_dci_incarico_'; // MODIFICA QUESTO PREFISSO!
 
     $old_meta_key = $meta_prefix . 'unita_organizzativa';
-    $new_meta_key = $meta_prefix . 'unita_organizzative';
+    $new_meta_key = $meta_prefix . 'incarico_unita_organizzative';
 
     // Post type da processare. Modifica se necessario (es. 'page', 'tuo_custom_post_type')
     // Per processare più post type: array('post', 'page')

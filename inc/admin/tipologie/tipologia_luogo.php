@@ -405,7 +405,7 @@ function dci_add_luogo_metaboxes() {
     ) );
 
     $cmb_contatti->add_field( array(
-        'id' => $prefix . 'persone_del_luogo_1',
+        'id' => $prefix . 'incarichi',
         'name'    => 'Persone: ',
         'desc' => 'Link alle Persone (incarichi) presenti nel luogo. Puoi modificare il luogo di un\'incarico nelle sue impostazioni.' ,
         'type'    => 'pw_multiselect',
@@ -552,7 +552,7 @@ add_filter( 'wp_insert_post_data' , 'dci_luogo_set_post_content' , '99', 1 );
 new dci_bidirectional_cmb2("_dci_luogo_", "luogo", "sede_di", "box_informazioni", "_dci_unita_organizzativa_sede_principale");
 
 // relazione bidirezionale Incarico / luoghi
-new dci_bidirectional_cmb2("_dci_luogo_", "luogo", "persone_del_luogo_1", "box_contatti", "_dci_incarico_sede_incarico_1");
+new dci_bidirectional_cmb2("_dci_luogo_", "luogo", "incarichi", "box_contatti", "_dci_incarico_luoghi_incarico");
 
 // relazione bidirezionale luoghi / luoghi
 new dci_bidirectional_cmb2("_dci_luogo_", "luogo", "luoghi_collegati", "box_descrizione", "_dci_luogo_luoghi_collegati");
@@ -565,5 +565,5 @@ function set_to_current_luogo_sede_di($field_args, $field  ) {
 }
 
 function set_to_current_persona($field_args, $field  ) {
-	return dci_get_meta("persone_del_luogo_1", "_dci_luogo_", $field->object_id) ?? [];
+	return dci_get_meta("incarichi", "_dci_luogo_", $field->object_id) ?? [];
 }

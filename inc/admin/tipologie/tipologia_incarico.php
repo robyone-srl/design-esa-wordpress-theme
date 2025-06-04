@@ -109,8 +109,26 @@ function dci_add_incarico_metaboxes()
 		),
 	) );
 
+    /*
     $cmb_dati->add_field( array(
-        'id' => $prefix . 'unita_organizzative',
+        'id' => $prefix . 'unita_organizzativa',
+        'name'    => __( 'Unità organizzativa', 'design_comuni_italia' ),
+        'desc' => __( 'L\'unità organizzativa alla quale si riferisce l\'incarico.' , 'design_comuni_italia' ),
+        'type'    => 'pw_select',
+        'options' => dci_get_posts_options('unita_organizzativa'),
+        'column' => array(
+            'position' => 3
+        ),
+        'attributes'    => array(
+            'required'    => 'required',
+            'placeholder' =>  __( 'Seleziona una Unità Organizzativa', 'design_comuni_italia' ),
+        ),
+        'display_cb' => 't_incarico_display_unita_org_value',
+    ) );
+    */
+
+    $cmb_dati->add_field( array(
+        'id' => $prefix . 'incarico_unita_organizzative',
         'name'    => 'Unità organizzative',
         'desc' => 'Le unità organizzative alla quali si riferisce l\'incarico.' ,
         'type'    => 'pw_multiselect',
@@ -118,6 +136,10 @@ function dci_add_incarico_metaboxes()
         'attributes'    => array(
             'placeholder' =>  __( 'Seleziona una Unità Organizzative', 'design_comuni_italia' ),
         ),
+        'column' => array(
+            'position' => 3
+        ),
+        'display_cb' => 't_incarico_display_unita_org_value'
     ) );
 
     $cmb_dati->add_field( array(
@@ -132,15 +154,14 @@ function dci_add_incarico_metaboxes()
     ) );
     
     $cmb_dati->add_field( array(
-        'id' => $prefix . 'sede_incarico_1',
-        'name'        => 'Sede dell\'incarico',
-        'desc' => 'Scegli la sede dell\' incarico' ,
+        'id' => $prefix . 'luoghi_incarico',
+        'name'        => 'Luoghi dell\'incarico',
+        'desc' => 'Scegli i luoghi oggetto di incarico' ,
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('luogo'),
         'default_cb' => 'set_to_current_sede',
         'attributes' => array(
-            'placeholder' =>  'Seleziona le sedi',
-            'data-maximum-selection-length' => '1',
+            'placeholder' =>  'Seleziona i luoghi'
         ),
     ) );
 
@@ -273,22 +294,32 @@ function t_incarico_display_persona_value( $field_args, $field ) {
  * @param  CMB2_Field $field      The field object
  */
 function t_incarico_display_unita_org_value( $field_args, $field ) {
-    $list = dci_get_posts_options('unita_organizzative');
+    $list = dci_get_posts_options('unita_organizzativa');
     
-    if($field->value)
-        echo $list[intval($field->value)];
-    ?>
-    
-    <?php
+    $result = "";
+
+    if(is_array($field->value)) {
+        $index = 1;
+        $count = count($field->value);
+
+        foreach($field->value as $value) {
+            $result .= $list[intval($value)];
+            if ($index < $count) $result .= ", ";
+
+            $index++;
+        }
+    }
+
+    echo $result;
 }
 
 
-new dci_bidirectional_cmb2("_dci_incarico_", "incarico", "unita_organizzative", "box_dati", "_dci_unita_organizzativa_incarichi");
+new dci_bidirectional_cmb2("_dci_incarico_", "incarico", "incarico_unita_organizzative", "box_dati", "_dci_unita_organizzativa_incarichi");
 
-new dci_bidirectional_cmb2("_dci_incarico_", "incarico", "sede_incarico_1", "box_dati", "_dci_luogo_persone_del_luogo_1");
+new dci_bidirectional_cmb2("_dci_incarico_", "incarico", "luoghi_incarico", "box_dati", "_dci_luogo_incarichi");
 
 new dci_bidirectional_cmb2("_dci_incarico_", "incarico", "persona", "box_dati", "_dci_persona_pubblica_incarichi");
 
 function set_to_current_sede($field_args, $field  ) {
-	return dci_get_meta("sede_incarico_1", "_dci_incarico_", $field->object_id) ?? [];
+	return dci_get_meta("luoghi_incarico", "_dci_incarico_", $field->object_id) ?? [];
 }
