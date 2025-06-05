@@ -406,8 +406,8 @@ function dci_add_luogo_metaboxes() {
 
     $cmb_contatti->add_field( array(
         'id' => $prefix . 'incarichi',
-        'name'    => 'Persone: ',
-        'desc' => 'Link alle Persone (incarichi) presenti nel luogo. Puoi modificare il luogo di un\'incarico nelle sue impostazioni.' ,
+        'name'    => 'Persone incaricate: ',
+        'desc' => 'Incarichi presenti nel luogo. Puoi modificare il luogo di un\'incarico nelle sue impostazioni.' ,
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('incarico'),
         'default_cb' => 'set_to_current_persona',
