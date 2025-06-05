@@ -386,8 +386,25 @@ get_header();
                                         } ?>
                                     </div>
 
-                                    <?php if ($gestito_da && is_array($gestito_da) && count($gestito_da) > 0) { ?>
+                                    <?php if ($incarichi && isset($contatto)) { ?>
+                                        <h3 class="h4 mb-2">Persone incaricate</h3>
+                                    <?php } ?>
+                                    <?php if ($incarichi) { ?>
+                                        <div class="row g-2 mb-4">
+                                            <?php foreach ($incarichi as $incarico_id) { ?>
+                                                <div class="col-lg-6 col-md-12">
+                                                    <?php 
+                                                    $titleLevel = 3;
+                                                    get_template_part("template-parts/incarico/card-person"); ?>
+                                                </div>
+                                            <?php } ?>
+                                        </div>
+                                    <?php } ?>
+
+                                    <?php if (($gestito_da && is_array($gestito_da) && count($gestito_da) > 0) && ($punti_contatto && is_array($punti_contatto) && count($punti_contatto) > 0) || ($incarichi)) { ?>
                                         <h3 class="h4 mt-4 mb-2">Contatta il gestore</h3>
+                                    <?php } ?>
+                                    <?php if($gestito_da && is_array($gestito_da) && count($gestito_da) > 0){?>
                                         <div class="row">
                                                 <?php foreach ($gestito_da as $uo_id) {
                                                 ?><div class="col-xl-6 col-lg-8 col-md-12"><?php
@@ -399,18 +416,6 @@ get_header();
                                         </div>
 							        <?php } ?>
 
-                                    <?php if ($incarichi) { ?>
-                                        <h3 class="h4 mt-4 mb-2">Incarichi correlati</h3>
-                                        <div class="row g-2">
-                                            <?php foreach ($incarichi as $incarico_id) { ?>
-                                                <div class="col-lg-6 col-md-12">
-                                                    <?php 
-                                                    $titleLevel = 3;
-                                                    get_template_part("template-parts/incarico/card-person"); ?>
-                                                </div>
-                                            <?php } ?>
-                                        </div>
-                                    <?php } ?>
                                 </section>
 							<?php } ?>
 

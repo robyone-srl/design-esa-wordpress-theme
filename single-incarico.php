@@ -154,7 +154,7 @@ get_header();
 
                                                                 <?php if ($servizi_incarico) {?>
                                                                     <li class="nav-item">
-                                                                            <a class="nav-link" href="#servizi_incarico">
+                                                                            <a class="nav-link" href="#servizi">
                                                                                 <span>Servizi</span>
                                                                             </a>
                                                                         </li>
@@ -288,10 +288,7 @@ get_header();
                                 <section id="servizi" class="it-page-section mb-4">
                                     <h2 class="h3 my-2">Servizi gestiti</h2>
                                     <div class="row g-2">
-                                        <?php
-                                        foreach ($servizi_incarico as $servizio_id) { 
-										    if (FALSE !== get_post_status( $servizio_id ) ) {?>
-                                            <?php
+                                        <?php foreach ($servizi_incarico as $servizio_id) { 
                                             $servizio = get_post($servizio_id);
                                             $with_map = false;
                                             if ($servizio != null) {
@@ -299,8 +296,7 @@ get_header();
                                                 <div class="col-lg-6 col-md-12">
                                                     <?php get_template_part("template-parts/servizio/card"); ?>
                                                 </div>
-                                        <?php
-                                            } }
+                                        <?php }
                                         } ?>
                                     </div>
                                 </section>

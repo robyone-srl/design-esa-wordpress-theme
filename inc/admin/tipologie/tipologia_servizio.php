@@ -530,7 +530,7 @@ function dci_add_servizi_metaboxes() {
 
     $cmb_contatti->add_field( array(
         'id' => $prefix . 'unita_responsabile',
-        'name'    => __( 'Unità Organizzativa responsabile * ', 'design_comuni_italia' ),
+        'name'    => __( 'Unità Organizzativa responsabile', 'design_comuni_italia' ),
         'desc' => __( 'Link dell\'ufficio resposanbile dell\'erogazione di questo Servizio' , 'design_comuni_italia' ),
         'type'    => 'pw_select',
         'options' => dci_get_posts_options('unita_organizzativa'),
@@ -547,6 +547,18 @@ function dci_add_servizi_metaboxes() {
         'options' => dci_get_posts_options('punto_contatto'),
         'attributes'    => array(
             'placeholder' =>  __( 'Seleziona i Punti di Contatto', 'design_comuni_italia' ),
+        ),
+    ) );
+
+    $cmb_contatti->add_field( array(
+        'id' => $prefix . 'incarico_servizi',
+        'name'        => 'Incarichi collegati al servizio',
+        'desc' => 'Scegli gli incarichi che erogano questo servizio' ,
+        'type'    => 'pw_multiselect',
+        'options' => dci_get_posts_options('incarico'),
+        'default_cb' => 'set_to_current_servizi_incarico',
+        'attributes' => array(
+            'placeholder' =>  'Seleziona gli incarichi',
         ),
     ) );
 
@@ -760,3 +772,9 @@ new dci_bidirectional_cmb2("_dci_servizio_", "servizio", "servizi_inclusi", "box
 new dci_bidirectional_cmb2("_dci_servizio_", "servizio", "servizi_richiesti", "box_destinatari", "_dci_servizio_servizi_inclusi");
 
 new dci_bidirectional_cmb2("_dci_servizio_", "servizio", "canale_fisico_luoghi", "box_accedi_servizio", "_dci_luogo_servizi_erogati");
+
+new dci_bidirectional_cmb2("_dci_servizio_", "servizio", "incarico_servizi", "box_contatti", "_dci_incarico_servizi_incarico");
+
+function set_to_current_servizi_incarico($field_args, $field  ) {
+	return dci_get_meta("incarico_servizi", "_dci_incarico_", $field->object_id) ?? [];
+}

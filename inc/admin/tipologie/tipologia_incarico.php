@@ -148,6 +148,7 @@ function dci_add_incarico_metaboxes()
         'desc' => 'Scegli i servizi erogati da questo ruolo' ,
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('servizio'),
+        'default_cb' => 'set_to_current_incarico_servizi',
         'attributes' => array(
             'placeholder' =>  'Seleziona i servizi',
         ),
@@ -320,6 +321,12 @@ new dci_bidirectional_cmb2("_dci_incarico_", "incarico", "luoghi_incarico", "box
 
 new dci_bidirectional_cmb2("_dci_incarico_", "incarico", "persona", "box_dati", "_dci_persona_pubblica_incarichi");
 
+new dci_bidirectional_cmb2("_dci_incarico_", "incarico", "servizi_incarico", "box_dati", "_dci_servizio_incarico_servizi");
+
 function set_to_current_sede($field_args, $field  ) {
 	return dci_get_meta("luoghi_incarico", "_dci_incarico_", $field->object_id) ?? [];
+}
+
+function set_to_current_incarico_servizi($field_args, $field  ) {
+	return dci_get_meta("servizi_incarico", "_dci_incarico_", $field->object_id) ?? [];
 }
