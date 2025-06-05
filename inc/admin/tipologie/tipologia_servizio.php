@@ -531,7 +531,7 @@ function dci_add_servizi_metaboxes() {
     $cmb_contatti->add_field( array(
         'id' => $prefix . 'unita_responsabile',
         'name'    => __( 'Unità Organizzativa responsabile', 'design_comuni_italia' ),
-        'desc' => __( 'Link dell\'ufficio resposanbile dell\'erogazione di questo Servizio' , 'design_comuni_italia' ),
+        'desc' => __( 'Ufficio responsabile dell\'erogazione di questo Servizio' , 'design_comuni_italia' ),
         'type'    => 'pw_select',
         'options' => dci_get_posts_options('unita_organizzativa'),
         'attributes' => array(
@@ -540,25 +540,25 @@ function dci_add_servizi_metaboxes() {
     ) );
 
     $cmb_contatti->add_field( array(
-        'id' => $prefix . 'punti_contatto',
-        'name'        => __( 'Contatti dedicati', 'design_comuni_italia' ),
-        'desc' => __( 'Telefono, mail o altri punti di contatto che sono specifici di questo servizio, diversi da quello dell\'ufficio indicato sopra<br><a href="post-new.php?post_type=punto_contatto">Inserisci Punto di Contatto</a>' , 'design_comuni_italia' ),
-        'type'    => 'pw_multiselect',
-        'options' => dci_get_posts_options('punto_contatto'),
-        'attributes'    => array(
-            'placeholder' =>  __( 'Seleziona i Punti di Contatto', 'design_comuni_italia' ),
-        ),
-    ) );
-
-    $cmb_contatti->add_field( array(
         'id' => $prefix . 'incarico_servizi',
-        'name'        => 'Incarichi collegati al servizio',
-        'desc' => 'Scegli gli incarichi che erogano questo servizio' ,
+        'name'        => 'Persone incaricate',
+        'desc' => 'Scegli gli incarichi che erogano questo servizio o sono delegati a fornire informazioni in merito' ,
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('incarico'),
         'default_cb' => 'set_to_current_servizi_incarico',
         'attributes' => array(
             'placeholder' =>  'Seleziona gli incarichi',
+        ),
+    ) );
+
+    $cmb_contatti->add_field( array(
+        'id' => $prefix . 'punti_contatto',
+        'name'        => __( 'Contatti dedicati', 'design_comuni_italia' ),
+        'desc' => __( 'Telefono, email o altri punti di contatto che sono specifici di questo servizio, diversi da quello dell\'ufficio o persone indicate sopra<br><a href="post-new.php?post_type=punto_contatto">Inserisci Punto di Contatto</a>' , 'design_comuni_italia' ),
+        'type'    => 'pw_multiselect',
+        'options' => dci_get_posts_options('punto_contatto'),
+        'attributes'    => array(
+            'placeholder' =>  __( 'Seleziona i Punti di Contatto', 'design_comuni_italia' ),
         ),
     ) );
 
