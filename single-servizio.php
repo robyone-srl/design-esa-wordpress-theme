@@ -700,7 +700,7 @@ get_header();
                                             <div class="col-lg-6 col-md-12">
                                                 <?php 
                                                 $titleLevel = 3;
-                                                get_template_part("template-parts/incarico/card-person"); ?>
+                                                get_template_part("template-parts/incarico/card-person-contacts"); ?>
                                             </div>
                                         <?php } ?>
                                     </div>
