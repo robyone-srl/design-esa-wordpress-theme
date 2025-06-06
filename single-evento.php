@@ -259,7 +259,7 @@ get_header();
                                 get_template_part("template-parts/luogo/card-single");
                                 ?>
                             <?php } else if (!$is_luogo_esa) {
-                                get_template_part("template-parts/luogo/card", "custom");
+                                get_template_part("template-parts/luogo/card-alt");
                             } ?>
                         </article>
                     <?php   } ?>
