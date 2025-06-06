@@ -78,9 +78,8 @@ get_header();
                                                 assunto da <?php echo $persona->post_title ?>
                                                 <?php } ?>
                                             </p>
-                                            
                                         </div>
-                                    </div>  
+                                    </div>
                                 </div>
                                 <div class="col-lg-3 offset-lg-1 mt-5 mt-lg-0">
 									<?php
@@ -147,7 +146,7 @@ get_header();
                                                                 <?php if ($unita_organizzativa) {?>
                                                                     <li class="nav-item">
                                                                             <a class="nav-link" href="#unita_organizzativa">
-                                                                                <span>Unità organizzativa</span>
+                                                                                <span>Unità organizzative di appartenenza </span>
                                                                             </a>
                                                                         </li>
 																<?php } ?>
@@ -155,7 +154,7 @@ get_header();
                                                                 <?php if ($servizi_incarico) {?>
                                                                     <li class="nav-item">
                                                                             <a class="nav-link" href="#servizi">
-                                                                                <span>Servizi</span>
+                                                                                <span>Servizi di competenza</span>
                                                                             </a>
                                                                         </li>
 																<?php } ?>
@@ -163,7 +162,7 @@ get_header();
                                                                 <?php if ($sede) {?>
                                                                     <li class="nav-item">
                                                                             <a class="nav-link" href="#sede">
-                                                                                <span>Sede</span>
+                                                                                <span>Luoghi gestiti</span>
                                                                             </a>
                                                                     </li>
 																<?php } ?>
@@ -271,7 +270,12 @@ get_header();
 
                             <?php if ($unita_organizzativa) {?>
                                 <section id="unita_organizzativa" class="it-page-section mb-4">
-                                    <h2 class="h3 my-2">Unità organizzativa</h2>
+                                    <h2 class="h3 my-2">Unità organizzative di appartenenza</h2>
+                                    <?php if(count($unita_organizzativa) == 1){
+                                        echo "<p>Questo incarico si riferisce a una unità organizzativa.</p>";
+                                    }else{
+                                        echo "<p>Questo incarico si riferisce a ". count($unita_organizzativa) ." unità organizzative.</p>";
+                                    } ?>
                                         <?php foreach($unita_organizzativa as $uo){ ?>
                                             <div class="card-wrapper card-teaser-wrapper">
                                                 <?php
@@ -286,7 +290,12 @@ get_header();
 
                             <?php if ($servizi_incarico &&  is_array($servizi_incarico) && count($servizi_incarico)) { ?>
                                 <section id="servizi" class="it-page-section mb-4">
-                                    <h2 class="h3 my-2">Servizi gestiti</h2>
+                                    <h2 class="h3 my-2">Servizi di competenza</h2>
+                                    <?php if(count($servizi_incarico) == 1){
+                                        echo "<p>Questo incarico prevede la gestione di un servizio.</p>";
+                                    }else{
+                                        echo "<p>Questo incarico prevede la gestione di ". count($servizi_incarico) ." servizi.</p>";
+                                    } ?>
                                     <div class="row g-2">
                                         <?php foreach ($servizi_incarico as $servizio_id) { 
                                             $servizio = get_post($servizio_id);
@@ -304,7 +313,12 @@ get_header();
 
                             <?php if ($sede && is_array($sede) && count($sede)) { ?>
                                 <section id="sede" class="it-page-section mb-4">
-                                    <h2 class="h3 my-2">Sede</h2>
+                                    <h2 class="h3 my-2">Luoghi gestiti</h2>
+                                    <?php if(count($sede) == 1){
+                                        echo "<p>L'incarico è referente per un luogo.</p>";
+                                    }else{
+                                        echo "<p>L'incarico è referente per ". count($sede) ." luoghi.</p>";
+                                    } ?>
                                     <div class="row">
                                         <?php foreach ($sede as $sede_id) { ?>
                                             <div class="col-xl-6 col-lg-8 col-12 mb-4"><?php
