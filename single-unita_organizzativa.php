@@ -31,6 +31,7 @@ get_header();
         $unità_organizzative_figlie = dci_get_uo_figlia() ?? false;
 
         $incarichi = dci_get_meta("incarichi", $prefix, $post->ID);
+
         $incarichi = is_array($incarichi) ? $incarichi : [];
         $incarichi_di_responsabilita = array_filter($incarichi, fn ($incarico) => dci_get_meta('di_responsabilita', '_dci_incarico_', $incarico) == "true");
         $altri_incarichi = array_diff($incarichi, $incarichi_di_responsabilita);
@@ -251,8 +252,8 @@ get_header();
                                         <?php
                                         if ($has_incarichi) { ?>
                                             <div class="row g-2">
-                                                <?php foreach ($incarichi_di_responsabilita as $incarico_id) { 
-                                                    if (FALSE !== get_post_status( $incarico_id ) ) { ?>
+                                                <?php foreach ($incarichi_di_responsabilita as $inc_id) { 
+                                                    if (FALSE !== get_post_status( $inc_id ) ) { ?>
                                                     <div class="col-lg-6 col-md-12">
                                                         <?php 
                                                         $titleLevel = 3;
@@ -261,8 +262,8 @@ get_header();
                                                 <?php } } ?>
                                             </div>
                                             <div class="row g-2">
-                                                <?php foreach ($altri_incarichi as $incarico_id) { 
-                                                    if (FALSE !== get_post_status( $incarico_id ) ) {
+                                                <?php foreach ($altri_incarichi as $inc_id) { 
+                                                    if (FALSE !== get_post_status( $inc_id ) ) {
 												?>
                                                     <div class="col-lg-6 col-md-12">
                                                         <?php 
