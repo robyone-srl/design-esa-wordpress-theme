@@ -133,6 +133,7 @@ function dci_add_incarico_metaboxes()
         'desc' => 'Le unità organizzative alla quali si riferisce l\'incarico.' ,
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('unita_organizzativa'),
+        'default_cb' => 'set_to_current_incarichi_unita_organizzativa',
         'attributes'    => array(
             'placeholder' =>  __( 'Seleziona una Unità Organizzative', 'design_comuni_italia' ),
         ),
@@ -329,4 +330,8 @@ function set_to_current_sede($field_args, $field  ) {
 
 function set_to_current_incarico_servizi($field_args, $field  ) {
 	return dci_get_meta("servizi_incarico", "_dci_incarico_", $field->object_id) ?? [];
+}
+
+function set_to_current_incarichi_unita_organizzativa($field_args, $field  ) {
+	return dci_get_meta("incarico_unita_organizzative", "_dci_unita_organizzativa_", $field->object_id) ?? [];
 }

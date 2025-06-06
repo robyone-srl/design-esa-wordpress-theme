@@ -169,7 +169,7 @@ function dci_add_unita_organizzativa_metaboxes() {
     ) );
 
     $cmb_persone->add_field( array(
-        'id' => $prefix . 'incarichi_1',
+        'id' => $prefix . 'incarichi',
         'name'    => __( 'Incarichi', 'design_comuni_italia' ),
         'desc' => __( 'Gli incarichi delle persone nell\'unità organizzativa. Puoi modificare queste informazioni dalle impostazioni degli incarichi.' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
@@ -177,7 +177,6 @@ function dci_add_unita_organizzativa_metaboxes() {
         'default_cb' => 'set_to_current_unita_organizzativa_incarichi',
         'attributes' => array(
             'placeholder' =>  __( 'Seleziona gli incarichi', 'design_comuni_italia' ),
-            'disabled' => 'true',
         )
     ) );
 
@@ -455,7 +454,7 @@ new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "
 
 new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "elenco_servizi_offerti", "box_contatti", "_dci_servizio_unita_responsabile");
 
-new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "incarichi", "box_persone", "_dci_incarico_unita_organizzativa");
+new dci_bidirectional_cmb2("_dci_unita_organizzativa_", "unita_organizzativa", "incarichi", "box_persone", "_dci_incarico_incarico_unita_organizzative");
 
 
 function set_to_current_unita_organizzativa_servizi($field_args, $field  ) {
