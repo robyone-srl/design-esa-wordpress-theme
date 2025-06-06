@@ -47,6 +47,10 @@ get_header();
 
             $persona = dci_get_meta('persona', $prefix, $post->ID);
 
+            $has_thumbnail = has_post_thumbnail();
+
+
+
             if($persona != "") {
                 $persona = get_post($persona);
             }
@@ -66,8 +70,15 @@ get_header();
                             <div class="row">
                                 <div class="col-lg-8">
                                     <div class="row">
-                                        <div class="col-auto">
-                                            <div class="titolo-sezione">
+                                        <div class="col-auto mt-2">
+                                            <?php if (has_post_thumbnail()) { ?>
+                                            <div class="avatar size-xl">
+                                                <?php dci_get_img(get_the_post_thumbnail_url($post, 'post-thumbnail')); ?>
+                                            </div>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="col">
+                                           <div class="titolo-sezione">
                                                 <h1> <?php the_title(); ?></h1>
                                             </div>
                                             
