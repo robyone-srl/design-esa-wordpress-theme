@@ -467,9 +467,9 @@ get_header();
                                 <?php } else { ?>
                                     <p>Il servizio viene erogato nei seguenti luoghi.</p>
                                 <?php } ?>
-                                <div class="row"> <?php 
+                                <div class="row g-2"> <?php 
                                 foreach ($canale_fisico_luoghi_id as $luogo_id) { ?>
-                                    <div class="col-xl-6 col-lg-7 col-md-12"> <?php
+                                    <div class="col-xl-6 col-lg-7 col-md-12 d-flex"> <?php
                                         $luogo = get_post($luogo_id);
                                         get_template_part("template-parts/luogo/card-title"); ?>
                                     </div> <?php
