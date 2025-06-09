@@ -13,6 +13,8 @@ $responsabile_struttura = dci_get_meta('responsabile_struttura', $prefix, $inc_i
 $persona_id = dci_get_meta('persona', '_dci_incarico_', $inc_id);
 $persona = get_post( $persona_id );
 
+$img = get_the_post_thumbnail_url($inc_id, 'post-thumbnail');
+
 ?>
 
 <div class="card card-teaser <?= $card_wrapper ? 'card-wrapper' : '' ?> <?= $with_border ? 'border border-light shadow-sm' : 'shadow' ?> rounded p-4">
@@ -30,7 +32,7 @@ $persona = get_post( $persona_id );
         </div>
     </div>
     <div class="avatar size-xl">
-    <?php if(has_post_thumbnail()){ ?>
+    <?php if(!$img){ ?>
             <svg class="icon svg-marker-simple">
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#it-bookmark"></use>
             </svg>

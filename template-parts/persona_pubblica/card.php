@@ -37,8 +37,8 @@ $incarichi = array_unique($incarichi);
 if($titleLevel == "") $titleLevel = 4;
 ?>
 
-<div class="card card-teaser <?= $with_border ? 'border border-light shadow-sm' : 'shadow' ?> rounded p-4">
-    <div class="card-body pe-3 flex-nowrap">
+<div class="card card-teaser <?= $with_border ? 'border border-light shadow-sm' : 'shadow' ?> rounded p-4 d-flex flex-nowrap align-items-center">
+    <div class="card-body pe-3">
         <h<?php echo $titleLevel; ?> class="u-main-black mb-1 title-small-semi-bold-medium cart-title">
             <a class="text-decoration-none" href="<?php echo get_permalink($persona->ID); ?>">
                 <?php echo $persona->post_title; ?>
