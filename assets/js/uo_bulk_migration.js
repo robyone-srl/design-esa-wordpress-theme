@@ -38,9 +38,7 @@
         // Carica il conteggio iniziale quando la pagina è pronta
         loadInitialCount();
 
-        // Gestore per il pulsante di migrazione massiva (come prima)
         $button.on('click', function () {
-            // Utilizza la stringa localizzata per il messaggio di conferma
             if (!confirm(dci_bulk_migration_params.text_confirm_migration || 'Sei sicuro di voler avviare la migrazione massiva? Questa operazione &agreve; i dati dei post. Si consiglia un backup.')) {
                 return;
             }
@@ -102,7 +100,6 @@
             });
         });
 
-        // Per permettere la chiusura dei notice (come prima)
         $feedbackDiv.on('click', '.notice-dismiss', function () {
             $(this).closest('.is-dismissible').hide();
         });

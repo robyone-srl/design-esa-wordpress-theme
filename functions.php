@@ -677,22 +677,16 @@ function dci_ajax_perform_bulk_migration_handler() {
         return;
     }
 
-    // *** IMPORTANTE: Definisci qui il prefisso corretto per i tuoi campi meta ***
-    // Questo prefisso deve corrispondere a quello usato quando hai definito i campi in CMB2.
-    // Esempio: se l'ID del campo era $prefix . 'unita_organizzativa', e $prefix era '_mytheme_',
-    // allora il meta_key sarà '_mytheme_unita_organizzativa'.
-    $meta_prefix = '_dci_incarico_'; // MODIFICA QUESTO PREFISSO!
+    $meta_prefix = '_dci_incarico_';
 
     $old_meta_key = $meta_prefix . 'unita_organizzativa';
     $new_meta_key = $meta_prefix . 'incarico_unita_organizzative';
 
-    // Post type da processare. Modifica se necessario (es. 'page', 'tuo_custom_post_type')
-    // Per processare più post type: array('post', 'page')
-    $post_types_to_process = array('incarico'); // MODIFICA QUESTO ARRAY DI POST TYPE!
+    $post_types_to_process = array('incarico');
 
     $args = array(
         'post_type'      => $post_types_to_process,
-        'posts_per_page' => -1, // Processa tutti i post corrispondenti
+		'posts_per_page' => -1, // Processa tutti i post corrispondenti
         'post_status'    => 'any', // Considera tutti gli stati dei post
         'meta_query'     => array(
             array(
@@ -700,7 +694,7 @@ function dci_ajax_perform_bulk_migration_handler() {
                 'compare' => 'EXISTS', // Processa solo i post che hanno il vecchio meta key
             ),
         ),
-        'fields'         => 'ids', // Ottieni solo gli ID per efficienza
+        'fields'         => 'ids',
     );
 
     $post_ids = get_posts( $args );
