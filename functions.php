@@ -666,7 +666,7 @@ function dci_enqueue_utilities_page_scripts( $hook_suffix ) {
 }
 
 /**
- * Gestore AJAX per l'operazione di migrazione massiva.
+ * Gestore AJAX per l'operazione di migrazione massiva
  */
 add_action( 'wp_ajax_dci_perform_bulk_migration', 'dci_ajax_perform_bulk_migration_handler' );
 function dci_ajax_perform_bulk_migration_handler() {
