@@ -633,15 +633,13 @@ function dci_render_utilities_page_content() {
  */
 add_action( 'admin_enqueue_scripts', 'dci_enqueue_utilities_page_scripts' );
 function dci_enqueue_utilities_page_scripts( $hook_suffix ) {
-    // Accoda lo script solo per la nostra pagina di utilities
+
     if ( 'toplevel_page_dci_data_migration_utilities' !== $hook_suffix ) {
         return;
     }
 
-    // Assumendo che lo script si trovi in 'inc/admin-js/uo_bulk_migration.js' del tuo tema
-    // Modifica il percorso se necessario.
     $script_path = get_template_directory_uri() . '/assets/js/uo_bulk_migration.js';
-    $script_version = '1.0.1'; // Cambia per invalidare la cache
+    $script_version = '1.0.1'; // da cambiare per invalidare la cache
 
     wp_enqueue_script(
         'dci-bulk-migration-script',
