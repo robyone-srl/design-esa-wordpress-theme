@@ -233,7 +233,7 @@ get_header();
                                 <div class="row g-2">
                                     <?php foreach ($unità_organizzative_figlie as $uo_id) {
                                         $with_border = false; ?>
-                                        <div class="col-lg-6 col-md-12 ">
+                                        <div class="col-lg-6 col-md-12 d-flex">
                                             <?php 
                                             get_template_part("template-parts/unita-organizzativa/card"); ?>
                                         </div>
@@ -254,7 +254,7 @@ get_header();
                                             <div class="row g-2">
                                                 <?php foreach ($incarichi_di_responsabilita as $inc_id) { 
                                                     if (FALSE !== get_post_status( $inc_id ) ) { ?>
-                                                    <div class="col-lg-6 col-md-12">
+                                                    <div class="col-lg-6 col-md-12 d-flex">
                                                         <?php 
                                                         $titleLevel = 3;
                                                         get_template_part("template-parts/incarico/card"); ?>
@@ -265,7 +265,7 @@ get_header();
                                                 <?php foreach ($altri_incarichi as $inc_id) { 
                                                     if (FALSE !== get_post_status( $inc_id ) ) {
 												?>
-                                                    <div class="col-lg-6 col-md-12">
+                                                    <div class="col-lg-6 col-md-12 d-flex">
                                                         <?php 
                                                         $titleLevel = 3;
                                                         get_template_part("template-parts/incarico/card"); ?>
@@ -282,7 +282,7 @@ get_header();
                                                     if (FALSE !== get_post_status( $pp_id ) ) {
                                                     $with_border = true;
                                                     $hide_incarichi = true; ?>
-                                                    <div class="col-lg-6 col-md-12">
+                                                    <div class="col-lg-6 col-md-12 d-flex">
                                                         <?php 
                                                         $titleLevel = 3;
                                                         get_template_part("template-parts/persona_pubblica/card"); ?>

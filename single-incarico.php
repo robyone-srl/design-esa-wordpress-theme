@@ -287,8 +287,9 @@ get_header();
                                     }else{
                                         echo "<p>Questo incarico si riferisce a ". count($unita_organizzativa) ." unità organizzative.</p>";
                                     } ?>
+                                    <div class="row g-2">
                                         <?php foreach($unita_organizzativa as $uo){ ?>
-                                            <div class="card-wrapper card-teaser-wrapper">
+                                            <div class="col-xl-6 col-lg-8 col-12 mb-0 d-flex">
                                                 <?php
                                                     $uo_id = get_post($uo);
                                                     $with_border = true;
@@ -296,6 +297,7 @@ get_header();
                                                 ?>
                                             </div>
                                             <?php } ?>
+                                    </div>
                                 </section>
                             <?php }?>
 
@@ -332,7 +334,7 @@ get_header();
                                     } ?>
                                     <div class="row">
                                         <?php foreach ($sede as $sede_id) { ?>
-                                            <div class="col-xl-6 col-lg-8 col-12 mb-4"><?php
+                                            <div class="col-xl-6 col-lg-8 col-12 mb-2 d-flex"><?php
                                                 $luogo = get_post($sede_id);
                                                 $with_border = false;
                                                 get_template_part("template-parts/luogo/card-title"); ?>

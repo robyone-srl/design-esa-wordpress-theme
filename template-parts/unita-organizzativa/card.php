@@ -10,7 +10,7 @@
     if($with_border) {
 ?>
 
-<div class="card card-teaser card-teaser-info rounded shadow-sm py-3 mb-3 mt-0<?php echo $h100==true ? "h-100" : ""; ?>">
+<div class="card card-teaser card-teaser-info rounded shadow-sm py-3 mb-2 mt-0<?php echo $h100==true ? "h-100" : ""; ?>">
     <div class="card-body pe-3">
         <h4 class="card-title text-paragraph-regular-medium-semi">
             <a class="text-decoration-none" href="<?php echo get_permalink($ufficio->ID); ?>" data-element="service-area">
@@ -30,7 +30,7 @@
 
 <?php } else { ?>
 
-<div class="card card-teaser card-teaser-info rounded shadow-sm ps-3 pe-3 mb-3 flex-nowrap">
+<div class="card card-teaser card-teaser-info rounded shadow-sm ps-3 pe-3 mb-2 flex-nowrap">
     <div class="card-body pe-3">
         <p class="card-title text-paragraph-regular-medium-semi">
             <a class="text-decoration-none" href="<?php echo get_permalink($ufficio->ID); ?>" data-element="service-area">
