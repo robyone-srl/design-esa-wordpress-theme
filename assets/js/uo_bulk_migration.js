@@ -6,7 +6,7 @@
         var $resultsContent = $('#dci-migration-results-content');
 
         $button.on('click', function () {
-            if (!confirm(dci_bulk_migration_params.text_confirm_migration || 'Sei sicuro di voler avviare la migrazione massiva? Questa operazione &agreve; i dati dei post. Si consiglia un backup.')) {
+            if (!confirm(dci_bulk_migration_params.text_confirm_migration || 'Sei sicuro di voler avviare la migrazione massiva? Questa operazione potrebbe richiedere del tempo su siti con molti post. Si consiglia un backup.')) {
                 return;
             }
 

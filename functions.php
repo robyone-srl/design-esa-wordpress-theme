@@ -586,8 +586,8 @@ remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
 add_action( 'admin_menu', 'dci_add_utilities_admin_page' );
 function dci_add_utilities_admin_page() {
     add_menu_page(
-       'Utilities',
-       'Utilities', 
+       'Strumenti del tema ESA',
+       'Strumenti del tema ESA', 
        'manage_options',
        'dci_data_migration_utilities',  
        'dci_render_utilities_page_content', 
@@ -608,7 +608,7 @@ function dci_render_utilities_page_content() {
         <div id="dci-migration-controls">
             <h2><?='Migrazione Unità Organizzativa'?></h2>
             <p>
-                <?='Questa operazione cercherà in tutti i post il vecchio campo "Unità Organizzativa" (singolo) e trasferirà il suo valore al nuovo campo "Unità Organizzative" (multiplo), se non già presente.'?>
+                <?='Questa operazione cercherà in tutti i post di tipo <strong>Incarico</strong> il vecchio campo "Unità Organizzativa" (singolo) e trasferirà il suo valore al nuovo campo "Unità Organizzative" (multiplo), se non già presente.'?>
             </p>
             <p>
                 <strong><?='Attenzione:'?></strong> <?='Questa operazione potrebbe richiedere del tempo su siti con molti post. Si consiglia di eseguire un backup del database prima di procedere.'?>
