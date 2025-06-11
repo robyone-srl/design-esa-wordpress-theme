@@ -112,32 +112,32 @@ get_header();
                         </div>
                     </aside>
                     <section class="col-lg-9 it-page-sections-container border-light">
-                    <article class="it-page-section anchor-offset" data-audio>
-                        <h2 class="h3" id="dettagli">Dettagli</h2>
-                        <div class="richtext-wrapper lora mb-3">
-                            <?php echo $descrizione; ?>
-                        </div>
-                        <button type="button" class="btn btn-primary mobile-full" onclick="location.href='<?php echo $link; ?>';">
-                            <span>Apri sito web</span>
-                        </button>
-                    </article>
-                    <article
-                        id="ulteriori-informazioni"
-                        class="it-page-section anchor-offset mt-5"
-                    >
-                        <h2 class="h3 ">Ulteriori informazioni</h2>
-                    </article>
+                        <article class="it-page-section anchor-offset" data-audio>
+                            <h2 class="h3" id="dettagli">Dettagli</h2>
+                            <div class="richtext-wrapper lora mb-3">
+                                <?php echo $descrizione; ?>
+                            </div>
+                            <button type="button" class="btn btn-primary mobile-full" onclick="location.href='<?php echo $link; ?>';">
+                                <span>Apri sito web</span>
+                            </button>
+                        </article>
+                        <article
+                            id="ulteriori-informazioni"
+                            class="it-page-section anchor-offset mt-5"
+                        >
+                            <h2 class="h3" id="more-info">Ulteriori informazioni</h2>
+                        </article>
                     
-                    <?php get_template_part('template-parts/single/page_bottom'); ?>
+                        <?php get_template_part('template-parts/single/page_bottom'); ?>
 
-                    <div class="row mt-3">
-                        <div class="col-6">
-                            <p>Data pubblicazione:</p>
-                            <p class="fw-semibold font-monospace">
-                                <?php echo $date; ?>
-                            </p>
+                        <div class="row mt-3">
+                            <div class="col-6">
+                                <p>Data pubblicazione:</p>
+                                <p class="fw-semibold font-monospace">
+                                    <?php echo $date; ?>
+                                </p>
+                            </div>
                         </div>
-                    </div>
                     </section>
                 </div>
             </div>
