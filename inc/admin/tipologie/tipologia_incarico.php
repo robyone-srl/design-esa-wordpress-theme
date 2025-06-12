@@ -174,8 +174,7 @@ function dci_add_incarico_metaboxes()
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('punto_contatto'),
         'attributes'    => array(
-            'required'    => 'required',
-            'placeholder' =>  __( ' Seleziona i Punti di Contatto', 'design_comuni_italia' ),
+            'placeholder' =>  __( ' Seleziona i Punti di Contatto', 'design_comuni_italia' )
         ),
     ) );
 

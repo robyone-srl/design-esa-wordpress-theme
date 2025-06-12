@@ -259,7 +259,8 @@ get_header();
                                         <?php
                                         $persone_incaricate = array();
 
-                                        if ($has_incarichi) { ?>
+                                        if ($has_incarichi) {
+										?>
                                             <div class="row g-2">
                                                 <?php
                                                 foreach ($incarichi_di_responsabilita as $inc_id) {
@@ -290,18 +291,39 @@ get_header();
                                                     
                                                 }?>
                                             </div>
-                                            <?php if($altri_incarichi){ ?>
+                                            <?php 
+											
+                                        	$persone_incaricate_noresp = array();
+											if($altri_incarichi){ ?>
                                                 <div class="row g-2">
-                                                    <?php foreach ($altri_incarichi as $inc_id) { 
-                                                        if (FALSE !== get_post_status( $inc_id ) ) {
-												    ?>
+													<?php
+                                                foreach ($altri_incarichi as $inc_id) {
+                                                    $pp_id = dci_get_meta('persona', '_dci_incarico_', $inc_id);
+                                                    if($pp_id){ 
+                                                        $persone_incaricate_noresp[] = $pp_id;
+                                                    } else {
+                                                        if (FALSE !== get_post_status( $inc_id ) ) { ?>
+                                                            <div class="col-lg-6 col-md-12 d-flex">
+                                                                <?php 
+                                                                $titleLevel = 3;
+                                                                get_template_part("template-parts/incarico/card"); ?>
+                                                            </div>  <?php 
+                                                        }
+                                                    }
+                                                }
+
+                                                $persone_incaricate_noresp = array_unique($persone_incaricate_noresp);
+
+
+                                                foreach ($persone_incaricate_noresp as $pp_id) { 
+                                                   ?>
                                                         <div class="col-lg-6 col-md-12 d-flex">
                                                             <?php 
                                                             $titleLevel = 3;
-                                                            get_template_part("template-parts/incarico/card"); ?>
-                                                        </div>
-                                                    <?php } } ?>
-                                                </div> <?php
+                                                            get_template_part("template-parts/persona_pubblica/card"); ?>
+                                                        </div> <?php
+                                                    
+                                                }
                                             }
                                         }
                                         if ($has_persone) {
