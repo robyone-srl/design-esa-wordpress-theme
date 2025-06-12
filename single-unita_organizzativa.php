@@ -257,17 +257,15 @@ get_header();
                                     <p>Le persone che fanno parte di questa unità:</p>
                                     <div class="d-flex gap-3 flex-column mt-2">
                                         <?php
+                                        $persone_incaricate = array();
+
                                         if ($has_incarichi) { ?>
                                             <div class="row g-2">
-                                                <?php foreach ($incarichi_di_responsabilita as $inc_id) { 
+                                                <?php
+                                                foreach ($incarichi_di_responsabilita as $inc_id) {
                                                     $pp_id = dci_get_meta('persona', '_dci_incarico_', $inc_id);
-
-                                                    if($pp_id){ ?>
-                                                        <div class="col-lg-6 col-md-12 d-flex">
-                                                            <?php 
-                                                            $titleLevel = 3;
-                                                            get_template_part("template-parts/persona_pubblica/card"); ?>
-                                                        </div> <?php 
+                                                    if($pp_id){ 
+                                                        $persone_incaricate[] = $pp_id;
                                                     } else {
                                                         if (FALSE !== get_post_status( $inc_id ) ) { ?>
                                                             <div class="col-lg-6 col-md-12 d-flex">
@@ -277,6 +275,19 @@ get_header();
                                                             </div>  <?php 
                                                         }
                                                     }
+                                                }
+
+                                                $persone_incaricate = array_unique($persone_incaricate);
+
+
+                                                foreach ($persone_incaricate as $pp_id) { 
+                                                   ?>
+                                                        <div class="col-lg-6 col-md-12 d-flex">
+                                                            <?php 
+                                                            $titleLevel = 3;
+                                                            get_template_part("template-parts/persona_pubblica/card"); ?>
+                                                        </div> <?php
+                                                    
                                                 }?>
                                             </div>
                                             <?php if($altri_incarichi){ ?>
@@ -297,7 +308,7 @@ get_header();
 										?>
                                             <div class="row g-2">
                                                 <?php foreach ($persone as $pp_id) {
-                                                    if (FALSE !== get_post_status( $pp_id ) ) {
+                                                    if (FALSE !== get_post_status( $pp_id ) && in_array($pp_id, $persone_incaricate, true)) {
                                                     $with_border = true;
                                                     $hide_incarichi = true; ?>
                                                     <div class="col-lg-6 col-md-12 d-flex">
