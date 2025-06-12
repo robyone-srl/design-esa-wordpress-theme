@@ -235,8 +235,10 @@ get_header();
                             <div class="richtext-wrapper lora">
                                 <?php echo $competenze ?>
                             </div>
+                        </section>
+                        <section id="uo_figlie" class="it-page-section mb-4">
                             <?php if(is_array($unità_organizzative_figlie) && (count($unità_organizzative_figlie) > 0)) { ?>
-                                <h3 class="h4 my-2" id="uo_figlie">Unità organizzative gestite</h3>
+                                <h2 class="h3 my-2">Unità organizzative gestite</h3>
                                 <div class="row g-2">
                                     <?php foreach ($unità_organizzative_figlie as $uo_id) {
                                         $with_border = false; ?>
@@ -248,7 +250,6 @@ get_header();
                                 </div>
                             <?php }  ?>
                         </section>
-
                         <?php if ($has_persone || $has_incarichi) { ?>
                             <section id="persone" class="it-page-section mb-4">
                                 <h2 class="h3 my-2">Persone</h2>

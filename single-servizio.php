@@ -692,7 +692,7 @@ get_header();
                                 <?php } ?>
 
                                 <?php if ($incarichi && !empty($punti_contatto_id)) { ?>
-                                    <h3 class="h4 mb-2">Persone incaricate</h3>
+                                    <h3 class="h4 mb-2">Contatta le persone</h3>
                                 <?php } ?>
                                 <?php if ($incarichi) { ?>
                                     <div class="row g-2 mb-4">
@@ -708,7 +708,7 @@ get_header();
 
                                 <?php if(($mostra_prenota_appuntamento || !empty($punti_contatto_id)) && ($uo_id != null) || ($incarichi))
                                 {?>
-                                    <h3 class="mb-2 h4">Contatta ufficio</h3>
+                                    <h3 class="mb-2 h4">Contatta l'ufficio</h3>
                                 <?php } ?>
                                 <?php if($uo_id != null){?>
                                 <div class="row">

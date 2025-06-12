@@ -243,9 +243,9 @@ get_header();
                                     $arr_figli = get_children($args);
                                     if($arr_figli){ ?>
                                         <h3 class="h4">Ospita</h3>
-                                        <div class="row"> <?php
+                                        <div class="row d-flex align-items-stretch"> <?php
                                             foreach($arr_figli as $arr_figli_id){ ?> 
-                                                <div class="col-xl-5 col-lg-7 col-md-12"> <?php 
+                                               <div class="col-lg-6 col-md-12 d-flex"> <?php 
                                                     $luogo = $arr_figli_id;
                                                     $show_descrizione = true;
                                                     get_template_part("template-parts/luogo/card-title"); ?> 
@@ -387,7 +387,7 @@ get_header();
                                     </div>
 
                                     <?php if ($incarichi && isset($contatto)) { ?>
-                                        <h3 class="h4 mb-2">Persone incaricate</h3>
+                                        <h3 class="h4 mt-4 mb-2">Contatta le persone</h3>
                                     <?php } ?>
                                     <?php if ($incarichi) { ?>
                                         <div class="row g-2 mb-4">
