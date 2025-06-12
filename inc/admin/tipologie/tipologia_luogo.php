@@ -409,7 +409,7 @@ function dci_add_luogo_metaboxes() {
         'name'    => 'Persone incaricate: ',
         'desc' => 'Incarichi presenti nel luogo. Puoi modificare il luogo di un\'incarico nelle sue impostazioni.' ,
         'type'    => 'pw_multiselect',
-        'options' => dci_get_posts_options('incarico'),
+        'options' => dci_get_incarichi_con_nomi(),
         'default_cb' => 'set_to_current_persona',
         'attributes' => array(
             'placeholder' =>  'Seleziona le Persone',

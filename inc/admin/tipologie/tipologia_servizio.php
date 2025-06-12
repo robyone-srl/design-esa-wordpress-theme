@@ -544,7 +544,7 @@ function dci_add_servizi_metaboxes() {
         'name'        => 'Persone incaricate',
         'desc' => 'Scegli gli incarichi che erogano questo servizio o sono delegati a fornire informazioni in merito' ,
         'type'    => 'pw_multiselect',
-        'options' => dci_get_posts_options('incarico'),
+        'options' => dci_get_incarichi_con_nomi(),
         'default_cb' => 'set_to_current_servizi_incarico',
         'attributes' => array(
             'placeholder' =>  'Seleziona gli incarichi',
