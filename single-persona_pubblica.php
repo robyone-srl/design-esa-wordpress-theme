@@ -295,11 +295,11 @@ get_header();
                     <?php if ($organizzazioni && is_array($organizzazioni) && count($organizzazioni) > 0) {?>
                     <section id="organizzazioni" class="it-page-section mb-4">
                         <h2 class="h3 my-2">Fa parte di</h2>
-                        <div class="card-wrapper card-teaser-wrapper">
+                        <div class="row g-0 card-wrapper card-teaser-wrapper d-flex align-items-stretch">
                             <?php foreach ($organizzazioni as $uo_id) {
                                       $with_border = true;
                                       get_template_part("template-parts/unita-organizzativa/card");
-                                  } ?>
+                            } ?>
                         </div>
                     </section>
                     <?php }?>
