@@ -28,6 +28,8 @@ get_header();
             $data_pubblicazione_arr = dci_get_data_pubblicazione_arr("data_pubblicazione", $prefix, $post->ID);
             $date = date_i18n('d F Y', mktime(0, 0, 0, $data_pubblicazione_arr[1], $data_pubblicazione_arr[0], $data_pubblicazione_arr[2]));
             
+            $has_thumbnail = has_post_thumbnail();
+
             ?>
             <div class="container" id="main-container">
                 <div class="row">
@@ -36,20 +38,19 @@ get_header();
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-8 px-lg-4 py-lg-2">
+                    <div class="col-auto mt-2">
+                        <?php if (has_post_thumbnail()) { ?>
+                            <div class="avatar size-xl">
+                                <?php dci_get_img(get_the_post_thumbnail_url($post, 'post-thumbnail')); ?>
+                            </div>
+                        <?php } ?>
+                        </div>
+                        <div class="col">
                         <h1><?php the_title(); ?></h1>
                         <h2 class="visually-hidden">Dettagli del sito tematico</h2>
                         <button type="button" class="btn btn-primary fw-bold" onclick="location.href='<?php echo $link; ?>';">
                             <span>Apri sito web</span>
                         </button>
-                        <div class="row mt-5 mb-4">
-                            <div class="col-6">
-                                <small>Data:</small>
-                                <p class="fw-semibold font-monospace">
-                                    <?php echo $date; ?>
-                                </p>
-                            </div>
-                        </div>
                     </div>
                     <div class="col-lg-3 offset-lg-1">
                         <?php
@@ -59,7 +60,6 @@ get_header();
                     </div>
                 </div>
             </div>
-            <?php get_template_part('template-parts/single/image-large'); ?>
             <div class="container">
                 <div class="row border-top border-light row-column-border row-column-menu-left">
                     <aside class="col-lg-3">
@@ -125,9 +125,19 @@ get_header();
                         id="ulteriori-informazioni"
                         class="it-page-section anchor-offset mt-5"
                     >
-                        <h2 class="h3 mb-3">Ulteriori informazioni</h2>
+                        <h2 class="h3 ">Ulteriori informazioni</h2>
                     </article>
+                    
                     <?php get_template_part('template-parts/single/page_bottom'); ?>
+
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <p>Data pubblicazione:</p>
+                            <p class="fw-semibold font-monospace">
+                                <?php echo $date; ?>
+                            </p>
+                        </div>
+                    </div>
                     </section>
                 </div>
             </div>

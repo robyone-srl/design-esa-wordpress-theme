@@ -92,7 +92,7 @@ get_header();
                                     </div>
                                     <?php } ?>
                                 </div>
-                                <div class="col-auto">
+                                <div class="col">
                                     <div class="titolo-sezione">
                                         <h1>
                                             <?php the_title(); ?>
@@ -284,7 +284,8 @@ get_header();
                             <?php foreach ($inc_list as $incarico) { ?>
                                 <div class="col-xl-6 col-lg-8 col-md-12 pb-3"> <?php
                                     $inc_id = $incarico->ID;
-                                    get_template_part("template-parts/incarico/card-full");
+                                    $show_Persona = false;
+                                    get_template_part("template-parts/incarico/card");
                                 ?> </div>
                             <?php } ?>
                         </div>

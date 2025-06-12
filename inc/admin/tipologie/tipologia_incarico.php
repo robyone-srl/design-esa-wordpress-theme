@@ -109,6 +109,7 @@ function dci_add_incarico_metaboxes()
 		),
 	) );
 
+    /*
     $cmb_dati->add_field( array(
         'id' => $prefix . 'unita_organizzativa',
         'name'    => __( 'Unità organizzativa', 'design_comuni_italia' ),
@@ -124,7 +125,47 @@ function dci_add_incarico_metaboxes()
         ),
         'display_cb' => 't_incarico_display_unita_org_value',
     ) );
+    */
 
+    $cmb_dati->add_field( array(
+        'id' => $prefix . 'incarico_unita_organizzative',
+        'name'    => 'Unità organizzative',
+        'desc' => 'Le unità organizzative alla quali si riferisce l\'incarico.' ,
+        'type'    => 'pw_multiselect',
+        'options' => dci_get_posts_options('unita_organizzativa'),
+        'default_cb' => 'set_to_current_incarichi_unita_organizzativa',
+        'attributes'    => array(
+            'placeholder' =>  __( 'Seleziona una Unità Organizzative', 'design_comuni_italia' ),
+        ),
+        'column' => array(
+            'position' => 3
+        ),
+        'display_cb' => 't_incarico_display_unita_org_value'
+    ) );
+
+    $cmb_dati->add_field( array(
+        'id' => $prefix . 'servizi_incarico',
+        'name'        => 'Servizi dell\'incarico',
+        'desc' => 'Scegli i servizi erogati da questo ruolo' ,
+        'type'    => 'pw_multiselect',
+        'options' => dci_get_posts_options('servizio'),
+        'default_cb' => 'set_to_current_incarico_servizi',
+        'attributes' => array(
+            'placeholder' =>  'Seleziona i servizi',
+        ),
+    ) );
+    
+    $cmb_dati->add_field( array(
+        'id' => $prefix . 'luoghi_incarico',
+        'name'        => 'Luoghi dell\'incarico',
+        'desc' => 'Scegli i luoghi oggetto di incarico' ,
+        'type'    => 'pw_multiselect',
+        'options' => dci_get_posts_options('luogo'),
+        'default_cb' => 'set_to_current_sede',
+        'attributes' => array(
+            'placeholder' =>  'Seleziona i luoghi'
+        ),
+    ) );
 
     $cmb_dati->add_field( array(
         'id' => $prefix . 'compensi',
@@ -257,14 +298,40 @@ function t_incarico_display_persona_value( $field_args, $field ) {
 function t_incarico_display_unita_org_value( $field_args, $field ) {
     $list = dci_get_posts_options('unita_organizzativa');
     
-    if($field->value)
-        echo $list[intval($field->value)];
-    ?>
-    
-    <?php
+    $result = "";
+
+    if(is_array($field->value)) {
+        $index = 1;
+        $count = count($field->value);
+
+        foreach($field->value as $value) {
+            $result .= $list[intval($value)];
+            if ($index < $count) $result .= ", ";
+
+            $index++;
+        }
+    }
+
+    echo $result;
 }
 
 
-new dci_bidirectional_cmb2("_dci_incarico_", "incarico", "unita_organizzativa", "box_dati", "_dci_unita_organizzativa_incarichi");
+new dci_bidirectional_cmb2("_dci_incarico_", "incarico", "incarico_unita_organizzative", "box_dati", "_dci_unita_organizzativa_incarichi");
+
+new dci_bidirectional_cmb2("_dci_incarico_", "incarico", "luoghi_incarico", "box_dati", "_dci_luogo_incarichi");
 
 new dci_bidirectional_cmb2("_dci_incarico_", "incarico", "persona", "box_dati", "_dci_persona_pubblica_incarichi");
+
+new dci_bidirectional_cmb2("_dci_incarico_", "incarico", "servizi_incarico", "box_dati", "_dci_servizio_incarico_servizi");
+
+function set_to_current_sede($field_args, $field  ) {
+	return dci_get_meta("luoghi_incarico", "_dci_incarico_", $field->object_id) ?? [];
+}
+
+function set_to_current_incarico_servizi($field_args, $field  ) {
+	return dci_get_meta("servizi_incarico", "_dci_incarico_", $field->object_id) ?? [];
+}
+
+function set_to_current_incarichi_unita_organizzativa($field_args, $field  ) {
+	return dci_get_meta("incarico_unita_organizzative", "_dci_unita_organizzativa_", $field->object_id) ?? [];
+}

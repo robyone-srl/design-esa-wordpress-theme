@@ -259,7 +259,7 @@ get_header();
                                 get_template_part("template-parts/luogo/card-single");
                                 ?>
                             <?php } else if (!$is_luogo_esa) {
-                                get_template_part("template-parts/luogo/card", "custom");
+                                get_template_part("template-parts/luogo/card-alt");
                             } ?>
                         </article>
                     <?php   } ?>
@@ -422,13 +422,17 @@ get_header();
 
                     <article id="contatti" class="it-page-section mb-5">
                         <?php if (is_array($punti_contatto) && count($punti_contatto)) { ?>
-                            <h2 class="mb-3">Contatti</h2>  <?php 
-                            foreach ($punti_contatto as $pc_id) {
-                                $contatto = get_post($pc_id);
-                                if(isset($contatto)){
-                                    get_template_part("template-parts/punto-contatto/card");
-                                }
-                            } ?>
+                            <h2 class="mb-3">Contatti</h2>  
+                            <div class="row g-2"><?php 
+                                foreach ($punti_contatto as $pc_id) {
+                                    $contatto = get_post($pc_id);
+                                    if(isset($contatto)){ ?>
+                                        <div class="col-xl-6 col-lg-8 col-12 mb-2 d-flex"> <?php
+                                            get_template_part("template-parts/punto-contatto/card"); ?>
+                                        </div> <?php
+                                    }
+                                } ?>
+                            </div>
                         <?php } ?>
                         <?php if (is_array($organizzatori) && count($organizzatori)) { ?>
                             <h2 class="h5 mt-4">Con il supporto di:</h2>

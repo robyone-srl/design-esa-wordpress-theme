@@ -389,22 +389,30 @@ function dci_add_luogo_metaboxes() {
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('punto_contatto'),
         'attributes'    => array(
-            'required'    => 'required',
             'placeholder' =>  __( ' Seleziona i Punti di Contatto', 'design_comuni_italia' ),
         ),
     ) );
 
     $cmb_contatti->add_field( array(
-        'id' => $prefix . 'sede_di_1',
-        'name'    => __( 'Sede di: ', 'design_comuni_italia' ),
-        'desc' => __( 'Link alle unità organizzative (uffici, aree, organi) presenti nel luogo. Puoi modificare il luogo di un\'unità organizzativa nelle sue impostazioni.' , 'design_comuni_italia' ),
+        'id' => $prefix . 'struttura_responsabile',
+        'name'    => __( 'Unità organizzativa responsabile' ),
+        'desc' => __( 'Unità organizzativa che ha la responsabilità del luogo' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('unita_organizzativa'),
-        'default_cb' => 'set_to_current_luogo_sede_di',
         'attributes' => array(
             'placeholder' =>  __( 'Seleziona le Unità Organizzative', 'design_comuni_italia' ),
-            'disabled' => 'true',
-            'required' => 'required'
+        )
+    ) );
+
+    $cmb_contatti->add_field( array(
+        'id' => $prefix . 'incarichi',
+        'name'    => 'Persone incaricate: ',
+        'desc' => 'Incarichi presenti nel luogo. Puoi modificare il luogo di un\'incarico nelle sue impostazioni.' ,
+        'type'    => 'pw_multiselect',
+        'options' => dci_get_posts_options('incarico'),
+        'default_cb' => 'set_to_current_persona',
+        'attributes' => array(
+            'placeholder' =>  'Seleziona le Persone',
         )
     ) );
 
@@ -419,13 +427,16 @@ function dci_add_luogo_metaboxes() {
     ) );
 
     $cmb_informazioni->add_field( array(
-        'id' => $prefix . 'struttura_responsabile',
-        'name'    => __( 'Unità organizzativa responsabile' ),
-        'desc' => __( 'Unità organizzativa che ha la responsabilità del luogo' , 'design_comuni_italia' ),
+        'id' => $prefix . 'sede_di_1',
+        'name'    => __( 'Sede di: ', 'design_comuni_italia' ),
+        'desc' => __( 'Link alle unità organizzative (uffici, aree, organi) presenti nel luogo. Puoi modificare il luogo di un\'unità organizzativa nelle sue impostazioni.' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('unita_organizzativa'),
+        'default_cb' => 'set_to_current_luogo_sede_di',
         'attributes' => array(
             'placeholder' =>  __( 'Seleziona le Unità Organizzative', 'design_comuni_italia' ),
+            'disabled' => 'true',
+            'required' => 'required'
         )
     ) );
 
@@ -540,6 +551,9 @@ add_filter( 'wp_insert_post_data' , 'dci_luogo_set_post_content' , '99', 1 );
 // relazione bidirezionale struttura / luoghi
 new dci_bidirectional_cmb2("_dci_luogo_", "luogo", "sede_di", "box_informazioni", "_dci_unita_organizzativa_sede_principale");
 
+// relazione bidirezionale Incarico / luoghi
+new dci_bidirectional_cmb2("_dci_luogo_", "luogo", "incarichi", "box_contatti", "_dci_incarico_luoghi_incarico");
+
 // relazione bidirezionale luoghi / luoghi
 new dci_bidirectional_cmb2("_dci_luogo_", "luogo", "luoghi_collegati", "box_descrizione", "_dci_luogo_luoghi_collegati");
 
@@ -548,4 +562,8 @@ new dci_bidirectional_cmb2("_dci_luogo_", "luogo", "servizi_erogati", "box_servi
 
 function set_to_current_luogo_sede_di($field_args, $field  ) {
 	return dci_get_meta("sede_di", "_dci_luogo_", $field->object_id) ?? [];
+}
+
+function set_to_current_persona($field_args, $field  ) {
+	return dci_get_meta("incarichi", "_dci_luogo_", $field->object_id) ?? [];
 }

@@ -602,3 +602,208 @@ function set_views($post_ID) {
 
 //keeps the count accurate by removing prefetching
 remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
+
+
+/**
+ * Aggiunge una pagina di menu "Utilities" in WordPress Admin.
+ */
+add_action( 'admin_menu', 'dci_add_utilities_admin_page' );
+function dci_add_utilities_admin_page() {
+    add_menu_page(
+       'Strumenti del tema ESA',
+       'Strumenti del tema ESA', 
+       'manage_options',
+       'dci_data_migration_utilities',  
+       'dci_render_utilities_page_content', 
+       'dashicons-admin-tools',
+       80
+    );
+}
+
+/**
+ * Renderizza il contenuto per la pagina di Utilities.
+ */
+function dci_render_utilities_page_content() {
+    ?>
+    <div class="wrap">
+        <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+        <p><?='Utilizza questa pagina per eseguire operazioni di migrazione dati su tutti i post.'?></p>
+
+        <div id="dci-migration-controls">
+            <h2><?='Migrazione Unità Organizzativa'?></h2>
+            <p>
+                <?='Questa operazione cercherà in tutti i post di tipo <strong>Incarico</strong> il vecchio campo "Unità Organizzativa" (singolo) e trasferirà il suo valore al nuovo campo "Unità Organizzative" (multiplo), se non già presente.'?>
+            </p>
+            <p>
+                <strong><?='Attenzione:'?></strong> <?='Questa operazione potrebbe richiedere del tempo su siti con molti post. Si consiglia di eseguire un backup del database prima di procedere.'?>
+            </p>
+
+            <button id="dci-start-bulk-migration-button" class="button button-primary">
+                <?='Avvia Migrazione Massiva Unità Organizzative'?>
+            </button>
+            <span id="dci-bulk-migration-spinner" class="spinner" style="float: none; visibility: hidden; margin-left: 5px;"></span>
+        </div>
+
+        <div id="dci-migration-feedback" style="margin-top: 20px; padding: 15px; border: 1px solid #ccd0d4; background-color: #f6f7f7; display: none;">
+            <h3><?='Risultati Migrazione:'?></h3>
+            <div id="dci-migration-results-content"></div>
+        </div>
+    </div>
+    <?php
+}
+
+/**
+ * Accoda lo script JavaScript per la pagina di utilities.
+ */
+add_action( 'admin_enqueue_scripts', 'dci_enqueue_utilities_page_scripts' );
+function dci_enqueue_utilities_page_scripts( $hook_suffix ) {
+    // Accoda lo script solo per la nostra pagina di utilities
+    if ( 'toplevel_page_dci_data_migration_utilities' !== $hook_suffix ) {
+        return;
+    }
+
+    // Assumendo che lo script si trovi in 'inc/admin-js/uo_bulk_migration.js' del tuo tema
+    // Modifica il percorso se necessario.
+    $script_path = get_template_directory_uri() . '/assets/js/uo_bulk_migration.js';
+    $script_version = '1.0.1'; // Cambia per invalidare la cache
+
+    wp_enqueue_script(
+        'dci-bulk-migration-script',
+        $script_path,
+        array( 'jquery' ),
+        $script_version,
+        true
+    );
+
+    // Passa dati allo script, come il nonce per AJAX e l'action hook
+    wp_localize_script(
+        'dci-bulk-migration-script',
+        'dci_bulk_migration_params',
+        array(
+            'ajax_url'      => admin_url( 'admin-ajax.php' ),
+            'nonce'         => wp_create_nonce( 'dci_bulk_migration_nonce' ),
+            'action'        => 'dci_perform_bulk_migration',
+            'text_processing' => 'Elaborazione in corso...',
+            'text_error'    => 'Si è verificato un errore. Controlla la console del browser per i dettagli.',
+        )
+    );
+}
+
+/**
+ * Gestore AJAX per l'operazione di migrazione massiva
+ */
+add_action( 'wp_ajax_dci_perform_bulk_migration', 'dci_ajax_perform_bulk_migration_handler' );
+function dci_ajax_perform_bulk_migration_handler() {
+    // Verifica Nonce e permessi utente
+    check_ajax_referer( 'dci_bulk_migration_nonce', 'nonce' );
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_send_json_error( 'Non hai i permessi per eseguire questa operazione.', 403 );
+        return;
+    }
+
+    $meta_prefix = '_dci_incarico_';
+
+    $old_meta_key = $meta_prefix . 'unita_organizzativa';
+    $new_meta_key = $meta_prefix . 'incarico_unita_organizzative';
+
+    $post_types_to_process = array('incarico');
+
+    $args = array(
+        'post_type'      => $post_types_to_process,
+		'posts_per_page' => -1, // Processa tutti i post corrispondenti
+        'post_status'    => 'any', // Considera tutti gli stati dei post
+        'meta_query'     => array(
+            array(
+                'key'     => $old_meta_key,
+                'compare' => 'EXISTS', // Processa solo i post che hanno il vecchio meta key
+            ),
+        ),
+        'fields'         => 'ids',
+    );
+
+    $post_ids = get_posts( $args );
+
+    $processed_count = 0;
+    $updated_count = 0;
+    $already_migrated_count = 0;
+    $no_value_old_field_count = 0;
+    $errors = array();
+
+    if ( empty( $post_ids ) ) {
+        wp_send_json_success( array(
+            'message' => 'Nessun post trovato con il vecchio campo meta da migrare.',
+            'stats'   => array(
+                'processed' => $processed_count,
+                'updated'   => $updated_count,
+                'already_migrated' => $already_migrated_count,
+                'no_value_old_field' => $no_value_old_field_count,
+            )
+        ) );
+        return;
+    }
+
+    foreach ( $post_ids as $post_id ) {
+        $processed_count++;
+        $old_value = get_post_meta( $post_id, $old_meta_key, true );
+
+        if ( empty( $old_value ) ) {
+            // Il meta key esiste ma il valore è vuoto
+            $no_value_old_field_count++;
+            continue;
+        }
+
+        $new_values_array = get_post_meta( $post_id, $new_meta_key, true );
+        if ( ! is_array( $new_values_array ) ) {
+            $new_values_array = array();
+        }
+
+        // Rimuovi eventuali valori vuoti dall'array esistente
+        $new_values_array = array_filter( $new_values_array, function($value) {
+            return !empty($value);
+        });
+
+        if ( ! in_array( $old_value, $new_values_array ) ) {
+            $new_values_array[] = $old_value;
+            $update_result = update_post_meta( $post_id, $new_meta_key, $new_values_array );
+            if ( false === $update_result ) {
+                $errors[] = sprintf( 'Errore durante l\'aggiornamento del post ID %d.', $post_id );
+            } else {
+                $updated_count++;
+            }
+        } else {
+            $already_migrated_count++;
+        }
+    }
+
+    $response_message = sprintf(
+        'Migrazione completata. Post processati: %d. Post aggiornati: %d. Valori già migrati/presenti: %d. ',
+        $processed_count,
+        $updated_count,
+        $already_migrated_count,
+        $no_value_old_field_count
+    );
+
+    if ( ! empty( $errors ) ) {
+        $response_message .= "\n" . 'Si sono verificati alcuni errori:' . "\n" . implode( "\n", $errors );
+        wp_send_json_error( array(
+            'message' => $response_message,
+            'stats'   => array(
+                'processed' => $processed_count,
+                'updated'   => $updated_count,
+                'already_migrated' => $already_migrated_count,
+                'no_value_old_field' => $no_value_old_field_count,
+                'errors'    => count($errors)
+            )
+        ) );
+    } else {
+        wp_send_json_success( array(
+            'message' => $response_message,
+            'stats'   => array(
+                'processed' => $processed_count,
+                'updated'   => $updated_count,
+                'already_migrated' => $already_migrated_count,
+                'no_value_old_field' => $no_value_old_field_count,
+            )
+        ) );
+    }
+}

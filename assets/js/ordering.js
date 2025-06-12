@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const orderModalElement = document.getElementById('OrderModal');
 
     if (!saveButton || !orderModalElement) {
-        console.warn("Elementi per la gestione dell'ordinamento non trovati.");
         return;
     }
 
@@ -11,7 +10,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const radioButtons = orderModalElement.querySelectorAll('input[name="filterOption"]');
 
     const flexContainer = document.querySelector('.d-flex.align-items-center.justify-content-between');
-    const currentOrder = flexContainer ? flexContainer.dataset.currentOrder : 'alphabetical';
+    const currentOrder = flexContainer ? flexContainer.dataset.currentOrder : 'alphabetical_asc';
+
+    const hiddenOrderByInput = document.getElementById('hidden-order-by');
 
     const loadingHtml = `<div id="loading-overlay" style="position: fixed; top: 0; left: 0; z-index: 1050; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.75); display: flex; justify-content: center; align-items: center;">
         <div class="text-center">
@@ -49,16 +50,13 @@ document.addEventListener('DOMContentLoaded', function () {
         if (selectedOption) {
             const orderValue = selectedOption.value;
 
+            if (hiddenOrderByInput) {
+                hiddenOrderByInput.value = orderValue;
+            }
+
             orderModalInstance.hide();
 
             document.body.insertAdjacentHTML('beforeend', loadingHtml);
-
-            setTimeout(() => {
-                const currentUrl = new URL(window.location.href);
-                currentUrl.searchParams.set('order_by', orderValue);
-
-                window.location.href = currentUrl.toString();
-            }, 150);
         }
     });
 });

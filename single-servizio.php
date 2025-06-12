@@ -51,6 +51,7 @@ get_header();
         $uo_id = intval(dci_get_meta("unita_responsabile"));
         $argomenti = get_the_terms($post, 'argomenti');
         $documenti_ids = dci_get_meta("documenti");
+        $incarichi = dci_get_meta("incarico_servizi");
 
         //servizi
         $stileNecessari = dci_get_option('visual_servizi_necessari','servizi');
@@ -466,9 +467,9 @@ get_header();
                                 <?php } else { ?>
                                     <p>Il servizio viene erogato nei seguenti luoghi.</p>
                                 <?php } ?>
-                                <div class="row"> <?php 
+                                <div class="row g-2"> <?php 
                                 foreach ($canale_fisico_luoghi_id as $luogo_id) { ?>
-                                    <div class="col-xl-6 col-lg-7 col-md-12"> <?php
+                                    <div class="col-xl-6 col-lg-7 col-md-12 d-flex"> <?php
                                         $luogo = get_post($luogo_id);
                                         get_template_part("template-parts/luogo/card-title"); ?>
                                     </div> <?php
@@ -688,13 +689,28 @@ get_header();
                                             }
                                         } ?>
                                     </div>
-                                <?php }
-
-
-                                if($mostra_prenota_appuntamento || !empty($punti_contatto_id))
-                                {?>
-                                    <h3 class="mb-3 h4">Contatta ufficio</h3>
                                 <?php } ?>
+
+                                <?php if ($incarichi && !empty($punti_contatto_id)) { ?>
+                                    <h3 class="h4 mb-2">Persone incaricate</h3>
+                                <?php } ?>
+                                <?php if ($incarichi) { ?>
+                                    <div class="row g-2 mb-4">
+                                        <?php foreach ($incarichi as $incarico_id) { ?>
+                                            <div class="col-lg-6 col-md-12">
+                                                <?php 
+                                                $titleLevel = 3;
+                                                get_template_part("template-parts/incarico/card-person-contacts"); ?>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                <?php } ?>
+
+                                <?php if(($mostra_prenota_appuntamento || !empty($punti_contatto_id)) && ($uo_id != null) || ($incarichi))
+                                {?>
+                                    <h3 class="mb-2 h4">Contatta ufficio</h3>
+                                <?php } ?>
+                                <?php if($uo_id != null){?>
                                 <div class="row">
                                     <div class="col-12 col-md-8 col-lg-6 mb-30">
                                         <?php
@@ -704,6 +720,8 @@ get_header();
                                         ?>
                                     </div>
                                 </div>
+                                <?php } ?>
+
 
                             <?php if ($more_info) {  ?>
                                 <section class="it-page-section mb-30">
