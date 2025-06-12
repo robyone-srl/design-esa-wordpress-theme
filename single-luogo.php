@@ -386,22 +386,23 @@ get_header();
                                         } ?>
                                     </div>
 
-                                    <?php if ($incarichi && isset($contatto)) { ?>
+                                    <?php if ($incarichi) { ?>
                                         <h3 class="h4 mt-4 mb-2">Contatta le persone</h3>
                                     <?php } ?>
                                     <?php if ($incarichi) { ?>
                                         <div class="row g-2 mb-4">
-                                            <?php foreach ($incarichi as $incarico_id) { ?>
+                                            <?php foreach ($incarichi as $incarico_id) { 
+                                            ?>
                                                 <div class="col-lg-6 col-md-12">
                                                     <?php 
                                                     $titleLevel = 3;
-                                                    get_template_part("template-parts/incarico/card-person"); ?>
+                                                    get_template_part("template-parts/incarico/card-person-contacts"); ?>
                                                 </div>
                                             <?php } ?>
                                         </div>
                                     <?php } ?>
 
-                                    <?php if (($gestito_da && is_array($gestito_da) && count($gestito_da) > 0) && ($punti_contatto && is_array($punti_contatto) && count($punti_contatto) > 0) || ($incarichi)) { ?>
+                                    <?php if (($gestito_da && is_array($gestito_da) && count($gestito_da) > 0) && ($punti_contatto && is_array($punti_contatto) && count($punti_contatto) > 0) && ($incarichi)) { ?>
                                         <h3 class="h4 mt-4 mb-2">Contatta il gestore</h3>
                                     <?php } ?>
                                     <?php if($gestito_da && is_array($gestito_da) && count($gestito_da) > 0){?>
