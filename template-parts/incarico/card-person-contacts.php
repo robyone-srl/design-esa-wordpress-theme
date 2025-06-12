@@ -13,8 +13,17 @@
     $descrizione_breve = dci_get_meta('descrizione_breve', $prefix, $persona->ID);
     $foto = dci_get_meta('foto', $prefix, $persona->ID);
 
-    $punti_contatto = dci_get_meta('punti_contatto', $prefix, $persona->ID);
+    
     $contatti = array();
+
+    $punti_contatto_incarico = dci_get_meta('contatti', '_dci_incarico_', $incarico->ID);
+
+    if($punti_contatto_incarico && is_array($punti_contatto_incarico) && count($punti_contatto_incarico)) {
+        $punti_contatto = $punti_contatto_incarico;
+    } else {
+        $punti_contatto = dci_get_meta('punti_contatto', $prefix, $persona->ID);
+    }
+
     foreach ($punti_contatto as $pc_id) {
         $contatto = dci_get_full_punto_contatto($pc_id);
         array_push($contatti, $contatto);
