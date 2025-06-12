@@ -44,6 +44,7 @@ get_header();
 
             $servizi_incarico = dci_get_meta("servizi_incarico", $prefix, $post->ID);
             $sede = dci_get_meta("luoghi_incarico", $prefix, $post->ID);
+            $contatti = dci_get_meta("contatti", $prefix, $post->ID);
 
             $persona = dci_get_meta('persona', $prefix, $post->ID);
 
@@ -169,11 +170,19 @@ get_header();
                                                                             </a>
                                                                         </li>
 																<?php } ?>
-
+                                                                
                                                                 <?php if ($sede) {?>
                                                                     <li class="nav-item">
                                                                             <a class="nav-link" href="#sede">
                                                                                 <span>Luoghi gestiti</span>
+                                                                            </a>
+                                                                    </li>
+																<?php } ?>
+
+                                                                <?php if ($contatti && count($contatti)) {?>
+                                                                    <li class="nav-item">
+                                                                            <a class="nav-link" href="#contatti">
+                                                                                <span>Contatti</span>
                                                                             </a>
                                                                     </li>
 																<?php } ?>
@@ -239,6 +248,7 @@ get_header();
                                             <div class="card-wrapper card-teaser-wrapper">
                                                 <?php 
                                                     $with_border = true;
+                                                    $hide_incarichi = true;
                                                     $pp_id = $persona->ID;
                                                     get_template_part("template-parts/persona_pubblica/card");
                                                 ?>
@@ -343,7 +353,7 @@ get_header();
                                     </div>
                                 </section>
                             <?php  } ?>
-
+                            
                             <?php if ($atto_nomina) { ?>
                                 <article id="atto_di_nomina" class="it-page-section mb-5">
                                     <h2 class="h3 mb-3">Atto di nomina</h2>
@@ -389,6 +399,29 @@ get_header();
                                     </div>
                                 </section>
 							<?php } ?>
+
+                            <?php if ($contatti && count($contatti)) { ?>
+                                <section id="contatti" class="it-page-section mb-4">
+                                    <h2 class="h3 my-2">Contatti</h2>
+                                    <?php if(count($contatti) == 1){
+                                        echo "<p>&Egrave; stato abbinato all'incarico un contatto dedicato.</p>";
+                                    }else{
+                                        echo "<p>Sono stati abbinati all'incarico ". count($contatti) ." contatti dedicati.</p>";
+                                    } ?>
+                                    <div class="row">
+                                        <?php foreach ($contatti as $pc_id) { 
+                                            $contatto = get_post($pc_id);
+                                            if(isset($contatto)){?>
+                                                <div class="col-md-6 col-sm-12 mb-3 card-wrapper">
+                                                    <?php
+                                                    $with_border = true;
+                                                    get_template_part("template-parts/punto-contatto/card"); ?>
+                                                </div>  <?php  
+                                            }
+                                        } ?>
+                                    </div>
+                                </section>
+                            <?php  } ?>
 
 							<?php if ($ulteriori_informazioni) {  ?>
                                 <section id="more-info" class="it-page-section mb-4">

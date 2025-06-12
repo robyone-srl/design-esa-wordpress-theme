@@ -168,6 +168,18 @@ function dci_add_incarico_metaboxes()
     ) );
 
     $cmb_dati->add_field( array(
+        'id' => $prefix . 'contatti',
+        'name'        => __( 'Contatti dell\'incarico', 'design_comuni_italia' ),
+        'desc' => __( 'Scegli i contatti specifici dell\'incarico. <strong>Verranno mostrati al posto dei contatti della persona nelle pagine di luoghi e servizi</strong>' , 'design_comuni_italia' ),
+        'type'    => 'pw_multiselect',
+        'options' => dci_get_posts_options('punto_contatto'),
+        'attributes'    => array(
+            'required'    => 'required',
+            'placeholder' =>  __( ' Seleziona i Punti di Contatto', 'design_comuni_italia' ),
+        ),
+    ) );
+
+    $cmb_dati->add_field( array(
         'id' => $prefix . 'compensi',
         'name'        => __( 'Compensi', 'design_comuni_italia' ),
         'desc' => __( 'Solo per incarico politico: compensi di qualsiasi natura connessi all\'assunzione della carica' , 'design_comuni_italia' ),
