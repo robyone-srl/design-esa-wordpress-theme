@@ -190,7 +190,7 @@ get_header();
                                                         <?php if ($punti_contatto && is_array($punti_contatto) && count($punti_contatto) > 0) { ?>
                                                         <li class="nav-item">
                                                             <a class="nav-link" href="#contatti">
-                                                                <span>Contatti</span>
+                                                                <span>Contatta la persona</span>
                                                             </a>
                                                         </li>
                                                         <?php } ?>
@@ -315,8 +315,9 @@ get_header();
 
                     <?php if ($punti_contatto && is_array($punti_contatto) && count($punti_contatto) > 0) { ?>
                     <section id="contatti" class="it-page-section mb-4">
-                        <h2 class="h3 my-2">Contatti</h2>
-                        <div class="row"> <?php 
+                        <h2 class="h3 my-2">Contatta la persona</h2>
+                        <div class="row">
+                            <?php 
                             foreach ($punti_contatto as $pc_id) { 
                                 $contatto = get_post($pc_id);
                                 if(isset($contatto)){?>
