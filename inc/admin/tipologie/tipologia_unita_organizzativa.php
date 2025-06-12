@@ -134,19 +134,20 @@ function dci_add_unita_organizzativa_metaboxes() {
         )
     ) );
 
-    $uo_figlie = dci_get_children_pages_by_path('amministrazione',true, null, 'menu_order');
-    $arr_uo_figlie = array_keys((array)$uo_figlie);
+
     $cmb_struttura->add_field( array(
-        'id' => $prefix . 'uo_figlia_1',
-        'name'    => __( 'Unità organizzativa figlia', 'design_comuni_italia' ),
+        'id' => $prefix . 'uo_figlie',
+        'name'    => __( 'Unità organizzativa gestite', 'design_comuni_italia' ),
+        'description' => 'Unità organizzative figlie',
+        'options' => dci_get_posts_options('unita_organizzativa'),
         'type'    => 'pw_multiselect',
-        'options' => $arr_uo_figlie,
+        'default_cb' => 'dci_get_uo_figlia_id',
         'attributes' => array(
-            'placeholder' =>  __( 'Seleziona gli incarichi', 'design_comuni_italia' ),
+            'placeholder' =>  __( 'Seleziona le Unità Organizzative figlie', 'design_comuni_italia' ),
+            'disabled' => 'true',
         )
     ) );
-
-    //var_dump(dci_get_children_pages_by_path('unita_organizzativa',true, null, 'menu_order'));
+    
     $cmb_struttura->add_field( array(
         'id' => $prefix . 'tipo_organizzazione',
         'name'        => __( 'Tipo di organizzazione *', 'design_comuni_italia' ),
@@ -171,7 +172,7 @@ function dci_add_unita_organizzativa_metaboxes() {
     $cmb_persone->add_field( array(
         'id' => $prefix . 'incarichi',
         'name'    => __( 'Incarichi', 'design_comuni_italia' ),
-        'desc' => __( 'Gli incarichi delle persone nell\'unità organizzativa. Puoi modificare queste informazioni dalle impostazioni degli incarichi.' , 'design_comuni_italia' ),
+        'desc' => __( 'Gli incarichi delle persone nell\'unità organizzativa.' , 'design_comuni_italia' ),
         'type'    => 'pw_multiselect',
         'options' => dci_get_incarichi_con_nomi(),
         'default_cb' => 'set_to_current_unita_organizzativa_incarichi',
@@ -463,4 +464,70 @@ function set_to_current_unita_organizzativa_servizi($field_args, $field  ) {
 
 function set_to_current_unita_organizzativa_incarichi($field_args, $field  ) {
 	return dci_get_meta("incarichi", "_dci_unita_organizzativa_", $field->object_id) ?? [];
+}
+
+
+function get_post_admin(){
+	if ( isset( $_GET['post'] ) && ! empty( $_GET['post'] ) ) {
+    $post_id = absint( $_GET['post'] ); 
+    $post = get_post( $post_id );
+
+	}
+	return $post->ID;
+}
+
+function dci_get_uo_figlia_id($field_args, $field){
+	
+
+	$post = get_post_admin();
+
+
+    $args = [
+        'post_type' => 'unita_organizzativa',
+        'posts_per_page' => -1
+    ];
+
+    $unita = get_posts($args);
+
+    $unita_organizzate = array();
+
+    foreach($unita as $uo){
+        $id_genitore_uo = get_post_meta($uo->ID, '_dci_unita_organizzativa_unita_organizzativa_genitore');
+
+        if(isset($id_genitore_uo) && is_array($id_genitore_uo)){
+            foreach($id_genitore_uo[0] as $id_g){
+                
+                if(intval($id_g) == $post){
+                    $unita_organizzate[] = $uo->ID;
+                }   
+            }
+        }     
+    }
+    return $unita_organizzate;
+}
+
+function dci_get_uo_figlia($post){
+
+    $args = [
+        'post_type' => 'unita_organizzativa',
+        'posts_per_page' => -1
+    ];
+
+    $unita = get_posts($args);
+
+    $unita_organizzate = array();
+
+    foreach($unita as $uo){
+        $id_genitore_uo = get_post_meta($uo->ID, '_dci_unita_organizzativa_unita_organizzativa_genitore');
+
+        if(isset($id_genitore_uo) && is_array($id_genitore_uo)){
+            foreach($id_genitore_uo[0] as $id_g){
+                
+                if(intval($id_g) == $post){
+                    $unita_organizzate[] = $uo->ID;
+                }   
+            }
+        }     
+    }
+    return $unita_organizzate;
 }

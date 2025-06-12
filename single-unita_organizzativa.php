@@ -28,7 +28,7 @@ get_header();
         $tipo_organizzazione = array_column($tipi_organizzazione, 'name') ?? null;
         $unita_organizzativa_genitore = dci_get_meta("unita_organizzativa_genitore", $prefix, $post->ID);
 
-        $unità_organizzative_figlie = dci_get_uo_figlia() ?? false;
+        $unità_organizzative_figlie = dci_get_uo_figlia($post->ID) ?? false;
 
         $incarichi = dci_get_meta("incarichi", $prefix, $post->ID);
 
@@ -155,6 +155,13 @@ get_header();
                                                                     </a>
                                                                 </li>
                                                             <?php } ?>
+                                                            <?php if ($unità_organizzative_figlie) { ?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#uo_figlie">
+                                                                        <span>Unità organizzative gestite</span>
+                                                                    </a>
+                                                                </li>
+                                                            <?php } ?>
                                                             <?php if ($has_persone || $has_incarichi) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#persone">
@@ -222,14 +229,14 @@ get_header();
                 </div>
                 <div class="col-12 col-lg-9">
                     <div class="it-page-sections-container">
+                    
                         <section id="competenze" class="it-page-section mb-4">
                             <h2 class="h3 my-2">Competenze</h2>
                             <div class="richtext-wrapper lora">
                                 <?php echo $competenze ?>
                             </div>
-
                             <?php if(is_array($unità_organizzative_figlie) && (count($unità_organizzative_figlie) > 0)) { ?>
-                                <h3 class="h4 my-2">Unità organizzative</h3>
+                                <h3 class="h4 my-2" id="uo_figlie">Unità organizzative gestite</h3>
                                 <div class="row g-2">
                                     <?php foreach ($unità_organizzative_figlie as $uo_id) {
                                         $with_border = false; ?>
@@ -239,8 +246,7 @@ get_header();
                                         </div>
                                     <?php } ?>
                                 </div>
-                        <?php }  ?>
-
+                            <?php }  ?>
                         </section>
 
                         <?php if ($has_persone || $has_incarichi) { ?>
@@ -253,28 +259,39 @@ get_header();
                                         if ($has_incarichi) { ?>
                                             <div class="row g-2">
                                                 <?php foreach ($incarichi_di_responsabilita as $inc_id) { 
-                                                    if (FALSE !== get_post_status( $inc_id ) ) { ?>
-                                                    <div class="col-lg-6 col-md-12 d-flex">
-                                                        <?php 
-                                                        $titleLevel = 3;
-                                                        get_template_part("template-parts/incarico/card"); ?>
-                                                    </div>
-                                                <?php } } ?>
+                                                    $pp_id = dci_get_meta('persona', '_dci_incarico_', $inc_id);
+
+                                                    if($pp_id){ ?>
+                                                        <div class="col-lg-6 col-md-12 d-flex">
+                                                            <?php 
+                                                            $titleLevel = 3;
+                                                            get_template_part("template-parts/persona_pubblica/card"); ?>
+                                                        </div> <?php 
+                                                    } else {
+                                                        if (FALSE !== get_post_status( $inc_id ) ) { ?>
+                                                            <div class="col-lg-6 col-md-12 d-flex">
+                                                                <?php 
+                                                                $titleLevel = 3;
+                                                                get_template_part("template-parts/incarico/card"); ?>
+                                                            </div>  <?php 
+                                                        }
+                                                    }
+                                                }?>
                                             </div>
-                                            <div class="row g-2">
-                                                <?php foreach ($altri_incarichi as $inc_id) { 
-                                                    if (FALSE !== get_post_status( $inc_id ) ) {
-												?>
-                                                    <div class="col-lg-6 col-md-12 d-flex">
-                                                        <?php 
-                                                        $titleLevel = 3;
-                                                        get_template_part("template-parts/incarico/card"); ?>
-                                                    </div>
-                                                <?php } } ?>
-                                            </div>
-                                        <?php }
-                                        ?>
-                                        <?php
+                                            <?php if($altri_incarichi){ ?>
+                                                <div class="row g-2">
+                                                    <?php foreach ($altri_incarichi as $inc_id) { 
+                                                        if (FALSE !== get_post_status( $inc_id ) ) {
+												    ?>
+                                                        <div class="col-lg-6 col-md-12 d-flex">
+                                                            <?php 
+                                                            $titleLevel = 3;
+                                                            get_template_part("template-parts/incarico/card"); ?>
+                                                        </div>
+                                                    <?php } } ?>
+                                                </div> <?php
+                                            }
+                                        }
                                         if ($has_persone) {
 										?>
                                             <div class="row g-2">
