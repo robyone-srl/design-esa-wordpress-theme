@@ -29,8 +29,10 @@ add_action('after_switch_theme','dci_welcome_init');
  * Gestione widget dashboard admin
  *
  */
+
 // Add a new widget to the dashboard using a custom function
 add_action( 'wp_dashboard_setup', 'dci_add_dashboard_widgets' );
+
 // Register the new dashboard widget with the 'wp_dashboard_setup' action
 function dci_add_dashboard_widgets() {
     wp_add_dashboard_widget(
@@ -38,12 +40,51 @@ function dci_add_dashboard_widgets() {
         'Design Enti Socio-Assistenziali Italia', // Widget title
         'dci_new_dashboard_widget_function' // Function name to display the widget
     );
+    wp_add_dashboard_widget(
+        'dci_post_type_info_widget_widget', // Widget slug
+        'Scopri i tipi di contenuto', // Widget title
+        'dci_post_type_info_widget_function' // Function name to display the widget
+    );
 }
+
 // Initialize the function to output the contents of your new dashboard widget
 function dci_new_dashboard_widget_function() {
-    echo "<p>Design Enti Socio-Assistenziali: il tema dedicato agli Enti socio-assistenziali</p>";
-    echo "<p>Il tema è stato preparato sulla base del <a href=\"https://github.com/italia/design-comuni-wordpress-theme\">tema di Developers Italia predisposto per i Comuni Italiani</a></p>";
-    echo "<p><a href=\"https://github.com/robyone-srl/design-esa-wordpress-theme\">Documentazione del tema su Github</a></p>";
+    echo "<p>Il tema applicato è una personalizzazione di WordPress basato sul modello architetturale predisposto per gli Enti socio-assistenziali da Robyone. <br /> Tema e modello sono stati predisposti prendendo in considerazione e riadattando quelli previsti da <a href=\"https://designers.italia.it/\">Agenzia per l'Italia Digitale - Designers Italia</a> per i <a href=\"https://designers.italia.it/modelli/comuni/\" target=\"_blank\">Comuni Italiani</a>";
+    echo "<p>Entrambe le risorse sono entrambe aperte al miglioramento continuo con l’obiettivo di arrivare ad una proposta valida e di riferimento anche per altri Enti che volessero aggiungersi all’iniziativa. Gli aggiornamenti sono rilasciati con medesima licenza del tema nazionale.</p>";
+    echo "<p><a href=\"https://github.com/robyone-srl/design-esa-wordpress-theme\" target=\"_blank\">Documentazione del tema ESA su Github</a></p>";
+}
+
+// Initialize the function to output the contents of your new dashboard widget
+function dci_post_type_info_widget_function() {
+    echo "<p>Un buon contenuto risponde alle domande che può farsi una persona che visita una pagina web in cerca di informazioni. Le domande possono variare in base alla tipologia di contenuto e nel tema ne sono già previsti di diversi per soddisfare i bisogni delle persone che visitano il tuo sito. Utilizzare la tipologia di contenuto corretta è fondamentale per garantire che il sito sia utile e navigabile, riportiamo le tipologie principali di seguito.</p>";
+
+    // Categoria 1: Struttura e Organizzazione dell'Ente
+    echo "<h3><strong>Struttura e organizzazione</strong></h3>";
+    echo "<ul>";
+    echo "<li><strong>Unità organizzativa</strong>, entità con uno scopo organizzativo e competenze specifiche (es. ufficio, organo di governo, area);</li>";
+    echo "<li><strong>Persona pubblica</strong>, informazioni di base sulle singole persone che operano nell'Ente (e hanno uno o più <i>incarichi</i>);</li>";
+    echo "<li><strong>Incarico</strong>, ruolo specifico all'interno dell'Ente assunto da una <i>Persona</i> (es. direttore, coordinatore, consigliere);</li>";
+    echo "<li><strong>Luogo</strong>, per gli ambienti fisici rilevanti per l'Ente come le sedi, i nuclei e gli ambienti legati ai servizi;</li>";
+    echo "<li><strong>Punto di contatto</strong>, per riunire i canali di contatto tra loro correlati (telefono, email, PEC) ed evitare duplicazioni.</li>";
+    echo "</ul>";
+
+    // Categoria 2: Comunicazione e Novità
+    echo "<h3><strong>Comunicazione e novità</strong></h3>";
+    echo "<ul>";
+    echo "<li><strong>Notizia</strong>, per tutte le comunicazioni e aggiornamenti, come avvisi e comunicati stampa;</li>";
+    echo "<li><strong>Evento</strong>, per promuovere avvenimenti con date e orari precisi e creare un calendario;</li>";
+    echo "<li><strong>Sito tematico</strong>, per collegare la pagina iniziale o una sezione di un sito esterno (es. amministrazione trasparente, portale whistleblowing).</li>";
+    echo "</ul>";
+
+    // Categoria 3: Servizi e Supporto all'Utenza
+    echo "<h3><strong>Servizi e supporto all'utenza</strong></h3>";
+    echo "<ul>";
+    echo "<li><strong>Servizio</strong>, per i servizi erogati (anche quelli digitali), dal soggiorno residenziale al taglio dei capelli e ai pagamenti digitali;</li>";
+    echo "<li><strong>Documento pubblico</strong>, per le informazioni documentali prodotte dall'Ente, dallo statuto ai regolamenti e al giornalino;</li>";
+    echo "<li><strong>Domanda frequente (FAQ)</strong>, per fornire supporto veloce agli utenti riguardo le richieste più frequenti.</li>";
+    echo "</ul>";
+
+    echo "<p>Puoi leggere la <a href=\"https://github.com/robyone-srl/design-esa-wordpress-theme\" target=\"_blank\">documentazione completa del tema su Github</a></p>";
 }
 
 /**
