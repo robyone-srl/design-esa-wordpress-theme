@@ -177,9 +177,79 @@ function dci_register_pagina_home_options(){
             'min' => 0,
         ),
     ) );
+	
+	
+	$contents_group_id = $home_options->add_field( array(
+        'id'           => $prefix . 'schede_evidenza',
+        'type'        => 'group',
+        'desc' => __( 'Ogni scheda di contenuto o tassonomia (categoria, tipologia, argomento, ...) viene riportato nello spazio In evidenza nella pagina iniziale' , 'design_comuni_italia' ),
+        'repeatable'  => true,
+        'options'     => array(
+            'group_title'   => __( 'Evidenza {#}', 'design_comuni_italia' ),
+            'add_button'    => __( 'Aggiungi una scheda', 'design_comuni_italia' ),
+            'remove_button' => __( 'Rimuovi la scheda', 'design_comuni_italia' ),
+            'sortable'      => true,  // Allow changing the order of repeated groups.
+        ),
+    ) );
+	
+    $home_options->add_group_field( $contents_group_id, array(
+        'id' => $prefix . 'tipo_evidenza',
+        'name'        => __( 'Tipo di evidenza', 'design_comuni_italia' ),
+        'desc' => __( 'Scegli se scegliere un contenuto o un termine di tassonomia' , 'design_comuni_italia' ),
+        'type'    => 'radio_inline',
+        'options' => array(
+            'content' => __( 'Contenuto', 'cmb2' ),
+            'taxonomy_term'   => __( 'Termine tassonomia', 'cmb2' ),
+        ),
+        'default' => 'content',
+    ) );
 
+    $home_options->add_group_field( $contents_group_id, array(
+        'id' => $prefix . 'termine_evidenza',
+        'name'        => __( 'Termine di tassonomie', 'design_comuni_italia' ),
+        'desc' => __( 'Puoi selezionare categorie, tipologie e altre liste da mettere in evidenza' , 'design_comuni_italia' ),
+        'type'    => 'pw_select',
+        'options' => dci_get_multi_taxonomies_terms_options(array('argomenti', 'tipi_documento')),
+        'attributes' => array(
+			'data-conditional-id'    => $prefix.'tipo_evidenza',
+			'data-conditional-value' => "taxonomy_term",
+        ),
+    ) );
+	
+    $home_options->add_group_field( $contents_group_id, array(
+       		'name'        => __('Contenuto', 'design_comuni_italia'),
+		    'desc' => __( 'Definisci il contenuto da mettere in evidenza' , 'design_comuni_italia' ),
+            'id' => $prefix . 'contenuto_evidenza',
+            'type'    => 'custom_attached_posts',
+            'column'  => true, // Output in the admin post-listing as a custom column. https://github.com/CMB2/CMB2/wiki/Field-Parameters#column
+            'options' => array(
+                'show_thumbnails' => false, // Show thumbnails on the left
+                'filter_boxes'    => true, // Show a text box for filtering the results
+                'query_args'      => array(
+                    'posts_per_page' => -1,
+                    'post_type'      => array('evento','luogo','unita_organizzativa','documento_pubblico','servizio','notizia','dataset','page'),
+                ), // override the get_posts args
+            ),
+            'attributes' => array(
+                'data-max-items' => 1, //change the value here to how many posts may be attached.
+				'data-conditional-id'    => $prefix.'tipo_evidenza',
+				'data-conditional-value' => "content",
+        	),
+    ) );
+	
+    $home_options->add_group_field( $contents_group_id, array(
+        'id' => $prefix . 'expiration',
+        'name'        => __( 'Data fine', 'design_comuni_italia' ),
+        'type' => 'text_date',
+        'date_format' => 'd-m-Y',
+        'data-datepicker' => json_encode( array(
+            'yearRange' => '-100:+0',
+        ) ),
+    ) );
+
+	/*
     $home_options->add_field( array(
-		    'name'        => __('Schede in evidenza', 'design_comuni_italia'),
+		    'name'        => __('Schede di contenuti in evidenza', 'design_comuni_italia'),
 		    'desc' => __( 'Definisci il contenuto delle Schede in evidenza' , 'design_comuni_italia' ),
             'id' => $prefix . 'schede_evidenziate',
             'type'    => 'custom_attached_posts',
@@ -197,6 +267,7 @@ function dci_register_pagina_home_options(){
             ),
         )
     );
+	*/
     
     $home_options->add_field( array(
         'id' => $prefix . 'visualizzazione_eventi',

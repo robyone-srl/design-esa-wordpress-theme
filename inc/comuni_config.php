@@ -107,6 +107,53 @@ function dci_get_tassonomie_names(){
 }
 
 /**
+ * restituisce l'id del gruppo di appartenenza della tipologia
+ * @param $tipologia
+ * @return mixed
+ */
+function dci_get_taxonomy_group($taxonomy) {
+	$result = "";
+	
+	switch ($taxonomy) {
+		case "categorie_servizio":
+			$result = "servizi";
+			break;
+		case "tipi_evento":
+			$result = "vivere-ente";
+			break;
+		case "tipi_notizia":
+			$result = "novita";
+			break;
+		case "tipi_luogo":
+			$result = "vivere-ente";
+			break;
+		case "tipi_unita_organizzativa":
+			$result = "amministrazione";
+			break;
+		case "licenze":
+			$result = "amministrazione";
+			break;
+		case "frequenze_aggiornamento":
+			$result = "amministrazione";
+			break;
+		case "temi_dataset":
+			$result = "amministrazione";
+			break;
+		case "tipi_doc_albo_pretorio":
+			$result = "amministrazione";
+			break;
+		case "tipi_incarico":
+			$result = "amministrazione";
+			break;
+		case "tipi_documento":
+			$result = "amministrazione";
+			break;
+	}
+
+    return $result;
+}
+
+/**
  * restituisce tutti gli slug delle pagine di default del Sito dei Comuni
  */
 function dci_get_pagine_slugs(){
