@@ -139,6 +139,42 @@ function dci_get_terms_options( $taxonomy_name, $with_slug = false, $hide_empty 
     return $options;
 }
 
+
+/**
+ * tutti i termini delle tassonomie indicate
+ * @param $taxonomies_name
+ * @param false $query_args
+ * @return array
+ */
+function dci_get_multi_taxonomies_terms_options($taxonomies_name, $with_slug = false, $hide_empty = false) {
+    $options = array();
+	
+    foreach ( $taxonomies_name as $tax ) {
+		$tax_label = $tax;
+		
+		$taxonomy_obj = get_taxonomy( $tax );
+		if ( $taxonomy_obj )
+    		$tax_label = $taxonomy_obj->labels->name;
+			
+        $terms = get_terms( array(
+            'taxonomy'   => $tax,
+            'hide_empty' => $hide_empty,
+        ) );
+
+        if ( ! is_wp_error( $terms ) ) {
+            foreach ( $terms as $term ) {
+				if($with_slug) {
+                	$options[ $term->slug . '|' . $tax ] = $term->name . " ({$tax_label})";
+				} else {
+					$options[ $term->term_id . '|' . $tax ] = $term->name . " ({$tax_label})";
+				}
+            }
+        }
+    }
+
+    return $options;
+}
+
 /**
  * @param string $type
  * @return string[]
