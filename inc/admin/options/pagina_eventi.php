@@ -14,7 +14,7 @@ function dci_register_pagina_eventi_options(){
         'tab_title'    => __('Eventi', "design_comuni_italia"),
         'parent_slug'  => 'dci_options',
         'tab_group'    => 'dci_options',
-        'capability'    => 'manage_options',
+        'capability'    => 'manage_theme_options',
     );
 
     // 'tab_group' property is supported in > 2.4.0.
@@ -27,19 +27,6 @@ function dci_register_pagina_eventi_options(){
         'name'        => __( 'Eventi', 'design_comuni_italia' ),
         'desc' => __( 'Configurazione della pagina eventi' , 'design_comuni_italia' ),
         'type' => 'title',
-    ) );
-    $eventi_options->add_field( array(
-        'id' => $prefix . 'immagine',
-        'name'        => __( 'Immagine', 'design_comuni_italia' ),
-        'desc' => __( 'Immagine di copertina della pagina (opzionale)' , 'design_comuni_italia' ),
-        'type' => 'file',
-        'query_args' => array( 'type' => 'image' ),
-    ) );
-    $eventi_options->add_field( array(
-        'id' => $prefix . 'didascalia',
-        'name'        => __( 'Didascalia', 'design_comuni_italia' ),
-        //'desc' => __( 'didascalia.' , 'design_comuni_italia' ),
-        'type' => 'text',
     ) );
     $eventi_options->add_field(array(
             'name' => __('eventi in evidenza', 'design_comuni_italia'),
