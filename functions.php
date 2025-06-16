@@ -601,12 +601,12 @@ function dci_add_utilities_admin_page() {
  */
 function dci_render_utilities_page_content() {
     ?>
-    <div class="wrap">
+    <div class="wrap migrations">
         <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
         <p><?='Utilizza questa pagina per eseguire operazioni di migrazione dati su tutti i post.'?></p>
 
         <div id="dci-migration-controls">
-            <h2><?='Migrazione Unità Organizzativa'?></h2>
+            <h2><?='Migrazione Incarico-Unità Organizzativa > Incarico-Unità Organizzative (Versione DCI 1.10.4 - Revisione 17)'?></h2>
             <p>
                 <?='Questa operazione cercherà in tutti i post di tipo <strong>Incarico</strong> il vecchio campo "Unità Organizzativa" (singolo) e trasferirà il suo valore al nuovo campo "Unità Organizzative" (multiplo), se non già presente.'?>
             </p>
@@ -614,11 +614,21 @@ function dci_render_utilities_page_content() {
                 <strong><?='Attenzione:'?></strong> <?='Questa operazione potrebbe richiedere del tempo su siti con molti post. Si consiglia di eseguire un backup del database prima di procedere.'?>
             </p>
 
-            <button id="dci-start-bulk-migration-button" class="button button-primary">
+            <button class="button button-primary start-bulk-migration-button" data-type="uo">
                 <?='Avvia Migrazione Massiva Unità Organizzative'?>
             </button>
-            <span id="dci-bulk-migration-spinner" class="spinner" style="float: none; visibility: hidden; margin-left: 5px;"></span>
+
+            <h2><?='Migrazione Contenuti in evidenza > Schede in evidenza (Versione DCI 1.12.2 - Revisione 1)'?></h2>
+			<p>
+                <?='Questa operazione cercherà tutti i contenuti in evidenza con il vecchio meccanismo e li trasferirà nel nuovo.'?>
+            </p>
+
+			<button class="button button-primary start-bulk-migration-button" data-type="evidenza">
+                <?='Avvia Migrazione Massiva dei contenuti in evidenza '?>
+            </button>
         </div>
+			
+        <span id="dci-bulk-migration-spinner" class="spinner" style="float: none; visibility: hidden; margin-left: 5px;"></span>
 
         <div id="dci-migration-feedback" style="margin-top: 20px; padding: 15px; border: 1px solid #ccd0d4; background-color: #f6f7f7; display: none;">
             <h3><?='Risultati Migrazione:'?></h3>
@@ -638,9 +648,9 @@ function dci_enqueue_utilities_page_scripts( $hook_suffix ) {
         return;
     }
 
-    // Assumendo che lo script si trovi in 'inc/admin-js/uo_bulk_migration.js' del tuo tema
+    // Assumendo che lo script si trovi in 'inc/admin-js/bulk_migration.js' del tuo tema
     // Modifica il percorso se necessario.
-    $script_path = get_template_directory_uri() . '/assets/js/uo_bulk_migration.js';
+    $script_path = get_template_directory_uri() . '/inc/admin-js/bulk_migration.js';
     $script_version = '1.0.1'; // Cambia per invalidare la cache
 
     wp_enqueue_script(
@@ -656,20 +666,31 @@ function dci_enqueue_utilities_page_scripts( $hook_suffix ) {
         'dci-bulk-migration-script',
         'dci_bulk_migration_params',
         array(
-            'ajax_url'      => admin_url( 'admin-ajax.php' ),
-            'nonce'         => wp_create_nonce( 'dci_bulk_migration_nonce' ),
-            'action'        => 'dci_perform_bulk_migration',
-            'text_processing' => 'Elaborazione in corso...',
-            'text_error'    => 'Si è verificato un errore. Controlla la console del browser per i dettagli.',
+			'uo' =>
+				array (
+					'ajax_url'      => admin_url( 'admin-ajax.php' ),
+					'nonce'         => wp_create_nonce( 'dci_bulk_migration_nonce' ),
+					'action'        => 'dci_perform_uo_bulk_migration',
+					'text_processing' => 'Elaborazione in corso...',
+					'text_error'    => 'Si è verificato un errore. Controlla la console del browser per i dettagli.'
+				),
+			'evidenza' =>
+				array (
+					'ajax_url'      => admin_url( 'admin-ajax.php' ),
+					'nonce'         => wp_create_nonce( 'dci_bulk_migration_nonce' ),
+					'action'        => 'dci_perform_evidenza_bulk_migration',
+					'text_processing' => 'Elaborazione in corso...',
+					'text_error'    => 'Si è verificato un errore. Controlla la console del browser per i dettagli.'			
+				)
         )
     );
 }
 
 /**
- * Gestore AJAX per l'operazione di migrazione massiva
+ * Gestore AJAX per l'operazione di migrazione massiva UO
  */
-add_action( 'wp_ajax_dci_perform_bulk_migration', 'dci_ajax_perform_bulk_migration_handler' );
-function dci_ajax_perform_bulk_migration_handler() {
+add_action( 'wp_ajax_dci_perform_uo_bulk_migration', 'dci_ajax_perform_uo_bulk_migration_handler' );
+function dci_ajax_perform_uo_bulk_migration_handler() {
     // Verifica Nonce e permessi utente
     check_ajax_referer( 'dci_bulk_migration_nonce', 'nonce' );
     if ( ! current_user_can( 'manage_options' ) ) {
@@ -783,3 +804,100 @@ function dci_ajax_perform_bulk_migration_handler() {
         ) );
     }
 }
+
+
+
+
+
+/**
+ * Gestore AJAX per l'operazione di migrazione massiva EVIDENZA
+ */
+add_action( 'wp_ajax_dci_perform_evidenza_bulk_migration', 'dci_ajax_perform_evidenza_bulk_migration_handler' );
+function dci_ajax_perform_evidenza_bulk_migration_handler() {
+	
+    // Verifica Nonce e permessi utente
+    check_ajax_referer( 'dci_bulk_migration_nonce', 'nonce' );
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_send_json_error( 'Non hai i permessi per eseguire questa operazione.', 403 );
+        return;
+    }
+	
+	$schede = dci_get_option('schede_evidenziate', 'homepage');
+	
+	$schede_new = dci_get_option('schede_evidenza', 'homepage');
+	
+	$schede_new_posts_ids = array_column($schede_new, 'contenuto_evidenza');
+	foreach ($schede_new_posts_ids as $key => $value) {
+		$schede_new_posts_ids[$key] = $value[0];
+	}
+	
+	
+	$processed_count = 0;
+    $updated_count = 0;
+    $already_migrated_count = 0;
+    $no_value_old_field_count = 0;
+    $errors = array();
+	
+	if ($schede && count($schede) > 0) {
+		foreach ($schede as $scheda) {
+			if(! in_array($scheda, $schede_new_posts_ids) ) {
+				$scheda_to_add = array("tipo_evidenza"=>"content", "contenuto_evidenza"=> array($scheda));
+				$schede_new[] = $scheda_to_add;
+				
+				$update_result = cmb2_update_option( "homepage", "schede_evidenza", $schede_new );
+			
+				if ( false === $update_result ) {
+					$errors[] = sprintf( 'Errore durante l\'aggiornamento dell\'opzione per l\'inserimento del post %d.', $scheda_to_add );
+				} else {
+					$updated_count++;
+				}
+			} else {
+				$already_migrated_count++;
+			}
+		}
+	} else {
+		wp_send_json_success( array(
+            'message' => 'Nessun contenuto in evidenza trovato con il vecchio metodo da migrare.',
+            'stats'   => array(
+                'processed' => $processed_count,
+                'updated'   => $updated_count,
+                'already_migrated' => $already_migrated_count,
+                'no_value_old_field' => $no_value_old_field_count,
+            )
+        ) );
+        return;
+	}
+
+    $response_message = sprintf(
+        'Migrazione completata. Contenuti processati: %d. Contenuti aggiornati: %d. Contenuti già migrati/presenti: %d. ',
+        $processed_count,
+        $updated_count,
+        $already_migrated_count,
+        $no_value_old_field_count
+    );
+
+    if ( ! empty( $errors ) ) {
+        $response_message .= "\n" . 'Si sono verificati alcuni errori:' . "\n" . implode( "\n", $errors );
+        wp_send_json_error( array(
+            'message' => $response_message,
+            'stats'   => array(
+                'processed' => $processed_count,
+                'updated'   => $updated_count,
+                'already_migrated' => $already_migrated_count,
+                'no_value_old_field' => $no_value_old_field_count,
+                'errors'    => count($errors)
+            )
+        ) );
+    } else {
+        wp_send_json_success( array(
+            'message' => $response_message,
+            'stats'   => array(
+                'processed' => $processed_count,
+                'updated'   => $updated_count,
+                'already_migrated' => $already_migrated_count,
+                'no_value_old_field' => $no_value_old_field_count,
+            )
+        ) );
+    }
+}
+

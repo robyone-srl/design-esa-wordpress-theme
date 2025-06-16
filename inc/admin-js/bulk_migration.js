@@ -1,28 +1,35 @@
 (function ($) {
     $(document).ready(function () {
-        var $button = $('#dci-start-bulk-migration-button');
+		
+		
+		var $buttons = $(".start-bulk-migration-button");
         var $spinner = $('#dci-bulk-migration-spinner');
         var $feedbackDiv = $('#dci-migration-feedback');
         var $resultsContent = $('#dci-migration-results-content');
 
-        $button.on('click', function () {
-            if (!confirm(dci_bulk_migration_params.text_confirm_migration || 'Sei sicuro di voler avviare la migrazione massiva? Questa operazione potrebbe richiedere del tempo su siti con molti post. Si consiglia un backup.')) {
+		$(".migrations").on("click", ".start-bulk-migration-button", function () {
+			
+			var $type = $(this).attr("data-type");
+			
+			var $params = dci_bulk_migration_params[$type];
+		
+            if (!confirm($params.text_confirm_migration || 'Sei sicuro di voler avviare la migrazione massiva? Questa operazione potrebbe richiedere del tempo su siti con molti post. Si consiglia un backup.')) {
                 return;
             }
 
-            $button.prop('disabled', true);
+            $buttons.prop('disabled', true);
             $spinner.css('visibility', 'visible');
             $feedbackDiv.hide();
-            $resultsContent.html(dci_bulk_migration_params.text_processing || 'Elaborazione in corso...');
+            $resultsContent.html($params.text_processing || 'Elaborazione in corso...');
             $feedbackDiv.removeClass('notice-success notice-error').show();
 
 
             $.ajax({
-                url: dci_bulk_migration_params.ajax_url,
+                url: $params.ajax_url,
                 type: 'POST',
                 data: {
-                    action: dci_bulk_migration_params.action, // Azione per la migrazione effettiva
-                    nonce: dci_bulk_migration_params.nonce    // Nonce per la migrazione effettiva
+                    action: $params.action, // Azione per la migrazione effettiva
+                    nonce: $params.nonce    // Nonce per la migrazione effettiva
                 },
                 success: function (response) {
                     $resultsContent.html('<p style="color: green;">' + response.data.message.replace(/\n/g, '<br>') + '</p>');
@@ -30,7 +37,7 @@
 
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    var errorText = dci_bulk_migration_params.text_error;
+                    var errorText = $params.text_error;
                     if (jqXHR.responseJSON && jqXHR.responseJSON.data && jqXHR.responseJSON.data.message) {
                         errorText = jqXHR.responseJSON.data.message;
                     } else if (jqXHR.responseText) {
@@ -47,7 +54,7 @@
                     $feedbackDiv.removeClass('notice-success').addClass('notice notice-error is-dismissible').show();
                 },
                 complete: function () {
-                    $button.prop('disabled', false);
+                    $buttons.prop('disabled', false);
                     $spinner.css('visibility', 'hidden');
                 }
             });

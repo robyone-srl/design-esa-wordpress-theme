@@ -120,7 +120,7 @@ function dci_register_pagina_home_options(){
     $home_options->add_field( array(
         'id' => $prefix . 'visualizzazione_notizie',
         'name'        => __( 'Visualizzazione notizie', 'design_comuni_italia' ),
-        'desc' => __( 'Scegli se mostrare le notizie nel modo classico (notizia grande in evidenza + card notizie appena sotto) oppure un carousel (presentazione di slide) con la notizia in evidenza e successivamente le ultime notizie' , 'design_comuni_italia' ),
+        'desc' => __( 'Scegli se mostrare le notizie nel modo classico (notizia in primo piano grande + card notizie appena sotto) oppure un carousel (presentazione di slide) con la notizia in primo piano e successivamente le ultime notizie' , 'design_comuni_italia' ),
         'type'    => 'radio_inline',
         'options' => array(
             '' => __( 'Classica', 'cmb2' ),
@@ -130,8 +130,8 @@ function dci_register_pagina_home_options(){
     ) );
 
     $home_options->add_field( array(
-            'name' => __('Notizia in evidenza', 'design_comuni_italia'),
-            'desc' => __('Seleziona una notizia da mostrare in homepage', 'design_comuni_italia'),
+            'name' => __('Notizia in primo piano', 'design_comuni_italia'),
+            'desc' => __('Seleziona una notizia da mostrare in apertura in pagina iniziale', 'design_comuni_italia'),
             'id' => $prefix . 'notizia_evidenziata',
             'type'    => 'custom_attached_posts',
             'column'  => true, // Output in the admin post-listing as a custom column. https://github.com/CMB2/CMB2/wiki/Field-Parameters#column
@@ -151,8 +151,8 @@ function dci_register_pagina_home_options(){
 
     $home_options->add_field(array(
         'id' => $prefix . 'notizie_in_home',
-        'name' => __('Notizie in homepage', 'design_comuni_italia'),
-        'desc' => __('Seleziona il numero di notizie da mostrare in homepage.', 'design_comuni_italia'),
+        'name' => __('Numero notizie da mostrare', 'design_comuni_italia'),
+        'desc' => __('Seleziona il numero di notizie da mostrare in homepage (automatico, in base a data di pubblicazione decrescente)', 'design_comuni_italia'),
         'type' => 'radio_inline',
         'default' => 0,
         'options' => array(
@@ -178,11 +178,11 @@ function dci_register_pagina_home_options(){
         ),
     ) );
 	
-	
 	$contents_group_id = $home_options->add_field( array(
         'id'           => $prefix . 'schede_evidenza',
         'type'        => 'group',
         'desc' => __( 'Ogni scheda di contenuto o tassonomia (categoria, tipologia, argomento, ...) viene riportato nello spazio In evidenza nella pagina iniziale' , 'design_comuni_italia' ),
+		'before_group'     => '<div class="postbox cmb-row "><h3>Contenuti e voci in evidenza</h3></div>',
         'repeatable'  => true,
         'options'     => array(
             'group_title'   => __( 'Evidenza {#}', 'design_comuni_italia' ),
@@ -209,7 +209,7 @@ function dci_register_pagina_home_options(){
         'name'        => __( 'Termine di tassonomie', 'design_comuni_italia' ),
         'desc' => __( 'Puoi selezionare categorie, tipologie e altre liste da mettere in evidenza' , 'design_comuni_italia' ),
         'type'    => 'pw_select',
-        'options' => dci_get_multi_taxonomies_terms_options(array('argomenti', 'tipi_documento')),
+        'options' => dci_get_multi_taxonomies_terms_options(array('categorie_servizio', 'tipi_evento', 'tipi_notizia', 'tipi_luogo', 'tipi_unita_organizzativa', 'tipi_incarico', 'argomenti', 'tipi_documento')),
         'attributes' => array(
 			'data-conditional-id'    => $prefix.'tipo_evidenza',
 			'data-conditional-value' => "taxonomy_term",
@@ -269,6 +269,14 @@ function dci_register_pagina_home_options(){
     );
 	*/
     
+    $home_options->add_field( array(
+        'id' => $prefix . 'eventi_title',
+        'name'        => __( 'Sezione Eventi', 'design_comuni_italia' ),
+        'desc' => __( 'Configurazione sezione Eventi.' , 'design_comuni_italia' ),
+        'type' => 'title',
+    ) );
+
+	
     $home_options->add_field( array(
         'id' => $prefix . 'visualizzazione_eventi',
         'name'        => __( 'Visualizzazione eventi', 'design_comuni_italia' ),
