@@ -21,12 +21,12 @@ $the_query = new WP_Query($args);
                         Esplora tutti i servizi
                     </h2>
                 </div>
-                <div class="pt-lg-50 pb-lg-50">
+                <div class="col-12 col-lg-8 pt-lg-50 pb-lg-50">
                     <div class="cmp-input-search">
                         <div class="form-group autocomplete-wrapper mb-2 mb-lg-4">
                             <div class="input-group">
                                 <label for="autocomplete-two" class="visually-hidden">Cerca una parola chiave</label>
-                                <input type="search" class="autocomplete form-control" placeholder="Cerca una parola chiave" id="autocomplete-two" name="search" value="<?php echo $query; ?>" data-bs-autocomplete="[]" />
+                                <input type="search" class="autocomplete form-control" placeholder="Cerca una parola chiave" id="autocomplete-two" name="search" value="<?php echo esc_attr($query); ?>" data-bs-autocomplete="[]" />
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="submit" id="button-3">
                                         Invio
