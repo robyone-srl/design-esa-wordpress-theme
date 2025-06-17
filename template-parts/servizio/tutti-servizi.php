@@ -21,7 +21,7 @@ $the_query = new WP_Query($args);
                         Esplora tutti i servizi
                     </h2>
                 </div>
-                <div class="col-12 col-lg-8 pt-lg-50 pb-lg-50">
+                <div class="col-12">
                     <div class="cmp-input-search">
                         <div class="form-group autocomplete-wrapper mb-2 mb-lg-4">
                             <div class="input-group">
