@@ -133,20 +133,6 @@ function dci_add_unita_organizzativa_metaboxes() {
             'placeholder' =>  __( 'Seleziona le Unità Organizzative', 'design_comuni_italia' ),
         )
     ) );
-
-
-    $cmb_struttura->add_field( array(
-        'id' => $prefix . 'uo_figlie',
-        'name'    => __( 'Unità organizzativa gestite', 'design_comuni_italia' ),
-        'description' => 'Unità organizzative figlie',
-        'options' => dci_get_posts_options('unita_organizzativa'),
-        'type'    => 'pw_multiselect',
-        'default_cb' => 'dci_get_uo_figlia_id',
-        'attributes' => array(
-            'placeholder' =>  __( 'Seleziona le Unità Organizzative figlie', 'design_comuni_italia' ),
-            'disabled' => 'true',
-        )
-    ) );
     
     $cmb_struttura->add_field( array(
         'id' => $prefix . 'tipo_organizzazione',
@@ -520,9 +506,8 @@ function dci_get_uo_figlia($post){
     foreach($unita as $uo){
         $id_genitore_uo = get_post_meta($uo->ID, '_dci_unita_organizzativa_unita_organizzativa_genitore');
 
-        if(isset($id_genitore_uo) && is_array($id_genitore_uo)){
+        if(isset($id_genitore_uo) && is_array($id_genitore_uo) && count($id_genitore_uo) > 0){
             foreach($id_genitore_uo[0] as $id_g){
-                
                 if(intval($id_g) == $post){
                     $unita_organizzate[] = $uo->ID;
                 }   

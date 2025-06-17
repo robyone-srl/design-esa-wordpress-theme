@@ -6,6 +6,7 @@ $incarico = get_the_terms($post_id, 'tipi_incarico');
 
 $tipologia_incarico = [];
 
+if($incarico && is_array($incarico) && count($incarico) > 0)
 foreach ($incarico as $tipo) {
 	array_push($tipologia_incarico, $tipo->slug);
 }

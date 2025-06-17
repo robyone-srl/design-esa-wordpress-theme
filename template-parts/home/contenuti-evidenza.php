@@ -2,9 +2,25 @@
 
 global $scheda;
 
-$schede_evidenza = dci_get_option("schede_evidenza", "homepage");
+$schede_evidenza_opt = dci_get_option("schede_evidenza", "homepage");
 
-if($schede_evidenza != null){
+if($schede_evidenza_opt != null){
+
+$schede_evidenza = array();
+
+foreach($schede_evidenza_opt as $scheda_evidenza) {
+	$type = $scheda_evidenza['tipo_evidenza'];
+
+    $expiration = strtotime($scheda_evidenza['expiration'] ?? '');
+    $now = strtotime("now");
+    if (($expiration != "") && ($expiration <= $now)) continue; 
+
+    if(($type == "content" && array_key_exists('contenuto_evidenza',$scheda_evidenza)) || ($type == "taxonomy_term" && array_key_exists('termine_evidenza',$scheda_evidenza))) {
+        $schede_evidenza[] = $scheda_evidenza;
+    }
+}
+
+if(count($schede_evidenza) > 0) {
 
 ?>
 <section aria-describedby="contenuti_evidenza">
@@ -13,24 +29,20 @@ if($schede_evidenza != null){
                 <div class="container">
                     <div class="row row-title pt-5 pt-lg-60 pb-3">
                         <div class="col-12 d-lg-flex justify-content-between">
-                            <h2 id="contenuti_evidenza" class="mb-lg-0">Contenuti in evidenza</h2>
+                            <h2 id="contenuti_evidenza" class="mb-lg-0">In evidenza</h2>
                         </div>
                     </div>
                     <div class="mb-2">
                         <div class="card-wrapper px-0 card-teaser-wrapper card-teaser-wrapper-equal card-teaser-block-3">
 <?php
 
-    foreach($schede_evidenza as $scheda_evidenza):      
-        $expiration = strtotime($scheda_evidenza['expiration'] ?? '');
-        $now = strtotime("now");
-        if (($expiration != "") && ($expiration <= $now)) continue; 
-		
+    foreach($schede_evidenza as $scheda_evidenza):
 		$type = $scheda_evidenza['tipo_evidenza'];
 		
-		if($type == "content") {
+		if($type == "content" && array_key_exists('contenuto_evidenza',$scheda_evidenza)) {
 			$scheda = $scheda_evidenza['contenuto_evidenza'][0];
 			get_template_part("template-parts/home/scheda-evidenza");
-		} else {
+		} else if($type == "taxonomy_term" && array_key_exists('termine_evidenza',$scheda_evidenza)) {
 			$scheda = get_term($scheda_evidenza['termine_evidenza']);
 
 			if (!isset($titlelevel) || $titlelevel === null || trim($titlelevel) === '') {
@@ -71,4 +83,5 @@ if($schede_evidenza != null){
         </div>
     </section>
 <?php	
+}
 }?>

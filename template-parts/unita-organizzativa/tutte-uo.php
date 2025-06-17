@@ -7,6 +7,7 @@ $organizzazione = get_the_terms($post_id, 'tipi_unita_organizzativa');
 
 $tipo_organizzazione = [];
 
+if($organizzazione && is_array($organizzazione) && count($organizzazione) > 0)
 foreach ($organizzazione as $tipo) {
 	array_push($tipo_organizzazione, $tipo->slug);
 }
