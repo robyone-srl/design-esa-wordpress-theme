@@ -38,3 +38,51 @@ function dci_register_taxonomy_tipi_documento()
 
     register_taxonomy('tipi_documento', array('documento_pubblico'), $args);
 }
+
+add_action( 'cmb2_admin_init', 'dci_register_taxonomy_tipi_documento_metabox' );
+/**
+ * Hook in and add a metabox to add fields to taxonomy terms
+ */
+function dci_register_taxonomy_tipi_documento_metabox() {
+    $prefix = 'dci_term_tipi_documento_';
+
+    /**
+     * Metabox to add fields to categories and tags
+     */
+    $cmb_term = new_cmb2_box( array(
+        'id'               => $prefix . 'edit',
+        'title'            => __( 'Personalizzazione <b>pagina Tipo documento</b>' , 'design_comuni_italia' ), // Doesn't output for term boxes
+        'object_types'     => array( 'term' ), // Tells CMB2 to use term_meta vs post_meta
+        'taxonomies'       => array( 'tipi_documento' ), // Tells CMB2 which taxonomies should have these fields
+        // 'new_term_section' => true, // Will display in the "Add New Category" section
+        'context' => 'normal',
+        'priority' => 'high',
+    ) );
+
+    $cmb_term->add_field( array(
+        'id' => $prefix . 'campo_ordinamento',
+        'name'        => __( 'Campo ordinamento', 'design_comuni_italia' ),
+        'desc' => __( 'Scegli il campo per il quale ordinare i dati presenti nella lista' , 'design_comuni_italia' ),
+        'type'    => 'radio_inline',
+        'options' => array(
+            '' => __( 'Predefinito (titolo)', 'cmb2' ),
+            'post_title'   => __( 'Titolo', 'cmb2' ),
+            'date'   => __( 'Data pubblicazione', 'cmb2' ),
+        ),
+        'default' => '',
+    ) );
+
+    $cmb_term->add_field( array(
+        'id' => $prefix . 'direzione_ordinamento',
+        'name'        => __( 'Direzione ordinamento', 'design_comuni_italia' ),
+        'desc' => __( 'Scegli la direzione per la quale ordinare i dati presenti nella lista' , 'design_comuni_italia' ),
+        'type'    => 'radio_inline',
+        'options' => array(
+            '' => __( 'Predefinito (ascendente)', 'cmb2' ),
+            'ASC'   => __( 'Ascendente', 'cmb2' ),
+            'DESC'   => __( 'Discendente', 'cmb2' ),
+        ),
+        'default' => '',
+    ) );
+
+}

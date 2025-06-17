@@ -14,14 +14,47 @@ $obj = get_queried_object();
 $max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 3;
 $load_posts = 3;
 $query = isset($_GET['search']) ? dci_removeslashes($_GET['search']) : null;
+
+$order_field = dci_get_term_meta('campo_ordinamento', "dci_term_tipi_documento_", $obj->term_id);
+$order_dir = dci_get_term_meta('direzione_ordinamento', "dci_term_tipi_documento_", $obj->term_id);
+
+if (isset($_GET["order_by"]))
+{
+  switch (sanitize_text_field($_GET["order_by"])) {
+      case "date_desc":
+          $order_field = "date";
+          $order_dir = "DESC";
+          break;
+      case "date_asc":
+          $order_field = "date";
+          $order_dir = "ASC";
+          break;
+      case "post_title_desc":
+          $order_field = "post_title";
+          $order_dir = "DESC";
+          break;
+      default:
+          $order_field = "post_title";
+          $order_dir = "ASC";
+          break;
+  }
+}
+
+if(is_null($order_field) || $order_field == "") $order_field = "post_title";
+if(is_null($order_dir) || $order_dir == "") $order_dir = "ASC";
+
+$order_option = $order_field . "_" . (strtolower($order_dir));
+
 $args = array(
     's' => $query,
     'posts_per_page' => $max_posts,
     'post_type'      => 'documento_pubblico',
     'tipi_documento' => $obj->slug,
-    'orderby'        => 'post_title',
-    'order'          => 'ASC'
+    'order'=> $order_dir,
+    'orderby' => $order_field
 );
+
+
 $the_query = new WP_Query( $args );
 $documenti = $the_query->posts;
 
@@ -68,8 +101,15 @@ get_header();
                     <svg class="icon icon-sm icon-primary" role="img" aria-labelledby="autocomplete-label"><use href="#it-search"></use></svg>
                   </span>
                   </div>
+
+                  <?php 
+        $found_posts = $the_query->found_posts;
+        $post_type_multiple = "documenti";
+
+        get_template_part("template-parts/common/data-list-info-and-ordering");
+      ?>
+
                   </div>
-                  <p id="autocomplete-label" class="mb-4"><strong><?php echo $the_query->found_posts; ?> </strong>documenti trovati in ordine alfabetico</p>
                 </div>
                 <div class="row g-4" id="load-more">
                     <?php foreach ($documenti as $post) { 
