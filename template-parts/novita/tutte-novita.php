@@ -1,13 +1,16 @@
 <?php
-global $the_query, $load_posts, $load_card_type;
+global $the_query, $load_posts, $load_card_type, $found_posts, $post_type_multiple, $order_values;
 
     $max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 6; 
     $query = isset($_GET['search']) ? dci_removeslashes($_GET['search']) : null;
+
+	$order_values = dci_get_order_values("publish_date", "DESC", $_GET["order_by"]);
+
     $args = array(
         's'         => $query,
         'post_type' => 'notizia',
-        'orderby' => 'publish_date',
-        'order' => 'DESC',
+		'order'=> $order_values["dir"],
+		'orderby' => $order_values["field"],
         'posts_per_page'    => $max_posts,
         'paged' => 1,
     );
@@ -42,9 +45,12 @@ global $the_query, $load_posts, $load_card_type;
                                 </svg>
                             </span>
                         </div>
-                        <p id="autocomplete-label" class="u-grey-light text-paragraph-card mt-2 mb-30 mt-lg-3 mb-lg-40">
-                            <?php echo $the_query->found_posts; ?> notizie trovate in ordine alfabetico
-                        </p>
+						<?php 
+							$found_posts = $the_query->found_posts;
+							$post_type_multiple = "notizie trovate";
+
+							get_template_part("template-parts/common/data-list-info-and-ordering");
+						?>
                     </div>
                 </div>
             </div>

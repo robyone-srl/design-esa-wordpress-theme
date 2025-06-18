@@ -38,13 +38,16 @@ function load_more(){
 	$filter_ids =  json_decode( stripslashes( $_POST['filter_ids'] ), true );
 	$tax_query =  json_decode( stripslashes( $_POST['tax_query'] ), true );
 
+	
+	$order_values = dci_get_order_values("post_title", "ASC", $_POST["order_by"]);
+
 	$args = array(
 		's' => $_POST['search'],
 		'posts_per_page' => $_POST['post_count'] + $_POST['load_posts'],
 		'post_type'      => $post_types,
 		'post_status'    => 'publish',
-		'orderby' => 'post_title',
-		'order'   => 'ASC'
+		'order'=> $order_values["dir"],
+		'orderby' => $order_values["field"]
 	);
 	
 	if ( $post_types == "notizia" ) {
@@ -52,9 +55,7 @@ function load_more(){
 			's' => $_POST['search'],
 			'posts_per_page' => $_POST['post_count'] + $_POST['load_posts'],
 			'post_type'      => $post_types,
-			'post_status'    => 'publish',
-			'orderby'        => 'date',
-			'order'          => 'DESC'
+			'post_status'    => 'publish'
 		);
 	}
 
@@ -64,10 +65,11 @@ function load_more(){
 			'posts_per_page' => $_POST['post_count'] + $_POST['load_posts'],
 			'post_type'      => $post_types,
 			'post_status'    => 'publish',
-			'orderby' => 'meta_value',
-			'order' => 'DESC',
 			'meta_key' => '_dci_evento_data_orario_inizio',
 		);
+		
+		$args['orderby'] = 'meta_value';
+		$args['order'] = 'DESC';
 	}
 
 	if ( isset($url_query_params["post_terms"]) ) {

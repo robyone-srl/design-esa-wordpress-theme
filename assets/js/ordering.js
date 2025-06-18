@@ -7,12 +7,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const orderModalInstance = new bootstrap.Modal(orderModalElement);
-    const radioButtons = orderModalElement.querySelectorAll('input[name="filterOption"]');
+    const radioButtons = orderModalElement.querySelectorAll('input[name="order_by"]');
 
     const flexContainer = document.querySelector('.d-flex.align-items-center.justify-content-between');
-    const currentOrder = flexContainer ? flexContainer.dataset.currentOrder : 'alphabetical_asc';
-
-    const hiddenOrderByInput = document.getElementById('hidden-order-by');
+    const currentOrder = flexContainer ? flexContainer.dataset.currentOrder : 'post_title_asc';
 
     const loadingHtml = `<div id="loading-overlay" style="position: fixed; top: 0; left: 0; z-index: 1050; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.75); display: flex; justify-content: center; align-items: center;">
         <div class="text-center">
@@ -24,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
     </div>`;
 
     function updateSaveButtonState() {
-        const selectedOption = document.querySelector('input[name="filterOption"]:checked');
+        const selectedOption = document.querySelector('input[name="order_by"]:checked');
         if (selectedOption && selectedOption.value !== currentOrder) {
             saveButton.removeAttribute('disabled');
         } else {
@@ -45,17 +43,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     saveButton.addEventListener('click', function () {
-        const selectedOption = document.querySelector('input[name="filterOption"]:checked');
+        const selectedOption = document.querySelector('input[name="order_by"]:checked');
 
         if (selectedOption) {
-            const orderValue = selectedOption.value;
-
-            if (hiddenOrderByInput) {
-                hiddenOrderByInput.value = orderValue;
-            }
-
             orderModalInstance.hide();
-
             document.body.insertAdjacentHTML('beforeend', loadingHtml);
         }
     });

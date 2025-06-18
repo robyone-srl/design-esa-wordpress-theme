@@ -15,43 +15,18 @@ $max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 3;
 $load_posts = 3;
 $query = isset($_GET['search']) ? dci_removeslashes($_GET['search']) : null;
 
-$order_field = dci_get_term_meta('campo_ordinamento', "dci_term_tipi_documento_", $obj->term_id);
-$order_dir = dci_get_term_meta('direzione_ordinamento', "dci_term_tipi_documento_", $obj->term_id);
+$default_field = dci_get_term_meta('campo_ordinamento', $prefix_term, $obj->term_id);
+$default_dir = dci_get_term_meta('direzione_ordinamento', $prefix_term, $obj->term_id);
 
-if (isset($_GET["order_by"]))
-{
-  switch (sanitize_text_field($_GET["order_by"])) {
-      case "date_desc":
-          $order_field = "date";
-          $order_dir = "DESC";
-          break;
-      case "date_asc":
-          $order_field = "date";
-          $order_dir = "ASC";
-          break;
-      case "post_title_desc":
-          $order_field = "post_title";
-          $order_dir = "DESC";
-          break;
-      default:
-          $order_field = "post_title";
-          $order_dir = "ASC";
-          break;
-  }
-}
-
-if(is_null($order_field) || $order_field == "") $order_field = "post_title";
-if(is_null($order_dir) || $order_dir == "") $order_dir = "ASC";
-
-$order_option = $order_field . "_" . (strtolower($order_dir));
+$order_values = dci_get_order_values($default_field, $default_dir, $_GET["order_by"]);
 
 $args = array(
     's' => $query,
     'posts_per_page' => $max_posts,
     'post_type'      => 'documento_pubblico',
     'tipi_documento' => $obj->slug,
-    'order'=> $order_dir,
-    'orderby' => $order_field
+    'order'=> $order_values["dir"],
+    'orderby' => $order_values["field"]
 );
 
 

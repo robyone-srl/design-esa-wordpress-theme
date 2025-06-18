@@ -1455,3 +1455,39 @@ function dci_get_evento_recurrences($id)
     usort($recurrences, fn($a, $b) => $a['_dci_evento_data_orario_inizio'] <=> $b['_dci_evento_data_orario_inizio']);
     return $recurrences;
 }
+
+function dci_get_order_values($default_field = "post_title", $default_dir = "ASC", $order_option = null) {
+    $order_values = array();
+    
+    $order_values["field"] = $default_field;
+    $order_values["dir"] = $default_dir;
+
+    if (isset($order_option))
+    {
+        switch (sanitize_text_field($order_option)) {
+            case "publish_date_desc":
+                $order_values["field"] = "publish_date";
+                $order_values["dir"] = "DESC";
+                break;
+            case "publish_date_asc":
+                $order_values["field"] = "publish_date";
+                $order_values["dir"] = "ASC";
+                break;
+            case "post_title_desc":
+                $order_values["field"] = "post_title";
+                $order_values["dir"] = "DESC";
+                break;
+            default:
+                $order_values["field"] = "post_title";
+                $order_values["dir"] = "ASC";
+                break;
+        }
+    }
+
+    if(is_null($order_values["field"]) || $order_values["field"]  == "") $order_values["field"] = "post_title";
+    if(is_null($order_values["dir"]) || $order_values["dir"] == "") $order_values["dir"] = "ASC";
+    
+    $order_values["option"] = $order_values["field"] . "_" . (strtolower($order_values["dir"]));
+
+    return $order_values;
+}

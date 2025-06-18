@@ -1,42 +1,17 @@
 <?php
-global $the_query, $load_posts, $load_card_type, $order_option, $found_posts, $post_type_multiple;
+global $the_query, $load_posts, $load_card_type, $order_values, $found_posts, $post_type_multiple;
 
 $max_posts = isset($_GET["max_posts"]) ? $_GET["max_posts"] : 6;
 $query = isset($_GET["search"]) ? dci_removeslashes($_GET["search"]) : null;
 
-$order_field = "post_title";
-$order_dir = "ASC";
-
-if (isset($_GET["order_by"]))
-{
-  switch (sanitize_text_field($_GET["order_by"])) {
-      case "date_desc":
-          $order_field = "date";
-          $order_dir = "DESC";
-          break;
-      case "date_asc":
-          $order_field = "date";
-          $order_dir = "ASC";
-          break;
-      case "post_title_desc":
-          $order_field = "post_title";
-          $order_dir = "DESC";
-          break;
-      default:
-          $order_field = "post_title";
-          $order_dir = "ASC";
-          break;
-  }
-}
-
-$order_option = $order_field . "_" . (strtolower($order_dir));
+$order_values = dci_get_order_values("post_title", "ASC", $_GET["order_by"]);
 
 $args = [
     "s" => $query,
     "posts_per_page" => $max_posts,
     "post_type" => ["documento_pubblico", "dataset"],
-    'order'=> $order_dir,
-    'orderby' => $order_field
+    'order'=> $order_values["dir"],
+    'orderby' => $order_values["field"]
 ];
 
 $the_query = new WP_Query($args);
@@ -69,7 +44,7 @@ $the_query = new WP_Query($args);
             
       <?php 
         $found_posts = $the_query->found_posts;
-        $post_type_multiple = "documenti";
+        $post_type_multiple = "documenti trovati";
 
         get_template_part("template-parts/common/data-list-info-and-ordering");
       ?>
