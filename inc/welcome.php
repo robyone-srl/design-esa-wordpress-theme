@@ -49,6 +49,10 @@ function dci_add_dashboard_widgets() {
 
 // Initialize the function to output the contents of your new dashboard widget
 function dci_new_dashboard_widget_function() {
+		$theme = wp_get_theme();
+	$version = $theme->get('Version');
+	$themeName = $theme->get('Name');
+	echo '<p><strong>Tema: ' . $themeName . ' - Versione '. $version . '</h2></strong></p>';
     echo "<p>Il tema applicato è una personalizzazione di WordPress basato sul modello architetturale predisposto per gli Enti socio-assistenziali da Robyone. <br /> Tema e modello sono stati predisposti prendendo in considerazione e riadattando quelli previsti da <a href=\"https://designers.italia.it/\">Agenzia per l'Italia Digitale - Designers Italia</a> per i <a href=\"https://designers.italia.it/modelli/comuni/\" target=\"_blank\">Comuni Italiani</a>";
     echo "<p>Entrambe le risorse sono entrambe aperte al miglioramento continuo con l’obiettivo di arrivare ad una proposta valida e di riferimento anche per altri Enti che volessero aggiungersi all’iniziativa. Gli aggiornamenti sono rilasciati con medesima licenza del tema nazionale.</p>";
     echo "<p><a href=\"https://github.com/robyone-srl/design-esa-wordpress-theme\" target=\"_blank\">Documentazione del tema ESA su Github</a></p>";
