@@ -15,6 +15,7 @@ $max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 3;
 $load_posts = 3;
 $query = isset($_GET['search']) ? dci_removeslashes($_GET['search']) : null;
 
+$prefix_term = "dci_term_tipi_documento_";
 $default_field = dci_get_term_meta('campo_ordinamento', $prefix_term, $obj->term_id);
 $default_dir = dci_get_term_meta('direzione_ordinamento', $prefix_term, $obj->term_id);
 

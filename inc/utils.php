@@ -1491,3 +1491,24 @@ function dci_get_order_values($default_field = "post_title", $default_dir = "ASC
 
     return $order_values;
 }
+
+
+function dci_get_campo_ordinamento_radio_options(){
+    $result = array(
+            '' => __( 'Predefinito (titolo)', 'cmb2' ),
+            'post_title'   => __( 'Titolo', 'cmb2' ),
+            'publish_date'   => __( 'Data pubblicazione', 'cmb2' )
+    );
+
+    return $result;
+}
+
+function dci_get_direzione_ordinamento_radio_options(){
+    $result = array(
+            '' => __( 'Predefinito (ascendente)', 'cmb2' ),
+            'ASC'   => __( 'Ascendente', 'cmb2' ),
+            'DESC'   => __( 'Discendente', 'cmb2' )
+    );
+
+    return $result;
+}

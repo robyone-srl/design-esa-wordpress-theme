@@ -64,11 +64,7 @@ function dci_register_taxonomy_tipi_documento_metabox() {
         'name'        => __( 'Campo ordinamento', 'design_comuni_italia' ),
         'desc' => __( 'Scegli il campo per il quale ordinare i dati presenti nella lista' , 'design_comuni_italia' ),
         'type'    => 'radio_inline',
-        'options' => array(
-            '' => __( 'Predefinito (titolo)', 'cmb2' ),
-            'post_title'   => __( 'Titolo', 'cmb2' ),
-            'date'   => __( 'Data pubblicazione', 'cmb2' ),
-        ),
+        'options' => dci_get_campo_ordinamento_radio_options(),
         'default' => '',
     ) );
 
@@ -77,11 +73,7 @@ function dci_register_taxonomy_tipi_documento_metabox() {
         'name'        => __( 'Direzione ordinamento', 'design_comuni_italia' ),
         'desc' => __( 'Scegli la direzione per la quale ordinare i dati presenti nella lista' , 'design_comuni_italia' ),
         'type'    => 'radio_inline',
-        'options' => array(
-            '' => __( 'Predefinito (ascendente)', 'cmb2' ),
-            'ASC'   => __( 'Ascendente', 'cmb2' ),
-            'DESC'   => __( 'Discendente', 'cmb2' ),
-        ),
+        'options' => dci_get_direzione_ordinamento_radio_options(),
         'default' => '',
     ) );
 
