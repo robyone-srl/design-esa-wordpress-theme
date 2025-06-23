@@ -1,17 +1,22 @@
 <?php
-global $posts, $the_query, $load_posts, $servizio, $load_card_type, $should_have_grey_background;
+global $posts, $the_query, $load_posts, $servizio, $load_card_type, $should_have_grey_background, $order_values, $found_posts, $post_type_multiple;
 
 $max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 6;
 $query = isset($_GET['search']) ? dci_removeslashes($_GET['search']) : null;
-$args = array(
+
+$order_values = dci_get_order_values("post_title", "ASC", $_GET["order_by"]);
+
+$args = [
     's' => $query,
     'posts_per_page' => $max_posts,
-    'post_type'      => 'servizio',
-    'orderby'        => 'post_title',
-    'order'          => 'ASC'
-);
+    'post_type'      => ['servizio'],
+    'order'          => $order_values["dir"],
+    'orderby'        => $order_values["field"]
+];
+
 $the_query = new WP_Query($args);
 ?>
+
 <div id="tutti-servizi" class="<?= !($should_have_grey_background=(!$should_have_grey_background)) ? 'bg-grey-dsk':'' ?>">
     <form role="search" id="search-form" method="get" class="search-form">
         <div class="container">
@@ -26,7 +31,8 @@ $the_query = new WP_Query($args);
                         <div class="form-group autocomplete-wrapper mb-2 mb-lg-4">
                             <div class="input-group">
                                 <label for="autocomplete-two" class="visually-hidden">Cerca una parola chiave</label>
-                                <input type="search" class="autocomplete form-control" placeholder="Cerca una parola chiave" id="autocomplete-two" name="search" value="<?php echo esc_attr($query); ?>" data-bs-autocomplete="[]" />
+                                <input type="search" class="autocomplete form-control" placeholder="Cerca una parola chiave" 
+                                id="autocomplete-two" name="search" value="<?php echo esc_attr($query); ?>" data-bs-autocomplete="[]" />
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="submit" id="button-3">
                                         Invio
@@ -37,18 +43,20 @@ $the_query = new WP_Query($args);
                                     </svg></span>
                             </div>
                         </div>
-                        <p id="autocomplete-label" class="mb-4">
-                            <strong><?php echo $the_query->found_posts; ?> </strong>servizi trovati in ordine alfabetico
-                        </p>
+                        <?php 
+                            $found_posts = $the_query->found_posts;
+                            $post_type_multiple = "Servizi trovati";
+
+                            get_template_part("template-parts/common/data-list-info-and-ordering");
+                        ?>
                     </div>
                     <div class="row g-4" id="load-more">
                         <?php 
 
-
                         if ($the_query->have_posts()) :
                             while ($the_query->have_posts()) :
-			                        $servizio = $the_query->the_post();
-                                    $servizio = get_post();
+			                        $the_query->the_post();
+                                    $post = get_post();
 
                                     $load_card_type = "servizio";  ?>
                                     <div class="col-12 col-lg-4">  <?php
@@ -66,3 +74,4 @@ $the_query = new WP_Query($args);
         </div>
     </form>
 </div>
+<?php wp_reset_query(); ?>

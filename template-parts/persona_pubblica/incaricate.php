@@ -1,10 +1,12 @@
 <?php
-global $the_query, $load_posts, $load_card_type, $tax_query, $additional_filter, $filter_ids;
+global $the_query, $load_posts, $load_card_type, $tax_query, $additional_filter, $filter_ids, $order_values, $found_posts, $post_type_multiple;
 
 $post_id = get_the_ID();
 $incarico = get_the_terms($post_id, 'tipi_incarico');
 
 $tipologia_incarico = [];
+
+$order_values = dci_get_order_values("post_title", "ASC", $_GET["order_by"]);
 
 foreach ($incarico as $tipo) {
 	array_push($tipologia_incarico, $tipo->slug);
@@ -70,8 +72,8 @@ $args = array(
 	'posts_per_page'    => -1,
 	'post_type' => 'persona_pubblica',
 	'post_status' => 'publish',
-	'orderby'        => 'post_title',
-	'order'          => 'ASC',
+	'orderby'        => $order_values["field"],
+	'order'          => $order_values["dir"],
     'post__in' => empty($persone_ids) ? [0] : $filter_ids,
 );
 
@@ -85,7 +87,7 @@ $the_query = new WP_Query( $args );
                 Elenco <?= $descrizione ?>
             </h2>
             <div class="cmp-input-search">
-                <div class="form-group autocomplete-wrapper mb-2 mb-lg-4">
+                <div class="form-group autocomplete-wrapper mb-0">
                     <div class="input-group">
                         <label for="autocomplete-two" class="visually-hidden">Cerca una parola chiave</label>
                         <input
@@ -94,7 +96,7 @@ $the_query = new WP_Query( $args );
                                 placeholder="Cerca una parola chiave"
                                 id="autocomplete-two"
                                 name="search"
-                                value="<?php echo $query; ?>"
+                                value="<?php echo esc_attr($query); ?>"
                                 data-bs-autocomplete="[]"
                         />
                         <div class="input-group-append">
@@ -108,9 +110,12 @@ $the_query = new WP_Query( $args );
                         </span>
                     </div>
                 </div>
-                <p id="autocomplete-label" class="mb-4">
-                    <strong><?php echo $the_query->found_posts; ?> </strong>risultati in ordine alfabetico
-                </p>
+                <?php 
+                    $found_posts = $the_query->found_posts;
+                    $post_type_multiple = "Personale trovato";
+
+                    get_template_part("template-parts/common/data-list-info-and-ordering");
+                ?>
             </div>
             <div  class="row g-2" id="load-more">
 
@@ -118,8 +123,8 @@ $the_query = new WP_Query( $args );
                 <?php 
                 if ($the_query->have_posts()) :
                     while ($the_query->have_posts()) :
-			                $persone = $the_query->the_post();
-                            $persone = get_post();
+			                $the_query->the_post();
+                            $post = get_post();
 
                             get_template_part("template-parts/persona_pubblica/cards-list");
 		            endwhile;

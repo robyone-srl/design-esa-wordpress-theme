@@ -1,11 +1,13 @@
 <?php
 
-global $the_query, $load_posts, $load_card_type, $additional_filter, $tax_query;
+global $the_query, $load_posts, $load_card_type, $additional_filter, $tax_query, $order_values, $found_posts, $post_type_multiple;
 
 $post_id = get_the_ID();
 $organizzazione = get_the_terms($post_id, 'tipi_unita_organizzativa');
 
 $tipo_organizzazione = [];
+
+$order_values = dci_get_order_values("post_title", "ASC", $_GET["order_by"]);
 
 if($organizzazione && is_array($organizzazione) && count($organizzazione) > 0)
 foreach ($organizzazione as $tipo) {
@@ -14,7 +16,7 @@ foreach ($organizzazione as $tipo) {
 
 $opzione_visualizzazione = dci_get_meta('uo_select', '_dci_page_');
 
-$load_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 10;
+$max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 10;
 
 $query = isset($_GET['search']) ? $_GET['search'] : null;
 
@@ -73,20 +75,20 @@ if($opzione_visualizzazione == 'scegli'){
         'terms' => $tipo_organizzazione,
     );
     array_push($tax_query, $tax);
-    $descrizione = 'le unit&agrave; organizzative';
+    $descrizione = 'unit&agrave; organizzative';
 }else if($opzione_visualizzazione == 'tutti'){
-    $descrizione = 'le unit&agrave; organizzative';
+    $descrizione = 'unit&agrave; organizzative';
 }
 
 
 
 $args = array(
 	's'         => $query,
-    'posts_per_page' => $load_posts,
-	'post_type' => 'unita_organizzativa',
+    'posts_per_page' => $max_posts,
+	'post_type' => ['unita_organizzativa'],
 	'tax_query' => $tax_query,
-    'orderby'        => 'post_title',
-	'order'          => 'ASC'
+    'orderby'        => $order_values["field"],
+	'order'          => $order_values["dir"]
 );
 
 $the_query = new WP_Query( $args );
@@ -96,10 +98,10 @@ $the_query = new WP_Query( $args );
     <form role="search" id="search-form" method="get" class="search-form" action="#search-form">
         <div class="container">
             <h2 class="title-xxlarge mb-4 mt-5 mb-lg-10">
-                Esplora <?= $descrizione ?>
+                Esplora le <?= $descrizione ?>
             </h2>
             <div class="cmp-input-search">
-                <div class="form-group autocomplete-wrapper mb-2 mb-lg-4">
+                <div class="form-group autocomplete-wrapper mb-0">
                     <div class="input-group">
                         <label for="autocomplete-two" class="visually-hidden">Cerca una parola chiave</label>
                         <input
@@ -108,7 +110,7 @@ $the_query = new WP_Query( $args );
                             placeholder="Cerca una parola chiave"
                             id="autocomplete-two"
                             name="search"
-                            value="<?php echo $query; ?>"
+                            value="<?php echo esc_attr($query); ?>"
                             data-bs-autocomplete="[]" />
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="submit" id="button-3">
@@ -122,11 +124,12 @@ $the_query = new WP_Query( $args );
                         </span>
                     </div>
                 </div>
-                <p id="autocomplete-label" class="mb-4">
-                    <strong>
-                        <?php echo $the_query->found_posts; ?>
-                    </strong>risultati in ordine alfabetico
-                </p>
+                <?php 
+                    $found_posts = $the_query->found_posts;
+                    $post_type_multiple = $descrizione;
+
+                    get_template_part("template-parts/common/data-list-info-and-ordering");
+                ?>
             </div>
             <div class="row g-2" id="load-more">
 
@@ -137,9 +140,6 @@ $the_query = new WP_Query( $args );
                     while ($the_query->have_posts()) :
 			            $the_query->the_post();
                         $post = get_post();
-                        /*echo "<pre>";
-                        //print_r($post);
-                        echo "<pre>";*/
                         $load_card_type = "unita-organizzativa";  
                         get_template_part("template-parts/unita-organizzativa/cards-list");
 		            endwhile;

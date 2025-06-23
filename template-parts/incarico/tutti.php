@@ -1,10 +1,12 @@
 <?php
-global $the_query, $load_posts, $load_card_type, $tax_query;
+global $the_query, $load_posts, $load_card_type, $tax_query, $order_values, $found_posts, $post_type_multiple;
 
 $post_id = get_the_ID();
 $incarico = get_the_terms($post_id, 'tipi_incarico');
 
 $tipologia_incarico = [];
+
+$order_values = dci_get_order_values("post_title", "ASC", $_GET["order_by"]);
 
 if($incarico && is_array($incarico) && count($incarico) > 0)
 foreach ($incarico as $tipo) {
@@ -27,14 +29,14 @@ if($opzione_visualizzazione == null){
 
 $query = isset($_GET['search']) ? $_GET['search'] : null;
 
-$args = array(
+$args = [
 	's'         => $query,
 	'posts_per_page'    => $load_posts,
-	'post_type' => 'incarico',
+	'post_type' => ['incarico'],
 	'post_status' => 'publish',
-	'orderby'        => 'post_title',
-	'order'          => 'ASC',
-);
+	'orderby'        => $order_values["field"],
+	'order'          => $order_values["dir"]
+];
 
 if($opzione_visualizzazione == 'scegli'){
     $tax_query = array(
@@ -63,7 +65,6 @@ if($opzione_visualizzazione == null && $tipo_incarico!="") {
 } 
 
 $the_query = new WP_Query( $args );
-$incarichi = $the_query->posts;
 ?>
 
 <div class="bg-grey-card py-3">
@@ -73,7 +74,7 @@ $incarichi = $the_query->posts;
                 Elenco <?= $descrizione ?>
             </h2>
             <div class="cmp-input-search">
-                <div class="form-group autocomplete-wrapper mb-2 mb-lg-4">
+                <div class="form-group autocomplete-wrapper mb-0">
                     <div class="input-group">
                         <label for="autocomplete-two" class="visually-hidden">Cerca una parola chiave</label>
                         <input
@@ -82,7 +83,7 @@ $incarichi = $the_query->posts;
                                 placeholder="Cerca una parola chiave"
                                 id="autocomplete-two"
                                 name="search"
-                                value="<?php echo $query; ?>"
+                                value="<?php echo esc_attr($query); ?>"
                                 data-bs-autocomplete="[]"
                         />
                         <div class="input-group-append">
@@ -96,16 +97,28 @@ $incarichi = $the_query->posts;
                         </span>
                     </div>
                 </div>
-                <p id="autocomplete-label" class="mb-4">
-                    <strong><?php echo $the_query->found_posts; ?></strong> risultati in ordine alfabetico
-                </p>
+                <?php 
+                    $found_posts = $the_query->found_posts;
+                    $post_type_multiple = "Incarichi trovati";
+
+                    get_template_part("template-parts/common/data-list-info-and-ordering");
+                ?>
             </div>
             <div  class="row g-2" id="load-more">
-                <?php
-				    foreach ($incarichi as $post) {
-                        get_template_part( 'template-parts/incarico/cards-list' );
-				    }
-				?>
+
+                <?php 
+                if ($the_query->have_posts()) :
+                    while ($the_query->have_posts()) :
+			                $the_query->the_post();
+                            $post = get_post();
+
+                            $load_card_type = "incarico";
+                                get_template_part("template-parts/incarico/cards-list");
+		            endwhile;
+                endif; 
+
+                wp_reset_postdata();
+                ?>
             </div>
 			<?php
 				$load_card_type = 'incarico';

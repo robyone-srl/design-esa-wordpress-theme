@@ -1,17 +1,19 @@
 <?php
-global $the_query, $load_posts, $load_card_type, $additional_filter;
+global $the_query, $load_posts, $load_card_type, $additional_filter, $order_values, $found_posts, $post_type_multiple;
 
-$load_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 10;
-
+$max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 10;
 $query = isset($_GET['search']) ? $_GET['search'] : null;
+
+$order_values = dci_get_order_values("post_title", "ASC", $_GET["order_by"]);
 
 $args = array(
 	's'         => $query,
-    'posts_per_page' => $load_posts,
-	'post_type' => 'evento',
-	'meta_key' => '_dci_evento_data_orario_inizio',
-    'orderby' => 'meta_value',
-    'order' => 'DESC',
+    'posts_per_page' => $max_posts,
+	'post_type'      => ['evento'],
+	'meta_key'       => '_dci_evento_data_orario_inizio',
+    'order'          => $order_values["dir"],
+    'orderby'        => $order_values["field"]
+
 );
 
 $the_query = new WP_Query( $args );
@@ -36,7 +38,7 @@ $additional_filter = null;
                             placeholder="Cerca una parola chiave"
                             id="autocomplete-two"
                             name="search"
-                            value="<?php echo $query; ?>"
+                            value="<?php echo esc_attr($query); ?>"
                             data-bs-autocomplete="[]" />
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="submit" id="button-3">
@@ -50,11 +52,14 @@ $additional_filter = null;
                         </span>
                     </div>
                 </div>
-                <p id="autocomplete-label" class="mb-4">
-                    <strong>
-                        <?php echo $the_query->found_posts; ?>
-                    </strong>risultati ordinati per data di inizio decrescente
-                </p>
+
+                <?php 
+                    $found_posts = $the_query->found_posts;
+                    $post_type_multiple = "Eventi trovati";
+
+                    get_template_part("template-parts/common/data-list-info-and-ordering");
+                ?>
+
             </div>
             <div class="row g-2" id="load-more">
             <?php 
