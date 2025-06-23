@@ -821,9 +821,29 @@ function dci_ajax_perform_evidenza_bulk_migration_handler() {
         wp_send_json_error( 'Non hai i permessi per eseguire questa operazione.', 403 );
         return;
     }
+
+	$processed_count = 0;
+	$updated_count = 0;
+	$already_migrated_count = 0;
+	$no_value_old_field_count = 0;
+	$errors = array();
 	
 	$schede = dci_get_option('schede_evidenziate', 'homepage');
 	
+	if($schede == false || $schede == '' || $schede == null){
+		wp_send_json_success( array(
+				'message' => 'Nessun contenuto in evidenza trovato con il vecchio metodo da migrare.',
+				'stats'   => array(
+					'processed' => $processed_count,
+					'updated'   => $updated_count,
+					'already_migrated' => $already_migrated_count,
+					'no_value_old_field' => $no_value_old_field_count,
+				)
+		) );
+		return;
+	}
+
+
 	$schede_new = dci_get_option('schede_evidenza', 'homepage');
 	
 	$schede_new_posts_ids = array_column($schede_new, 'contenuto_evidenza');
@@ -831,12 +851,6 @@ function dci_ajax_perform_evidenza_bulk_migration_handler() {
 		$schede_new_posts_ids[$key] = $value[0];
 	}
 	
-	
-	$processed_count = 0;
-    $updated_count = 0;
-    $already_migrated_count = 0;
-    $no_value_old_field_count = 0;
-    $errors = array();
 	
 	if ($schede && count($schede) > 0) {
 		foreach ($schede as $scheda) {
@@ -857,47 +871,47 @@ function dci_ajax_perform_evidenza_bulk_migration_handler() {
 		}
 	} else {
 		wp_send_json_success( array(
-            'message' => 'Nessun contenuto in evidenza trovato con il vecchio metodo da migrare.',
-            'stats'   => array(
-                'processed' => $processed_count,
-                'updated'   => $updated_count,
-                'already_migrated' => $already_migrated_count,
-                'no_value_old_field' => $no_value_old_field_count,
-            )
-        ) );
-        return;
+			'message' => 'Nessun contenuto in evidenza trovato con il vecchio metodo da migrare.',
+			'stats'   => array(
+				'processed' => $processed_count,
+				'updated'   => $updated_count,
+				'already_migrated' => $already_migrated_count,
+				'no_value_old_field' => $no_value_old_field_count,
+			)
+		) );
+		return;
 	}
 
-    $response_message = sprintf(
-        'Migrazione completata. Contenuti processati: %d. Contenuti aggiornati: %d. Contenuti già migrati/presenti: %d. ',
-        $processed_count,
-        $updated_count,
-        $already_migrated_count,
-        $no_value_old_field_count
-    );
+	$response_message = sprintf(
+		'Migrazione completata. Contenuti processati: %d. Contenuti aggiornati: %d. Contenuti già migrati/presenti: %d. ',
+		$processed_count,
+		$updated_count,
+		$already_migrated_count,
+		$no_value_old_field_count
+	);
 
-    if ( ! empty( $errors ) ) {
-        $response_message .= "\n" . 'Si sono verificati alcuni errori:' . "\n" . implode( "\n", $errors );
-        wp_send_json_error( array(
-            'message' => $response_message,
-            'stats'   => array(
-                'processed' => $processed_count,
-                'updated'   => $updated_count,
-                'already_migrated' => $already_migrated_count,
-                'no_value_old_field' => $no_value_old_field_count,
-                'errors'    => count($errors)
-            )
-        ) );
-    } else {
-        wp_send_json_success( array(
-            'message' => $response_message,
-            'stats'   => array(
-                'processed' => $processed_count,
-                'updated'   => $updated_count,
-                'already_migrated' => $already_migrated_count,
-                'no_value_old_field' => $no_value_old_field_count,
-            )
-        ) );
-    }
+	if ( ! empty( $errors ) ) {
+		$response_message .= "\n" . 'Si sono verificati alcuni errori:' . "\n" . implode( "\n", $errors );
+		wp_send_json_error( array(
+			'message' => $response_message,
+			'stats'   => array(
+				'processed' => $processed_count,
+				'updated'   => $updated_count,
+				'already_migrated' => $already_migrated_count,
+				'no_value_old_field' => $no_value_old_field_count,
+				'errors'    => count($errors)
+			)
+		) );
+	} else {
+		wp_send_json_success( array(
+			'message' => $response_message,
+			'stats'   => array(
+				'processed' => $processed_count,
+				'updated'   => $updated_count,
+				'already_migrated' => $already_migrated_count,
+				'no_value_old_field' => $no_value_old_field_count,
+			)
+		) );
+	}
 }
 
