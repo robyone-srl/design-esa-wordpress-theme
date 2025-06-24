@@ -56,7 +56,7 @@ $the_query = new WP_Query($args);
                         if ($the_query->have_posts()) :
                             while ($the_query->have_posts()) :
 			                        $the_query->the_post();
-                                    $post = get_post();
+                                    $servizio = get_post();
 
                                     $load_card_type = "servizio";  ?>
                                     <div class="col-12 col-lg-4">  <?php
