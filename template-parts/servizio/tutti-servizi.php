@@ -28,7 +28,7 @@ $the_query = new WP_Query($args);
                 </div>
                 <div class="col-12">
                     <div class="cmp-input-search">
-                        <div class="form-group autocomplete-wrapper mb-2 mb-lg-4">
+                        <div class="form-group autocomplete-wrapper mb-0">
                             <div class="input-group">
                                 <label for="autocomplete-two" class="visually-hidden">Cerca una parola chiave</label>
                                 <input type="search" class="autocomplete form-control" placeholder="Cerca una parola chiave" 
