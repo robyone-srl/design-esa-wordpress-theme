@@ -344,22 +344,22 @@ get_header();
 
 									<p>Questo luogo è sede di <?php if (count($sede_di) == 1) { echo "1 unità organizzativa"; } else { echo count($sede_di) . " unità organizzative"; } ?>.</p>
 
-                                            <a class="btn btn-primary btn-icon btn-xs" data-bs-toggle="collapse" href="#collapseUnitaPresenti" role="button" aria-expanded="false" aria-controls="collapseUnitaPresenti">
-											    Mostra le unità
-                                                <svg class="icon icon-white ms-5 chevron"><use href="#it-expand"></use></svg>
-											</a>
+                                    <a class="btn btn-primary btn-icon btn-xs" data-bs-toggle="collapse" href="#collapseUnitaPresenti" role="button" aria-expanded="false" aria-controls="collapseUnitaPresenti">
+										Mostra le unità
+                                        <svg class="icon icon-white ms-5 chevron"><use href="#it-expand"></use></svg>
+									</a>
 											
-									        <div class="collapse clearfix mt-3 me-5" id="collapseUnitaPresenti">
-										        <div class="row g-4">
-											        <?php foreach ($sede_di as $uo_id) {
-														?><div class="col-xl-6 col-lg-8 col-md-12"><?php
-															$with_border = true;
-															$h100 = true;
-															get_template_part("template-parts/unita-organizzativa/card");
-														?></div><?php
-														} ?>
-											    </div>
-										    </div>
+									<div class="collapse clearfix mt-3 me-5" id="collapseUnitaPresenti">
+										<div class="row d-flex align-items-stretch">  <?php 
+                                            foreach ($sede_di as $uo_id) { ?>  
+                                                <div class="col-lg-6 col-md-12 d-flex"><?php
+													$with_border = true;
+													$h100 = true;
+													get_template_part("template-parts/unita-organizzativa/card"); ?>
+                                                </div><?php
+											} ?>
+										</div>
+									</div>
                                 </section>
                             <?php } ?>
 							
