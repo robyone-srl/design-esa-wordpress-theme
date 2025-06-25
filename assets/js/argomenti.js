@@ -200,6 +200,8 @@ function requestPageContent(action, container, page, slugArgomento, postType, it
                 var pagesTotal = response.data.total_pages;
                 updateCardPagination(container, itemsPerPage, page, pagesTotal, postType);
             } else {
+                var pagesTotal = response.data.total_pages;
+                updateCardPagination(container, itemsPerPage, page, pagesTotal, postType);
                 cardWrapper.html('<p class="pt-5 d-flex justify-content-center w-100 text-center">Nessun risultato</p>');
             }
         }
