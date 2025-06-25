@@ -355,8 +355,8 @@ get_header();
                                                 <svg class="icon icon-white ms-5 chevron"><use href="#it-expand"></use></svg>
 											</a>
 											
-									        <div class="collapse clearfix mt-3 me-5" id="collapseServiziInclusi">
-										        <div class="row g-4">
+									        <div class="collapse clearfix mt-0 me-5" id="collapseServiziInclusi">
+										        <div class="row g-4 mt-1 mb-3">
 											        <?php foreach ($posts as $servizio) { ?>
 												        <div class="col-lg-6 col-md-12">
                                                             <?php if($stileInclusi == 'estesa' || $stileInclusi == 'titolo') {
@@ -413,15 +413,15 @@ get_header();
                                     if (!empty($posts)) {
 									    if($stileNecessari == 'estesa' || $stileNecessari == 'titolo' || $stileNecessari == 'icona'){ ?>
                                         <div class="alert alert-info" role="alert">
-                                            <p class="mb-0">
+                                            <p class="mb-0 pb-0">
                                                 <a class="d-flex justify-content-between" data-bs-toggle="collapse" href="#collapseServiziNecessari" role="button" aria-expanded="false" aria-controls="collapseServiziNecessari">
 											        <span>Questo servizio è limitato a chi usufruisce di particolari servizi </span>
                                                     <svg class="icon ms-5 chevron"><use href="#it-expand"></use></svg>
 											    </a>
                                             </p>
 											
-									        <div class="collapse clearfix mt-3 me-5" id="collapseServiziNecessari">
-										        <div class="row g-4">
+									        <div class="collapse clearfix mt-0 me-5" id="collapseServiziNecessari">
+										        <div class="row g-4 mt-1 mb-3">
 											    <?php foreach ($posts as $servizio) { ?>
 												    <div class="col-lg-6 col-md-12">
                                                         <?php if($stileNecessari == 'estesa' || $stileNecessari == 'titolo') {
@@ -752,7 +752,6 @@ get_header();
                     </div>
                 </div>
             </div>
-        </div>
         </div>
         <?php get_template_part("template-parts/common/valuta-servizio"); ?>
         <?php get_template_part('template-parts/single/more-posts', 'carousel'); ?>
