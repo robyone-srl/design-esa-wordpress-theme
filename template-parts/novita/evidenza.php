@@ -6,8 +6,7 @@
 
     //Per selezionare i contenuti in evidenza tramite configurazione
     $contenuti_evidenza = dci_get_option('contenuti_evidenziati','novita');
-
-    if (is_array($contenuti_evidenza) && count($contenuti_evidenza) && $contenuti_evidenza=="") {
+    if ($contenuti_evidenza!="" && is_array($contenuti_evidenza) && count($contenuti_evidenza)) {
 ?>
 <div class="container py-5">
     <h2 class="title-xxlarge mb-4">
