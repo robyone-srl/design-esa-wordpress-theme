@@ -313,7 +313,7 @@ get_header();
                                                 }
 
                                                 $persone_incaricate_noresp = array_unique($persone_incaricate_noresp);
-
+                                                
 
                                                 foreach ($persone_incaricate_noresp as $pp_id) { 
                                                    ?>
@@ -327,10 +327,19 @@ get_header();
                                             }
                                         }
                                         if ($has_persone) {
+
 										?>
                                             <div class="row g-2">
                                                 <?php foreach ($persone as $pp_id) {
-                                                    if (FALSE !== get_post_status( $pp_id ) && in_array($pp_id, $persone_incaricate, true)) {
+
+                                                    if(empty($persone_incaricate)){
+                                                        $pp_in_array_check = true; 
+                                                    }else{
+                                                        $pp_in_array_check = !(in_array($pp_id, $persone_incaricate, true));
+                                                    }
+
+                                                    if (FALSE !== get_post_status( $pp_id ) && $pp_in_array_check) {
+                                                        
                                                     $with_border = true;
                                                     $hide_incarichi = true; ?>
                                                     <div class="col-lg-6 col-md-12 d-flex">
