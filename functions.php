@@ -810,17 +810,19 @@ function dci_ajax_perform_uo_bulk_migration_handler() {
 
 
 /**
- * Gestore AJAX per l'operazione di migrazione massiva EVIDENZA
+ * Gestore AJAX per l'operazione di migrazione massiva EVIDENZA.
  */
 add_action( 'wp_ajax_dci_perform_evidenza_bulk_migration', 'dci_ajax_perform_evidenza_bulk_migration_handler' );
 function dci_ajax_perform_evidenza_bulk_migration_handler() {
 	
-    // Verifica Nonce e permessi utente
-    check_ajax_referer( 'dci_bulk_migration_nonce', 'nonce' );
-    if ( ! current_user_can( 'manage_options' ) ) {
-        wp_send_json_error( 'Non hai i permessi per eseguire questa operazione.', 403 );
-        return;
-    }
+	check_ajax_referer( 'dci_bulk_migration_nonce', 'nonce' );
+	if ( ! current_user_can( 'manage_options' ) ) {
+		wp_send_json_error( 'Non hai i permessi per eseguire questa operazione.', 403 );
+		return;
+	}
+
+	$old_schede_ids = dci_get_option('schede_evidenziate', 'homepage');
+	$new_schede_group = dci_get_option('schede_evidenza', 'homepage');
 
 	$processed_count = 0;
 	$updated_count = 0;
@@ -828,62 +830,65 @@ function dci_ajax_perform_evidenza_bulk_migration_handler() {
 	$no_value_old_field_count = 0;
 	$errors = array();
 	
-	$schede = dci_get_option('schede_evidenziate', 'homepage');
-	
-	if($schede == false || $schede == '' || $schede == null){
-		wp_send_json_success( array(
-				'message' => 'Nessun contenuto in evidenza trovato con il vecchio metodo da migrare.',
-				'stats'   => array(
-					'processed' => $processed_count,
-					'updated'   => $updated_count,
-					'already_migrated' => $already_migrated_count,
-					'no_value_old_field' => $no_value_old_field_count,
-				)
-		) );
-		return;
+	if ( ! is_array( $new_schede_group ) ) {
+		$new_schede_group = array();
 	}
 
-
-	$schede_new = dci_get_option('schede_evidenza', 'homepage');
-	
-	$schede_new_posts_ids = array_column($schede_new, 'contenuto_evidenza');
-	foreach ($schede_new_posts_ids as $key => $value) {
-		$schede_new_posts_ids[$key] = $value[0];
-	}
-	
-	
-	if ($schede && count($schede) > 0) {
-		foreach ($schede as $scheda) {
-			if(! in_array($scheda, $schede_new_posts_ids) ) {
-				$scheda_to_add = array("tipo_evidenza"=>"content", "contenuto_evidenza"=> array($scheda));
-				$schede_new[] = $scheda_to_add;
-				
-				$update_result = cmb2_update_option( "homepage", "schede_evidenza", $schede_new );
-			
-				if ( false === $update_result ) {
-					$errors[] = sprintf( 'Errore durante l\'aggiornamento dell\'opzione per l\'inserimento del post %d.', $scheda_to_add );
-				} else {
-					$updated_count++;
-				}
-			} else {
-				$already_migrated_count++;
-			}
-		}
-	} else {
+	if ( empty( $old_schede_ids ) || ! is_array( $old_schede_ids ) ) {
 		wp_send_json_success( array(
 			'message' => 'Nessun contenuto in evidenza trovato con il vecchio metodo da migrare.',
 			'stats'   => array(
-				'processed' => $processed_count,
-				'updated'   => $updated_count,
-				'already_migrated' => $already_migrated_count,
-				'no_value_old_field' => $no_value_old_field_count,
+				'processed' => 0,
+				'updated'   => 0,
+				'already_migrated' => count($new_schede_group),
+				'no_value_old_field' => 0,
 			)
 		) );
 		return;
 	}
 
+	$new_schede_post_ids = array();
+	foreach ( $new_schede_group as $group_item ) {
+		if ( isset( $group_item['tipo_evidenza'] ) && $group_item['tipo_evidenza'] === 'content' && ! empty( $group_item['contenuto_evidenza'] ) && is_array( $group_item['contenuto_evidenza'] ) ) {
+			$new_schede_post_ids[] = reset( $group_item['contenuto_evidenza'] );
+		}
+	}
+	
+	$processed_count = count( $old_schede_ids );
+	$items_were_added = false; 
+
+	foreach ( $old_schede_ids as $old_post_id ) {
+		if ( empty( $old_post_id ) ) {
+			$no_value_old_field_count++;
+			continue;
+		}
+		
+		$old_post_id = intval($old_post_id);
+
+		if ( ! in_array( $old_post_id, $new_schede_post_ids ) ) {
+			$new_schede_group[] = array(
+				'tipo_evidenza'      => 'content',
+				'contenuto_evidenza' => array( (string) $old_post_id ),
+				'termine_evidenza'   => '',
+				'expiration'         => '',
+			);
+			$updated_count++;
+			$items_were_added = true; 
+		} else {
+			$already_migrated_count++;
+		}
+	}
+	
+	if ( $items_were_added ) {
+		$update_result = cmb2_update_option( "homepage", "schede_evidenza", $new_schede_group );
+	
+		if ( false === $update_result ) {
+			$errors[] = 'Errore critico durante il salvataggio dei nuovi dati nella tabella options.';
+		}
+	}
+
 	$response_message = sprintf(
-		'Migrazione completata. Contenuti processati: %d. Contenuti aggiornati: %d. Contenuti già migrati/presenti: %d. ',
+		'Migrazione completata. Contenuti processati: %d. Contenuti aggiornati: %d. Contenuti già migrati/presenti: %d. Contenuti con valore vuoto ignorati: %d.',
 		$processed_count,
 		$updated_count,
 		$already_migrated_count,
