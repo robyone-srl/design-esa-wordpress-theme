@@ -119,7 +119,7 @@ function dci_add_servizi_metaboxes() {
 		'desc'       => __( 'Indicare una sintetica descrizione del Servizio utilizzando un linguaggio semplice che possa aiutare qualsiasi utente a identificare con chiarezza il Servizio. Non utilizzare un linguaggio ricco di riferimenti normativi. Vincoli: 160 caratteri spazi inclusi.' , 'design_comuni_italia' ),
 		'type'       => 'textarea',
 		'attributes' => array(
-			'maxlength' => '160',
+			'maxlength' => '255',
 			'required'  => 'required'
 		),
 	) );
