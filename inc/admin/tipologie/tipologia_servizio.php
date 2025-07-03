@@ -116,7 +116,7 @@ function dci_add_servizi_metaboxes() {
 	$cmb_apertura->add_field( array(
 		'id'         => $prefix . 'descrizione_breve',
 		'name'       => __( 'Descrizione breve *', 'design_comuni_italia' ),
-		'desc'       => __( 'Indicare una sintetica descrizione del Servizio utilizzando un linguaggio semplice che possa aiutare qualsiasi utente a identificare con chiarezza il Servizio. Non utilizzare un linguaggio ricco di riferimenti normativi. Vincoli: 160 caratteri spazi inclusi.' , 'design_comuni_italia' ),
+		'desc'       => __( 'Indicare una sintetica descrizione del Servizio utilizzando un linguaggio semplice che possa aiutare qualsiasi utente a identificare con chiarezza il Servizio. Non utilizzare un linguaggio ricco di riferimenti normativi. Vincoli: 255 caratteri spazi inclusi.' , 'design_comuni_italia' ),
 		'type'       => 'textarea',
 		'attributes' => array(
 			'maxlength' => '255',
