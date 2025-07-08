@@ -224,6 +224,18 @@ function dci_add_page_metaboxes() {
                 'placeholder' =>  __( 'Seleziona i Punti di Contatto', 'design_comuni_italia' ),
             ),
         ) );
+
+        $cmb_contatti->add_field( array(
+        'id'        => $prefix . 'documenti',
+        'name'      => __( 'Documenti', 'design_comuni_italia' ),
+        'desc'      => __( 'Link alle schede documenti correlati.' , 'design_comuni_italia' ),
+        'type'      => 'pw_multiselect',
+        'options'   => dci_get_posts_options('documento_pubblico'),
+        'attributes' => array(
+            'placeholder' =>  __( 'Seleziona i Documenti Pubblici', 'design_comuni_italia' ),
+        ),
+    ) );
+
     }
 }
 

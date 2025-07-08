@@ -11,7 +11,7 @@ global $uo_id, $inline;
 $mostra_prenota_appuntamento = dci_get_option("prenota_appuntamento", "servizi");
 $punti_contatto_id = dci_get_meta('punti_contatto', '_dci_page_');
 $uo_id = intval(dci_get_meta("unita_responsabile", "_dci_page_"));
-
+$documenti = dci_get_meta('documenti', '_dci_page_');
 
 get_header();
 ?>
@@ -39,18 +39,6 @@ get_header();
                     <p data-audio>
                         <?php echo $descrizione_breve; ?>
                     </p>
-                    <div class="row mt-5 mb-4">
-                        <div class="col-6">
-                            <small>Data:</small>
-                            <p class="fw-semibold font-monospace">
-                                <?php echo $date; ?>
-                            </p>
-                        </div>
-                        <div class="col-6">
-                            <small>Tempo di lettura:</small>
-                            <p class="fw-semibold" id="readingTime"></p>
-                        </div>
-                    </div>
                 </div>
                 <div class="col-lg-3 offset-lg-1">
                     <?php
@@ -89,10 +77,17 @@ get_header();
                                                                     <span>Contenuto</span>
                                                                 </a>
                                                             </li>
-                                                            <?php if($mostra_prenota_appuntamento || !empty($punti_contatto_id) || !empty($punti_contatto_id)) { ?>
+                                                            <?php if($mostra_prenota_appuntamento || !empty($punti_contatto_id)) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#contacts">
                                                                         <span> Contatti</span>
+                                                                    </a>
+                                                                </li>
+                                                            <?php } ?>
+                                                            <?php if(!empty($documenti)) { ?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#documents">
+                                                                        <span> Documenti</span>
                                                                     </a>
                                                                 </li>
                                                             <?php } ?>
@@ -153,12 +148,37 @@ get_header();
                                 </div> <?php
                             } 
                         }?>
-
                     </article>
 
-
+                    <article id="documents"> <?php 
+                        if (!empty($documenti)) { ?>
+                            <section class="it-page-section mb-30">
+                                <h2 class="h3 mb-3" id="docs">Documenti correlati</h2>
+                                <div class="richtext-wrapper lora" data-element="service-document">
+                                    <div class="row">
+                                        <?php
+                                        foreach ($documenti as $documento_id) { ?>
+                                            <div class="col-12 col-md-6 mb-3 card-wrapper">
+                                                <?php
+                                                $documento = get_post($documento_id);
+                                                get_template_part("template-parts/documento/card");
+                                                ?>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            </section> <?php 
+                        } ?>
                     </article>
+
                     <article id="more-info">
+                        <div class="row mt-5">
+                            <div class="col-6">
+                                <small>Tempo di lettura:</small>
+                                <p class="fw-semibold mb-0 pb-0" id="readingTime"></p>
+                            </div>
+                        </div>
+
                         <div class="row variable-gutters">
                             <div class="col-lg-12">
                                 <?php get_template_part("template-parts/single/bottom"); ?>
