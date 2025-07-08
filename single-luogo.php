@@ -301,15 +301,18 @@ get_header();
                                 <section id="servizi" class="it-page-section mb-4"> <?php 
                                     
                                     if (!empty($servizi) &&  is_array($servizi) && count($servizi)) {  ?>
-                                        <h2 class="h3 my-2">Servizi presenti nel luogo</h2>
-                                        <p>In questo luogo vengono erogati <?php echo count($servizi); ?> servizi.</p>
-
-                                            <a class="btn btn-primary btn-icon btn-xs" data-bs-toggle="collapse" href="#collapseServiziPresenti" role="button" aria-expanded="false" aria-controls="collapseServiziPresenti">
+                                        <h2 class="h3 my-2">Servizi presenti nel luogo</h2> <?php
+                                        if(count($servizi)>1){?>
+                                            <p>In questo luogo vengono erogati <?php echo count($servizi); ?> servizi.</p> <?php
+                                        }else{?>
+                                            <p>In questo luogo viene erogato 1 servizio.</p> <?php
+                                        }?>
+                                            <a class="btn btn-primary btn-icon btn-xs mb-3" data-bs-toggle="collapse" href="#collapseServiziPresenti" role="button" aria-expanded="false" aria-controls="collapseServiziPresenti">
 											    Mostra i servizi presenti 
                                                 <svg class="icon icon-white ms-5 chevron"><use href="#it-expand"></use></svg>
 											</a>
 											
-									        <div class="collapse clearfix mt-3 me-5" id="collapseServiziPresenti">
+									        <div class="collapse clearfix mt-0 me-5" id="collapseServiziPresenti">
 										        <div class="row g-4">
 											        <?php foreach ($servizi as $servizio_id) { ?>
 														<div class="col-lg-4 col-md-12">
@@ -344,12 +347,12 @@ get_header();
 
 									<p>Questo luogo è sede di <?php if (count($sede_di) == 1) { echo "1 unità organizzativa"; } else { echo count($sede_di) . " unità organizzative"; } ?>.</p>
 
-                                    <a class="btn btn-primary btn-icon btn-xs" data-bs-toggle="collapse" href="#collapseUnitaPresenti" role="button" aria-expanded="false" aria-controls="collapseUnitaPresenti">
+                                    <a class="btn btn-primary btn-icon btn-xs mb-3" data-bs-toggle="collapse" href="#collapseUnitaPresenti" role="button" aria-expanded="false" aria-controls="collapseUnitaPresenti">
 										Mostra le unità
                                         <svg class="icon icon-white ms-5 chevron"><use href="#it-expand"></use></svg>
 									</a>
 											
-									<div class="collapse clearfix mt-3 me-5" id="collapseUnitaPresenti">
+									<div class="collapse clearfix mt-0 me-5" id="collapseUnitaPresenti">
 										<div class="row d-flex align-items-stretch">  <?php 
                                             foreach ($sede_di as $uo_id) { ?>  
                                                 <div class="col-lg-6 col-md-12 d-flex"><?php
