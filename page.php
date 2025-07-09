@@ -128,9 +128,12 @@ get_header();
                 <section class="col-lg-9 it-page-sections-container border-light">
                     <article id="content" class="it-page-section mb-30 richtext-wrapper lora">
                         <?php the_content() ?>
-                    </article>
-                
-                    <?php if($mostra_prenota_appuntamento || !empty($punti_contatto_id) || !empty($punti_contatto_id)) { ?>
+                    </article>  <?php 
+                    
+                    if(
+                        $mostra_prenota_appuntamento || !empty($punti_contatto_id) || !empty($punti_contatto_id) ||
+                        !empty($uo_id) || !empty($incarichi)     
+                    ) { ?>
                         <article id="contacts" class="it-page-section mb-30 richtext-wrapper lora">
                             <h2 class="mb-3 h3" id="contacts">Contatti</h2> <?php 
                             if ($mostra_prenota_appuntamento) { ?>
@@ -153,8 +156,10 @@ get_header();
                                 </div> <?php 
                             }
 
-                            if(!empty($uo_id)){ ?>
-                                <h3 class="mb-3 h4">Contatta ufficio</h3>
+                            if(!empty($uo_id) && !empty($punti_contatto_id)){ ?>
+                                <h3 class="mb-3 h4">Contatta ufficio</h3> <?php
+                            } if(!empty($uo_id)){ ?>
+
                                 <div class="row g-4">
                                     <div class="col-12 col-md-8 col-lg-6 mb-30">
                                         <?php
@@ -166,7 +171,7 @@ get_header();
                                 </div> <?php
                             } 
 
-                            if ($incarichi && !empty($punti_contatto_id)) { ?>
+                            if (!empty($incarichi) && (!empty($punti_contatto_id) || !empty($uo_id))) { ?>
                                 <h3 class="h4 mb-2">Contatta le persone</h3> <?php 
                             }
                             if ($incarichi) { ?>
