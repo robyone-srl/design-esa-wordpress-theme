@@ -81,31 +81,31 @@ get_header();
                                                                     <span>Contenuto</span>
                                                                 </a>
                                                             </li>
+                                                            <?php if(!empty($documenti)) { ?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#documents">
+                                                                        <span> Documenti allegati</span>
+                                                                    </a>
+                                                                </li>
+                                                            <?php } ?>
+                                                            <?php if (!empty($luoghi)) { ?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#luoghi_collegati">
+                                                                        <span>Luoghi correlati</span>
+                                                                    </a>
+                                                                </li>
+                                                            <?php } ?>
+                                                            <?php if (!empty($servizi)) { ?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#servizi">
+                                                                        <span>Servizi correlati</span>
+                                                                    </a>
+                                                                </li>
+                                                            <?php } ?>
                                                             <?php if($mostra_prenota_appuntamento || !empty($punti_contatto_id)) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#contacts">
                                                                         <span> Contatti</span>
-                                                                    </a>
-                                                                </li>
-                                                            <?php } ?>
-                                                            <?php if (isset($servizi)) { ?>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#servizi">
-                                                                        <span>Servizi</span>
-                                                                    </a>
-                                                                </li>
-                                                            <?php } ?>
-                                                            <?php if (isset($luoghi)) { ?>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#luoghi_collegati">
-                                                                        <span>Luoghi</span>
-                                                                    </a>
-                                                                </li>
-                                                            <?php } ?>
-                                                            <?php if(!empty($documenti)) { ?>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#documents">
-                                                                        <span> Documenti</span>
                                                                     </a>
                                                                 </li>
                                                             <?php } ?>
@@ -130,7 +130,60 @@ get_header();
                         <?php the_content() ?>
                     </article>  <?php 
                     
-                    if(
+                    if (!empty($documenti)) { ?>
+                        <article id="documents">
+                            <section class="it-page-section mb-30">
+                                <h2 class="h3 mb-3" id="docs">Documenti allegati</h2>
+                                <div class="richtext-wrapper lora" data-element="service-document">
+                                    <div class="row">
+                                        <?php
+                                        foreach ($documenti as $documento_id) { ?>
+                                            <div class="col-12 col-md-6 mb-3 card-wrapper">
+                                                <?php
+                                                $documento = get_post($documento_id);
+                                                get_template_part("template-parts/documento/card");
+                                                ?>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            </section> 
+                        </article> <?php 
+                    } ?>
+
+                    <?php if ($luoghi && is_array($luoghi) && count($luoghi)) { ?>
+                        <section id="luoghi_collegati" class="it-page-section mb-4">
+                            <h2 class="h3 my-2">Luoghi correlati</h2>
+                                    
+                            <div class="row g-4 d-flex align-items-stretch">
+                                <?php foreach ($luoghi as $luogo_id) {
+                                    ?><div class="col-12 col-lg-6 d-flex"><?php
+                                    $with_border = true;
+                                    $luogo = get_post( $luogo_id );
+                                    get_template_part("template-parts/luogo/card-title");
+                                    ?></div><?php
+                                } ?>
+                            </div>
+                        </section>
+                    <?php } ?>
+
+                    <?php if ($servizi && is_array($servizi) && count($servizi)) { ?>
+                        <section id="servizi" class="it-page-section mb-5">
+                            <h2 class="h3 mb-3">Servizi correlati</h2>
+                            <div class="row g-4">
+                                        
+                                <?php foreach ($servizi as $servizio_id) {
+                                    $servizio = get_post($servizio_id);
+                                    $with_border = true;
+                                    ?> <div class="col-12 col-lg-6"><?php
+                                    get_template_part("template-parts/servizio/card");
+                                    ?> </div> <?php
+                                } ?>
+                            </div>
+                        </section>
+                    <?php } ?>
+
+                    <?php if(
                         $mostra_prenota_appuntamento || !empty($punti_contatto_id) || !empty($punti_contatto_id) ||
                         !empty($uo_id) || !empty($incarichi)     
                     ) { ?>
@@ -157,7 +210,7 @@ get_header();
                             }
 
                             if(!empty($uo_id) && !empty($punti_contatto_id)){ ?>
-                                <h3 class="mb-3 h4">Contatta ufficio</h3> <?php
+                                <h3 class="mb-3 h4">Contatta l'ufficio</h3> <?php
                             } if(!empty($uo_id)){ ?>
 
                                 <div class="row g-4">
@@ -186,60 +239,6 @@ get_header();
                             } ?>
                         </article> <?php
                     }?>
-                    
-                    <?php if ($servizi && is_array($servizi) && count($servizi)) { ?>
-                        <section id="servizi" class="it-page-section mb-5">
-                            <h2 class="h3 mb-3">Servizi collegati</h2>
-                            <div class="row g-4">
-                                        
-                                <?php foreach ($servizi as $servizio_id) {
-                                    $servizio = get_post($servizio_id);
-                                    $with_border = true;
-                                    ?> <div class="col-12 col-lg-6"><?php
-                                    get_template_part("template-parts/servizio/card");
-                                    ?> </div> <?php
-                                } ?>
-                            </div>
-                        </section>
-                    <?php } ?>
-
-                    <?php if ($luoghi && is_array($luoghi) && count($luoghi)) { ?>
-                        <section id="luoghi_collegati" class="it-page-section mb-4">
-                            <h2 class="h3 my-2">Luoghi correlati</h2>
-                                    
-                            <div class="row g-4 d-flex align-items-stretch">
-                                <?php foreach ($luoghi as $luogo_id) {
-                                    ?><div class="col-12 col-lg-6 d-flex"><?php
-                                    $with_border = true;
-                                    $luogo = get_post( $luogo_id );
-                                    get_template_part("template-parts/luogo/card-title");
-                                    ?></div><?php
-                                } ?>
-                            </div>
-                        </section>
-                    <?php } ?>
-
-                    <?php if (!empty($documenti)) { ?>
-                        <article id="documents">
-                            <section class="it-page-section mb-30">
-                                <h2 class="h3 mb-3" id="docs">Documenti correlati</h2>
-                                <div class="richtext-wrapper lora" data-element="service-document">
-                                    <div class="row">
-                                        <?php
-                                        foreach ($documenti as $documento_id) { ?>
-                                            <div class="col-12 col-md-6 mb-3 card-wrapper">
-                                                <?php
-                                                $documento = get_post($documento_id);
-                                                get_template_part("template-parts/documento/card");
-                                                ?>
-                                            </div>
-                                        <?php } ?>
-                                    </div>
-                                </div>
-                            </section> 
-                        </article> <?php 
-                    } ?>
-                    
 
                     <article id="more-info">
                         <div class="row mt-5">

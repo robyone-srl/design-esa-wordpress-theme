@@ -217,7 +217,7 @@ function dci_add_page_metaboxes() {
         $cmb_contatti->add_field( array(
             'id' => $prefix . 'punti_contatto',
             'name'        => __( 'Contatti dedicati', 'design_comuni_italia' ),
-            'desc' => __( 'Telefono, mail o altri punti di contatto da allegare a questa pagina<br><a href="post-new.php?post_type=punto_contatto">Inserisci Punto di Contatto</a>' , 'design_comuni_italia' ),
+            'desc' => __( 'Telefono, mail o altri punti di contatto da allegare alla pagina<br><a href="post-new.php?post_type=punto_contatto">Inserisci Punto di Contatto</a>' , 'design_comuni_italia' ),
             'type'    => 'pw_multiselect',
             'options' => dci_get_posts_options('punto_contatto'),
             'attributes'    => array(
@@ -228,7 +228,7 @@ function dci_add_page_metaboxes() {
         $cmb_contatti->add_field( array(
             'id' => $prefix . 'incarico',
             'name'        => 'Persone incaricate',
-            'desc' => 'Scegli gli incarichi da collegare a questa pagina' ,
+            'desc' => 'Scegli gli incarichi da collegare alla pagina' ,
             'type'    => 'pw_multiselect',
             'options' => dci_get_incarichi_con_nomi(),
             'attributes' => array(
