@@ -206,7 +206,7 @@ function dci_add_page_metaboxes() {
         $cmb_contatti->add_field( array(
             'id' => $prefix . 'unita_responsabile',
             'name'    => __( 'Unità Organizzativa responsabile', 'design_comuni_italia' ),
-            'desc' => __( 'Link dell\'ufficio resposanbile dell\'erogazione di questo Servizio' , 'design_comuni_italia' ),
+            'desc' => __( 'Unità organizzative da allegare alla pagina' , 'design_comuni_italia' ),
             'type'    => 'pw_select',
             'options' => dci_get_posts_options('unita_organizzativa'),
             'attributes' => array(
@@ -217,7 +217,7 @@ function dci_add_page_metaboxes() {
         $cmb_contatti->add_field( array(
             'id' => $prefix . 'punti_contatto',
             'name'        => __( 'Contatti dedicati', 'design_comuni_italia' ),
-            'desc' => __( 'Telefono, mail o altri punti di contatto che sono specifici di questo servizio, diversi da quello dell\'ufficio indicato sopra<br><a href="post-new.php?post_type=punto_contatto">Inserisci Punto di Contatto</a>' , 'design_comuni_italia' ),
+            'desc' => __( 'Telefono, mail o altri punti di contatto da allegare a questa pagina<br><a href="post-new.php?post_type=punto_contatto">Inserisci Punto di Contatto</a>' , 'design_comuni_italia' ),
             'type'    => 'pw_multiselect',
             'options' => dci_get_posts_options('punto_contatto'),
             'attributes'    => array(
@@ -226,16 +226,57 @@ function dci_add_page_metaboxes() {
         ) );
 
         $cmb_contatti->add_field( array(
-        'id'        => $prefix . 'documenti',
-        'name'      => __( 'Documenti', 'design_comuni_italia' ),
-        'desc'      => __( 'Link alle schede documenti correlati.' , 'design_comuni_italia' ),
-        'type'      => 'pw_multiselect',
-        'options'   => dci_get_posts_options('documento_pubblico'),
-        'attributes' => array(
-            'placeholder' =>  __( 'Seleziona i Documenti Pubblici', 'design_comuni_italia' ),
-        ),
-    ) );
+            'id' => $prefix . 'incarico',
+            'name'        => 'Persone incaricate',
+            'desc' => 'Scegli gli incarichi da collegare a questa pagina' ,
+            'type'    => 'pw_multiselect',
+            'options' => dci_get_incarichi_con_nomi(),
+            'attributes' => array(
+                'placeholder' =>  'Seleziona gli incarichi',
+            ),
+        ) );
 
+        //Contenuti
+        $cmb_contenuti = new_cmb2_box( array(
+            'id'           => $prefix . 'box_contenuti',
+            'title'        => __( 'Contenuti', 'design_comuni_italia' ),
+            'object_types' => array( 'page' ),
+            'context'      => 'normal',
+            'priority'     => 'high',
+        ) );
+
+        $cmb_contenuti->add_field( array(
+            'id'        => $prefix . 'documenti',
+            'name'      => __( 'Documenti', 'design_comuni_italia' ),
+            'desc'      => __( 'Link alle schede documenti correlati.' , 'design_comuni_italia' ),
+            'type'      => 'pw_multiselect',
+            'options'   => dci_get_posts_options('documento_pubblico'),
+            'attributes' => array(
+                'placeholder' =>  __( 'Seleziona i Documenti Pubblici', 'design_comuni_italia' ),
+            ),
+        ) );
+
+        $cmb_contenuti->add_field( array(
+            'id' => $prefix . 'servizi',
+            'name'        => 'Servizi',
+            'desc' => 'Scegli i servizi da allegare alla pagina' ,
+            'type'    => 'pw_multiselect',
+            'options' => dci_get_posts_options('servizio'),
+            'attributes' => array(
+                'placeholder' =>  __( 'Seleziona i servizi', 'design_comuni_italia' ),
+            ),
+        ) );
+
+        $cmb_contenuti->add_field( array(
+            'id' => $prefix . 'luoghi',
+            'name'        => __( 'Luoghi', 'design_comuni_italia' ),
+            'desc' => __( 'Luoghi da allegare alla pagina ' , 'design_comuni_italia' ),
+            'type'    => 'pw_multiselect',
+            'options' => dci_get_posts_options('luogo'),
+            'attributes' => array(
+                'placeholder' =>  __( 'Seleziona i luoghi', 'design_comuni_italia' ),
+            ),
+        ) );
     }
 }
 
