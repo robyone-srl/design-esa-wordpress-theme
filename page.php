@@ -11,7 +11,11 @@ global $uo_id, $inline;
 $mostra_prenota_appuntamento = dci_get_option("prenota_appuntamento", "servizi");
 $punti_contatto_id = dci_get_meta('punti_contatto', '_dci_page_');
 $uo_id = intval(dci_get_meta("unita_responsabile", "_dci_page_"));
+$documenti = dci_get_meta('documenti', '_dci_page_');
+$incarichi = dci_get_meta('incarico', '_dci_page_');
 
+$servizi = dci_get_meta('servizi', '_dci_page_');
+$luoghi = dci_get_meta('luoghi', '_dci_page_');
 
 get_header();
 ?>
@@ -39,18 +43,6 @@ get_header();
                     <p data-audio>
                         <?php echo $descrizione_breve; ?>
                     </p>
-                    <div class="row mt-5 mb-4">
-                        <div class="col-6">
-                            <small>Data:</small>
-                            <p class="fw-semibold font-monospace">
-                                <?php echo $date; ?>
-                            </p>
-                        </div>
-                        <div class="col-6">
-                            <small>Tempo di lettura:</small>
-                            <p class="fw-semibold" id="readingTime"></p>
-                        </div>
-                    </div>
                 </div>
                 <div class="col-lg-3 offset-lg-1">
                     <?php
@@ -89,7 +81,28 @@ get_header();
                                                                     <span>Contenuto</span>
                                                                 </a>
                                                             </li>
-                                                            <?php if($mostra_prenota_appuntamento || !empty($punti_contatto_id) || !empty($punti_contatto_id)) { ?>
+                                                            <?php if(!empty($documenti)) { ?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#documents">
+                                                                        <span> Documenti allegati</span>
+                                                                    </a>
+                                                                </li>
+                                                            <?php } ?>
+                                                            <?php if (!empty($luoghi)) { ?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#luoghi_collegati">
+                                                                        <span>Luoghi correlati</span>
+                                                                    </a>
+                                                                </li>
+                                                            <?php } ?>
+                                                            <?php if (!empty($servizi)) { ?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#servizi">
+                                                                        <span>Servizi correlati</span>
+                                                                    </a>
+                                                                </li>
+                                                            <?php } ?>
+                                                            <?php if($mostra_prenota_appuntamento || !empty($punti_contatto_id)) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#contacts">
                                                                         <span> Contatti</span>
@@ -115,10 +128,66 @@ get_header();
                 <section class="col-lg-9 it-page-sections-container border-light">
                     <article id="content" class="it-page-section mb-30 richtext-wrapper lora">
                         <?php the_content() ?>
-                    </article>
-                
-                    <article id="contacts" class="it-page-section mb-30 richtext-wrapper lora">
-                        <?php if($mostra_prenota_appuntamento || !empty($punti_contatto_id) || !empty($punti_contatto_id)) { ?>
+                    </article>  <?php 
+                    
+                    if (!empty($documenti)) { ?>
+                        <article id="documents">
+                            <section class="it-page-section mb-30">
+                                <h2 class="h3 mb-3" id="docs">Documenti allegati</h2>
+                                <div class="richtext-wrapper lora" data-element="service-document">
+                                    <div class="row">
+                                        <?php
+                                        foreach ($documenti as $documento_id) { ?>
+                                            <div class="col-12 col-md-6 mb-3 card-wrapper">
+                                                <?php
+                                                $documento = get_post($documento_id);
+                                                get_template_part("template-parts/documento/card");
+                                                ?>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            </section> 
+                        </article> <?php 
+                    } ?>
+
+                    <?php if ($luoghi && is_array($luoghi) && count($luoghi)) { ?>
+                        <section id="luoghi_collegati" class="it-page-section mb-4">
+                            <h2 class="h3 my-2">Luoghi correlati</h2>
+                                    
+                            <div class="row g-4 d-flex align-items-stretch">
+                                <?php foreach ($luoghi as $luogo_id) {
+                                    ?><div class="col-12 col-lg-6 d-flex"><?php
+                                    $with_border = true;
+                                    $luogo = get_post( $luogo_id );
+                                    get_template_part("template-parts/luogo/card-title");
+                                    ?></div><?php
+                                } ?>
+                            </div>
+                        </section>
+                    <?php } ?>
+
+                    <?php if ($servizi && is_array($servizi) && count($servizi)) { ?>
+                        <section id="servizi" class="it-page-section mb-5">
+                            <h2 class="h3 mb-3">Servizi correlati</h2>
+                            <div class="row g-4">
+                                        
+                                <?php foreach ($servizi as $servizio_id) {
+                                    $servizio = get_post($servizio_id);
+                                    $with_border = true;
+                                    ?> <div class="col-12 col-lg-6"><?php
+                                    get_template_part("template-parts/servizio/card");
+                                    ?> </div> <?php
+                                } ?>
+                            </div>
+                        </section>
+                    <?php } ?>
+
+                    <?php if(
+                        $mostra_prenota_appuntamento || !empty($punti_contatto_id) || !empty($punti_contatto_id) ||
+                        !empty($uo_id) || !empty($incarichi)     
+                    ) { ?>
+                        <article id="contacts" class="it-page-section mb-30 richtext-wrapper lora">
                             <h2 class="mb-3 h3" id="contacts">Contatti</h2> <?php 
                             if ($mostra_prenota_appuntamento) { ?>
                                 <button type="button" class="btn btn-outline-primary t-primary bg-white mobile-full mb-3" onclick="location.href='<?php echo dci_get_template_page_url('page-templates/prenota-appuntamento.php'); ?>';" data-element="service-booking-access">
@@ -140,9 +209,11 @@ get_header();
                                 </div> <?php 
                             }
 
-                            if(!empty($uo_id)){ ?>
-                                <h3 class="mb-3 h4">Contatta ufficio</h3>
-                                <div class="row">
+                            if(!empty($uo_id) && !empty($punti_contatto_id)){ ?>
+                                <h3 class="mb-3 h4">Contatta l'ufficio</h3> <?php
+                            } if(!empty($uo_id)){ ?>
+
+                                <div class="row g-4">
                                     <div class="col-12 col-md-8 col-lg-6 mb-30">
                                         <?php
                                         $with_border = true;
@@ -152,13 +223,31 @@ get_header();
                                     </div>
                                 </div> <?php
                             } 
-                        }?>
 
-                    </article>
+                            if (!empty($incarichi) && (!empty($punti_contatto_id) || !empty($uo_id))) { ?>
+                                <h3 class="h4 mb-2">Contatta le persone</h3> <?php 
+                            }
+                            if ($incarichi) { ?>
+                                <div class="row g-4 mb-4"> <?php 
+                                    foreach ($incarichi as $incarico_id) { ?>
+                                        <div class="col-lg-6 col-md-12"> <?php 
+                                            $titleLevel = 3;
+                                            get_template_part("template-parts/incarico/card-person-contacts"); ?>
+                                        </div> <?php 
+                                    } ?>
+                                </div> <?php 
+                            } ?>
+                        </article> <?php
+                    }?>
 
-
-                    </article>
                     <article id="more-info">
+                        <div class="row mt-5">
+                            <div class="col-6">
+                                <small>Tempo di lettura:</small>
+                                <p class="fw-semibold mb-0 pb-0" id="readingTime"></p>
+                            </div>
+                        </div>
+
                         <div class="row variable-gutters">
                             <div class="col-lg-12">
                                 <?php get_template_part("template-parts/single/bottom"); ?>
