@@ -23,6 +23,9 @@ function get_section($name)
         case 'hero':
             get_template_part("template-parts/home/hero");
             break;
+        case 'hero-chi-siamo':
+            get_template_part("template-parts/home/hero-chi-siamo");
+            break;
         case 'messages': ?>
             <section id="messages">               
             <?php

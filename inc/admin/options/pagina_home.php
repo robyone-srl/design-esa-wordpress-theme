@@ -36,7 +36,8 @@ function dci_register_pagina_home_options(){
         'desc' => __( 'Scegli quali sezioni mostrare nella home e in quale ordine. Eliminando tutte le opzioni e poi salvando, la scelta verrà reimpostata.' , 'design_comuni_italia' ),
         'type' => 'pw_multiselect',
         'options' => array(
-            'hero' => 'Hero',
+            'hero' => 'Hero Copertina',
+            'hero-chi-siamo' => 'Hero Chi siamo',
             'messages' => 'Avvisi di allerta',
             'notizie' => 'Notizie',
             'contenuti-evidenza' => 'Contenuti in evidenza',
@@ -56,7 +57,7 @@ function dci_register_pagina_home_options(){
 
     $home_options->add_field( array(
         'id' => $prefix . 'hero_section_title',
-        'name'        => __( 'Sezione Hero', 'design_comuni_italia' ),
+        'name'        => __( 'Sezione Hero di copertina', 'design_comuni_italia' ),
         'desc' => __( 'Configurazione immagine all\'inizio della home' , 'design_comuni_italia' ),
         'type' => 'title',
     ) );
@@ -108,6 +109,60 @@ function dci_register_pagina_home_options(){
     ) );
     
 
+	
+	$home_options->add_field( array(
+        'id' => $prefix . 'hero_chi_siamo_section_title',
+        'name'        => __( 'Sezione Hero Chi siamo', 'design_comuni_italia' ),
+        'desc' => __( 'Configurazione banner di presentazione dell\'Ente con link a luoghi e servizi' , 'design_comuni_italia' ),
+        'type' => 'title',
+    ) );
+
+    $home_options->add_field( array(
+        'id'    => $prefix . 'hero_chi_siamo_image',
+        'name' => __('Immagine di sfondo', 'design_comuni_italia' ),
+        'desc' => __( 'L\'immagine che viene visualizzata come "copertina"' , 'design_comuni_italia' ),
+        'type' => 'file',
+        'query_args' => array(
+            'type' => array(
+                'image/*',
+        ))
+    ));
+
+    $home_options->add_field( array(
+        'id' => $prefix . 'hero_chi_siamo_title',
+        'name'        => __( 'Titolo', 'design_comuni_italia' ),
+        'type'    => 'text',
+    ) );
+
+    $home_options->add_field( array(
+        'id' => $prefix . 'hero_chi_siamo_description',
+        'name'        => __( 'Descrizione', 'design_comuni_italia' ),
+        'type'    => 'textarea',
+    ) );
+
+    $home_options->add_field( array(
+        'id' => $prefix . 'hero_chi_siamo_button_title',
+        'name'        => __( 'Contenuto pulsante', 'design_comuni_italia' ),
+        'type'    => 'text',
+    ) );
+    
+    $home_options->add_field( array(
+        'id' => $prefix . 'hero_chi_siamo_button_link',
+        'name'        => __( 'URL pulsante', 'design_comuni_italia' ),
+        'type'    => 'text',
+    ) );
+    
+    $home_options->add_field( array(
+        'id' => $prefix . 'hero_chi_siamo_alignment',
+        'name'        => __( 'Allineamento', 'design_comuni_italia' ),
+        'type'    => 'radio_inline',
+        'options' => array(
+            'left' => __( 'Sinistra', 'cmb2' ),
+            'center'   => __( 'Centro', 'cmb2' ),
+        ),
+        'default' => 'left',
+    ) );
+	
     $home_options->add_field( array(
         'id' => $prefix . 'contenuti_evidenziati_title',
         'name'        => __( 'Sezione Contenuti in Evidenza', 'design_comuni_italia' ),
