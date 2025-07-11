@@ -657,6 +657,32 @@ function dci_add_servizi_metaboxes() {
             'placeholder' => 'fa-solid fa-shield-halved'
         ]
 	) );
+	
+    //PRIORITA
+	$cmb_stato = new_cmb2_box( array(
+		'id'           => $prefix . 'box_ordine',
+		'title'        => __( 'Ordine di importanza', 'design_comuni_italia' ),
+		'object_types' => array( 'servizio' ),
+		'context'      => 'side',
+		'priority'     => 'low',
+	) );
+	
+	$cmb_stato->add_field( array(
+		'id'        => $prefix . 'priority_order',
+		'desc'      => __( 'Ordine di importanza. Può essere utilizzato quando i servizi vengono ordinati per importanza per l\'Ente', 'design_comuni_italia' ),
+		'type'      => 'text',
+		'default' => '0',
+		'column' => array(
+        	'position' => 4,
+        	'name'     => 'Ordine di importanza',
+    	),
+		'attributes' => array(
+			'type' => 'number',
+			'pattern' => '\d*',
+		),
+		'sanitization_cb' => 'absint',
+			'escape_cb'       => 'absint',
+		) );
 }
 
 /**

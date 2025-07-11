@@ -361,10 +361,21 @@ get_header();
                                 <h2 class="h3 my-2">Servizi gestiti</h2>
                                 <div class="row g-2">
                                     <?php
+                                    $servizi_items = [];
                                     foreach ($servizi as $servizio_id) { 
-										if (FALSE !== get_post_status( $servizio_id ) ) {?>
-                                        <?php
-                                        $servizio = get_post($servizio_id);
+										if (FALSE !== get_post_status( $servizio_id ) ) {
+											$servizio = get_post($servizio_id);
+											$priority_order = get_post_meta($servizio_id, '_dci_servizio_priority_order', true );
+											$servizio->priority_order = $priority_order != "" ? intval($priority_order) : 0;
+
+											$servizi_items[] = $servizio;
+										}
+                                    }
+	
+									usort($servizi_items, fn($a, $b) => strcmp($a->priority_order, $b->priority_order));
+
+                                    foreach ($servizi_items as $servizio_item) { 
+                                        $servizio = $servizio_item;
                                         $with_map = false;
                                         if ($servizio != null) {
                                         ?>
@@ -372,7 +383,7 @@ get_header();
                                                 <?php get_template_part("template-parts/servizio/card"); ?>
                                             </div>
                                     <?php
-                                        } }
+                                        }
                                     } ?>
                                 </div>
                             </section>
