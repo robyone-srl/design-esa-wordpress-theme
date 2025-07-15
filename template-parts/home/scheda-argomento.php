@@ -5,8 +5,9 @@ $argomento = get_term_by('slug', $argomento_full['argomento_'.$count.'_argomento
 
 $icon = dci_get_term_meta('icona', "dci_term_", $argomento->term_id);
 
-if (isset($argomento_full['argomento_'.$count.'_siti_tematici']))
-$sito_tematico_id = $argomento_full['argomento_'.$count.'_siti_tematici'];
+if (isset($argomento_full['argomento_'.$count.'_siti']))
+$siti_tematici_id = $argomento_full['argomento_'.$count.'_siti'];
+
 if (isset($argomento_full['argomento_'.$count.'_contenuti']))
 $links = $argomento_full['argomento_'.$count.'_contenuti'];
 ?>
@@ -26,14 +27,16 @@ $links = $argomento_full['argomento_'.$count.'_contenuti'];
             <?php echo $argomento->description?>
         </p>
 
-        <!-- sito tematico -->
-        <?php if($sito_tematico_id) { ?>
-        <p class="card-text pb-3">Visita il sito:</p>
-        <?php 
-            $custom_class = "no-after mt-0";
-            get_template_part("template-parts/sito-tematico/card");
-        ?>
-        <?php } ?>
+        <!-- siti tematici -->
+        <?php if($siti_tematici_id && is_array($siti_tematici_id) && count($siti_tematici_id) > 0) { 
+                    ?>
+                        <p class="card-text pb-3"><?php echo count($siti_tematici_id) > 1 ? "Visita i siti:" : "Visita il sito:"; ?></p>
+                    <?php 
+                    foreach($siti_tematici_id as $sito_tematico_id){
+                                $custom_class = "no-after mt-0";
+                                get_template_part("template-parts/sito-tematico/card");
+                    }
+             } ?>
 
         <!-- links -->
         <?php if(isset($links) && is_array($links) && count($links)) { ?>

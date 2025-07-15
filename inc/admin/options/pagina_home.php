@@ -441,10 +441,10 @@ function dci_register_pagina_home_options(){
         'taxonomy'=>'argomenti'
     ) );
     $home_options->add_group_field( $argomenti_group_id, array(
-        'id' => $prefix . 'argomento_1_siti_tematici',
-        'name'        => __( 'Sito Tematico ', 'design_comuni_italia' ),
-        'desc' => __( 'Selezionare il sito tematico da inserire nella Card' , 'design_comuni_italia' ),
-        'type'    => 'pw_select',
+        'id' => $prefix . 'argomento_1_siti',
+        'name'        => __( 'Siti Tematici ', 'design_comuni_italia' ),
+        'desc' => __( 'Selezionare i siti tematici da inserire nella Card' , 'design_comuni_italia' ),
+        'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('sito_tematico'),
     ) );
     $home_options->add_group_field( $argomenti_group_id, array(
@@ -481,10 +481,10 @@ function dci_register_pagina_home_options(){
         'taxonomy'=>'argomenti'
     ) );
     $home_options->add_group_field( $argomenti_group_id, array(
-        'id' => $prefix . 'argomento_2_siti_tematici',
-        'name'        => __( 'Sito Tematico ', 'design_comuni_italia' ),
-        'desc' => __( 'Selezionare il sito tematico da inserire nella Card' , 'design_comuni_italia' ),
-        'type'    => 'pw_select',
+        'id' => $prefix . 'argomento_2_siti',
+        'name'        => __( 'Siti Tematici ', 'design_comuni_italia' ),
+        'desc' => __( 'Selezionare i siti tematici da inserire nella Card' , 'design_comuni_italia' ),
+        'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('sito_tematico'),
     ) );
     $home_options->add_group_field( $argomenti_group_id, array(
@@ -521,10 +521,10 @@ function dci_register_pagina_home_options(){
         'taxonomy'=>'argomenti'
     ) );
     $home_options->add_group_field( $argomenti_group_id, array(
-        'id' => $prefix . 'argomento_3_siti_tematici',
-        'name'        => __( 'Sito Tematico ', 'design_comuni_italia' ),
-        'desc' => __( 'Selezionare il sito tematico da inserire nella Card' , 'design_comuni_italia' ),
-        'type'    => 'pw_select',
+        'id' => $prefix . 'argomento_3_siti',
+        'name'        => __( 'Siti Tematici', 'design_comuni_italia' ),
+        'desc' => __( 'Selezionare i siti tematici da inserire nella Card' , 'design_comuni_italia' ),
+        'type'    => 'pw_multiselect',
         'options' => dci_get_posts_options('sito_tematico'),
     ) );
     $home_options->add_group_field( $argomenti_group_id, array(
