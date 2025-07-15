@@ -43,7 +43,7 @@ if ($notizie_in_home && $notizie_in_home > 0) {
     }
 
     $posts = get_posts($args);
-    //$post  = array_shift( $posts  );
+    $post  = array_shift( $posts  );
 }
 
 $arrdata           = dci_get_data_pubblicazione_arr("data_pubblicazione", '_dci_notizia_', $post->ID);

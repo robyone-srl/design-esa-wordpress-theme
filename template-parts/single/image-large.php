@@ -8,7 +8,7 @@ if($has_thumbnail){
 
     $img = get_post(attachment_url_to_postid( $img_url ));
 
-    $img_alt = get_post_meta( $img->ID, '_wp_attachment_image_alt', true);
+    $img_alt = get_post_meta( $img->ID, '_wp_attachment_image_alt', true) ?? '';
     $img_caption = $img->post_excerpt;
 }
 

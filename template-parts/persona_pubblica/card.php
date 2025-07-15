@@ -8,35 +8,35 @@ $prefix = '_dci_persona_pubblica_';
 
 $descrizione_breve = dci_get_meta('descrizione_breve', $prefix, $persona->ID);
 
-    if ($descrizione_breve) {
-        $sottotitolo = $descrizione_breve;
-    } else if (!$hide_incarichi) {  
-        $inc_args = array(
-            'post_type' => 'incarico',
-            'meta_query' => array(
-                array(
-                    'key'     => '_dci_incarico_persona',
-                    'value'   => $persona->ID
-                ),
+if ($descrizione_breve) {
+    $sottotitolo = $descrizione_breve ?? '';
+} else if (!$hide_incarichi) {  
+    $inc_args = array(
+        'post_type' => 'incarico',
+        'meta_query' => array(
+            array(
+                'key'     => '_dci_incarico_persona',
+                'value'   => $persona->ID
             ),
-            'numberposts' => -1,
-            'post_status' => 'publish',
-            'orderby' => 'post_title',
-            'order' => 'ASC',
-        );
-        $inc_query = new WP_Query($inc_args);
-        $inc_list = get_posts($inc_args);
+        ),
+        'numberposts' => -1,
+        'post_status' => 'publish',
+        'orderby' => 'post_title',
+        'order' => 'ASC',
+    );
+    $inc_query = new WP_Query($inc_args);
+    $inc_list = get_posts($inc_args);
 
-        $incarichi = array();
+    $incarichi = array();
 
-        foreach ($inc_list as $incarico) {
-            array_push($incarichi, $incarico->post_title);
-        }
+    foreach ($inc_list as $incarico) {
+        array_push($incarichi, $incarico->post_title);
+    }
 
-        $incarichi = array_unique($incarichi);
+    $incarichi = array_unique($incarichi);
     
-        $sottotitolo = implode(', ', $incarichi);
- }
+    $sottotitolo = implode(', ', $incarichi) ?? '';
+}
 
 $foto = dci_get_meta('foto', $prefix, $persona->ID);
 
@@ -54,7 +54,7 @@ if($titleLevel == "") $titleLevel = 4;
         <div class="card-text">
             <?php
             
-            if ($sottotitolo) {
+            if ($sottotitolo && $sottotitolo != null && $sottotitolo != '') {
                 echo $sottotitolo;
             }
             ?>
