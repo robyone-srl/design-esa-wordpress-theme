@@ -28,19 +28,6 @@ function dci_register_pagina_luoghi_options(){
         'desc' => __( 'Configurazione della pagina Luoghi' , 'design_comuni_italia' ),
         'type' => 'title',
     ) );
-    $luoghi_options->add_field( array(
-        'id' => $prefix . 'immagine',
-        'name'        => __( 'Immagine', 'design_comuni_italia' ),
-        'desc' => __( 'Immagine di copertina della pagina (opzionale)' , 'design_comuni_italia' ),
-        'type' => 'file',
-        'query_args' => array( 'type' => 'image' ),
-    ) );
-    $luoghi_options->add_field( array(
-        'id' => $prefix . 'didascalia',
-        'name'        => __( 'Didascalia', 'design_comuni_italia' ),
-        //'desc' => __( 'didascalia.' , 'design_comuni_italia' ),
-        'type' => 'text',
-    ) );
     $luoghi_options->add_field(array(
             'name' => __('Luoghi in evidenza', 'design_comuni_italia'),
             'desc' => __('Seleziona i luoghi in evidenza. NB: Selezionane 3 o multipli di 3 per evitare buchi nell\'impaginazione.  ', 'design_comuni_italia'),

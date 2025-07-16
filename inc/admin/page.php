@@ -92,6 +92,26 @@ function dci_add_page_metaboxes() {
         'show_option_none' => false,
         'remove_default' => 'true',
     ) );
+	
+	//avanzate
+	$cmb_avanzate = new_cmb2_box( array(
+        'id'           => $prefix . 'box_avanzate',
+        'title'        => __( 'Avanzate', 'design_comuni_italia' ),
+        'object_types' => array( 'page' ),
+        'context'      => 'side',
+        'priority'     => 'low',
+    ) );
+    $cmb_avanzate->add_field( array(
+        'id' => $prefix . 'immagine_visibilita',
+		'name'   => __( 'Visibilità immagine in evidenza', 'design_comuni_italia' ),
+		'desc'        => __( 'Dove mostrare l\'immagine della pagina (se selezionata)', 'design_comuni_italia' ),
+            'type' => 'radio_inline',
+            'default' => 'mostra',
+            'options' => array(
+                'mostra'    => 'Sia come anteprima che in apertura',
+                'nascondi_apertura'     => 'Solo anteprima'
+            ),
+    ) );
 
     if($template_name == 'punti-di-contatto'){
 

@@ -12,25 +12,27 @@ get_header();
 ?>
 	<main>
 		<?php
-		while ( have_posts() ) :
-			the_post();
-			
-			?>
-			<?php
+			while ( have_posts() ) :
+				the_post();
+				
 				$with_shadow = false; 
 				get_template_part("template-parts/hero/hero"); 
-			?>
-			<?php get_template_part("template-parts/common/content"); ?>
-			<?php get_template_part('template-parts/single/image-large'); ?>
-			<?php get_template_part("template-parts/argomento/evidenza"); ?>			
-			<?php get_template_part("template-parts/argomento/argomenti"); ?>	
-			<?php get_template_part("template-parts/common/valuta-servizio"); ?>	
-            <?php 
-                $visualizza_contatto = dci_get_option('visualizzaContatto', 'footer');
-                if($visualizza_contatto == 'visible')
-                    get_template_part("template-parts/common/assistenza-contatti"); 
-            ?>
-		<?php 
+			
+				get_template_part("template-parts/common/content");
+
+				$immagine_visibilita = dci_get_meta('immagine_visibilita', '_dci_page_');
+				if($immagine_visibilita == null || $immagine_visibilita == "mostra") {
+					get_template_part('template-parts/single/image-large');
+				};
+
+				get_template_part("template-parts/argomento/evidenza");	
+				get_template_part("template-parts/argomento/argomenti");
+				get_template_part("template-parts/common/valuta-servizio");
+				
+				$visualizza_contatto = dci_get_option('visualizzaContatto', 'footer');
+				if($visualizza_contatto == 'visible')
+					get_template_part("template-parts/common/assistenza-contatti"); 
+
 			endwhile; // End of the loop.
 		?>
 	</main>
