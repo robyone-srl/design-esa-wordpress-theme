@@ -420,21 +420,25 @@ get_header();
                                     $data_fine ||
                                     $more_info ||
                                     $riferimenti_normativi ||
-                                    ( is_array($documenti_collegati) && count($documenti_collegati) )
+                                    ( is_array($documenti_collegati) && count($documenti_collegati) ) ||
+                                    $licenza ||
+                                    $ufficio_responsabile
                                 ) { ?>
                                 <div id="metadata" class="it-page-section mb-5">
                                     <h2 class="h3 mb-3">Metadati</h2>
 
                                     <div class="metadata_content">
-                                        <section id="ufficio_responsabile" class="it-page-section mb-5">
-                                            <h3 class="h4 mb-3">Ufficio responsabile</h3>
-                                            <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
-                                                <?php foreach ($ufficio_responsabile as $uo_id) {
-                                                    $with_border = true;
-                                                    get_template_part("template-parts/unita-organizzativa/card");
-                                                } ?>
-                                            </div>
-                                        </section>
+                                        <?php if ($ufficio_responsabile) { ?>
+                                            <section id="ufficio_responsabile" class="it-page-section mb-5">
+                                                <h3 class="h4 mb-3">Ufficio responsabile</h3>
+                                                <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
+                                                    <?php foreach ($ufficio_responsabile as $uo_id) {
+                                                        $with_border = true;
+                                                        get_template_part("template-parts/unita-organizzativa/card");
+                                                    } ?>
+                                                </div>
+                                            </section>
+                                        <?php } ?>
 
                                         <?php if ($autori &&  is_array($autori) && count($autori)) { ?>
                                             <section id="autore" class="it-page-section mb-5">
