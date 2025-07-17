@@ -375,7 +375,7 @@ get_header();
                                 <section id="contatti" class="it-page-section mb-4">
                                     <h2 class="h3 my-2">Contatti</h2>
                                     
-                                    <div class="row"> <?php 
+                                    <div class="row g-2 mb-4"> <?php 
                                         foreach ($punti_contatto as $pc_id) { 
                                             $contatto = get_post($pc_id);
                                             if(isset($contatto)){?>
@@ -396,7 +396,7 @@ get_header();
                                         <div class="row g-2 mb-4">
                                             <?php foreach ($incarichi as $incarico_id) { 
                                             ?>
-                                                <div class="col-lg-6 col-md-12">
+                                                <div class="col-xl-6 col-lg-8 col-md-12">
                                                     <?php 
                                                     $titleLevel = 3;
                                                     get_template_part("template-parts/incarico/card-person-contacts"); ?>
