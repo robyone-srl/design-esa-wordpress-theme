@@ -375,7 +375,7 @@ get_header();
                                 <section id="contatti" class="it-page-section mb-4">
                                     <h2 class="h3 my-2">Contatti</h2>
                                     
-                                    <div class="row g-2 mb-4"> <?php 
+                                    <div class="row mb-4"> <?php 
                                         foreach ($punti_contatto as $pc_id) { 
                                             $contatto = get_post($pc_id);
                                             if(isset($contatto)){?>
