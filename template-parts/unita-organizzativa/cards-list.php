@@ -1,5 +1,5 @@
 <?php
-global $post;
+global $post, $title_level;
 
 $prefix = '_dci_unita_organizzativa_';
 $descrizione_breve = dci_get_meta('descrizione_breve');
@@ -17,16 +17,17 @@ foreach ($contatti ?? null as $punto_contatto_id) {
     }
 }
 
+if($title_level == "") $title_level = 4;
 ?>
 
 <div class="col-12 col-md-6 col-lg-4">
     <div class="card card-teaser border rounded shadow p-4 h-100">
         <div class="card-body pe-3">
-            <h4 class="u-main-black mb-1 title-small-semi-bold-medium">
+            <h<?php echo $title_level; ?> class="u-main-black mb-1 title-small-semi-bold-medium">
                 <a class="text-decoration-none" href="<?php echo get_permalink($post->ID); ?>">
                     <?php echo $post->post_title; ?>
                 </a>
-            </h4>
+            </h<?php echo $title_level; ?>>
             <div class="card-text">
                 <?php if ($descrizione_breve) {
                           echo '<p class="u-main-black">'.$descrizione_breve.'</p>';

@@ -32,6 +32,7 @@ get_header();
 				get_template_part('template-parts/punto-contatto/contatti-top');
 		
 			get_template_part("template-parts/punto-contatto/evidenza");
+			$title_level = 3;
 			get_template_part("template-parts/punto-contatto/tutti-contatti");
 			get_template_part("template-parts/common/valuta-servizio");
 

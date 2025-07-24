@@ -271,7 +271,7 @@ get_header();
                                                         if (FALSE !== get_post_status( $inc_id ) ) { ?>
                                                             <div class="col-lg-6 col-md-12 d-flex">
                                                                 <?php 
-                                                                $titleLevel = 3;
+                                                                $title_level = 3;
                                                                 get_template_part("template-parts/incarico/card"); ?>
                                                             </div>  <?php 
                                                         }
@@ -285,7 +285,7 @@ get_header();
                                                    ?>
                                                         <div class="col-lg-6 col-md-12 d-flex">
                                                             <?php 
-                                                            $titleLevel = 3;
+                                                            $title_level = 3;
                                                             get_template_part("template-parts/persona_pubblica/card"); ?>
                                                         </div> <?php
                                                     
@@ -305,7 +305,7 @@ get_header();
                                                         if (FALSE !== get_post_status( $inc_id ) ) { ?>
                                                             <div class="col-lg-6 col-md-12 d-flex">
                                                                 <?php 
-                                                                $titleLevel = 3;
+                                                                $title_level = 3;
                                                                 get_template_part("template-parts/incarico/card"); ?>
                                                             </div>  <?php 
                                                         }
@@ -319,7 +319,7 @@ get_header();
                                                    ?>
                                                         <div class="col-lg-6 col-md-12 d-flex">
                                                             <?php 
-                                                            $titleLevel = 3;
+                                                            $title_level = 3;
                                                             get_template_part("template-parts/persona_pubblica/card"); ?>
                                                         </div> <?php
                                                     
@@ -344,7 +344,7 @@ get_header();
                                                     $hide_incarichi = true; ?>
                                                     <div class="col-lg-6 col-md-12 d-flex">
                                                         <?php 
-                                                        $titleLevel = 3;
+                                                        $title_level = 3;
                                                         get_template_part("template-parts/persona_pubblica/card"); ?>
                                                     </div>
                                                 <?php } } ?>
@@ -444,6 +444,7 @@ get_header();
                                             <div class="col-md-6 col-sm-12 mb-3 card-wrapper">
                                                 <?php
                                                 $with_border = true;
+										        $title_level = 3;
                                                 get_template_part("template-parts/punto-contatto/card"); ?>
                                             </div>  <?php  
                                         }

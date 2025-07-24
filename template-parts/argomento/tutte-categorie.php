@@ -73,7 +73,7 @@ if ($total_cards <= $card_per_pagina) {
                 <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="moreOptionsModalLabel">Seleziona un'opzione</h5>
+                            <div class="h5 modal-title" id="moreOptionsModalLabel">Seleziona un'opzione</div>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
                         </div>
                         <div class="modal-body">

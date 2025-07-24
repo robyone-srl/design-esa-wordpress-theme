@@ -18,10 +18,6 @@ $barra_superiore_light = dci_get_option("tema_chiaro_nav_superiore", 'grafica');
 
               $menu_items = wp_get_nav_menu_items($menu);
 
-              ?>
-              <div class="d-none"><?php var_dump($menu_items); ?></div>
-              <?php
-
               if(count($menu_items) > 1) {
                 ?>
                   <div class="nav-mobile text-end">

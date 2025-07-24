@@ -27,7 +27,7 @@ function load_template_part($template_name, $part_name=null) {
 add_action("wp_ajax_load_more" , "load_more");
 add_action("wp_ajax_nopriv_load_more" , "load_more");
 function load_more(){
-	global $wp_query, $servizio, $i, $hide_categories;
+	global $wp_query, $servizio, $i, $hide_categories, $title_level;
 
     // prepare our arguments for the query
 	$load_card_type = $_POST['load_card_type'];
@@ -37,6 +37,9 @@ function load_more(){
 	//$query_args =  json_decode( stripslashes( $_POST['query'] ), true );
 	$filter_ids =  json_decode( stripslashes( $_POST['filter_ids'] ), true );
 	$tax_query =  json_decode( stripslashes( $_POST['tax_query'] ), true );
+	
+	
+	$title_level =  json_decode( stripslashes( $_POST['title_level'] ), true );
 
 	
 	$order_values = dci_get_order_values("post_title", "ASC", $_POST["order_by"]);

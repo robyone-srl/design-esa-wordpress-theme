@@ -1390,14 +1390,12 @@ function dci_get_incarichi_con_nomi(){
 function dci_get_default_home_sections(){
     return [
         'hero',
-        'messages',
         'notizie',
         'contenuti-evidenza',
         'calendario',
         'argomenti',
         'siti-tematici',
         'domande-frequenti',
-        //'galleria-foto',
         'ricerca',
         'valuta-servizio',
         'assistenza-contatti',

@@ -277,7 +277,7 @@ get_header();
                                 <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
                                 <?php
                                     if ( $file_documento ) {
-                                        dsi_get_documento_card($file_documento);
+                                        dsi_get_documento_card($file_documento, 3);
                                     }
 
                                     if ( $url_documento ) { ?>
@@ -300,10 +300,10 @@ get_header();
                                 </div><!-- ./card-wrapper -->
 
                                 <?php if(!empty($file_allegati)){ ?>
-                                    <h5 class="mt-2">Allegati</h5>
+                                    <h3 class="mt-2">Allegati</h5>
                                     <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
                                         <?php foreach ($file_allegati as $url) {
-                                            dsi_get_documento_card($url);
+                                            dsi_get_documento_card($url,4);
                                         } ?>
                                     </div>
                                 <?php } ?>
@@ -317,6 +317,7 @@ get_header();
                                     <div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal">
                                         <?php foreach ($ufficio_responsabile as $uo_id) {
                                             $with_border = true;
+                                            $title_level = 3;
                                             get_template_part("template-parts/unita-organizzativa/card");
                                         } ?>
                                     </div>
@@ -569,7 +570,7 @@ get_header();
 <?php
 get_footer();
 
-function dsi_get_documento_card($url){
+function dsi_get_documento_card($url, $title_level = 5){
     $documento_id = attachment_url_to_postid($url);
     $documento = get_post($documento_id);
     ?>
@@ -580,11 +581,11 @@ function dsi_get_documento_card($url){
             ></use>
         </svg>
         <div class="card-body">
-            <h5 class="card-title mb-0">
+            <h<?php echo $title_level; ?> class="card-title mb-0 h5">
                 <a class="text-decoration-none" href="<?php echo $url; ?>" aria-label="Scarica il documento <?php echo $documento->post_title; ?>" title="Scarica il documento <?php echo $documento->post_title; ?>">
                     <?php echo $documento->post_title; ?> (<?php echo getFileSizeAndFormat($url);?>)
                 </a>
-            </h5>
+            </h<?php echo $title_level; ?>>
         </div>
     </div>
 <?php

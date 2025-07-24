@@ -229,30 +229,37 @@ get_header();
                     </div>
                     <div class="col-12 col-lg-9">
                         <div class="it-page-sections-container">
-                            <?php if ($descrizione) { ?>
-                                <section id="descrizione" class="it-page-section mb-4">
-                                    <h2 class="h3 my-2">Caratteristiche</h2>
-                                    <div class="richtext-wrapper lora">
-                                        <?php echo $descrizione ?>
-                                    </div> <?php
-	                                $args = array(
+                            <?php 
+                                $args = array(
 		                                'post_parent'    => $post->ID,
 		                                'order'          => 'ASC',
 		                                'post_type'      => 'luogo',
 	                                );
-                                    $arr_figli = get_children($args);
-                                    if($arr_figli){ ?>
-                                        <h3 class="h4">Ospita</h3>
-                                        <div class="row d-flex align-items-stretch"> <?php
-                                            foreach($arr_figli as $arr_figli_id){ ?> 
-                                               <div class="col-lg-6 col-md-12 d-flex"> <?php 
-                                                    $luogo = $arr_figli_id;
-                                                    $show_descrizione = true;
-                                                    get_template_part("template-parts/luogo/card-title"); ?> 
-                                                </div> <?php
-                                            } ?>
-                                        </div> <?php
-                                    } ?>
+                                $arr_figli = get_children($args);
+
+                                if ($descrizione || $arr_figli) { ?>
+                                <section id="descrizione" class="it-page-section mb-4">
+                                    <h2 class="h3 my-2">Caratteristiche</h2>
+                                    <?php
+                                        if ($descrizione) {
+                                            ?><div class="richtext-wrapper lora">
+                                                <?php echo $descrizione ?>
+                                            </div><?php
+                                        }
+	                                
+                                        if($arr_figli){ ?>
+                                            <h3 class="h4">Ospita</h3>
+                                            <div class="row d-flex align-items-stretch"> <?php
+                                                foreach($arr_figli as $arr_figli_id){ ?> 
+                                                <div class="col-lg-6 col-md-12 d-flex"> <?php 
+                                                        $luogo = $arr_figli_id;
+                                                        $show_descrizione = true;
+                                                        get_template_part("template-parts/luogo/card-title"); ?> 
+                                                    </div> <?php
+                                                } ?>
+                                            </div> <?php
+                                        }
+                                    ?>
                                 </section>
                             <?php } ?>
 
@@ -398,7 +405,7 @@ get_header();
                                             ?>
                                                 <div class="col-xl-6 col-lg-8 col-md-12">
                                                     <?php 
-                                                    $titleLevel = 3;
+                                                    $title_level = 4;
                                                     get_template_part("template-parts/incarico/card-person-contacts"); ?>
                                                 </div>
                                             <?php } ?>
@@ -414,6 +421,7 @@ get_header();
                                                 ?><div class="col-xl-6 col-lg-8 col-md-12"><?php
                                                     $with_border = true;
                                                     $no_vertical_margin = true;
+                                                    $title_level = 4;
                                                     get_template_part("template-parts/unita-organizzativa/card-full");
                                                     ?></div><?php
                                                 } ?>

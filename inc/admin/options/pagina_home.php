@@ -38,7 +38,6 @@ function dci_register_pagina_home_options(){
         'options' => array(
             'hero' => 'Hero Copertina',
             'hero-chi-siamo' => 'Hero Chi siamo',
-            'messages' => 'Avvisi di allerta',
             'notizie' => 'Notizie',
             'contenuti-evidenza' => 'Contenuti in evidenza',
             'luoghi-evidenza' => 'Luoghi in evidenza',

@@ -411,6 +411,7 @@ get_header();
                                     <div class="row">
                                         <?php foreach ($contatti as $pc_id) { 
                                             $contatto = get_post($pc_id);
+                                            $title_level = 3;
                                             if(isset($contatto)){?>
                                                 <div class="col-md-6 col-sm-12 mb-3 card-wrapper">
                                                     <?php

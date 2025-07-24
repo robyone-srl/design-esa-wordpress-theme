@@ -48,7 +48,7 @@ $tipi_luogo = get_the_terms($post->ID,'tipi_luogo');
                 </p>
                 <a class="read-more t-primary text-uppercase"
                     href="<?php echo get_permalink($post->ID); ?>"
-                    aria-label="Leggi di pi&ugrave; sulla pagina di <?php echo $post->post_title ?>"
+                    aria-label="Leggi di pi&ugrave; sulla pagina di <?php echo str_replace('"','',$post->post_title) ?>"
                 >
                     <span class="text">Leggi di pi&ugrave;</span>
                     <span class="visually-hidden"></span>

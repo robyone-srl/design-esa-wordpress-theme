@@ -1,6 +1,6 @@
 <?php
 
-global $pp_id, $with_border, $hide_incarichi, $titleLevel;
+global $pp_id, $with_border, $hide_incarichi, $title_level;
 
 $persona = get_post($pp_id);
 
@@ -41,16 +41,16 @@ if ($descrizione_breve) {
 $foto = dci_get_meta('foto', $prefix, $persona->ID);
 
 
-if($titleLevel == "") $titleLevel = 4;
+if($title_level == "") $title_level = 4;
 ?>
 
 <div class="card card-teaser <?= $with_border ? 'border border-light shadow-sm' : 'shadow' ?> rounded p-4 d-flex flex-nowrap align-items-center">
     <div class="card-body pe-3">
-        <h<?php echo $titleLevel; ?> class="u-main-black mb-1 title-small-semi-bold-medium cart-title">
+        <h<?php echo $title_level; ?> class="u-main-black mb-1 title-small-semi-bold-medium cart-title">
             <a class="text-decoration-none" href="<?php echo get_permalink($persona->ID); ?>">
                 <?php echo $persona->post_title; ?>
             </a>
-        </h<?php echo $titleLevel; ?>>
+        </h<?php echo $title_level; ?>>
         <div class="card-text">
             <?php
             

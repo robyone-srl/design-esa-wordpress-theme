@@ -21,8 +21,10 @@ if(isset($post)){
     $page_macro_slug = dci_get_group($post->post_type);
     $page_macro = get_page_by_path($page_macro_slug);
 
-    if (!isset($titlelevel) || $titlelevel === null || trim($titlelevel) === '') {
+    if (!isset($title_level) || $title_level === null || trim($title_level) === '') {
         $titleheading = "h3"; 
+    } else {
+        $titleheading = "h" . $title_level; 
     }
     ?>
 

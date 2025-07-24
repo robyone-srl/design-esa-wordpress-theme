@@ -34,7 +34,7 @@ global $order_values, $found_posts, $post_type_multiple;
             <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="OrderModalLabel">Seleziona un'opzione di ordinamento</h5>
+                        <div class="h5 modal-title" id="OrderModalLabel">Seleziona un'opzione di ordinamento</div>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
                     </div>
                     <div class="modal-body">

@@ -1,5 +1,5 @@
 <?php
-global $uo_id, $with_border, $no_vertical_margin;
+global $uo_id, $with_border, $no_vertical_margin, $title_level;
 $ufficio = get_post($uo_id);
 
 $prefix = '_dci_unita_organizzativa_';
@@ -25,6 +25,8 @@ $card_content_class = !$with_border ? ("card card-teaser shadow rounded ".($no_v
 $card_body_class = !$with_border ? "card-body" : "card-body pe-3";
 $card_link_class = !$with_border ? "text-decoration-none" : "";
 
+if($title_level == "") $title_level = 3;
+
 ?>
 
 <div class="<?php echo $card_class?>">
@@ -33,91 +35,91 @@ $card_link_class = !$with_border ? "text-decoration-none" : "";
             <use xlink:href="#it-pa"></use>
         </svg>
         <div class="<?php echo $card_body_class?>">
-            <h3 class="card-title h5">
+            <h<?php echo $title_level; ?> class="h5 card-title">
                 <a class="<?php echo $card_link_class?>" href="<?php echo get_permalink($ufficio->ID); ?>">
                     <?php echo $ufficio->post_title; ?>
                 </a>
-                </h5>
-                <div class="card-text" data-element="service-area">
-                    <?php foreach ($contatti as $full_contatto) { ?>
-                        <div class="card-text my-3">
-                            <?php if (array_key_exists('indirizzo', $full_contatto) && is_array($full_contatto['indirizzo']) && count($full_contatto['indirizzo'])) {
-                                echo '<div class="mb-3">';
-                                foreach ($full_contatto['indirizzo'] as $dati) {
-                                    echo '<p>' . $dati['valore'];
-                                    if ($dati['dettagli']) {
-                                        echo $dati['dettagli'];
-                                    }
-                                    echo '</p>';
+            </h<?php echo $title_level; ?>>
+            <div class="card-text" data-element="service-area">
+                <?php foreach ($contatti as $full_contatto) { ?>
+                    <div class="card-text my-3">
+                        <?php if (array_key_exists('indirizzo', $full_contatto) && is_array($full_contatto['indirizzo']) && count($full_contatto['indirizzo'])) {
+                            echo '<div class="mb-3">';
+                            foreach ($full_contatto['indirizzo'] as $dati) {
+                                echo '<p>' . $dati['valore'];
+                                if ($dati['dettagli']) {
+                                    echo $dati['dettagli'];
                                 }
-                                echo '</div>';
-                            } ?>
-                            <?php if (array_key_exists('telefono', $full_contatto) && is_array($full_contatto['telefono']) && count($full_contatto['telefono'])) {
-                                foreach ($full_contatto['telefono'] as $dati) {
-                            ?>
-                                    <p>
-                                        Telefono:
-                                        <a target="_blank" aria-label="contatta telefonicamente tramite il numero <?php echo $dati['valore']; ?>" title="chiama <?php echo $dati['valore']; ?>" href="tel:<?php echo $dati['valore']; ?>">
-                                            <?php echo $dati['valore']; ?>
-                                        </a>
-                                        <?php echo $dati['dettagli']; ?>
-                                    </p>
-                            <?php
+                                echo '</p>';
+                            }
+                            echo '</div>';
+                        } ?>
+                        <?php if (array_key_exists('telefono', $full_contatto) && is_array($full_contatto['telefono']) && count($full_contatto['telefono'])) {
+                            foreach ($full_contatto['telefono'] as $dati) {
+                        ?>
+                                <p>
+                                    Telefono:
+                                    <a target="_blank" aria-label="contatta telefonicamente tramite il numero <?php echo $dati['valore']; ?>" title="chiama <?php echo $dati['valore']; ?>" href="tel:<?php echo $dati['valore']; ?>">
+                                        <?php echo $dati['valore']; ?>
+                                    </a>
+                                    <?php echo $dati['dettagli']; ?>
+                                </p>
+                        <?php
+                            }
+                        } ?>
+                        <?php if (array_key_exists('url', $full_contatto) && is_array($full_contatto['url']) && count($full_contatto['url'])) {
+                            foreach ($full_contatto['url'] as $dati) { ?>
+                                <p>
+                                    Collegamento web:
+                                    <a target="_blank" aria-label="scopri di più su <?php echo $dati['valore']; ?> - link esterno - apertura nuova scheda" title="vai sul sito <?php echo $dati['valore']; ?>" href="<?php echo $dati['valore']; ?>">
+                                        <?php echo $dati['valore']; ?>
+                                    </a>
+                                    <?php echo $dati['dettagli']; ?>
+                                </p>
+                        <?php }
+                        } ?>
+                        <?php if (array_key_exists('email', $full_contatto) && is_array($full_contatto['email']) && count($full_contatto['email'])) {
+                            foreach ($full_contatto['email'] as $dati) { ?>
+                                <p>
+                                    Email:
+                                    <a target="_blank" aria-label="invia un'email a <?php echo $dati['valore']; ?>" title="invia un'email a <?php echo $dati['valore']; ?>" href="mailto:<?php echo $dati['valore']; ?>">
+                                        <?php echo $dati['valore']; ?>
+                                    </a>
+                                    <?php echo $dati['dettagli']; ?>
+                                </p>
+                        <?php }
+                        } ?>
+                        <?php if (array_key_exists('pec', $full_contatto) && is_array($full_contatto['pec']) && count($full_contatto['pec'])) {
+                            foreach ($full_contatto['pec'] as $dati) { ?>
+                                <p>
+                                    Posta elettronica certificata (PEC):
+                                    <a aria-label="invia un'email PEC a <?php echo $dati['valore']; ?>" title="invia un'email PEC a <?php echo $dati['valore']; ?>" href="mailto:<?php echo $dati['valore']; ?>">
+                                        <?php echo $dati['valore']; ?>
+                                    </a>
+                                    <?php echo $dati['dettagli']; ?>
+                                </p>
+                        <?php }
+                        } ?>
+                        <?php foreach ($other_contacts as $type) {
+                            if (array_key_exists($type, $full_contatto) &&  is_array($full_contatto[$type]) && count($full_contatto[$type])) {
+                                foreach ($full_contatto[$type] as $dati) {                        echo '<p>';
+                                    if($icon = SOCIAL_ICONS[$type] ?? false)
+                                    { ?>
+                                        <svg class="icon icon-secondary icon-sm" aria-hidden="true">
+                                            <use xlink:href="#<?= $icon ?>"></use>
+                                        </svg>
+                                        <span class="visually-hidden"><?= $type ?></span>
+                                    <?php }
+                                    else
+                                        echo $type.': ';
+            
+                                    echo $dati['valore'].(trim($dati['dettagli']) ? '('.$dati['dettagli'].')' : '') .'</p>';
                                 }
-                            } ?>
-                            <?php if (array_key_exists('url', $full_contatto) && is_array($full_contatto['url']) && count($full_contatto['url'])) {
-                                foreach ($full_contatto['url'] as $dati) { ?>
-                                    <p>
-                                        Collegamento web:
-                                        <a target="_blank" aria-label="scopri di più su <?php echo $dati['valore']; ?> - link esterno - apertura nuova scheda" title="vai sul sito <?php echo $dati['valore']; ?>" href="<?php echo $dati['valore']; ?>">
-                                            <?php echo $dati['valore']; ?>
-                                        </a>
-                                        <?php echo $dati['dettagli']; ?>
-                                    </p>
-                            <?php }
-                            } ?>
-                            <?php if (array_key_exists('email', $full_contatto) && is_array($full_contatto['email']) && count($full_contatto['email'])) {
-                                foreach ($full_contatto['email'] as $dati) { ?>
-                                    <p>
-                                        Email:
-                                        <a target="_blank" aria-label="invia un'email a <?php echo $dati['valore']; ?>" title="invia un'email a <?php echo $dati['valore']; ?>" href="mailto:<?php echo $dati['valore']; ?>">
-                                            <?php echo $dati['valore']; ?>
-                                        </a>
-                                        <?php echo $dati['dettagli']; ?>
-                                    </p>
-                            <?php }
-                            } ?>
-                            <?php if (array_key_exists('pec', $full_contatto) && is_array($full_contatto['pec']) && count($full_contatto['pec'])) {
-                                foreach ($full_contatto['pec'] as $dati) { ?>
-                                    <p>
-                                        Posta elettronica certificata (PEC):
-                                        <a aria-label="invia un'email PEC a <?php echo $dati['valore']; ?>" title="invia un'email PEC a <?php echo $dati['valore']; ?>" href="mailto:<?php echo $dati['valore']; ?>">
-                                            <?php echo $dati['valore']; ?>
-                                        </a>
-                                        <?php echo $dati['dettagli']; ?>
-                                    </p>
-                            <?php }
-                            } ?>
-                            <?php foreach ($other_contacts as $type) {
-                                if (array_key_exists($type, $full_contatto) &&  is_array($full_contatto[$type]) && count($full_contatto[$type])) {
-                                    foreach ($full_contatto[$type] as $dati) {                        echo '<p>';
-                                        if($icon = SOCIAL_ICONS[$type] ?? false)
-                                        { ?>
-                                            <svg class="icon icon-secondary icon-sm" aria-hidden="true">
-                                                <use xlink:href="#<?= $icon ?>"></use>
-                                            </svg>
-                                            <span class="visually-hidden"><?= $type ?></span>
-                                        <?php }
-                                        else
-                                            echo $type.': ';
-                
-                                        echo $dati['valore'].(trim($dati['dettagli']) ? '('.$dati['dettagli'].')' : '') .'</p>';
-                                    }
-                                }
-                            } ?>
-                        </div>
-                    <?php } ?>
-                </div>
+                            }
+                        } ?>
+                    </div>
+                <?php } ?>
+            </div>
         </div>
     </div>
 </div>

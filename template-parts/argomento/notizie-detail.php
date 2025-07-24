@@ -19,7 +19,7 @@ if ($total_cards <= $card_per_pagina) {
 
     if($posts) {
 ?>
-<section id="tutti" class="pb-5">
+<section id="notizie_recenti" class="pb-5">
     <div class="pt-40 <?php echo $first_printed ? "pt-lg-80 pb-40" : "pt-md-100 pb-50"; ?>">
         <div class="container">
             <div class="border-bottom border-2 border-light">

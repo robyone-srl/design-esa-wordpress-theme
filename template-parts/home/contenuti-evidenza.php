@@ -45,9 +45,11 @@ if(count($schede_evidenza) > 0) {
 		} else if($type == "taxonomy_term" && array_key_exists('termine_evidenza',$scheda_evidenza)) {
 			$scheda = get_term($scheda_evidenza['termine_evidenza']);
 
-			if (!isset($titlelevel) || $titlelevel === null || trim($titlelevel) === '') {
+			if (!isset($title_level) || $title_level === null || trim($title_level) === '') {
 				$titleheading = "h3"; 
-			}
+			} else {
+                $titleheading = "h" . $title_level; 
+            }
 			
 			$site_section = $scheda->taxonomy == 'argomenti' ? 'Argomenti' : get_page_by_path( dci_get_taxonomy_group($scheda->taxonomy) )->post_title;
 			

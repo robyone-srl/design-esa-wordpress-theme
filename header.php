@@ -1,5 +1,7 @@
 <?php
 
+global $messages;
+
 /**
  * The header for our theme
  *
@@ -48,20 +50,20 @@ $barra_principale_light = dci_get_option("tema_chiaro_nav_principale", "grafica"
               <div class="it-header-center-content-wrapper">
                 <div class="it-brand-wrapper">
                   <a href="<?php echo home_url(); ?>" <?php if (!is_front_page()) echo 'title="Vai alla Homepage"'; ?>>
-                    <div class="it-brand-text d-flex align-items-center">
+                    <span class="it-brand-text d-flex align-items-center">
                       <?php
                       global $inverti_colore_logo;
                       $inverti_colore_logo = $barra_intestazione_light;
                       get_template_part("template-parts/common/logo-header");
                       $inverti_colore_logo = false;
                       ?>
-                      <div>
-                        <div class="it-brand-title"><?php echo dci_get_option("nome_comune"); ?></div>
-                        <div class="it-brand-tagline d-none d-md-block">
+                      <span>
+                        <span class="it-brand-title"><?php echo dci_get_option("nome_comune"); ?></span>
+                        <span class="it-brand-tagline d-none d-md-block">
                           <?php echo dci_get_option("motto_comune"); ?>
-                        </div>
-                      </div>
-                    </div>
+                        </span>
+                      </span>
+                    </span>
                   </a>
                 </div>
                 <div class="it-right-zone">
@@ -87,7 +89,7 @@ $barra_principale_light = dci_get_option("tema_chiaro_nav_principale", "grafica"
                   <?php endif ?>
                   <div class="it-search-wrapper">
                     <span class="d-none d-md-block">Cerca</span>
-                    <a class="search-link rounded-icon" role="button" data-bs-toggle="modal" data-bs-target="#search-modal" aria-label="Cerca nel sito">
+                    <a class="search-link rounded-icon" href="" role="button" data-bs-toggle="modal" data-bs-target="#search-modal" aria-label="Cerca nel sito">
                       <svg class="icon">
                         <use href="#it-search"></use>
                       </svg>
@@ -191,3 +193,12 @@ $barra_principale_light = dci_get_option("tema_chiaro_nav_principale", "grafica"
   if (!is_user_logged_in())
     get_template_part("template-parts/common/access-modal");
   ?>
+          
+<?php
+  $messages = dci_get_option("messages", "alert_messages");
+  if ($messages && !empty($messages)) { 
+    ?><section id="alert_messages"><?php
+          get_template_part("template-parts/common/alert-messages");
+    ?></section><?php
+  }
+?>

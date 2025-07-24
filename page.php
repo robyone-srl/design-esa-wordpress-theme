@@ -43,6 +43,13 @@ get_header();
                     <p data-audio>
                         <?php echo $descrizione_breve; ?>
                     </p>
+                    <div class="row mt-5 mb-4">
+                        <div class="col-6">
+                            <small>Tempo di lettura:</small>
+                            <p class="fw-semibold" id="readingTime"></p>
+                        </div>
+                    </div>                
+                    <a class="visually-hidden" href="#more-info">Ulteriori informazioni</a>
                 </div>
                 <div class="col-lg-3 offset-lg-1">
                     <?php
@@ -231,7 +238,7 @@ get_header();
                                 <div class="row g-4 mb-4"> <?php 
                                     foreach ($incarichi as $incarico_id) { ?>
                                         <div class="col-lg-6 col-md-12"> <?php 
-                                            $titleLevel = 3;
+                                            $title_level = 3;
                                             get_template_part("template-parts/incarico/card-person-contacts"); ?>
                                         </div> <?php 
                                     } ?>
@@ -241,13 +248,6 @@ get_header();
                     }?>
 
                     <article id="more-info">
-                        <div class="row mt-5">
-                            <div class="col-6">
-                                <small>Tempo di lettura:</small>
-                                <p class="fw-semibold mb-0 pb-0" id="readingTime"></p>
-                            </div>
-                        </div>
-
                         <div class="row variable-gutters">
                             <div class="col-lg-12">
                                 <?php get_template_part("template-parts/single/bottom"); ?>

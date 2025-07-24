@@ -11,7 +11,7 @@ function dci_register_pagina_avvisi_options(){
         'id'           => 'dci_options_messages',
         'title'        => esc_html__( 'Avvisi di allerta', 'design_comuni_italia' ),
         'object_types' => array( 'options-page' ),
-        'option_key'   => 'home_messages',
+        'option_key'   => 'alert_messages',
         'capability'    => 'manage_theme_options',
         'parent_slug'  => 'dci_options',
         'tab_group'    => 'dci_options',
@@ -27,7 +27,7 @@ function dci_register_pagina_avvisi_options(){
     $alerts_options->add_field( array(
         'id' => $prefix . 'messages_istruzioni',
         'name'        => __( 'Avvisi di allerta in pagina iniziale', 'design_comuni_italia' ),
-        'desc' => __( 'Inserisci messaggi che saranno visualizzati nella homepage.' , 'design_comuni_italia' ),
+        'desc' => __( 'Inserisci messaggi brevi per avvisare di situazioni emergenziali o di particolare priorità per l\'Ente, che saranno visualizzati in tutte le pagine, subito dopo l\'intestazione.' , 'design_comuni_italia' ),
         'type' => 'title',
     ) );
 

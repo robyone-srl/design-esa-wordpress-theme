@@ -681,6 +681,7 @@ get_header();
                                     <div class="row"> <?php
                                         foreach ($punti_contatto_id as $pc_id) {
                                             $contatto = get_post($pc_id);
+											$title_level = 3;
                                             if(isset($contatto)){ ?>
                                         
                                                 <div class="col-lg-6 col-md-12 mb-4">
@@ -699,7 +700,7 @@ get_header();
                                         <?php foreach ($incarichi as $incarico_id) { ?>
                                             <div class="col-lg-6 col-md-12">
                                                 <?php 
-                                                $titleLevel = 3;
+                                                $title_level = 4;
                                                 get_template_part("template-parts/incarico/card-person-contacts"); ?>
                                             </div>
                                         <?php } ?>
@@ -716,6 +717,7 @@ get_header();
                                         <?php
                                         $with_border = true;
                                         $no_vertical_margin = true;
+										$title_level = 4;
                                         get_template_part("template-parts/unita-organizzativa/card-full");
                                         ?>
                                     </div>

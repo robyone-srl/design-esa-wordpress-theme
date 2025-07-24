@@ -4,13 +4,15 @@ global $scheda;
 $giorni_per_filtro = dci_get_option("giorni_per_filtro", "homepage");
 $data_limite_filtro = strtotime("-". $giorni_per_filtro . " day");
 
+$post_evidenza = null;
+
 // Per mostrare la notizia più recente
-$post_id = dci_get_option('notizia_evidenziata', 'homepage', true)[0] ?? null;
-if ($post_id) {
-    $post = get_post($post_id);
-	if ($post->post_status != "publish") {
-		$post_id = null;
-		$post = null;
+$post_evidenza_id = dci_get_option('notizia_evidenziata', 'homepage', true)[0] ?? null;
+if ($post_evidenza_id) {
+    $post_evidenza = get_post($post_evidenza_id);
+	if ($post_evidenza->post_status != "publish") {
+		$post_evidenza_id = null;
+		$post_evidenza = null;
 	}
 }
 
@@ -20,6 +22,7 @@ $schede = dci_get_option('schede_evidenziate', 'homepage') ?: [];
 //Notizie in homepage
 $posts = null;
 $notizie_in_home = dci_get_option('notizie_in_home', 'homepage');
+
 if ($notizie_in_home && $notizie_in_home > 0) {
     $args  = array(
         'post_type'      => 'notizia',
@@ -30,7 +33,7 @@ if ($notizie_in_home && $notizie_in_home > 0) {
         'exclude'        => [...($post_id ? [$post_id] : []), ...$schede],
     );
 
-    if($giorni_per_filtro != "" || $giorni_per_filtro > 0) {
+    if($giorni_per_filtro != "" && $giorni_per_filtro > 0) {
         $filter = array(
                 'date_query' => array(
             		array(
@@ -43,28 +46,29 @@ if ($notizie_in_home && $notizie_in_home > 0) {
     }
 
     $posts = get_posts($args);
-    $post  = array_shift( $posts  );
 }
 
-$arrdata           = dci_get_data_pubblicazione_arr("data_pubblicazione", '_dci_notizia_', $post->ID);
-$monthName         = date_i18n('M', mktime(0, 0, 0, $arrdata[1], 10));
-$descrizione_breve = dci_get_meta("descrizione_breve", '_dci_notizia_', $post->ID);
-$argomenti         = dci_get_meta("argomenti", '_dci_notizia_', $post->ID);
+//$arrdata           = dci_get_data_pubblicazione_arr("data_pubblicazione", '_dci_notizia_', $post->ID);
+//$monthName         = date_i18n('M', mktime(0, 0, 0, $arrdata[1], 10));
+//$descrizione_breve = dci_get_meta("descrizione_breve", '_dci_notizia_', $post->ID);
+//$argomenti         = dci_get_meta("argomenti", '_dci_notizia_', $post->ID);
 
 $overlapping = "";
 
-if ($post_id || ($posts && is_array($posts) && count($posts) > 0)) {
+
+if ($post_evidenza_id || ($posts && is_array($posts) && count($posts) > 0)) {
 ?>
     <!-- Tag section is opened in home.php -->
     <div class="section-content mb-5">
         <div class="container">
-            <?php if ($post_id) {
+            <?php if ($post_evidenza_id) {
                 ?> <h2 id="novita-in-evidenza" class="visually-hidden">Novità in evidenza</h2> <?php
                 $overlapping = "card-overlapping";
+				$post = $post_evidenza;
                 get_template_part("template-parts/home/notizia-hero");
             }
             if ($posts && is_array($posts) && count($posts) > 0) { ?>
-                <?php if (!$post_id) { ?>
+                <?php if (!$post_evidenza_id) { ?>
                     <div class="row row-title pt-30 pt-lg-60 pb-3">
                         <div class="col-12 d-lg-flex justify-content-between">
                             <h2 id="ultime-news" class="mb-lg-0">Ultime notizie</h2>

@@ -1,5 +1,5 @@
 <?php
-global $the_query, $load_posts, $load_card_type, $additional_filter;
+global $the_query, $load_posts, $load_card_type, $additional_filter, $title_level;
 
 $load_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 10;
 

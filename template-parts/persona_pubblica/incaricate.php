@@ -1,5 +1,5 @@
 <?php
-global $the_query, $load_posts, $load_card_type, $tax_query, $additional_filter, $filter_ids, $order_values, $found_posts, $post_type_multiple;
+global $the_query, $load_posts, $load_card_type, $tax_query, $additional_filter, $filter_ids, $order_values, $found_posts, $post_type_multiple, $title_level;
 
 $post_id = get_the_ID();
 $incarico = get_the_terms($post_id, 'tipi_incarico');
@@ -78,6 +78,8 @@ $args = array(
 );
 
 $the_query = new WP_Query( $args );
+
+$title_level = 3;
 ?>
 
 <div class="bg-grey-card py-3">

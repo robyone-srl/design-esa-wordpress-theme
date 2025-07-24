@@ -426,6 +426,7 @@ get_header();
                             <div class="row g-2"><?php 
                                 foreach ($punti_contatto as $pc_id) {
                                     $contatto = get_post($pc_id);
+									$title_level = 3;
                                     if(isset($contatto)){ ?>
                                         <div class="col-xl-6 col-lg-8 col-12 mb-2 d-flex"> <?php
                                             get_template_part("template-parts/punto-contatto/card"); ?>

@@ -1,3 +1,7 @@
+<?php 
+$nascondi_login = dci_get_option('nascondi_pulsante_login', 'grafica');
+
+if (!$nascondi_login) { ?>
 <!-- Access Modal -->
 <div class="modal fade" id="access-modal" tabindex="-1" role="dialog" aria-labelledby="accessModal" aria-hidden="false">
     <div class="modal-dialog modal-lg" role="document">
@@ -74,11 +78,6 @@
                                                 <button type="submit" class="btn btn-white d-block rounded" name="login" value="Accedi"><?php _e("Accedi", "design_comuni_italia"); ?></button>
                                             </div>
                                         </div>
-                                        <!-- <div class="row variable-gutters">
-                                            <div class="col text-center">
-                                                <p>Non hai un account? <a href="#">Iscriviti</a></p>
-                                            </div>
-                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -90,3 +89,4 @@
     </div>
 </div>
 <!-- End Access Modal -->
+<?php } ?>

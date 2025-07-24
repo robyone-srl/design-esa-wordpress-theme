@@ -1,5 +1,5 @@
 <?php
-global $inc_id, $with_border, $card_wrapper, $show_Persona;
+global $inc_id, $with_border, $card_wrapper, $show_Persona, $title_level;
 
 $incarico = get_post($inc_id);
 $prefix = '_dci_incarico_';
@@ -15,15 +15,16 @@ $persona = get_post( $persona_id );
 
 $img = get_the_post_thumbnail_url($inc_id, 'post-thumbnail');
 
+if($title_level == "") $title_level = 4;
 ?>
 
 <div class="card card-teaser <?= $card_wrapper ? 'card-wrapper' : '' ?> <?= $with_border ? 'border border-light shadow-sm' : 'shadow' ?> rounded p-4">
     <div class="card-body pe-3">
-        <h4 class="u-main-black mb-1 title-small-semi-bold-medium cart-title">
+        <h<?php echo $title_level; ?> class="u-main-black mb-1 title-small-semi-bold-medium cart-title">
 			<a class="text-decoration-none" href="<?php echo get_permalink($incarico->ID); ?>">
             	<?php echo $incarico->post_title; ?>
             </a>
-        </h4>
+        </h<?php echo $title_level; ?>>
         <?php if($persona_id && $show_Persona == true){ ?>
         <h5 class="h6"><?php echo $persona->post_title; ?></h5>
         <?php } ?>
