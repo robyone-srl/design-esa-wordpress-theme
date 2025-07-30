@@ -75,9 +75,9 @@ if($opzione_visualizzazione == 'scegli'){
         'terms' => $tipo_organizzazione,
     );
     array_push($tax_query, $tax);
-    $descrizione = 'unit&agrave; organizzative';
+    $descrizione = 'le unit&agrave; organizzative';
 }else if($opzione_visualizzazione == 'tutti'){
-    $descrizione = 'unit&agrave; organizzative';
+    $descrizione = 'le unit&agrave; organizzative';
 }
 
 
@@ -100,7 +100,7 @@ $title_level = 3;
     <form role="search" id="search-form" method="get" class="search-form" action="#search-form">
         <div class="container">
             <h2 class="title-xxlarge mb-4 mt-5 mb-lg-10">
-                Esplora le <?= $descrizione ?>
+                Esplora <?= $descrizione ?>
             </h2>
             <div class="cmp-input-search">
                 <div class="form-group autocomplete-wrapper mb-0">
