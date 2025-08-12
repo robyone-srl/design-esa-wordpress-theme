@@ -42,6 +42,13 @@ get_header();
         $persone = dci_get_meta("persone_struttura", $prefix, $post->ID);
 
         $servizi = dci_get_meta("elenco_servizi_offerti", $prefix, $post->ID);
+
+        foreach ($servizi as $key => $servizio_id) {
+            if (FALSE === get_post_status( $servizio_id ) ) {
+                unset($servizi[$key]);
+            }
+        }
+	
         $is_sede_principale_esa = dci_get_meta("is_sede_principale_esa") != "false";
         if ($is_sede_principale_esa) {
             $sede_principale_id = dci_get_meta("sede_principale", $prefix, $post->ID);
@@ -176,11 +183,13 @@ get_header();
                                                                     </a>
                                                                 </li>
                                                             <?php } ?>
-                                                            <li class="nav-item">
-                                                                <a class="nav-link" href="#sede-principale">
-                                                                    <span><?php echo $altre_sedi != "" ? "Sede principale" : "Sede"; ?></span>
-                                                                </a>
-                                                            </li>
+                                                            <?php if($show_sede_principale) { ?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#sede-principale">
+                                                                        <span><?php echo $altre_sedi != "" ? "Sede principale" : "Sede"; ?></span>
+                                                                    </a>
+                                                                </li>
+                                                            <?php } ?>
                                                             <?php if ($altre_sedi && is_array($altre_sedi) && count($altre_sedi) > 0) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#altre-sedi">
@@ -281,36 +290,34 @@ get_header();
                                                 $persone_incaricate = array_unique($persone_incaricate);
 
 
-                                                foreach ($persone_incaricate as $pp_id) { 
-                                                   ?>
-                                                        <div class="col-lg-6 col-md-12 d-flex">
-                                                            <?php 
-                                                            $title_level = 3;
-                                                            get_template_part("template-parts/persona_pubblica/card"); ?>
-                                                        </div> <?php
-                                                    
+                                                foreach ($persone_incaricate as $pp_id) { ?>
+                                                    <div class="col-lg-6 col-md-12 d-flex">
+                                                        <?php 
+                                                        $title_level = 3;
+                                                        get_template_part("template-parts/persona_pubblica/card"); ?>
+                                                    </div> <?php
                                                 }?>
-                                            </div>
-                                            <?php 
+                                            </div> <?php 
 											
                                         	$persone_incaricate_noresp = array();
 											if($altri_incarichi){ ?>
                                                 <div class="row g-2">
 													<?php
-                                                foreach ($altri_incarichi as $inc_id) {
-                                                    $pp_id = dci_get_meta('persona', '_dci_incarico_', $inc_id);
-                                                    if($pp_id){ 
-                                                        $persone_incaricate_noresp[] = $pp_id;
-                                                    } else {
-                                                        if (FALSE !== get_post_status( $inc_id ) ) { ?>
-                                                            <div class="col-lg-6 col-md-12 d-flex">
-                                                                <?php 
-                                                                $title_level = 3;
-                                                                get_template_part("template-parts/incarico/card"); ?>
-                                                            </div>  <?php 
+                                                    foreach ($altri_incarichi as $inc_id) {
+                                                        $pp_id = dci_get_meta('persona', '_dci_incarico_', $inc_id);
+                                                        if($pp_id){ 
+                                                            $persone_incaricate_noresp[] = $pp_id;
+                                                        } else {
+                                                            if (FALSE !== get_post_status( $inc_id ) ) { ?>
+                                                                <div class="col-lg-6 col-md-12 d-flex">
+                                                                    <?php 
+                                                                    $title_level = 3;
+                                                                    get_template_part("template-parts/incarico/card"); ?>
+                                                                </div>  <?php 
+                                                            }
                                                         }
-                                                    }
-                                                }
+                                                    } ?>
+                                                </div> <?php
 
                                                 $persone_incaricate_noresp = array_unique($persone_incaricate_noresp);
                                                 
@@ -329,16 +336,16 @@ get_header();
                                         if ($has_persone) {
 
 										?>
-                                            <div class="row g-2">
-                                                <?php foreach ($persone as $pp_id) {
+                                            <div class="row g-2"> <?php 
+                                            foreach ($persone as $pp_id) {
 
-                                                    if(empty($persone_incaricate)){
-                                                        $pp_in_array_check = true; 
-                                                    }else{
-                                                        $pp_in_array_check = !(in_array($pp_id, $persone_incaricate, true));
-                                                    }
+                                                if(empty($persone_incaricate)){
+                                                    $pp_in_array_check = true; 
+                                                }else{
+                                                    $pp_in_array_check = !(in_array($pp_id, $persone_incaricate, true));
+                                                }
 
-                                                    if (FALSE !== get_post_status( $pp_id ) && $pp_in_array_check) {
+                                                if (FALSE !== get_post_status( $pp_id ) && $pp_in_array_check) {
                                                         
                                                     $with_border = true;
                                                     $hide_incarichi = true; ?>
@@ -346,11 +353,11 @@ get_header();
                                                         <?php 
                                                         $title_level = 3;
                                                         get_template_part("template-parts/persona_pubblica/card"); ?>
-                                                    </div>
-                                                <?php } } ?>
+                                                    </div> <?php 
+                                                } 
+                                            } ?>
                                             </div>
-                                        <?php }
-                                        ?>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </section>
