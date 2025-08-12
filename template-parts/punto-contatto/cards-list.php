@@ -11,7 +11,6 @@ $prefix = '_dci_punto_contatto_';
 $indirizzi = array();
 foreach ($contatti ?? null as $punto_contatto_id) {
     $dettagli = dci_get_meta('dettagli', $prefix, $punto_contatto_id);
-    var_dump($dettagli);
     foreach ($dettagli as $dettagli) {
         if ($dettagli[$prefix.'dci_options_pagina_contatti'] == 'indirizzo')
             array_push($indirizzi, $voce[$prefix.'valore']);
