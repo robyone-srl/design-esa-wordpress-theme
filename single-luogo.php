@@ -250,14 +250,28 @@ get_header();
                                         if($arr_figli){ ?>
                                             <h3 class="h4">Ospita</h3>
                                             <div class="row d-flex align-items-stretch"> <?php
-                                                foreach($arr_figli as $arr_figli_id){ ?> 
-                                                <div class="col-lg-6 col-md-12 d-flex"> <?php 
-                                                        $luogo = $arr_figli_id;
-                                                        $show_descrizione = true;
-                                                        get_template_part("template-parts/luogo/card-title"); ?> 
-                                                    </div> <?php
-                                                } ?>
-                                            </div> <?php
+
+                                                $luoghi_items_ordered = [];
+                                                foreach($arr_figli as $arr_figli_id){ 
+                                                    $luogo = $arr_figli_id;
+                                                    $priority_order = get_post_meta($arr_figli_id->ID, '_dci_luogo_priority_order', true );
+                                                    $luogo->priority_order = $priority_order != "" ? intval($priority_order) : 0;
+
+                                                    $luoghi_items_ordered[] = $luogo;
+
+                                                    usort($luoghi_items_ordered, fn($a, $b) => strcmp($a->priority_order, $b->priority_order));
+                                                }
+
+                                                foreach($luoghi_items_ordered as $luogo_item){
+                                                    $luogo = $luogo_item;
+                                                    if($luogo != null){
+                                                        ?> <div class="col-lg-6 col-md-12 d-flex"> <?php 
+                                                            $show_descrizione = true;
+                                                            get_template_part("template-parts/luogo/card-title");
+                                                        ?> </div> <?php
+                                                    }
+                                                }
+                                            ?> </div> <?php
                                         }
                                     ?>
                                 </section>
@@ -435,27 +449,13 @@ get_header();
                                 <section id="luoghi_collegati" class="it-page-section mb-4">
                                     <h2 class="h3 my-2">Luoghi correlati</h2>
                                     
-                                    <div class="row d-flex align-items-stretch">
-                                        <?php 
-                                        
-                                        $luoghi_items = [];
-
-                                        foreach ($luoghi_collegati as $luogo_id) {
+                                    <div class="row">
+                                        <?php foreach ($luoghi_collegati as $luogo_id) {
+                                            ?><div class="col-xl-6 col-lg-8 col-md-12"><?php
+                                            $with_border = true;
                                             $luogo = get_post( $luogo_id );
-                                            $priority_order = get_post_meta($luogo_id, '_dci_luogo_priority_order', true );
-                                            $luogo->priority_order = $priority_order != "" ? intval($priority_order) : 0;
-                                            $luoghi_items[] = $luogo;
-                                            usort($luoghi_items, fn($a, $b) => strcmp($a->priority_order, $b->priority_order));
-                                        }
-
-                                        foreach ($luoghi_items as $luogo_item) {
-                                            $luogo = $luogo_item;
-                                            $with_map = false;
-                                            if($luogo != null){
-                                                ?><div class="col-lg-6 col-md-12 d-flex"><?php
-                                                    get_template_part("template-parts/luogo/card-title");
-                                                ?></div><?php
-                                            }
+                                            get_template_part("template-parts/luogo/card-title");
+                                            ?></div><?php
                                         } ?>
                                     </div>
                                 </section>
