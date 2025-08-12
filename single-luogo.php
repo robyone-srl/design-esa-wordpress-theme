@@ -435,13 +435,27 @@ get_header();
                                 <section id="luoghi_collegati" class="it-page-section mb-4">
                                     <h2 class="h3 my-2">Luoghi correlati</h2>
                                     
-                                    <div class="row">
-                                        <?php foreach ($luoghi_collegati as $luogo_id) {
-                                            ?><div class="col-xl-6 col-lg-8 col-md-12"><?php
-                                            $with_border = true;
+                                    <div class="row d-flex align-items-stretch">
+                                        <?php 
+                                        
+                                        $luoghi_items = [];
+
+                                        foreach ($luoghi_collegati as $luogo_id) {
                                             $luogo = get_post( $luogo_id );
-                                            get_template_part("template-parts/luogo/card-title");
-                                            ?></div><?php
+                                            $priority_order = get_post_meta($luogo_id, '_dci_luogo_priority_order', true );
+                                            $luogo->priority_order = $priority_order != "" ? intval($priority_order) : 0;
+                                            $luoghi_items[] = $luogo;
+                                            usort($luoghi_items, fn($a, $b) => strcmp($a->priority_order, $b->priority_order));
+                                        }
+
+                                        foreach ($luoghi_items as $luogo_item) {
+                                            $luogo = $luogo_item;
+                                            $with_map = false;
+                                            if($luogo != null){
+                                                ?><div class="col-lg-6 col-md-12 d-flex"><?php
+                                                    get_template_part("template-parts/luogo/card-title");
+                                                ?></div><?php
+                                            }
                                         } ?>
                                     </div>
                                 </section>
