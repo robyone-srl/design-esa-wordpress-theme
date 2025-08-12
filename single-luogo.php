@@ -48,7 +48,7 @@ get_header();
             $sede_di = dci_get_meta('sede_di', $prefix, $post->ID);
 
             $servizi = dci_get_meta('servizi_erogati', $prefix, $post->ID) ?: [];
-
+		
             $tipo_visualizzazione_servizi = dci_get_option('visual_servizi_luogo', 'luoghi');
             if($tipo_visualizzazione_servizi == 'enabled'){
                 $mostra_dettagli_servizi = true;
@@ -172,7 +172,7 @@ get_header();
                                                                     </li>
 																<?php } ?>
 
-                                                                <?php if ($servizi_privati || isset($servizi)) { ?>
+                                                                <?php if ($servizi_privati || (is_array($servizi) && count($servizi))) { ?>
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" href="#servizi">
                                                                             <span>Servizi presenti</span>
