@@ -307,6 +307,7 @@ function dci_add_luogo_metaboxes() {
             'data-conditional-id'    => $prefix . 'childof',
 			'data-conditional-value' => '0',
         ),
+        'sanitization_cb' => 'sanitize_text_field',
     ) );
 
     $cmb_dove->add_field( array(
