@@ -297,6 +297,26 @@ function dci_add_page_metaboxes() {
                 'placeholder' =>  __( 'Seleziona i luoghi', 'design_comuni_italia' ),
             ),
         ) );
+
+        $cmb_gallerie_multimediali = new_cmb2_box( array(
+            'id'           => $prefix . 'box_gallerie_multimediali',
+            'title'        => __( 'Gallerie multimediali', 'design_comuni_italia' ),
+            'object_types' => array( 'page' ),
+            'context'      => 'normal',
+            'priority'     => 'high',
+        ) );
+
+        $cmb_gallerie_multimediali->add_field( array(
+            'name'       => __('Galleria di immagini', 'design_comuni_italia' ),
+            'desc' => __( 'Solo per Persona Politica: gallery dell attività politica e istituzionale della persona.' , 'design_comuni_italia' ),
+            'id'             => $prefix . 'gallery',
+            'type' => 'file_list',
+            'query_args' => array( 'type' => 'image' ),
+            'attributes'    => array(
+                'data-conditional-id'     => $prefix.'tipologia_persona',
+                'data-conditional-value'  => "Persona Politica",
+            ),
+        ) );
     }
 }
 

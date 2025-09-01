@@ -17,6 +17,8 @@ $incarichi = dci_get_meta('incarico', '_dci_page_');
 $servizi = dci_get_meta('servizi', '_dci_page_');
 $luoghi = dci_get_meta('luoghi', '_dci_page_');
 
+$gallery = dci_get_meta("gallery", '_dci_page_', $post->ID);
+
 get_header();
 ?>
 
@@ -95,6 +97,13 @@ get_header();
                                                                     </a>
                                                                 </li>
                                                             <?php } ?>
+                                                            <?php if ($gallery && is_array($gallery) && count($gallery) > 0) {?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#gallery">
+                                                                        <span>Galleria di immagini</span>
+                                                                    </a>
+                                                                </li>
+                                                            <?php } ?>
                                                             <?php if (!empty($luoghi)) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#luoghi_collegati">
@@ -157,6 +166,15 @@ get_header();
                             </section> 
                         </article> <?php 
                     } ?>
+
+                    <?php if (is_array($gallery) && count($gallery)) { ?>
+                        <section id="gallery" class="it-page-section mb-4">
+                            <h3>
+                                Galleria di immagini
+                            </h3>
+                            <?php get_template_part("template-parts/single/gallery");?>
+                        </section>
+                    <?php } ?>
 
                     <?php if ($luoghi && is_array($luoghi) && count($luoghi)) { ?>
                         <section id="luoghi_collegati" class="it-page-section mb-4">
