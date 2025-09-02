@@ -5,8 +5,8 @@
     // $contenuti_evidenza = dci_get_highlighted_posts( $post_types, 6);
 
     //Per selezionare i contenuti in evidenza tramite configurazione
-    $contenuti_evidenza = dci_get_option('contenuti_evidenziati','documenti');
-
+    $contenuti_evidenza = array_filter(dci_get_option('contenuti_evidenziati','documenti'));
+    
     if (is_array($contenuti_evidenza) && count($contenuti_evidenza)) {
 ?>
 <div class="container py-5">
