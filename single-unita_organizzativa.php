@@ -162,13 +162,6 @@ get_header();
                                                                     </a>
                                                                 </li>
                                                             <?php } ?>
-                                                            <?php if ($unità_organizzative_figlie) { ?>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#uo_figlie">
-                                                                        <span>Unità organizzative gestite</span>
-                                                                    </a>
-                                                                </li>
-                                                            <?php } ?>
                                                             <?php if ($has_persone || $has_incarichi) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#persone">
@@ -176,6 +169,14 @@ get_header();
                                                                     </a>
                                                                 </li>
                                                             <?php } ?>
+                                                            <?php if ($unità_organizzative_figlie) { ?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#uo_figlie">
+                                                                        <span>Unità organizzative gestite</span>
+                                                                    </a>
+                                                                </li>
+                                                            <?php } ?>
+                                                            
                                                             <?php if ($servizi && is_array($servizi) && count($servizi) > 0) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#servizi">
@@ -244,20 +245,6 @@ get_header();
                             <div class="richtext-wrapper lora">
                                 <?php echo $competenze ?>
                             </div>
-                        </section>
-                        <section id="uo_figlie" class="it-page-section mb-4">
-                            <?php if(is_array($unità_organizzative_figlie) && (count($unità_organizzative_figlie) > 0)) { ?>
-                                <h2 class="h3 my-2">Unità organizzative gestite</h3>
-                                <div class="row g-2">
-                                    <?php foreach ($unità_organizzative_figlie as $uo_id) {
-                                        $with_border = false; ?>
-                                        <div class="col-lg-6 col-md-12 d-flex">
-                                            <?php 
-                                            get_template_part("template-parts/unita-organizzativa/card"); ?>
-                                        </div>
-                                    <?php } ?>
-                                </div>
-                            <?php }  ?>
                         </section>
                         <?php if ($has_persone || $has_incarichi) { ?>
                             <section id="persone" class="it-page-section mb-4">
@@ -362,6 +349,21 @@ get_header();
                                 </div>
                             </section>
                         <?php } ?>
+
+                        <section id="uo_figlie" class="it-page-section mb-4">
+                            <?php if(is_array($unità_organizzative_figlie) && (count($unità_organizzative_figlie) > 0)) { ?>
+                                <h2 class="h3 my-2">Unità organizzative gestite</h3>
+                                <div class="row g-2">
+                                    <?php foreach ($unità_organizzative_figlie as $uo_id) {
+                                        $with_border = false; ?>
+                                        <div class="col-lg-6 col-md-12 d-flex">
+                                            <?php 
+                                            get_template_part("template-parts/unita-organizzativa/card"); ?>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+                            <?php }  ?>
+                        </section>
 
                         <?php if ($servizi &&  is_array($servizi) && count($servizi)) { ?>
                             <section id="servizi" class="it-page-section mb-4">
