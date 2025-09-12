@@ -210,7 +210,7 @@ function genera_pagine_figlie($slug_pagina)
                                     <?php if (dci_get_option("numero_verde", 'contatti')) echo '<li>Numero verde: <a href="tel:' . preg_replace('/\s+/', '', dci_get_option("numero_verde", 'contatti')) . '">' . dci_get_option("numero_verde", 'contatti') . '</a></li>'; ?>
                                     <?php if (dci_get_option("SMS_Whatsapp", 'contatti')) echo '<li>SMS e WhatsApp: <a href="tel:' . preg_replace('/\s+/', '', dci_get_option("SMS_Whatsapp", 'contatti')) . '">' . dci_get_option("SMS_Whatsapp", 'contatti') . '</a></li>'; ?>
                                     <?php if (dci_get_option("PEC", 'contatti')) { ?>
-                                        <li>PEC: <a href="mailto:<?php echo dci_get_option("PEC", 'contatti'); ?>" class="list-item" title="PEC <?php echo dci_get_option("nome_comune"); ?>"><?php echo dci_get_option("PEC", 'contatti'); ?></a></li>
+                                        <li>PEC: <a href="mailto:<?php echo dci_get_option("PEC", 'contatti'); ?>" class="list-item" title="PEC <?php echo str_replace('"', '', dci_get_option("nome_comune")); ?>"><?php echo dci_get_option("PEC", 'contatti'); ?></a></li>
                                     <?php }
                                     if (dci_get_option("centralino_unico", 'contatti')) echo '<li>Centralino unico: <a href="' . preg_replace('/\s+/', '', dci_get_option("centralino_unico", 'contatti')) . '">' . dci_get_option("centralino_unico", 'contatti') . '</a></li>'; ?>
                                 

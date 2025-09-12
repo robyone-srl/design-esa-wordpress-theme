@@ -8,6 +8,11 @@
  * @package Design_Comuni_Italia
  */
 
+/*
+* Fix errori accessibilità e standard HTML e CSS
+*/
+add_filter( 'wp_img_tag_add_auto_sizes', '__return_false' );
+
 /**
  * Funzionalità Trasversali
  */
