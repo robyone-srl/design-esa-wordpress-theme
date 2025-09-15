@@ -107,7 +107,7 @@ if ($hide_arguments) $argomenti = array();
                 >
                 </li>
                 <li role="none">
-                <a class="list-item" href="mailto:?subject=<?php echo the_title(); ?>&body=<?php echo get_permalink(); ?>" role="menuitem"
+                <a class="list-item" href="mailto:?subject=<?php echo urlencode($post->post_title); ?>&body=<?php echo get_permalink(); ?>" role="menuitem"
                     ><svg class="icon" aria-hidden="true">
                     <use
                         xlink:href="#it-mail"
