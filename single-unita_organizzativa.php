@@ -308,7 +308,7 @@ get_header();
 
                                                 $persone_incaricate_noresp = array_unique($persone_incaricate_noresp);
                                                 
-
+												?> <div class="row g-2"> <?php
                                                 foreach ($persone_incaricate_noresp as $pp_id) { 
                                                    ?>
                                                         <div class="col-lg-6 col-md-12 d-flex">
@@ -317,7 +317,7 @@ get_header();
                                                             get_template_part("template-parts/persona_pubblica/card"); ?>
                                                         </div> <?php
                                                     
-                                                }
+												} ?> </div> <?php
                                             }
                                         }
                                         if ($has_persone) {
