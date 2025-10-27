@@ -707,11 +707,8 @@ get_header();
                                     </div>
                                 <?php } ?>
 
-                                <?php if(($mostra_prenota_appuntamento || !empty($punti_contatto_id)) && ($uo_id != null) || ($incarichi))
-                                {?>
-                                    <h3 class="mb-2 h4">Contatta l'ufficio</h3>
-                                <?php } ?>
                                 <?php if($uo_id != null){?>
+                                <h3 class="mb-2 h4">Contatta l'ufficio</h3>
                                 <div class="row">
                                     <div class="col-12 col-md-8 col-lg-6 mb-30">
                                         <?php
