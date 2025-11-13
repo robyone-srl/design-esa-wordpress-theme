@@ -44,11 +44,17 @@ function load_more(){
 	
 	$order_values = dci_get_order_values("post_title", "ASC", $_POST["order_by"]);
 
+	$post_status_to_include = array('publish');
+
+    if ( is_user_logged_in() ) {
+        $post_status_to_include[] = 'private'; 
+    }
+
 	$args = array(
 		's' => $_POST['search'],
 		'posts_per_page' => $_POST['post_count'] + $_POST['load_posts'],
 		'post_type'      => $post_types,
-		'post_status'    => 'publish',
+		'post_status'    => $post_status_to_include,
 		'order'=> $order_values["dir"],
 		'orderby' => $order_values["field"]
 	);
@@ -58,7 +64,7 @@ function load_more(){
 			's' => $_POST['search'],
 			'posts_per_page' => $_POST['post_count'] + $_POST['load_posts'],
 			'post_type'      => $post_types,
-			'post_status'    => 'publish'
+			'post_status'    => $post_status_to_include
 		);
 	}
 
@@ -67,7 +73,7 @@ function load_more(){
 			's' => $_POST['search'],
 			'posts_per_page' => $_POST['post_count'] + $_POST['load_posts'],
 			'post_type'      => $post_types,
-			'post_status'    => 'publish',
+			'post_status'    => $post_status_to_include,
 			'meta_key' => '_dci_evento_data_orario_inizio',
 		);
 		

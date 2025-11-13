@@ -1,5 +1,5 @@
 <?php
-global $the_query, $load_posts, $load_card_type, $found_posts, $post_type_multiple, $order_values;
+global $the_query, $load_posts, $load_card_type, $additional_filter, $found_posts, $post_type_multiple, $order_values;
 
     $max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 6; 
     $query = isset($_GET['search']) ? dci_removeslashes($_GET['search']) : null;
@@ -8,16 +8,14 @@ global $the_query, $load_posts, $load_card_type, $found_posts, $post_type_multip
 
     $args = array(
         's'         => $query,
-        'post_type' => 'notizia',
-		'order'=> $order_values["dir"],
-		'orderby' => $order_values["field"],
-        'posts_per_page'    => $max_posts,
-        'paged' => 1,
+        'posts_per_page' => $max_posts,
+	    'post_type'      => ['notizia'],
+        'order'          => $order_values["dir"],
+        'orderby'        => $order_values["field"]
     );
 
     $the_query = new WP_Query( $args );
-    $posts = $the_query->posts;
-
+    $additional_filter = null;
 ?>
 
 <div class="bg-grey-card py-5">
@@ -56,10 +54,17 @@ global $the_query, $load_posts, $load_card_type, $found_posts, $post_type_multip
             </div>
             <div class="row g-4" id="load-more">
                 <?php
-                foreach ( $posts as $post ) {
-                    $load_card_type = 'notizia';
-                    get_template_part('template-parts/novita/cards-list');
-                }
+
+                if ($the_query->have_posts()) :
+                    while ($the_query->have_posts()) :
+			            $the_query->the_post();
+                        $post = get_post();
+
+                        $load_card_type = 'notizia'; 
+                        get_template_part('template-parts/novita/cards-list');
+		            endwhile;
+                endif; 
+
                 wp_reset_postdata();
                 ?>
             </div>
