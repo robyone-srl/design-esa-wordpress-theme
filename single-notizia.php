@@ -102,7 +102,7 @@ get_header();
                                                         <div class="accordion-body">
                                                             <ul class="link-list" data-element="page-index">
                                                                 <li class="nav-item">
-                                                                    <a class="nav-link" href="#descrizione">
+                                                                    <a class="nav-link" href="#contenuto-principale">
                                                                     <span>Contenuto</span>
                                                                     </a>
                                                                 </li>
@@ -145,7 +145,7 @@ get_header();
                     </aside>
                     <section class="col-lg-9 it-page-sections-container border-light">
                     <article class="it-page-section anchor-offset" data-audio>
-                        <h2 id="contenuto" class="h3">Contenuto</h2>
+                        <h2 id="contenuto-principale" class="h3">Contenuto</h2>
                         <div class="richtext-wrapper lora">
                             <?php echo $contenuto; ?>
                         </div>

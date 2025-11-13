@@ -97,7 +97,7 @@
                                     $group = dci_get_group($post->post_type);
                                 ?>
                                     <li>
-                                        <a class="list-item active large py-1 icon-left"  href="<?php the_permalink(); ?>">
+                                        <a class="list-item large py-1 icon-left"  href="<?php the_permalink(); ?>">
                                         <span class="list-item-title-icon-wrapper">
                                           <svg class="icon icon-primary icon-sm"><use href="#it-search"></use></svg>
                                           <span class="list-item-title"><?php the_title(); ?></span>
@@ -122,7 +122,7 @@
                                       $link = get_post($link_id);  
                                     ?>
                                       <li>
-                                          <a class="list-item active ps-0" href="<?php echo get_permalink($link_id); ?>" aria-label="Vai alla pagina <?php echo $link->post_title; ?>" title="Vai alla pagina <?php echo $link->post_title; ?>"
+                                          <a class="list-item ps-0" href="<?php echo get_permalink($link_id); ?>" aria-label="Vai alla pagina <?php echo $link->post_title; ?>" title="Vai alla pagina <?php echo $link->post_title; ?>"
                                           ><span class="text-button-normal"
                                               ><?php echo $link->post_title; ?></span
                                           ></a

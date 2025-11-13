@@ -379,6 +379,7 @@ get_header();
                                                 <div class="col-lg-6 col-md-12 d-flex"><?php
 													$with_border = true;
 													$h100 = true;
+													$title_level = 3;
 													get_template_part("template-parts/unita-organizzativa/card"); ?>
                                                 </div><?php
 											} ?>

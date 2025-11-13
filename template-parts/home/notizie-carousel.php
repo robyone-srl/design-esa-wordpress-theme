@@ -25,7 +25,7 @@ if ($post_id) {
     array_unshift($posts, get_post($post_id));
 }
 ?>
-
+<h2 id="primo-piano-news" class="visually-hidden">Notizie in primo piano</h2>
 <div class="container px-0">
     <div class="it-carousel-wrapper it-carousel-landscape-abstract splide mw-100" data-bs-carousel-splide>
         <div class="splide__track pt-0 px-0">

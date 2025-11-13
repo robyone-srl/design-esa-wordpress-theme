@@ -694,13 +694,16 @@ get_header();
 
                                 <?php if ($incarichi && !empty($punti_contatto_id)) { ?>
                                     <h3 class="h4 mb-2">Contatta le persone</h3>
-                                <?php } ?>
+                                <?php 
+									   $title_level = 4;									
+									} else {
+									   $title_level = 3;	
+									}?>
                                 <?php if ($incarichi) { ?>
                                     <div class="row g-2 mb-4">
                                         <?php foreach ($incarichi as $incarico_id) { ?>
                                             <div class="col-lg-6 col-md-12">
                                                 <?php 
-                                                $title_level = 4;
                                                 get_template_part("template-parts/incarico/card-person-contacts"); ?>
                                             </div>
                                         <?php } ?>
@@ -714,7 +717,7 @@ get_header();
                                         <?php
                                         $with_border = true;
                                         $no_vertical_margin = true;
-										$title_level = 4;
+									    $title_level = 4;
                                         get_template_part("template-parts/unita-organizzativa/card-full");
                                         ?>
                                     </div>
