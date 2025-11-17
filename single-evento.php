@@ -26,7 +26,7 @@ get_header();
         $recurrent = dci_get_meta("evento_ripetuto", $prefix, $post->ID) === "true";
         $next_recurrence_timestamps = dci_get_evento_next_recurrence_timestamps($post->ID);
         $start_timestamp = $next_recurrence_timestamps['_dci_evento_data_orario_inizio'];
-        $start_date = date_i18n('d F Y', date($start_timestamp));
+        $start_date = date_i18n('d F Y', date($start_timestamp)); 
         $start_time = date_i18n('H:i', date($start_timestamp));
         $start_date_arr = explode('-', date_i18n('d-M-Y-H-i', date($start_timestamp)));
         $end_timestamp = $next_recurrence_timestamps['_dci_evento_data_orario_fine'];
@@ -270,6 +270,10 @@ get_header();
                 <?php if ($start_timestamp || $end_timestamp) { ?>
                     <article id="date-e-orari" class="it-page-section mb-5">
                         <h2 class="h3 mb-3">Date e orari</h2>
+						
+						<?php  if ($recurrent) {
+							?><h3 class="h4 mt-4">Prossimo appuntamento</h3><?php
+						} ?>
 
                         <div class="point-list-wrapper my-4">
                             <?php if ($start_timestamp) { ?>
@@ -326,7 +330,7 @@ get_header();
                         <?php
                         if ($recurrent) {
                         ?>
-                            <h3 class="h4 mt-4">Ricorrenze</h3>
+                            <h3 class="h4 mt-4">Tutte le ricorrenze</h3>
                             <div class="richtext-wrapper">
                                 <p>L'evento si ripete nelle seguenti date:</p>
                                 <ul>
@@ -511,7 +515,7 @@ get_header();
                         </div>
                     <?php } ?>
                 </article>
-
+				
                 <?php get_template_part('template-parts/single/page_bottom'); ?>
             </section>
         </div>

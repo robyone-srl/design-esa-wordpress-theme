@@ -479,6 +479,7 @@ function dci_get_eventi_calendar_array($days = 30) {
     $args = array(
         'post_type' => 'evento',
         'fields' => 'ids',
+		'numberposts' => '-1',
         'meta_query' => array(
 		'relation' => 'OR',
 		array( // the event is not finished yet
