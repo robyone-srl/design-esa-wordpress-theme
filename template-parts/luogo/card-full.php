@@ -13,13 +13,16 @@ $tipi_luogo = get_the_terms($post->ID,'tipi_luogo');
 <div class="col-lg-6 col-xl-4">
     <div class="card-wrapper shadow-sm rounded border border-light">
         <div class="card no-after rounded">
-            <div class="img-responsive-wrapper">
-                <div class="img-responsive img-responsive-panoramic">
-                    <figure class="img-wrapper">
-                        <?php dci_get_img($img, 'rounded-top img-fluid', 'medium_large'); ?>
-                    </figure>
-                </div>
-            </div>
+		 	<?php
+				if(has_post_thumbnail()){    
+					$img_url = get_the_post_thumbnail_url($post->ID, 'article-simple-thumb');
+					?>
+					  <div class="img-responsive-wrapper">
+							<div class="card-img-bg rounded-top" style="background-image:url('<?php echo $img_url; ?>');"></div>
+					  </div>
+		  			<?php
+				} 
+		  	?>
             <div class="card-body">
                     <?php 
                         $count = 1;

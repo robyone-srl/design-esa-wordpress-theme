@@ -5,7 +5,7 @@ if($args && is_array($args) && count($args) > 0)
     extract($args);
 
 $post = get_post($scheda)??null;
-$img = get_the_post_thumbnail_url();
+$img = get_the_post_thumbnail_url($post->ID,'item-thumb');
 $descrizione_breve = dci_get_meta('descrizione_breve');
 $icon = dci_get_post_type_icon_by_id($post->ID);
 
@@ -34,9 +34,14 @@ $monthName = date_i18n('M', mktime(0, 0, 0, $arrdata[1], 10));
             <h3 class="card-title h5"><?php echo $post->post_title ?></h3>
             <p class="card-text text-secondary" style="margin-bottom: 40px!important;"><?php echo $descrizione_breve ?></p>
         </div>
-        <div class="card-image card-image-rounded pb-5">            
-            <?php dci_get_img($img); ?>
-        </div>
+		 <?php
+				if($img){
+					?>
+						<div class="card-image card-image-rounded pb-5 img-bg" style="background-image:url('<?php echo $img; ?>');">     
+						</div>
+		  			<?php
+				} 
+		  ?>
     </div>
     <a
     class="read-more ps-3"

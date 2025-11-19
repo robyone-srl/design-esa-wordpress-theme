@@ -1273,3 +1273,52 @@ a[data-bs-toggle="collapse"][aria-expanded="true"] .chevron {
     font-size: 1rem;
     line-height: 1.5;
 }
+
+/* CSS Images */
+.img-bg {
+	background-size:cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.img-bg-full {
+	background-size:cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+    min-height: 300px;
+    height: auto
+}
+
+@media(min-width: 992px) {
+    .img-bg-full {
+        height:600px
+    }
+}
+
+.card-img-bg {
+	background-size:cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+	min-height: 250px;
+	border-bottom-right-radius:0!important;
+	border-bottom-left-radius:0!important;
+}
+@media (max-width: 992px) {
+    .card-img-bg {
+        min-height: 300px;
+    }
+}
+
+.card-img-bg-panoramic {
+	background-size:cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+	min-height: 150px;
+	border-bottom-right-radius:0!important;
+	border-bottom-left-radius:0!important;
+}
+@media (max-width: 992px) {
+    .card-img-bg-panoramic {
+        min-height: 200px;
+    }
+}

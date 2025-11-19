@@ -143,7 +143,7 @@ get_header();
                             </nav>
                         </div>
                     </aside>
-                    <section class="col-lg-9 it-page-sections-container border-light">
+                    <section class="col-lg-9 it-page-sections-container border-light" id="content">
                     <article class="it-page-section anchor-offset" data-audio>
                         <h2 id="contenuto-principale" class="h3">Contenuto</h2>
                         <div class="richtext-wrapper lora">
@@ -235,27 +235,27 @@ get_header();
                     <article class="it-page-section anchor-offset mt-5">
                         <h2 id="a-cura-di" class="h3">A cura di</h2>
                         <div class="row">
-                        <div class="col-12 col-sm-8">
-                            <h3 class="h6">Questa pagina è gestita da</h3>
-                            <?php foreach ($a_cura_di as $uo_id) {
-                                $with_border = true;
-                                $mostra_dettagli_sede = true;
-                                get_template_part("template-parts/unita-organizzativa/card");
-                            } ?>
-                        </div>
+							<div class="col-12 col-sm-8">
+								<h3 class="h6">Questa pagina è gestita da</h3>
+								<?php foreach ($a_cura_di as $uo_id) {
+									$with_border = true;
+									$mostra_dettagli_sede = true;
+									get_template_part("template-parts/unita-organizzativa/card");
+								} ?>
+							</div>
 
-                        <div class="col-12 col-sm-4">
-                            <?php if(is_array($persone) && count($persone)) { ?>
-                            <h3 class="h6">Persone</h3>
-                                <?php get_template_part("template-parts/single/persone"); ?>
-                            <?php }?>
+							<div class="col-12 col-sm-4">
+								<?php if(is_array($persone) && count($persone)) { ?>
+								<h3 class="h6">Persone</h3>
+									<?php get_template_part("template-parts/single/persone"); ?>
+								<?php }?>
 
-                        <?php if(is_array($luoghi) && count($luoghi)) { ?>
-                            <h3 class="h6">Luoghi</h3>
-                                <?php get_template_part("template-parts/single/luoghi"); ?>
-                            <?php }?>
-                        </div>
-
+								<?php if(is_array($luoghi) && count($luoghi)) { ?>
+									<h3 class="h6">Luoghi</h3>
+										<?php get_template_part("template-parts/single/luoghi"); ?>
+								<?php }?>
+							</div>
+						</div>
                     </article>
                     <h2 class="visually-hidden">Ulteriori informazioni</h2>
                     <?php get_template_part('template-parts/single/page_bottom'); ?>
@@ -274,7 +274,7 @@ get_header();
         ?>
     </main>
     <script>
-        const descText = document.querySelector('#contenuto')?.closest('article').innerText;
+        const descText = document.querySelector('#content').innerText;
         const wordsNumber = descText.split(' ').length
         document.querySelector('#readingTime').innerHTML = `${Math.ceil(wordsNumber / 200)} min`;
     </script>

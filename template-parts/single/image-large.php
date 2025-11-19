@@ -21,20 +21,9 @@ if($img_url != "") {
     ?>
     <div class="container-fluid my-3">
         <div class="row">
-            <figure class="figure px-0 img-full"> 
-                    <img
-                        src="<?php echo $img_url; ?>"
-                        class="figure-img img-fluid"
-                        alt="<?php echo $img_alt; ?>"
-                        title="<?php echo $img_title; ?>"
-						
-                    /> <?php 
-                    if ($img_caption)  { ?>
-                        <figcaption class="figure-caption text-center py-3">
-                            <?php echo $img_caption; ?>
-                        </figcaption> <?php 
-                    } ?>
-            </figure>
+			<div class="figure px-0 pb-2 img-full">
+				<div class="img-bg-full" style="background-image:url('<?php echo $img_url; ?>');"></div>
+			</div>
         </div>
     </div> <?php 
 }

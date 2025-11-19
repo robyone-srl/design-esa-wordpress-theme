@@ -59,7 +59,7 @@ function dci_register_taxonomy_metabox() {
 
     $cmb_term->add_field( array(
         'name' => __( 'Immagine', 'design_comuni_italia' ),
-        'desc' => __( 'Immagine principale dell\'Area/ufficio', 'design_comuni_italia' ),
+        'desc' => __( 'Immagine principale argomento (decorativa)', 'design_comuni_italia' ),
         'id'   => $prefix . 'immagine',
         'type' => 'file',
         'query_args' => array( 'type' => 'image' ), // Only images attachment

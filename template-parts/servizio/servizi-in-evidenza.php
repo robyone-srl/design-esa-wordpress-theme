@@ -5,6 +5,7 @@ $servizi = dci_get_option('servizi_evidenziati', 'servizi');
 
 if (!empty($servizi)) {
 ?>
+<section id="servizi-evidenza">
     <div class="py-5 <?= !($should_have_grey_background=(!$should_have_grey_background)) ? 'bg-grey-dsk':'' ?>">
         <div class="container">
             <h2 class="title-xxlarge mb-4">Servizi in evidenza</h2>
@@ -26,4 +27,5 @@ if (!empty($servizi)) {
             </div>
         </div>
     </div>
+</section>
 <?php } ?>

@@ -14,6 +14,9 @@ if ($arg3) $argomenti_evidenza[3] = $arg3;
 $altri_argomenti = dci_get_option('argomenti_altri','homepage');
 ?>
 
+<?php if ($argomenti_evidenza || $altri_argomenti) { ?>
+<section id="evidenza" class="evidence-section">
+    
 <?php if ($argomenti_evidenza) { ?>
 <div class="bg-primary pt-5 argomenti-titolo" style="<?php if (file_exists(get_stylesheet_directory() . '/assets/img/evidenza-header.png')) { ?>background-image: url('<?php echo esc_url(get_stylesheet_directory_uri()); ?>/assets/img/evidenza-header.png');<?php } else { ?>background-image: url('<?php echo esc_url(get_template_directory_uri()); ?>/assets/img/evidenza-header.png');<?php } ?>">
      <div class="container">
@@ -38,8 +41,8 @@ $altri_argomenti = dci_get_option('argomenti_altri','homepage');
 </div>
 <?php } ?>
 
+<?php if ($altri_argomenti) { ?>
 <div class="container">
-   <?php if ($altri_argomenti) { ?>
     <div class="row pt-30">
         <div class="col-lg-10 col-xl-6 offset-lg-1 offset-xl-2">
             <div class="row d-lg-inline-flex">
@@ -69,5 +72,8 @@ $altri_argomenti = dci_get_option('argomenti_altri','homepage');
             <a href="<?php echo dci_get_template_page_url("page-templates/argomenti.php"); ?>" class="btn btn-primary mt-40">Mostra tutti</a>
         </div>
     </div>
-    <?php } ?>
 </div>
+<?php } ?>
+
+</section>
+<?php } ?>

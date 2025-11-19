@@ -1,10 +1,10 @@
 <?php
-global $domanda_frequente_id, $count, $location;
+global $domanda_frequente_id, $count, $location, $container_css_class;
 
 $domande_frequenti = dci_get_option('domande_frequenti', $location ?? 'homepage');
 if (is_array($domande_frequenti) && count($domande_frequenti)) {
 ?>
-
+<section id="domande-frequenti" class="<?php echo $container_css_class; ?>">
   <div class="container mb-4">
     <div class="row">
       <h2 class="mb-0">Hai dubbi o domande?</h2>
@@ -35,6 +35,7 @@ if (is_array($domande_frequenti) && count($domande_frequenti)) {
       </a>
     </div>
   </div>
+  </section>
 
 <?php
 } ?>

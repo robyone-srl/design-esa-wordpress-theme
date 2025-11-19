@@ -23,7 +23,7 @@ foreach($schede_evidenza_opt as $scheda_evidenza) {
 if(count($schede_evidenza) > 0) {
 
 ?>
-<section aria-describedby="contenuti_evidenza">
+<section id="contenuti-evidenza">
         <div class="section-content">
             <div class="section-muted pb-90 pb-lg-50 px-lg-5 pt-0">
                 <div class="container">
@@ -66,7 +66,7 @@ if(count($schede_evidenza) > 0) {
             <?php echo $scheda->description ?>
         </p>
         </div>
-        <a class="read-more" href="<?php echo get_term_link($scheda->term_id); ?>" aria-label="Vai alla pagina <?php echo $scheda->name ?>" title="Vai alla pagina <?php echo $scheda->name ?>"
+        <a class="read-more" href="<?php echo get_term_link($scheda->term_id); ?>" aria-label="Vai alla pagina <?php echo str_replace(array('"'), "", $scheda->name) ?>" title="Vai alla pagina <?php echo str_replace(array('"'), "", $scheda->name) ?>"
         ><span class="text">Vai alla pagina</span>
         <svg class="icon ms-0">
             <use

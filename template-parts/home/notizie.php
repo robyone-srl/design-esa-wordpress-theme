@@ -58,6 +58,7 @@ $overlapping = "";
 
 if ($post_evidenza_id || ($posts && is_array($posts) && count($posts) > 0)) {
 ?>
+<section id="notizie">
     <!-- Tag section is opened in home.php -->
     <div class="section-content mb-5">
         <div class="container">
@@ -99,4 +100,5 @@ if ($post_evidenza_id || ($posts && is_array($posts) && count($posts) > 0)) {
             <?php } ?>
         </div>
     </div>
+</section>
 <?php } ?>

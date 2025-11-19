@@ -12,7 +12,7 @@ function dci_register_post_type_notizia() {
         'add_new'       => _x( 'Aggiungi una Notizia', 'Post Type Singular Name', 'design_comuni_italia' ),
         'add_new_item'  => _x( 'Aggiungi una nuova Notizia', 'Post Type Singular Name', 'design_comuni_italia' ),
         'edit_item'       => _x( 'Modifica la Notizia', 'Post Type Singular Name', 'design_comuni_italia' ),
-        'featured_image' => __( 'Immagine di riferimento', 'design_comuni_italia' ),
+        'featured_image' => __( 'Immagine di copertina', 'design_comuni_italia' ),
     );
     $args   = array(
         'label'         => __( 'Notizia', 'design_comuni_italia' ),

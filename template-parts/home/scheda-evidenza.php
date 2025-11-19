@@ -2,7 +2,7 @@
 global $scheda;
 
 $post = get_post($scheda)??null;
-$img = get_the_post_thumbnail_url();
+$img = get_the_post_thumbnail_url($post->ID,'item-thumb');
 $descrizione_breve = dci_get_meta('descrizione_breve') ?: dci_get_meta('_dci_page_descrizione');
 $icon = dci_get_post_type_icon_by_id($post->ID);
 
@@ -26,9 +26,14 @@ if (!isset($title_level) || $title_level === null || trim($title_level) === '') 
             <?php echo '<' . $titleheading . ' class="card-title text-paragraph-medium u-grey-light">' . $post->post_title . '</' . $titleheading . '>'; ?>
             <p class="text-paragraph-card u-grey-light m-0" style="margin-bottom: 40px!important;"><?php echo $descrizione_breve ?></p>
         </div>
-        <div class="card-image card-image-rounded pb-5">            
-            <?php dci_get_img($img, size:'thumbnail'); ?>
-        </div>
+		<?php
+				if($img){
+					?>
+						<div class="card-image card-image-rounded pb-5 img-bg" style="background-image:url('<?php echo $img; ?>');">     
+						</div>
+		  			<?php
+				} 
+		  ?>
     </div>
     <a
     class="read-more ps-3"

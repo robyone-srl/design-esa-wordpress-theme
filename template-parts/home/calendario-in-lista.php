@@ -21,6 +21,7 @@ $eventi_c = array_slice($eventi_c, 0, $quanti_eventi_mostrare);
 
 if(count($eventi_c)){
 ?>
+<section id="calendario">
 	<div class="section section-muted pb-90 pb-lg-50 px-lg-5 pt-0">
 		<div class="container">
 			<div class="row row-title pt-5 pt-lg-60 pb-3">
@@ -30,31 +31,25 @@ if(count($eventi_c)){
 			</div>
 
 			<div class="row g-4">
-				<?php if (count($eventi_c)) { ?>
-				
-					<?php foreach($eventi_c as $evento){
-						$post = get_post($evento['id']);
-						$recurrence_index = $evento['indice_ricorrenza'] ?? -1;
+				<?php foreach($eventi_c as $evento){
+					$post = get_post($evento['id']);
+					$recurrence_index = $evento['indice_ricorrenza'] ?? -1;
 
-						$load_card_type = "evento";  
-						get_template_part("template-parts/evento/card-full");
-					} ?>
-					<div class="d-flex justify-content-end">
+					$load_card_type = "evento";  
+					get_template_part("template-parts/evento/card-full");
+				} ?>
+				<div class="d-flex justify-content-end">
 
-						<a href="<?= $url_eventi ?>" class="btn btn-outline-primary full-mb" aria-label="Mostra tutti gli eventi" data-element="live-button-events">
-							Mostra tutti gli eventi
-							<svg class="icon icon-primary icon-xs ml-10">
-								<use href="#it-arrow-right"></use>
-							</svg>
-						</a>
+					<a href="<?= $url_eventi ?>" class="btn btn-outline-primary full-mb" aria-label="Mostra tutti gli eventi" data-element="live-button-events">
+						Mostra tutti gli eventi
+						<svg class="icon icon-primary icon-xs ml-10">
+							<use href="#it-arrow-right"></use>
+						</svg>
+					</a>
 
-					</div>
-				<?php } else { ?>
-					<div>
-						Nessun evento in programma
-					</div>
-				<?php } ?>
+				</div>
 			</div>
 		</div>
 	</div>
+</section>
 <?php } ?>

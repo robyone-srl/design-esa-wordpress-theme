@@ -109,7 +109,7 @@ function dci_add_documento_privato_metaboxes()
 
     $cmb_apertura->add_field( array(
             'name'       => __('Immagine', 'design_comuni_italia' ),
-            'desc' => __( 'Immagine di riferimento del documento' , 'design_comuni_italia' ),
+            'desc' => __( 'Immagine di riferimento del documento (decorativa)' , 'design_comuni_italia' ),
             'id'             => $prefix . 'immagine',
             'type' => 'file',
             // 'preview_size' => array( 100, 100 ), // Default: array( 50, 50 )

@@ -26,64 +26,32 @@ function get_section($name)
         case 'hero-chi-siamo':
             get_template_part("template-parts/home/hero-chi-siamo");
             break;
-        case 'messages': ?>
-            <section id="messages">               
-            <?php
-                $messages = dci_get_option("messages", "home_messages");
-                if ($messages && !empty($messages)) {
-                    get_template_part("template-parts/home/messages");
-                }
-                ?>
-            </section>
-        <?php break;
-        case 'notizie': ?>
-            <section id="notizie">
-                <?php get_template_part("template-parts/home/notizie", $visualizzazione_notizie); ?>
-            </section>
-        <?php break;
-        case 'contenuti-evidenza': ?>
-            <section id="contenuti-evidenza">
-                <?php
-                get_template_part("template-parts/home/contenuti-evidenza");
-                ?>
-            </section>
-        <?php break;
-        case 'luoghi-evidenza': ?>
-            <section id="luoghi-evidenza" aria-describedby="novita-in-evidenza">
-                <?php
-                get_template_part("template-parts/vivere-ente/luoghi");
-                ?>
-            </section>
-        <?php break;
-        case 'servizi-evidenza': ?>
-            <section id="servizi-evidenza">
-                <?php
-                get_template_part("template-parts/servizio/servizi-in-evidenza");
-                ?>
-            </section>
-        <?php break;
-        case 'calendario': ?>
-            <section id="calendario">
-                <?php
-                get_template_part("template-parts/home/calendario", $visualizzazione_eventi);
-                ?>
-            </section>
-        <?php break;
-        case 'argomenti': ?>
-            <section id="evidenza" class="evidence-section">
-                <?php get_template_part("template-parts/home/argomenti"); ?>
-            </section>
-        <?php break;
-        case 'siti-tematici': ?>
-            <section id="siti-tematici" class="my-5">
-                <?php get_template_part("template-parts/home/siti-tematici"); ?>
-            </section>
-        <?php break;
-        case 'domande-frequenti': ?>
-            <section id="domande-frequenti" class="my-5">
-                <?php get_template_part("template-parts/home/domande-frequenti"); ?>
-            </section>
-        <?php break;
+        case 'notizie':
+            get_template_part("template-parts/home/notizie", $visualizzazione_notizie);
+            break;
+        case 'contenuti-evidenza':
+            get_template_part("template-parts/home/contenuti-evidenza");
+            break;
+        case 'luoghi-evidenza':
+            get_template_part("template-parts/vivere-ente/luoghi");
+            break;
+        case 'servizi-evidenza':
+            get_template_part("template-parts/servizio/servizi-in-evidenza");
+            break;
+        case 'calendario':
+            get_template_part("template-parts/home/calendario", $visualizzazione_eventi);
+            break;
+        case 'argomenti':
+            get_template_part("template-parts/home/argomenti");
+            break;
+        case 'siti-tematici': 
+            $container_css_class = "my-5";
+            get_template_part("template-parts/home/siti-tematici");
+            break;
+        case 'domande-frequenti': 
+            $container_css_class = "my-5";
+            get_template_part("template-parts/home/domande-frequenti");
+            break;
         case 'galleria-foto': 
             $sfondo_grigio = false;
             get_template_part("template-parts/vivere-ente/galleria-foto");

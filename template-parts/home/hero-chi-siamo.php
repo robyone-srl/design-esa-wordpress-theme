@@ -23,15 +23,11 @@ $hero_any_text = $hero_title || $hero_description || $hero_button_link;
 
 ?>
 <section class="it-hero-wrapper it-hero-small-size <?= $hero_image && $hero_any_text ? 'it-dark it-overlay' : '' ?> <?= $hero_align_center ? 'it-text-centered' : '' ?> it-bottom-overlapping-content">
-   <div class="img-responsive-wrapper">
-      <div class="img-responsive">
-         <div class="img-wrapper"><?php
-                if ($hero_image) { ?>
-                    <?php dci_get_img($hero_image) ?>
-                <?php
-                } ?></div>
-      </div>
-   </div>
+   <?php if ($hero_image) { ?>
+	<div class="img-responsive-wrapper">
+		<div class="img-bg h-100 w-100" style="background-image:url('<?php echo $hero_image; ?>');"></div>
+	</div>
+<?php } ?>	
    <div class="container">
       <div class="row">
          <div class="col-12">
@@ -75,19 +71,14 @@ $hero_any_text = $hero_title || $hero_description || $hero_button_link;
 		  
 		 <?php
 				if($has_thumbnail){    
-					$img_url = get_the_post_thumbnail_url($luoghi_page->ID, 'post-thumbnail');
+					$img_url = get_the_post_thumbnail_url($luoghi_page->ID, 'article-simple-thumb');
 					$img = get_post(attachment_url_to_postid( $img_url ));
 					$img_alt = get_post_meta( $img->ID, '_wp_attachment_image_alt', true);
     				$img_caption = $img->post_excerpt;
 					?>
 					  <div class="img-responsive-wrapper">
-					  <div class="img-responsive img-responsive-panoramic">
-						<figure class="img-wrapper">
-						  <img src="<?php echo $img_url; ?>" title="<?php echo $img_caption; ?>" alt="<?php echo $img_alt; ?>">
-						</figure>
+							<div class="card-img-bg-panoramic rounded" style="background-image:url('<?php echo $img_url; ?>');"></div>
 					  </div>
-					</div>
-		  
 		  			<?php
 				} 
 		  ?>
@@ -120,19 +111,14 @@ $hero_any_text = $hero_title || $hero_description || $hero_button_link;
 		  
 		 <?php
 				if($has_thumbnail){    
-					$img_url = get_the_post_thumbnail_url($servizi_page->ID, 'post-thumbnail');
+					$img_url = get_the_post_thumbnail_url($servizi_page->ID, 'article-simple-thumb');
 					$img = get_post(attachment_url_to_postid( $img_url ));
 					$img_alt = get_post_meta( $img->ID, '_wp_attachment_image_alt', true);
     				$img_caption = $img->post_excerpt;
 					?>
 					  <div class="img-responsive-wrapper">
-					  <div class="img-responsive img-responsive-panoramic">
-						<figure class="img-wrapper">
-						  <img src="<?php echo $img_url; ?>" title="<?php echo $img_caption; ?>" alt="<?php echo $img_alt; ?>">
-						</figure>
+							<div class="card-img-bg-panoramic rounded" style="background-image:url('<?php echo $img_url; ?>');"></div>
 					  </div>
-					</div>
-		  
 		  			<?php
 				} 
 		  ?>
@@ -166,19 +152,14 @@ $hero_any_text = $hero_title || $hero_description || $hero_button_link;
 		  
 		 <?php
 				if($has_thumbnail){    
-					$img_url = get_the_post_thumbnail_url($amministrazione_page->ID, 'post-thumbnail');
+					$img_url = get_the_post_thumbnail_url($amministrazione_page->ID, 'article-simple-thumb');
 					$img = get_post(attachment_url_to_postid( $img_url ));
 					$img_alt = get_post_meta( $img->ID, '_wp_attachment_image_alt', true);
     				$img_caption = $img->post_excerpt;
 					?>
 					  <div class="img-responsive-wrapper">
-					  <div class="img-responsive img-responsive-panoramic">
-						<figure class="img-wrapper">
-						  <img src="<?php echo $img_url; ?>" title="<?php echo $img_caption; ?>" alt="<?php echo $img_alt; ?>">
-						</figure>
+							<div class="card-img-bg-panoramic rounded" style="background-image:url('<?php echo $img_url; ?>');"></div>
 					  </div>
-					</div>
-		  
 		  			<?php
 				} 
 		  ?>
