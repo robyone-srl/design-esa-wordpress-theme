@@ -1305,10 +1305,10 @@ function dci_get_custom_css_file_url($file_name_no_path){
     return content_url(dci_get_custom_css_sub_folder().$file_name_no_path);
 }
 
-function dci_add_custom_file_field_to_box(&$box, $css_name, $file_field_name, $checkbox_field_name){
+function dci_add_custom_file_field_to_box(&$box, $css_name, $file_field_name, $checkbox_field_name, $customLabel="Stile personalizzato"){
     if(file_exists(dci_get_custom_css_file_path($css_name))){
         $box->add_field( array(
-            'name' => 'Stile personalizzato',
+            'name' => $customLabel,
             'desc' => 'Al momento, è in uso un foglio di stile personalizzato al posto di <strong>'.$css_name.'</strong>. Per tornare a usare quello predefinito o per caricare una nuova versione, disabilita questa opzione e salva le modifiche.',
             'id'   => $checkbox_field_name,
             'type' => 'checkbox',
@@ -1319,7 +1319,7 @@ function dci_add_custom_file_field_to_box(&$box, $css_name, $file_field_name, $c
 
         $box->add_field( array(
         'id'    => $file_field_name,
-        'name' => __('Stile personalizzato', 'design_comuni_italia' ),
+        'name' => __($customLabel, 'design_comuni_italia' ),
         'desc' => __('Customizzazione del foglio di stile <strong>'.$css_name.'</strong> per personalizzare la grafica del sito. <br> <strong>Nota</strong>. Se il campo è vuoto viene utilizzato quello di default presente nel tema' , 'design_comuni_italia' ),
         'type' => 'css_file'
         ));

@@ -462,7 +462,7 @@ get_header();
                             <section class="it-page-section mb-30">
                                 <h2 class="h3 mb-3" id="places">Luoghi</h2>
                                 
-                                <?php if (!empty($copertura_geografica)) { ?>
+                                <?php if (!empty($canale_fisico_text)) { ?>
                                     <p><?php echo $canale_fisico_text; ?></p>
                                 <?php } else { ?>
                                     <p>Il servizio viene erogato nei seguenti luoghi.</p>

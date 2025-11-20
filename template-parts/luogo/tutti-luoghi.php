@@ -1,10 +1,26 @@
 <?php
-global $the_query, $load_posts, $load_card_type, $order_values, $found_posts, $post_type_multiple;
+global $the_query, $load_posts, $load_card_type, $order_values, $found_posts, $post_type_multiple, $filter_value, $filters;
 
     $max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 6;
     $query = isset($_GET['search']) ? dci_removeslashes($_GET['search']) : null;
 
     $order_values = dci_get_order_values("post_title", "ASC", $_GET["order_by"]);
+	
+    $filter_value = isset($_GET['apply_filter']) ? dci_removeslashes($_GET['apply_filter']) : 'only_main';
+
+    $main_meta_query = [
+        'relation' => 'OR',
+    ];
+
+    $main_meta_query[] = [
+        'key'     => '_dci_luogo_childof',
+        'compare' => 'NOT EXISTS',
+    ];
+    $main_meta_query[] = [
+        'key'     => '_dci_luogo_childof',
+        'value'   => '0',
+        'compare' => '=',
+    ];
 
     $args = [
         's' => $query,
@@ -14,8 +30,12 @@ global $the_query, $load_posts, $load_card_type, $order_values, $found_posts, $p
         'order'          => $order_values["dir"],
         'orderby'        => $order_values["field"]
     ];
-    $the_query = new WP_Query( $args );
 
+    if (!empty($filter_value) && $filter_value === 'only_main') {
+        $args['meta_query'] = $main_meta_query;
+    }
+
+    $the_query = new WP_Query( $args );
 ?>
 
 
@@ -50,6 +70,11 @@ global $the_query, $load_posts, $load_card_type, $order_values, $found_posts, $p
                 <?php 
                     $found_posts = $the_query->found_posts;
                     $post_type_multiple = "Luoghi trovati";
+				
+					$filters = [
+						(object)['code' => 'all', 'label' => 'Tutti i luoghi'],
+						(object)['code' => 'only_main', 'label' => 'Solo i luoghi principali'],
+					];
 
                     get_template_part("template-parts/common/data-list-info-and-ordering");
                 ?>

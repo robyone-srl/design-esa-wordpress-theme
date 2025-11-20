@@ -39,8 +39,8 @@ function dci_register_grafica_options(){
         'type' => 'title',
     ) );
 
-    dci_add_custom_file_field_to_box($header_options, $CSS_NAME_COMUNI, 'comuni_css_file', 'use_comuni_css');
-    dci_add_custom_file_field_to_box($header_options, $CSS_NAME_ICONS, 'icons_css_file', 'use_icons_css');
+    dci_add_custom_file_field_to_box($header_options, $CSS_NAME_COMUNI, 'comuni_css_file', 'use_comuni_css', 'Bootstrap Italia');
+    dci_add_custom_file_field_to_box($header_options, $CSS_NAME_ICONS, 'icons_css_file', 'use_icons_css', 'Icone');
 
     
     $header_options->add_field( array(

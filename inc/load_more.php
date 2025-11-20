@@ -36,6 +36,8 @@ function load_more(){
 	$additional_filter =  json_decode( stripslashes( $_POST['additional_filter'] ), true );
 	//$query_args =  json_decode( stripslashes( $_POST['query'] ), true );
 	$filter_ids =  json_decode( stripslashes( $_POST['filter_ids'] ), true );
+	$filter_value =  json_decode( stripslashes( $_POST['filter_value'] ), true );
+	$filters =  json_decode( stripslashes( $_POST['filters'] ), true );
 	$tax_query =  json_decode( stripslashes( $_POST['tax_query'] ), true );
 	
 	
@@ -58,6 +60,24 @@ function load_more(){
 		'order'=> $order_values["dir"],
 		'orderby' => $order_values["field"]
 	);
+	
+	$main_meta_query = [
+        'relation' => 'OR',
+    ];
+
+    $main_meta_query[] = [
+        'key'     => '_dci_luogo_childof',
+        'compare' => 'NOT EXISTS',
+    ];
+    $main_meta_query[] = [
+        'key'     => '_dci_luogo_childof',
+        'value'   => '0',
+        'compare' => '=',
+    ];
+	
+	if (!empty($filter_value) && $filter_value === 'only_main') {
+        $args['meta_query'] = $main_meta_query;
+    }
 	
 	if ( $post_types == "notizia" ) {
 		$args = array(
