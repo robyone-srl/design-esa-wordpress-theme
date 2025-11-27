@@ -131,7 +131,7 @@ function dci_add_procedura_metaboxes() {
 
     $cmb_cosa_serve->add_field( array(
         'id'         => $prefix . 'cosa_serve_introduzione',
-        'name'       => 'Come fare (testo introduttivo) * ',
+        'name'       => 'Come fare (testo introduttivo)',
         'desc'       => 'es: "Per attivare il servizio bisogna prima compilare il modulo on line oppure stampare e compilare il modulo cartaceo che trovi nella sezione documenti di questa pagina. [Vai alla sezione documenti]" Per creare un link mediante ancora inserisci #art-par-documenti come valore del link.',
         'type'       => 'wysiwyg',
         'options'    => array(
