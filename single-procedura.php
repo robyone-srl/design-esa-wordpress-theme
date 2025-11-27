@@ -165,108 +165,117 @@ get_header();
                                     if (!empty($fasi_scadenze)) foreach ($fasi_scadenze as $fase_id) {
                                         $fase = get_post($fase_id); ?>
                                         <div class="collapse-div mb-4">
-                                            <div class="border p-3 primary-bg collapse-header" role="alert">
-                                                <div class="h4 d-flex justify-content-between pb-0 mb-0" data-bs-toggle="collapse" href="#collapsefase<?= $n_fase ?>" role="button" aria-expanded="false" aria-controls="collapsefase<?= $n_fase ?>">
-											        <span class="white-color"> <?php echo $fase->post_title; ?> </span>
-                                                    <svg class="icon icon-white ms-5 chevronwhite"><use href="#it-expand"></use></svg>
-											    </div>
-										    </div>
-									        <div class="collapse clearfix border-start" id="collapsefase<?= $n_fase ?>">
-										        <div class="collapse-body p-3"> <?php 
-                                                    if (!empty(dci_get_wysiwyg_field('desc_fase', '_dci_fase_', $fase->ID))) { ?>
-                                                        <p class="info-text mb-0">
-                                                                <?php echo dci_get_meta('desc_fase', '_dci_fase_', $fase->ID); ?>
-                                                        </p> <?php 
+                                            <a class="primary-bg collapse-header p-2 d-flex align-items-center" style="text-decoration: none" data-bs-toggle="collapse" href="#collapsefase<?= $n_fase ?>" role="button" aria-expanded="false" aria-controls="collapsefase<?= $n_fase ?>">
+        
+                                                <div class="h5 px-2 me-2 my-0">
+                                                    <span class="white-color"> <?= $n_fase + 1 ?> </span>
+                                                </div>
+        
+                                                <div class="flex-grow-1 d-flex justify-content-between align-items-center p-0 my-0 ps-3 border-start" role="alert">
+                                                    <h4 class="h5 white-color mb-0"> <?= $fase->post_title; ?> </h4>
+            
+                                                    <svg class="icon icon-white ms-4 chevron"><use href="#it-expand"></use></svg>
+                                                </div>
+        
+                                            </a>
+                                            <div class="ps-4">
+									            <div class="collapse clearfix border-start" id="collapsefase<?= $n_fase ?>">
+										            <div class="collapse-body p-3 ms-3"> <?php 
+                                                        if (!empty(dci_get_wysiwyg_field('desc_fase', '_dci_fase_', $fase->ID))) { ?>
+                                                            <p class="info-text mb-0">
+                                                                    <?php echo dci_get_meta('desc_fase', '_dci_fase_', $fase->ID); ?>
+                                                            </p> <?php 
 
-                                                        $servizi_inclusi_id = dci_get_meta('servizi_inclusi', '_dci_fase_', $fase->ID);
+                                                            $servizi_inclusi_id = dci_get_meta('servizi_inclusi', '_dci_fase_', $fase->ID);
 
-                                                        if (!empty($servizi_inclusi_id)) {
-                                                            $servizi_inclusi_id = array_map('intval', $servizi_inclusi_id);
+                                                            if (!empty($servizi_inclusi_id)) {
+                                                                $servizi_inclusi_id = array_map('intval', $servizi_inclusi_id);
 
-                                                            $args = array(
-                                                                'nopaging' => true,
-                                                                'post_type' => 'servizio',
-                                                                'post__in' => $servizi_inclusi_id,
-                                                                'orderby' => 'post_title',
-                                                                'order' => 'ASC',
-                                                            );
-                                                            $posts = get_posts($args);
+                                                                $args = array(
+                                                                    'nopaging' => true,
+                                                                    'post_type' => 'servizio',
+                                                                    'post__in' => $servizi_inclusi_id,
+                                                                    'orderby' => 'post_title',
+                                                                    'order' => 'ASC',
+                                                                );
+                                                                $posts = get_posts($args);
 
-                                                            if (!empty($posts)) { ?>
-									                            <h4 class="h5 title mt-3"> Servizi collegati</h3>
-                                                                <div>
+                                                                if (!empty($posts)) { ?>
+									                                <h5 class="title mt-3"> Servizi collegati</h5>
+                                                                    <div>
 
-                                                                    <a class="btn btn-primary btn-icon btn-xs" data-bs-toggle="collapse" href="#collapseServiziInclusi<?= $n_fase ?>" role="button" aria-expanded="false" aria-controls="collapseServiziInclusi<?= $n_fase ?>">
-											                            Mostra servizi collegati 
-                                                                        <svg class="icon icon-white ms-5 chevron"><use href="#it-expand"></use></svg>
-											                        </a>
+                                                                        <a class="btn btn-primary btn-icon btn-xs" data-bs-toggle="collapse" href="#collapseServiziInclusi<?= $n_fase ?>" role="button" aria-expanded="false" aria-controls="collapseServiziInclusi<?= $n_fase ?>">
+											                                Mostra servizi collegati 
+                                                                            <svg class="icon icon-white ms-5 chevron"><use href="#it-expand"></use></svg>
+											                            </a>
 											
-									                                <div class="collapse clearfix me-5" id="collapseServiziInclusi<?= $n_fase ?>">
-										                                <div class="row g-4 pt-4">
-											                                <?php foreach ($posts as $servizio) { ?>
-												                                <div class="col-lg-6 col-md-12"> <?php
-                                                                                            $mostra_dettagli_servizi  = 'estesa';
-                                                                                            get_template_part("template-parts/servizio/card"); ?>
-												                                </div>
-                                                                            <?php } ?>
-											                            </div>
-										                            </div>
-									                            </div> <?php
-							                                } 
-                                                        }
+									                                    <div class="collapse clearfix me-5" id="collapseServiziInclusi<?= $n_fase ?>">
+										                                    <div class="row g-4 pt-4">
+											                                    <?php foreach ($posts as $servizio) { ?>
+												                                    <div class="col-lg-6 col-md-12"> <?php
+                                                                                                $mostra_dettagli_servizi  = 'estesa';
+                                                                                                get_template_part("template-parts/servizio/card"); ?>
+												                                    </div>
+                                                                                <?php } ?>
+											                                </div>
+										                                </div>
+									                                </div> <?php
+							                                    } 
+                                                            }
 
-                                                        $documenti_ids = dci_get_meta('documenti', '_dci_fase_', $fase->ID); ?>
-                                                        <?php if (!empty($documenti_ids)) { ?>
-                                                            <h4 class="h5 my-3" id="docs">Documenti correlati</h3>
-                                                            <div class="richtext-wrapper lora" data-element="service-document">
-                                                                <div class="row">
-                                                                    <?php
-                                                                    foreach ($documenti_ids as $documento_id) { ?>
-                                                                        <div class="col-12 col-md-6 mb-3 card-wrapper">
-                                                                            <?php
-                                                                            $documento = get_post($documento_id);
-                                                                            get_template_part("template-parts/documento/card");
-                                                                            ?>
-                                                                        </div>
-                                                                    <?php } ?>
-                                                                </div>
-                                                            </div> <?php
-                                                        }
+                                                            $documenti_ids = dci_get_meta('documenti', '_dci_fase_', $fase->ID); ?>
+                                                            <?php if (!empty($documenti_ids)) { ?>
+                                                                <h5 class="h5 my-3" id="docs">Documenti correlati</h5>
+                                                                <div class="richtext-wrapper lora" data-element="service-document">
+                                                                    <div class="row">
+                                                                        <?php
+                                                                        foreach ($documenti_ids as $documento_id) { ?>
+                                                                            <div class="col-12 col-md-6 mb-3 card-wrapper">
+                                                                                <?php
+                                                                                $documento = get_post($documento_id);
+                                                                                get_template_part("template-parts/documento/card");
+                                                                                ?>
+                                                                            </div>
+                                                                        <?php } ?>
+                                                                    </div>
+                                                                </div> <?php
+                                                            }
                                                         
-                                                        $punti_contatto_id = dci_get_meta('punti_contatto', '_dci_fase_', $fase->ID);
-                                                        if (!empty($punti_contatto_id)) {
-                                                        ?>
-                                                            <h4 class="my-3 h5" id="contacts">Contatti</h2>
-                                                            <div class="row"> <?php
-                                                                foreach ($punti_contatto_id as $pc_id) {
-                                                                    $contatto = get_post($pc_id);
-                                                                    if(isset($contatto)){ ?>
+                                                            $punti_contatto_id = dci_get_meta('punti_contatto', '_dci_fase_', $fase->ID);
+                                                            if (!empty($punti_contatto_id)) {
+                                                            ?>
+                                                                <h5 class="my-3 h5" id="contacts">Contatti</h5>
+                                                                <div class="row"> <?php
+                                                                    foreach ($punti_contatto_id as $pc_id) {
+                                                                        $contatto = get_post($pc_id);
+                                                                        if(isset($contatto)){ ?>
                                         
-                                                                        <div class="col-lg-6 col-md-12 mb-4">
-                                                                            <?php get_template_part("template-parts/punto-contatto/card"); ?>
-                                                                        </div> <?php 
-                                                                    }
-                                                                } ?>
-                                                            </div>
-                                                        <?php }
-
-                                                        $uo_id = intval(dci_get_meta('unita_responsabile', '_dci_fase_', $fase->ID));
-                                                        if(isset($punti_contatto_id) && ($uo_id != false)){ ?>
-                                                            <h4 class="mb-3 h5">Contatta ufficio</h3>
-                                                        
-                                                            <div class="row">
-                                                                <div class="col-12 col-md-8 col-lg-6 mb-0">
-                                                                    <?php
-                                                                    $with_border = true;
-                                                                    $no_vertical_margin = true;
-                                                                    get_template_part("template-parts/unita-organizzativa/card-full");
-                                                                    ?>
+                                                                            <div class="col-lg-6 col-md-12 mb-4">
+                                                                                <?php get_template_part("template-parts/punto-contatto/card"); ?>
+                                                                            </div> <?php 
+                                                                        }
+                                                                    } ?>
                                                                 </div>
-                                                            </div> 
-                                                        <?php } 
-                                                    } ?>
-											    </div>
-										    </div> 
+                                                            <?php }
+
+                                                            $uo_id = intval(dci_get_meta('unita_responsabile', '_dci_fase_', $fase->ID));
+                                                            if(isset($punti_contatto_id) && ($uo_id != false)){ ?>
+                                                                <h5 class="mb-3 h5">Contatta ufficio</h5>
+                                                        
+                                                                <div class="row">
+                                                                    <div class="col-12 col-md-8 col-lg-6 mb-0">
+                                                                        <?php
+                                                                        $with_border = true;
+                                                                        $no_vertical_margin = true;
+                                                                        get_template_part("template-parts/unita-organizzativa/card-full");
+                                                                        ?>
+                                                                    </div>
+                                                                </div> 
+                                                            <?php } 
+                                                        } ?>
+											        </div>
+										        </div>
+                                            </div>
                                         </div> <?php 
                                         $n_fase++;
                                     } ?>
