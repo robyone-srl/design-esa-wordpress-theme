@@ -119,10 +119,10 @@
         "argomenti"
       ]
     },
-    "procedure": {
+    "procedura": {
       "name": "procedura",
-      "group_name": "Come fare per",
-      "capability": "procedure",
+      "group_name": "Procedura",
+      "capability": "procedura",
       "prefix": "_dci_procedura_",
       "singular_name": "Come fare per",
       "plural_name": "Come fare per",

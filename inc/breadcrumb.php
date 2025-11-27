@@ -407,6 +407,11 @@ class Breadcrumb_Trail {
                         $this->items[] = get_the_title();
                         return;
                         break;
+					case 'Procedura':
+                        $this->items[] =  "<a href='".home_url("procedure")."'>".__("Procedura", "design_comuni_italia")."</a>";
+                        $this->items[] = get_the_title();
+                        return;
+                        break;
                 }
 
                 $this->add_singular_items();
