@@ -162,7 +162,81 @@ function set_to_current_fase_procedure($field_args, $field  ) {
 	return dci_get_meta("procedure_collegate", "_dci_fase_", $field->object_id) ?? [];
 }
 
-new dci_bidirectional_cmb2("_dci_fase_", "fase", "procedure_collegate", "box_relazioni_inverse", "_dci_procedura_fasi");
+add_action( 'save_post_fase', 'dci_handle_fase_to_procedura_group_update', 10, 2 );
+
+function dci_handle_fase_to_procedura_group_update( $fase_id, $fase_post ) {
+    
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+        return;
+    }
+    if ( ! current_user_can( 'edit_post', $fase_id ) ) {
+        return;
+    }
+
+    $meta_key_fase_collegate  = '_dci_fase_procedure_collegate';
+    $meta_key_procedura_group = '_dci_procedura_fasi_raggruppate';
+    $sub_key_fase_id          = 'fase_selezionata';
+
+    // --- 1. OTTIENI NUOVE PROCEDURE (PULIZIA DELL'INPUT) ---
+    
+    $nuove_procedure_raw = isset( $_POST[ $meta_key_fase_collegate ] ) 
+        ? (array) $_POST[ $meta_key_fase_collegate ]
+        : array();
+        
+    $nuove_procedure_collegate = array_map( 'absint', $nuove_procedure_raw );
+    $nuove_procedure_collegate = array_filter( $nuove_procedure_collegate );
+
+    // --- 2. OTTIENI VECCHIE PROCEDURE E POST DA PROCESSARE ---
+    
+    $vecchie_procedure_collegate = (array) get_post_meta( $fase_id, $meta_key_fase_collegate, true );
+    $vecchie_procedure_collegate = array_map( 'absint', array_filter( $vecchie_procedure_collegate ) );
+    
+    $procedure_da_processare = array_unique(
+        array_merge( $vecchie_procedure_collegate, $nuove_procedure_collegate )
+    );
+    
+    // --- 3. CICLO DI AGGIORNAMENTO ---
+    
+    foreach ( $procedure_da_processare as $procedura_id ) {
+        
+        wp_cache_delete( $procedura_id, 'post_meta' );
+
+        $gruppo_fasi = get_post_meta( $procedura_id, $meta_key_procedura_group, true );
+        $gruppo_fasi = is_array( $gruppo_fasi ) ? $gruppo_fasi : array();
+        
+        $is_collegata_ora = in_array( $procedura_id, $nuove_procedure_collegate, true ); 
+        
+        $fase_trovata_precedentemente = false;
+        $gruppo_fasi_filtrato = [];
+        
+        foreach ( $gruppo_fasi as $row ) {
+            
+            $row_fase_id = isset( $row[ $sub_key_fase_id ] ) ? absint( $row[ $sub_key_fase_id ] ) : 0;
+            
+            if ( $row_fase_id === $fase_id ) {
+                
+                if ( $is_collegata_ora ) {
+                    $gruppo_fasi_filtrato[] = $row;
+                }
+                $fase_trovata_precedentemente = true;
+                
+            } else {
+                $gruppo_fasi_filtrato[] = $row;
+            }
+        }
+        
+        if ( $is_collegata_ora && ! $fase_trovata_precedentemente ) {
+            $gruppo_fasi_filtrato[] = [
+                $sub_key_fase_id      => $fase_id,
+                'dettagli_aggiuntivi' => '', 
+            ];
+        }
+        
+        update_post_meta( $procedura_id, $meta_key_procedura_group, $gruppo_fasi_filtrato );
+    }
+    
+    update_post_meta( $fase_id, $meta_key_fase_collegate, $nuove_procedure_collegate );
+}
 
 /**
  * Funzione di callback per formattare la colonna "Procedure Collegate" (bidirezionale).

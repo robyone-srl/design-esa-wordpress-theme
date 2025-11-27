@@ -436,7 +436,6 @@ function inserimento_info_prova() {
 
                 $indiciJson = $pagina['uo_collegata'];
             update_post_meta($post_id, '_dci_fase_unita_responsabile', $id_uo[$indiciJson[0]]);
-            update_post_meta($post_id, '_dci_fase_data_fase',$pagina['data_fase']);
             update_post_meta($post_id, '_dci_fase_titolo_fase',$pagina['titolo_fase']);
 
             echo "<br>Fase creata correttamente | ID: ".$post_id;
