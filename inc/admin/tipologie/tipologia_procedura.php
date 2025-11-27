@@ -153,7 +153,8 @@ function dci_add_procedura_metaboxes() {
         'name'      => 'Lista delle fasi',
         'desc'      => 'Seleziona le fasi della procedura. <br><a href="post-new.php?post_type=fase">Inserisci Fase</a>',
         'type'      => 'pw_multiselect',
-        'options' => dci_get_posts_options('fase'),
+        'options'   => dci_get_posts_options('fase'),
+        'default_cb' => 'set_to_current_procedure_fase',
         'attributes' => array(
             'placeholder' => __( 'Seleziona le fasi della procedura', 'design_comuni_italia')
         )
@@ -197,3 +198,77 @@ function dci_procedura_set_post_content( $data ) {
     return $data;
 }
 add_filter( 'wp_insert_post_data' , 'dci_procedura_set_post_content' , '99', 1 );
+
+/**
+ * Aggiunge la colonna "Fasi" alla tabella dell'elenco post per 'procedura'.
+ * Uso l'hook nativo di WordPress per assicurare che la colonna sia registrata.
+ */
+add_filter( 'manage_procedura_posts_columns', 'dci_set_custom_procedura_columns' );
+function dci_set_custom_procedura_columns( $columns ) {
+
+    $nome_colonna_target = 'title';
+
+    $new_columns = array();
+    foreach ( $columns as $key => $title ) {
+        $new_columns[ $key ] = $title;
+        if ( $nome_colonna_target === $key ) {
+            $new_columns['fasi'] = __( 'Fasi', 'design_comuni_italia' );
+        }
+    }    
+    return $new_columns;
+}
+
+/**
+ * Visualizza il contenuto per la colonna "Fasi" utilizzando il valore CMB2,
+ * includendo ora i link alla pagina di modifica di ciascuna fase.
+ */
+add_action( 'manage_procedura_posts_custom_column', 'dci_custom_procedura_column_content', 10, 2 );
+function dci_custom_procedura_column_content( $column, $post_id ) {
+    
+    if ( 'fasi' === $column ) {
+        
+        $meta_key = '_dci_procedura_fasi'; 
+        $field_value = get_post_meta( $post_id, $meta_key, true );
+        
+        if ( ! is_array( $field_value ) || empty( $field_value ) ) {
+            echo 'Nessuna fase collegata';
+            return;
+        }
+
+        $fase_links = array();
+        
+        foreach ( $field_value as $id ) {
+            $id = absint( $id ); 
+
+            if ( $id > 0 ) {
+                $title = get_the_title( $id );
+                
+                if ( $title ) {
+                    $edit_link = get_edit_post_link( $id );
+                    
+                    if ( $edit_link ) {
+                        $fase_links[] = sprintf(
+                            '<a href="%s">%s</a>',
+                            esc_url( $edit_link ),
+                            esc_html( $title )
+                        );
+                    } else {
+                        $fase_links[] = esc_html( $title );
+                    }
+                }
+            }
+        }
+        
+        if ( empty( $fase_links ) ) {
+            echo 'Nessuna fase collegata';
+        } else {
+            echo implode( ', ', $fase_links ); 
+        }
+    }
+}
+
+new dci_bidirectional_cmb2("_dci_procedura_", "procedura", "fasi", "box_cosa_serve", "_dci_fase_procedure_collegate");
+
+function set_to_current_procedure_fase($field_args, $field  ) {
+	return dci_get_meta("fasi", "_dci_fase_", $field->object_id) ?? [];
+}

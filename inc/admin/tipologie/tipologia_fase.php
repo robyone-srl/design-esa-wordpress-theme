@@ -139,4 +139,130 @@ function dci_add_fase_metaboxes() {
         ),
     ) );
 
+
+    //RELATIONSHIPS INVERSE: PROCEDURE COLLEGATE
+    $cmb_relazioni_inverse = new_cmb2_box( array(
+        'id'           => $prefix . 'box_relazioni_inverse',
+        'title'        => __( 'Procedure Collegate', 'design_comuni_italia' ),
+        'object_types' => array( 'fase' ),
+        'context'      => 'normal',
+        'priority'     => 'low',
+    ) );
+
+    $cmb_relazioni_inverse->add_field( array(
+        'id'           => $prefix . 'procedure_collegate',
+        'name'         => __( 'Procedure collegate a questa Fase', 'design_comuni_italia' ),
+        'desc'         => __( 'Queste sono le procedure in cui questa fase è stata selezionata', 'design_comuni_italia' ),
+        'type'         => 'pw_multiselect',
+        'options'      => dci_get_posts_options('procedura'),
+    ) );
+}
+
+function set_to_current_fase_procedure($field_args, $field  ) {
+	return dci_get_meta("procedure_collegate", "_dci_fase_", $field->object_id) ?? [];
+}
+
+new dci_bidirectional_cmb2("_dci_fase_", "fase", "procedure_collegate", "box_relazioni_inverse", "_dci_procedura_fasi");
+
+/**
+ * Funzione di callback per formattare la colonna "Procedure Collegate" (bidirezionale).
+ * Prende l'array di ID dalla relazione bidirezionale e li trasforma in link cliccabili.
+ */
+function dci_fase_procedure_collegate_column_format( $field_value, $field_args, $field ) {
+    if ( ! is_array( $field_value ) || empty( $field_value ) ) {
+        return '';
+    }
+
+    $procedure_links = array();
+    
+    foreach ( $field_value as $p_id ) {
+        $id = absint( $p_id ); 
+
+        if ( $id > 0 ) {
+            $title = get_the_title( $id );
+            
+            if ( $title ) {
+                $edit_link = get_edit_post_link( $id );
+                
+                if ( $edit_link ) {
+                    $procedure_links[] = sprintf(
+                        '<a href="%s">%s</a>',
+                        esc_url( $edit_link ),
+                        esc_html( $title )
+                    );
+                } else {
+                    $procedure_links[] = esc_html( $title );
+                }
+            }
+        }
+    }
+    
+    return implode( ', ', $procedure_links ); 
+}
+
+/**
+ * 1. Registra la colonna "Come fare per" nella tabella delle Fasi.
+ * Hook: manage_fase_posts_columns
+ */
+add_filter( 'manage_fase_posts_columns', 'dci_set_fase_inverse_columns' );
+function dci_set_fase_inverse_columns( $columns ) {
+
+    $nome_colonna_target = 'author';
+
+    $new_columns = array();
+    foreach ( $columns as $key => $title ) {
+        $new_columns[ $key ] = $title;
+        
+        if ( $nome_colonna_target === $key ) { 
+            $new_columns['procedure_collegate_inv'] = __( 'Come fare per', 'design_comuni_italia' );
+        }
+    }
+    
+    return $new_columns;
+}
+
+/**
+ * 2. Visualizza il contenuto per la colonna "Come fare per".
+ * Hook: manage_fase_posts_custom_column
+ */
+add_action( 'manage_fase_posts_custom_column', 'dci_render_fase_inverse_column_content', 10, 2 );
+function dci_render_fase_inverse_column_content( $column, $post_id ) {
+    
+    if ( 'procedure_collegate_inv' === $column ) {
+        
+        $meta_key = '_dci_fase_procedure_collegate'; 
+
+        $field_value = get_post_meta( $post_id, $meta_key, true );
+        
+        if ( ! is_array( $field_value ) || empty( $field_value ) ) {
+            echo '';
+            return;
+        }
+
+        $procedure_links = array();
+        
+        foreach ( $field_value as $p_id ) {
+            $id = absint( $p_id ); 
+
+            if ( $id > 0 ) {
+                $title = get_the_title( $id );
+                
+                if ( $title ) {
+                    $edit_link = get_edit_post_link( $id );
+                    
+                    if ( $edit_link ) {
+                        $procedure_links[] = sprintf(
+                            '<a href="%s">%s</a>',
+                            esc_url( $edit_link ),
+                            esc_html( $title )
+                        );
+                    } else {
+                        $procedure_links[] = esc_html( $title );
+                    }
+                }
+            }
+        }
+        
+        echo implode( ', ', $procedure_links ); 
+    }
 }

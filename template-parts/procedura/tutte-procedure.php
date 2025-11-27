@@ -6,16 +6,6 @@ $load_posts = 4;
 
 $query = isset($_GET['search']) ? dci_removeslashes($_GET['search']) : null;
 
-$post_types = array();
-if (isset($_GET["post_types"])) {
-    $post_types = $_GET["post_types"];
-}
-
-$post_terms = array();
-if (isset($_GET["post_terms"])) {
-    $post_terms = $_GET["post_terms"];
-}
-
 $args = array(
     's'              => $query,
     'posts_per_page' => $max_posts,
@@ -23,20 +13,6 @@ $args = array(
     'orderby'        => 'post_title',
     'order'          => 'ASC'
 );
-
-if (!empty($post_types)) {
-    $args['post_type'] = $post_types;
-}
-
-if (!empty($post_terms)) {
-    $args['tax_query'] = array(
-        array(
-            'taxonomy' => 'argomenti',
-            'field'    => 'id',
-            'terms'    => $post_terms
-        )
-    );
-}
 
 $the_query = new WP_Query($args);
 
@@ -101,14 +77,13 @@ $the_query = new WP_Query($args);
                                     <?php 
                                     if ($the_query->have_posts()) :
                                         while ($the_query->have_posts()) :
-			                                    $the_query->the_post();
-                                                $procedura = get_post();
+			                                $procedura = $the_query->the_post();
+                                            $procedura = get_post();
 
-                                                $load_card_type = "procedura";  ?>
-                                                <div class="col-12 col-lg-6">  <?php
-                                                    $mostra_dettagli_procedura = true;
-                                                    get_template_part("template-parts/procedura/card"); ?>
-                                                </div>  <?php
+                                            $load_card_type = "procedura";
+                                            
+                                            $mostra_dettagli_procedura = true;
+                                            get_template_part("template-parts/procedura/card");
 		                                endwhile;
                                     endif; 
 
