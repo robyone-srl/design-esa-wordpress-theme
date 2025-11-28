@@ -174,22 +174,55 @@ function dci_add_procedura_metaboxes() {
     ) );
 
     $cmb_cosa_serve->add_group_field( $group_field_id, array(
-        'id'          => 'dettagli_aggiuntivi',
-        'name'        => 'Intervallo giorni',
-        'desc'        => 'Aggiungi Intervallo giorni.',
-        'type'       => 'text_date',
-        'date_format' => 'd-m-Y',
+        'id'          => 'type_date',
+        'name'        => 'Tipo di data per la scadenza delle attivit&agrave',
+        'type' => 'radio',
+        'show_option_none' => false,
+        'default'     => 'days',
+        'options'          => array(
+            'days'   => __( 'Scadenza per giorni', 'cmb2' ),
+            'calendar' => __( 'Scadenza per calendario', 'cmb2' ),
+        ),
     ) );
 
-    $cmb_cosa_serve->add_field( array(
-        'id'         => $prefix . 'fasi_bidirezionali',
-        'name'       => 'Lista ID Fasi',
-        'type'       => 'pw_multiselect', 
-        'options'    => dci_get_posts_options('fase'),
-    
-        'hookup' => 'cmb2_save_field_proc', 
-    
-        'show_on_cb' => '__return_false',
+    $cmb_cosa_serve->add_group_field( $group_field_id, array(
+        'name'       => 'Data di scadenza dell\'attivit&agrave;',
+        'desc'       => 'Scadenza dell\'attivit&agrave;',
+        'id'         => 'scadenza_fase',
+        'type'       => 'text_date',
+        'date_format' => 'd-m-Y',
+        'attributes' => array(
+            'data-conditional-id' => 'type_date',
+            'data-conditional-value'  => 'calendar',
+        ),
+    ) );
+
+    $cmb_cosa_serve->add_group_field( $group_field_id, array(
+        'id'          => 'count_giorni',
+        'name'        => 'Durata prevista per l\'esecuzione dell\'attivit&agrave; (in giorni)',
+        'desc'        => 'Aggiungi termine in giorni (non verra mostrato se vuoto)',
+        'type' => 'text_small',
+        'attributes' => array(
+            'type' => 'number',
+            'data-conditional-id' => 'type_date',
+            'data-conditional-value'  => 'days',
+        ),
+    ) );
+
+    $cmb_cosa_serve->add_group_field( $group_field_id, array(
+        'id'          => 'type_count_giorni',
+        'name'        => 'Riferimento per il calcolo dei giorni della durata',
+        'desc'        => 'Verr&agrave; mostrata di fianco ai giorni qualora compilati',
+        'type' => 'radio',
+        'show_option_none' => false,
+        'options'          => array(
+            'fase' => __( 'Termine dalla fase precedente', 'cmb2' ),
+            'totale'   => __( 'Inizio della procedura', 'cmb2' ),
+        ),
+        'attributes' => array(
+            'data-conditional-id' => 'type_date',
+            'data-conditional-value'  => 'days',
+        ),
     ) );
 
     //Ulteriori info
@@ -215,9 +248,12 @@ function dci_add_procedura_metaboxes() {
 
  }
 
-function dci_extract_fasi_from_group( $post_id ) {
+function dci_extract_fasi_from_post_data( $post_data ) {
     $fasi_ids = array();
-    $fasi_group = get_post_meta( $post_id, '_dci_procedura_fasi_raggruppate', true );
+    $meta_key_gruppo = '_dci_procedura_fasi_raggruppate';
+    
+    $fasi_group = isset( $post_data[$meta_key_gruppo] ) ? $post_data[$meta_key_gruppo] : array();
+    
     if ( is_array( $fasi_group ) && ! empty( $fasi_group ) ) {
         foreach ( $fasi_group as $fase_row ) {
             if ( ! empty($fase_row['fase_selezionata']) ) {
@@ -228,41 +264,39 @@ function dci_extract_fasi_from_group( $post_id ) {
     return array_filter( array_unique( $fasi_ids ) );
 }
 
+
 add_action( 'save_post_procedura', 'dci_update_bidirectional_fasi_field', 10, 2 );
 
+/**
+ * Gestisce l'aggiornamento bidirezionale (Procedura -> Fase) utilizzando i Transients.
+ */
 function dci_update_bidirectional_fasi_field( $procedura_id, $procedura_post ) {
     
-    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-        return;
-    }
-    if ( ! current_user_can( 'edit_post', $procedura_id ) ) {
-        return;
-    }
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) { return; }
+    if ( ! current_user_can( 'edit_post', $procedura_id ) ) { return; }
 
     $meta_key_fase_inversa = '_dci_fase_procedure_collegate';
-    
     $procedura_id = absint( $procedura_id );
 
-    $vecchi_fasi_ids = (array) get_post_meta( $procedura_id, '_dci_procedura_fasi_bidirezionali', true );
-    $vecchi_fasi_ids = array_map( 'absint', array_filter( $vecchi_fasi_ids ) );
-    
-    $nuovi_fasi_ids = dci_extract_fasi_from_group( $procedura_id );
+    $nuovi_fasi_ids = dci_extract_fasi_from_post_data( $_POST );
 
-    update_post_meta( $procedura_id, '_dci_procedura_fasi_bidirezionali', $nuovi_fasi_ids );
+    $vecchi_fasi_ids_group = (array) get_post_meta( $procedura_id, '_dci_procedura_fasi_raggruppate', true );
+    $vecchi_fasi_ids = dci_extract_fasi_from_post_data( ['_dci_procedura_fasi_raggruppate' => $vecchi_fasi_ids_group] );
 
     $fasi_da_processare = array_unique( array_merge( $vecchi_fasi_ids, $nuovi_fasi_ids ) );
 
     foreach ( $fasi_da_processare as $fase_id ) {
         
         $collegamenti_inversi = (array) get_post_meta( $fase_id, $meta_key_fase_inversa, true );
-        $collegamenti_inversi = array_map( 'absint', array_filter( $collegamenti_inversi ) ); 
+        $collegamenti_inversi = array_map( 'absint', array_filter( $collegamenti_inversi ) );
     
         $e_ancora_collegata = in_array( $fase_id, $nuovi_fasi_ids, true );
+        $procedura_id_int = absint($procedura_id);
 
-        $key = array_search( $procedura_id, $collegamenti_inversi, true );
+        $key = array_search( $procedura_id_int, $collegamenti_inversi, true );
 
         if ( $e_ancora_collegata && $key === false ) {
-            $collegamenti_inversi[] = $procedura_id;
+            $collegamenti_inversi[] = $procedura_id_int;
         
         } elseif ( ! $e_ancora_collegata && $key !== false ) {
             unset( $collegamenti_inversi[ $key ] );

@@ -62,6 +62,7 @@ function dci_add_fase_metaboxes() {
             'required'            => true
         )
     ) );
+    
     $cmb_dati->add_field( array(
         'name'       => __('Data', 'design_comuni_italia' ),
         'desc'       => __('Data', 'design_comuni_italia' ),
@@ -69,7 +70,7 @@ function dci_add_fase_metaboxes() {
         'type'       => 'text_date',
         'date_format' => 'd-m-Y',
     ) );
-
+    
     $cmb_dati->add_field(array(
         'name'       => __('Descrizione', 'design_comuni_italia' ),
         'id'         => $prefix . 'desc_fase',
@@ -166,54 +167,42 @@ add_action( 'save_post_fase', 'dci_handle_fase_to_procedura_group_update', 10, 2
 
 function dci_handle_fase_to_procedura_group_update( $fase_id, $fase_post ) {
     
-    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-        return;
-    }
-    if ( ! current_user_can( 'edit_post', $fase_id ) ) {
-        return;
-    }
+    $fase_id_int = absint($fase_id);
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) { return; }
+    if ( ! current_user_can( 'edit_post', $fase_id ) ) { return; }
 
     $meta_key_fase_collegate  = '_dci_fase_procedure_collegate';
     $meta_key_procedura_group = '_dci_procedura_fasi_raggruppate';
     $sub_key_fase_id          = 'fase_selezionata';
 
-    // --- 1. OTTIENI NUOVE PROCEDURE (PULIZIA DELL'INPUT) ---
-    
     $nuove_procedure_raw = isset( $_POST[ $meta_key_fase_collegate ] ) 
         ? (array) $_POST[ $meta_key_fase_collegate ]
-        : array();
-        
-    $nuove_procedure_collegate = array_map( 'absint', $nuove_procedure_raw );
-    $nuove_procedure_collegate = array_filter( $nuove_procedure_collegate );
+        : array(); 
+    $nuove_procedure_collegate = array_filter( array_map( 'absint', $nuove_procedure_raw ) );
 
-    // --- 2. OTTIENI VECCHIE PROCEDURE E POST DA PROCESSARE ---
-    
-    $vecchie_procedure_collegate = (array) get_post_meta( $fase_id, $meta_key_fase_collegate, true );
-    $vecchie_procedure_collegate = array_map( 'absint', array_filter( $vecchie_procedure_collegate ) );
+    $vecchie_procedure_collegate = array_filter( array_map( 'absint', (array) get_post_meta( $fase_id, $meta_key_fase_collegate, true ) ) );
     
     $procedure_da_processare = array_unique(
         array_merge( $vecchie_procedure_collegate, $nuove_procedure_collegate )
     );
     
-    // --- 3. CICLO DI AGGIORNAMENTO ---
-    
     foreach ( $procedure_da_processare as $procedura_id ) {
         
-        wp_cache_delete( $procedura_id, 'post_meta' );
-
+        wp_cache_delete( $procedura_id, 'post_meta' ); 
+        
         $gruppo_fasi = get_post_meta( $procedura_id, $meta_key_procedura_group, true );
         $gruppo_fasi = is_array( $gruppo_fasi ) ? $gruppo_fasi : array();
         
         $is_collegata_ora = in_array( $procedura_id, $nuove_procedure_collegate, true ); 
         
         $fase_trovata_precedentemente = false;
-        $gruppo_fasi_filtrato = [];
+        $gruppo_fasi_filtrato = []; 
         
         foreach ( $gruppo_fasi as $row ) {
             
             $row_fase_id = isset( $row[ $sub_key_fase_id ] ) ? absint( $row[ $sub_key_fase_id ] ) : 0;
             
-            if ( $row_fase_id === $fase_id ) {
+            if ( (string) $row_fase_id === (string) $fase_id_int ) {
                 
                 if ( $is_collegata_ora ) {
                     $gruppo_fasi_filtrato[] = $row;
@@ -228,7 +217,10 @@ function dci_handle_fase_to_procedura_group_update( $fase_id, $fase_post ) {
         if ( $is_collegata_ora && ! $fase_trovata_precedentemente ) {
             $gruppo_fasi_filtrato[] = [
                 $sub_key_fase_id      => $fase_id,
-                'dettagli_aggiuntivi' => '', 
+                'count_giorni' => '',
+                'type_count_giorni' => '',
+                'scadenza_fase' => '',
+                'type_date' => '',
             ];
         }
         
@@ -237,7 +229,6 @@ function dci_handle_fase_to_procedura_group_update( $fase_id, $fase_post ) {
     
     update_post_meta( $fase_id, $meta_key_fase_collegate, $nuove_procedure_collegate );
 }
-
 /**
  * Funzione di callback per formattare la colonna "Procedure Collegate" (bidirezionale).
  * Prende l'array di ID dalla relazione bidirezionale e li trasforma in link cliccabili.
