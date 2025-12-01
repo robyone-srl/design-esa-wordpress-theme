@@ -129,17 +129,17 @@ get_header();
                                                                     </a>
                                                                 </li>
                                                             <?php } ?>
-                                                            <?php if (!empty($unita_responsabile)) { ?>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" href="#responsible-unit">
-                                                                        <span>Unit&agrave; responsabile</span>
-                                                                    </a>
-                                                                </li>
-                                                            <?php } ?>
                                                             <?php if (!empty($punti_contatto)) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#contact-points">
                                                                         <span>Punti di contatto</span>
+                                                                    </a>
+                                                                </li>
+                                                            <?php } ?>
+                                                            <?php if (!empty($unita_responsabile)) { ?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#responsible-unit">
+                                                                        <span>Unit&agrave; responsabile</span>
                                                                     </a>
                                                                 </li>
                                                             <?php } ?>
@@ -389,21 +389,6 @@ get_header();
                         <?php
                         } ?>
 
-                        <?php if (!empty($unita_responsabile)) { ?>
-                            <section class="it-page-section mb-30">
-                                <h2 class="h3 mb-3" id="responsible-unit">Unit&agrave; Responsabile </h2>
-                                <div class="row g-4">
-                                    <div class="col-lg-6 col-md-12"> <?php
-                                        $uo_id = $unita_responsabile;
-                                        $with_border = true;
-                                        $no_vertical_margin = true;
-                                        get_template_part("template-parts/unita-organizzativa/card-full"); ?>
-                                    </div>
-                                </div>
-                            </section>
-                        <?php
-                        } ?>
-
                         <?php if (!empty($punti_contatto)) { ?>
                             <section class="it-page-section mb-30">
                                 <h2 class="h3 mb-3" id="contact-points">Punti di Contatto</h2>
@@ -416,6 +401,21 @@ get_header();
                                             get_template_part("template-parts/punto-contatto/card"); ?>
                                         </div>
                                     <?php } ?>
+                                </div>
+                            </section>
+                        <?php
+                        } ?>
+
+                        <?php if (!empty($unita_responsabile)) { ?>
+                            <section class="it-page-section mb-30">
+                                <h2 class="h3 mb-3" id="responsible-unit">Unit&agrave; Responsabile </h2>
+                                <div class="row g-4">
+                                    <div class="col-lg-6 col-md-12"> <?php
+                                        $uo_id = $unita_responsabile;
+                                        $with_border = true;
+                                        $no_vertical_margin = true;
+                                        get_template_part("template-parts/unita-organizzativa/card-full"); ?>
+                                    </div>
                                 </div>
                             </section>
                         <?php
