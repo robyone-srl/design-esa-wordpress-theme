@@ -18,8 +18,10 @@
 				tolerance  : 'pointer',
 				stop       : function () {
 					$($(ul).find('.select2-selection__choice').get().reverse()).each(function () {
-						var id = $(this).data('data').id;
-						var option = select.find('option[value="' + id + '"]')[0];
+						var title = $(this).attr('title');
+						var option = $('option', select).filter(function() {
+							return $(this).text() == title;
+						});					
 						$(select).prepend(option);
 					});
 				}
