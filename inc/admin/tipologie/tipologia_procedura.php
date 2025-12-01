@@ -246,6 +246,53 @@ function dci_add_procedura_metaboxes() {
         ),
     ) );
 
+    //Servizi inclusi
+    $cmb_informazioni->add_field( array(
+        'id' => $prefix . 'servizi_inclusi',
+        'name'    => __( 'Servizi inclusi ', 'design_comuni_italia' ),
+        'desc' => __( 'Seleziona i servizi riguardanti questa procedura' , 'design_comuni_italia' ),
+        'type'    => 'pw_multiselect',
+        'options' => dci_get_posts_options('servizio'),
+        'attributes' => array(
+            'placeholder' =>  __( 'Seleziona i servizi inclusi', 'design_comuni_italia' ),
+        )
+    ) );
+
+    //DOCUMENTI
+    $cmb_informazioni->add_field( array(
+        'id' => $prefix . 'documenti',
+        'name'        => __( 'Documenti', 'design_comuni_italia' ),
+        'desc' => __( 'Link alle schede documenti correlati.' , 'design_comuni_italia' ),
+        'type'    => 'pw_multiselect',
+        'options' => dci_get_posts_options('documento_pubblico'),
+        'attributes' => array(
+            'placeholder' =>  __( 'Seleziona i Documenti Pubblici', 'design_comuni_italia' ),
+        ),
+    ) );
+
+    //Contatti
+    $cmb_informazioni->add_field( array(
+        'id'        => $prefix . 'unita_responsabile',
+        'name'      => 'Unit&agrave; Organizzativa responsabile',
+        'desc'      => 'Link dell\'ufficio resposanbile' ,
+        'type'      => 'pw_select',
+        'options'   => dci_get_posts_options('unita_organizzativa'),
+        'attributes' => array(
+            'placeholder'   =>  'Seleziona le Unit&agrave; Organizzative',
+        )
+    ) );
+
+    $cmb_informazioni->add_field( array(
+        'id'        => $prefix . 'punti_contatto',
+        'name'      => 'Contatti dedicati',
+        'desc'      => 'Telefono, mail o altri punti di contatto a cui rivolgersi per ulteriori informazioni',
+        'type'      => 'pw_multiselect',
+        'options'   => dci_get_posts_options('punto_contatto'),
+        'attributes'    => array(
+            'placeholder' =>  'Seleziona i Punti di Contatto',
+        ),
+    ) );
+
  }
 
 function dci_extract_fasi_from_post_data( $post_data ) {

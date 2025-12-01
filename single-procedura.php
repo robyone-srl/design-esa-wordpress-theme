@@ -28,6 +28,10 @@ get_header();
         $argomenti = get_the_terms($post, 'argomenti');
         $fasi_gruppo = dci_get_meta("fasi_raggruppate");
 
+        $servizi_inclusi = dci_get_meta("servizi_inclusi");
+        $documenti = dci_get_meta("documenti");
+        $unita_responsabile = dci_get_meta("unita_responsabile");
+        $punti_contatto = dci_get_meta("punti_contatto");
 
     ?>
         <div class="container" id="main-container">
@@ -111,6 +115,34 @@ get_header();
                                                                     </a>
                                                                 </li>
                                                             <?php } ?>
+                                                            <?php if (!empty($servizi_inclusi)) { ?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#included-services">
+                                                                        <span>Servizi inclusi</span>
+                                                                    </a>
+                                                                </li>
+                                                            <?php } ?>
+                                                            <?php if (!empty($documenti)) { ?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#included-documents">
+                                                                        <span>Documenti</span>
+                                                                    </a>
+                                                                </li>
+                                                            <?php } ?>
+                                                            <?php if (!empty($unita_responsabile)) { ?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#responsible-unit">
+                                                                        <span>Unit&agrave; responsabile</span>
+                                                                    </a>
+                                                                </li>
+                                                            <?php } ?>
+                                                            <?php if (!empty($punti_contatto)) { ?>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="#contact-points">
+                                                                        <span>Punti di contatto</span>
+                                                                    </a>
+                                                                </li>
+                                                            <?php } ?>
                                                             <?php if ($more_info) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#more-info">
@@ -188,9 +220,9 @@ get_header();
                                     ) {
                                         $riferimento = '';
                                         if ($type_count_giorni === 'fase') {
-                                            $riferimento = ' giorni dopo la scadenza dell\'attivit&agrave; precedente.';
+                                            $riferimento = '  dopo la scadenza dell\'attivit&agrave; precedente.';
                                         } elseif ($type_count_giorni === 'totale') {
-                                            $riferimento = ' giorni dopo l\'inizio della procedura.';
+                                            $riferimento = '  dall\'inizio della procedura.';
                                         }
                                         $mostra_intervallo = " {$count_giorni} giorni{$riferimento}";
                                     }
@@ -222,16 +254,6 @@ get_header();
                                                         <p class="info-text mb-0">
                                                             <?php echo dci_get_meta('desc_fase', '_dci_fase_', $fase->ID); ?>
                                                         </p> <?php 
-
-
-                                                        if(!empty($mostra_intervallo) || !empty($mostra_data_fase)){?>
-                                                            <h5 class="title mt-3"> Tempistiche attivit&agrave;</h5>
-                                                            <?php if (!empty($mostra_intervallo)) { ?>
-                                                                <p class="info-text mb-0"><?php echo 'L\'attivit&agrave; scade' . $mostra_intervallo; ?></p>
-                                                            <?php } elseif (!empty($mostra_data_fase)) { ?>
-                                                                <p class="info-text mb-0"><?php echo 'Scadenza fissata al: ' . $data_fase_val; ?></p>
-                                                            <?php } ?>
-                                                        <?php }
 
                                                         $servizi_inclusi_id = dci_get_meta('servizi_inclusi', '_dci_fase_', $fase->ID);
 
@@ -319,18 +341,86 @@ get_header();
                                                                 </div>
                                                             </div> 
                                                         <?php } 
+
+                                                        if(!empty($mostra_intervallo) || !empty($mostra_data_fase)){?>
+                                                            <h5 class="title mt-3"> Tempistiche attivit&agrave;</h5>
+                                                            <?php if (!empty($mostra_intervallo)) { ?>
+                                                                <p class="info-text mb-0"><?php echo 'L\'attivit&agrave; scade' . $mostra_intervallo; ?></p>
+                                                            <?php } elseif (!empty($mostra_data_fase)) { ?>
+                                                                <p class="info-text mb-0"><?php echo 'Scadenza fissata al: ' . $data_fase_val; ?></p>
+                                                            <?php } ?>
+                                                        <?php }
                                                     } ?>
                                                 </div>
                                             </div>
                                         </div>
                                     </div> <?php 
                                     $n_fase++;
-                                }
-                            } ?>
-                        </section>
-                        <?php } ?>                                        
-                        <section class="it-page-section">
+                                } } ?>
+                            </section>
+                        <?php } ?>         
+                        <?php if (!empty($servizi_inclusi)) { ?>
+                            <section class="it-page-section mb-30">
+                                <h2 class="h3 mb-3" id="included-services">Servizi collegati</h2>
+                                <div class="row g-4">
+                                    <?php foreach ($servizi_inclusi as $servizio_Id) { 
+                                        $servizio = get_post($servizio_Id); ?>
+                                        <div class="col-lg-6 col-md-12"> <?php
+                                                    $mostra_dettagli_servizi  = 'estesa';
+                                                    get_template_part("template-parts/servizio/card"); ?>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+                            </section>
+                        <?php } ?>
 
+                        <?php if (!empty($documenti)) { ?>
+                            <section class="it-page-section mb-30">
+                                <h2 class="h3 mb-3" id="included-documents">Documenti</h2>
+                                <div class="row g-4">
+                                    <?php foreach ($documenti as $documento_Id) {
+                                        $documento = get_post($documento_Id); ?>
+                                        <div class="col-lg-6 col-md-12"> <?php
+                                                    get_template_part("template-parts/documento/card"); ?>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+                            </section>
+                        <?php
+                        } ?>
+
+                        <?php if (!empty($unita_responsabile)) { ?>
+                            <section class="it-page-section mb-30">
+                                <h2 class="h3 mb-3" id="responsible-unit">Unit&agrave; Responsabile </h2>
+                                <div class="row g-4">
+                                    <div class="col-lg-6 col-md-12"> <?php
+                                        $uo_id = $unita_responsabile;
+                                        $with_border = true;
+                                        $no_vertical_margin = true;
+                                        get_template_part("template-parts/unita-organizzativa/card-full"); ?>
+                                    </div>
+                                </div>
+                            </section>
+                        <?php
+                        } ?>
+
+                        <?php if (!empty($punti_contatto)) { ?>
+                            <section class="it-page-section mb-30">
+                                <h2 class="h3 mb-3" id="contact-points">Punti di Contatto</h2>
+                                <div class="row g-4">
+                                    <?php foreach ($punti_contatto as $pc_id) { ?>
+                                        <div class="col-lg-6 col-md-12"> <?php
+                                            $contatto = get_post($pc_id);
+                                            $with_border = true;
+                                            $no_vertical_margin = true;
+                                            get_template_part("template-parts/punto-contatto/card"); ?>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+                            </section>
+                        <?php
+                        } ?>
+                        <section class="it-page-section">
                             <?php if ($more_info) {  ?>
                                 <section class="it-page-section mb-30">
                                     <h2 class="h3 mb-3" id="more-info">Ulteriori informazioni</h2>
