@@ -1,5 +1,5 @@
 <?php
-global $argomento, $first_printed, $grey_background;
+global $argomento, $first_printed, $grey_background, $hideType;
 
 $posts = dci_get_grouped_posts_by_term('luoghi', 'argomenti', $argomento->slug, -1);
 

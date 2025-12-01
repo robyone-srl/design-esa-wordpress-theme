@@ -8,7 +8,7 @@
  * @package Design_Comuni_Italia
  */
 
-global $argomento, $with_border, $uo_id, $custom_class;
+global $argomento, $with_border, $uo_id, $custom_class, $hideType;
 
 $argomento = get_queried_object();
 $img = dci_get_term_meta('immagine', "dci_term_", $argomento->term_id);
@@ -102,7 +102,8 @@ get_header();
             break;
 
         case 'search' :
-        $visualizzazione = 'search';
+       		$visualizzazione = 'search';
+            break;
     }
 
     $showEmptyMessage = false;
@@ -115,6 +116,7 @@ get_header();
         } else {
             $first_printed = false;
             $grey_background = true;
+			      $hideType = true;
             get_template_part("template-parts/argomento/notizie-detail");
             get_template_part("template-parts/argomento/eventi-detail");
             get_template_part("template-parts/argomento/domande-frequenti");

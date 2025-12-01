@@ -175,7 +175,9 @@ get_header();
                                                                 <?php if ($servizi_privati || (is_array($servizi) && count($servizi))) { ?>
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" href="#servizi">
-                                                                            <span>Servizi presenti</span>
+                                                                            <span>
+																			<?php echo ($servizi_privati || (!empty($servizi) && is_array($servizi) && count($servizi) > 1)) ? "Servizi presenti" : "Servizio erogato"; ?>
+																			</span>
                                                                         </a>
                                                                     </li>
                                                                 <?php } ?>
@@ -321,14 +323,12 @@ get_header();
                             <?php if ($servizi_privati || (is_array($servizi) && count($servizi))) { ?>
                                 <section id="servizi" class="it-page-section mb-4"> <?php 
                                     
-                                    if (!empty($servizi) &&  is_array($servizi) && count($servizi)) {  ?>
-                                        <h2 class="h3 my-2">Servizi presenti nel luogo</h2> <?php
-                                        if(count($servizi)>1){?>
-                                            <p>In questo luogo vengono erogati <?php echo count($servizi); ?> servizi.</p> <?php
-                                        }else{?>
-                                            <p>In questo luogo viene erogato 1 servizio.</p> <?php
-                                        }?>
-                                            <a class="btn btn-primary btn-icon btn-xs mb-3" data-bs-toggle="collapse" href="#collapseServiziPresenti" role="button" aria-expanded="false" aria-controls="collapseServiziPresenti">
+                                    if ($servizi_privati || (!empty($servizi) && is_array($servizi) && count($servizi) > 1)) { 
+										?><h2 class="h3 my-2">Servizi presenti</h2><?php
+                                        if(count($servizi)>1) { ?>
+                                            <p>In questo luogo vengono erogati <?php echo count($servizi); ?> servizi.</p>
+									
+											<a class="btn btn-primary btn-icon btn-xs mb-3" data-bs-toggle="collapse" href="#collapseServiziPresenti" role="button" aria-expanded="false" aria-controls="collapseServiziPresenti">
 											    Mostra i servizi presenti 
                                                 <svg class="icon icon-white ms-5 chevron"><use href="#it-expand"></use></svg>
 											</a>
@@ -348,17 +348,33 @@ get_header();
 													} ?>
 											    </div>
 										    </div>
-									
-									<?php
-                                        
-							        }
+										<?php
+                                        }
+										
+										if ($servizi_privati) { 
+												if(is_array($servizi) && count($servizi)){ 
+													?><h3 class="h4 mt-4">Altri servizi</h3><?php
+												}
+												?><div class="richtext-wrapper lora"><?php echo $servizi_privati ?></div><?php
+                                    	}
+									} else if (!empty($servizi) && is_array($servizi) && count($servizi)) { ?>
+											<h2 class="h3 my-2">Servizio erogato</h2> 
+											<p>Nella scheda trovi tutte le informazioni sul servizio a cui questo ambiente è dedicato.</p>
 
-                                    if ($servizi_privati) { 
-                                        if(is_array($servizi) && count($servizi)){ ?> <h3 class="h4 mt-4">Altri servizi</h3> <?php } ?>
-                                        <div class="richtext-wrapper lora">
-                                            <?php echo $servizi_privati ?>
-                                        </div>
-                                    <?php } ?>
+											<div class="row g-4">
+												<?php foreach ($servizi as $servizio_id) { ?>
+												<div class="col-lg-6 col-md-12">
+													<?php
+													$servizio = get_post($servizio_id);
+													$with_map = false;
+													if($tipo_visualizzazione_servizi == 'enabled' || $tipo_visualizzazione_servizi == 'disabled'){
+														get_template_part("template-parts/servizio/card");
+													} else
+														get_template_part("template-parts/servizio/card-con-icona");?>
+												</div> <?php 
+												} ?>
+											</div>
+									<?php } ?>
                                 </section>
                             <?php } ?>
 
