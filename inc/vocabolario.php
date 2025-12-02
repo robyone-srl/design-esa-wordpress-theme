@@ -6,36 +6,24 @@
 if(!function_exists("dci_argomenti_array")){
     function dci_argomenti_array() {
         $argomenti_arr = [
-            "Accesso all'informazione",
             "Accoglienza",
             "Aiuto a domicilio",
-            "Anzianità",
             "Anziano",
-            "Appalto di lavori",
             "Assistenza agli anziani",
-            "Assistenza sanitaria",
-            "Assistenza sociale",
-            "Assunzione",
-            "Bilancio",
             "Cittadino",
             "Comunicazione istituzionale",
-            "Concorsi",
-            "Contratto pubblico",
             "Covid-19",
             "Cure palliative",
-            "Famiglia",
-            "Formazione del personale",
+            "Familiare",
             "Lavoro",
+            "Lavoratore",
             "Ospite",
             "Pagamenti",
-            "Protezione dei dati / Privacy",
-            "Qualità del prodotto",
+            "Protezione dei dati personali",
+            "Qualità",
             "Servizio civile",
-            "Sicurezza degli edifici",
-            "Sicurezza del lavoro",
-            "Transizione digitale",
             "Trasparenza amministrativa",
-            "Vita sociale",
+            "Volontario",
             "Volontariato",
         ];
         return $argomenti_arr;
@@ -53,15 +41,7 @@ if(!function_exists("dci_tipi_unita_organizzativa_array")){
                 'ufficio'
             ],
             'struttura di governo e controllo',
-            'altra struttura' => [
-                'biblioteca',
-                'museo',
-                'azienda partecipata',
-                'ente',
-                'fondazione',
-                'scuola',
-                'centro culturale',
-            ]
+            'altra struttura'
         ];
         return $tipi_unita_organizzativa_arr;
     }
@@ -73,10 +53,8 @@ if(!function_exists("dci_tipi_unita_organizzativa_array")){
 if(!function_exists("dci_categorie_servizio_array")){
     function dci_categorie_servizio_array() {
         $categorie_servizio_arr = [
-            'Servizi socio-assistenziali',
-			'Assistenza amministrativa',
-			'Servizi integrativi',
-			'Servizi aggiuntivi'
+            'Servizi per gli ospiti',
+            'Servizi socio-assistenziali'
         ];
         return $categorie_servizio_arr;
     }
@@ -104,60 +82,6 @@ if(!function_exists("dci_licenze_array")){
     }
 }
 
-/**
- * Classificazione dei Temi dei dati secondo il Vocabolario Controllato Temi dei dati
- */
-if(!function_exists("dci_temi_dataset_array")){
-    function dci_temi_dataset_array() {
-        $temi_dataset_arr = [
-            'Acquisti',
-            'Socio-assistenza',
-            'Economia e finanze'
-        ];
-        return $temi_dataset_arr;
-    }
-}
-
-/**
- * Classificazione della Frequenza di aggiornamento secondo il Vocabolario Controllato Frequenza
- */
-if(!function_exists("dci_frequenze_aggiornamento_array")){
-    function dci_frequenze_aggiornamento_array() {
-        $frequenze_aggiornamento_arr = [
-            'altro',
-            'annuale',
-            'bidecennale',
-            'biennale',
-            'bimensile',
-            'bimestrale',
-            'bisettimanale',
-            'continuo',
-            'decennale',
-            'due volte al giorno',
-            'in continuo aggiornamento',
-            'irregolare',
-            'mai',
-            'mensile',
-            'ogni cinque anni',
-            'ogni due ore',
-            'ogni ora',
-            'ogni quattro anni',
-            'ogni tre ore',
-            'quindicinale',
-            'quotidiano',
-            'sconosciuto',
-            'semestrale',
-            'settimanale',
-            'tre volte a settimana',
-            'tre volte al mese',
-            'tre volte all\'anno',
-            'tridecennale',
-            'triennale',
-            'trimestrale'
-        ];
-        return $frequenze_aggiornamento_arr;
-    }
-}
 
 /**
  * Classificazione dei Tipi di Punti di contatto riprendendo le Linee Guida Cataloghi dei dati
@@ -183,107 +107,6 @@ if(!function_exists("dci_tipi_punto_contatto_array")){
 }
 
 /**
- * Classificazione multi livello dei Documenti che sono di tipo Albo Pretorio
- */
-if(!function_exists("dci_tipi_doc_albo_pretorio_array")){
-    function dci_tipi_doc_albo_pretorio_array() {
-        $tipi_doc_albo_pretorio_arr = [
-            'Atto amministrativo' => [
-                'Decreto' => [
-                    'Decreto del Dirigente',
-                    'Decreto del Presidente'
-                ],
-                'Deliberazione' => [
-                    'Deliberazione del Consiglio di amministrazione',
-                    'Deliberazione di altri Organi'
-                ],
-                'Determinazione' => [
-                    'Determinazione del Direttore',
-                    'Determinazione del Dirigente'
-                ],
-                'Parere consultivo' => [
-                    'Parere del Collegio dei revisori'
-                ]
-            ],
-            'Atto autorizzativo',
-            'Atto generico' => [
-                'Avviso' => [
-                    'Avviso di deposito',
-                    'Avviso/Manifesto'
-                ],
-                'Bando' => [
-                    'Bando di concorso',
-                    'Bando di gara',
-                    'Bando di contributi e vantaggi economici'
-                ]
-            ],
-            'Pubblicazione esterna' => [
-                'Atto di terzi' => [
-                    'Atto di terzi'
-                ]
-            ],
-        ];
-        return $tipi_doc_albo_pretorio_arr;
-    }
-}
-
-/**
- *Classificazione degli Eventi della vita delle persone (Life Events), definita nel Vocabolario controllato degli eventi della vita delle persone. Aggiornato al 17/03/2022
- */
-if(!function_exists("dci_eventi_vita_persone_array")){
-    function dci_eventi_vita_persone_array() {
-        $eventi_vita_persone_arr = [
-            'Iscrizione Scuola/Università e/o richiesta borsa di studio',
-            'Invalidità',
-            'Ricerca di lavoro, avvio nuovo lavoro, disoccupazione',
-            'Pensionamento',
-            'Richiesta o rinnovo patente',
-            'Registrazione o possesso veicolo',
-            'Accesso al trasporto pubblico',
-            'Compravendita/affitto casa/edifici/terreni, costruzione o ristrutturazione casa/edificio',
-            'Cambio di residenza o domicilio',
-            'Espatri oper lavoro, studio o pensionamento',
-            'Richiesta passaporto, visto e assistenza viaggi internazionali',
-            'Nascita di un bambino, richiesta adozioni',
-            'Matrimonio e/o cambio stato civile',
-            'Morte ed eredità',
-            'Prenotazione e disdetta visite/esami',
-            'Denuncia crimini',
-            'Dichiarazione dei redditi, versamento e riscossione tributi/imposte e contributi',
-            'Accesso ai luoghi della cultura',
-            'Possesso, cura, smarrimento animale da compagnia'
-        ];
-        return $eventi_vita_persone_arr;
-    }
-}
-
-/**
- *Classificazione degli Eventi della vita di un'impresa (Business Events), definita nel Vocabolario controllato degli eventi di business (evento della vita di un'impresa). Aggiornato al 17/03/2022
- */
-if(!function_exists("dci_eventi_vita_impresa_array")){
-    function dci_eventi_vita_impresa_array() {
-        $eventi_vita_impresa_arr = [
-            'Avvio impresa',
-            'Avvio nuova attività professionale',
-            'Richiesta licenze, permessi e certificati',
-            'Registrazione impresa transfrontaliera',
-            'Avviso e registrazione filiale',
-            'Finanziamento impresa',
-            'Gestione personale',
-            'Pagamento iva, tasse e dogane',
-            'Notifiche autorità',
-            'Chiusura impresa e attività professionale',
-            'Chiusura filiale',
-            'Ristrutturazione impresa',
-            'Vendita impresa',
-            'Bancarotta',
-            'Partecipazione ad appalti pubblici nazionali e transfrontalieri'
-        ];
-        return $eventi_vita_impresa_arr;
-    }
-}
-
-/**
  *Classificazione multi livello dei Tipi di incarico che una persona può ricoprire presso un'amministrazione locale
  */
 if(!function_exists("dci_tipi_incarico_array")){
@@ -300,35 +123,12 @@ if(!function_exists("dci_tipi_incarico_array")){
 }
 
 /**
- *Classificazione multi livello degli Stati di una Pratica
- */
-if(!function_exists("dci_stati_pratica_array")){
-    function dci_stati_pratica_array() {
-        $stati_pratica_arr = [
-            'Processo non avviato' => [
-                'In bozza'
-            ],
-            'Processo in corso',
-            'Processo sospeso' => [
-                'Si richiede un’azione da parte dell\'utente',
-                'Si richiede un\'azione da parte della Pubblica Amministrazione'
-            ],
-            'Processo concluso' => [
-                'Esito positivo',
-                'Esito negativo'
-            ]
-        ];
-        return $stati_pratica_arr;
-    }
-}
-
-/**
  * Classificazione multi livello delle Notizie pubblicate da un'amministrazione locale
  */
 if(!function_exists("dci_tipi_notizia_array")){
     function dci_tipi_notizia_array() {
         $tipi_notizia_arr = [
-            'Notizie',
+            'Parliamo di noi',
             'Comunicati',
             'Avvisi'
         ];
@@ -565,7 +365,6 @@ if(!function_exists("dci_tipi_evento_array")){
 if(!function_exists("dci_tipi_documento_array")){
     function dci_tipi_documento_array() {
         $tipi_documento_arr = [
-            'Documento Albo Pretorio',
             'Modulistica',
             'Documento funzionamento interno',
             'Atto normativo',
@@ -628,15 +427,56 @@ if(!function_exists('dci_get_tipi_documento_descriptions_array')){
 if(!function_exists('dci_get_categorie_servizio_descriptions_array')){
     function dci_get_categorie_servizio_descriptions_array(){
         $categorie_servizio_descriptions_arr = [
-            'Servizi socio-assistenziali' => 'La struttura, nell\'ambito dei suoi obiettivi e delle possibilità di assistenza, offre servizi socio-assistenziali come la residenzialità, la semi-residenzialità, i ricoveri temporanei e l\'assistenza domiciliare',
-			'Assistenza amministrativa' => 'Servizi orientati ad agevolare le persone nelle pratiche amministrative',
-			'Servizi integrativi' => 'Servizi complementari alla socio-assistenza come l\'animazione, la ristorazione e la pulizia degli ambienti',
-			'Servizi aggiuntivi' => 'Servizi offerti anche alle persone che non intendono risiedere nella struttura'
+            'Servizi per gli ospiti' => 'Servizi complementari alla socio-assistenza come l\'animazione, la ristorazione e la pulizia degli ambienti',
+            'Servizi socio-assistenziali' => 'La struttura, nell\'ambito dei suoi obiettivi e delle possibilità di assistenza, offre servizi socio-assistenziali come la residenzialità'
             ];
         return $categorie_servizio_descriptions_arr;
     }
 }
 
+/**
+ * descrizioni dei termini della tassonomia notizie
+ */
+if(!function_exists('dci_get_categorie_notizia_descriptions_array')){
+    function dci_get_categorie_notizia_descriptions_array(){
+        $categorie_notizia_descriptions_arr = [
+            'Parliamo di noi' => 'Novità che riguardano argomenti di interesse pubblico',
+            'Comunicati' => 'Aggiornamenti che provengono dalla direzione del centro servizi',
+            'Avvisi' => 'Articoli dedicati alla vita della casa di riposo, su curiosità e attività svolte'   
+        ];
+        return $categorie_notizia_descriptions_arr;
+    }
+}
+
+/**
+ * descrizioni dei termini della tassonomia Argomenti
+ */
+if(!function_exists('dci_get_argomenti_descriptions_array')){
+    function dci_get_argomenti_descriptions_array(){
+        $argomenti_descriptions_arr = [
+            "Accoglienza" => "Informazioni legate all'ingresso dei nuovi ospiti nelle nostre strutture",
+            "Aiuto a domicilio" => "Servizi, documenti, uffici, notizie e altre informazioni relativi all\'Aiuto a domicilio",
+            "Anziano" => "Servizi, documenti, uffici, notizie e altre informazioni relativi all\'Anziano",
+            "Assistenza agli anziani" => "Ecco alcune informazioni sui servizi agli anziani della Casa di Riposo",
+            "Cittadino" => "Servizi, documenti e notizie rivolte ai cittadini",
+            "Comunicazione istituzionale" => "Tutte le informazioni e i contenuti riguardanti la comunicazione istituzionale del nostro Ente",
+            "Covid-19" => "Servizi, documenti, uffici, notizie e altre informazioni relativi al Covid-19",
+            "Cure palliative" => "Servizi, documenti, uffici, notizie e altre informazioni relativi alle Cure palliative",
+            "Familiare" => "Informazioni e i riferimenti dedicati ai familiari dei nostri ospiti",
+            "Lavoro" => "Informazioni, novità, documenti per i dipendenti e chi desidera iniziare a collaborare con noi",
+            "Lavoratore" => "Servizi, documenti, uffici, notizie e altre informazioni relativi al Lavoratore",
+            "Ospite" => "Tutte le informazioni rivolte ai nostri Ospiti raccolte in un unico spazio",
+            "Pagamenti" => "Servizi, documenti, uffici, notizie e altre informazioni relativi al Servizio civile",
+            "Protezione dei dati personali" => "Una raccolta di informative sulla riservatezza dei dati rivolte a diverse persone",
+            "Qualità" => "L\'Ente è attento al miglioramento continuo dei servizi",
+            "Servizio civile" => "Servizi, documenti, uffici, notizie e altre informazioni relativi al Servizio civile",
+            "Trasparenza amministrativa" => "Documenti e collegamenti utili per visionare le informazioni della trasparenza",
+            "Volontario" => "Servizi, documenti, uffici, notizie e altre informazioni relativi al Volontario",
+            "Volontariato" => "Il Centro Servizi promuove le attività di volontariato. Ecco le informazioni per i volontari e gli aspiranti volontari"
+        ];
+        return $argomenti_descriptions_arr;
+    }
+}
 
 /**
  * Vocabolario immagini degli argomenti

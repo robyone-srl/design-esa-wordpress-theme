@@ -57,6 +57,12 @@
         }
       }
     },
+    "Come fare per": {
+      "title": "Come fare per",
+      "slug": "procedure",
+      "description": "Scopri e approfondisci tutte le procedure e i servizi amministrativi offerti",
+      "template_name": "procedura"
+    },
     "Novità": {
       "title": "Novità",
       "slug": "novita",

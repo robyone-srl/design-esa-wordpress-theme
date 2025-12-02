@@ -173,6 +173,7 @@ function dci_get_pagine_template_names(){
  */
 function dci_get_sercheable_tipologie() {
     $arrayTipologie = array(
+        'luogo',
         'documento_pubblico',
         'domanda_frequente',
         'dataset',
@@ -207,7 +208,8 @@ function dci_get_sercheable_tipologie_argomenti() {
         'post',
         'servizio',
         'sito_tematico',
-        'unita_organizzativa'
+        'unita_organizzativa',
+        'procedura'
     );
     if ( post_type_exists( 'amm-trasparente' ) ) { // Compatibilità plugin amministrazione-trasparente
         $arrayTipologie[] = 'amm-trasparente';
@@ -273,6 +275,8 @@ function dci_get_post_types_grouped($group = "", $tag = false)
     }
     else if (($group === "page") || ($group === "pagina"))
         $post_types = array("page");
+    else if ($group === "procedura" || $group === "procedure")
+        $post_types = array("procedura");
     else
         $post_types = dci_get_sercheable_tipologie();
 
@@ -308,7 +312,7 @@ function dci_get_group_ids() {
 function dci_get_breadcrumb_label($name , $type = 'term') {
     $terms = array(
         'comunicato stampa' => 'Comunicati',
-        'news' => 'Notizie',
+        'news' => 'Parliamo di noi',
         'avviso' => 'Avvisi'
     );
 
@@ -328,6 +332,7 @@ function dci_get_admin_menu_order() {
         'index.php',
         'dci_options',
         'separator1',
+        'edit.php?post_type=procedura',
         'edit.php?post_type=notizia',
         'edit.php?post_type=servizio',
         'edit.php?post_type=fase',

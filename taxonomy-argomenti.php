@@ -89,8 +89,7 @@ get_header();
     <?php 
 
     $view_style = dci_get_term_meta("post_view_arg" ,"dci_term_", $argomento->term_id);
-    
-    if($view_style == "") $view_style = 'base';
+    if($view_style == '' || $view_style == null) $view_style = 'base';
 
     switch($view_style){
         case 'base' :
@@ -124,6 +123,7 @@ get_header();
             get_template_part("template-parts/argomento/documenti-detail");
             get_template_part("template-parts/argomento/luoghi-detail");
             get_template_part("template-parts/argomento/page-detail");
+            get_template_part("template-parts/argomento/procedura-detail");
             get_template_part("template-parts/argomento/servizi-detail");
             get_template_part("template-parts/argomento/siti-tematici-detail");
         }

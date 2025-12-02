@@ -32,9 +32,8 @@ get_header();
         $cosa_serve_list = dci_get_meta("cosa_serve_list");
         $output = dci_get_wysiwyg_field("output");
         $procedure_collegate = dci_get_wysiwyg_field("procedure_collegate");
+        $fasi_gruppo = dci_get_meta("fasi_raggruppate");
         $fasi_scadenze_intro = dci_get_wysiwyg_field("tempi_text");
-        $fasi_group_simple_scadenze = dci_get_meta("scadenze");
-        $fasi_scadenze = dci_get_meta("fasi");
         $costi = dci_get_wysiwyg_field("costi");
         //canali di prenotazione
         $canale_digitale_text = dci_get_meta("canale_digitale_text");
@@ -253,7 +252,7 @@ get_header();
                                                                     </a>
                                                                 </li>
                                                             <?php } ?>
-                                                            <?php if (!empty($fasi_scadenze_intro) || (is_array($fasi_scadenze) && count($fasi_scadenze)) || (is_array($fasi_group_simple_scadenze) && count($fasi_group_simple_scadenze))) { ?>
+                                                            <?php if (!empty($fasi_scadenze_intro) || !empty($fasi_group_simple_scadenze) || !empty($fasi_gruppo)) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#deadlines">
                                                                         <span>Tempi e scadenze</span>
@@ -515,84 +514,114 @@ get_header();
                                 <?php } ?>
                             </section>
                         <?php } ?>
-                        <?php if (!empty($fasi_scadenze_intro) || (is_array($fasi_scadenze) && count($fasi_scadenze)) || (is_array($fasi_group_simple_scadenze) && count($fasi_group_simple_scadenze))) { ?>
-                            <section class="it-page-section mb-30">
-                                <div class="cmp-timeline">
-                                    <h2 class="h3 mb-3" id="deadlines">Tempi e scadenze</h2>
-                                    <div class="richtext-wrapper lora" data-element="service-calendar-text">
-                                        <?php echo $fasi_scadenze_intro; ?>
-                                    </div>
-                                    <?php if ((is_array($fasi_group_simple_scadenze) && count($fasi_group_simple_scadenze)) || (is_array($fasi_scadenze) && count($fasi_scadenze))) { ?>
-                                        <div class="calendar-vertical mb-3" data-element="service-calendar-list">
-                                            <?php if (!empty($fasi_group_simple_scadenze)) foreach ($fasi_group_simple_scadenze as $fase) {
-                                            ?>
-                                                <div class="calendar-date">
-                                                    <?php if (empty($fase['giorni'])) {
-                                                        $fase['giorni'] = "";
-                                                    } ?>
-                                                    <div class="calendar-date-day">
-                                                        <span class="title-xxlarge-regular d-flex justify-content-center">
-                                                            <?php echo  $fase['giorni']; ?>
-                                                        </span>
-                                                        <small class="calendar-date-day__month">
-                                                            <?php echo ($fase['giorni'] != "") ? 'giorni' : ''; ?>
-                                                        </small>
+                        <?php $fasi_gruppo = dci_get_meta("fasi_raggruppate"); 
+
+                            if (!empty($fasi_scadenze_intro) || !empty($fasi_group_simple_scadenze) || !empty($fasi_gruppo)) { ?>
+                                <section class="it-page-section mb-30">
+                                    <div class="cmp-timeline">
+                                        <h2 class="h3 mb-3" id="deadlines">Tempi e scadenze</h2>
+                                        <div class="richtext-wrapper lora" data-element="service-calendar-text">
+                                            <?php echo $fasi_scadenze_intro; ?>
+                                        </div>
+            
+                                        <?php 
+                                        if (!empty($fasi_group_simple_scadenze) || !empty($fasi_gruppo)) { ?>
+                                            <div class="calendar-vertical mb-3" data-element="service-calendar-list">
+                    
+                                                <?php 
+                                                if (!empty($fasi_group_simple_scadenze)) foreach ($fasi_group_simple_scadenze as $fase) {
+                                                ?>
+                                                    <div class="calendar-date">
+                                                        <?php if (empty($fase['giorni'])) { $fase['giorni'] = ""; } ?>
+                                                        <div class="calendar-date-day">
+                                                            <span class="title-xxlarge-regular d-flex justify-content-center">
+                                                                <?php echo  $fase['giorni']; ?>
+                                                            </span>
+                                                            <small class="calendar-date-day__month">
+                                                                <?php echo ($fase['giorni'] != "") ? 'giorni' : ''; ?>
+                                                            </small>
+                                                        </div>
+                                                        <?php if (!empty($fase['titolo']) || !empty($fase['descrizione'])) { ?>
+                                                            <div class="calendar-date-description rounded">
+                                                                <div class="calendar-date-description-content">
+                                                                    <?php if (!empty($fase['titolo'])) { ?>
+                                                                        <h3 class="title-medium-2 mb-0">
+                                                                            <?php echo  $fase['titolo']; ?>
+                                                                        </h3>
+                                                                    <?php } ?>
+                                                                    <?php if (!empty($fase['descrizione'])) { ?>
+                                                                        <p class="info-text mt-1 mb-0">
+                                                                            <?php echo $fase['descrizione']; ?>
+                                                                        </p>
+                                                                    <?php } ?>
+                                                                </div>
+                                                            </div>
+                                                        <?php } ?>
                                                     </div>
-                                                    <?php if (!empty($fase['titolo']) || !empty($fase['descrizione'])) { ?>
+                                                <?php }  ?>
+
+                                                <?php 
+                                                if (!empty($fasi_gruppo)) foreach ($fasi_gruppo as $fase_riga) {
+                        
+                                                    $fase_id = $fase_riga['fase_selezionata'] ?? false;
+                                                    $type_date = $fase_riga['type_date'] ?? 'days'; 
+                                                    $scadenza_data = $fase_riga['scadenza_fase'] ?? ''; 
+                                                    $count_giorni = $fase_riga['count_giorni'] ?? ''; 
+
+                                                    if (!$fase_id) continue;
+                        
+                                                    $fase = get_post($fase_id);
+                                                    if (!$fase) continue;
+                        
+                                                    if ($type_date === 'calendar' && !empty($scadenza_data)) {
+                                                        $arrdata = explode("-", $scadenza_data);
+                                                        $day = $arrdata[0] ?? '';
+                                                        $month = $arrdata[1] ?? '';
+                                                        $year = $arrdata[2] ?? '';
+                                                        $monthName = date_i18n('M', mktime(0, 0, 0, $month, 1));
+                            
+                                                        $day_content = '<span class="title-xxlarge-regular d-flex justify-content-center">' . $day . '</span>';
+                                                        $month_content = '<small class="calendar-date-day__month">' . $monthName . '</small>';
+                                                        $year_content = '<small class="calendar-date-day__year">' . $year . '</small>';
+                                                        $tempo_label = '';
+                            
+                                                    } elseif ($type_date === 'days' && !empty($count_giorni)) {
+                                                        $day_content = '<span class="title-xxlarge-regular d-flex justify-content-center">' . $count_giorni . '</span>';
+                                                        $month_content = '<small class="calendar-date-day__month">giorni</small>';
+                                                        $year_content = '';
+                                                        $tempo_label = '<p class="info-text mt-1 mb-0"><small>Durata prevista</small></p>'; 
+
+                                                    } else {
+                                                        continue;
+                                                    }
+                                                ?>
+                                                    <div class="calendar-date">
+                                                        <div class="calendar-date-day">
+                                                            <?= $year_content; ?>
+                                                            <?= $day_content; ?>
+                                                            <?= $month_content; ?>
+                                                        </div>
                                                         <div class="calendar-date-description rounded">
                                                             <div class="calendar-date-description-content">
-                                                                <?php if (!empty($fase['titolo'])) { ?>
-                                                                    <h3 class="title-medium-2 mb-0">
-                                                                        <?php echo  $fase['titolo']; ?>
-                                                                    </h3>
-                                                                <?php } ?>
-                                                                <?php if (!empty($fase['descrizione'])) { ?>
+                                                                <h3 class="title-medium-2 mb-0">
+                                                                    <?= $fase->post_title; ?>
+                                                                </h3>
+                                                                <?= $tempo_label; ?>
+                                    
+                                                                <?php if (!empty(dci_get_meta('desc_fase', '_dci_fase_', $fase_id))) { ?>
                                                                     <p class="info-text mt-1 mb-0">
-                                                                        <?php echo $fase['descrizione']; ?>
+                                                                        <?= dci_get_meta('desc_fase', '_dci_fase_', $fase_id); ?>
                                                                     </p>
                                                                 <?php } ?>
                                                             </div>
                                                         </div>
-                                                    <?php } ?>
-                                                </div>
-                                            <?php } ?>
-                                            <?php if (!empty($fasi_scadenze)) foreach ($fasi_scadenze as $fase_id) {
-                                                $fase = get_post($fase_id);
-                                                $data = dci_get_meta('data_fase', '_dci_fase_', $fase_id);
-                                                $arrdata =  explode("-", $data);
-                                                $monthName = date_i18n('M', mktime(0, 0, 0, $arrdata[1], 10)); // March
-                                            ?>
-                                                <div class="calendar-date">
-                                                    <div class="calendar-date-day">
-                                                        <small class="calendar-date-day__year">
-                                                            <?php echo $arrdata[2]; ?>
-                                                        </small>
-                                                        <span class="title-xxlarge-regular d-flex justify-content-center">
-                                                            <?php echo $arrdata[0]; ?>
-                                                        </span>
-                                                        <small class="calendar-date-day__month">
-                                                            <?php echo $monthName; ?>
-                                                        </small>
                                                     </div>
-                                                    <div class="calendar-date-description rounded">
-                                                        <div class="calendar-date-description-content">
-                                                            <h3 class="title-medium-2 mb-0">
-                                                                <?php echo $fase->post_title; ?>
-                                                            </h3>
-                                                            <?php if (!empty(dci_get_meta('desc_fase', '_dci_fase_', $fase->ID))) { ?>
-                                                                <p class="info-text mt-1 mb-0">
-                                                                    <?php echo dci_get_meta('desc_fase', '_dci_fase_', $fase->ID); ?>
-                                                                </p>
-                                                            <?php } ?>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            <?php } ?>
-                                        </div>
-                                    <?php } ?>
-                                </div>
-                            </section>
-                        <?php } ?>
+                                                <?php } ?>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                </section>
+                            <?php } ?>
 
                         <?php if (!empty($documenti_ids)) { ?>
                             <section class="it-page-section mb-30">

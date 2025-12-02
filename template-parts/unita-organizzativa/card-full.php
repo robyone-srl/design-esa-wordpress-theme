@@ -8,6 +8,7 @@ $punti_contatto = dci_get_meta('contatti', $prefix, $uo_id);
 
 $prefix = '_dci_punto_contatto_';
 $contatti = array();
+
 foreach ($punti_contatto as $pc_id) {
     $contatto = dci_get_full_punto_contatto($pc_id);
     array_push($contatti, $contatto);

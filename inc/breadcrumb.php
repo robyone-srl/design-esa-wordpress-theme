@@ -432,6 +432,11 @@ class Breadcrumb_Trail {
 						$this->items[] = get_the_title();
                         return;
                         break;
+					case 'Procedura':
+                        $this->items[] =  "<a href='".home_url("procedure")."'>".__("Come fare per", "design_comuni_italia")."</a>";
+                        $this->items[] = get_the_title();
+                        return;
+                        break;
                 }
 
                 $this->add_singular_items();
@@ -469,7 +474,7 @@ class Breadcrumb_Trail {
                         $this->items[] = __(dci_get_breadcrumb_label($term_name), "design_comuni_italia");
                     }
                     else if (is_tax(array("tipi_notizia"))){
-                        $this->items[] = "<a href='".home_url("novita")."'>".__("Novità", "design_comuni_italia")."</a>";
+                        $this->items[] = "<a href='".home_url("ipab-comunica")."'>".__("IPAB comunica", "design_comuni_italia")."</a>";
                         $term_name = single_term_title( '', false );
                         $this->items[] = __(dci_get_breadcrumb_label($term_name), "design_comuni_italia");
                     }

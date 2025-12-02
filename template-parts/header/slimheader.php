@@ -50,7 +50,7 @@ $barra_superiore_light = dci_get_option("tema_chiaro_nav_superiore", 'grafica');
           }
 
             if (!is_user_logged_in()) {
-              if (!$nascondi_login)
+              if ($nascondi_login)
                 get_template_part("template-parts/header/header-anon");
             } else {
               get_template_part("template-parts/header/header-logged");

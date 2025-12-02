@@ -417,6 +417,15 @@ function get_card_content($card_visibili){
 						</span>
 					');
 				break;
+
+				case "procedura":
+					$descrizione_breve = dci_get_meta('descrizione_breve','_dci_procedura_',$post->ID);
+					$tipo = ('
+						<span class="text-decoration-none title-xsmall-bold mb-2 category text-uppercase text-primary">
+						Procedura
+						</span>
+					');
+				break;
 			}
 
 			$tipo = preg_replace('/\r|\n|\t/', '', $tipo);
@@ -516,6 +525,13 @@ function menu_item_desc($item_id, $item)
 		<button class="set_custom_image button" id="menu_item_logo[<?= $item_id ?>]_button">Scegli immagine</button>
 		<button style="<?= $imgid ? '':'display: none' ?>" class="remove_custom_image button" id="menu_item_logo[<?= $item_id ?>]_remove_button">Rimuovi immagine</button>
 	</p>
+	<?php
+	$classId = get_post_meta($item_id, 'menu_item_icon_class', true);
+	?>
+	<p>
+		<label id="label_icon_class" for="menu_item_icon_class[<?= $item_id ?>]">Classe icona</label>
+		<input type="text" value="<?= $classId ?>" placeholder="Classe icona da mostrare" id="menu_item_icon_class[<?= $item_id ?>]" class="widefat edit-menu-item-title" name="menu_item_icon_class[<?= $item_id ?>]">
+	</p>
 <?php
 }
 add_action('wp_nav_menu_item_custom_fields', 'menu_item_desc', 10, 2);
@@ -527,6 +543,14 @@ function save_menu_item_desc($menu_id, $menu_item_db_id)
 		update_post_meta($menu_item_db_id, 'menu_item_logo', $sanitized_data);
 	} else {
 		delete_post_meta($menu_item_db_id, 'menu_item_logo');
+	}
+
+
+	if (isset($_POST['menu_item_icon_class'][$menu_item_db_id])) {
+		$sanitized_data = sanitize_text_field($_POST['menu_item_icon_class'][$menu_item_db_id]);
+		update_post_meta($menu_item_db_id, 'menu_item_icon_class', $sanitized_data);
+	} else {
+		delete_post_meta($menu_item_db_id, 'menu_item_icon_class');
 	}
 }
 add_action('wp_update_nav_menu_item', 'save_menu_item_desc', 10, 2);
@@ -591,7 +615,7 @@ remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
 add_action( 'admin_menu', 'dci_add_utilities_admin_page' );
 function dci_add_utilities_admin_page() {
     add_menu_page(
-       'Strumenti del tema ESA',
+       'Strumenti del tema ESA', 
        'Strumenti del tema ESA', 
        'manage_options',
        'dci_data_migration_utilities',  
@@ -605,11 +629,42 @@ function dci_add_utilities_admin_page() {
  * Renderizza il contenuto per la pagina di Utilities.
  */
 function dci_render_utilities_page_content() {
+	$valore_corrente = get_option( 'nascondi_menu_procedura', 'yes' );
     ?>
     <div class="wrap migrations">
         <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-        <p><?='Utilizza questa pagina per eseguire operazioni di migrazione dati su tutti i post.'?></p>
 
+		<form method="post" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>">
+            
+            <?php 
+                wp_nonce_field( 'salva_opzioni_menu_procedura', 'nascondi_menu_procedura_nonce' ); 
+            ?>
+            <input type="hidden" name="action" value="salva_opzioni_menu_procedura_custom">
+
+            <h2><?='Controllo visibilità Menu Amministrazione'?></h2>
+            <p>
+                <?='Seleziona "Sì" per nascondere la voce di menu "Come fare per" (Procedure) per tutti gli utenti.'?>
+            </p>
+            <table class="form-table">
+                <tr>
+                    <th scope="row">Nascondi "Come fare per"</th>
+                    <td>
+                        <?php 
+                        echo '<input type="radio" id="procedura_no" name="nascondi_menu_procedura" value="no" ' . checked( 'no', $valore_corrente, false ) . ' />';
+                        echo '<label for="procedura_no"> No, mantieni la voce visibile.</label><br>';
+                        
+                        echo '<input type="radio" id="procedura_si" name="nascondi_menu_procedura" value="yes" ' . checked( 'yes', $valore_corrente, false ) . ' />';
+                        echo '<label for="procedura_si"> Sì, nascondi la voce "Come fare per".</label>';
+                        ?>
+                    </td>
+                </tr>
+            </table>
+            
+            <?php 
+                submit_button('Salva visibilità'); 
+            ?>
+        </form>
+		<hr>
         <div id="dci-migration-controls">
             <h2><?='Migrazione Incarico-Unità Organizzativa > Incarico-Unità Organizzative (Versione DCI 1.10.4 - Revisione 17)'?></h2>
             <p>
@@ -631,6 +686,20 @@ function dci_render_utilities_page_content() {
 			<button class="button button-primary start-bulk-migration-button" data-type="evidenza">
                 <?='Avvia Migrazione Massiva dei contenuti in evidenza '?>
             </button>
+
+			<h2><?='Migrazione Fase-Servizio > Fase-Servizio (Versione DCI 1.12.3 - Revisione 4?)'?></h2>
+			<p>
+                <?='Questa operazione cercherà tutte le fasi di servizio con il vecchio meccanismo e le trasferirà nel nuovo.'?>
+            </p>
+			<p>
+                <strong><?='Attenzione:'?></strong> <?='Le fasi inserite manualmente attraverso il vecchio campo Gruppo-Fase non verranno migrate automaticamente.'?>
+				<a href="<?php echo esc_url( admin_url( 'admin.php?action=dci_export_manual_phases' ) ); ?>">
+						<?='Esporta Backup Fasi inserite manualmente in CSV'?>
+                </a>
+			</p>
+			<button class="button button-primary start-bulk-migration-button" data-type="fase-servizio">
+                <?='Avvia Migrazione Massiva delle fasi '?>
+            </button>
         </div>
 			
         <span id="dci-bulk-migration-spinner" class="spinner" style="float: none; visibility: hidden; margin-left: 5px;"></span>
@@ -648,15 +717,14 @@ function dci_render_utilities_page_content() {
  */
 add_action( 'admin_enqueue_scripts', 'dci_enqueue_utilities_page_scripts' );
 function dci_enqueue_utilities_page_scripts( $hook_suffix ) {
-    // Accoda lo script solo per la nostra pagina di utilities
     if ( 'toplevel_page_dci_data_migration_utilities' !== $hook_suffix ) {
         return;
     }
 
-    // Assumendo che lo script si trovi in 'inc/admin-js/bulk_migration.js' del tuo tema
-    // Modifica il percorso se necessario.
     $script_path = get_template_directory_uri() . '/inc/admin-js/bulk_migration.js';
     $script_version = '1.0.1'; // Cambia per invalidare la cache
+	$text_processing = 'Elaborazione in corso...';
+	$text_error = 'Si è verificato un errore. Controlla la console del browser per i dettagli.';
 
     wp_enqueue_script(
         'dci-bulk-migration-script',
@@ -676,16 +744,24 @@ function dci_enqueue_utilities_page_scripts( $hook_suffix ) {
 					'ajax_url'      => admin_url( 'admin-ajax.php' ),
 					'nonce'         => wp_create_nonce( 'dci_bulk_migration_nonce' ),
 					'action'        => 'dci_perform_uo_bulk_migration',
-					'text_processing' => 'Elaborazione in corso...',
-					'text_error'    => 'Si è verificato un errore. Controlla la console del browser per i dettagli.'
+					'text_processing' => $text_processing,
+					'text_error'    => $text_error
 				),
 			'evidenza' =>
 				array (
 					'ajax_url'      => admin_url( 'admin-ajax.php' ),
 					'nonce'         => wp_create_nonce( 'dci_bulk_migration_nonce' ),
 					'action'        => 'dci_perform_evidenza_bulk_migration',
-					'text_processing' => 'Elaborazione in corso...',
-					'text_error'    => 'Si è verificato un errore. Controlla la console del browser per i dettagli.'			
+					'text_processing' => $text_processing,
+					'text_error'    => $text_error			
+				),
+			'fase-servizio' =>
+				array (
+					'ajax_url'      => admin_url( 'admin-ajax.php' ),
+					'nonce'         => wp_create_nonce( 'dci_bulk_migration_nonce' ),
+					'action'        => 'dci_perform_fase_servizio_bulk_migration',
+					'text_processing' => $text_processing,
+					'text_error'    => $text_error
 				)
         )
     );
@@ -810,10 +886,6 @@ function dci_ajax_perform_uo_bulk_migration_handler() {
     }
 }
 
-
-
-
-
 /**
  * Gestore AJAX per l'operazione di migrazione massiva EVIDENZA.
  */
@@ -925,3 +997,264 @@ function dci_ajax_perform_evidenza_bulk_migration_handler() {
 	}
 }
 
+/**
+ * Genera e scarica un file CSV con le vecchie fasi scritte a mano, ottimizzato per Excel.
+ */
+function dci_export_manual_phases_to_csv() {
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_die( 'Non hai i permessi per eseguire questa operazione.', 403 );
+    }
+
+    $meta_key = '_dci_servizio_scadenze';
+    
+    $args = array(
+        'post_type'      => 'servizio',
+        'posts_per_page' => -1,
+        'post_status'    => 'any',
+        'meta_query'     => array(
+            array(
+                'key'     => $meta_key,
+                'compare' => 'EXISTS',
+            ),
+        ),
+        'fields'         => 'ids',
+    );
+
+    $post_ids = get_posts( $args );
+
+    $csv_header = array( 'Post ID', 'Post Title', 'Fase Index', 'Titolo Fase', 'Giorni', 'Descrizione' );
+    $csv_data = array();
+
+    if ( ! empty( $post_ids ) ) {
+        foreach ( $post_ids as $post_id ) {
+            $post = get_post($post_id);
+            $manual_phases = get_post_meta( $post_id, $meta_key, true );
+
+            if ( is_array( $manual_phases ) && ! empty( $manual_phases ) ) {
+                $fase_index = 0;
+                foreach ( $manual_phases as $phase ) {
+                    $csv_data[] = array(
+                        $post_id,
+                        $post->post_title,
+                        $fase_index++,
+                        isset($phase['titolo']) ? $phase['titolo'] : '',
+                        isset($phase['giorni']) ? $phase['giorni'] : '',
+                        isset($phase['descrizione']) ? str_replace(array("\r", "\n", "\t"), ' ', $phase['descrizione']) : '',
+                    );
+                }
+            }
+        }
+    }
+    
+    header('Content-Type: text/csv; charset=UTF-8');
+    header('Content-Disposition: attachment; filename=backup_fasi_manuali_' . date('Y-m-d') . '.csv');
+    
+    $output = fopen('php://output', 'w');
+    
+    fputs($output, $bom = ( chr(0xEF) . chr(0xBB) . chr(0xBF) ));
+    
+    fputcsv($output, $csv_header, ';');
+    
+    foreach ($csv_data as $row) {
+        fputcsv($output, $row, ';');
+    }
+    
+    fclose($output);
+    exit;
+}
+
+add_action( 'admin_action_dci_export_manual_phases', 'dci_export_manual_phases_to_csv' );
+
+
+/**
+ * Gestore AJAX per l'operazione di migrazione massiva FASI-SERVIZIO
+ */
+add_action( 'wp_ajax_dci_perform_fase_servizio_bulk_migration', 'dci_ajax_perform_fase_servizio_bulk_migration_handler' );
+function dci_ajax_perform_fase_servizio_bulk_migration_handler() {
+	
+    check_ajax_referer( 'dci_bulk_migration_nonce', 'nonce' );
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_send_json_error( 'Non hai i permessi per eseguire questa operazione.', 403 );
+        return;
+    }
+
+    $old_meta_key = '_dci_servizio_fasi'; 
+    $new_meta_key = '_dci_servizio_fasi_raggruppate';
+
+    $args = array(
+        'post_type'      => 'servizio',
+		'posts_per_page' => -1, 
+        'post_status'    => 'any',
+        'meta_query'     => array(
+            array(
+                'key'     => $old_meta_key,
+                'compare' => 'EXISTS', 
+            ),
+        ),
+        'fields'         => 'ids',
+    );
+
+    $post_ids = get_posts( $args );
+
+    $processed_count = 0;
+    $updated_count = 0;
+    $already_migrated_count = 0;
+    $no_value_old_field_count = 0;
+    $errors = array();
+
+    if ( empty( $post_ids ) ) {
+        wp_send_json_success( array(
+            'message' => 'Nessun post di tipo "servizio" trovato con il vecchio campo fasi da migrare.',
+            'stats'   => array(
+                'processed' => 0,
+            )
+        ) );
+        return;
+    }
+
+    foreach ( $post_ids as $post_id ) {
+        $processed_count++;
+        $old_values = get_post_meta( $post_id, $old_meta_key, true ); 
+
+        if ( empty( $old_values ) || ! is_array( $old_values ) ) {
+            $no_value_old_field_count++;
+            continue;
+        }
+
+        $new_values_group = get_post_meta( $post_id, $new_meta_key, true );
+        if ( ! is_array( $new_values_group ) ) {
+            $new_values_group = array();
+        }
+
+        $existing_phase_ids = array();
+        foreach ( $new_values_group as $group_item ) {
+            if ( ! empty( $group_item['fase_selezionata'] ) ) {
+                $existing_phase_ids[] = $group_item['fase_selezionata'];
+            }
+        }
+        
+        $items_were_added = false;
+
+        foreach ( $old_values as $phase_id ) {
+            $phase_id = (string) $phase_id;
+            
+            if ( ! in_array( $phase_id, $existing_phase_ids ) ) {
+                
+                $new_values_group[] = array(
+                    'fase_selezionata' => $phase_id,
+                    'type_date'        => 'days', 
+                    'scadenza_fase'    => '',
+                    'count_giorni'     => '',
+                );
+                
+                $updated_count++;
+                $items_were_added = true;
+                $existing_phase_ids[] = $phase_id;
+            } else {
+                $already_migrated_count++;
+            }
+        }
+        
+        if ( $items_were_added ) {
+            $update_result = update_post_meta( $post_id, $new_meta_key, $new_values_group );
+            if ( false === $update_result ) {
+                $errors[] = sprintf( 'Errore durante l\'aggiornamento del post ID %d.', $post_id );
+            }
+        }
+    }
+
+    $response_message = sprintf(
+        'Migrazione Fasi Servizio completata. Post di servizio processati: %d. Fasi aggiunte/aggiornate: %d. Fasi già presenti: %d. Post con campo vecchio vuoto ignorati: %d.',
+        $processed_count,
+        $updated_count,
+        $already_migrated_count,
+        $no_value_old_field_count
+    );
+
+    if ( ! empty( $errors ) ) {
+        $response_message .= "\n" . 'Si sono verificati alcuni errori:' . "\n" . implode( "\n", $errors );
+        wp_send_json_error( array(
+            'message' => $response_message,
+            'stats'   => array(
+                'processed' => $processed_count,
+                'updated'   => $updated_count,
+                'already_migrated' => $already_migrated_count,
+                'no_value_old_field' => $no_value_old_field_count,
+                'errors'    => count($errors)
+            )
+        ) );
+    } else {
+        wp_send_json_success( array(
+            'message' => $response_message,
+            'stats'   => array(
+                'processed' => $processed_count,
+                'updated'   => $updated_count,
+                'already_migrated' => $already_migrated_count,
+                'no_value_old_field' => $no_value_old_field_count,
+            )
+        ) );
+    }
+}
+
+/**
+ * 1. Registra solo l'impostazione nel database.
+ */
+function nascondi_procedura_registra_impostazioni_custom() {
+    $option_group = 'dci_utilities_options';
+    $option_name = 'nascondi_menu_procedura';
+
+    register_setting(
+        $option_group, 
+        $option_name, 
+        array(
+            'type'              => 'string',
+            'sanitize_callback' => 'sanitize_text_field',
+            'default'           => 'yes',
+        )
+    );
+}
+add_action( 'admin_init', 'nascondi_procedura_registra_impostazioni_custom' );
+
+
+/**
+ * 2. Rimuovi la voce di menu del CPT 'procedura' in base al valore dell'impostazione.
+ */
+function rimuovi_procedura_condizionale() {
+    $nascondi_procedura = get_option( 'nascondi_menu_procedura', 'no' );
+
+    if ( $nascondi_procedura === 'yes' ) {
+        $slug_cpt = 'edit.php?post_type=procedura'; 
+        remove_menu_page( $slug_cpt ); 
+    }
+}
+add_action( 'admin_menu', 'rimuovi_procedura_condizionale' );
+
+/**
+ * Gestisce l'invio del form custom e salva l'opzione manualmente.
+ */
+function dci_handle_salva_opzioni_menu_procedura_custom() {
+    
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_die( 'Non hai i permessi necessari.' );
+    }
+    if ( ! isset( $_POST['nascondi_menu_procedura_nonce'] ) || ! wp_verify_nonce( $_POST['nascondi_menu_procedura_nonce'], 'salva_opzioni_menu_procedura' ) ) {
+        wp_die( 'Controllo di sicurezza fallito.' );
+    }
+
+    $nuovo_valore = 'no';
+    if ( isset( $_POST['nascondi_menu_procedura'] ) ) {
+        $nuovo_valore = sanitize_text_field( $_POST['nascondi_menu_procedura'] );
+    }
+
+    update_option( 'nascondi_menu_procedura', $nuovo_valore );
+
+    wp_safe_redirect( add_query_arg( 
+        array( 
+            'page' => 'dci_data_migration_utilities', 
+            'settings-updated' => 'true'
+        ), 
+        admin_url( 'admin.php' ) 
+    ) );
+    exit;
+}
+add_action( 'admin_post_salva_opzioni_menu_procedura_custom', 'dci_handle_salva_opzioni_menu_procedura_custom' );
