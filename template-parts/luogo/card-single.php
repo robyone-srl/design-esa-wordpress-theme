@@ -3,6 +3,9 @@ global $luogo, $showTitle, $showPermalink, $showParent;
 $prefix = '_dci_luogo_';
 $c=0;
 
+var_dump(dci_get_meta("posizione_gps", $prefix, $childof));
+var_dump($posizione_gps["lat"]);
+var_dump($posizione_gps["lng"]);
 $post_title = $luogo->post_title;
 $permalink = get_permalink($luogo);
 
@@ -24,6 +27,7 @@ if(!empty($childof)) {
     $circoscrizione = dci_get_meta("circoscrizione", $prefix, $luogo->ID);
 }
 
+if(isset($posizione_gps["lat"]) && $posizione_gps["lat"] != "" && isset($posizione_gps["lng"]) && $posizione_gps["lng"] != ""){
 ?>
 
 <div class="card card-bg rounded mt-4 no-after">
@@ -77,28 +81,28 @@ if(!empty($childof)) {
         </div>
 	</div><!-- /card-body -->
 
-    <script>
-        jQuery(function() {
-            var mymap = L.map('map_all', {
-                zoomControl: true,
-                scrollWheelZoom: false
-            }).setView([<?php echo $posizione_gps["lat"]; ?>, <?php echo $posizione_gps["lng"]; ?>], 13);
+        <script>
+            jQuery(function() {
+                var mymap = L.map('map_all', {
+                    zoomControl: true,
+                    scrollWheelZoom: false
+                }).setView([<?php echo $posizione_gps["lat"]; ?>, <?php echo $posizione_gps["lng"]; ?>], 13);
 
-            let marker;
-            marker = L.marker([<?php echo $posizione_gps["lat"]; ?>, <?php echo $posizione_gps["lng"]; ?>, { title: '<?php echo addslashes($post_title); ?>'}]).addTo(mymap);
-            marker.bindPopup('<b><a href="<?php echo $permalink ?>"><?php echo addslashes($post_title); ?></a></b><br><?php echo addslashes($indirizzo); ?><br /><a title="Indicazioni stradali di <?php echo addslashes($indirizzo); ?>" href="https://www.google.com/maps/dir/<?php echo $posizione_gps["lat"]; ?>,<?php echo $posizione_gps["lng"]; ?>/@<?php echo $posizione_gps["lat"]; ?>,<?php echo $posizione_gps["lng"]; ?>,15z?hl=it">Indicazioni stradali su Google Maps</a>');
+                let marker;
+                marker = L.marker([<?php echo $posizione_gps["lat"]; ?>, <?php echo $posizione_gps["lng"]; ?>, { title: '<?php echo addslashes($post_title); ?>'}]).addTo(mymap);
+                marker.bindPopup('<b><a href="<?php echo $permalink ?>"><?php echo addslashes($post_title); ?></a></b><br><?php echo addslashes($indirizzo); ?><br /><a title="Indicazioni stradali di <?php echo addslashes($indirizzo); ?>" href="https://www.google.com/maps/dir/<?php echo $posizione_gps["lat"]; ?>,<?php echo $posizione_gps["lng"]; ?>/@<?php echo $posizione_gps["lat"]; ?>,<?php echo $posizione_gps["lng"]; ?>,15z?hl=it">Indicazioni stradali su Google Maps</a>');
 
-            // add the OpenStreetMap tiles
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '',
-                maxZoom: 18,
-            }).addTo(mymap);
+                // add the OpenStreetMap tiles
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '',
+                    maxZoom: 18,
+                }).addTo(mymap);
 
-            var arrayOfMarkers = [ [ <?php echo $posizione_gps["lat"]; ?>, <?php echo $posizione_gps["lng"]; ?>] ];
-            var bounds = new L.LatLngBounds(arrayOfMarkers);
-            mymap.fitBounds(bounds);
-        });
-    </script>
+                var arrayOfMarkers = [ [ <?php echo $posizione_gps["lat"]; ?>, <?php echo $posizione_gps["lng"]; ?>] ];
+                var bounds = new L.LatLngBounds(arrayOfMarkers);
+                mymap.fitBounds(bounds);
+            });
+        </script>
 
     <div class="card-footer py-3 mb-0">
         <svg class="icon">
@@ -107,5 +111,8 @@ if(!empty($childof)) {
         <a title="Indicazioni stradali di <?php echo addslashes($indirizzo); ?>" href="https://www.google.com/maps/dir/<?php echo $posizione_gps["lat"]; ?>,<?php echo $posizione_gps["lng"]; ?>/@<?php echo $posizione_gps["lat"]; ?>,<?php echo $posizione_gps["lng"]; ?>,15z?hl=it">Indicazioni stradali su Google Maps</a>
     </div>
 </div>
+<?php
+}
+?>
 
     

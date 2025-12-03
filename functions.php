@@ -1258,3 +1258,634 @@ function dci_handle_salva_opzioni_menu_procedura_custom() {
     exit;
 }
 add_action( 'admin_post_salva_opzioni_menu_procedura_custom', 'dci_handle_salva_opzioni_menu_procedura_custom' );
+
+
+/**
+ * 1. REGISTRAZIONE PAGINA DI IMPORTAZIONE
+ */
+add_action('admin_menu', 'dci_register_import_page');
+function dci_register_import_page() {
+    add_submenu_page(
+        'index.php', 
+        'Importa Dati ESA', 
+        'Importa Excel ESA', 
+        'manage_options', 
+        'dci-import-excel', 
+        'dci_render_import_page'
+    );
+}
+
+/**
+ * 2. INTERFACCIA GRAFICA IMPORTATORE
+ */
+function dci_render_import_page() {
+    if (isset($_POST['dci_fix_gps_nonce']) && wp_verify_nonce($_POST['dci_fix_gps_nonce'], 'dci_fix_gps_action')) {
+        dci_fix_gps_data();
+    }
+
+    if (isset($_FILES['import_file']) && isset($_POST['dci_import_nonce'])) {
+        dci_handle_excel_upload();
+    }
+    ?>
+    <div class="wrap">
+        <h1>Importazione Dati da Excel (Modello ESA)</h1>
+        
+        <div class="card" style="max-width: 800px; padding: 20px; margin-top: 20px;">
+            <h2>1. Carica il file Excel</h2>
+            <p>Carica qui il file <code>.xlsx</code> compilato. Il sistema riconoscerà automaticamente le schede e importerà i dati partendo dalle righe predefinite.</p>
+            
+            <?php 
+            if (!class_exists('SimpleXLSX')) {
+                echo '<div class="notice notice-error inline"><p><strong>ERRORE CRITICO:</strong> La classe <code>SimpleXLSX</code> non è stata caricata.</p></div>';
+            } else {
+                ?>
+                <form method="post" enctype="multipart/form-data">
+                    <?php wp_nonce_field('dci_import_action', 'dci_import_nonce'); ?>
+                    <label for="import_file" style="font-weight:bold; display:block; margin-bottom:10px;">Seleziona File (.xlsx):</label>
+                    <input type="file" name="import_file" id="import_file" accept=".xlsx" required>
+                    <p class="submit">
+                        <input type="submit" class="button button-primary button-large" value="Avvia Importazione Dati">
+                    </p>
+                </form>
+                <?php
+            }
+            ?>
+        </div>
+
+        <div class="card" style="max-width: 800px; padding: 20px; margin-top: 20px; border-left: 4px solid #f0b849;">
+            <h2>2. Manutenzione Dati</h2>
+            <p>Se noti problemi con la mappa dei luoghi (caricamento infinito), usa questo pulsante. Rimuoverà qualsiasi dato GPS che non sia una coordinata valida, resettando il campo.</p>
+            <form method="post">
+                <?php wp_nonce_field('dci_fix_gps_action', 'dci_fix_gps_nonce'); ?>
+                <input type="submit" class="button button-secondary" value="Ripara Database GPS (Pulizia Aggressiva)">
+            </form>
+        </div>
+    </div>
+    <?php
+}
+
+function dci_fix_gps_data() {
+    global $wpdb;
+    $results = $wpdb->get_results("SELECT post_id, meta_value FROM $wpdb->postmeta WHERE meta_key = '_dci_luogo_posizione_gps'");
+    $count = 0;
+
+    foreach ($results as $row) {
+        $value = maybe_unserialize($row->meta_value);
+        // Validazione rigorosa: deve essere array con lat e lng
+        $is_valid = (is_array($value) && isset($value['lat']) && isset($value['lng']) && !empty($value['lat']));
+        
+        if (!$is_valid) {
+            delete_post_meta($row->post_id, '_dci_luogo_posizione_gps');
+            $count++;
+        }
+    }
+    echo '<div class="notice notice-success is-dismissible"><p><strong>Riparazione completata:</strong> ' . $count . ' campi GPS non validi o vuoti sono stati bonificati.</p></div>';
+}
+
+/**
+ * 3. LOGICA DI LETTURA EXCEL
+ */
+function dci_handle_excel_upload() {
+    if (!wp_verify_nonce($_POST['dci_import_nonce'], 'dci_import_action')) return;
+    
+    @set_time_limit(300); 
+    @ini_set('memory_limit', '512M');
+
+    if ($xlsx = SimpleXLSX::parse($_FILES['import_file']['tmp_name'])) {
+        
+        $sheetNames = $xlsx->sheetNames();
+        $map = [
+            'Luoghi'              => ['func' => 'import_sheet_luoghi',  'start_row' => 11], 
+            'Unità organizzative' => ['func' => 'import_sheet_uo',      'start_row' => 8],  
+            'Persone e incarichi' => ['func' => 'import_sheet_persone', 'start_row' => 7],  
+            'Servizi'             => ['func' => 'import_sheet_servizi', 'start_row' => 12]  
+        ];
+
+        $locations_missing_gps = [];
+
+        echo '<div class="notice notice-success is-dismissible"><p><strong>Importazione Completata!</strong></p>';
+        
+        foreach ($sheetNames as $sheetIndex => $sheetName) {
+            $cleanName = trim($sheetName);
+            
+            if (isset($map[$cleanName])) {
+                echo "<p>Elaborazione scheda: <strong>$cleanName</strong> <br>";
+                $rows = $xlsx->rows($sheetIndex);
+                
+                $startRowIndex = $map[$cleanName]['start_row'];
+                $new_count = 0;
+                $update_count = 0;
+                $functionName = $map[$cleanName]['func'];
+                
+                for ($i = $startRowIndex; $i < count($rows); $i++) {
+                    $row = $rows[$i];
+                    if (empty(trim($row[0])) && empty(trim($row[1]))) continue;
+                    
+                    $result = $functionName($row);
+                    
+                    if ($result && is_array($result)) {
+                        if (isset($result['action']) && $result['action'] === 'new') {
+                            $new_count++;
+                        } elseif (isset($result['action']) && $result['action'] === 'update') {
+                            $update_count++;
+                        }
+
+                        if (isset($result['gps_pending']) && $result['gps_pending'] === true) {
+                            $locations_missing_gps[] = $result;
+                        }
+                    }
+                }
+                
+                echo "<span style='color:#00a32a; font-weight:bold;'>$new_count nuovi inseriti</span> | ";
+                echo "<span style='color:#d63638; font-weight:bold;'>$update_count aggiornati</span>";
+                echo "</p><hr style='margin: 5px 0;'>";
+            }
+        }
+        
+        if (!empty($locations_missing_gps)) {
+            echo '<div style="background-color: #fff8e5; border-left: 4px solid #ffb900; padding: 10px 15px; margin-top: 15px; max-height: 400px; overflow-y: auto;">';
+            echo '<h3 style="margin-top:0; color:#b36b00;">Luoghi con indirizzo da geolocalizzare</h3>';
+            echo '<p>Clicca sui nomi per aprire la scheda.</p>';
+            echo '<ol style="margin-left: 20px;">';
+            foreach ($locations_missing_gps as $loc) {
+                $edit_link = get_edit_post_link($loc['id']);
+                echo "<li style='margin-bottom: 5px;'>";
+                echo "<a href='{$edit_link}' target='_blank' style='font-weight:bold;'>{$loc['title']}</a> ";
+                echo "<span class='dashicons dashicons-external' style='font-size:14px; vertical-align:middle; color:#666;'></span>";
+                echo "</li>";
+            }
+            echo '</ol>';
+            echo '</div>';
+        }
+
+        echo '</div>';
+
+    } else {
+        echo '<div class="notice notice-error"><p>' . SimpleXLSX::parseError() . '</p></div>';
+    }
+}
+
+/**
+ * 4. FUNZIONI DI MAPPING
+ */
+
+function import_sheet_luoghi($row) {
+    $nome = trim($row[0]);
+    if(empty($nome)) return false;
+
+    $parts = array_filter([$row[7], $row[8], $row[11], $row[9], $row[10]]); 
+    $indirizzo = implode(', ', $parts);
+    
+    $argomenti = [];
+    for($j=12; $j<count($row); $j++) { 
+        if(!empty($row[$j]) && stripos($row[$j], 'Note') === false) $argomenti[] = $row[$j]; 
+    }
+
+    $tipi_luogo = [];
+    if (!empty($row[2]) && strtoupper(trim($row[2])) !== 'NESSUNO') {
+        $tipi_luogo[] = $row[2];
+    }
+
+    $contacts_conf = array('post_type' => 'punto_contatto');
+    if (empty(trim($row[4]))) {
+        ESA_Content_Importer::ensure_placeholder_contact();
+        $contacts_conf['value'] = 'Contatto mancante';
+        $contacts_conf['is_dedicated'] = false; 
+    } else {
+        $contacts_conf['value'] = $row[4];
+        $contacts_conf['is_dedicated'] = true; 
+        $contacts_conf['parent_name'] = $nome;
+    }
+
+    // 1. IMPORTAZIONE
+    $res = ESA_Content_Importer::import_post(array(
+        'title' => $nome,
+        'post_type' => 'luogo',
+        'parent_title' => $row[3],
+        'content' => $row[1],
+        'meta_input' => array(
+            '_dci_luogo_descrizione_breve' => $row[1],
+            '_dci_luogo_indirizzo' => $indirizzo,
+            '_dci_luogo_cap' => $row[11],
+            '_dci_luogo_modalita_accesso' => $row[5],
+            '_dci_luogo_orario_apertura' => $row[6],
+            // GPS RIMOSSO
+        ),
+        'taxonomies' => array(
+            'tipi_luogo' => $tipi_luogo,
+            'argomenti' => $argomenti
+        ),
+        'relations' => array(
+            '_dci_luogo_punti_contatto' => $contacts_conf
+        )
+    ));
+
+    // 2. PULIZIA AUTOMATICA POST-IMPORTAZIONE
+    if ($res && isset($res['id'])) {
+        $post_id = $res['id'];
+        $gps_val = get_post_meta($post_id, '_dci_luogo_posizione_gps', true);
+        $is_valid = (is_array($gps_val) && isset($gps_val['lat']) && isset($gps_val['lng']) && !empty($gps_val['lat']));
+        
+        if (!$is_valid) {
+            delete_post_meta($post_id, '_dci_luogo_posizione_gps');
+        }
+
+        // Flag per lista finale
+        if (!empty($indirizzo)) {
+            $check_gps = get_post_meta($post_id, '_dci_luogo_posizione_gps', true);
+            if (empty($check_gps)) {
+                $res['gps_pending'] = true;
+                $res['title'] = $nome;
+            }
+        }
+    }
+
+    return $res;
+}
+
+function import_sheet_uo($row) {
+    $nome = trim($row[0]);
+    if(empty($nome)) return false;
+
+    $argomenti = [];
+    for($j=6; $j<count($row); $j++) { if(!empty($row[$j]) && stripos($row[$j], 'Note') === false) $argomenti[] = $row[$j]; }
+
+    $contacts_conf = array('post_type' => 'punto_contatto');
+    if (empty(trim($row[3]))) {
+        ESA_Content_Importer::ensure_placeholder_contact();
+        $contacts_conf['value'] = 'Contatto mancante';
+        $contacts_conf['is_dedicated'] = false;
+    } else {
+        $contacts_conf['value'] = $row[3];
+        $contacts_conf['is_dedicated'] = true;
+        $contacts_conf['parent_name'] = $nome;
+    }
+
+    return ESA_Content_Importer::import_post(array(
+        'title' => $nome,
+        'post_type' => 'unita_organizzativa',
+        'parent_title' => $row[5], 
+        'content' => $row[1],
+        'meta_input' => array(
+            '_dci_unita_organizzativa_descrizione_breve' => $row[1]
+        ),
+        'taxonomies' => array(
+            'tipi_unita_organizzativa' => $row[2],
+            'argomenti' => $argomenti
+        ),
+        'relations' => array(
+            '_dci_unita_organizzativa_sede_principale' => array('value' => $row[4], 'post_type' => 'luogo', 'single' => true),
+            '_dci_unita_organizzativa_contatti' => $contacts_conf
+        )
+    ));
+}
+
+function import_sheet_persone($row) {
+    $nome_completo = trim($row[0]);
+    if(empty($nome_completo)) return false;
+
+    $parts = explode(' ', $nome_completo);
+    $cognome = '';
+    $nome = $nome_completo; 
+    if (count($parts) > 1) {
+        $cognome = array_pop($parts);
+        $nome = implode(' ', $parts);
+    }
+
+    $persona_res = ESA_Content_Importer::import_post(array(
+        'title' => $nome_completo,
+        'post_type' => 'persona_pubblica',
+        'meta_input' => array(
+            '_dci_persona_pubblica_nome' => $nome,
+            '_dci_persona_pubblica_cognome' => $cognome,
+            '_dci_persona_pubblica_nominativo' => $nome_completo 
+        )
+    ));
+    $persona_id = ($persona_res && isset($persona_res['id'])) ? $persona_res['id'] : null;
+
+    $desc_incarico = !empty($row[1]) ? trim($row[1]) : 'Incarico di ' . $nome_completo;
+    
+    $contacts_conf = array('post_type' => 'punto_contatto');
+    if (empty(trim($row[3]))) {
+        ESA_Content_Importer::ensure_placeholder_contact();
+        $contacts_conf['value'] = 'Contatto mancante';
+        $contacts_conf['is_dedicated'] = false;
+    } else {
+        $contacts_conf['value'] = $row[3];
+        $contacts_conf['is_dedicated'] = true;
+        $contacts_conf['parent_name'] = $nome_completo;
+    }
+
+    return ESA_Content_Importer::import_post(array(
+        'title' => $desc_incarico,
+        'post_type' => 'incarico',
+        'taxonomies' => array(
+            'tipi_incarico' => $row[2]
+        ),
+        'meta_input' => array(
+            '_dci_incarico_persona' => $persona_id, 
+            '_dci_incarico_responsabile' => (stripos($row[5], 'Si') !== false ? 'true' : 'false')
+        ),
+        'relations' => array(
+            '_dci_incarico_unita_organizzativa' => array('value' => $row[4], 'post_type' => 'unita_organizzativa'),
+            '_dci_incarico_punti_contatto' => $contacts_conf
+        )
+    ));
+}
+
+function import_sheet_servizi($row) {
+    $titolo = trim($row[0]);
+    if(empty($titolo)) return false;
+
+    $argomenti = [];
+    for($j=7; $j<count($row); $j++) { if(!empty($row[$j]) && stripos($row[$j], 'Note') === false) $argomenti[] = $row[$j]; }
+
+    $contacts_conf = array('post_type' => 'punto_contatto');
+    if (empty(trim($row[6]))) {
+        ESA_Content_Importer::ensure_placeholder_contact();
+        $contacts_conf['value'] = 'Contatto mancante';
+        $contacts_conf['is_dedicated'] = false;
+    } else {
+        $contacts_conf['value'] = $row[6];
+        $contacts_conf['is_dedicated'] = true;
+        $contacts_conf['parent_name'] = $titolo;
+    }
+
+    return ESA_Content_Importer::import_post(array(
+        'title' => $titolo,
+        'post_type' => 'servizio',
+        'content' => $row[1],
+        'meta_input' => array(
+            '_dci_servizio_descrizione_breve' => $row[1],
+            '_dci_servizio_a_chi_e_rivolto' => $row[4],
+            '_dci_servizio_stato' => 'true'
+        ),
+        'taxonomies' => array(
+            'categorie_servizio' => $row[3],
+            'argomenti' => $argomenti
+        ),
+        'relations' => array(
+            '_dci_servizio_unita_responsabile' => array('value' => $row[5], 'post_type' => 'unita_organizzativa', 'single' => true),
+            '_dci_servizio_punti_contatto' => $contacts_conf,
+            '_dci_servizio_servizi_inclusi' => array('value' => $row[2], 'post_type' => 'servizio')
+        )
+    ));
+}
+
+/**
+ * 5. CLASSE HELPER
+ */
+if (!class_exists('ESA_Content_Importer')) {
+    class ESA_Content_Importer {
+
+        public static function get_id_by_title($title, $post_type) {
+            global $wpdb;
+            $title = trim($title);
+            if(empty($title)) return null;
+
+            $query = $wpdb->prepare(
+                "SELECT ID, post_status FROM $wpdb->posts WHERE post_title = %s AND post_type = %s LIMIT 1",
+                $title, $post_type
+            );
+            
+            $res = $wpdb->get_row($query);
+
+            if ($res) {
+                if ($res->post_status === 'trash') {
+                    return null; 
+                }
+                return $res->ID;
+            }
+            return null;
+        }
+
+        public static function ensure_placeholder_contact() {
+            $title = 'Contatto mancante';
+            $id = self::get_id_by_title($title, 'punto_contatto');
+            if (!$id) {
+                $res = self::import_post(array(
+                    'title' => $title,
+                    'post_type' => 'punto_contatto',
+                    'content' => 'Contatto generico assegnato automaticamente quando non specificato.'
+                ));
+                $id = ($res && isset($res['id'])) ? $res['id'] : null;
+            }
+            return $id;
+        }
+
+        public static function create_dedicated_contact($contact_string, $parent_name) {
+            $contact_string = trim($contact_string);
+            if (empty($contact_string)) return null;
+            
+            $raw_values = preg_split('/[,\n\r]+/', $contact_string);
+            $raw_values = array_filter(array_map('trim', $raw_values)); 
+            
+            if (empty($raw_values)) return null;
+
+            $group_title = "Contatti " . $parent_name;
+            
+            $contact_id = self::get_id_by_title($group_title, 'punto_contatto');
+            
+            if (!$contact_id) {
+                global $wpdb;
+                $trash_id = $wpdb->get_var($wpdb->prepare(
+                    "SELECT ID FROM $wpdb->posts WHERE post_title = %s AND post_type = 'punto_contatto' AND post_status = 'trash' LIMIT 1",
+                    $group_title
+                ));
+
+                if ($trash_id) {
+                    wp_publish_post($trash_id);
+                    $contact_id = $trash_id;
+                } else {
+                    $res = self::import_post(array(
+                        'title' => $group_title,
+                        'post_type' => 'punto_contatto'
+                    ));
+                    $contact_id = ($res && isset($res['id'])) ? $res['id'] : null;
+                }
+            }
+
+            if (!$contact_id) return null;
+
+            $repeater_values = [];
+            $taxonomies_to_set = [];
+
+            foreach ($raw_values as $val) {
+                $type = (strpos($val, '@') !== false) ? 'email' : 'telefono';
+                $taxonomies_to_set[] = ucfirst($type);
+
+                $repeater_values[] = array(
+                    '_dci_punto_contatto_tipo_punto_contatto' => $type,
+                    '_dci_punto_contatto_valore' => $val
+                );
+            }
+
+            update_post_meta($contact_id, '_dci_punto_contatto_voci', $repeater_values);
+            if (!empty($taxonomies_to_set)) {
+                wp_set_object_terms($contact_id, array_unique($taxonomies_to_set), 'tipi_punto_contatto');
+            }
+
+            return $contact_id;
+        }
+
+        public static function import_post($args) {
+            $post_title = trim($args['title']);
+            if(empty($post_title)) return false;
+
+            $post_type = $args['post_type'];
+            
+            global $wpdb;
+            $existing = $wpdb->get_row($wpdb->prepare(
+                "SELECT ID, post_status FROM $wpdb->posts WHERE post_title = %s AND post_type = %s LIMIT 1",
+                $post_title, $post_type
+            ));
+            
+            $post_data = array(
+                'post_title'    => $post_title,
+                'post_content'  => isset($args['content']) ? $args['content'] : '',
+                'post_status'   => 'publish',
+                'post_type'     => $post_type,
+                'post_author'   => get_current_user_id(),
+            );
+
+            $action_taken = '';
+
+            if ($existing) {
+                if ($existing->post_status === 'trash') {
+                    $post_data['ID'] = $existing->ID;
+                    wp_update_post($post_data);
+                    $action_taken = 'new';
+                } else {
+                    $post_data['ID'] = $existing->ID;
+                    wp_update_post($post_data);
+                    $action_taken = 'update';
+                }
+            } else {
+                $post_id = wp_insert_post($post_data);
+                $action_taken = 'new';
+            }
+
+            $post_id = ($existing) ? $existing->ID : $post_id;
+
+            if (is_wp_error($post_id)) return false;
+
+            if (isset($args['meta_input'])) {
+                foreach ($args['meta_input'] as $key => $value) {
+                    if(!empty($value)) update_post_meta($post_id, $key, $value);
+                }
+            }
+
+            if (isset($args['taxonomies'])) {
+                foreach ($args['taxonomies'] as $tax => $terms) {
+                    if (taxonomy_exists($tax) && !empty($terms)) {
+                        if(!is_array($terms)) $terms = array_map('trim', explode(',', $terms));
+                        wp_set_object_terms($post_id, $terms, $tax);
+                    }
+                }
+            }
+
+            if (isset($args['relations'])) {
+                foreach ($args['relations'] as $meta_key => $conf) {
+                    $ids = array();
+                    
+                    if ($conf['post_type'] === 'punto_contatto') {
+                        if (empty($conf['value'])) {
+                            $dummy_id = self::ensure_placeholder_contact();
+                            if ($dummy_id) $ids[] = $dummy_id;
+                        } 
+                        elseif (isset($conf['is_dedicated']) && $conf['is_dedicated'] === true) {
+                            $cid = self::create_dedicated_contact($conf['value'], $conf['parent_name']);
+                            if ($cid) $ids[] = $cid;
+                        }
+                        else {
+                            $found = self::get_id_by_title($conf['value'], 'punto_contatto');
+                            if ($found) $ids[] = $found;
+                        }
+                    } 
+                    else {
+                        if (!empty($conf['value'])) {
+                            $raw_values = preg_split('/[,\n\r]+/', $conf['value']);
+                            foreach($raw_values as $t) {
+                                $t = trim($t);
+                                if(empty($t)) continue;
+                                $found = self::get_id_by_title($t, $conf['post_type']);
+                                if ($found) $ids[] = $found;
+                            }
+                        }
+                    }
+
+                    if (!empty($ids)) {
+                        $val = (isset($conf['single']) && $conf['single']) ? $ids[0] : $ids;
+                        update_post_meta($post_id, $meta_key, $val);
+                    }
+                }
+            }
+            
+            if(isset($args['parent_title']) && !empty($args['parent_title'])) {
+                $parent_id = self::get_id_by_title($args['parent_title'], $post_type);
+                if($parent_id) wp_update_post(array('ID' => $post_id, 'post_parent' => $parent_id));
+            }
+
+            return array('id' => $post_id, 'action' => $action_taken);
+        }
+    }
+}
+
+/**
+ * ============================================================
+ * UTILITY: COLONNA STATO GPS NELLA LISTA LUOGHI
+ * ============================================================
+ */
+add_filter('manage_luogo_posts_columns', 'dci_add_gps_column');
+function dci_add_gps_column($columns) {
+    $new_columns = array();
+    foreach ($columns as $key => $value) {
+        $new_columns[$key] = $value;
+        if ($key === 'title') {
+            $new_columns['gps_status'] = '<span class="dashicons dashicons-location"></span> GPS';
+        }
+    }
+    return $new_columns;
+}
+
+add_action('manage_luogo_posts_custom_column', 'dci_show_gps_status', 10, 2);
+function dci_show_gps_status($column, $post_id) {
+    if ($column === 'gps_status') {
+        $gps_data = get_post_meta($post_id, '_dci_luogo_posizione_gps', true);
+        
+        $has_gps = false;
+        if (is_array($gps_data) && !empty($gps_data['lat']) && !empty($gps_data['lng'])) {
+            $has_gps = true;
+        }
+
+        if ($has_gps) {
+            echo '<span style="color:#46b450;" class="dashicons dashicons-yes" title="Coordinate OK"></span>';
+        } else {
+            echo '<span style="color:#dc3232;" class="dashicons dashicons-no-alt" title="Coordinate mancanti"></span>';
+        }
+    }
+}
+
+/**
+ * ============================================================
+ * FIX CRITICO: FILTRO CMB2 PER EVITARE IL CARICAMENTO INFINITO DELLA MAPPA
+ * Se il dato GPS nel DB è corrotto (es. è una stringa), lo nasconde al widget.
+ * ============================================================
+ */
+add_filter('cmb2_override_meta_value', 'dci_sanitize_gps_on_load', 10, 4);
+function dci_sanitize_gps_on_load($value, $object_id, $args, $field) {
+    // Interveniamo solo sul campo GPS specifico
+    if ($field->id() === '_dci_luogo_posizione_gps') {
+        // Recuperiamo il valore grezzo dal DB
+        $raw_value = get_post_meta($object_id, '_dci_luogo_posizione_gps', true);
+        
+        // Se c'è un valore MA non è un array valido di coordinate, FORZIAMO IL VUOTO
+        // Questo impedisce al Javascript della mappa di andare in loop
+        if (!empty($raw_value) && (!is_array($raw_value) || empty($raw_value['lat']))) {
+            return ''; // Restituisce stringa vuota al widget
+        }
+    }
+    // Altrimenti restituisce il valore normale
+    return $value;
+}
+?>

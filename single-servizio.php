@@ -356,14 +356,32 @@ get_header();
 											
 									        <div class="collapse clearfix mt-0 me-5" id="collapseServiziInclusi">
 										        <div class="row g-4 mt-1 mb-3">
-											        <?php foreach ($posts as $servizio) { ?>
-												        <div class="col-lg-6 col-md-12">
-                                                            <?php if($stileInclusi == 'estesa' || $stileInclusi == 'titolo') {
-                                                                    $mostra_dettagli_servizi = $stileInclusi == 'estesa';
-                                                                    get_template_part("template-parts/servizio/card");
-                                                            } else get_template_part("template-parts/servizio/card-con-icona"); ?>
-												        </div>
-                                                    <?php } ?>
+                                                    <?php
+                                                        $servizi_items = [];
+                                                        foreach ($posts as $servizio) { 
+                                                            if (FALSE !== get_post_status( $servizio->ID ) ) {
+                                                                $priority_order = get_post_meta($servizio->ID, '_dci_servizio_priority_order', true );
+                                                                $servizio->priority_order = $priority_order != "" ? intval($priority_order) : 0;
+
+											                    $servizi_items[] = $servizio;
+										                    }
+                                                        }
+
+                                                        usort($servizi_items, fn($a, $b) => strcmp($a->priority_order, $b->priority_order));
+                                                    
+                                                        foreach ($servizi_items as $servizio_item) { 
+                                                        $servizio = $servizio_item;
+                                                        $with_map = false;    
+                                                        if ($servizio != null) { ?>
+                                                    
+												            <div class="col-lg-6 col-md-12">
+                                                                <?php if($stileInclusi == 'estesa' || $stileInclusi == 'titolo') {
+                                                                        $mostra_dettagli_servizi = $stileInclusi == 'estesa';
+                                                                        get_template_part("template-parts/servizio/card");
+                                                                } else get_template_part("template-parts/servizio/card-con-icona"); ?>
+												            </div> <?php
+                                                        }
+                                                     } ?>
 											    </div>
 										    </div>
 									    </div>
@@ -421,14 +439,34 @@ get_header();
 											
 									        <div class="collapse clearfix mt-0 me-5" id="collapseServiziNecessari">
 										        <div class="row g-4 mt-1 mb-3">
-											    <?php foreach ($posts as $servizio) { ?>
-												    <div class="col-lg-6 col-md-12">
-                                                        <?php if($stileNecessari == 'estesa' || $stileNecessari == 'titolo') {
-                                                                $mostra_dettagli_servizi = $stileNecessari == 'estesa';
-                                                                get_template_part("template-parts/servizio/card");
-                                                              } else get_template_part("template-parts/servizio/card-con-icona"); ?>
-												    </div>
-                                                <?php } ?>
+
+                                                    <?php
+                                                    $servizi_items = [];
+                                                    foreach ($posts as $servizio) { 
+                                                        if (FALSE !== get_post_status( $servizio->ID ) ) {
+                                                            $priority_order = get_post_meta($servizio->ID, '_dci_servizio_priority_order', true );
+                                                            $servizio->priority_order = $priority_order != "" ? intval($priority_order) : 0;
+
+											                $servizi_items[] = $servizio;
+										                }
+                                                    }
+
+                                                    usort($servizi_items, fn($a, $b) => strcmp($a->priority_order, $b->priority_order));
+                                                    
+                                                    foreach ($servizi_items as $servizio_item) { 
+                                                        $servizio = $servizio_item;
+                                                        $with_map = false;    
+                                                        if ($servizio != null) { ?>
+                                                    
+												            <div class="col-lg-6 col-md-12"> <?php 
+                                                                if($stileNecessari == 'estesa' || $stileNecessari == 'titolo') {
+                                                                    $mostra_dettagli_servizi = $stileNecessari == 'estesa';
+                                                                    get_template_part("template-parts/servizio/card");
+                                                                } else get_template_part("template-parts/servizio/card-con-icona"); ?>
+												            </div> <?php
+                                                        }
+                                                    } ?>
+
 												</div>
 											</div>
 										</div>
