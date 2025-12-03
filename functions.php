@@ -1260,14 +1260,47 @@ function dci_handle_salva_opzioni_menu_procedura_custom() {
 add_action( 'admin_post_salva_opzioni_menu_procedura_custom', 'dci_handle_salva_opzioni_menu_procedura_custom' );
 
 
+/* DEBUG: Mostra un avviso in admin con il percorso esatto del file SimpleXLSX.php
+add_action('admin_notices', function() {
+    $path = get_template_directory() . '/inc/lib/SimpleXLSX.php';
+    echo '<div class="notice notice-warning is-dismissible" style="z-index: 99999;">';
+    echo '<h3>DEBUG PERCORSO</h3>';
+    echo '<p>Il sistema sta cercando il file esattamente qui:<br>';
+    echo '<strong>' . $path . '</strong></p>';
+    
+    if (file_exists($path)) {
+        echo '<p style="color:green; font-weight:bold;">IL FILE ESISTE!</p>';
+    } else {
+        echo '<p style="color:red; font-weight:bold;">IL FILE NON È STATO TROVATO.</p>';
+        echo '<p>Controlla che:<br>';
+        echo '1. La cartella "lib" esista dentro "inc".<br>';
+        echo '2. Il file si chiami "SimpleXLSX.php" (occhio alle maiuscole S e XLSX!).</p>';
+    }
+    echo '</div>';
+});
+*/
+
+
+/**
+ * CARICAMENTO LIBRERIA EXCEL E FIX NAMESPACE
+ */
+
+$xlsx_path = get_template_directory() . '/inc/lib/SimpleXLSX.php';
+if (file_exists($xlsx_path)) {
+    require_once $xlsx_path;
+    if (class_exists('Shuchkin\SimpleXLSX')) {
+        class_alias('Shuchkin\SimpleXLSX', 'SimpleXLSX');
+    }
+}
+
 /**
  * 1. REGISTRAZIONE PAGINA DI IMPORTAZIONE
  */
 add_action('admin_menu', 'dci_register_import_page');
 function dci_register_import_page() {
     add_submenu_page(
-        'index.php', 
-        'Importa Dati ESA', 
+        'dci_data_migration_utilities', 
+        'Importa Dati', 
         'Importa Excel ESA', 
         'manage_options', 
         'dci-import-excel', 
@@ -1369,7 +1402,29 @@ function dci_handle_excel_upload() {
             $cleanName = trim($sheetName);
             
             if (isset($map[$cleanName])) {
-                echo "<p>Elaborazione scheda: <strong>$cleanName</strong> <br>";
+                
+                $display_title = $cleanName;
+                switch ($cleanName) {
+                    case 'Luoghi':
+                        $url = admin_url('edit.php?post_type=luogo');
+                        $display_title = "<a href='{$url}' target='_blank'><strong>{$cleanName}</strong></a>";
+                        break;
+                    case 'Unità organizzative':
+                        $url = admin_url('edit.php?post_type=unita_organizzativa');
+                        $display_title = "<a href='{$url}' target='_blank'><strong>{$cleanName}</strong></a>";
+                        break;
+                    case 'Servizi':
+                        $url = admin_url('edit.php?post_type=servizio');
+                        $display_title = "<a href='{$url}' target='_blank'><strong>{$cleanName}</strong></a>";
+                        break;
+                    case 'Persone e incarichi':
+                        $url_p = admin_url('edit.php?post_type=persona_pubblica');
+                        $url_i = admin_url('edit.php?post_type=incarico');
+                        $display_title = "<a href='{$url_p}' target='_blank'><strong>Persone</strong></a> e <a href='{$url_i}' target='_blank'><strong>Incarichi</strong></a>";
+                        break;
+                }
+
+                echo "<p>Elaborazione scheda: $display_title <br>";
                 $rows = $xlsx->rows($sheetIndex);
                 
                 $startRowIndex = $map[$cleanName]['start_row'];
@@ -1404,13 +1459,13 @@ function dci_handle_excel_upload() {
         
         if (!empty($locations_missing_gps)) {
             echo '<div style="background-color: #fff8e5; border-left: 4px solid #ffb900; padding: 10px 15px; margin-top: 15px; max-height: 400px; overflow-y: auto;">';
-            echo '<h3 style="margin-top:0; color:#b36b00;">Luoghi con indirizzo da geolocalizzare</h3>';
-            echo '<p>Clicca sui nomi per aprire la scheda.</p>';
+            echo '<h3 style="margin-top:0; color:#b36b00;">Luoghi con indirizzo non geolocalizzati durante l\'importazione</h3>';
+            echo '<p>Clicca sui nomi per aprire la scheda e inserire manualmente la geolocalizzazione.</p>';
             echo '<ol style="margin-left: 20px;">';
             foreach ($locations_missing_gps as $loc) {
                 $edit_link = get_edit_post_link($loc['id']);
                 echo "<li style='margin-bottom: 5px;'>";
-                echo "<a href='{$edit_link}' target='_blank' style='font-weight:bold;'>{$loc['title']}</a> ";
+                echo "<a href='{$edit_link}' target='_blank' style='font-weight:bold; text-decoration:none;'>{$loc['title']}</a> ";
                 echo "<span class='dashicons dashicons-external' style='font-size:14px; vertical-align:middle; color:#666;'></span>";
                 echo "</li>";
             }

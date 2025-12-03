@@ -2,37 +2,6 @@
 
 require get_template_directory() . '/inc/lib/parsedown.php';
 
-
-/* DEBUG: Mostra un avviso in admin con il percorso esatto del file SimpleXLSX.php
-add_action('admin_notices', function() {
-    $path = get_template_directory() . '/inc/lib/SimpleXLSX.php';
-    echo '<div class="notice notice-warning is-dismissible" style="z-index: 99999;">';
-    echo '<h3>DEBUG PERCORSO</h3>';
-    echo '<p>Il sistema sta cercando il file esattamente qui:<br>';
-    echo '<strong>' . $path . '</strong></p>';
-    
-    if (file_exists($path)) {
-        echo '<p style="color:green; font-weight:bold;">✅ IL FILE ESISTE!</p>';
-    } else {
-        echo '<p style="color:red; font-weight:bold;">❌ IL FILE NON È STATO TROVATO.</p>';
-        echo '<p>Controlla che:<br>';
-        echo '1. La cartella "lib" esista dentro "inc".<br>';
-        echo '2. Il file si chiami "SimpleXLSX.php" (occhio alle maiuscole S e XLSX!).</p>';
-    }
-    echo '</div>';
-});
-*/
-/**
- * CARICAMENTO LIBRERIA EXCEL E FIX NAMESPACE
- */
-$xlsx_path = get_template_directory() . '/inc/lib/SimpleXLSX.php';
-if (file_exists($xlsx_path)) {
-    require_once $xlsx_path;
-    if (class_exists('Shuchkin\SimpleXLSX')) {
-        class_alias('Shuchkin\SimpleXLSX', 'SimpleXLSX');
-    }
-}
-
 /**
  * Welcome page
  */
