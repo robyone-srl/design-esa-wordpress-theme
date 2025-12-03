@@ -1316,9 +1316,20 @@ function dci_render_import_page() {
         dci_fix_gps_data();
     }
 
+    // B. Gestione Opzioni Visualizzazione (Checkbox)
+    if (isset($_POST['dci_toggle_gps_col_nonce']) && wp_verify_nonce($_POST['dci_toggle_gps_col_nonce'], 'dci_toggle_gps_col_action')) {
+        $val = isset($_POST['show_gps_column']) ? 1 : 0;
+        update_option('dci_show_gps_column', $val);
+        echo '<div class="notice notice-success is-dismissible"><p>Impostazioni visualizzazione aggiornate.</p></div>';
+    }
+
+    // C. Gestione Importazione
     if (isset($_FILES['import_file']) && isset($_POST['dci_import_nonce'])) {
         dci_handle_excel_upload();
     }
+
+    // Recupero stato attuale checkbox
+    $show_gps_checked = get_option('dci_show_gps_column', 0); // Default 0 (Disattivato)
     ?>
     <div class="wrap">
         <h1>Importazione Dati da Excel (Modello ESA)</h1>
@@ -1347,10 +1358,24 @@ function dci_render_import_page() {
 
         <div class="card" style="max-width: 800px; padding: 20px; margin-top: 20px; border-left: 4px solid #f0b849;">
             <h2>2. Manutenzione Dati</h2>
-            <p>Se noti problemi con la mappa dei luoghi (caricamento infinito), usa questo pulsante. Rimuoverà qualsiasi dato GPS che non sia una coordinata valida, resettando il campo.</p>
-            <form method="post">
+            
+            <p><strong>Strumento di Riparazione:</strong> Usa questo pulsante se noti problemi con la mappa dei luoghi (caricamento infinito). Rimuoverà dati GPS non validi.</p>
+            <form method="post" style="margin-bottom: 20px;">
                 <?php wp_nonce_field('dci_fix_gps_action', 'dci_fix_gps_nonce'); ?>
                 <input type="submit" class="button button-secondary" value="Ripara Database GPS (Pulizia Aggressiva)">
+            </form>
+
+            <hr style="border-top: 1px solid #ddd; margin: 20px 0;">
+
+            <p><strong>Opzioni Visualizzazione:</strong> Attiva questa opzione per vedere una colonna "Stato GPS" nella lista dei Luoghi. Utile per capire quali luoghi mancano di coordinate.</p>
+            <form method="post">
+                <?php wp_nonce_field('dci_toggle_gps_col_action', 'dci_toggle_gps_col_nonce'); ?>
+                <label for="show_gps_column">
+                    <input type="checkbox" name="show_gps_column" id="show_gps_column" value="1" <?php checked(1, $show_gps_checked); ?>>
+                    Mostra colonna stato GPS nella lista Luoghi
+                </label>
+                <br><br>
+                <input type="submit" class="button" value="Salva Impostazione">
             </form>
         </div>
     </div>
@@ -1893,6 +1918,9 @@ if (!class_exists('ESA_Content_Importer')) {
  */
 add_filter('manage_luogo_posts_columns', 'dci_add_gps_column');
 function dci_add_gps_column($columns) {
+    if (!get_option('dci_show_gps_column')) {
+        return $columns;
+    }
     $new_columns = array();
     foreach ($columns as $key => $value) {
         $new_columns[$key] = $value;
@@ -1923,24 +1951,19 @@ function dci_show_gps_status($column, $post_id) {
 
 /**
  * ============================================================
- * FIX CRITICO: FILTRO CMB2 PER EVITARE IL CARICAMENTO INFINITO DELLA MAPPA
- * Se il dato GPS nel DB è corrotto (es. è una stringa), lo nasconde al widget.
+ * FILTRO CMB2 PER EVITARE IL CARICAMENTO INFINITO DELLA MAPPA
+ * Se il dato GPS nel DB non è valido, lo nasconde al widget.
  * ============================================================
  */
 add_filter('cmb2_override_meta_value', 'dci_sanitize_gps_on_load', 10, 4);
 function dci_sanitize_gps_on_load($value, $object_id, $args, $field) {
-    // Interveniamo solo sul campo GPS specifico
     if ($field->id() === '_dci_luogo_posizione_gps') {
-        // Recuperiamo il valore grezzo dal DB
         $raw_value = get_post_meta($object_id, '_dci_luogo_posizione_gps', true);
         
-        // Se c'è un valore MA non è un array valido di coordinate, FORZIAMO IL VUOTO
-        // Questo impedisce al Javascript della mappa di andare in loop
         if (!empty($raw_value) && (!is_array($raw_value) || empty($raw_value['lat']))) {
-            return ''; // Restituisce stringa vuota al widget
+            return '';
         }
     }
-    // Altrimenti restituisce il valore normale
     return $value;
 }
 ?>
