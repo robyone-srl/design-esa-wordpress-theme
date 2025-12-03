@@ -1362,7 +1362,7 @@ function dci_render_import_page() {
             <p><strong>Strumento di Riparazione:</strong> Usa questo pulsante se noti problemi con la mappa dei luoghi (caricamento infinito). Rimuoverà dati GPS non validi.</p>
             <form method="post" style="margin-bottom: 20px;">
                 <?php wp_nonce_field('dci_fix_gps_action', 'dci_fix_gps_nonce'); ?>
-                <input type="submit" class="button button-secondary" value="Ripara Database GPS (Pulizia Aggressiva)">
+                <input type="submit" class="button button-secondary" value="Ripara campi GPS">
             </form>
 
             <hr style="border-top: 1px solid #ddd; margin: 20px 0;">
