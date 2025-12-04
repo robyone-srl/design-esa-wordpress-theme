@@ -3,9 +3,6 @@ global $luogo, $showTitle, $showPermalink, $showParent;
 $prefix = '_dci_luogo_';
 $c=0;
 
-var_dump(dci_get_meta("posizione_gps", $prefix, $childof));
-var_dump($posizione_gps["lat"]);
-var_dump($posizione_gps["lng"]);
 $post_title = $luogo->post_title;
 $permalink = get_permalink($luogo);
 

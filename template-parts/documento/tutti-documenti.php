@@ -4,8 +4,10 @@ global $the_query, $load_posts, $load_card_type, $order_values, $found_posts, $p
 $max_posts = isset($_GET["max_posts"]) ? $_GET["max_posts"] : 6;
 $query = isset($_GET["search"]) ? dci_removeslashes($_GET["search"]) : null;
 
-if(isset($_GET))
-    $order_values = dci_get_order_values("post_title", "ASC", $_GET["order_by"]);
+if (!isset($_GET["order_by"])) {
+    $_GET["order_by"] = "post_title_asc";
+}
+$order_values = dci_get_order_values("post_title", "ASC", $_GET["order_by"]);
 
 $args = [
     "s" => $query,

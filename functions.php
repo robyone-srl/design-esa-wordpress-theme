@@ -1482,10 +1482,11 @@ function dci_handle_excel_upload() {
             }
         }
         
+        //Logica Link schede mancanti GPS
         if (!empty($locations_missing_gps)) {
             echo '<div style="background-color: #fff8e5; border-left: 4px solid #ffb900; padding: 10px 15px; margin-top: 15px; max-height: 400px; overflow-y: auto;">';
             echo '<h3 style="margin-top:0; color:#b36b00;">Luoghi con indirizzo non geolocalizzati durante l\'importazione</h3>';
-            echo '<p>Clicca sui nomi per aprire la scheda e inserire manualmente la geolocalizzazione.</p>';
+            echo '<p>Clicca sui nomi per aprire la scheda e inserire manualmente la geolocalizzazione</p>';
             echo '<ol style="margin-left: 20px;">';
             foreach ($locations_missing_gps as $loc) {
                 $edit_link = get_edit_post_link($loc['id']);
@@ -1564,19 +1565,17 @@ function import_sheet_luoghi($row) {
     if ($res && isset($res['id'])) {
         $post_id = $res['id'];
         $gps_val = get_post_meta($post_id, '_dci_luogo_posizione_gps', true);
-        $is_valid = (is_array($gps_val) && isset($gps_val['lat']) && isset($gps_val['lng']) && !empty($gps_val['lat']));
         
-        if (!$is_valid) {
+        $is_valid_gps = (is_array($gps_val) && isset($gps_val['lat']) && isset($gps_val['lng']) && !empty($gps_val['lat']));
+        
+        if (!$is_valid_gps && !empty($gps_val)) {
             delete_post_meta($post_id, '_dci_luogo_posizione_gps');
+            $is_valid_gps = false;
         }
 
-        // Flag per lista finale
-        if (!empty($indirizzo)) {
-            $check_gps = get_post_meta($post_id, '_dci_luogo_posizione_gps', true);
-            if (empty($check_gps)) {
-                $res['gps_pending'] = true;
-                $res['title'] = $nome;
-            }
+        if (!$is_valid_gps) {
+            $res['gps_pending'] = true;
+            $res['title'] = $nome;
         }
     }
 
@@ -1746,7 +1745,16 @@ if (!class_exists('ESA_Content_Importer')) {
                 $res = self::import_post(array(
                     'title' => $title,
                     'post_type' => 'punto_contatto',
-                    'content' => 'Contatto generico assegnato automaticamente quando non specificato.'
+                    'content' => 'Contatto generico assegnato automaticamente quando non specificato.',
+                    'taxonomies' => array('tipi_punto_contatto' => array('Email')),
+                    'meta_input' => array(
+                        '_dci_punto_contatto_voci' => array(
+                            array(
+                                '_dci_punto_contatto_tipo_punto_contatto' => 'email',
+                                '_dci_punto_contatto_valore' => 'no_email@no.email'
+                            )
+                        )
+                    )
                 ));
                 $id = ($res && isset($res['id'])) ? $res['id'] : null;
             }
@@ -1864,6 +1872,17 @@ if (!class_exists('ESA_Content_Importer')) {
                 }
             }
 
+            if(isset($args['parent_title']) && !empty($args['parent_title'])) {
+                $parent_id = self::get_id_by_title($args['parent_title'], $post_type);
+                if($parent_id) {
+                    wp_update_post(array('ID' => $post_id, 'post_parent' => $parent_id));
+                    
+                    if ($post_type === 'luogo') {
+                        update_post_meta($post_id, '_dci_luogo_childof', $parent_id);
+                    }
+                }
+            }
+
             if (isset($args['relations'])) {
                 foreach ($args['relations'] as $meta_key => $conf) {
                     $ids = array();
@@ -1899,11 +1918,6 @@ if (!class_exists('ESA_Content_Importer')) {
                         update_post_meta($post_id, $meta_key, $val);
                     }
                 }
-            }
-            
-            if(isset($args['parent_title']) && !empty($args['parent_title'])) {
-                $parent_id = self::get_id_by_title($args['parent_title'], $post_type);
-                if($parent_id) wp_update_post(array('ID' => $post_id, 'post_parent' => $parent_id));
             }
 
             return array('id' => $post_id, 'action' => $action_taken);

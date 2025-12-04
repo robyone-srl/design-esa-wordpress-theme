@@ -1,9 +1,15 @@
 <?php
-global $the_query, $load_posts, $load_card_type, $additional_filter, $title_level;
+global $the_query, $load_posts, $load_card_type, $additional_filter, $found_posts, $post_type_multiple, $title_level, $order_values;
 
 $load_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 10;
 
 $query = isset($_GET['search']) ? $_GET['search'] : null;
+
+if(!isset($_GET["order_by"])) {
+    $_GET["order_by"] = "post_title_asc";
+}
+
+$order_values = dci_get_order_values("post_title", "ASC", $_GET["order_by"]);
 
 $tax_query = array();
 
@@ -23,8 +29,8 @@ $args = array(
     'posts_per_page' => $load_posts,
 	'post_type' => 'punto_contatto',
 	'tax_query' => $tax_query,
-    'orderby'        => 'post_title',
-	'order'          => 'ASC'
+    'order'          => $order_values["dir"],
+    'orderby'        => $order_values["field"]
 );
 
 $the_query = new WP_Query( $args );
@@ -61,12 +67,13 @@ $additional_filter = $tax_query;
                             </svg>
                         </span>
                     </div>
+                    <?php 
+						$found_posts = $the_query->found_posts;
+						$post_type_multiple = "punti di contatto trovati";
+
+						get_template_part("template-parts/common/data-list-info-and-ordering");
+					?>
                 </div>
-                <p id="autocomplete-label" class="mb-4">
-                    <strong>
-                        <?php echo $the_query->found_posts; ?>
-                    </strong>risultati in ordine alfabetico
-                </p>
             </div>
             <div class="row g-2" id="load-more">
 
