@@ -83,12 +83,18 @@
                           <div class="link-list-wrapper mb-4">
                             <ul class="link-list">
                                 <?php
+                                global $order_values;
+                                if(!isset($_GET["order_by"])) {
+                                    $_GET["order_by"] = "post_title_asc";
+                                }
+
+                                $order_values = dci_get_order_values("post_title", "ASC", $_GET["order_by"]);
                                 $popular_posts = new WP_Query( array(
                                     'post_type'     => dci_get_sercheable_tipologie(), 
                                     'posts_per_page' => 7, 
                                     'meta_key'      => 'views',
-                                    'orderby'       => 'meta_value_num',
-                                    'order'         => 'DESC'
+                                    'order'          => $order_values["dir"],
+                                    'orderby'        => $order_values["field"],
                                     )
                                 );
 

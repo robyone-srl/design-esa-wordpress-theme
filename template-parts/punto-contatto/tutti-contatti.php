@@ -1,7 +1,7 @@
 <?php
 global $the_query, $load_posts, $load_card_type, $additional_filter, $found_posts, $post_type_multiple, $title_level, $order_values;
 
-$load_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 10;
+$load_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 9;
 
 $query = isset($_GET['search']) ? $_GET['search'] : null;
 

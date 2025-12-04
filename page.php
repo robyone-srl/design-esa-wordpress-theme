@@ -289,12 +289,9 @@ get_header();
                                 <?php 
                                 foreach ($procedure as $procedura_singola) {  
                                     $procedura = get_post($procedura_singola);
-                                    if(isset($procedura)){ ?>
-                                        <div class="col-lg-6 col-md-12 mb-4">
-                                            <?php 
-                                            $mostra_dettagli_procedura = true;
-                                            get_template_part("template-parts/procedura/card"); ?>
-                                        </div> <?php 
+                                    if(isset($procedura)){
+                                        $mostra_dettagli_procedura = true;
+                                        get_template_part("template-parts/procedura/card");
                                     }    
                                 } ?>
                             </div> <?php 
