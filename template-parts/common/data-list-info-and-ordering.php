@@ -1,5 +1,9 @@
 <?php
 global $order_values, $filter_value, $filters, $found_posts, $post_type_multiple;
+
+if(!isset($filters)){
+    $filters = [];
+}
 ?>
 
 <div class="d-flex align-items-center justify-content-between" data-current-filter="<?php echo esc_attr($filter_value); ?>" data-current-order="<?php echo esc_attr($order_values["option"]); ?>">
