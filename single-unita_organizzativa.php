@@ -43,9 +43,11 @@ get_header();
 
         $servizi = dci_get_meta("elenco_servizi_offerti", $prefix, $post->ID);
 
-        foreach ($servizi as $key => $servizio_id) {
-            if (FALSE === get_post_status( $servizio_id ) ) {
-                unset($servizi[$key]);
+        if( is_array($servizi) ) {
+            foreach ($servizi as $key => $servizio_id) {
+                if (FALSE === get_post_status( $servizio_id ) ) {
+                    unset($servizi[$key]);
+                }
             }
         }
 	
