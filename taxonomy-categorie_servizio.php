@@ -13,14 +13,21 @@ global $the_query, $load_posts, $load_card_type, $servizio, $tax_query, $title, 
 $obj = get_queried_object();
 $max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 3;
 $load_posts = 3;
+
+if(!isset($_GET["order_by"])) {
+    $_GET["order_by"] = "post_title_asc";
+}
+$order_values = dci_get_order_values("post_title", "ASC", $_GET["order_by"]);
+
 $query = isset($_GET['search']) ? dci_removeslashes($_GET['search']) : null;
+
 $args = array(
     's' => $query,
     'posts_per_page' => $max_posts,
     'post_type'      => 'servizio',
     'categorie_servizio' => $obj->slug,
-    'orderby'        => 'post_title',
-    'order'          => 'ASC'
+	'orderby'        => $order_values["field"],
+	'order'          => $order_values["dir"]
 );
 $the_query = new WP_Query( $args );
 $servizi = $the_query->posts;

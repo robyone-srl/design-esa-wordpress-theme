@@ -14,13 +14,19 @@ $obj = get_queried_object();
 $max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 3;
 $load_posts = 3;
 $query = isset($_GET['search']) ? dci_removeslashes($_GET['search']) : null;
+
+if (!isset($_GET["order_by"])) {
+    $_GET["order_by"] = "post_title_asc";
+}
+$order_values = dci_get_order_values("post_title", "ASC", $_GET["order_by"]);
+
 $args = array(
     's' => $query,
     'posts_per_page' => $max_posts,
     'post_type'      => 'evento',
     'tipi_evento' => $obj->slug,
-    'orderby' => 'meta_value',
-    'order' => 'ASC',
+    'order'=> $order_values["dir"],
+    'orderby' => $order_values["field"],
     'meta_key' => '_dci_evento_data_orario_inizio',
 );
 $the_query = new WP_Query( $args );
