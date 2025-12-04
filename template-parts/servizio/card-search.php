@@ -10,7 +10,7 @@ if($post->post_status == "publish") {
     if($img){ ?>
         <div class="card card-teaser card-teaser-image card-flex no-after rounded shadow-sm border border-light mb-0">
             <div class="card-image-wrapper with-read-more">
-                <div class="content aling-top">
+                <div class="content aling-top pe-2">
                     <div class="card-header border-0 pb-1">
                         <?php if (is_array($categorie) && count($categorie)) {
                             $count = 1;
