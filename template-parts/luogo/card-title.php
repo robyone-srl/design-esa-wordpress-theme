@@ -1,9 +1,24 @@
 <?php
 global $luogo, $show_descrizione;
 
+$prefix = '_dci_luogo_';
+
 $card_title = $luogo->post_title;
-$descrizione_breve = dci_get_meta("descrizione_breve", '', $luogo->ID);
-$indirizzo = dci_get_meta("indirizzo", '', $luogo->ID);
+$titleparent = null;
+$descrizione_breve = dci_get_meta("descrizione_breve", $prefix, $luogo->ID);
+
+$childof = dci_get_meta("childof", $prefix, $luogo->ID);
+
+if(!empty($childof)) {
+    $childofwhile = $childof;
+    while(!empty($childofwhile)) {
+		$titleparent = get_the_title( $childof );
+		$indirizzo = dci_get_meta("indirizzo", $prefix, $childof);
+        $childofwhile = dci_get_meta("childof", $prefix, $childof);
+    }  
+} else {
+    $indirizzo = dci_get_meta("indirizzo", $prefix, $luogo->ID);
+}
 
 if($show_descrizione == '' || $show_descrizione == null) $show_descrizione = false;
 ?>
@@ -29,6 +44,7 @@ if($show_descrizione == '' || $show_descrizione == null) $show_descrizione = fal
                         if($show_descrizione){
                             echo $descrizione_breve;
                         } else {
+							if($titleparent != null && $titleparent != "") echo "<strong>". $titleparent . "</strong><br />";
                             echo $indirizzo;
                         } ?>
                     </small>
