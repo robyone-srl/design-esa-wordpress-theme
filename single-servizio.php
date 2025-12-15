@@ -42,6 +42,8 @@ get_header();
         $canale_fisico_text = dci_get_meta("canale_fisico_text");
         $canale_fisico_luoghi_id = dci_get_meta("canale_fisico_luoghi") ?: [];
         $mostra_prenota_appuntamento = dci_get_option("prenota_appuntamento", "servizi");
+        
+		$punti_contatto_id = dci_get_meta("punti_contatto");
 
         $more_info = dci_get_wysiwyg_field("ulteriori_informazioni");
         $condizioni_servizio = dci_get_meta("condizioni_servizio");
@@ -289,7 +291,7 @@ get_header();
                                                                     </a>
                                                                 </li>
                                                             <?php } ?>
-                                                            <?php if ($uo_id) { ?>
+                                                            <?php if(!empty($punti_contatto_id) || $incarichi || $uo_id) { ?>
                                                                 <li class="nav-item">
                                                                     <a class="nav-link" href="#contacts">
                                                                         <span>Contatti</span>
@@ -346,7 +348,7 @@ get_header();
 									    <h3 class="h4 title mb-3"> Servizi inclusi</h3>
                                         <div>
                                             <p>
-                                                Con questo servizio ne vengono inclusi ulteriori.
+                                                Nella lista di seguito trovi i servizi inclusi usufruendo del servizio di <?php the_title(); ?>.
                                             </p>
 
                                             <a class="btn btn-primary btn-icon btn-xs" data-bs-toggle="collapse" href="#collapseServiziInclusi" role="button" aria-expanded="false" aria-controls="collapseServiziInclusi">
@@ -733,64 +735,65 @@ get_header();
                                 </div>
                             </section>
                         <?php } ?>
-  
-                        <section class="it-page-section">
-                            <h2 class="mb-3 h3" id="contacts">Contatti</h2>
-                            <?php if ($mostra_prenota_appuntamento) { ?>
-                                    <button type="button" class="btn btn-outline-primary t-primary bg-white mobile-full mb-3" onclick="location.href='<?php echo dci_get_template_page_url('page-templates/prenota-appuntamento.php'); ?>';" data-element="service-booking-access">
-                                        <span class="">Prenota appuntamento</span>
-                                    </button>
-                                <?php } 
+						
+						<?php if(!empty($punti_contatto_id) || $incarichi || $uo_id) { ?>
+							<section class="it-page-section">
+								<h2 class="mb-3 h3" id="contacts">Contatti</h2>
+								<?php if ($mostra_prenota_appuntamento) { ?>
+										<button type="button" class="btn btn-outline-primary t-primary bg-white mobile-full mb-3" onclick="location.href='<?php echo dci_get_template_page_url('page-templates/prenota-appuntamento.php'); ?>';" data-element="service-booking-access">
+											<span class="">Prenota appuntamento</span>
+										</button>
+									<?php } 
 
-                                $punti_contatto_id = dci_get_meta("punti_contatto");
-                                if (!empty($punti_contatto_id)) {
-                                ?>
-                                    <div class="row"> <?php
-                                        foreach ($punti_contatto_id as $pc_id) {
-                                            $contatto = get_post($pc_id);
-											$title_level = 3;
-                                            if(isset($contatto)){ ?>
-                                        
-                                                <div class="col-lg-6 col-md-12 mb-4">
-                                                    <?php get_template_part("template-parts/punto-contatto/card"); ?>
-                                                </div> <?php 
-                                            }
-                                        } ?>
-                                    </div>
-                                <?php } ?>
+									if (!empty($punti_contatto_id)) {
+									?>
+										<div class="row"> <?php
+											foreach ($punti_contatto_id as $pc_id) {
+												$contatto = get_post($pc_id);
+												$title_level = 3;
+												if(isset($contatto)){ ?>
 
-                                <?php if ($incarichi && !empty($punti_contatto_id)) { ?>
-                                    <h3 class="h4 mb-2">Contatta le persone</h3>
-                                <?php 
-									   $title_level = 4;									
-									} else {
-									   $title_level = 3;	
-									}?>
-                                <?php if ($incarichi) { ?>
-                                    <div class="row g-2 mb-4">
-                                        <?php foreach ($incarichi as $incarico_id) { ?>
-                                            <div class="col-lg-6 col-md-12">
-                                                <?php 
-                                                get_template_part("template-parts/incarico/card-person-contacts"); ?>
-                                            </div>
-                                        <?php } ?>
-                                    </div>
-                                <?php } ?>
+													<div class="col-lg-6 col-md-12 mb-4">
+														<?php get_template_part("template-parts/punto-contatto/card"); ?>
+													</div> <?php 
+												}
+											} ?>
+										</div>
+									<?php } ?>
 
-                                <?php if($uo_id != null){?>
-                                <h3 class="mb-2 h4">Contatta l'ufficio</h3>
-                                <div class="row">
-                                    <div class="col-12 col-md-8 col-lg-6 mb-30">
-                                        <?php
-                                        $with_border = true;
-                                        $no_vertical_margin = true;
-									    $title_level = 4;
-                                        get_template_part("template-parts/unita-organizzativa/card-full");
-                                        ?>
-                                    </div>
-                                </div>
-                                <?php } ?>
+									<?php if ($incarichi && !empty($punti_contatto_id)) { ?>
+										<h3 class="h4 mb-2">Contatta le persone</h3>
+									<?php 
+										   $title_level = 4;									
+										} else {
+										   $title_level = 3;	
+										}?>
+									<?php if ($incarichi) { ?>
+										<div class="row g-2 mb-4">
+											<?php foreach ($incarichi as $incarico_id) { ?>
+												<div class="col-lg-6 col-md-12">
+													<?php 
+													get_template_part("template-parts/incarico/card-person-contacts"); ?>
+												</div>
+											<?php } ?>
+										</div>
+									<?php } ?>
 
+									<?php if($uo_id != null){?>
+									<h3 class="mb-2 h4">Contatta l'unit&agrave; organizzativa</h3>
+									<div class="row">
+										<div class="col-12 col-md-8 col-lg-6 mb-30">
+											<?php
+											$with_border = true;
+											$no_vertical_margin = true;
+											$title_level = 4;
+											get_template_part("template-parts/unita-organizzativa/card-full");
+											?>
+										</div>
+									</div>
+									<?php } ?>
+								</section>
+							<?php } ?>
 
                             <?php if ($more_info) {  ?>
                                 <section class="it-page-section mb-30">
@@ -800,6 +803,7 @@ get_header();
                                     </div>
                                 </section>
                             <?php }  ?>
+							
                             <div class="row">
                                 <div class="col-12 mb-30">
                                     <span class="text-paragraph-small">Argomenti:</span>
@@ -817,7 +821,6 @@ get_header();
                                     <?php get_template_part('template-parts/single/page_bottom', "simple"); ?>
                                 </div>
                             </div>
-                        </section>
                     </div>
                 </div>
             </div>

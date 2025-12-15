@@ -61,23 +61,48 @@ function load_more(){
 		'orderby' => $order_values["field"]
 	);
 	
-	$main_meta_query = [
-        'relation' => 'OR',
-    ];
-
-    $main_meta_query[] = [
-        'key'     => '_dci_luogo_childof',
-        'compare' => 'NOT EXISTS',
-    ];
-    $main_meta_query[] = [
-        'key'     => '_dci_luogo_childof',
-        'value'   => '0',
-        'compare' => '=',
-    ];
 	
-	if (!empty($filter_value) && $filter_value === 'only_main') {
-        $args['meta_query'] = $main_meta_query;
-    }
+	if ( in_array("luogo", $post_types) ) {
+		$main_meta_query = [
+			'relation' => 'OR',
+		];
+
+		$main_meta_query[] = [
+			'key'     => '_dci_luogo_childof',
+			'compare' => 'NOT EXISTS',
+		];
+		$main_meta_query[] = [
+			'key'     => '_dci_luogo_childof',
+			'value'   => '0',
+			'compare' => '=',
+		];
+
+		if (!empty($filter_value) && $filter_value === 'only_main') {
+			$args['meta_query'] = $main_meta_query;
+		}
+	}
+		
+	
+	if (in_array("servizio", $post_types)) {
+		$main_meta_query = [
+			'relation' => 'OR',
+		];
+
+		$main_meta_query[] = [
+			'key'     => '_dci_servizio_servizi_richiesti',
+			'compare' => 'NOT EXISTS',
+		];
+		$main_meta_query[] = [
+			'key'     => '_dci_servizio_servizi_richiesti',
+			'value'   => '',
+			'compare' => '=',
+		];
+
+		
+		if (!empty($filter_value) && $filter_value === 'only_main') {
+			$args['meta_query'] = $main_meta_query;
+		}
+	}
 	
 	if ( $post_types == "notizia" ) {
 		$args = array(

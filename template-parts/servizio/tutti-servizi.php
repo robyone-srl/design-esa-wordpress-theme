@@ -1,5 +1,5 @@
 <?php
-global $posts, $the_query, $load_posts, $servizio, $load_card_type, $should_have_grey_background, $order_values, $found_posts, $post_type_multiple;
+global $posts, $the_query, $load_posts, $servizio, $load_card_type, $should_have_grey_background, $order_values, $found_posts, $post_type_multiple, $filter_value, $filters;
 
 $max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 6;
 $query = isset($_GET['search']) ? dci_removeslashes($_GET['search']) : null;
@@ -9,15 +9,36 @@ if(!isset($_GET["order_by"])) {
 }
 $order_values = dci_get_order_values("post_title", "ASC", $_GET["order_by"]);
 
-$args = [
-    's' => $query,
-    'posts_per_page' => $max_posts,
-    'post_type'      => ['servizio'],
-    'order'          => $order_values["dir"],
-    'orderby'        => $order_values["field"]
-];
+$filter_value = isset($_GET['apply_filter']) ? dci_removeslashes($_GET['apply_filter']) : 'only_main';
 
-$the_query = new WP_Query($args);
+    $main_meta_query = [
+        'relation' => 'OR',
+    ];
+
+    $main_meta_query[] = [
+        'key'     => '_dci_servizio_servizi_richiesti',
+        'compare' => 'NOT EXISTS',
+    ];
+    $main_meta_query[] = [
+        'key'     => '_dci_servizio_servizi_richiesti',
+        'value'   => '',
+        'compare' => '=',
+    ];
+
+    $args = [
+        's' => $query,
+        'posts_per_page' => $max_posts,
+        'post_type'      => ['servizio'],
+		'post_status'    => 'publish',
+        'order'          => $order_values["dir"],
+        'orderby'        => $order_values["field"]
+    ];
+
+    if (!empty($filter_value) && $filter_value === 'only_main') {
+        $args['meta_query'] = $main_meta_query;
+    }
+
+    $the_query = new WP_Query($args);
 ?>
 
 <div id="tutti-servizi" class="<?= !($should_have_grey_background=(!$should_have_grey_background)) ? 'bg-grey-dsk':'' ?>">
@@ -49,6 +70,11 @@ $the_query = new WP_Query($args);
                         <?php 
                             $found_posts = $the_query->found_posts;
                             $post_type_multiple = "Servizi trovati";
+
+                            $filters = [
+                                (object)['code' => 'all', 'label' => 'Tutti i servizi'],
+                                (object)['code' => 'only_main', 'label' => 'Solo i servizi principali'],
+                            ];
 
                             get_template_part("template-parts/common/data-list-info-and-ordering");
                         ?>
