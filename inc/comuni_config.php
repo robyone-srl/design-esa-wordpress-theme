@@ -173,6 +173,7 @@ function dci_get_pagine_template_names(){
  */
 function dci_get_sercheable_tipologie() {
     $arrayTipologie = array(
+        'luogo',
         'documento_pubblico',
         'domanda_frequente',
         'dataset',

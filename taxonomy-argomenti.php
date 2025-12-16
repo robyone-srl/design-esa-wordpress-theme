@@ -90,7 +90,7 @@ get_header();
 
     $view_style = dci_get_term_meta("post_view_arg" ,"dci_term_", $argomento->term_id);
     
-    if($view_style == "") $view_style = 'base';
+    if($view_style == '' || $view_style == null) $view_style = 'base';
 
     switch($view_style){
         case 'base' :

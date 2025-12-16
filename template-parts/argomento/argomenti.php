@@ -1,5 +1,5 @@
 <?php
-    $argomenti = dci_get_terms_options('argomenti', hide_empty: true);
+    $argomenti = dci_get_terms_options('argomenti', false, false);
     $arr_ids = array_keys((array)$argomenti);
 ?>
 

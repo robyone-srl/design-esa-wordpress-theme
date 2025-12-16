@@ -317,6 +317,18 @@ function dci_add_page_metaboxes() {
                 'data-conditional-value'  => "Persona Politica",
             ),
         ) );
+
+        $cmb_contatti->add_field( array(
+            'id' => $prefix . 'procedure',
+            'name'        => 'Procedure collegate',
+            'desc' => 'Allega le procedure colllegate a questa pagina',
+            'type'    => 'pw_multiselect',
+            'options' => dci_get_posts_options('procedura'),
+            'attributes'    => array(
+                'placeholder' => 'Seleziona le procedure',
+            ),
+        ) );
+
     }
 }
 
