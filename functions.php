@@ -970,39 +970,6 @@ function dci_ajax_perform_evidenza_bulk_migration_handler() {
 	}
 }
 
-/* DEBUG: Mostra un avviso in admin con il percorso esatto del file SimpleXLSX.php
-add_action('admin_notices', function() {
-    $path = get_template_directory() . '/inc/lib/SimpleXLSX.php';
-    echo '<div class="notice notice-warning is-dismissible" style="z-index: 99999;">';
-    echo '<h3>DEBUG PERCORSO</h3>';
-    echo '<p>Il sistema sta cercando il file esattamente qui:<br>';
-    echo '<strong>' . $path . '</strong></p>';
-    
-    if (file_exists($path)) {
-        echo '<p style="color:green; font-weight:bold;">IL FILE ESISTE!</p>';
-    } else {
-        echo '<p style="color:red; font-weight:bold;">IL FILE NON È STATO TROVATO.</p>';
-        echo '<p>Controlla che:<br>';
-        echo '1. La cartella "lib" esista dentro "inc".<br>';
-        echo '2. Il file si chiami "SimpleXLSX.php" (occhio alle maiuscole S e XLSX!).</p>';
-    }
-    echo '</div>';
-});
-*/
-
-
-/**
- * CARICAMENTO LIBRERIA EXCEL E FIX NAMESPACE
- */
-
-$xlsx_path = get_template_directory() . '/inc/lib/SimpleXLSX.php';
-if (file_exists($xlsx_path)) {
-    require_once $xlsx_path;
-    if (class_exists('Shuchkin\SimpleXLSX')) {
-        class_alias('Shuchkin\SimpleXLSX', 'SimpleXLSX');
-    }
-}
-
 /**
  * 1. REGISTRAZIONE PAGINA DI IMPORTAZIONE
  */
@@ -1202,7 +1169,7 @@ function dci_handle_excel_upload() {
             foreach ($locations_missing_gps as $loc) {
                 $edit_link = get_edit_post_link($loc['id']);
                 echo "<li style='margin-bottom: 5px;'>";
-                echo "<a href='{$edit_link}' target='_blank' style='font-weight:bold; text-decoration:none;'>{$loc['title']}</a> ";
+                echo "<a href='{$edit_link}' target='_blank' style='font-weight:bold;'>{$loc['title']}</a> ";
                 echo "<span class='dashicons dashicons-external' style='font-size:14px; vertical-align:middle; color:#666;'></span>";
                 echo "</li>";
             }
