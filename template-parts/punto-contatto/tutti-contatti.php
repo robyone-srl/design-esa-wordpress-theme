@@ -1,9 +1,13 @@
 <?php
-global $the_query, $load_posts, $load_card_type, $additional_filter, $title_level;
+global $post, $the_query, $load_posts, $load_card_type, $additional_filter, $title_level, $order_values;
 
-$load_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 10;
+$max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 10;
 
-$query = isset($_GET['search']) ? $_GET['search'] : null;
+$order_values["dir"] = "ASC";
+$order_values["field"] = "post_title";
+$order_values["option"] = "publish_date_asc";
+
+$query = isset($_GET['search']) ? $_GET['search'] : "";
 
 $tax_query = array();
 
@@ -20,11 +24,11 @@ $descrizione = 'tutti i contatti';
 
 $args = array(
 	's'         => $query,
-    'posts_per_page' => $load_posts,
-	'post_type' => 'punto_contatto',
+    'posts_per_page' => $max_posts,
+	'post_type' => ['punto_contatto'],
 	'tax_query' => $tax_query,
-    'orderby'        => 'post_title',
-	'order'          => 'ASC'
+    'order'          => $order_values["dir"],
+    'orderby'        => $order_values["field"]
 );
 
 $the_query = new WP_Query( $args );
