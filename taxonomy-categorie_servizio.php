@@ -8,19 +8,24 @@
  * @package Design_Comuni_Italia
  */
 
-global $the_query, $load_posts, $load_card_type, $servizio, $tax_query, $title, $description, $data_element, $hide_categories;
+global $post, $the_query, $load_posts, $load_card_type, $servizio, $tax_query, $title, $description, $additional_filter, $data_element, $hide_categories, $order_values;
 
 $obj = get_queried_object();
 $max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 3;
 $load_posts = 3;
+
+$order_values["dir"] = "ASC";
+$order_values["field"] = "post_title";
+$order_values["option"] = "publish_date_asc";
+
 $query = isset($_GET['search']) ? dci_removeslashes($_GET['search']) : null;
 $args = array(
     's' => $query,
     'posts_per_page' => $max_posts,
-    'post_type'      => 'servizio',
+    'post_type'      => ['servizio'],
     'categorie_servizio' => $obj->slug,
-    'orderby'        => 'post_title',
-    'order'          => 'ASC'
+    'order'          => $order_values["dir"],
+    'orderby'        => $order_values["field"]
 );
 $the_query = new WP_Query( $args );
 $servizi = $the_query->posts;
