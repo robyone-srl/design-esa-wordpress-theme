@@ -47,22 +47,16 @@ function dci_register_comune_options(){
 
     $header_options->add_field( array(
         'id' => $prefix . 'nome_regione',
-        'name'        => __( 'Nome amministrazione afferente *', 'design_comuni_italia' ),
+        'name'        => __( 'Nome amministrazione afferente', 'design_comuni_italia' ),
         'desc' => __( 'Il territorio nel quale opera l\'Ente o l\'amministrazione di riferimento (comune, ente locale, provincia, regione)' , 'design_comuni_italia' ),
-        'type' => 'text',
-        'attributes'    => array(
-            'required'    => 'required'
-        ),
+        'type' => 'text'
     ) );
 
     $header_options->add_field( array(
         'id' => $prefix . 'url_sito_regione',
         'name'        => __( 'Sito afferente', 'design_comuni_italia' ),
         'desc' => __( 'Link al sito dell\'amministrazione afferente' , 'design_comuni_italia' ),
-        'type' => 'text_url',
-        'attributes'    => array(
-            'required'    => 'required'
-        ),
+        'type' => 'text_url'
     ) );
 
     $header_options->add_field( array(

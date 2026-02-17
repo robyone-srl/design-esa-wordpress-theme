@@ -28,7 +28,7 @@ $barra_principale_light = dci_get_option("tema_chiaro_nav_principale", "grafica"
 	<?php if (dci_get_option("favicon")) { ?>
 		<link rel="icon" type="image/x-icon" href="<?php echo dci_get_option("favicon");?>">
   <?php } else { 
-      $favicon_path = get_template_directory_uri() . '/assets/svg/it-designers-italia.svg';
+      $favicon_path = get_template_directory_uri() . '/assets/svg/it-pa.svg';
       echo '<link rel="shortcut icon" href="' . esc_url($favicon_path) . '" />';
   } ?>
 
