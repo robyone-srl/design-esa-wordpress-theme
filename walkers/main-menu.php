@@ -27,7 +27,13 @@ class Main_Menu_Walker extends Walker_Nav_Menu {
 		$active_class = '';
 		$current_post_id = get_queried_object_id();
 
-		if ((int) $item->object_id === (int) $current_post_id || $item->attr_title === $group) {
+		if (
+			(int) $item->object_id === (int) $current_post_id
+			|| (
+				$group &&
+				sanitize_title($item->attr_title) === sanitize_title($group)
+			)
+		) {
 			$active_class = 'active';
 		}
 
