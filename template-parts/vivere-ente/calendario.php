@@ -24,6 +24,7 @@ foreach ($date as $data) {
 $url_eventi = dci_get_template_page_url("page-templates/eventi.php");
 
 ?>
+<?php if ($total_eventi > 0) { ?>
 	<div class="section section-muted pb-90 pb-lg-50 px-lg-5 pt-0">
 		<div class="container">
 			<div class="row row-title pt-5 pt-lg-60 pb-3">
@@ -32,53 +33,48 @@ $url_eventi = dci_get_template_page_url("page-templates/eventi.php");
 				</div>
 			</div>
 			<div class="row row-calendar">
-				<?php if ($total_eventi > 0) { ?>
-					<div class="it-carousel-wrapper it-carousel-landscape-abstract-four-cols it-calendar-wrapper splide" data-bs-carousel-splide>
-						<div class="it-header-block">
-							<div class="it-header-block-title">
-								<h3 class="mb-0 text-center home-carousel-title"><?php echo $full_date; ?></h3>
-							</div>
+				<div class="it-carousel-wrapper it-carousel-landscape-abstract-four-cols it-calendar-wrapper splide" data-bs-carousel-splide>
+					<div class="it-header-block">
+						<div class="it-header-block-title">
+							<h3 class="mb-0 text-center home-carousel-title"><?php echo $full_date; ?></h3>
 						</div>
-						<div class="splide__track">
-							<ul class="splide__list it-carousel-all">
-								<?php foreach ($date as $data) {
-									$arrdata =  explode("-", $data);
-									$dayName = date_i18n('D', mktime(0, 0, 0, intval($arrdata[1]), intval($arrdata[2])));
+					</div>
+					<div class="splide__track">
+						<ul class="splide__list it-carousel-all">
+							<?php foreach ($date as $data) {
+								$arrdata =  explode("-", $data);
+								$dayName = date_i18n('D', mktime(0, 0, 0, intval($arrdata[1]), intval($arrdata[2])));
 
-									if (is_array($calendario[$data]) && count($calendario[$data]))
-										$eventi = $calendario[$data]['eventi'];
-									else $eventi = [];
-								?>
-									<li class="splide__slide">
-										<div class="it-single-slide-wrapper h-100">
-											<div class="card-wrapper h-100">
-												<div class="card card-bg">
-													<div class="card-body">
-														<h4 class="card-title pb-4 mb-10"><?php echo $arrdata[2] ?><span><?php echo $dayName; ?></span></h4>
-														<?php
-														if (is_array($eventi) && count($eventi)) {
-															foreach ($eventi as $evento) {
-																$img = get_the_post_thumbnail_url($evento['id']);
-														?>
-																<p class="card-text px-2 pb-10 mb-10 d-flex">
-																	<?php if ($img) dci_get_img($img, 'me-3 rounded'); ?>
-																	<a href="<?php echo $evento['link'] ?>"><?php echo $evento['titolo'] ?></a>
-																</p>
-														<?php }
-														} ?>
-													</div>
+								if (is_array($calendario[$data]) && count($calendario[$data]))
+									$eventi = $calendario[$data]['eventi'];
+								else $eventi = [];
+							?>
+								<li class="splide__slide">
+									<div class="it-single-slide-wrapper h-100">
+										<div class="card-wrapper h-100">
+											<div class="card card-bg">
+												<div class="card-body">
+													<h4 class="card-title pb-4 mb-10"><?php echo $arrdata[2] ?><span><?php echo $dayName; ?></span></h4>
+													<?php
+													if (is_array($eventi) && count($eventi)) {
+														foreach ($eventi as $evento) {
+															$img = get_the_post_thumbnail_url($evento['id']);
+													?>
+															<p class="card-text px-2 pb-10 mb-10 d-flex">
+																<?php if ($img) dci_get_img($img, 'me-3 rounded'); ?>
+																<a href="<?php echo $evento['link'] ?>"><?php echo $evento['titolo'] ?></a>
+															</p>
+													<?php }
+													} ?>
 												</div>
 											</div>
 										</div>
-									</li>
-								<?php } ?>
-							</ul>
-						</div>
+									</div>
+								</li>
+							<?php } ?>
+						</ul>
 					</div>
-				<?php } else { ?>
-					
-					<div class="h4 mt-4"> Nessun evento in programma. </div>
-				<?php } ?>
+				</div>
 			</div>
 			<?php if ( is_home() ) {?>
 				
@@ -93,3 +89,4 @@ $url_eventi = dci_get_template_page_url("page-templates/eventi.php");
 			<?php } ?>
 		</div>
 	</div>
+<?php } ?>

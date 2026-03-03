@@ -11,6 +11,7 @@ $eventi = array_slice($eventi, 0, $quanti_eventi_mostrare);
 $url_eventi = dci_get_template_page_url("page-templates/eventi.php");
 
 ?>
+<?php if (count($eventi)) { ?>
 	<div class="section section-muted pb-90 pb-lg-50 px-lg-5 pt-0">
 		<div class="container">
 			<div class="row row-title pt-5 pt-lg-60 pb-3">
@@ -20,31 +21,25 @@ $url_eventi = dci_get_template_page_url("page-templates/eventi.php");
 			</div>
 
 			<div class="row g-4">
-				<?php if (count($eventi)) { ?>
+				<?php
+				foreach ($eventi as $evento) {
+					$post = get_post($evento['id']);
+					$recurrence_index = $evento['indice_ricorrenza'] ?? -1;
+					get_template_part("template-parts/evento/card-full");
+				}
 
-					<?php
-					foreach ($eventi as $evento) {
-						$post = get_post($evento['id']);
-						$recurrence_index = $evento['indice_ricorrenza'] ?? -1;
-						get_template_part("template-parts/evento/card-full");
-					}
+				?>
+				<div class="d-flex justify-content-end">
 
-					?>
-					<div class="d-flex justify-content-end">
+					<a href="<?= $url_eventi ?>" class="btn btn-outline-primary full-mb" aria-label="Mostra tutti gli eventi" data-element="live-button-events">
+						Mostra tutti gli eventi
+						<svg class="icon icon-primary icon-xs ml-10">
+							<use href="#it-arrow-right"></use>
+						</svg>
+					</a>
 
-						<a href="<?= $url_eventi ?>" class="btn btn-outline-primary full-mb" aria-label="Mostra tutti gli eventi" data-element="live-button-events">
-							Mostra tutti gli eventi
-							<svg class="icon icon-primary icon-xs ml-10">
-								<use href="#it-arrow-right"></use>
-							</svg>
-						</a>
-
-					</div>
-				<?php } else { ?>
-					<div>
-						Nessun evento in programma
-					</div>
-				<?php } ?>
+				</div>
 			</div>
 		</div>
 	</div>
+<?php } ?>

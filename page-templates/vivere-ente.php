@@ -22,20 +22,25 @@ get_header();
 			?>
 			<?php get_template_part("template-parts/hero/hero"); ?>
 			<?php get_template_part("template-parts/common/content"); ?>
-			<section class="hero-img mb-20 mb-lg-50">
-				<section class="it-hero-wrapper it-hero-small-size cmp-hero-img-small">
-					<div class="img-responsive-wrapper">
-						<div class="img-responsive">
-							<div class="img-wrapper">
-								<?php dci_get_img($img); ?>
+
+			<?php 
+			$immagine_visibilita = dci_get_meta('immagine_visibilita', '_dci_page_');
+			if($immagine_visibilita == null || $immagine_visibilita == "mostra") { ?>
+				<section class="hero-img mb-20 mb-lg-50">
+					<section class="it-hero-wrapper it-hero-small-size cmp-hero-img-small">
+						<div class="img-responsive-wrapper">
+							<div class="img-responsive">
+								<div class="img-wrapper">
+									<?php dci_get_img($img); ?>
+								</div>
 							</div>
 						</div>
-					</div>
+					</section>
+					<p class="title-xsmall cmp-hero-img-small__description">
+						<?php echo $didascalia; ?>
+					</p>
 				</section>
-				<p class="title-xsmall cmp-hero-img-small__description">
-					<?php echo $didascalia; ?>
-				</p>
-			</section>
+			<?php }; ?>
 			<?php
 			if($visualizzazione_eventi == 'in-evidenza'){
 				get_template_part("template-parts/vivere-ente/eventi");
