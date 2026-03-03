@@ -91,43 +91,47 @@ if(!function_exists("dci_get_children_pages")) {
 
 if(!function_exists("dci_get_children_pages_by_path")) {
     function dci_get_children_pages_by_path($parentpath = '', $only_direct = true, $sort_order = null, $sort_column = null)
-    {
+	{
+		$args = array(
+			'child_of' => 0
+		);
 
-       $args = array(
-           'child_of' => 0
-       );
-        if ($sort_order != null) {
-            $args['sort_order'] = $sort_order; 
-        }
-        if ($sort_column != null) {
-	        $args['sort_column'] = $sort_column; 
-        }
+		if ($sort_order != null) {
+			$args['sort_order'] = $sort_order; 
+		}
 
-        if ($parentpath !== '') {
-            $page = get_page_by_path($parentpath);
-            $args['child_of'] =  $page->ID ;
-            if ($only_direct) {
-                $args['parent'] =  $page->ID ;
-            }
-            $pages = get_pages( $args );
-        }
-        else {
-            $pages = get_pages( $args );//all pages
-        }
+		if ($sort_column != null) {
+			$args['sort_column'] = $sort_column; 
+		}
 
-        if ($pages) {
-            foreach ($pages as $page) {
-                $result[$page->post_title] = array(
-                    'title' => $page->post_title,
-                    'id' => $page->ID,
-                    'link' =>  get_page_link( $page->ID ),
-                    'description' => dci_get_meta('descrizione','_dci_page_', $page->ID),
-                    'slug' =>  $page->post_name
-                );
-            }
-        }
-        return $result;
-    }
+		if ($parentpath !== '') {
+			$page = get_page_by_path($parentpath);
+			$args['child_of'] = $page->ID;
+
+			if ($only_direct) {
+				$args['parent'] = $page->ID;
+			}
+		}
+
+		$pages = get_pages($args);
+
+		$result = array();
+
+		if ($pages) {
+			foreach ($pages as $page) {
+				$result[] = array(
+					'title' => $page->post_title,
+					'id' => $page->ID,
+					'link' => get_page_link($page->ID),
+					'description' => dci_get_meta('descrizione','_dci_page_', $page->ID),
+					'slug' => $page->post_name,
+					'menu_order' => $page->menu_order
+				);
+			}
+		}
+
+		return $result;
+	}
 }
 
 /**

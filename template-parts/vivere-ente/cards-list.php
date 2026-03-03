@@ -1,5 +1,5 @@
 <?php
-    $pages = dci_get_children_pages_by_path('vivere-ente', true, null, 'menu_order');
+    $pages = dci_get_children_pages_by_path('vivere-ente', true, 'asc', 'menu_order');
     $arr_pages = array_keys((array)$pages);
 ?>
 <div class="container py-5">
@@ -9,8 +9,7 @@
     <div class="row g-4">
     <?php
     ?>
-        <?php foreach ($arr_pages as $key => $page_name) { 
-            $page = $pages[$page_name]; ?>
+        <?php foreach ($pages as $page) { ?>
         <div class="col-12 col-md-6 col-lg-4">
             <div class="cmp-card-simple card-wrapper pb-0 rounded border border-light">
             <div class="card shadow-sm rounded">
@@ -18,7 +17,7 @@
                 <a class="text-decoration-none" href="<?php echo $page['link']; ?>"
                     data-element="management-category-link"
                 >
-                    <h3 class="card-title t-primary title-xlarge"><?php echo $page_name; ?></h3>
+                    <h3 class="card-title t-primary title-xlarge"><?php echo $page['title']; ?></h3>
                 </a>
                 <p class="titillium text-paragraph mb-0">
                     <?php echo $page['description']; ?>
