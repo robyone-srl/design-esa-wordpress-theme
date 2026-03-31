@@ -17,7 +17,7 @@ if (!empty($servizi)) {
                 }
                 ?>
                 <div class="d-flex justify-content-end">
-                    <a href="#tutti-servizi" class="btn btn-outline-primary full-mb" aria-label="aria-label" data-element="live-button-locations">
+                    <a href="/servizi/#tutti-servizi" class="btn btn-outline-primary full-mb" aria-label="Tutti i servizi offerti dall'Ente" data-element="live-button-locations">
                         Tutti i servizi
                         <svg class="icon icon-primary icon-xs ml-10">
                             <use href="#it-arrow-right"></use>
