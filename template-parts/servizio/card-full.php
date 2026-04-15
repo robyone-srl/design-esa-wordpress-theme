@@ -1,14 +1,27 @@
 <?php
-global $post;
+global $post, $items_count;
 
 $prefix = '_dci_servizio_';
 $img = get_template_directory_uri()."\assets\placeholders\img-placeholder-500x384.png";
 
 $descrizione = dci_get_meta('descrizione_breve', $prefix, $post->ID);
 $tipi_servizio = get_the_terms($post->ID,'categorie_servizio');
+
+$class = '';
+switch ($items_count) {
+    case 1:
+    $class = 'col-12';
+        break;
+    case 2: 
+    $class = 'col-lg-6';
+        break;
+    case 3:
+    $class = 'col-lg-4';
+        break;
+}
 ?>
 
-<div class="col-lg-6 col-xl-4">
+<div class="<?php echo $class; ?>">
     <div class="card-wrapper shadow-sm rounded border border-light p-0">
         <div class="card no-after rounded">
 		 	<?php

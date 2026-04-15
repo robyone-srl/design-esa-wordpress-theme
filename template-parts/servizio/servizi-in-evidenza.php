@@ -1,5 +1,5 @@
 <?php
-global $should_have_grey_background;
+global $should_have_grey_background, $items_count;
 //Per selezionare i contenuti in evidenza tramite configurazione
 $servizi = dci_get_option('servizi_evidenziati', 'servizi');
 
@@ -11,7 +11,10 @@ if (!empty($servizi)) {
             <h2 class="title-xxlarge mb-4">Servizi in evidenza</h2>
             <div class="row g-4">
                 <?php
+
+                $items_count = count($servizi);
                 foreach ($servizi as $servizio_id) {
+                    
                     $post = get_post($servizio_id);
                     get_template_part("template-parts/servizio/card-full");
                 }
