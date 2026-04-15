@@ -45,7 +45,7 @@ if(trim(dci_get_meta("circoscrizione_$luogo_option_name")))
 
         // add the OpenStreetMap tiles
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '',
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
             maxZoom: 18,
         }).addTo(mymap);
     });
