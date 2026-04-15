@@ -46,10 +46,8 @@ $links = $argomento_full['argomento_'.$count.'_contenuti'];
                     $link_obj = get_post($link_id);
                 ?>
                 <li>
-                    <a class="list-item active icon-left mb-2" href="<?php echo get_permalink(intval($link_id)); ?>">
-                    <span class="list-item-title-icon-wrapper">
-                        <span><?php echo $link_obj->post_title; ?></span>
-                    </span>
+                    <a class="list-item icon-left mb-2" href="<?php echo get_permalink(intval($link_id)); ?>">
+                        <?php echo $link_obj->post_title; ?>
                     </a>
                 </li>
                 <?php } ?>
