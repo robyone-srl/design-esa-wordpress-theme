@@ -472,7 +472,7 @@ class Breadcrumb_Trail {
                         $this->items[] = "<a href='".home_url("novita")."'>".__("Novità", "design_comuni_italia")."</a>";
                         $term_name = single_term_title( '', false );
                         $this->items[] = __($term_name, "design_comuni_italia");
-					}
+                    }
                     else {
                         $this->add_term_archive_items();
                     }
