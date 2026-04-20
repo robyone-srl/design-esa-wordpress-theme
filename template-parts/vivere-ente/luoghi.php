@@ -14,7 +14,7 @@
     $url_luoghi = get_permalink(get_page_by_path('vivere-ente/luoghi'));
     if (is_array($luoghi) && count($luoghi)) {
 ?>
-<section id="luoghi-evidenza" aria-describedby="novita-in-evidenza">
+<section id="luoghi-evidenza">
 	<div class="bg-grey-dsk py-5">
 		<div class="container">
 			<h2 class="title-xxlarge mb-4">Scopri i luoghi</h2>
