@@ -21,9 +21,9 @@ if ($hide_arguments) $argomenti = array();
         </svg>
         <small>Condividi</small>
     </button>
-    <div class="dropdown-menu shadow-lg" aria-labelledby="shareActions">
+    <div class="dropdown-menu shadow-lg" >
         <div class="link-list-wrapper">
-            <ul class="link-list" role="menu">
+            <ul class="link-list" role="menu" aria-labelledby="shareActions">
                 <li role="none">
                 <a class="list-item" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $post_url; ?>" target="_blank" role="menuitem">
                 <svg class="icon" aria-hidden="true">
@@ -84,9 +84,9 @@ if ($hide_arguments) $argomenti = array();
         </svg>
         <small>Vedi azioni</small>
     </button>
-    <div class="dropdown-menu shadow-lg" aria-labelledby="viewActions">
+    <div class="dropdown-menu shadow-lg">
         <div class="link-list-wrapper">
-            <ul class="link-list" role="menu">
+            <ul class="link-list" role="menu" aria-labelledby="viewActions">
                 <li role="none">
                 <a class="list-item" href="#" onclick="window.print()" role="menuitem">
                     <svg class="icon" aria-hidden="true">

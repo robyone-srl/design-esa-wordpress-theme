@@ -69,7 +69,7 @@ if ($total_cards <= $card_per_pagina) {
                 </div>               
             </div>
 
-            <div class="modal fade" id="moreOptionsModal" tabindex="-1" aria-labelledby="moreOptionsModalLabel" aria-hidden="true">
+            <div class="modal fade" id="moreOptionsModal" role="dialog" tabindex="-1" aria-labelledby="moreOptionsModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">

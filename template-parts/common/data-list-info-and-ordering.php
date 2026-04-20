@@ -34,7 +34,6 @@ global $order_values, $filter_value, $filters, $found_posts, $post_type_multiple
                 <div class="btn-group">
                     <button type="button" title="Apri filtri e ordinamento" class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#OrderModal">
                         <span class="visually-hidden">Apri filtri di ordinamento</span>
-                        <use xlink:href="#it-more-actions"></use>
                         <svg class="icon icon-sm icon-white align-top">
                             <use xlink:href="#it-more-actions"></use>
                         </svg>
@@ -42,11 +41,11 @@ global $order_values, $filter_value, $filters, $found_posts, $post_type_multiple
                 </div>
             </div>
 
-            <div class="modal fade" id="OrderModal" tabindex="-1" aria-labelledby="OrderModalLabel" aria-hidden="true">
+            <div class="modal fade" id="OrderModal" tabindex="-1" role="group" aria-labelledby="OrderModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <div class="h5 modal-title" id="OrderModalLabel">Personalizza vista</div>
+                        <div class="h5 modal-title">Personalizza vista</div>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
                     </div>
                     <div class="modal-body">
