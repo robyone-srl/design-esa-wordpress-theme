@@ -496,7 +496,9 @@ function dci_get_uo_figlia($post){
 
     $args = [
         'post_type' => 'unita_organizzativa',
-        'posts_per_page' => -1
+        'posts_per_page' => -1,
+		'orderby'        => 'title',
+		'order'          => 'ASC'
     ];
 
     $unita = get_posts($args);
