@@ -7,18 +7,11 @@ $img = get_template_directory_uri()."\assets\placeholders\img-placeholder-500x38
 $descrizione = dci_get_meta('descrizione_breve', $prefix, $post->ID);
 $tipi_servizio = get_the_terms($post->ID,'categorie_servizio');
 
-$class = '';
-switch ($items_count) {
-    case 1:
-    $class = 'col-12';
-        break;
-    case 2: 
-    $class = 'col-lg-6';
-        break;
-    case 3:
-    $class = 'col-lg-4';
-        break;
-}
+$class = match (true) {
+    $items_count === 1 => 'col-12',
+    $items_count === 2 => 'col-lg-6',
+    default            => 'col-lg-4',
+};
 ?>
 
 <div class="<?php echo $class; ?>">
