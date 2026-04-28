@@ -68,7 +68,7 @@ global $order_values, $filter_value, $filters, $found_posts, $post_type_multiple
                         </div>
 						
 						<?php if($filters){
-						?><div class="h6 mt-4" id="OrderModalLabel">Seleziona un'opzione di filtro</div><?php
+						?><div class="h6 mt-4" id="FilterModalLabel">Seleziona un'opzione di filtro</div><?php
 							foreach ($filters as $f) {
 								?>
 									<div class="form-check">

@@ -34,9 +34,8 @@ $links = dci_get_option('link', 'link_utili');
                             <ul class="link-list d-flex flex-wrap">
                                 <?php foreach ($links as $link) { ?>
                                     <li>
-                                        <a class="list-item mb-1 active ps-0" href="<?php echo $link['url']; ?>">
-                                            <span class="text-button-normal"><?php echo $link['testo']; ?>
-                                            </span>
+                                        <a class="list-item mb-1 ps-0" href="<?php echo $link['url']; ?>">
+                                            <?php echo $link['testo']; ?>
                                         </a>
                                     </li>
                                 <?php } ?>
@@ -64,9 +63,8 @@ $links = dci_get_option('link', 'link_utili');
                                     $group = dci_get_group($post->post_type);
                                 ?>
                                     <li>
-                                        <a class="list-item mb-1 active ps-0" href="<?php the_permalink() ?>">
-                                            <span class="text-button-normal"><?php the_title() ?>
-                                            </span>
+                                        <a class="list-item mb-1 ps-0" href="<?php the_permalink() ?>">
+                                            <?php the_title() ?>
                                         </a>
                                     </li>
                                 <?php

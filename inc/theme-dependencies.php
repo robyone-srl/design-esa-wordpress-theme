@@ -91,11 +91,11 @@ function dci_register_required_plugins() {
             'slug'     => 'safe-svg',
             'required' => true,
         ),
-        array(
+        /*array(
             'name'     => 'Version Control for jQuery',
             'slug'     => 'version-control-for-jquery',
             'required' => true,
-        ),
+        ),*/
         array(
             'name'     => 'Disable Gutenberg',
             'slug'     => 'disable-gutenberg',

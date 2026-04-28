@@ -164,7 +164,15 @@ add_action('widgets_init', 'dci_widgets_init');
 function dci_scripts()
 {
 
-	//wp_deregister_script('jquery');
+	wp_deregister_script('jquery');
+	wp_register_script(
+            'jquery',
+            get_template_directory_uri() . '/assets/js/jquery-3.7.1.min.js',
+            array(),
+            '3.7.1',
+            true
+        );
+	wp_enqueue_script('jquery');
 	wp_enqueue_style('dci-bootstrap-italia-min', get_template_directory_uri() . '/assets/css/bootstrap-italia-comuni.min.css');
 
 	wp_enqueue_style('dci-font', get_template_directory_uri() . '/assets/css/fonts.css');

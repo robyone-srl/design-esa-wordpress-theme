@@ -1515,3 +1515,11 @@ function dci_get_direzione_ordinamento_radio_options(){
 
     return $result;
 }
+
+function normalize_tel_for_href($string) {
+    $hasPlus = (strpos($string, '+') === 0);
+
+    $numbers = preg_replace('/\D+/', '', $string);
+
+    return ($hasPlus ? '+' : '') . $numbers;
+}

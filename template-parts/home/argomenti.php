@@ -42,7 +42,7 @@ $altri_argomenti = dci_get_option('argomenti_altri','homepage');
 <?php } ?>
 
 <?php if ($altri_argomenti) { ?>
-<div class="container">
+<div class="container mb-5">
     <div class="row pt-30">
         <div class="col-lg-10 col-xl-6 offset-lg-1 offset-xl-2">
             <div class="row d-lg-inline-flex">

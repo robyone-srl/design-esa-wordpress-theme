@@ -5,7 +5,7 @@ $siti_tematici = dci_get_option('siti_tematici', $location??'homepage');
 if (is_array($siti_tematici) && count($siti_tematici)) {
 ?>
 <section id="siti-tematici" class="<?php echo $container_css_class; ?>">
-  <div class="container mb-4">
+  <div class="container my-5">
     <div class="row">
       <h2 class="mb-0">Siti tematici</h2>
     </div>
