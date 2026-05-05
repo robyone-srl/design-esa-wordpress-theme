@@ -648,6 +648,33 @@ function dci_render_utilities_page_content() {
             <div id="dci-migration-results-content"></div>
         </div>
     </div>
+
+	<hr style="margin: 40px 0;">
+
+	<h2><?php _e('Esporta / Importa Ruoli Members', 'dci'); ?></h2>
+	<p><?php _e('Scarica la configurazione dei ruoli attuale o caricala da un file JSON.', 'dci'); ?></p>
+
+	<div style="display: flex; gap: 20px; background: #fff; padding: 20px; border: 1px solid #ccd0d4;">
+		<div style="flex: 1; border-right: 1px solid #eee; padding-right: 20px;">
+			<h3><?php _e('Esportazione', 'dci'); ?></h3>
+			<p><?php _e('Genera un file contenente tutti i ruoli e i relativi permessi.', 'dci'); ?></p>
+			<a href="<?php echo esc_url( admin_url('admin.php?page=dci_data_migration_utilities&action=dci_export_roles&_wpnonce=' . wp_create_nonce('dci_export_nonce')) ); ?>" class="button button-secondary">
+				<?php _e('Scarica JSON Ruoli', 'dci'); ?>
+			</a>
+		</div>
+
+		<div style="flex: 1; padding-left: 20px;">
+			<h3><?php _e('Importazione', 'dci'); ?></h3>
+			<p><?php _e('Seleziona un file JSON precedentemente esportato.', 'dci'); ?></p>
+			<form method="post" enctype="multipart/form-data">
+				<?php wp_nonce_field( 'dci_import_roles_action', 'dci_import_roles_nonce' ); ?>
+				<input type="file" name="dci_roles_file" accept=".json" required>
+				<br><br>
+				<input type="submit" name="dci_import_submit" class="button button-primary" value="<?php _e('Avvia Importazione Ruoli', 'dci'); ?>">
+			</form>
+		</div>
+	</div>
+
     <?php
 }
 
@@ -933,3 +960,59 @@ function dci_ajax_perform_evidenza_bulk_migration_handler() {
 	}
 }
 
+/**
+ * Gestisce l'esportazione e l'importazione dei ruoli al caricamento della pagina admin.
+ */
+add_action( 'admin_init', 'dci_handle_roles_migration_logic' );
+function dci_handle_roles_migration_logic() {
+    if ( isset( $_GET['action'] ) && $_GET['action'] === 'dci_export_roles' ) {
+        check_admin_referer( 'dci_export_nonce' );
+
+        if ( ! current_user_can( 'manage_options' ) ) return;
+
+        $ruoli = wp_roles()->roles;
+        $json_data = json_encode( $ruoli, JSON_PRETTY_PRINT );
+        
+        $nome = sanitize_title( get_bloginfo( 'name' ) );
+        
+        if ( empty( $nome ) ) {
+            $nome = 'ipab';
+        }
+
+        $filename = 'roles_export_' . $nome . '_' . date('Y-m-d') . '.json';
+
+        header( 'Content-Type: application/json' );
+        header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
+        header( 'Content-Length: ' . strlen( $json_data ) );
+        echo $json_data;
+        exit;
+    }
+
+    if ( isset( $_POST['dci_import_submit'] ) ) {
+        if ( ! isset( $_POST['dci_import_roles_nonce'] ) || ! wp_verify_nonce( $_POST['dci_import_roles_nonce'], 'dci_import_roles_action' ) ) {
+            wp_die('Errore di sicurezza.');
+        }
+
+        if ( ! empty( $_FILES['dci_roles_file']['tmp_name'] ) ) {
+            $file_path = $_FILES['dci_roles_file']['tmp_name'];
+            $json_content = file_get_contents( $file_path );
+            $ruoli_da_importare = json_decode( $json_content, true );
+
+            if ( is_array( $ruoli_da_importare ) ) {
+                foreach ( $ruoli_da_importare as $slug => $dettagli ) {
+                    if ( ! get_role( $slug ) ) {
+                        add_role( $slug, $dettagli['name'], $dettagli['capabilities'] );
+                    } else {
+                        $role_object = get_role( $slug );
+                        foreach ( $dettagli['capabilities'] as $cap => $grant ) {
+                            $role_object->add_cap( $cap, $grant );
+                        }
+                    }
+                }
+                add_action( 'admin_notices', function() {
+                    echo '<div class="updated notice is-dismissible"><p>Ruoli importati/aggiornati con successo!</p></div>';
+                });
+            }
+        }
+    }
+}
