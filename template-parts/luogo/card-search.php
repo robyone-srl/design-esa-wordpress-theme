@@ -29,9 +29,14 @@ if($img){ ?>
 				<?php } ?>
                 </div>
             </div>
-            <div class="card-image card-image-rounded pb-5">            
-                <?php dci_get_img($img); ?>
-            </div>
+			<?php
+				if($img){
+					?>
+						<div class="card-image card-image-rounded pb-5 img-bg" style="background-image:url('<?php echo $img; ?>');">     
+						</div>
+					<?php
+				} 
+			?>
         </div>
     </div>
 

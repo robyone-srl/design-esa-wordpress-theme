@@ -26,8 +26,8 @@ get_header();
       <?php if ($img) { ?>
       <div class="img-responsive-wrapper">
         <div class="img-responsive">
-          <div class="img-wrapper">
-            <?php dci_get_img($img); ?>
+          <div class="img-wrapper img-bg h-100 w-100" style="background-image:url('<?php echo $img ?>');">
+            
           </div>
         </div>
       </div>
