@@ -65,7 +65,7 @@ get_header();
         <div class="container">
             <div class="row border-top border-light row-column-border row-column-menu-left">
                 <aside class="col-lg-3">
-                    <div class="cmp-navscroll sticky-top" role="menu" aria-labelledby="accordion-title-one">
+                    <div class="cmp-navscroll sticky-top">
                         <nav class="navbar it-navscroll-wrapper navbar-expand-lg" aria-label="Indice della pagina" data-bs-navscroll>
                             <div class="navbar-custom" id="navbarNavProgress">
                                 <div class="menu-wrapper">
@@ -73,7 +73,7 @@ get_header();
                                         <div class="accordion">
                                             <div class="accordion-item">
                                                 <span class="accordion-header" id="accordion-title-one">
-                                                    <button class="accordion-button pb-10 px-3 text-uppercase" type="button" aria-controls="collapse-one" aria-expanded="true" data-bs-toggle="collapse" data-bs-target="#collapse-one">INDICE DELLA PAGINA
+                                                    <button class="accordion-button pb-10 px-3 text-uppercase" type="button" aria-controls="collapse-one" aria-expanded="true" data-bs-toggle="collapse" id="accordion-title-one" data-bs-target="#collapse-one">INDICE DELLA PAGINA
                                                         <svg class="icon icon-sm icon-primary align-top">
                                                             <use xlink:href="#it-expand"></use>
                                                         </svg>
