@@ -44,13 +44,13 @@ $links = $argomento_full['argomento_'.$count.'_contenuti'];
             <ul class="link-list">
                 <?php foreach ($links as $link_id) { 
                     $link_obj = get_post($link_id);
-                ?>
-                <li>
-                    <a class="list-item icon-left mb-2" href="<?php echo get_permalink(intval($link_id)); ?>">
-                        <?php echo $link_obj->post_title; ?>
-                    </a>
-                </li>
-                <?php } ?>
+                    if (!empty($link_obj) && isset($link_obj->ID)) { ?>
+                    <li>
+                        <a class="list-item icon-left mb-2" href="<?php echo get_permalink(intval($link_id)); ?>">
+                            <?php echo $link_obj->post_title; ?>
+                        </a>
+                    </li>
+                <?php } }?>
             </ul>
         </div>
         <?php } ?>
