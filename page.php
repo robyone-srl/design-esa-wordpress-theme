@@ -73,7 +73,7 @@ get_header();
                                         <div class="accordion">
                                             <div class="accordion-item">
                                                 <span class="accordion-header" id="accordion-title-one">
-                                                    <button class="accordion-button pb-10 px-3 text-uppercase" type="button" aria-controls="collapse-one" aria-expanded="true" data-bs-toggle="collapse" id="accordion-title-one" data-bs-target="#collapse-one">INDICE DELLA PAGINA
+                                                    <button class="accordion-button pb-10 px-3 text-uppercase" type="button" aria-controls="collapse-one" aria-expanded="true" data-bs-toggle="collapse" data-bs-target="#collapse-one">INDICE DELLA PAGINA
                                                         <svg class="icon icon-sm icon-primary align-top">
                                                             <use xlink:href="#it-expand"></use>
                                                         </svg>
@@ -142,6 +142,8 @@ get_header();
                     </div>
                 </aside>
                 <section class="col-lg-9 it-page-sections-container border-light">
+                    <h2 class="d-none">Contenuto</h2>
+
                     <article id="content" class="it-page-section mb-30 richtext-wrapper lora">
                         <?php the_content() ?>
                     </article>  <?php 
@@ -266,6 +268,7 @@ get_header();
                     }?>
 
                     <article id="more-info">
+                        <h2 class="d-none">Ulteriori informazioni</h2>
                         <div class="row variable-gutters">
                             <div class="col-lg-12">
                                 <?php get_template_part("template-parts/single/bottom"); ?>
