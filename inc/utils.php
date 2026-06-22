@@ -1523,3 +1523,13 @@ function normalize_tel_for_href($string) {
 
     return ($hasPlus ? '+' : '') . $numbers;
 }
+
+function cleanAttrText(string $text): string
+{
+    $search = ["'", '"', '’', '‘', '“', '”', '«', '»'];
+
+    $text = str_replace($search, ' ', $text);
+
+    // Elimina spazi multipli
+    return preg_replace('/\s+/', ' ', trim($text));
+}

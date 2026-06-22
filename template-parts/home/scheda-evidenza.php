@@ -38,8 +38,8 @@ if (!isset($title_level) || $title_level === null || trim($title_level) === '') 
     <a
     class="read-more ps-3"
     href="<?php echo get_permalink($post->ID); ?>"
-    aria-label="Vai alla pagina <?php echo $post->post_title ?>" 
-    title="Vai alla pagina <?php echo $post->post_title ?>"
+    aria-label="Vai alla pagina <?php echo cleanAttrText($post->post_title) ?>" 
+    title="Vai alla pagina <?php echo cleanAttrText($post->post_title) ?>"
     >
         <span class="text">Vai alla pagina</span>
         <svg class="icon">
@@ -61,7 +61,7 @@ if (!isset($title_level) || $title_level === null || trim($title_level) === '') 
             <?php echo $descrizione_breve ?>
         </p>
         </div>
-        <a class="read-more" href="<?php echo get_permalink($post->ID); ?>" aria-label="Vai alla pagina <?php echo $post->post_title ?>" title="Vai alla pagina <?php echo $post->post_title ?>"
+        <a class="read-more" href="<?php echo get_permalink($post->ID); ?>" aria-label="Vai alla pagina <?php echo cleanAttrText($post->post_title) ?>" title="Vai alla pagina <?php echo cleanAttrText($post->post_title) ?>"
         ><span class="text">Vai alla pagina</span>
         <svg class="icon ms-0">
             <use
