@@ -18,7 +18,7 @@
                             
                         <?php
                         if (dci_get_option("PEC", 'contatti')) echo '<br />PEC: '; ?>
-                        <a href="mailto:<?php echo dci_get_option("PEC", 'contatti'); ?>" class="list-item" title="PEC <?php echo dci_get_option("nome_comune"); ?>"><?php echo dci_get_option("PEC", 'contatti'); ?></a>
+                        <a href="mailto:<?php echo dci_get_option("PEC", 'contatti'); ?>" class="list-item" title="PEC <?php echo cleanAttrText(dci_get_option("nome_comune")); ?>"><?php echo dci_get_option("PEC", 'contatti'); ?></a>
                         <?php if (dci_get_option("centralino_unico", 'contatti')) echo '<br />Centralino unico: <a href="' . preg_replace('/\s+/', '', dci_get_option("centralino_unico", 'contatti')) . '">' . dci_get_option("centralino_unico", 'contatti') . '</a>'; ?>
                         
                         <br />

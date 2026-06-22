@@ -59,7 +59,7 @@ if($title_level == "") $title_level = 3;
                         ?>
                                 <p>
                                     Telefono:
-                                    <a target="_blank" aria-label="contatta telefonicamente tramite il numero <?php echo $dati['valore']; ?>" title="chiama <?php echo $dati['valore']; ?>" href="tel:<?php echo $dati['valore']; ?>">
+                                    <a target="_blank" aria-label="contatta telefonicamente tramite il numero <?php echo $dati['valore']; ?>" title="chiama <?php echo $dati['valore']; ?>" href="tel:<?php echo normalize_tel_for_href($dati['valore']); ?>">
                                         <?php echo $dati['valore']; ?>
                                     </a>
                                     <?php echo $dati['dettagli']; ?>

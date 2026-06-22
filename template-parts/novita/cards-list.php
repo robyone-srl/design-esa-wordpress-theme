@@ -12,13 +12,14 @@
   <div class="card-wrapper border border-light rounded shadow-sm">
     <div class="card no-after rounded">
 
-      <div class="img-responsive-wrapper">
-        <div class="img-responsive img-responsive-panoramic">
-          <figure class="img-wrapper">
-            <?php dci_get_img($img, ''); ?>
-          </figure>
-        </div>
-      </div>
+      <?php  
+					$img_url = get_the_post_thumbnail_url($post->ID, 'article-simple-thumb');
+					?>
+					  <div class="img-responsive-wrapper">
+							<div class="card-img-bg rounded-top" style="background-image:url('<?php echo $img_url; ?>');"></div>
+					  </div>
+		  			<?php
+		  ?>
 
       <div class="card-body">
         <div class="category-top">
