@@ -24,13 +24,19 @@ $posts = null;
 $notizie_in_home = dci_get_option('notizie_in_home', 'homepage');
 
 if ($notizie_in_home && $notizie_in_home > 0) {
+    $exclude = $schede;
+
+    if ($post_evidenza_id) {
+        $exclude[] = $post_evidenza_id;
+    }
+
     $args  = array(
         'post_type'      => 'notizia',
         'post_status'    => 'publish',
         'posts_per_page' => $notizie_in_home,
         'orderby'        => 'date',
         'order'          => 'DESC',
-        'exclude'        => [...($post_id ? [$post_id] : []), ...$schede],
+        'exclude'        => $exclude,
     );
 
     if($giorni_per_filtro != "" && $giorni_per_filtro > 0) {
