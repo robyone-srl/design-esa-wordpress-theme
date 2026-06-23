@@ -31,7 +31,9 @@ $altri_argomenti = dci_get_option('argomenti_altri','homepage');
                 foreach ($argomenti_evidenza as $key => $argomento_full) {
                     $count = $key;
                     if ($argomento_full){
-                        if($argomento_full['argomento_'.$count.'_argomento']){
+                        $key_name = 'argomento_'.$count.'_argomento';
+
+                        if (isset($argomento_full[$key_name]) && $argomento_full[$key_name]) {
                             get_template_part("template-parts/home/scheda-argomento");
                         }
                     }

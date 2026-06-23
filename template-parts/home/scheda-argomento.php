@@ -5,11 +5,17 @@ $argomento = get_term_by('slug', $argomento_full['argomento_'.$count.'_argomento
 
 $icon = dci_get_term_meta('icona', "dci_term_", $argomento->term_id);
 
-if (isset($argomento_full['argomento_'.$count.'_siti']))
-$siti_tematici_id = $argomento_full['argomento_'.$count.'_siti'];
+$siti_tematici_id = [];
+$links = [];
 
-if (isset($argomento_full['argomento_'.$count.'_contenuti']))
-$links = $argomento_full['argomento_'.$count.'_contenuti'];
+if (isset($argomento_full['argomento_'.$count.'_siti'])) {
+    $siti_tematici_id = $argomento_full['argomento_'.$count.'_siti'];
+}
+
+if (isset($argomento_full['argomento_'.$count.'_contenuti'])) {
+    $links = $argomento_full['argomento_'.$count.'_contenuti'];
+}
+
 ?>
 
 <div class="card card-teaser no-after rounded shadow-sm border border-light">
