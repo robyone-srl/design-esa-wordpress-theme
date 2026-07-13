@@ -7,7 +7,7 @@ $organizzazione = get_the_terms($post_id, 'tipi_unita_organizzativa');
 
 $tipo_organizzazione = [];
 
-$order_values = dci_get_order_values("post_title", "ASC", $_GET["order_by"]);
+$order_values = dci_get_order_values("post_title", "ASC", $_GET["order_by"] ?? null);
 
 if($organizzazione && is_array($organizzazione) && count($organizzazione) > 0)
 foreach ($organizzazione as $tipo) {

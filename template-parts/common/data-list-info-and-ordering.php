@@ -17,12 +17,15 @@ global $order_values, $filter_value, $filters, $found_posts, $post_type_multiple
                         }
 					
 						$selected = null;
-						foreach ($filters as $f) {
-							if ($f->code === $filter_value) {
-								$selected = $f;
-								break;
-							}
-						}
+
+                        if (!empty($filters) && is_iterable($filters)) {
+                            foreach ($filters as $f) {
+                                if ($f->code === $filter_value) {
+                                    $selected = $f;
+                                    break;
+                                }
+                            }
+                        }
 
 						if ($selected) {
 							echo "<span class=\"ms-2\">- " . $selected->label . "</span>";

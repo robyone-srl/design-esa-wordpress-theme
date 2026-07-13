@@ -6,7 +6,7 @@ $incarico = get_the_terms($post_id, 'tipi_incarico');
 
 $tipologia_incarico = [];
 
-$order_values = dci_get_order_values("post_title", "ASC", $_GET["order_by"]);
+$order_values = dci_get_order_values("post_title", "ASC", $_GET["order_by"] ?? null);
 
 foreach ($incarico as $tipo) {
 	array_push($tipologia_incarico, $tipo->slug);

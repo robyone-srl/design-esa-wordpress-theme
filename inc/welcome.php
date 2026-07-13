@@ -116,6 +116,25 @@ function dci_remove_all_dashboard_meta_boxes()
 }
 add_action('wp_dashboard_setup', 'dci_remove_all_dashboard_meta_boxes', 100 );
 
+
+add_action('wp_dashboard_setup', function () {
+
+    if (current_user_can('administrator')) {
+        return;
+    }
+
+    $widgets = [
+        'wp_toolkit_dashboard_security_risk_widget',
+        'wp_toolkit_attacks_widget',
+    ];
+
+    foreach ($widgets as $widget) {
+        remove_meta_box($widget, 'dashboard', 'normal');
+        remove_meta_box($widget, 'dashboard', 'side');
+    }
+
+}, 999);
+
 /**
  * Forzo a 2 colonne la dashboard admin
  * @param $columns

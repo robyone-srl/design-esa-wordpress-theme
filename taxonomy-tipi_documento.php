@@ -19,7 +19,7 @@ $prefix_term = "dci_term_tipi_documento_";
 $default_field = dci_get_term_meta('campo_ordinamento', $prefix_term, $obj->term_id);
 $default_dir = dci_get_term_meta('direzione_ordinamento', $prefix_term, $obj->term_id);
 
-$order_values = dci_get_order_values($default_field, $default_dir, $_GET["order_by"]);
+$order_values = dci_get_order_values($default_field, $default_dir, $_GET['order_by'] ?? null);
 
 $args = array(
     's' => $query,
