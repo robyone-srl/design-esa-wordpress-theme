@@ -22,7 +22,7 @@ if ($hero_button_link)
 $hero_any_text = $hero_title || $hero_description || $hero_button_link;
 
 ?>
-<section class="it-hero-wrapper it-hero-small-size <?= $hero_image && $hero_any_text ? 'it-dark it-overlay' : '' ?> <?= $hero_align_center ? 'it-text-centered' : '' ?> it-bottom-overlapping-content">
+<section class="it-hero-wrapper it-hero-small-size <?= $hero_image && $hero_any_text ? ' it-dark it-overlay ' : '' ?> <?= $hero_align_center ? ' it-text-centered ' : '' ?> it-bottom-overlapping-content">
    <?php if ($hero_image) { ?>
 	<div class="img-responsive-wrapper">
 		<div class="img-bg h-100 w-100" style="background-image:url('<?php echo $hero_image; ?>');"></div>

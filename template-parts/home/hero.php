@@ -15,7 +15,7 @@ $hero_any_text = $hero_title || $hero_description || $hero_button_link;
 
 $containertype = $hero_title ? "section" : "div";
 
-echo "<" . $containertype . ' class="it-hero-wrapper it-hero-small-size ' . ($hero_any_text ? 'it-dark it-overlay' : '') . ( $hero_align_center ? 'it-text-centered' : '') . '">';
+echo "<" . $containertype . ' class="it-hero-wrapper it-hero-small-size ' . ($hero_any_text ? ' it-dark it-overlay ' : '') . ( $hero_align_center ? ' it-text-centered ' : '') . '">';
 
 if ($hero_image) { ?>
 	<div class="img-responsive-wrapper">
