@@ -5,7 +5,7 @@ $max_posts = isset($_GET['max_posts']) ? $_GET['max_posts'] : 10;
 
 $order_values["dir"] = "ASC";
 $order_values["field"] = "post_title";
-$order_values["option"] = "publish_date_asc";
+$order_values["option"] = "post_title_asc";
 
 $query = isset($_GET['search']) ? $_GET['search'] : "";
 
