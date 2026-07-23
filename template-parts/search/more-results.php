@@ -14,7 +14,6 @@ $query_params = json_encode($_GET_sanitized);
 $additional_filter = json_encode($additional_filter);
 $tax_query = json_encode($tax_query);
 $filter_ids = json_encode($filter_ids);
-$filter_value = json_encode($filter_value);
 $filters = json_encode($filters);
 
 $query = $the_query->query;
@@ -35,7 +34,7 @@ $query_params = http_build_query(array(
     'additional_filter' => $additional_filter,
     'filter_ids' => $filter_ids,
     'filters' => $filters,
-    'filter_value' => $filter_value,
+    'filter_value' => sanitize_text_field($filter_value),
     'tax_query' => $tax_query,
     'order_by' => $order_values["option"]
 ), '', '&', PHP_QUERY_RFC3986);

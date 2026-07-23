@@ -62,7 +62,7 @@ function load_more(){
 
 	$additional_filter =  dci_safe_json_array_from_post('additional_filter');
 	$filter_ids =  dci_safe_json_array_from_post('filter_ids');
-	$filter_value =  dci_safe_json_array_from_post('filter_value');
+	$filter_value =  isset($_POST['filter_value']) ? sanitize_text_field(wp_unslash($_POST['filter_value'])) : '';
 	$filters =  dci_safe_json_array_from_post('filters');
 	$tax_query =  dci_safe_json_array_from_post('tax_query');
 	
