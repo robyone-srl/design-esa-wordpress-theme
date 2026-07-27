@@ -52,35 +52,39 @@ global $order_values, $filter_value, $filters, $found_posts, $post_type_multiple
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="h6" id="OrderModalLabel">Seleziona un'opzione di ordinamento</div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="order_by" id="opt-post_title_asc" value="post_title_asc" <?= $order_values["option"] === "post_title_asc" ? "checked" : "" ?>>
-                            <label class="form-check-label" for="opt-post_title_asc">Ordine alfabetico (A-Z)</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="order_by" id="opt-post_title_desc" value="post_title_desc" <?= $order_values["option"] === "post_title_desc" ? "checked" : "" ?>>
-                            <label class="form-check-label" for="opt-post_title_desc">Ordine alfabetico inverso (Z-A)</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="order_by" id="opt-publish_date_asc" value="publish_date_asc" <?= $order_values["option"] === "publish_date_asc" ? "checked" : "" ?> >
-                            <label class="form-check-label" for="opt-publish_date_asc">Ordine di pubblicazione crescente</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="order_by" id="opt-publish_date_desc" value="publish_date_desc" <?= $order_values["option"] === "publish_date_desc" ? "checked" : "" ?> >
-                            <label class="form-check-label" for="opt-publish_date_desc">Ordine di pubblicazione decrescente</label>
-                        </div>
+						<fieldset class="mb-4">
+        					<legend class="h6" id="OrderModalLabel">Seleziona un'opzione di ordinamento</legend>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="order_by" id="opt-post_title_asc" value="post_title_asc" <?= $order_values["option"] === "post_title_asc" ? "checked" : "" ?>>
+								<label class="form-check-label" for="opt-post_title_asc">Ordine alfabetico (A-Z)</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="order_by" id="opt-post_title_desc" value="post_title_desc" <?= $order_values["option"] === "post_title_desc" ? "checked" : "" ?>>
+								<label class="form-check-label" for="opt-post_title_desc">Ordine alfabetico inverso (Z-A)</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="order_by" id="opt-publish_date_asc" value="publish_date_asc" <?= $order_values["option"] === "publish_date_asc" ? "checked" : "" ?> >
+								<label class="form-check-label" for="opt-publish_date_asc">Ordine di pubblicazione crescente</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="order_by" id="opt-publish_date_desc" value="publish_date_desc" <?= $order_values["option"] === "publish_date_desc" ? "checked" : "" ?> >
+								<label class="form-check-label" for="opt-publish_date_desc">Ordine di pubblicazione decrescente</label>
+							</div>
+        				</fieldset>
 						
-						<?php if($filters){
-						?><div class="h6 mt-4" id="FilterModalLabel">Seleziona un'opzione di filtro</div><?php
+						<?php if($filters){ ?>
+							<fieldset class="mb-4">
+        					<legend class="h6" id="FilterModalLabel">Seleziona un'opzione di filtro</legend><?php
 							foreach ($filters as $f) {
 								?>
 									<div class="form-check">
 										<input class="form-check-input" type="radio" name="apply_filter" id="filter_<?php echo $f->code ?>" value="<?php echo $f->code ?>" <?php echo ($f->code === $filter_value) ? "checked" : ""; ?>>
 										<label class="form-check-label" for="filter_<?php echo $f->code ?>"><?php echo $f->label ?></label>
 									</div>
-								<?php
-							}
-						} ?>
+								<?php } ?>
+							
+        					</fieldset>
+						<?php } ?>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Chiudi</button>
