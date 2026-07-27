@@ -77,6 +77,8 @@ if ($total_cards <= $card_per_pagina) {
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
                         </div>
                         <div class="modal-body">
+							<fieldset>
+								<legend class="d-none">Opzioni</legend>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="filterOption" id="optTutti" value="argomenti-griglia">
                                 <label class="form-check-label" for="optTutti">Tutti</label>
@@ -95,6 +97,7 @@ if ($total_cards <= $card_per_pagina) {
                                         </div> 
                                     <?php }
                                 } ?>
+							</fieldset>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Chiudi</button>

@@ -26,8 +26,8 @@ get_header();
 			<?php 
 			$immagine_visibilita = dci_get_meta('immagine_visibilita', '_dci_page_');
 			if($immagine_visibilita == null || $immagine_visibilita == "mostra") { ?>
-				<section class="hero-img mb-20 mb-lg-50">
-					<section class="it-hero-wrapper it-hero-small-size cmp-hero-img-small">
+				<div class="hero-img mb-20 mb-lg-50">
+					<div class="it-hero-wrapper it-hero-small-size cmp-hero-img-small">
 						<div class="img-responsive-wrapper">
 							<div class="img-responsive">
 								<div class="img-wrapper">
@@ -35,11 +35,11 @@ get_header();
 								</div>
 							</div>
 						</div>
-					</section>
+					</div>
 					<p class="title-xsmall cmp-hero-img-small__description">
 						<?php echo $didascalia; ?>
 					</p>
-				</section>
+				</div>
 			<?php }; ?>
 			<?php
 			if($visualizzazione_eventi == 'in-evidenza'){

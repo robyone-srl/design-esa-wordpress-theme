@@ -9,7 +9,7 @@ $url = get_permalink($documento->ID);
     </svg>
     <div class="card-body">
         <h3 class="card-title h5">
-            <a class="text-decoration-none" href="<?php echo $url; ?>" aria-label="Vai al documento <?php echo $documento->post_title; ?>" title="Vai al documento <?php echo $documento->post_title; ?>">
+            <a class="text-decoration-none" href="<?php echo $url; ?>" aria-label="Vai al documento <?php echo str_replace('"','',$documento->post_title) ?>" title="Vai al documento <?php echo str_replace('"','',$documento->post_title) ?>">
                 <?php echo $documento->post_title; ?>
             </a>
         </h3>
