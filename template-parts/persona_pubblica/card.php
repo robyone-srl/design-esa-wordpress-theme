@@ -54,7 +54,7 @@ if($title_level == "") $title_level = 4;
         <div class="card-text">
             <?php
             
-            if ($sottotitolo && $sottotitolo != null && $sottotitolo != '') {
+            if (isset($sottotitolo) && $sottotitolo != null && $sottotitolo != '') {
                 echo $sottotitolo;
             }
             ?>

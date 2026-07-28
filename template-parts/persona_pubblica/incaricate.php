@@ -2,15 +2,11 @@
 global $the_query, $load_posts, $load_card_type, $tax_query, $additional_filter, $filter_ids, $order_values, $found_posts, $post_type_multiple, $title_level;
 
 $post_id = get_the_ID();
-$incarico = get_the_terms($post_id, 'tipi_incarico');
+$post = get_post($post_id);
 
-$tipologia_incarico = [];
+$tipo_incarico = null;
 
 $order_values = dci_get_order_values("post_title", "ASC", $_GET["order_by"] ?? null);
-
-foreach ($incarico as $tipo) {
-	array_push($tipologia_incarico, $tipo->slug);
-}
 
 $opzione_visualizzazione = dci_get_meta('filtro_tipo_incarico_select', '_dci_page_');
 
