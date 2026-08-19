@@ -26,7 +26,7 @@ function load_template_part($template_name, $part_name=null) {
 
 
 function dci_sanitize_load_more_post_types($post_types) {
-	$allowed = array('post', 'page', 'categoria_servizio', 'documento_pubblico', 'dataset', 'domanda-frequente', 'incarico', 'persona_pubblica', 'notizia', 'evento', 'servizio', 'unita-organizzativa', 'luogo', 'contatto', 'punto_contatto');
+	$allowed = array('post', 'page', 'categoria_servizio', 'documento_pubblico', 'dataset', 'domanda_frequente', 'incarico', 'persona_pubblica', 'notizia', 'evento', 'servizio', 'unita_organizzativa', 'luogo', 'contatto', 'punto_contatto', 'sito_tematico');
     $post_types = is_array($post_types) ? $post_types : array($post_types);
     $post_types = array_map('sanitize_key', $post_types);
     $post_types = array_values(array_intersect($post_types, $allowed));
