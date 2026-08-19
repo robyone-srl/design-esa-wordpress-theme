@@ -47,8 +47,8 @@ function genera_pagine_figlie($slug_pagina)
     $child_args = array(
         'post_parent' => $post->ID,
         'orderby' => 'title',
-        'order' => 'ASC'
-		'post_type'   => 'page',
+        'order' => 'ASC',
+		'post_type'   => 'page'
     );
 
     $children = get_children($child_args);
