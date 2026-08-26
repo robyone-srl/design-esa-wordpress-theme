@@ -42,12 +42,14 @@ get_header();
         $persone = dci_get_meta("persone_struttura", $prefix, $post->ID);
 
         $servizi = dci_get_meta("elenco_servizi_offerti", $prefix, $post->ID);
-
-        foreach ($servizi as $key => $servizio_id) {
-            if (FALSE === get_post_status( $servizio_id ) ) {
-                unset($servizi[$key]);
-            }
-        }
+	
+		if (is_array($servizi)) {
+			foreach ($servizi as $key => $servizio_id) {
+				if (FALSE === get_post_status( $servizio_id ) ) {
+					unset($servizi[$key]);
+				}
+			}
+		}
 	
         $is_sede_principale_esa = dci_get_meta("is_sede_principale_esa") != "false";
         if ($is_sede_principale_esa) {

@@ -100,6 +100,10 @@ function dci_remove_all_dashboard_meta_boxes()
 
     $keep_boxes = array();
     foreach ($wp_meta_boxes['dashboard']['normal']['core'] as $wp_meta_box) {
+		if (!is_array($wp_meta_box) || !isset($wp_meta_box['id'])) {
+        	continue;
+    	}
+		
         if (substr($wp_meta_box["id"], 0, 4) == "dci_") {
             $keep_boxes[] = $wp_meta_box;
         }
